@@ -15,12 +15,14 @@ export const adminSlice = createSlice({
         changeAdminStatus: (state, action: PayloadAction<boolean>) => {
             state.adminState = action.payload;
         },
-        adminPermission: (state, action: PayloadAction) => {
+        updateAdminPermission: (state, action: PayloadAction) => {
             state.adminPermission = action;
         },
     },
 });
 
-export const { changeAdminStatus, adminPermission } = adminSlice.actions;
+export const { changeAdminStatus, updateAdminPermission } = adminSlice.actions;
 export const selectAdmin = (state: RootState) => state.admin.adminState;
+export const selectPermission = (state: RootState) =>
+    state.admin.adminPermission;
 export default adminSlice.reducer;

@@ -1,5 +1,5 @@
-import LoginPage from "./elements";
-import { loginAct } from "./dataAccess";
+import LoginPage from "./loginPage";
+//import { loginAct } from "./dataAccess";
 
 export default LoginPage;
-export { loginAct };
+//export { loginAct };

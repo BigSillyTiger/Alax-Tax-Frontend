@@ -8,7 +8,7 @@ import React, {
     Fragment,
 } from "react";
 import { connect } from "react-redux";
-import { Outlet, useActionData, useNavigate } from "react-router-dom";
+import { json, Outlet, useActionData, useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import {
     CalendarIcon,
@@ -21,8 +21,8 @@ import {
     XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-import { selectAdmin } from "@redux/features/admin";
-import { adminLogout } from "@apis/admin";
+import { selectAdmin } from "@/redux/features/admin";
+import { adminLogout } from "@/apis/admin";
 import { API_ADMIN } from "@/apis";
 
 const classNames = (...classes: any) => {
@@ -44,11 +44,32 @@ interface layoutProp {
 const Layout: FC<layoutProp> = ({ loginStatus }) => {
     const navigate = useNavigate();
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
-    /* useEffect(() => {
+    useEffect(() => {
+        console.log("-> dashboard login status:", loginStatus);
+        // if the stored loginStatus is falses-default
+        // we excue adminCheck for checking jwt cookies's valid condition
         if (!loginStatus) {
-            navigate("/");
+            API_ADMIN.adminCheck()
+                .then((res) => {
+                    if (!res) {
+                        navigate("/");
+                    }
+                })
+                .catch((err) => {});
+            //
         }
-    }); */
+        /* const routineCheck = async () => {
+            try {
+                const response = await API_ADMIN.adminCheck();
+                if (!response) {
+                    throw json({ msg: "auth check failed" }, { status: 401 });
+                }
+            } catch (err) {
+                throw err;
+            }
+        };
+        routineCheck(); */
+    });
     const handleLogout = () => {
         console.log("--> clicked tim cook");
         API_ADMIN.adminLogout().then(() => {

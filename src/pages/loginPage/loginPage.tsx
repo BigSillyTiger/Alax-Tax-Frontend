@@ -1,21 +1,41 @@
-import { API_ADMIN } from "@/apis";
-import React, { FC, useEffect, useState } from "react";
-import { Form, useActionData, useNavigate } from "react-router-dom";
+import React, { FC } from "react";
+import { useLoaderData, Form, useActionData } from "react-router-dom";
+
+import { XCircleIcon } from "@heroicons/react/24/solid";
 
 const LoginPage: FC = () => {
-    const navigate = useNavigate();
-    const res = useActionData() as any;
-    useEffect(() => {
-        API_ADMIN.adminCheck()
-            .then((res) => {
-                if (res) {
-                    navigate("/dashboard");
-                } else {
-                    console.log("-> admin check failed");
-                }
-            })
-            .catch((err) => {});
-    });
+    //    const { loaderErr } = useLoaderData() as { loaderErr: boolean };
+    const data = (useActionData() as { actionErr: boolean }) || null;
+
+    const LoginErrorAlert = () => {
+        return (
+            <div className="rounded-md bg-red-50 p-4 mt-4">
+                <div className="flex">
+                    <div className="flex-shrink-0">
+                        <XCircleIcon
+                            className="h-5 w-5 text-red-400"
+                            aria-hidden="true"
+                        />
+                    </div>
+                    <div className="ml-3">
+                        <h3 className="text-sm font-medium text-red-800">
+                            Something wrong occured while login:
+                        </h3>
+                        <div className="mt-2 text-sm text-red-700">
+                            <ul
+                                role="list"
+                                className="list-disc pl-5 space-y-1"
+                            >
+                                <li>Please check your email address</li>
+                                <li>Please check your password</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -31,7 +51,7 @@ const LoginPage: FC = () => {
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                    <Form className="space-y-6" action="#" method="POST">
+                    <Form className="space-y-6" action="/" method="POST">
                         <div>
                             <label
                                 htmlFor="email"
@@ -67,7 +87,6 @@ const LoginPage: FC = () => {
                                     required
                                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                 />
-                                {res?.msg && <span>{res.msg}</span>}
                             </div>
                         </div>
 
@@ -107,9 +126,11 @@ const LoginPage: FC = () => {
                         </div>
                     </Form>
                 </div>
+                {data && data.actionErr && <LoginErrorAlert />}
             </div>
         </div>
     );
 };
 
+//export default connect(null, null)(LoginPage);
 export default LoginPage;

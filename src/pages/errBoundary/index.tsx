@@ -4,7 +4,12 @@ import { useRouteError } from "react-router-dom";
 const ErrBoundary: FC = () => {
     const error = useRouteError() as any;
     console.log("-> error bountary: ", error.status);
-    return <div>Error: Something went wrong</div>;
+    return (
+        <div>
+            <p>Error: Something went wrong</p>
+            <p>Error: ${error.status}</p>
+        </div>
+    );
 };
 
 export default ErrBoundary;
