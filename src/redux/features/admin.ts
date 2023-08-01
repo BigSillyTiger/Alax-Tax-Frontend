@@ -36,9 +36,13 @@ export const adminSlice = createSlice({
     reducers: {
         updateAdminStatus: (state, action: PayloadAction<permissionProp>) => {
             console.log("=> redux store update: admin state");
+            // these code has something wrong that blocks db page to render on the 1st time
             if (action.payload != null) {
+                console.log("-> render teset 1");
                 state.adminState.loginState = true;
+                console.log("-> render teset 2");
                 state.adminState.permissionState = { ...action.payload };
+                console.log("-> render teset 3");
             }
         },
     },

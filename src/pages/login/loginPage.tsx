@@ -1,7 +1,31 @@
 import React, { FC } from "react";
-import { useLoaderData, Form, useActionData } from "react-router-dom";
-
+import {
+    //useLoaderData,
+    Form,
+    redirect,
+    useActionData,
+    ActionFunctionArgs,
+} from "react-router-dom";
 import { XCircleIcon } from "@heroicons/react/24/solid";
+import { API_ADMIN } from "@/apis";
+
+export const loginAction = async ({ request }: ActionFunctionArgs) => {
+    const data = await request.formData();
+
+    const result = await API_ADMIN.adminLogin(
+        data.get("email") as string,
+        data.get("password") as string
+    );
+    if (result.status) {
+        return redirect("/dashboard");
+    }
+    return { actionErr: true };
+};
+
+export const loginLoader = async () => {
+    //console.log("-> login loader");
+    return {};
+};
 
 const LoginPage: FC = () => {
     //    const { loaderErr } = useLoaderData() as { loaderErr: boolean };

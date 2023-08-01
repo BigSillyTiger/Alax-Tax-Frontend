@@ -10,10 +10,12 @@ import React, {
 import { connect } from "react-redux";
 import {
     json,
+    Form,
     Outlet,
     useActionData,
-    useNavigate,
     useLoaderData,
+    redirect,
+    ActionFunctionArgs,
 } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import {
@@ -27,13 +29,12 @@ import {
     XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-import { selectAdmin } from "@/redux/features/admin";
-import { adminLogout } from "@/apis/admin";
 import { API_ADMIN } from "@/apis";
 
 const classNames = (...classes: any) => {
     return classes.filter(Boolean).join(" ");
 };
+
 const navigation = [
     { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
     { name: "Team", href: "#", icon: UsersIcon, current: false },
@@ -43,23 +44,38 @@ const navigation = [
     { name: "Reports", href: "#", icon: ChartBarIcon, current: false },
 ];
 
-interface layoutProp {
-    loginStatus: boolean;
-}
+export const layoutLoader = async () => {
+    try {
+        const result = await API_ADMIN.adminCheck();
+        if (result.status) {
+            return { msg: "-> called admin check again" };
+        }
+        return redirect("/login");
+    } catch (err) {
+        return redirect("/login");
+    }
+};
 
-const Layout: FC<layoutProp> = ({ loginStatus }) => {
-    const navigate = useNavigate();
+export const layoutAction = async ({ request }: ActionFunctionArgs) => {
+    const data = await request.formData();
+    const intent = data.get("intent");
+    switch (intent) {
+        // these 2 cases will need more ui interaction
+        case "logout1":
+        case "logout2":
+            await API_ADMIN.adminLogout();
+            return redirect("/login");
+        default:
+            return {};
+    }
+};
+
+const Layout: FC = () => {
     const loaderData = useLoaderData();
     console.log("-> layout receive loader data: ", loaderData);
 
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
-    const handleLogout = () => {
-        console.log("--> clicked tim cook");
-        API_ADMIN.adminLogout().then(() => {
-            navigate("/");
-        });
-    };
     return (
         <div>
             <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -148,10 +164,17 @@ const Layout: FC<layoutProp> = ({ loginStatus }) => {
                                     ))}
                                 </nav>
                             </div>
-                            <div className="flex-shrink-0 flex bg-gray-700 p-4">
-                                <a
-                                    href="#"
+                            <Form
+                                className="flex-shrink-0 flex bg-gray-700 p-4"
+                                method="POST"
+                                action="/dashboard"
+                            >
+                                <button
+                                    //href="#"
                                     className="flex-shrink-0 group block"
+                                    type="submit"
+                                    name="intent"
+                                    value="logout1"
                                 >
                                     <div className="flex items-center">
                                         <div>
@@ -170,8 +193,8 @@ const Layout: FC<layoutProp> = ({ loginStatus }) => {
                                             </p>
                                         </div>
                                     </div>
-                                </a>
-                            </div>
+                                </button>
+                            </Form>
                         </div>
                     </Transition.Child>
                     <div className="flex-shrink-0 w-14">
@@ -218,11 +241,16 @@ const Layout: FC<layoutProp> = ({ loginStatus }) => {
                             ))}
                         </nav>
                     </div>
-                    <div className="flex-shrink-0 flex bg-gray-700 p-4">
-                        <a
-                            href="#"
+                    <Form
+                        className="flex-shrink-0 flex bg-gray-700 p-4"
+                        method="POST"
+                        action="/dashboard"
+                    >
+                        <button
                             className="flex-shrink-0 w-full group block"
-                            onClick={handleLogout}
+                            type="submit"
+                            name="intent"
+                            value="logout2"
                         >
                             <div className="flex items-center">
                                 <div>
@@ -241,8 +269,8 @@ const Layout: FC<layoutProp> = ({ loginStatus }) => {
                                     </p>
                                 </div>
                             </div>
-                        </a>
-                    </div>
+                        </button>
+                    </Form>
                 </div>
             </div>
             <div className="md:pl-64 flex flex-col flex-1">
@@ -278,9 +306,11 @@ const Layout: FC<layoutProp> = ({ loginStatus }) => {
     );
 };
 
-const mapStateToProps = (state: any) => {
+/* const mapStateToProps = (state: any) => {
     const loginStatus = selectAdmin(state).loginState;
     return { loginStatus };
 };
 
-export default connect(mapStateToProps, null)(Layout);
+export default connect(mapStateToProps, { updateAdminStatus })(Layout); */
+
+export default Layout;
