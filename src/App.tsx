@@ -9,15 +9,18 @@ import {
 //import Layout from "./components/layout";
 import Layout from "@/components/layout";
 import SpinningEle from "@/components/SpinningEle";
-import LoginPage from "@/pages/login";
+import LoginPage from "@/pages/loginPage";
 import ErrBoundary from "@/pages/errBoundary";
-import Customers from "@/pages/customerPage";
 import Dashboard from "@/pages/dashboard";
 
 import InitPage from "@/pages/initPage";
 import { initLoader, initAction } from "@/pages/initPage";
-import { loginLoader, loginAction } from "./pages/login/loginPage";
+import { loginLoader, loginAction } from "@/pages/loginPage";
 import { layoutLoader, layoutAction } from "@/components/layout";
+import Clients from "@/pages/clients";
+import Orders from "@/pages/orders";
+import Employees from "@/pages/employees";
+import Management from "@/pages/management";
 
 const App: FC = () => {
     const router = createBrowserRouter(
@@ -43,7 +46,10 @@ const App: FC = () => {
                     action={layoutAction}
                 >
                     <Route index element={<Dashboard />} />
-                    <Route path={"customers"} element={<Customers />} />
+                    <Route path={"clients"} element={<Clients />} />
+                    <Route path={"orders"} element={<Orders />} />
+                    <Route path={"employees"} element={<Employees />} />
+                    <Route path={"management"} element={<Management />} />
                 </Route>
 
                 <Route path="*" element={<> No Match </>} />

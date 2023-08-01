@@ -18,31 +18,14 @@ import {
     ActionFunctionArgs,
 } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-    CalendarIcon,
-    ChartBarIcon,
-    FolderIcon,
-    HomeIcon,
-    InboxIcon,
-    Bars3Icon,
-    UsersIcon,
-    XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import { API_ADMIN } from "@/apis";
+import { menuList } from "@/configs/menuList";
 
 const classNames = (...classes: any) => {
     return classes.filter(Boolean).join(" ");
 };
-
-const navigation = [
-    { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-    { name: "Team", href: "#", icon: UsersIcon, current: false },
-    { name: "Projects", href: "#", icon: FolderIcon, current: false },
-    { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-    { name: "Documents", href: "#", icon: InboxIcon, current: false },
-    { name: "Reports", href: "#", icon: ChartBarIcon, current: false },
-];
 
 export const layoutLoader = async () => {
     try {
@@ -139,7 +122,7 @@ const Layout: FC = () => {
                                     />
                                 </div>
                                 <nav className="mt-5 px-2 space-y-1">
-                                    {navigation.map((item) => (
+                                    {menuList.map((item) => (
                                         <a
                                             key={item.name}
                                             href={item.href}
@@ -216,7 +199,7 @@ const Layout: FC = () => {
                             />
                         </div>
                         <nav className="mt-5 flex-1 px-2 space-y-1">
-                            {navigation.map((item) => (
+                            {menuList.map((item) => (
                                 <a
                                     key={item.name}
                                     href={item.href}
