@@ -1,28 +1,49 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 
-interface adminProp {
-    adminState: boolean;
-    adminPermission: any;
+interface permissionProp {
+    //0-NoPermission / 1-WriteOnly / 2-ReadOnly / 3-ALL
+    dashboard: 0 | 1 | 2 | 3;
+    clients: 0 | 1 | 2 | 3;
+    orders: 0 | 1 | 2 | 3;
+    employees: 0 | 1 | 2 | 3;
+    management: 0 | 1 | 2 | 3;
 }
 
-const initialState: adminProp = { adminState: false, adminPermission: {} };
+interface adminProp {
+    adminState: {
+        loginState: boolean;
+        permissionState: permissionProp;
+    };
+}
+
+const initialState: adminProp = {
+    adminState: {
+        loginState: false,
+        permissionState: {
+            dashboard: 0,
+            clients: 0,
+            orders: 0,
+            employees: 0,
+            management: 0,
+        },
+    },
+};
 
 export const adminSlice = createSlice({
     name: "login",
     initialState,
     reducers: {
-        changeAdminStatus: (state, action: PayloadAction<boolean>) => {
-            state.adminState = action.payload;
-        },
-        updateAdminPermission: (state, action: PayloadAction) => {
-            state.adminPermission = action;
+        updateAdminStatus: (state, action: PayloadAction<permissionProp>) => {
+            console.log("=> redux store update: admin state");
+            if (action.payload != null) {
+                state.adminState.loginState = true;
+                state.adminState.permissionState = { ...action.payload };
+            }
         },
     },
 });
 
-export const { changeAdminStatus, updateAdminPermission } = adminSlice.actions;
+export const { updateAdminStatus } = adminSlice.actions;
 export const selectAdmin = (state: RootState) => state.admin.adminState;
-export const selectPermission = (state: RootState) =>
-    state.admin.adminPermission;
 export default adminSlice.reducer;

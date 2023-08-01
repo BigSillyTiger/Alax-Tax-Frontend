@@ -15,7 +15,7 @@ export const adminLogin = async (email: string, password: string) => {
     try {
         const response = await apis.post(REQ_LOGIN, newPost);
         console.log("-> fe login res: ", response);
-        return true;
+        return response.data;
     } catch (err: any) {
         if (err.response) {
             console.error("err.response: ", err.response.data.success);
@@ -23,7 +23,7 @@ export const adminLogin = async (email: string, password: string) => {
             console.error(`error msg: ${err}`);
         }
         //throw json({ msg: "login failed" }, { status: 401 });
-        return false;
+        return { status: false, msg: "", permission: {} };
     }
 };
 
@@ -41,17 +41,21 @@ export const adminLogout = async () => {
     }
 };
 
-export const adminCheck = async (): Promise<boolean> => {
+export const adminCheck = async () => {
     try {
         const response = await apis.get(REQ_ADMIN_CHECK);
-        return response.data.auth as boolean;
+        return response.data;
     } catch (err: any) {
         if (err.response) {
             console.log("=> err.response: ", err.response);
         } else {
             console.log(`error msg: ${err}`);
         }
-        return false;
+        return {
+            status: false,
+            msg: "admin check error",
+            permission: {},
+        };
     }
 };
 

@@ -8,7 +8,13 @@ import React, {
     Fragment,
 } from "react";
 import { connect } from "react-redux";
-import { json, Outlet, useActionData, useNavigate } from "react-router-dom";
+import {
+    json,
+    Outlet,
+    useActionData,
+    useNavigate,
+    useLoaderData,
+} from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import {
     CalendarIcon,
@@ -43,33 +49,11 @@ interface layoutProp {
 
 const Layout: FC<layoutProp> = ({ loginStatus }) => {
     const navigate = useNavigate();
+    const loaderData = useLoaderData();
+    console.log("-> layout receive loader data: ", loaderData);
+
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
-    useEffect(() => {
-        console.log("-> dashboard login status:", loginStatus);
-        // if the stored loginStatus is falses-default
-        // we excue adminCheck for checking jwt cookies's valid condition
-        if (!loginStatus) {
-            API_ADMIN.adminCheck()
-                .then((res) => {
-                    if (!res) {
-                        navigate("/");
-                    }
-                })
-                .catch((err) => {});
-            //
-        }
-        /* const routineCheck = async () => {
-            try {
-                const response = await API_ADMIN.adminCheck();
-                if (!response) {
-                    throw json({ msg: "auth check failed" }, { status: 401 });
-                }
-            } catch (err) {
-                throw err;
-            }
-        };
-        routineCheck(); */
-    });
+
     const handleLogout = () => {
         console.log("--> clicked tim cook");
         API_ADMIN.adminLogout().then(() => {
@@ -295,7 +279,7 @@ const Layout: FC<layoutProp> = ({ loginStatus }) => {
 };
 
 const mapStateToProps = (state: any) => {
-    const loginStatus = selectAdmin(state);
+    const loginStatus = selectAdmin(state).loginState;
     return { loginStatus };
 };
 
