@@ -5,7 +5,6 @@ import {
     REQ_ADMIN_CHECK,
     REQ_PERMISSION,
 } from "./req_list";
-import { json } from "react-router-dom";
 
 export const adminLogin = async (email: string, password: string) => {
     const newPost = {

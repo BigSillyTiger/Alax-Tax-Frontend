@@ -8,7 +8,12 @@ import {
 } from "@heroicons/react/24/outline";
 
 export const menuList = [
-    { name: "Dashboard", href: "/dashboard", icon: HomeIcon, current: true },
+    {
+        name: "Dashboard",
+        href: "/dashboard",
+        icon: HomeIcon,
+        current: true,
+    },
     {
         name: "Clients",
         href: "/dashboard/clients",

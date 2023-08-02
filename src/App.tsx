@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 
 //import Layout from "./components/layout";
-import Layout from "@/components/layout";
 import SpinningEle from "@/components/SpinningEle";
 import LoginPage from "@/pages/loginPage";
 import ErrBoundary from "@/pages/errBoundary";
@@ -16,7 +15,7 @@ import Dashboard from "@/pages/dashboard";
 import InitPage from "@/pages/initPage";
 import { initLoader, initAction } from "@/pages/initPage";
 import { loginLoader, loginAction } from "@/pages/loginPage";
-import { layoutLoader, layoutAction } from "@/components/layout";
+import Layout, { layoutLoader, layoutAction } from "@/components/layout";
 import Clients from "@/pages/clients";
 import Orders from "@/pages/orders";
 import Employees from "@/pages/employees";
