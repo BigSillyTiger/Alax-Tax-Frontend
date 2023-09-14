@@ -23,8 +23,11 @@ export const loginAction = async ({ request }: ActionFunctionArgs) => {
 };
 
 export const loginLoader = async () => {
-    //console.log("-> login loader");
-    return {};
+    const result = await API_ADMIN.adminCheck();
+    if (result.status) {
+        return redirect("/dashboard");
+    }
+    return null;
 };
 
 const LoginPage: FC = () => {

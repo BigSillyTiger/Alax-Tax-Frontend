@@ -1,9 +1,10 @@
-import React, { FC, Fragment } from "react";
+import React, { FC, Fragment, MouseEvent, TouchEvent } from "react";
 
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Form, Link } from "react-router-dom";
+import { Form, NavLink, redirect, useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { menuList } from "@/configs/menuList";
+import { API_ADMIN } from "@/apis";
 
 export type t_permission = {
     dashboard: number;
@@ -32,8 +33,26 @@ const initMenuList = (permission: t_permission) => {
     });
 };
 
+const navFocus = ({ isActive }: { isActive: boolean }) => {
+    return classNames(
+        isActive
+            ? "bg-gray-900 text-white"
+            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+        "group flex items-center px-2 py-2 text-base font-medium rounded-md"
+    );
+};
+
 const SideMenu: FC<t_sidemenu> = ({ permissionData, open, setOpen }) => {
+    const nevigate = useNavigate();
     const newMenuList = initMenuList(permissionData);
+
+    const handleLogout = async (e: MouseEvent | TouchEvent) => {
+        e.preventDefault();
+        console.log("---> click log out");
+        await API_ADMIN.adminLogout();
+        return nevigate("/login", { replace: true }); // redirect does not work here
+    };
+
     return (
         <>
             <Transition.Root show={open} as={Fragment}>
@@ -122,17 +141,11 @@ const SideMenu: FC<t_sidemenu> = ({ permissionData, open, setOpen }) => {
                                     ))}
                                 </nav>
                             </div>
-                            <Form
-                                className="flex-shrink-0 flex bg-gray-700 p-4"
-                                method="POST"
-                                action="/dashboard"
-                            >
+                            <div className="flex-shrink-0 flex bg-gray-700 p-4">
                                 <button
                                     //href="#"
                                     className="flex-shrink-0 group block"
-                                    type="submit"
-                                    name="intent"
-                                    value="logout1"
+                                    onClick={handleLogout}
                                 >
                                     <div className="flex items-center">
                                         <div>
@@ -152,7 +165,7 @@ const SideMenu: FC<t_sidemenu> = ({ permissionData, open, setOpen }) => {
                                         </div>
                                     </div>
                                 </button>
-                            </Form>
+                            </div>
                         </div>
                     </Transition.Child>
                     <div className="flex-shrink-0 w-14">
@@ -175,21 +188,10 @@ const SideMenu: FC<t_sidemenu> = ({ permissionData, open, setOpen }) => {
                         </div>
                         <nav className="mt-5 flex-1 px-2 space-y-1">
                             {newMenuList.map((item) => (
-                                <Link
+                                <NavLink
                                     key={item.name}
                                     to={item.href}
-                                    className={classNames(
-                                        item.current
-                                            ? "bg-gray-900 text-white"
-                                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                                        "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                                    )}
-                                    onFocus={() => {
-                                        item.current = true;
-                                    }}
-                                    onBlur={() => {
-                                        item.current = false;
-                                    }}
+                                    className={navFocus}
                                 >
                                     <item.icon
                                         className={classNames(
@@ -201,20 +203,14 @@ const SideMenu: FC<t_sidemenu> = ({ permissionData, open, setOpen }) => {
                                         aria-hidden="true"
                                     />
                                     {item.name}
-                                </Link>
+                                </NavLink>
                             ))}
                         </nav>
                     </div>
-                    <Form
-                        className="flex-shrink-0 flex bg-gray-700 p-4"
-                        method="POST"
-                        action="/dashboard"
-                    >
+                    <div className="flex-shrink-0 flex bg-gray-700 p-4">
                         <button
                             className="flex-shrink-0 w-full group block"
-                            type="submit"
-                            name="intent"
-                            value="logout2"
+                            onClick={handleLogout}
                         >
                             <div className="flex items-center">
                                 <div>
@@ -234,7 +230,7 @@ const SideMenu: FC<t_sidemenu> = ({ permissionData, open, setOpen }) => {
                                 </div>
                             </div>
                         </button>
-                    </Form>
+                    </div>
                 </div>
             </div>
         </>

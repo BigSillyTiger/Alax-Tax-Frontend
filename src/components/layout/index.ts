@@ -1,5 +1,4 @@
-import Layout from "./layout";
-import { layoutLoader, layoutAction } from "./dataAccess";
+import Layout, { layoutLoader } from "./layout";
 
 export default Layout;
-export { layoutLoader, layoutAction };
+export { layoutLoader };
