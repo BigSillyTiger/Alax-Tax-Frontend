@@ -5,18 +5,23 @@ import {
     useLoaderData,
     redirect,
     ActionFunctionArgs,
+    LoaderFunctionArgs,
 } from "react-router-dom";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { API_ADMIN } from "@/apis";
 import SideMenu, { t_permission } from "./sideMenu";
 
-export const layoutLoader = async () => {
+export const layoutLoader = async ({ request }: LoaderFunctionArgs) => {
+    const pname = new URL(request.url).pathname;
+    console.log("=> layout loader url: ", pname);
     try {
         const result = await API_ADMIN.adminCheck();
         if (result.status) {
             return result.permission;
         }
-        return redirect("/login");
+        return pname
+            ? redirect(`/login?redirect=${pname}`)
+            : redirect("/login");
     } catch (err) {
         return redirect("/login");
     }
