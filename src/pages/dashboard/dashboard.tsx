@@ -1,8 +1,8 @@
-import React, { Suspense } from "react";
+import React, { FC, Suspense } from "react";
 import { Await, useLoaderData } from "react-router-dom";
 import SpinningEle from "@/components/SpinningEle";
 
-const Dashboard = () => {
+const Dashboard: FC = () => {
     const loaderData = useLoaderData() as { content: any };
     return (
         <div className="mx-2 px-0 border-2 border-dashed border-blue-600">

@@ -13,3 +13,5 @@ export const REQ_CLEAR_UL = "/api/clear/uploadimgs";
 export const REQ_TEST = "/api/test";
 
 export const REQ_HERO_SLIDE_IMG = "/api/heroslideimgs";
+
+export const REQ_CLIENT_ALL = "/client/all";
