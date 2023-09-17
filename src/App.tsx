@@ -21,6 +21,7 @@ import Orders from "@/pages/orders";
 import Employees from "@/pages/employees";
 import Management from "@/pages/management";
 import Calendar from "./pages/calendar";
+import { dashboardLoader } from "@/pages/dashboard";
 
 const App: FC = () => {
     const router = createBrowserRouter(
@@ -43,7 +44,12 @@ const App: FC = () => {
                     loader={layoutLoader}
                     errorElement={<ErrBoundary />}
                 >
-                    <Route index path={"/dashboard"} element={<Dashboard />} />
+                    <Route
+                        index
+                        path={"/dashboard"}
+                        element={<Dashboard />}
+                        loader={dashboardLoader}
+                    />
                     <Route path={"/clients"} element={<Clients />} />
                     <Route path={"/orders"} element={<Orders />} />
                     <Route path={"/calendar"} element={<Calendar />} />

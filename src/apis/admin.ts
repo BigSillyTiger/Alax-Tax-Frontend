@@ -4,6 +4,7 @@ import {
     REQ_LOGOUT,
     REQ_ADMIN_CHECK,
     REQ_PERMISSION,
+    REQ_TEST,
 } from "./req_list";
 
 export const adminLogin = async (email: string, password: string) => {
@@ -65,5 +66,23 @@ export const adminPermission = async (email: string) => {
         return response.data;
     } catch (err: any) {
         console.log("-> adminPermission: ", err);
+    }
+};
+
+export const test = async () => {
+    try {
+        const response = await apis.get(REQ_TEST);
+        return response.data;
+    } catch (err: any) {
+        if (err.response) {
+            console.log("=> err.response: ", err.response);
+        } else {
+            console.log(`error msg: ${err}`);
+        }
+        return {
+            status: false,
+            msg: "api test error",
+            permission: {},
+        };
     }
 };
