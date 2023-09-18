@@ -1,123 +1,66 @@
-import React, { FC, Suspense } from "react";
+import React, { FC, Suspense, useState } from "react";
 import { Await, useLoaderData } from "react-router-dom";
 import LoadingPage from "@/components/loadingPage";
+import Table, { SearchBar } from "@/components/table";
+import { clientColumns } from "@/components/table";
 
 const Clients: FC = () => {
+    //const [clientsList, setClientList] = useState();
+    const [globalFilter, setGlobalFilter] = useState("");
     const { clients } = useLoaderData() as { clients: any };
 
     const ClientTable = ({ clients }: any) => {
         return (
             <div className="px-4 sm:px-6 lg:px-8">
+                {/* header area */}
                 <div className="sm:flex sm:items-center">
                     <div className="sm:flex-auto">
-                        <h1 className="text-base font-semibold leading-6 text-gray-900">
+                        {/* <h1 className="text-base font-semibold leading-6 text-gray-900">
                             Clients
                         </h1>
                         <p className="mt-2 text-sm text-gray-700">
                             A table of placeholder stock market data that does
                             not make any sense.
-                        </p>
+                        </p> */}
+                        <SearchBar
+                            value={globalFilter ?? ""}
+                            onChange={(value: any) =>
+                                setGlobalFilter(String(value))
+                            }
+                        />
                     </div>
                     <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                         <button
                             type="button"
                             className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
-                            Export
+                            Add New Client
                         </button>
                     </div>
                 </div>
+                {/* table */}
                 <div className="mt-8 flow-root">
                     <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                            <table className="min-w-full divide-y divide-gray-300">
-                                <thead>
-                                    <tr>
-                                        <th
-                                            scope="col"
-                                            className="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
-                                        >
-                                            Name
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                        >
-                                            Phone
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                        >
-                                            Email
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                        >
-                                            Address
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="relative whitespace-nowrap py-3.5 pl-3 pr-4 sm:pr-0"
-                                        >
-                                            <span className="sr-only">
-                                                Edit
-                                            </span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-200 bg-white">
-                                    {clients.map(
-                                        (client: any, index: number) => (
-                                            <tr
-                                                key={client.id}
-                                                className={
-                                                    index % 2 === 0
-                                                        ? undefined
-                                                        : "bg-gray-100"
-                                                }
-                                            >
-                                                <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                                                    {client.full_name}
-                                                </td>
-                                                <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-900">
-                                                    {client.phone}
-                                                </td>
-                                                <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
-                                                    {client.email}
-                                                </td>
-                                                <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
-                                                    {client.address}
-                                                </td>
-                                                <td className="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                    <a
-                                                        href="#"
-                                                        className="text-indigo-600 hover:text-indigo-900"
-                                                    >
-                                                        Edit
-                                                        <span className="sr-only">
-                                                            , {client.id}
-                                                        </span>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        )
-                                    )}
-                                </tbody>
-                            </table>
+                            <Table
+                                globalFilter={globalFilter}
+                                data={clients}
+                                columns={clientColumns}
+                            />
                         </div>
                     </div>
                 </div>
             </div>
         );
     };
+
     return (
         <>
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={clients}>
                     {(clientList) => {
-                        return <ClientTable clients={clientList.data} />; //test with people
+                        //setClientList(clientList.data);
+                        return <ClientTable clients={clientList.data} />;
                     }}
                 </Await>
             </Suspense>
