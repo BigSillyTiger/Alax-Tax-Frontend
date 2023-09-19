@@ -26,8 +26,8 @@ const SearchBar: FC<searchProp> = ({
 
     return (
         <input
-            className="p-2 bg-transparent outlint-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-indigo-500"
-            placeholder="Search all clients..."
+            className="p-2 bg-transparent outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-indigo-500"
+            placeholder="Search..."
             //{...props}
             value={value}
             onChange={(e) => {
