@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
-import { Bars3Icon } from "@heroicons/react/24/outline";
 
 import SideMenu, { t_permission } from "./sideMenu";
 

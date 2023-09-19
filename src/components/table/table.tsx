@@ -1,29 +1,47 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useDeferredValue } from "react";
 import {
     useReactTable,
     flexRender,
     getCoreRowModel,
     getPaginationRowModel,
     getFilteredRowModel,
+    getSortedRowModel,
+    //type
+    OnChangeFn,
+    SortingState,
 } from "@tanstack/react-table";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 import Pagination from "./pagination";
+import SearchBar from "./searchBar";
 
 interface tableProp {
-    globalFilter: any;
     data: any;
     columns: any;
 }
 
-const Table: FC<tableProp> = ({ globalFilter, data, columns }) => {
+const Table: FC<tableProp> = ({ data, columns }) => {
+    const [globalFilter, setGlobalFilter] = useState("");
+    const deferredGF = useDeferredValue(globalFilter);
+    const [sorting, setSorting] = useState([]);
+
     const table = useReactTable({
         data,
         columns,
-        state: { globalFilter },
+        state: { globalFilter: deferredGF, sorting },
+        onSortingChange: setSorting as OnChangeFn<SortingState>,
+        // not sure what is this used for
+        // the filter still works very well without this
+        onGlobalFilterChange: setGlobalFilter,
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        getSortedRowModel: getSortedRowModel(),
     });
+
+    const sortingIcon = (flag: string | false) => {
+        return flag ? { asc: "🔼", desc: "🔽" }[flag] : ""; //⇩⇧
+    };
 
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
@@ -32,11 +50,15 @@ const Table: FC<tableProp> = ({ globalFilter, data, columns }) => {
                     key={header.id}
                     scope="col"
                     className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 capitalize"
+                    onClick={header.column.getToggleSortingHandler()}
                 >
-                    {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                    )}
+                    <button>
+                        {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                        )}
+                        {sortingIcon(header.column.getIsSorted())}
+                    </button>
                 </th>
             ))}
         </tr>
@@ -65,13 +87,18 @@ const Table: FC<tableProp> = ({ globalFilter, data, columns }) => {
 
     return (
         <>
+            {/* search bar */}
+            <SearchBar value={globalFilter} onChange={setGlobalFilter} />
+
+            {/* table */}
             <table className="min-w-full divide-y divide-gray-300">
                 <thead>{tableHeader}</thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
                     {tableBody}
                 </tbody>
             </table>
-            {/* pagination */}
+
+            {/* pagination: (property) paginationProp.table: any */}
             <Pagination table={table} />
         </>
     );

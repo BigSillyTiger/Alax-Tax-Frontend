@@ -21,8 +21,8 @@ import Orders from "@/pages/orders";
 import Employees from "@/pages/employees";
 import Management from "@/pages/management";
 import Calendar from "./pages/calendar";
-import { dashboardLoader } from "@/pages/dashboard";
-import { clientsLoader } from "./pages/clients/dataAccess";
+import { loader as dashboardLoader } from "@/pages/dashboard";
+import { loader as clientsLoader } from "@/pages/clients";
 
 const App: FC = () => {
     const router = createBrowserRouter(
