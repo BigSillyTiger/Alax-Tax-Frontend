@@ -36,7 +36,7 @@ const Layout: FC = () => {
             <HeadBar open={sidebarOpen} setOpen={setSidebarOpen} />
 
             {/* view area */}
-            <main className="py-10 lg:pl-20 overflow-y-auto h-[100vh]">
+            <main className="py-10 lg:pl-20 overflow-y-auto h-[93vh] ">
                 <Outlet />
             </main>
         </>

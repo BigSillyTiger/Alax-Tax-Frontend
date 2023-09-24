@@ -82,7 +82,7 @@ const PaginatedTable: FC<tableProp> = ({ data, columns }) => {
         : null;
 
     return (
-        <div className="container border-2 border-dashed border-blue-400">
+        <div className="container">
             {/* search bar */}
             <SearchBar value={globalFilter} onChange={setGlobalFilter} />
 

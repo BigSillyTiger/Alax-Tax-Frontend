@@ -6,13 +6,14 @@ import {
     PaginatedTable as PTable,
 } from "@/components/table";
 import clientColumns from "./clientColumnDefs";
+import Card from "@/components/card";
 
 const Clients: FC = () => {
     const { clients } = useLoaderData() as { clients: any };
 
     const ClientTableContent = ({ clients }: any) => {
         return (
-            <div className="px-4 sm:px-6 lg:px-8">
+            <div className="px-4 sm:px-6 lg:px-8 ">
                 {/* header area */}
                 <div className="sm:flex sm:items-center">
                     <div className="sm:flex-auto sm:flex"></div>
@@ -27,13 +28,15 @@ const Clients: FC = () => {
                 </div>
 
                 {/* table */}
-                <PTable data={clients} columns={clientColumns} />
+                <Card>
+                    <PTable data={clients} columns={clientColumns} />
+                </Card>
             </div>
         );
     };
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto ">
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={clients}>
                     {(clientList) => {
