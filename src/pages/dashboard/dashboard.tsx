@@ -1,6 +1,6 @@
 import React, { FC, Suspense } from "react";
 import { Await, useLoaderData } from "react-router-dom";
-import SpinningEle from "@/components/loadingPage/SpinningEle";
+import SpinningEle from "@/components/loadingEle/SpinningEle";
 
 const Dashboard: FC = () => {
     const loaderData = useLoaderData() as { content: any };

@@ -3,16 +3,13 @@ import {
     useReactTable,
     flexRender,
     getCoreRowModel,
-    getPaginationRowModel,
     getFilteredRowModel,
     getSortedRowModel,
     //type
     OnChangeFn,
     SortingState,
 } from "@tanstack/react-table";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 
 interface tableProp {
@@ -20,7 +17,7 @@ interface tableProp {
     columns: any;
 }
 
-const Table: FC<tableProp> = ({ data, columns }) => {
+const VirtualTable: FC<tableProp> = ({ data, columns }) => {
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
@@ -35,12 +32,16 @@ const Table: FC<tableProp> = ({ data, columns }) => {
         onGlobalFilterChange: setGlobalFilter,
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
     });
 
     const sortingIcon = (flag: string | false) => {
-        return flag ? { asc: "🔼", desc: "🔽" }[flag] : ""; //⇩⇧
+        return (
+            {
+                asc: " 🔼",
+                desc: " 🔽",
+            }[flag as string] ?? null
+        );
     };
 
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
@@ -86,22 +87,24 @@ const Table: FC<tableProp> = ({ data, columns }) => {
         : null;
 
     return (
-        <>
+        <div>
             {/* search bar */}
             <SearchBar value={globalFilter} onChange={setGlobalFilter} />
 
-            {/* table */}
-            <table className="min-w-full divide-y divide-gray-300">
-                <thead>{tableHeader}</thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                    {tableBody}
-                </tbody>
-            </table>
-
-            {/* pagination: (property) paginationProp.table: any */}
-            <Pagination table={table} />
-        </>
+            <div
+                className="container overflow-auto border border-dashed border-red-400 border-4 h-[600px]"
+                /* style={{ height: "700px" }} */
+            >
+                {/* table */}
+                <table className="table-fixed min-w-full divide-y divide-gray-300">
+                    <thead className="w-full">{tableHeader}</thead>
+                    <tbody className="w-full divide-y divide-gray-200 bg-white">
+                        {tableBody}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 };
 
-export default Table;
+export default VirtualTable;

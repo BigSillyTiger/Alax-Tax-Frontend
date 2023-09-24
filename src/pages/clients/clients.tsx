@@ -1,7 +1,10 @@
 import React, { FC, Suspense } from "react";
 import { Await, useLoaderData } from "react-router-dom";
-import LoadingPage from "@/components/loadingPage";
-import Table from "@/components/table";
+import LoadingPage from "@/components/loadingEle";
+import {
+    VirtualTable as VTable,
+    PaginatedTable as PTable,
+} from "@/components/table";
 import clientColumns from "./clientColumnDefs";
 
 const Clients: FC = () => {
@@ -24,19 +27,13 @@ const Clients: FC = () => {
                 </div>
 
                 {/* table */}
-                <div className="mt-8 flow-root">
-                    <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                            <Table data={clients} columns={clientColumns} />
-                        </div>
-                    </div>
-                </div>
+                <PTable data={clients} columns={clientColumns} />
             </div>
         );
     };
 
     return (
-        <>
+        <div className="container mx-auto">
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={clients}>
                     {(clientList) => {
@@ -45,7 +42,7 @@ const Clients: FC = () => {
                     }}
                 </Await>
             </Suspense>
-        </>
+        </div>
     );
 };
 

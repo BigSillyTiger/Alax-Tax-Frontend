@@ -1,2 +1,3 @@
-import Table from "./table";
-export default Table;
+import VirtualTable from "./virtualTable";
+import PaginatedTable from "./paginatedTable";
+export { VirtualTable, PaginatedTable };

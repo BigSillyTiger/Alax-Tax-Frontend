@@ -10,7 +10,7 @@ interface searchProp {
 const SearchBar: FC<searchProp> = ({
     value: initValue,
     onChange,
-    debounce = 500, //...props
+    debounce = 500,
 }) => {
     const [value, setValue] = useState(initValue);
 
@@ -26,7 +26,7 @@ const SearchBar: FC<searchProp> = ({
     }, [value]);
 
     return (
-        <div className="flex flex-auto">
+        <div className="flex flex-auto my-3">
             <span className="sr-only">Search bar</span>
             <MagnifyingGlassIcon
                 className="h-6 w-6 text-indigo-500"

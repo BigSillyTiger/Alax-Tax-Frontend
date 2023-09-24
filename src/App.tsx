@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 //import Layout from "./components/layout";
-import SpinningEle from "@/components/loadingPage/SpinningEle";
+import SpinningEle from "@/components/loadingEle/SpinningEle";
 import LoginPage from "@/pages/loginPage";
 import ErrBoundary from "@/pages/errBoundary";
 import Dashboard from "@/pages/dashboard";
