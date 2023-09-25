@@ -8,13 +8,13 @@ import {
 
 //import Layout from "./components/layout";
 import SpinningEle from "@/components/loadingEle/SpinningEle";
-import LoginPage from "@/pages/loginPage";
+import LoginPage from "@/pages/login/loginPage";
 import ErrBoundary from "@/pages/errBoundary";
 import Dashboard from "@/pages/dashboard";
 
 import InitPage from "@/pages/initPage";
 import { initLoader, initAction } from "@/pages/initPage";
-import { loginLoader, loginAction } from "@/pages/loginPage";
+import { loginLoader, loginAction } from "@/pages/login/loginPage";
 import Layout, { layoutLoader } from "@/components/layout";
 import Clients from "@/pages/clients/clients";
 import Orders from "@/pages/orders";
