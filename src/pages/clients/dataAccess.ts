@@ -1,9 +1,20 @@
 import { API_CLIENT } from "@/apis";
-import { defer } from "react-router-dom";
+import {
+    defer,
+    ActionFunctionArgs,
+    LoaderFunctionArgs,
+} from "react-router-dom";
 
-const loader = async () => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
     const result = API_CLIENT.clientAll();
     return defer({ clients: result });
 };
 
-export default loader;
+export const action = async ({ request }: ActionFunctionArgs) => {
+    const data = await request.formData();
+    console.log("-> test first name: ", data.get("first_name"));
+    console.log("-> test last name: ", data.get("last_name"));
+    console.log("-> test email: ", data.get("email"));
+    console.log("-> test state: ", data.get("state"));
+    return null;
+};

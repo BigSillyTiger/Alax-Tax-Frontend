@@ -1,5 +1,5 @@
 import Clients from "./clients";
-import loader from "./dataAccess";
+import { loader, action } from "./dataAccess";
 
 export default Clients;
-export { loader };
+export { loader, action };

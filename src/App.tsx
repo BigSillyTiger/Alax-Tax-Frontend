@@ -14,7 +14,7 @@ import Dashboard from "@/pages/dashboard";
 
 import InitPage from "@/pages/initPage";
 import { initLoader, initAction } from "@/pages/initPage";
-import { loginLoader, loginAction } from "@/pages/login/loginPage";
+import { loginLoader, loginAction } from "@/pages/login";
 import Layout, { layoutLoader } from "@/components/layout";
 import Clients from "@/pages/clients/clients";
 import Orders from "@/pages/orders";
@@ -22,7 +22,10 @@ import Employees from "@/pages/employees";
 import Management from "@/pages/management";
 import Calendar from "./pages/calendar";
 import { loader as dashboardLoader } from "@/pages/dashboard";
-import { loader as clientsLoader } from "@/pages/clients";
+import {
+    loader as clientsLoader,
+    action as clientsAction,
+} from "@/pages/clients";
 
 const App: FC = () => {
     const router = createBrowserRouter(
@@ -55,6 +58,7 @@ const App: FC = () => {
                         path={"/clients"}
                         element={<Clients />}
                         loader={clientsLoader}
+                        action={clientsAction}
                     />
                     <Route path={"/orders"} element={<Orders />} />
                     <Route path={"/calendar"} element={<Calendar />} />

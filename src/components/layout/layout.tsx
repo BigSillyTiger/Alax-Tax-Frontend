@@ -3,7 +3,6 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import MainMenu from "@/components/mainMenu";
 import HeadBar from "@/components/headBar";
 
-
 export type t_permission = {
     dashboard: number;
     clients: number;
