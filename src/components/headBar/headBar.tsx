@@ -50,7 +50,7 @@ const HeadBar: FC<props> = ({ open, setOpen }) => {
                     aria-hidden="true"
                 />
 
-                <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+                <div className="flex flex-1 flex-row-reverse gap-x-4 self-stretch lg:gap-x-6">
                     {/* <form
                         className="relative flex flex-1"
                         action="#"

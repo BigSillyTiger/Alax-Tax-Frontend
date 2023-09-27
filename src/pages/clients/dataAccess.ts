@@ -6,9 +6,9 @@ import {
 } from "react-router-dom";
 
 export type t_result = {
-    status: boolean;
+    status: number;
     msg: string;
-    errType: number;
+    data: unknown;
 };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {

@@ -19,7 +19,13 @@ export const clientAll = async () => {
         return response.data;
     } catch (err: any) {
         console.log("-> retrieve all client error: ", err);
-        if (err.response) {
+        if (
+            err.response as {
+                status: number;
+                msg: string;
+                data: unknown;
+            }
+        ) {
             return err.response;
         } else {
             return {

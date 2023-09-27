@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
 import MainMenu from "@/components/mainMenu";
 import HeadBar from "@/components/headBar";
+import { Toaster } from "react-hot-toast";
 
 export type t_permission = {
     dashboard: number;
@@ -30,6 +31,7 @@ const Layout: FC = () => {
             <main className="py-10 lg:pl-20 h-[93vh] overflow-y-auto">
                 <Outlet />
             </main>
+            <Toaster position="top-center" reverseOrder={true} />
         </>
     );
 };

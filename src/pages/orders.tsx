@@ -12,12 +12,11 @@ const Orders: FC = () => {
         <>
             <div>
                 hello Orders Page
-                <button onClick={handleClick}>open</button>
+                <input className="ring-4 ring-red-500 ring-inset" />
                 <div className="w-full h-[200vh] bg-lime-300 border-2 border-violet-300">
                     test
                 </div>
             </div>
-            <AddNew open={sidebarOpen} setOpen={setSidebarOpen} />
         </>
     );
 };

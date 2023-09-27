@@ -1,16 +1,29 @@
 import React, { FC, Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Form } from "react-router-dom";
-import { EnvelopeIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+    EnvelopeIcon,
+    PhoneIcon,
+    XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 interface prop {
     open: boolean;
     setOpen: (value: boolean) => void;
+    isConflict: number;
 }
 
 type t_state = "SA" | "VIC" | "QLD" | "NS" | "WA" | "TAS";
 
-const AddNew: FC<prop> = ({ open, setOpen }) => {
+const conflictCustomize = (isConflict: number) => {
+    if (isConflict === 401 || isConflict === 403) {
+        return "bg-red-300 ring-2 ring-red-500 focus:ring-red-600";
+    } else if (isConflict === 200) {
+        return "ring-1 ring-gray-300 focus:ring-indigo-600";
+    }
+};
+
+const AddNew: FC<prop> = ({ open, setOpen, isConflict }) => {
     const [state, setState] = useState<t_state>("SA");
     const [city, setCity] = useState<string>("Adelaide");
     const handleState = (e: any) => {
@@ -77,13 +90,10 @@ const AddNew: FC<prop> = ({ open, setOpen }) => {
                                             as="h3"
                                             className="text-base font-semibold leading-6 text-gray-900"
                                         >
-                                            Add New Client
+                                            Register New Client
                                         </Dialog.Title>
                                         {/* content */}
                                         <Form method="POST" action="/clients">
-                                            <h2 className="text-base font-semibold leading-7 text-gray-900">
-                                                Personal Information
-                                            </h2>
                                             <p className="mt-1 text-sm leading-6 text-gray-600">
                                                 Use a permanent address where
                                                 you can receive mail.
@@ -104,7 +114,7 @@ const AddNew: FC<prop> = ({ open, setOpen }) => {
                                                             id="first_name"
                                                             autoComplete="given-name"
                                                             required
-                                                            className="p-9 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         />
                                                     </div>
                                                 </div>
@@ -123,7 +133,7 @@ const AddNew: FC<prop> = ({ open, setOpen }) => {
                                                             id="last_name"
                                                             autoComplete="family-name"
                                                             required
-                                                            className="p-9 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         />
                                                     </div>
                                                 </div>
@@ -135,7 +145,7 @@ const AddNew: FC<prop> = ({ open, setOpen }) => {
                                                     >
                                                         Email address
                                                     </label>
-                                                    <div className="relative mt-2 rounded-md shadow-sm">
+                                                    <div className="relative mt-1 rounded-md shadow-sm">
                                                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                             <EnvelopeIcon
                                                                 className="h-5 w-5 text-gray-400"
@@ -147,7 +157,9 @@ const AddNew: FC<prop> = ({ open, setOpen }) => {
                                                             name="email"
                                                             id="email"
                                                             required
-                                                            className="h-9 block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-10 ${conflictCustomize(
+                                                                isConflict
+                                                            )}`}
                                                             placeholder="you@example.com"
                                                         />
                                                     </div>
@@ -160,14 +172,22 @@ const AddNew: FC<prop> = ({ open, setOpen }) => {
                                                     >
                                                         Phone
                                                     </label>
-                                                    <div className="mt-1">
+                                                    <div className="relative mt-1 rounded-md shadow-sm">
+                                                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                                            <PhoneIcon
+                                                                className="h-5 w-5 text-gray-400"
+                                                                aria-hidden="true"
+                                                            />
+                                                        </div>
                                                         <input
                                                             type="text"
                                                             id="phone"
                                                             name="phone"
                                                             autoComplete="tel"
                                                             placeholder="0-xxx-xxx-xxx"
-                                                            className="h-9 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                            className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-10 ${conflictCustomize(
+                                                                isConflict
+                                                            )}`}
                                                         />
                                                     </div>
                                                 </div>
@@ -186,7 +206,7 @@ const AddNew: FC<prop> = ({ open, setOpen }) => {
                                                             autoComplete="country-name"
                                                             value="Australia"
                                                             onChange={(e) => {}}
-                                                            className="h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                         >
                                                             <option>
                                                                 Australia
@@ -208,7 +228,7 @@ const AddNew: FC<prop> = ({ open, setOpen }) => {
                                                             name="street-address"
                                                             id="street-address"
                                                             autoComplete="street-address"
-                                                            className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         />
                                                     </div>
                                                 </div>
@@ -230,7 +250,7 @@ const AddNew: FC<prop> = ({ open, setOpen }) => {
                                                                 handleCity
                                                             }
                                                             autoComplete="address-level2"
-                                                            className="h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-center"
+                                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         />
                                                     </div>
                                                 </div>
@@ -251,7 +271,7 @@ const AddNew: FC<prop> = ({ open, setOpen }) => {
                                                             onChange={
                                                                 handleState
                                                             }
-                                                            className="h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-center"
+                                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         >
                                                             <option>SA</option>
                                                             <option>NS</option>
@@ -276,7 +296,7 @@ const AddNew: FC<prop> = ({ open, setOpen }) => {
                                                             name="postal-code"
                                                             id="postal-code"
                                                             autoComplete="postal-code"
-                                                            className="text-center block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         />
                                                     </div>
                                                 </div>
