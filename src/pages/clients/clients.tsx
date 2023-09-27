@@ -1,5 +1,13 @@
-import React, { FC, Suspense, useState, MouseEvent, TouchEvent } from "react";
-import { Await, useLoaderData } from "react-router-dom";
+import React, {
+    FC,
+    Suspense,
+    useState,
+    MouseEvent,
+    TouchEvent,
+    useMemo,
+    useEffect,
+} from "react";
+import { Await, useLoaderData, useActionData } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
 import {
     VirtualTable as VTable,
@@ -8,17 +16,29 @@ import {
 import clientColumns from "./clientColumnDefs";
 import Card from "@/components/card";
 import AddNew from "./addNew";
+import { t_result } from "./dataAccess";
+import { t_table_client } from "@/components/table/config";
+
+interface if_ClientTableContent {
+    clients: t_table_client[] | null;
+}
 
 const Clients: FC = () => {
     const [addNewOpen, setAddNewOpen] = useState(false);
-    const { clients } = useLoaderData() as { clients: any };
+    const { clients } = useLoaderData() as { clients: t_table_client[] | null };
+    const actionData = useActionData() as t_result;
+
+    useEffect(() => {
+        /* close add new client dialog if successed insert into db */
+        actionData?.status && addNewOpen && setAddNewOpen(false);
+    }, [actionData]);
 
     const handleAddeNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
         setAddNewOpen(true);
     };
 
-    const ClientTableContent = ({ clients }: any) => {
+    const ClientTableContent: FC<if_ClientTableContent> = ({ clients }) => {
         return (
             <>
                 <div className="px-4 sm:px-6 lg:px-8 ">
@@ -35,11 +55,18 @@ const Clients: FC = () => {
                             </button>
                         </div>
                     </div>
-
                     {/* table */}
-                    <Card>
-                        <PTable data={clients} columns={clientColumns} />
-                    </Card>
+                    {clients ? (
+                        <Card>
+                            <PTable data={clients} columns={clientColumns} />
+                        </Card>
+                    ) : (
+                        <Card>
+                            <span className="m-5 p-5 h-15 text-center">
+                                No client content
+                            </span>
+                        </Card>
+                    )}
                 </div>
             </>
         );

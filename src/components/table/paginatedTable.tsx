@@ -14,9 +14,10 @@ import {
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
+import { t_table_client } from "./config";
 
 interface tableProp {
-    data: any;
+    data: t_table_client[];
     columns: any;
 }
 

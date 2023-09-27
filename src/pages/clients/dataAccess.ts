@@ -5,16 +5,32 @@ import {
     LoaderFunctionArgs,
 } from "react-router-dom";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-    const result = API_CLIENT.clientAll();
-    return defer({ clients: result });
+export type t_result = {
+    status: boolean;
+    msg: string;
+    errType: number;
 };
 
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+    const clients = API_CLIENT.clientAll();
+    return defer({ clients });
+};
+
+export const action = async ({
+    request,
+}: ActionFunctionArgs): Promise<t_result> => {
     const data = await request.formData();
-    console.log("-> test first name: ", data.get("first_name"));
-    console.log("-> test last name: ", data.get("last_name"));
-    console.log("-> test email: ", data.get("email"));
-    console.log("-> test state: ", data.get("state"));
-    return null;
+    const result = await API_CLIENT.registerNewClient({
+        first_name: data.get("first_name") as string,
+        last_name: data.get("last_name") as string,
+        phone: data.get("phone") as string,
+        email: data.get("email") as string,
+        address: data.get("address") as string | null,
+        city: data.get("city") as string,
+        state: data.get("state") as string,
+        country: data.get("country") as string,
+        postcode: data.get("postcode") as string | null,
+    });
+
+    return result;
 };
