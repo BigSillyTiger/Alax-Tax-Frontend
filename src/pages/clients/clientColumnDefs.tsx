@@ -29,6 +29,13 @@ const clientColumns = [
             <span>{info.getValue()}</span>
         ),
     },
+    {
+        header: "Postcode",
+        accessorKey: "postcode",
+        cell: (info: Cell<{ postcode: string }, string>) => (
+            <span>{info.getValue()}</span>
+        ),
+    },
 ];
 
 export default clientColumns;

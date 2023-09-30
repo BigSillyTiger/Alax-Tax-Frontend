@@ -5,7 +5,7 @@ import {
     LoaderFunctionArgs,
 } from "react-router-dom";
 
-export type t_result = {
+export type Tresult = {
     status: number;
     msg: string;
     data: unknown;
@@ -18,7 +18,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export const action = async ({
     request,
-}: ActionFunctionArgs): Promise<t_result> => {
+}: ActionFunctionArgs): Promise<Tresult> => {
     const data = await request.formData();
     const result = await API_CLIENT.registerNewClient({
         first_name: data.get("first_name") as string,
@@ -29,7 +29,7 @@ export const action = async ({
         city: data.get("city") as string,
         state: data.get("state") as string,
         country: data.get("country") as string,
-        postcode: data.get("postcode") as string | null,
+        postcode: data.get("postcode")?.toString() as string | null,
     });
 
     return result;

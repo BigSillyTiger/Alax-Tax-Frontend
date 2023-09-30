@@ -1,13 +1,13 @@
 import React, { FC, useState, useEffect } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-interface searchProp {
+type Tprops = {
     value: string;
     onChange: Function;
     debounce?: number;
-}
+};
 
-const SearchBar: FC<searchProp> = ({
+const SearchBar: FC<Tprops> = ({
     value: initValue,
     onChange,
     debounce = 500,

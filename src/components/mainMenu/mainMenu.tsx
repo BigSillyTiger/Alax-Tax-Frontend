@@ -17,11 +17,11 @@ export type t_menuList = {
     current: boolean;
 }[];
 
-interface props {
+type Tprops = {
     permissionData: t_permission;
     open: boolean;
     setOpen: (value: boolean) => void;
-}
+};
 
 // create new menu list based on user permission
 const initMenuList = (permission: t_permission) => {
@@ -31,7 +31,7 @@ const initMenuList = (permission: t_permission) => {
     });
 };
 
-const MainMenu: FC<props> = ({ permissionData, open, setOpen }) => {
+const MainMenu: FC<Tprops> = ({ permissionData, open, setOpen }) => {
     const newMenuList = initMenuList(permissionData);
 
     return (

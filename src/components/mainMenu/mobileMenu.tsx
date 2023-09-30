@@ -4,11 +4,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
 import { t_menuList } from "./mainMenu";
 
-interface props {
+type Tprops = {
     menuList: t_menuList;
     open: boolean;
     setOpen: (value: boolean) => void;
-}
+};
 
 const classNames = (...classes: any) => {
     return classes.filter(Boolean).join(" ");
@@ -23,7 +23,7 @@ const navFocus = ({ isActive }: { isActive: boolean }) => {
     );
 };
 
-const MobileMenu: FC<props> = ({ menuList, open, setOpen }) => {
+const MobileMenu: FC<Tprops> = ({ menuList, open, setOpen }) => {
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog

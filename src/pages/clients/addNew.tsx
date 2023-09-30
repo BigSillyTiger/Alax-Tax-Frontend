@@ -7,23 +7,23 @@ import {
     XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-interface prop {
+type Tprops = {
     open: boolean;
     setOpen: (value: boolean) => void;
     isConflict: number;
-}
+};
 
 type t_state = "SA" | "VIC" | "QLD" | "NS" | "WA" | "TAS";
 
 const conflictCustomize = (isConflict: number) => {
     if (isConflict === 401 || isConflict === 403) {
-        return "bg-red-300 ring-2 ring-red-500 focus:ring-red-600";
+        return "ring-2 ring-red-500 focus:ring-red-600";
     } else if (isConflict === 200) {
         return "ring-1 ring-gray-300 focus:ring-indigo-600";
     }
 };
 
-const AddNew: FC<prop> = ({ open, setOpen, isConflict }) => {
+const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
     const [state, setState] = useState<t_state>("SA");
     const [city, setCity] = useState<string>("Adelaide");
     const handleState = (e: any) => {
@@ -200,24 +200,22 @@ const AddNew: FC<prop> = ({ open, setOpen, isConflict }) => {
                                                         Country
                                                     </label>
                                                     <div className="mt-1">
-                                                        <select
+                                                        <input
+                                                            type="text"
+                                                            disabled
                                                             id="country"
                                                             name="country"
-                                                            autoComplete="country-name"
+                                                            //autoComplete="country-name"
                                                             value="Australia"
                                                             onChange={(e) => {}}
-                                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                        >
-                                                            <option>
-                                                                Australia
-                                                            </option>
-                                                        </select>
+                                                            className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        />
                                                     </div>
                                                 </div>
 
                                                 <div className="col-span-full">
                                                     <label
-                                                        htmlFor="street-address"
+                                                        htmlFor="address"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
                                                         Street address
@@ -225,8 +223,8 @@ const AddNew: FC<prop> = ({ open, setOpen, isConflict }) => {
                                                     <div className="mt-1">
                                                         <input
                                                             type="text"
-                                                            name="street-address"
-                                                            id="street-address"
+                                                            name="address"
+                                                            id="address"
                                                             autoComplete="street-address"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         />
@@ -285,16 +283,16 @@ const AddNew: FC<prop> = ({ open, setOpen, isConflict }) => {
 
                                                 <div className="sm:col-span-2">
                                                     <label
-                                                        htmlFor="postal-code"
+                                                        htmlFor="postcode"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
                                                         ZIP / Postal code
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
-                                                            type="text"
-                                                            name="postal-code"
-                                                            id="postal-code"
+                                                            type="number"
+                                                            name="postcode"
+                                                            id="postcode"
                                                             autoComplete="postal-code"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         />

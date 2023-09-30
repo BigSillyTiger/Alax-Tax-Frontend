@@ -17,13 +17,13 @@ import {
 import clientColumns from "./clientColumnDefs";
 import Card from "@/components/card";
 import AddNew from "./addNew";
-import { t_result } from "./dataAccess";
+import { Tresult } from "./dataAccess";
 import { t_table_client } from "@/components/table/config";
 import { toastError, toastSuccess } from "@/configs/utils";
 
-interface if_ClientTableContent {
+type Tprops = {
     clients: t_table_client[] | null;
-}
+};
 
 const toast_conflict = () => "Email or Phone conflicted";
 const toast_add_client = () => toast.success("Register a new client");
@@ -35,7 +35,7 @@ const Clients: FC = () => {
         200
     );
     const { clients } = useLoaderData() as { clients: t_table_client[] | null };
-    const actionData = useActionData() as t_result;
+    const actionData = useActionData() as Tresult;
 
     useEffect(() => {
         /* close add new client dialog if successed insert into db */
@@ -58,7 +58,7 @@ const Clients: FC = () => {
         setAddNewOpen(true);
     };
 
-    const ClientTableContent: FC<if_ClientTableContent> = ({ clients }) => {
+    const ClientTableContent: FC<Tprops> = ({ clients }) => {
         return (
             <>
                 <div className="px-4 sm:px-6 lg:px-8 ">

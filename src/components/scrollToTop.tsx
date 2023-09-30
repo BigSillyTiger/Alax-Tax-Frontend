@@ -2,12 +2,12 @@ import React, { FC } from "react";
 import ScrollToTop from "react-scroll-up";
 import { ArrowSmallUpIcon } from "@heroicons/react/24/solid";
 
-interface prop {
+type Tprops = {
     showUnder?: number;
     duration?: number;
-}
+};
 
-const ScrollTop: FC<prop> = ({ showUnder = 150, duration = 1000 }) => {
+const ScrollTop: FC<Tprops> = ({ showUnder = 150, duration = 1000 }) => {
     return 1 ? (
         <ScrollToTop showUnder={100} duration={duration}>
             {/* <ArrowSmallUpIcon /> */}

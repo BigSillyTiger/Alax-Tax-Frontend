@@ -1,11 +1,11 @@
 import React, { FC, ReactElement } from "react";
 import { Outlet } from "react-router-dom";
 
-interface prop {
+type Tprops = {
     children: ReactElement[] | ReactElement;
-}
+};
 
-const Card: FC<prop> = ({ children }) => {
+const Card: FC<Tprops> = ({ children }) => {
     return (
         <div className="mt-8 flow-root">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

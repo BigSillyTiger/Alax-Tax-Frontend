@@ -12,12 +12,12 @@ import {
 
 import SearchBar from "./searchBar";
 
-interface tableProp {
+type Tprops = {
     data: any;
     columns: any;
-}
+};
 
-const VirtualTable: FC<tableProp> = ({ data, columns }) => {
+const VirtualTable: FC<Tprops> = ({ data, columns }) => {
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);

@@ -9,6 +9,8 @@ import {
     //type
     OnChangeFn,
     SortingState,
+    Row,
+    Cell,
 } from "@tanstack/react-table";
 
 import Pagination from "./pagination";
@@ -16,12 +18,12 @@ import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
 import { t_table_client } from "./config";
 
-interface tableProp {
+type TtableProps = {
     data: t_table_client[];
     columns: any;
-}
+};
 
-const PaginatedTable: FC<tableProp> = ({ data, columns }) => {
+const PaginatedTable: FC<TtableProps> = ({ data, columns }) => {
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
@@ -62,24 +64,32 @@ const PaginatedTable: FC<tableProp> = ({ data, columns }) => {
     ));
 
     const tableBody = table.getRowModel().rows.length
-        ? table.getRowModel().rows.map((row: any, i: number) => (
-              <tr
-                  key={row.id}
-                  className={i % 2 === 0 ? undefined : "bg-gray-100"}
-              >
-                  {row.getVisibleCells().map((cell: any) => (
-                      <td
-                          key={cell.id}
-                          className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
-                      >
-                          {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                          )}
-                      </td>
-                  ))}
-              </tr>
-          ))
+        ? table
+              .getRowModel()
+              .rows.map((row: Row<t_table_client>, i: number) => (
+                  <tr
+                      key={row.id}
+                      className={i % 2 === 0 ? undefined : "bg-gray-100"}
+                      onClick={() => {
+                          console.log(
+                              "-> click event row data: ",
+                              row.original
+                          );
+                      }}
+                  >
+                      {row.getVisibleCells().map((cell: any) => (
+                          <td
+                              key={cell.id}
+                              className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
+                          >
+                              {flexRender(
+                                  cell.column.columnDef.cell,
+                                  cell.getContext()
+                              )}
+                          </td>
+                      ))}
+                  </tr>
+              ))
         : null;
 
     return (

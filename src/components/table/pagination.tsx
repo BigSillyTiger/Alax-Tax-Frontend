@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 
-interface paginationProp {
+type Tprops = {
     table: any;
-}
+};
 
-const Pagination: FC<paginationProp> = ({ table }) => {
+const Pagination: FC<Tprops> = ({ table }) => {
     return (
         <div className="flex items-center justify-end mt-2 gap-2">
             <select
