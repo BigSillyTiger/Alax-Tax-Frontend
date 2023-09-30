@@ -2,10 +2,10 @@ import React, {
     FC,
     Suspense,
     useState,
-    MouseEvent,
-    TouchEvent,
     useMemo,
     useEffect,
+    TouchEvent,
+    MouseEvent,
 } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -18,15 +18,13 @@ import clientColumns from "./clientColumnDefs";
 import Card from "@/components/card";
 import AddNew from "./addNew";
 import { Tresult } from "./dataAccess";
-import { t_table_client } from "@/components/table/config";
 import { toastError, toastSuccess } from "@/configs/utils";
 
-type Tprops = {
-    clients: t_table_client[] | null;
-};
+import { TclientSchema, TclientViewSchema } from "@/configs/schema/client";
 
-const toast_conflict = () => "Email or Phone conflicted";
-const toast_add_client = () => toast.success("Register a new client");
+type Tprops = {
+    clients: TclientViewSchema[] | null;
+};
 
 const Clients: FC = () => {
     const [addNewOpen, setAddNewOpen] = useState(false);
@@ -34,7 +32,9 @@ const Clients: FC = () => {
     const [infoConflict, setInfoConflict] = useState<200 | 401 | 402 | 403>(
         200
     );
-    const { clients } = useLoaderData() as { clients: t_table_client[] | null };
+    const { clients } = useLoaderData() as {
+        clients: TclientViewSchema[] | null;
+    };
     const actionData = useActionData() as Tresult;
 
     useEffect(() => {

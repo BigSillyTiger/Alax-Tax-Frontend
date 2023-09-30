@@ -1,8 +1,8 @@
-import React, { FC, ReactElement } from "react";
+import React, { FC, ReactNode } from "react";
 import { Outlet } from "react-router-dom";
 
 type Tprops = {
-    children: ReactElement[] | ReactElement;
+    children: ReactNode[] | ReactNode;
 };
 
 const Card: FC<Tprops> = ({ children }) => {

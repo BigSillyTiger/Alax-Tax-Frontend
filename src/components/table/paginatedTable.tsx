@@ -11,15 +11,17 @@ import {
     SortingState,
     Row,
     Cell,
+    ColumnDef,
 } from "@tanstack/react-table";
 
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
-import { t_table_client } from "./config";
+import { TclientViewSchema } from "@/configs/schema/client";
 
 type TtableProps = {
-    data: t_table_client[];
+    data: TclientViewSchema[];
+    //columns: ColumnDef<TclientViewSchema>;
     columns: any;
 };
 
@@ -66,7 +68,7 @@ const PaginatedTable: FC<TtableProps> = ({ data, columns }) => {
     const tableBody = table.getRowModel().rows.length
         ? table
               .getRowModel()
-              .rows.map((row: Row<t_table_client>, i: number) => (
+              .rows.map((row: Row<TclientViewSchema>, i: number) => (
                   <tr
                       key={row.id}
                       className={i % 2 === 0 ? undefined : "bg-gray-100"}

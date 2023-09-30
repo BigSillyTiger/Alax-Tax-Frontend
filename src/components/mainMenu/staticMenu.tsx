@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
-import { t_menuList } from "./mainMenu";
+import { TmenuList } from "./mainMenu";
 
 type Tprops = {
-    menuList: t_menuList;
+    menuList: TmenuList;
 };
 
 const classNames = (...classes: any) => {

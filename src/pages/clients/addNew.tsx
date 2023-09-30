@@ -1,4 +1,5 @@
-import React, { FC, Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
+import type { FC, FormEvent, MouseEvent, TouchEvent, ChangeEvent } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Form } from "react-router-dom";
 import {
@@ -6,6 +7,13 @@ import {
     PhoneIcon,
     XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigation, useSubmit } from "react-router-dom";
+import { Tstate } from "@/configs/schema/univers";
+import type { TclientSchema } from "@/configs/schema/client";
+import { clientSchema } from "@/configs/schema/client";
+import clsx from "clsx";
 
 type Tprops = {
     open: boolean;
@@ -13,29 +21,60 @@ type Tprops = {
     isConflict: number;
 };
 
-type t_state = "SA" | "VIC" | "QLD" | "NS" | "WA" | "TAS";
-
-const conflictCustomize = (isConflict: number) => {
-    if (isConflict === 401 || isConflict === 403) {
-        return "ring-2 ring-red-500 focus:ring-red-600";
-    } else if (isConflict === 200) {
-        return "ring-1 ring-gray-300 focus:ring-indigo-600";
-    }
-};
-
-const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
-    const [state, setState] = useState<t_state>("SA");
+const AddNew: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
+    const [state, setState] = useState<Tstate>("SA");
     const [city, setCity] = useState<string>("Adelaide");
-    const handleState = (e: any) => {
-        setState(e.target.value as t_state);
+    const [postcode, setPostcode] = useState<string>("5000");
+    const navigation = useNavigation();
+    const submit = useSubmit();
+
+    const {
+        register,
+        //handleSubmit,
+        trigger,
+        reset,
+        getValues,
+        formState: { errors },
+    } = useForm<TclientSchema>({ resolver: zodResolver(clientSchema) });
+
+    const handleState = (e: ChangeEvent<HTMLSelectElement>) => {
+        setState(e.target.value as Tstate);
     };
-    const handleCity = (e: any) => {
+    const handleCity = (e: ChangeEvent<HTMLInputElement>) => {
         setCity(e.target.value as string);
+    };
+    const handlePostcode = (e: ChangeEvent<HTMLInputElement>) => {
+        setPostcode(e.target.value as string);
+    };
+
+    const handleClose = (e: MouseEvent | TouchEvent) => {
+        e.preventDefault();
+        setOpen(false);
+        reset();
+    };
+
+    const onSubmit = async (e: FormEvent) => {
+        //console.log("-> test: ", errors);
+        const isValid = await trigger();
+        e.preventDefault();
+        //console.log("-> test valid: ", isValid);
+        if (isValid) {
+            const values = getValues();
+            //console.log("-> got values: ", values);
+            submit(values, { action: "/clients", method: "POST" });
+        }
     };
 
     return (
         <Transition.Root show={open} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={setOpen}>
+            <Dialog
+                as="div"
+                className="relative z-10"
+                onClose={(value) => {
+                    setOpen(value);
+                    reset();
+                }}
+            >
                 {/* background overlay */}
                 <Transition.Child
                     as={Fragment}
@@ -67,7 +106,7 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                     <button
                                         type="button"
                                         className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                        onClick={() => setOpen(false)}
+                                        onClick={handleClose}
                                     >
                                         <span className="sr-only">Close</span>
                                         <XMarkIcon
@@ -93,7 +132,11 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                             Register New Client
                                         </Dialog.Title>
                                         {/* content */}
-                                        <Form method="POST" action="/clients">
+                                        <Form
+                                            /* method="POST"
+                                            action="/clients" */
+                                            onSubmit={onSubmit}
+                                        >
                                             <p className="mt-1 text-sm leading-6 text-gray-600">
                                                 Use a permanent address where
                                                 you can receive mail.
@@ -109,6 +152,9 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
+                                                            {...register(
+                                                                "first_name"
+                                                            )}
                                                             type="text"
                                                             name="first_name"
                                                             id="first_name"
@@ -128,6 +174,9 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
+                                                            {...register(
+                                                                "last_name"
+                                                            )}
                                                             type="text"
                                                             name="last_name"
                                                             id="last_name"
@@ -153,13 +202,24 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                                             />
                                                         </div>
                                                         <input
+                                                            {...register(
+                                                                "email"
+                                                            )}
                                                             type="email"
                                                             name="email"
                                                             id="email"
                                                             required
-                                                            className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-10 ${conflictCustomize(
-                                                                isConflict
-                                                            )}`}
+                                                            className={clsx(
+                                                                "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10",
+                                                                (isConflict ===
+                                                                    402 ||
+                                                                    isConflict ===
+                                                                        403) &&
+                                                                    "ring-2 ring-red-500 focus:ring-red-600",
+                                                                isConflict ===
+                                                                    200 &&
+                                                                    "ring-1 ring-gray-300 focus:ring-indigo-600"
+                                                            )}
                                                             placeholder="you@example.com"
                                                         />
                                                     </div>
@@ -180,14 +240,25 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                                             />
                                                         </div>
                                                         <input
+                                                            {...register(
+                                                                "phone"
+                                                            )}
                                                             type="text"
                                                             id="phone"
                                                             name="phone"
                                                             autoComplete="tel"
                                                             placeholder="0-xxx-xxx-xxx"
-                                                            className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-10 ${conflictCustomize(
-                                                                isConflict
-                                                            )}`}
+                                                            className={clsx(
+                                                                "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10",
+                                                                (isConflict ===
+                                                                    401 ||
+                                                                    isConflict ===
+                                                                        403) &&
+                                                                    "ring-2 ring-red-500 focus:ring-red-600",
+                                                                isConflict ===
+                                                                    200 &&
+                                                                    "ring-1 ring-gray-300 focus:ring-indigo-600"
+                                                            )}
                                                         />
                                                     </div>
                                                 </div>
@@ -201,13 +272,16 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
+                                                            {...register(
+                                                                "country"
+                                                            )}
                                                             type="text"
-                                                            disabled
+                                                            //disabled
                                                             id="country"
                                                             name="country"
-                                                            //autoComplete="country-name"
+                                                            autoComplete="country-name"
                                                             value="Australia"
-                                                            onChange={(e) => {}}
+                                                            //onChange={(e) => {}}
                                                             className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                         />
                                                     </div>
@@ -222,6 +296,9 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
+                                                            {...register(
+                                                                "address"
+                                                            )}
                                                             type="text"
                                                             name="address"
                                                             id="address"
@@ -240,6 +317,9 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
+                                                            {...register(
+                                                                "city"
+                                                            )}
                                                             type="text"
                                                             name="city"
                                                             id="city"
@@ -262,6 +342,9 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                                     </label>
                                                     <div className="mt-1">
                                                         <select
+                                                            {...register(
+                                                                "state"
+                                                            )}
                                                             id="state"
                                                             name="state"
                                                             autoComplete="state-name"
@@ -271,30 +354,56 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                                             }
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         >
-                                                            <option>SA</option>
-                                                            <option>NS</option>
-                                                            <option>VIC</option>
-                                                            <option>TAS</option>
-                                                            <option>WA</option>
-                                                            <option>QLD</option>
+                                                            <option value="SA">
+                                                                SA
+                                                            </option>
+                                                            <option value="NS">
+                                                                NS
+                                                            </option>
+                                                            <option value="VIC">
+                                                                VIC
+                                                            </option>
+                                                            <option value="TAS">
+                                                                TAS
+                                                            </option>
+                                                            <option value="WA">
+                                                                WA
+                                                            </option>
+                                                            <option value="QLD">
+                                                                QLD
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div className="sm:col-span-2">
-                                                    <label
-                                                        htmlFor="postcode"
-                                                        className="block text-sm font-medium leading-6 text-gray-900"
-                                                    >
-                                                        ZIP / Postal code
-                                                    </label>
+                                                    <>
+                                                        <label
+                                                            htmlFor="postcode"
+                                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                                        >
+                                                            ZIP / Postal code
+                                                        </label>
+                                                    </>
                                                     <div className="mt-1">
                                                         <input
-                                                            type="number"
+                                                            {...register(
+                                                                "postcode"
+                                                            )}
+                                                            type="text"
                                                             name="postcode"
                                                             id="postcode"
+                                                            value={postcode}
+                                                            onChange={
+                                                                handlePostcode
+                                                            }
                                                             autoComplete="postal-code"
-                                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                                            className={clsx(
+                                                                "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2",
+                                                                errors.postcode
+                                                                    ? "ring-2 ring-red-600 focus:ring-red-400"
+                                                                    : "ring-1 ring-gray-300 focus:ring-indigo-600"
+                                                            )}
                                                         />
                                                     </div>
                                                 </div>
@@ -303,18 +412,23 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict }) => {
                                                 <button
                                                     type="submit"
                                                     className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                                                    /* onClick={() =>
-                                                        setOpen(false)
-                                                    } */
+                                                    disabled={
+                                                        navigation.state ===
+                                                            "submitting" ||
+                                                        navigation.state ===
+                                                            "loading"
+                                                    }
+                                                    onClick={() => trigger()}
                                                 >
-                                                    Create
+                                                    {navigation.state ===
+                                                    "submitting"
+                                                        ? "Submitting..."
+                                                        : "Submit"}
                                                 </button>
                                                 <button
                                                     type="button"
                                                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                                    onClick={() =>
-                                                        setOpen(false)
-                                                    }
+                                                    onClick={handleClose}
                                                 >
                                                     Cancel
                                                 </button>

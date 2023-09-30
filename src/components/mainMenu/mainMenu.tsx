@@ -3,9 +3,9 @@ import MobileMenu from "./mobileMenu";
 
 import { menuList } from "@/configs/menuList";
 import StaticMenu from "./staticMenu";
-import { t_permission } from "../layout/layout";
+import { Tpermission } from "@/configs/schema/univers";
 
-export type t_menuList = {
+export type TmenuList = {
     name: string;
     href: string;
     icon: React.ForwardRefExoticComponent<
@@ -18,13 +18,13 @@ export type t_menuList = {
 }[];
 
 type Tprops = {
-    permissionData: t_permission;
+    permissionData: Tpermission;
     open: boolean;
     setOpen: (value: boolean) => void;
 };
 
 // create new menu list based on user permission
-const initMenuList = (permission: t_permission) => {
+const initMenuList = (permission: Tpermission) => {
     const temp = Object.values(permission);
     return menuList.filter((_, index) => {
         return temp[index];

@@ -1,17 +1,6 @@
 import apis from "./axios";
 import { REQ_CLIENT_ALL, REQ_CLIENT_SINGLE_REGISTER } from "./req_list";
-
-export type t_clientInfo = {
-    first_name: string;
-    last_name: string;
-    phone: string;
-    email: string;
-    address: string | null;
-    city: string;
-    state: string;
-    country: string;
-    postcode: string | null;
-};
+import { TclientSchema } from "@/configs/schema/client";
 
 export const clientAll = async () => {
     try {
@@ -37,7 +26,7 @@ export const clientAll = async () => {
     }
 };
 
-export const registerNewClient = async (client: t_clientInfo) => {
+export const registerNewClient = async (client: TclientSchema) => {
     try {
         const response = await apis.post(REQ_CLIENT_SINGLE_REGISTER, client);
         return response.data;

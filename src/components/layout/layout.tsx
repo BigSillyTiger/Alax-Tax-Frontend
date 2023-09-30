@@ -3,18 +3,10 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import MainMenu from "@/components/mainMenu";
 import HeadBar from "@/components/headBar";
 import { Toaster } from "react-hot-toast";
-
-export type t_permission = {
-    dashboard: number;
-    clients: number;
-    orders: number;
-    calendar: number;
-    employees: number;
-    management: number;
-};
+import { Tpermission } from "@/configs/schema/univers";
 
 const Layout: FC = () => {
-    const loaderData = useLoaderData() as t_permission; // permission data
+    const loaderData = useLoaderData() as Tpermission; // permission data
 
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 

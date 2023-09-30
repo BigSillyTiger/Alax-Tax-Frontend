@@ -2,10 +2,10 @@ import React, { FC, Fragment } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
-import { t_menuList } from "./mainMenu";
+import { TmenuList } from "./mainMenu";
 
 type Tprops = {
-    menuList: t_menuList;
+    menuList: TmenuList;
     open: boolean;
     setOpen: (value: boolean) => void;
 };
