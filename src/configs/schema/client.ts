@@ -39,10 +39,10 @@ export const clientViewSchema = clientSchema
         address: true,
         city: true,
         state: true,
-        contry: true,
+        country: true,
         postcode: true,
     })
     .extend({ full_name: z.string().trim() });
 
 export type TclientSchema = z.infer<typeof clientSchema>;
-export type TclientViewSchema = z.infer<typeof clientViewSchema>;
+export type TclientView = z.infer<typeof clientViewSchema>;

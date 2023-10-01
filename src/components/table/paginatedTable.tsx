@@ -17,15 +17,16 @@ import {
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
-import { TclientViewSchema } from "@/configs/schema/client";
+import { TclientView } from "@/configs/schema/client";
 
 type TtableProps = {
-    data: TclientViewSchema[];
-    //columns: ColumnDef<TclientViewSchema>;
+    data: TclientView[];
+    //columns: ColumnDef<TclientView>;
     columns: any;
+    rowClick: (open: TclientView | null) => void;
 };
 
-const PaginatedTable: FC<TtableProps> = ({ data, columns }) => {
+const PaginatedTable: FC<TtableProps> = ({ data, columns, rowClick }) => {
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
@@ -66,32 +67,29 @@ const PaginatedTable: FC<TtableProps> = ({ data, columns }) => {
     ));
 
     const tableBody = table.getRowModel().rows.length
-        ? table
-              .getRowModel()
-              .rows.map((row: Row<TclientViewSchema>, i: number) => (
-                  <tr
-                      key={row.id}
-                      className={i % 2 === 0 ? undefined : "bg-gray-100"}
-                      onClick={() => {
-                          console.log(
-                              "-> click event row data: ",
-                              row.original
-                          );
-                      }}
-                  >
-                      {row.getVisibleCells().map((cell: any) => (
-                          <td
-                              key={cell.id}
-                              className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
-                          >
-                              {flexRender(
-                                  cell.column.columnDef.cell,
-                                  cell.getContext()
-                              )}
-                          </td>
-                      ))}
-                  </tr>
-              ))
+        ? table.getRowModel().rows.map((row: Row<TclientView>, i: number) => (
+              <tr
+                  key={row.id}
+                  className={i % 2 === 0 ? undefined : "bg-gray-100"}
+                  onClick={() => {
+                      // open the modal and passing the client id
+                      console.log("-> click data: ", row.original);
+                      rowClick(row.original);
+                  }}
+              >
+                  {row.getVisibleCells().map((cell: any) => (
+                      <td
+                          key={cell.id}
+                          className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
+                      >
+                          {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                          )}
+                      </td>
+                  ))}
+              </tr>
+          ))
         : null;
 
     return (

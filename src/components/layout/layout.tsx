@@ -20,7 +20,7 @@ const Layout: FC = () => {
             <HeadBar open={sidebarOpen} setOpen={setSidebarOpen} />
 
             {/* view area */}
-            <main className="py-10 lg:pl-20 h-[93vh] overflow-y-auto">
+            <main className="relative py-5 w-screen left-0 lg:left-[5vw] lg:w-[95vw] h-[93vh] overflow-y-auto">
                 <Outlet />
             </main>
             <Toaster position="top-center" reverseOrder={true} />

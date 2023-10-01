@@ -1,5 +1,9 @@
 import apis from "./axios";
-import { REQ_CLIENT_ALL, REQ_CLIENT_SINGLE_REGISTER } from "./req_list";
+import {
+    REQ_CLIENT_ALL,
+    REQ_CLIENT_SINGLE_DEL,
+    REQ_CLIENT_SINGLE_REGISTER,
+} from "./req_list";
 import { TclientSchema } from "@/configs/schema/client";
 
 export const clientAll = async () => {
@@ -32,5 +36,14 @@ export const registerNewClient = async (client: TclientSchema) => {
         return response.data;
     } catch (err) {
         console.log("-> insert one client err: ", err);
+    }
+};
+
+export const delClient = async (id: number) => {
+    try {
+        const response = apis.post(REQ_CLIENT_SINGLE_DEL, id);
+        return response;
+    } catch (err) {
+        console.log("-> delete client failed: ", err);
     }
 };

@@ -2,13 +2,12 @@ import React, {
     FC,
     Suspense,
     useState,
-    useMemo,
     useEffect,
     TouchEvent,
     MouseEvent,
 } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
-import toast from "react-hot-toast";
+
 import LoadingPage from "@/components/loadingEle";
 import {
     VirtualTable as VTable,
@@ -16,24 +15,26 @@ import {
 } from "@/components/table";
 import clientColumns from "./clientColumnDefs";
 import Card from "@/components/card";
-import AddNew from "./addNew";
+import MAddNewClient from "./modalAddNewClient";
 import { Tresult } from "./dataAccess";
 import { toastError, toastSuccess } from "@/configs/utils";
 
-import { TclientSchema, TclientViewSchema } from "@/configs/schema/client";
+import { TclientView } from "@/configs/schema/client";
+import MClientInfo from "./modalClient";
 
 type Tprops = {
-    clients: TclientViewSchema[] | null;
+    clients: TclientView[] | null;
 };
 
 const Clients: FC = () => {
     const [addNewOpen, setAddNewOpen] = useState(false);
+    const [clientInfo, setClientInfo] = useState<TclientView | null>(null);
     /* 200 - no conflicted, 401 - phone, 402 - email, 403 - both */
     const [infoConflict, setInfoConflict] = useState<200 | 401 | 402 | 403>(
         200
     );
     const { clients } = useLoaderData() as {
-        clients: TclientViewSchema[] | null;
+        clients: TclientView[] | null;
     };
     const actionData = useActionData() as Tresult;
 
@@ -61,7 +62,7 @@ const Clients: FC = () => {
     const ClientTableContent: FC<Tprops> = ({ clients }) => {
         return (
             <>
-                <div className="px-4 sm:px-6 lg:px-8 ">
+                <div className="px-4 sm:px-6 lg:px-8 top-0">
                     {/* header area */}
                     <div className="sm:flex sm:items-center">
                         <div className="sm:flex-auto sm:flex"></div>
@@ -77,11 +78,15 @@ const Clients: FC = () => {
                     </div>
                     {/* table */}
                     {clients ? (
-                        <Card>
-                            <PTable data={clients} columns={clientColumns} />
+                        <Card className="mt-8">
+                            <PTable
+                                data={clients}
+                                columns={clientColumns}
+                                rowClick={setClientInfo}
+                            />
                         </Card>
                     ) : (
-                        <Card>
+                        <Card className="mt-8">
                             <span className="m-5 p-5 h-15 text-center">
                                 No client content
                             </span>
@@ -105,11 +110,12 @@ const Clients: FC = () => {
 
             {/* Modal for add new client, and this modal can not be insert into Await*/}
             {/* otherwise, the animation would get lost*/}
-            <AddNew
+            <MAddNewClient
                 open={addNewOpen}
                 setOpen={setAddNewOpen}
                 isConflict={infoConflict}
             />
+            <MClientInfo client={clientInfo} setOpen={setClientInfo} />
         </div>
     );
 };

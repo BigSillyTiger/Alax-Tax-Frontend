@@ -31,6 +31,7 @@ const MobileMenu: FC<Tprops> = ({ menuList, open, setOpen }) => {
                 className="relative z-50 lg:hidden"
                 onClose={setOpen}
             >
+                {/* background */}
                 <Transition.Child
                     as={Fragment}
                     enter="transition-opacity ease-linear duration-300"

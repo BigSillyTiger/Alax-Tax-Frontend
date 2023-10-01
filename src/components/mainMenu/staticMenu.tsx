@@ -21,7 +21,7 @@ const navFocus = ({ isActive }: { isActive: boolean }) => {
 
 const StaticMenu: FC<Tprops> = ({ menuList }) => {
     return (
-        <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto lg:bg-gray-900 lg:pb-4">
+        <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-[5vw] lg:overflow-y-auto lg:bg-gray-900 lg:pb-4">
             <div className="flex h-16 shrink-0 items-center justify-center">
                 <img
                     className="h-8 w-auto"

@@ -10,7 +10,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation, useSubmit } from "react-router-dom";
-import { Tstate } from "@/configs/schema/univers";
+import type { Tstate } from "@/configs/schema/univers";
 import type { TclientSchema } from "@/configs/schema/client";
 import { clientSchema } from "@/configs/schema/client";
 import clsx from "clsx";
@@ -21,7 +21,7 @@ type Tprops = {
     isConflict: number;
 };
 
-const AddNew: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
+const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
     const [state, setState] = useState<Tstate>("SA");
     const [city, setCity] = useState<string>("Adelaide");
     const [postcode, setPostcode] = useState<string>("5000");
@@ -100,7 +100,8 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden  rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                            {/* removed transform */}
+                            <Dialog.Panel className="relative overflow-hidden  rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                                 {/* right top close button */}
                                 <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
                                     <button
@@ -445,4 +446,4 @@ const AddNew: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
     );
 };
 
-export default AddNew;
+export default MAddNewClient;
