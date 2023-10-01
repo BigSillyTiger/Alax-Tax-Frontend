@@ -5,8 +5,9 @@ import {
     REQ_CLIENT_SINGLE_REGISTER,
 } from "./req_list";
 import { TclientSchema } from "@/configs/schema/client";
+import { Tresponse } from "@/configs/types";
 
-export const clientAll = async () => {
+export const clientAll = async (): Promise<Tresponse> => {
     try {
         const response = await apis.get(REQ_CLIENT_ALL);
         return response.data;
@@ -30,22 +31,32 @@ export const clientAll = async () => {
     }
 };
 
-export const registerNewClient = async (client: TclientSchema) => {
+export const registerNewClient = async (
+    client: TclientSchema
+): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_CLIENT_SINGLE_REGISTER, client);
         return response.data;
     } catch (err) {
         console.log("-> insert one client err: ", err);
+        return {
+            status: 400,
+            msg: "Failed: register client",
+            data: "",
+        };
     }
 };
 
-export const delSingleClient = async (id: number) => {
+export const delSingleClient = async (id: number): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_CLIENT_SINGLE_DEL, { id });
-        if (response.status == 200) return true;
-        else return false;
+        return response.data;
     } catch (err) {
         console.log("-> delete client failed: ", err);
-        return false;
+        return {
+            status: 400,
+            msg: "failed in delete client",
+            data: "",
+        };
     }
 };

@@ -16,7 +16,7 @@ import {
 import clientColumns from "./clientColumnDefs";
 import Card from "@/components/card";
 import MAddNewClient from "./modals/mAddNewClient";
-import { Tresult } from "./dataAccess";
+import { Tresponse } from "@/configs/types";
 import { toastError, toastSuccess } from "@/configs/utils";
 
 import { TclientView } from "@/configs/schema/client";
@@ -38,15 +38,17 @@ const Clients: FC = () => {
     const { clients } = useLoaderData() as {
         clients: TclientView[] | null;
     };
-    const actionData = useActionData() as Tresult;
+    const actionData = useActionData() as Tresponse;
 
     useEffect(() => {
         /* close add new client dialog if successed insert into db */
-        if (actionData?.status == 200 && addNewOpen) {
+        if (actionData?.status === 200 && addNewOpen) {
             setAddNewOpen(false);
-            toastSuccess("Register a new client");
-        }
-        if (actionData?.status && actionData?.status != 200) {
+            toastSuccess("Registered a new client");
+        } else if (actionData?.status && actionData?.status === 201) {
+            // delete a client
+            toastSuccess("Deleted a client");
+        } else if (actionData?.status && actionData?.status !== 200) {
             setInfoConflict(actionData?.status as 401 | 402 | 403);
             toastError("Email or Phone conflicted");
         }

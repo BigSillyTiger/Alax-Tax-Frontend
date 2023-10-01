@@ -54,14 +54,12 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
     };
 
     const onSubmit = async (e: FormEvent) => {
-        //console.log("-> test: ", errors);
         const isValid = await trigger();
         e.preventDefault();
-        //console.log("-> test valid: ", isValid);
         if (isValid) {
             const values = getValues();
-            //console.log("-> got values: ", values);
             submit(values, { action: "/clients", method: "POST" });
+            reset();
         }
     };
 
