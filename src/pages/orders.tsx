@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 
 import ScrollTop from "@/components/scrollToTop";
-import AddNew from "@/pages/clients/modalAddNewClient";
+import AddNew from "@/pages/clients/modals/mAddNewClient";
 
 const Orders: FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import type { FC, FormEvent, MouseEvent, TouchEvent, ChangeEvent } from "react";
 import type { TclientView } from "@/configs/schema/client";
 import { Transition, Dialog } from "@headlessui/react";
@@ -8,10 +8,18 @@ import Card from "@/components/card";
 type Tprops = {
     client: TclientView | null;
     setOpen: (open: TclientView | null) => void;
+    deleteClientID: number;
+    setDeleteDialogOpen: (value: number) => void;
 };
 
 // a modal based on headlessui to display client info
-const MClientInfo: FC<Tprops> = ({ client, setOpen }) => {
+const MClientInfo: FC<Tprops> = ({
+    client,
+    setOpen,
+    deleteClientID,
+    setDeleteDialogOpen,
+}) => {
+    //const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const handleClose = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
         setOpen(null);
@@ -22,7 +30,9 @@ const MClientInfo: FC<Tprops> = ({ client, setOpen }) => {
             <Dialog
                 as="div"
                 className="relative z-10"
-                onClose={(_) => setOpen(null)}
+                onClose={(_) => {
+                    !deleteClientID && setOpen(null);
+                }}
             >
                 {/* background overlay */}
                 <Transition.Child
@@ -110,6 +120,25 @@ const MClientInfo: FC<Tprops> = ({ client, setOpen }) => {
                                                     {client?.state},{" "}
                                                     {client?.country}
                                                 </p>
+                                            </div>
+                                            <div className="flex flex-col items-center col-span-6">
+                                                <div className="w-full border-y border-gray-200" />
+                                                <button
+                                                    className="mt-2 mb-1 inset-1 border-0 ring-2 ring-indigo-600"
+                                                    onClick={() => {
+                                                        console.log(
+                                                            "-> delete click: ",
+                                                            client?.id
+                                                        );
+                                                        setDeleteDialogOpen(
+                                                            (client!
+                                                                .id as number) ||
+                                                                0
+                                                        );
+                                                    }}
+                                                >
+                                                    Delete
+                                                </button>
                                             </div>
                                         </div>
                                     </Card>

@@ -13,6 +13,7 @@ export type Tresult = {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     const clients = API_CLIENT.clientAll();
+    console.log("->>> loader run~");
     return defer({ clients });
 };
 
@@ -20,6 +21,8 @@ export const action = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresult> => {
     const data = await request.formData();
+    console.log("-> test: ", data.get("intent"));
+
     const result = await API_CLIENT.registerNewClient({
         first_name: data.get("first_name") as string,
         last_name: data.get("last_name") as string,

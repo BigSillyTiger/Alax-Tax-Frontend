@@ -39,11 +39,13 @@ export const registerNewClient = async (client: TclientSchema) => {
     }
 };
 
-export const delClient = async (id: number) => {
+export const delSingleClient = async (id: number) => {
     try {
-        const response = apis.post(REQ_CLIENT_SINGLE_DEL, id);
-        return response;
+        const response = await apis.post(REQ_CLIENT_SINGLE_DEL, { id });
+        if (response.status == 200) return true;
+        else return false;
     } catch (err) {
         console.log("-> delete client failed: ", err);
+        return false;
     }
 };

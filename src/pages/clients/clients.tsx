@@ -15,12 +15,13 @@ import {
 } from "@/components/table";
 import clientColumns from "./clientColumnDefs";
 import Card from "@/components/card";
-import MAddNewClient from "./modalAddNewClient";
+import MAddNewClient from "./modals/mAddNewClient";
 import { Tresult } from "./dataAccess";
 import { toastError, toastSuccess } from "@/configs/utils";
 
 import { TclientView } from "@/configs/schema/client";
-import MClientInfo from "./modalClient";
+import MClientInfo from "./modals/mClient";
+import MDelete from "@/pages/clients/modals/mDelete";
 
 type Tprops = {
     clients: TclientView[] | null;
@@ -29,6 +30,7 @@ type Tprops = {
 const Clients: FC = () => {
     const [addNewOpen, setAddNewOpen] = useState(false);
     const [clientInfo, setClientInfo] = useState<TclientView | null>(null);
+    const [deleteClientID, setDeleteClientID] = useState(0);
     /* 200 - no conflicted, 401 - phone, 402 - email, 403 - both */
     const [infoConflict, setInfoConflict] = useState<200 | 401 | 402 | 403>(
         200
@@ -115,7 +117,17 @@ const Clients: FC = () => {
                 setOpen={setAddNewOpen}
                 isConflict={infoConflict}
             />
-            <MClientInfo client={clientInfo} setOpen={setClientInfo} />
+            <MClientInfo
+                client={clientInfo}
+                setOpen={setClientInfo}
+                deleteClientID={deleteClientID}
+                setDeleteDialogOpen={setDeleteClientID}
+            />
+            <MDelete
+                id={deleteClientID}
+                setOpen={setDeleteClientID}
+                setClientInfo={setClientInfo}
+            />
         </div>
     );
 };
