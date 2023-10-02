@@ -57,7 +57,7 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
         if (isValid) {
             const values = getValues();
             submit(values, { action: "/clients", method: "POST" });
-            reset();
+            //reset();
         }
     };
 
@@ -213,8 +213,10 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                     isConflict ===
                                                                         403) &&
                                                                     "ring-2 ring-red-500 focus:ring-red-600",
-                                                                isConflict ===
-                                                                    200 &&
+                                                                (isConflict ===
+                                                                    200 ||
+                                                                    isConflict ===
+                                                                        401) &&
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
                                                             placeholder="you@example.com"
@@ -252,8 +254,10 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                     isConflict ===
                                                                         403) &&
                                                                     "ring-2 ring-red-500 focus:ring-red-600",
-                                                                isConflict ===
-                                                                    200 &&
+                                                                (isConflict ===
+                                                                    200 ||
+                                                                    isConflict ===
+                                                                        402) &&
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
                                                         />

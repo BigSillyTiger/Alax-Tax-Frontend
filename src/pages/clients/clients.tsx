@@ -23,6 +23,7 @@ import { TclientView } from "@/configs/schema/client";
 import MClientInfo from "./modals/mClient";
 import MDelete from "@/pages/clients/modals/mDelete";
 import MUpdateClient from "./modals/mUpdateClient";
+import { RES_STATUS } from "@/configs/types";
 
 type Tprops = {
     clients: TclientView[] | null;
@@ -54,15 +55,32 @@ const Clients: FC = () => {
 
     useEffect(() => {
         /* close add new client dialog if successed insert into db */
-        if (actionData?.status === 200 && addNewOpen) {
-            setAddNewOpen(false);
-            toastSuccess("Registered a new client");
-        } else if (actionData?.status && actionData?.status === 201) {
+        if (actionData?.status === RES_STATUS.SUCCESS) {
+            if (addNewOpen) {
+                setAddNewOpen(false);
+                toastSuccess("Registered a new client");
+            }
+            if (clientEdit.id) {
+                setClientEdit({ ...clientEdit, id: 0 });
+                toastSuccess("Updated client informaton");
+            }
+        } else if (
+            actionData?.status &&
+            actionData?.status === RES_STATUS.SUC_DEL_SINGLE
+        ) {
             // delete a client
             toastSuccess("Deleted a client");
-        } else if (actionData?.status && actionData?.status !== 200) {
-            setInfoConflict(actionData?.status as 401 | 402 | 403);
-            toastError("Email or Phone conflicted");
+        } else if (
+            actionData?.status &&
+            actionData?.status !== RES_STATUS.SUCCESS
+        ) {
+            setInfoConflict(
+                actionData?.status as
+                    | RES_STATUS.FAILED_DUP_PHONE
+                    | RES_STATUS.FAILED_DUP_EMAIL
+                    | RES_STATUS.FAILED_DUP_P_E
+            );
+            toastError("Email or Phone already existed");
         }
     }, [actionData]);
 
