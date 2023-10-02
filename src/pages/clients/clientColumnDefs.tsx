@@ -1,6 +1,13 @@
 import { Cell } from "@tanstack/react-table";
+import { Bars3CenterLeftIcon } from "@heroicons/react/24/outline";
 
 const clientColumns = [
+    {
+        header: "Details",
+        cell: (info: Cell<{ details: string }, string>) => {
+            return <></>;
+        },
+    },
     {
         header: "Name",
         accessorKey: "full_name",
@@ -35,6 +42,12 @@ const clientColumns = [
         cell: (info: Cell<{ postcode: string }, string>) => (
             <span>{info.getValue()}</span>
         ),
+    },
+    {
+        header: "Menu",
+        cell: (info: Cell<{ Menu: string }, string>) => {
+            return <></>;
+        },
     },
 ];
 

@@ -8,6 +8,7 @@ import Card from "@/components/card";
 type Tprops = {
     client: TclientView | null;
     setOpen: (open: TclientView | null) => void;
+    /* delete modal */
     deleteClientID: number;
     setDeleteDialogOpen: (value: number) => void;
 };
@@ -122,23 +123,26 @@ const MClientInfo: FC<Tprops> = ({
                                                 </p>
                                             </div>
                                             <div className="flex flex-col items-center col-span-6">
-                                                <div className="w-full border-y border-gray-200" />
-                                                <button
-                                                    className="mt-2 mb-1 inset-1 border-0 ring-2 ring-indigo-600"
-                                                    onClick={() => {
-                                                        console.log(
-                                                            "-> delete click: ",
-                                                            client?.id
-                                                        );
-                                                        setDeleteDialogOpen(
-                                                            (client!
-                                                                .id as number) ||
-                                                                0
-                                                        );
-                                                    }}
-                                                >
-                                                    Delete
-                                                </button>
+                                                <div className="w-full border-y border-gray-200 " />
+                                                <div className="grid grid-cols-2 gap-x-4 gap-y-4">
+                                                    <button
+                                                        id="deleteBtn"
+                                                        className="mt-2 inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto col-span-1 p-1"
+                                                        onClick={() => {
+                                                            console.log(
+                                                                "-> delete click: ",
+                                                                client?.id
+                                                            );
+                                                            setDeleteDialogOpen(
+                                                                (client!
+                                                                    .id as number) ||
+                                                                    0
+                                                            );
+                                                        }}
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </Card>

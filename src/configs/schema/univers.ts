@@ -21,7 +21,7 @@ const stateItemSchema = z.union([
     z.literal("SA"),
     z.literal("VIC"),
     z.literal("QLD"),
-    z.literal("NS"),
+    z.literal("NSw"),
     z.literal("wa"),
     z.literal("TAS"),
 ]);

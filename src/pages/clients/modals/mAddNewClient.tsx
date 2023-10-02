@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import type { FC, FormEvent, MouseEvent, TouchEvent, ChangeEvent } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Form } from "react-router-dom";
 import {
     EnvelopeIcon,
     PhoneIcon,
@@ -9,10 +8,10 @@ import {
 } from "@heroicons/react/24/outline";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigation, useSubmit } from "react-router-dom";
+import { useNavigation, useSubmit, Form } from "react-router-dom";
 import type { Tstate } from "@/configs/schema/univers";
-import type { TclientSchema } from "@/configs/schema/client";
-import { clientSchema } from "@/configs/schema/client";
+import type { Tclient } from "@/configs/schema/client";
+import { clientNoIDSchema } from "@/configs/schema/client";
 import clsx from "clsx";
 
 type Tprops = {
@@ -30,12 +29,11 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
 
     const {
         register,
-        //handleSubmit,
         trigger,
         reset,
         getValues,
         formState: { errors },
-    } = useForm<TclientSchema>({ resolver: zodResolver(clientSchema) });
+    } = useForm<Tclient>({ resolver: zodResolver(clientNoIDSchema) });
 
     const handleState = (e: ChangeEvent<HTMLSelectElement>) => {
         setState(e.target.value as Tstate);
@@ -356,8 +354,8 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             <option value="SA">
                                                                 SA
                                                             </option>
-                                                            <option value="NS">
-                                                                NS
+                                                            <option value="NSW">
+                                                                NSW
                                                             </option>
                                                             <option value="VIC">
                                                                 VIC

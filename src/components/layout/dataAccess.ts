@@ -7,7 +7,7 @@ import { API_ADMIN } from "@/apis";
 
 export const layoutLoader = async ({ request }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;
-    console.log("=> layout loader url: ", pname);
+
     try {
         const result = await API_ADMIN.adminCheck();
         if (result.status) {

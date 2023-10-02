@@ -22,6 +22,7 @@ import { toastError, toastSuccess } from "@/configs/utils";
 import { TclientView } from "@/configs/schema/client";
 import MClientInfo from "./modals/mClient";
 import MDelete from "@/pages/clients/modals/mDelete";
+import MUpdateClient from "./modals/mUpdateClient";
 
 type Tprops = {
     clients: TclientView[] | null;
@@ -30,6 +31,17 @@ type Tprops = {
 const Clients: FC = () => {
     const [addNewOpen, setAddNewOpen] = useState(false);
     const [clientInfo, setClientInfo] = useState<TclientView | null>(null);
+    const [clientEdit, setClientEdit] = useState<TclientView>({
+        id: 0,
+        full_name: "",
+        email: "",
+        phone: "",
+        address: "",
+        city: "",
+        state: "",
+        country: "",
+        postcode: "",
+    });
     const [deleteClientID, setDeleteClientID] = useState(0);
     /* 200 - no conflicted, 401 - phone, 402 - email, 403 - both */
     const [infoConflict, setInfoConflict] = useState<200 | 401 | 402 | 403>(
@@ -86,7 +98,8 @@ const Clients: FC = () => {
                             <PTable
                                 data={clients}
                                 columns={clientColumns}
-                                rowClick={setClientInfo}
+                                clickDetails={setClientInfo}
+                                clickEdit={setClientEdit}
                             />
                         </Card>
                     ) : (
@@ -102,7 +115,7 @@ const Clients: FC = () => {
     };
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto border-0">
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={clients}>
                     {(clientList) => {
@@ -122,6 +135,7 @@ const Clients: FC = () => {
             <MClientInfo
                 client={clientInfo}
                 setOpen={setClientInfo}
+                /* delete modal */
                 deleteClientID={deleteClientID}
                 setDeleteDialogOpen={setDeleteClientID}
             />
@@ -129,6 +143,11 @@ const Clients: FC = () => {
                 id={deleteClientID}
                 setOpen={setDeleteClientID}
                 setClientInfo={setClientInfo}
+            />
+            <MUpdateClient
+                client={clientEdit}
+                setOpen={setClientEdit}
+                isConflict={infoConflict}
             />
         </div>
     );
