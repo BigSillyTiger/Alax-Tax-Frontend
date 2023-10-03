@@ -4,32 +4,66 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 import { useSubmit } from "react-router-dom";
-import { API_CLIENT } from "@/apis";
-import { toastSuccess } from "@/configs/utils";
-import { TclientView } from "@/configs/schema/client";
+import type { TclientView } from "@/configs/schema/client";
+import Card from "@/components/card";
 
 type Tprops = {
-    id: number;
-    setOpen: (value: number) => void;
-    setClientInfo: (value: TclientView | null) => void;
+    client: TclientView;
+    setOpen: (value: TclientView) => void;
 };
 
 // this component is about building a modal with transition to delete a client
-const MDelete: FC<Tprops> = ({ id, setOpen, setClientInfo }) => {
+const MDelete: FC<Tprops> = ({ client, setOpen }) => {
     const submit = useSubmit();
 
     const handleDeleteClient = async (id: number) => {
         submit({ id }, { method: "DELETE", action: "/clients" });
-        //const result = await API_CLIENT.delSingleClient(id);
-        //result && toastSuccess("Delete a client");
     };
 
+    const clientDisplay = (
+        <Card className="mt-2">
+            <div className="m-3 grid grid-cols-6 gap-x-4 gap-y-4 text-left">
+                <div className="col-span-5">
+                    <p>
+                        <b className="text-indigo-600">Client: </b>{" "}
+                        {client.full_name}
+                    </p>
+                </div>
+                <div className="col-span-3">
+                    <p>
+                        <b className="text-indigo-600">Phone: </b>{" "}
+                        {client?.phone}
+                    </p>
+                </div>
+                <div className="col-span-3">
+                    <p>
+                        <b className="text-indigo-600">Postal code: </b>
+                        {client?.postcode}
+                    </p>
+                </div>
+                <div className="col-span-6">
+                    <p>
+                        <b className="text-indigo-600">Email: </b>{" "}
+                        {client?.email}
+                    </p>
+                </div>
+                <div className="col-span-6">
+                    <p>
+                        <b className="text-indigo-600">Address: </b>{" "}
+                        {client?.address}, {client?.city}, {client?.state},{" "}
+                        {client?.country}
+                    </p>
+                </div>
+            </div>
+        </Card>
+    );
+
     return (
-        <Transition.Root show={!!id} as={Fragment}>
+        <Transition.Root show={!!client.id} as={Fragment}>
             <Dialog
                 as="div"
                 className="fixed z-20 inset-0 overflow-y-auto"
-                onClose={(_) => setOpen(0)}
+                onClose={(_) => setOpen({ ...client, id: 0 })}
             >
                 {/* background */}
                 <Transition.Child
@@ -57,36 +91,34 @@ const MDelete: FC<Tprops> = ({ id, setOpen, setClientInfo }) => {
                             leaveTo="translate-y-4 opacity-0"
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                                <div className="sm:flex sm:items-start">
-                                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                {/* content area */}
+                                <div className="mt-1 text-center">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-base font-semibold leading-6 text-red-600 flex items-center justify-center"
+                                    >
                                         <ExclamationTriangleIcon
-                                            className="h-6 w-6 text-red-600"
+                                            className="h-5 w-5 inline"
                                             aria-hidden="true"
                                         />
-                                    </div>
-                                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                        <Dialog.Title
-                                            as="h3"
-                                            className="text-base font-semibold leading-6 text-gray-900"
-                                        >
-                                            DELETE WARNING
-                                        </Dialog.Title>
-                                        <div className="mt-2">
-                                            <p className="text-gray-500 text-lg">
-                                                Are you sure you want to this
-                                                client from database?
-                                            </p>
-                                        </div>
+                                        DELETE WARNING
+                                    </Dialog.Title>
+                                    <div className="mt-2">
+                                        <p className="text-gray-700 text-lg">
+                                            Are you sure you want to this client
+                                            from database?
+                                        </p>
+                                        {clientDisplay}
                                     </div>
                                 </div>
-                                <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                                {/* button area */}
+                                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                                     <button
                                         type="button"
                                         className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                                         onClick={() => {
-                                            handleDeleteClient(id);
-                                            setOpen(0);
-                                            setClientInfo(null);
+                                            handleDeleteClient(client.id);
+                                            setOpen({ ...client, id: 0 });
                                         }}
                                     >
                                         Delete
@@ -96,7 +128,7 @@ const MDelete: FC<Tprops> = ({ id, setOpen, setClientInfo }) => {
                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            setOpen(0);
+                                            setOpen({ ...client, id: 0 });
                                         }}
                                     >
                                         Cancel

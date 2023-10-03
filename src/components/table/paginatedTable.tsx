@@ -14,32 +14,53 @@ import {
     ColumnDef,
 } from "@tanstack/react-table";
 import {
-    Bars3CenterLeftIcon,
+    EllipsisVerticalIcon,
     DocumentTextIcon,
+    TrashIcon,
+    PencilIcon,
 } from "@heroicons/react/24/outline";
 
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
 import { TclientView } from "@/configs/schema/client";
+import MenuBtn from "../menuBtn/menuBtn";
 
 type TtableProps = {
     data: TclientView[];
-    //columns: ColumnDef<TclientView>;
     columns: any;
-    clickDetails: (open: TclientView | null) => void;
+    clickInfo: (open: TclientView | null) => void;
     clickEdit: (open: TclientView) => void;
+    clickDel: (open: TclientView) => void;
 };
 
 const PaginatedTable: FC<TtableProps> = ({
     data,
     columns,
-    clickDetails,
+    clickInfo,
     clickEdit,
+    clickDel,
 }) => {
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
+
+    const opMenu = [
+        {
+            label: "Edit",
+            icon: <PencilIcon />,
+            clickFn: (v: TclientView) => {
+                clickEdit(v);
+            },
+        },
+        {
+            label: "Delete",
+            icon: <TrashIcon />,
+            clickFn: (v: TclientView) => {
+                clickDel(v);
+            },
+        },
+    ];
 
     const table = useReactTable({
         data,
@@ -92,7 +113,8 @@ const PaginatedTable: FC<TtableProps> = ({
                               >
                                   <button
                                       onClick={(e) => {
-                                          clickDetails(row.original);
+                                          e.preventDefault();
+                                          clickInfo(row.original);
                                       }}
                                   >
                                       <DocumentTextIcon
@@ -108,16 +130,26 @@ const PaginatedTable: FC<TtableProps> = ({
                                   key={cell.id}
                                   className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
                               >
-                                  <button
+                                  {/* <button
                                       onClick={(e) => {
                                           clickEdit({ ...row.original });
                                       }}
                                   >
-                                      <Bars3CenterLeftIcon
+                                      <EllipsisVerticalIcon
                                           className="h-6 w-6 text-indigo-500"
                                           aria-hidden="true"
                                       />
-                                  </button>
+                                  </button> */}
+                                  <MenuBtn
+                                      mLabel={
+                                          <EllipsisVerticalIcon
+                                              className="h-6 w-6 text-indigo-500"
+                                              aria-hidden="true"
+                                          />
+                                      }
+                                      mList={opMenu}
+                                      mClient={row.original}
+                                  />
                               </td>
                           );
                       }

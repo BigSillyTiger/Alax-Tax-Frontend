@@ -29,6 +29,12 @@ type Tprops = {
     clients: TclientView[] | null;
 };
 
+type TisConflict =
+    | RES_STATUS.SUCCESS
+    | RES_STATUS.FAILED_DUP_PHONE
+    | RES_STATUS.FAILED_DUP_EMAIL
+    | RES_STATUS.FAILED_DUP_P_E;
+
 const Clients: FC = () => {
     const [addNewOpen, setAddNewOpen] = useState(false);
     const [clientInfo, setClientInfo] = useState<TclientView | null>(null);
@@ -43,10 +49,19 @@ const Clients: FC = () => {
         country: "",
         postcode: "",
     });
-    const [deleteClientID, setDeleteClientID] = useState(0);
-    /* 200 - no conflicted, 401 - phone, 402 - email, 403 - both */
-    const [infoConflict, setInfoConflict] = useState<200 | 401 | 402 | 403>(
-        200
+    const [clientDel, setClientDel] = useState<TclientView>({
+        id: 0,
+        full_name: "",
+        email: "",
+        phone: "",
+        address: "",
+        city: "",
+        state: "",
+        country: "",
+        postcode: "",
+    });
+    const [infoConflict, setInfoConflict] = useState<TisConflict>(
+        RES_STATUS.SUCCESS
     );
     const { clients } = useLoaderData() as {
         clients: TclientView[] | null;
@@ -54,7 +69,7 @@ const Clients: FC = () => {
     const actionData = useActionData() as Tresponse;
 
     useEffect(() => {
-        /* close add new client dialog if successed insert into db */
+        /* close modals if RES_STATUS.SUCCESS  */
         if (actionData?.status === RES_STATUS.SUCCESS) {
             if (addNewOpen) {
                 setAddNewOpen(false);
@@ -116,8 +131,9 @@ const Clients: FC = () => {
                             <PTable
                                 data={clients}
                                 columns={clientColumns}
-                                clickDetails={setClientInfo}
+                                clickInfo={setClientInfo}
                                 clickEdit={setClientEdit}
+                                clickDel={setClientDel}
                             />
                         </Card>
                     ) : (
@@ -150,18 +166,8 @@ const Clients: FC = () => {
                 setOpen={setAddNewOpen}
                 isConflict={infoConflict}
             />
-            <MClientInfo
-                client={clientInfo}
-                setOpen={setClientInfo}
-                /* delete modal */
-                deleteClientID={deleteClientID}
-                setDeleteDialogOpen={setDeleteClientID}
-            />
-            <MDelete
-                id={deleteClientID}
-                setOpen={setDeleteClientID}
-                setClientInfo={setClientInfo}
-            />
+            <MClientInfo client={clientInfo} setOpen={setClientInfo} />
+            <MDelete client={clientDel} setOpen={setClientDel} />
             <MUpdateClient
                 client={clientEdit}
                 setOpen={setClientEdit}

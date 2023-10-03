@@ -46,6 +46,6 @@ export const clientViewSchema = clientSchema
 
 export const clientNoIDSchema = clientSchema.omit({ id: true });
 
-export type TclientUnreg = z.infer<typeof clientNoIDSchema>;
 export type Tclient = z.infer<typeof clientSchema>;
+export type TclientUnreg = z.infer<typeof clientNoIDSchema>;
 export type TclientView = z.infer<typeof clientViewSchema>;
