@@ -59,6 +59,7 @@ export const adminCheck = async () => {
     }
 };
 
+/* none used api */
 export const adminPermission = async (email: string) => {
     const newPost = { email };
     try {

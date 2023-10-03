@@ -1,27 +1,29 @@
 import React, { FC, useState } from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
-import { Bars3Icon } from "@heroicons/react/24/outline";
-
-import SideMenu, { t_permission } from "./sideMenu";
+import MainMenu from "@/components/mainMenu";
+import HeadBar from "@/components/headBar";
+import { Toaster } from "react-hot-toast";
+import { Tpermission } from "@/configs/schema/univers";
 
 const Layout: FC = () => {
-    const loaderData = useLoaderData() as t_permission; // permission data
+    const loaderData = useLoaderData() as Tpermission; // permission data
 
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
     return (
         <>
-            <SideMenu
+            <MainMenu
                 permissionData={loaderData}
                 open={sidebarOpen}
                 setOpen={setSidebarOpen}
             />
+            <HeadBar open={sidebarOpen} setOpen={setSidebarOpen} />
 
-            {/* view frame */}
-            {/* <main className="py-10 lg:pl-72 h-screen border-red-600 border-dashed border-8"> */}
-            <main className="py-10 px-5 lg:ml-72 h-screen">
+            {/* view area */}
+            <main className="relative py-5 w-screen left-0 lg:left-[5vw] lg:w-[95vw] h-[93vh] overflow-y-auto">
                 <Outlet />
             </main>
+            <Toaster position="top-center" reverseOrder={true} />
         </>
     );
 };

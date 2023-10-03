@@ -7,21 +7,25 @@ import {
 } from "react-router-dom";
 
 //import Layout from "./components/layout";
-import SpinningEle from "@/components/SpinningEle";
-import LoginPage from "@/pages/loginPage";
+import SpinningEle from "@/components/loadingEle/SpinningEle";
+import LoginPage from "@/pages/login/loginPage";
 import ErrBoundary from "@/pages/errBoundary";
 import Dashboard from "@/pages/dashboard";
 
 import InitPage from "@/pages/initPage";
 import { initLoader, initAction } from "@/pages/initPage";
-import { loginLoader, loginAction } from "@/pages/loginPage";
+import { loginLoader, loginAction } from "@/pages/login";
 import Layout, { layoutLoader } from "@/components/layout";
-import Clients from "@/pages/clients";
+import Clients from "@/pages/clients/clients";
 import Orders from "@/pages/orders";
 import Employees from "@/pages/employees";
 import Management from "@/pages/management";
 import Calendar from "./pages/calendar";
-import { dashboardLoader } from "@/pages/dashboard";
+import { loader as dashboardLoader } from "@/pages/dashboard";
+import {
+    loader as clientsLoader,
+    action as clientsAction,
+} from "@/pages/clients";
 
 const App: FC = () => {
     const router = createBrowserRouter(
@@ -50,7 +54,12 @@ const App: FC = () => {
                         element={<Dashboard />}
                         loader={dashboardLoader}
                     />
-                    <Route path={"/clients"} element={<Clients />} />
+                    <Route
+                        path={"/clients"}
+                        element={<Clients />}
+                        loader={clientsLoader}
+                        action={clientsAction}
+                    />
                     <Route path={"/orders"} element={<Orders />} />
                     <Route path={"/calendar"} element={<Calendar />} />
                     <Route path={"/employees"} element={<Employees />} />

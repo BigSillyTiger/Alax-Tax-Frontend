@@ -1,5 +1,5 @@
 import Dashboard from "./dashboard";
-import { dashboardLoader } from "./dataAccess";
+import loader from "./dataAccess";
 
 export default Dashboard;
-export { dashboardLoader };
+export { loader };

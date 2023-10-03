@@ -1,23 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 
-interface permissionProp {
+type TpermissionProps = {
     //0-NoPermission / 1-WriteOnly / 2-ReadOnly / 3-ALL
     dashboard: 0 | 1 | 2 | 3;
     clients: 0 | 1 | 2 | 3;
     orders: 0 | 1 | 2 | 3;
     employees: 0 | 1 | 2 | 3;
     management: 0 | 1 | 2 | 3;
-}
+};
 
-interface adminProp {
+type TadminProps = {
     adminState: {
         loginState: boolean;
-        permissionState: permissionProp;
+        permissionState: TpermissionProps;
     };
-}
+};
 
-const initialState: adminProp = {
+const initialState: TadminProps = {
     adminState: {
         loginState: false,
         permissionState: {
@@ -34,7 +34,7 @@ export const adminSlice = createSlice({
     name: "login",
     initialState,
     reducers: {
-        updateAdminStatus: (state, action: PayloadAction<permissionProp>) => {
+        updateAdminStatus: (state, action: PayloadAction<TpermissionProps>) => {
             console.log("=> redux store update: admin state");
             // these code has something wrong that blocks db page to render on the 1st time
             if (action.payload != null) {
