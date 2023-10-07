@@ -1,11 +1,5 @@
-import React, {
-    FC,
-    Suspense,
-    useState,
-    useEffect,
-    TouchEvent,
-    MouseEvent,
-} from "react";
+import React, { Suspense, useState, useEffect } from "react";
+import type { FC, TouchEvent, MouseEvent } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 
 import LoadingPage from "@/components/loadingEle";
@@ -138,7 +132,7 @@ const Clients: FC = () => {
                         </Card>
                     ) : (
                         <Card className="mt-8">
-                            <span className="m-5 p-5 h-15 text-center">
+                            <span className="m-5 p-5  text-center h-15">
                                 No client content
                             </span>
                         </Card>

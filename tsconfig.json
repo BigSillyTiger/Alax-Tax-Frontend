@@ -27,7 +27,7 @@
             "@/*": ["src/*"]
         }
     },
-    "include": ["src/**/*", "vite.config.ts"]
+    "include": ["src/**/*.d.ts", "src/**/*", "vite.config.ts", "*.ts", "*.tsx"]
     //"references": [{ "path": "./tsconfig.node.json" }],
     //"extends": "./tsconfig.paths.json"
 }

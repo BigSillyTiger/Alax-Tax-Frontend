@@ -26,6 +26,8 @@ import {
     loader as clientsLoader,
     action as clientsAction,
 } from "@/pages/clients";
+import { loader as clientLoader } from "@/pages/client/dataAccess";
+import Client from "./pages/client";
 
 const App: FC = () => {
     const router = createBrowserRouter(
@@ -59,6 +61,17 @@ const App: FC = () => {
                         element={<Clients />}
                         loader={clientsLoader}
                         action={clientsAction}
+                        //breadcrumb={"Clients"}
+                    />
+                    <Route
+                        path={"/clients/:cid"}
+                        element={<Client />}
+                        loader={clientLoader}
+                        /* handle={{
+                            crumb: (data: any) => {
+                                return <span>{"/id"}</span>;
+                            },
+                        }} */
                     />
                     <Route path={"/orders"} element={<Orders />} />
                     <Route path={"/calendar"} element={<Calendar />} />

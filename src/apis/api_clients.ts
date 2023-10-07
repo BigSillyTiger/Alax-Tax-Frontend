@@ -1,6 +1,7 @@
 import apis from "./axios";
 import {
     REQ_CLIENT_ALL,
+    REQ_CLIENT_INFO,
     REQ_CLIENT_SINGLE_DEL,
     REQ_CLIENT_SINGLE_REGISTER,
     REQ_CLIENT_SINGLE_UPDATE,
@@ -29,6 +30,20 @@ export const clientAll = async (): Promise<Tresponse> => {
                 data: "",
             };
         }
+    }
+};
+
+export const clientInfo = async (id: number): Promise<Tresponse> => {
+    try {
+        const response = await apis.post(REQ_CLIENT_INFO, { id });
+        return response.data;
+    } catch (err: any) {
+        console.log("-> retrieve client info error: ", err);
+        return {
+            status: 400,
+            msg: "failed in retrieving client info",
+            data: "",
+        };
     }
 };
 

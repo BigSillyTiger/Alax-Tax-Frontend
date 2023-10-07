@@ -10,7 +10,6 @@ const Dashboard: FC = () => {
             <Suspense fallback={<SpinningEle />}>
                 <Await resolve={loaderData.content}>
                     {(loadedContent) => {
-                        console.log("--> defter test: ", loadedContent);
                         return <p>{loadedContent.msg}</p>;
                     }}
                 </Await>

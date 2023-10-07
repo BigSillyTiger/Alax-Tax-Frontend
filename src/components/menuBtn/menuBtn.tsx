@@ -17,8 +17,8 @@ type Tprops = {
 const MenuBtn: FC<Tprops> = ({ mLabel, mList, mClient }) => {
     const menuContent = mList.map((item, index) => {
         return (
-            <div className="p-1">
-                <Menu.Item key={index} as={Fragment}>
+            <div className="p-1" key={index}>
+                <Menu.Item as={Fragment}>
                     {({ active }) => (
                         <button
                             onClick={(e) => {

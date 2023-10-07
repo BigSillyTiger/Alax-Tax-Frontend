@@ -7,6 +7,7 @@ import {
     MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import { API_ADMIN } from "@/apis";
+import Breadcrumbs from "./breadcrumbs";
 
 type Tprops = {
     open: boolean;
@@ -43,6 +44,9 @@ const HeadBar: FC<Tprops> = ({ open, setOpen }) => {
                     <span className="sr-only">Open sidebar</span>
                     <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                 </button>
+                <div className="">
+                    <Breadcrumbs />
+                </div>
 
                 {/* Separator */}
                 <div

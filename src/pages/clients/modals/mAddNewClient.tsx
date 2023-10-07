@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import type { Tstate } from "@/configs/schema/univers";
-import type { Tclient } from "@/configs/schema/client";
+import type { Tclient } from "@/configs/schema/client.d.ts";
 import { clientNoIDSchema } from "@/configs/schema/client";
 import clsx from "clsx";
 

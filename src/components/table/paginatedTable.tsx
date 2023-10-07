@@ -19,6 +19,7 @@ import {
     TrashIcon,
     PencilIcon,
 } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
@@ -44,6 +45,7 @@ const PaginatedTable: FC<TtableProps> = ({
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
+    const nevigate = useNavigate();
 
     const opMenu = [
         {
@@ -114,7 +116,12 @@ const PaginatedTable: FC<TtableProps> = ({
                                   <button
                                       onClick={(e) => {
                                           e.preventDefault();
-                                          clickInfo(row.original);
+                                          //clickInfo(row.original);
+
+                                          return nevigate(
+                                              "/clients/" + row.original.id,
+                                              { replace: false }
+                                          );
                                       }}
                                   >
                                       <DocumentTextIcon
