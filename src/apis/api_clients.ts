@@ -6,8 +6,8 @@ import {
     REQ_CLIENT_SINGLE_REGISTER,
     REQ_CLIENT_SINGLE_UPDATE,
 } from "./req_list";
-import { Tclient, TclientUnreg } from "@/configs/schema/client";
-import { Tresponse } from "@/configs/types";
+import { Tclient, TclientUnreg } from "@/utils/schema/client";
+import { Tresponse } from "@/utils/types";
 
 export const clientAll = async (): Promise<Tresponse> => {
     try {

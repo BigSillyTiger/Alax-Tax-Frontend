@@ -4,8 +4,8 @@ import {
     ActionFunctionArgs,
     LoaderFunctionArgs,
 } from "react-router-dom";
-import type { Tresponse } from "@/configs/types";
-import type { Tclient } from "@/configs/schema/client";
+import type { Tresponse } from "@/utils/types";
+import type { Tclient } from "@/utils/schema/client";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     const clients = API_CLIENT.clientAll();
@@ -15,7 +15,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export const action = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
-    console.log("-> action request: ", request);
+    //console.log("-> action request: ", request);
     const data = await request.formData();
 
     if ("POST" === request.method) {

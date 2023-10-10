@@ -19,3 +19,8 @@ export const REQ_CLIENT_INFO = "/client/info";
 export const REQ_CLIENT_SINGLE_DEL = "/client/single-del";
 export const REQ_CLIENT_SINGLE_REGISTER = "/client/single-insert";
 export const REQ_CLIENT_SINGLE_UPDATE = "/client/single-update";
+
+export const REQ_MANAGE_UNIVERS_ALL = "/manage/univers_all";
+export const REQ_MANAGE_SERVICE_ADD = "/manage/service_add";
+export const REQ_MANAGE_SERVICE_DEL = "/manage/service_del";
+export const REQ_MANAGE_UNIT_ADD = "/manage/unit_add";

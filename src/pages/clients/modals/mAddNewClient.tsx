@@ -9,9 +9,10 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
-import type { Tstate } from "@/configs/schema/univers";
-import type { Tclient } from "@/configs/schema/client.d.ts";
-import { clientNoIDSchema } from "@/configs/schema/client";
+import type { Tstate } from "@/utils/schema/univers";
+import type { Tclient } from "@/utils/schema/client";
+import { clientNoIDSchema } from "@/utils/schema/client";
+import { RES_STATUS } from "@/utils/types";
 import clsx from "clsx";
 
 type Tprops = {
@@ -209,14 +210,14 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             className={clsx(
                                                                 "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10",
                                                                 (isConflict ===
-                                                                    402 ||
+                                                                    RES_STATUS.FAILED_DUP_EMAIL ||
                                                                     isConflict ===
-                                                                        403) &&
+                                                                        RES_STATUS.FAILED_DUP_P_E) &&
                                                                     "ring-2 ring-red-500 focus:ring-red-600",
                                                                 (isConflict ===
-                                                                    200 ||
+                                                                    RES_STATUS.SUCCESS ||
                                                                     isConflict ===
-                                                                        401) &&
+                                                                        RES_STATUS.FAILED_DUP_PHONE) &&
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
                                                             placeholder="you@example.com"
@@ -250,14 +251,14 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             className={clsx(
                                                                 "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10",
                                                                 (isConflict ===
-                                                                    401 ||
+                                                                    RES_STATUS.FAILED_DUP_PHONE ||
                                                                     isConflict ===
-                                                                        403) &&
+                                                                        RES_STATUS.FAILED_DUP_P_E) &&
                                                                     "ring-2 ring-red-500 focus:ring-red-600",
                                                                 (isConflict ===
-                                                                    200 ||
+                                                                    RES_STATUS.SUCCESS ||
                                                                     isConflict ===
-                                                                        402) &&
+                                                                        RES_STATUS.FAILED_DUP_EMAIL) &&
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
                                                         />

@@ -7,7 +7,7 @@ import {
     useActionData,
 } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
-import { TclientView } from "@/configs/schema/client";
+import { TclientView } from "@/utils/schema/client";
 import Card from "@/components/card";
 
 const Client = () => {

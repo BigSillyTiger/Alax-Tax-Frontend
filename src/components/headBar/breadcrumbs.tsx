@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import type { FC } from "react";
 import useBreadcrumbs from "use-react-router-breadcrumbs";
 import { NavLink } from "react-router-dom";
@@ -8,20 +8,24 @@ const Breadcrumbs: FC = () => {
         (item) => item.match.pathname !== "/"
     );
     //const breadcrumbs = useBreadcrumbs(, {excludePaths: ["/"]})
-    console.log("-> breadcrumbs: ", breadcrumbs);
 
     return (
-        <div className="bg-blue-50 p-2 border-0 rounded-full text-blue-600 font-extrabold">
+        <div className="font-extrabold py-2 bg-teal-200 rounded-full text-slate-50">
             <nav>
                 {breadcrumbs.map(({ match, breadcrumb }, index) => {
                     return (
-                        <NavLink key={match.pathname} to={match.pathname}>
-                            {breadcrumb}
-                            &nbsp;
-                            {index < breadcrumbs.length - 1 && ">"}
-                            &nbsp;
-                            {/* if not the last one, add a ">" (arrow */}
-                        </NavLink>
+                        <Fragment key={index}>
+                            <NavLink
+                                key={match.pathname}
+                                to={match.pathname}
+                                className="px-4 py-2 rounded-full text-blue-400 hover:text-blue-700 hover:bg-blue-50 "
+                            >
+                                {breadcrumb}
+                            </NavLink>
+                            {/* if not the last one, add a ">" (arrow  &nbsp; */}
+
+                            {index < breadcrumbs.length - 1 && " > "}
+                        </Fragment>
                     );
                 })}
             </nav>

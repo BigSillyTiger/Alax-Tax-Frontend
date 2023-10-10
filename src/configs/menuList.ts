@@ -45,3 +45,9 @@ export const menuList = [
         current: false,
     },
 ];
+
+export const mTabList = [
+    { name: "Main Content" },
+    { name: "Service List" },
+    { name: "Unit List" },
+];

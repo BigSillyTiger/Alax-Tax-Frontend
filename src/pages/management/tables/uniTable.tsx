@@ -1,4 +1,4 @@
-import React, { FC, useState, useDeferredValue } from "react";
+import React, { useState, useDeferredValue } from "react";
 import {
     useReactTable,
     flexRender,
@@ -6,40 +6,33 @@ import {
     getPaginationRowModel,
     getFilteredRowModel,
     getSortedRowModel,
-    //type
-    OnChangeFn,
-    SortingState,
-    Row,
-    Cell,
-    ColumnDef,
 } from "@tanstack/react-table";
+import type { OnChangeFn, SortingState, Row } from "@tanstack/react-table";
 import {
     EllipsisVerticalIcon,
-    DocumentTextIcon,
     TrashIcon,
     PencilIcon,
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 
-import Pagination from "./pagination";
-import SearchBar from "./searchBar";
-import { sortingIcon } from "./config";
-import { TclientView } from "@/utils/schema/client";
-import MenuBtn from "../menuBtn/tMenuBtn";
+import Pagination from "@/components/table/pagination";
+import SearchBar from "@/components/table/searchBar";
+import { sortingIcon } from "@/components/table/config";
+import MenuBtn from "@/components/menuBtn/tMenuBtn";
 
-type TtableProps = {
-    data: TclientView[];
+type TtableProps<T> = {
+    data: T[];
     columns: any;
-    clickEdit: (open: TclientView) => void;
-    clickDel: (open: TclientView) => void;
+    clickEdit: (open: T) => void;
+    clickDel: (open: T) => void;
 };
 
-const PaginatedTable: FC<TtableProps> = ({
+const ServiceTable = <T,>({
     data,
     columns,
     clickEdit,
     clickDel,
-}) => {
+}: TtableProps<T>) => {
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
@@ -49,14 +42,14 @@ const PaginatedTable: FC<TtableProps> = ({
         {
             label: "Edit",
             icon: <PencilIcon />,
-            clickFn: (v: TclientView) => {
+            clickFn: (v: T) => {
                 clickEdit(v);
             },
         },
         {
             label: "Delete",
             icon: <TrashIcon />,
-            clickFn: (v: TclientView) => {
+            clickFn: (v: T) => {
                 clickDel(v);
             },
         },
@@ -98,53 +91,20 @@ const PaginatedTable: FC<TtableProps> = ({
     ));
 
     const tableBody = table.getRowModel().rows.length
-        ? table.getRowModel().rows.map((row: Row<TclientView>, i: number) => (
+        ? table.getRowModel().rows.map((row: Row<T>, i: number) => (
               <tr
                   key={row.id}
                   className={i % 2 === 0 ? undefined : "bg-gray-100"}
               >
                   {row.getVisibleCells().map((cell: any) => {
-                      //console.log("-> cell details: ", cell);
-                      /* nevigate to details page */
-                      if (cell.column.id === "Details") {
+                      if (cell.column.id === "Menu") {
                           return (
                               <td
                                   key={cell.id}
                                   className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
                               >
-                                  <button
-                                      onClick={(e) => {
-                                          e.preventDefault();
-                                          return nevigate(
-                                              "/clients/" + row.original.id,
-                                              { replace: false }
-                                          );
-                                      }}
-                                  >
-                                      <DocumentTextIcon
-                                          className="h-6 w-6 text-indigo-500"
-                                          aria-hidden="true"
-                                      />
-                                  </button>
-                              </td>
-                          );
-                      } else if (cell.column.id === "Menu") {
-                          return (
-                              <td
-                                  key={cell.id}
-                                  className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
-                              >
-                                  {/* <button
-                                      onClick={(e) => {
-                                          clickEdit({ ...row.original });
-                                      }}
-                                  >
-                                      <EllipsisVerticalIcon
-                                          className="h-6 w-6 text-indigo-500"
-                                          aria-hidden="true"
-                                      />
-                                  </button> */}
                                   <MenuBtn
+                                      /* <MenuBtn<Tservice> */
                                       mLabel={
                                           <EllipsisVerticalIcon
                                               className="h-6 w-6 text-indigo-500"
@@ -194,4 +154,4 @@ const PaginatedTable: FC<TtableProps> = ({
     );
 };
 
-export default PaginatedTable;
+export default ServiceTable;

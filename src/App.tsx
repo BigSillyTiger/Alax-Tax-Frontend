@@ -27,6 +27,10 @@ import {
     action as clientsAction,
 } from "@/pages/clients";
 import { loader as clientLoader } from "@/pages/client/dataAccess";
+import {
+    loader as universLoader,
+    action as universAction,
+} from "@/pages/management/dataAccess";
 import Client from "./pages/client";
 
 const App: FC = () => {
@@ -76,7 +80,12 @@ const App: FC = () => {
                     <Route path={"/orders"} element={<Orders />} />
                     <Route path={"/calendar"} element={<Calendar />} />
                     <Route path={"/employees"} element={<Employees />} />
-                    <Route path={"/management"} element={<Management />} />
+                    <Route
+                        path={"/management"}
+                        element={<Management />}
+                        loader={universLoader}
+                        action={universAction}
+                    />
                 </Route>
 
                 <Route path="*" element={<> No Match </>} />

@@ -5,14 +5,14 @@ import { set, useForm } from "react-hook-form";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-import type { Tclient, TclientView } from "@/configs/schema/client";
-import { clientNoIDSchema } from "@/configs/schema/client";
+import type { Tclient, TclientView } from "@/utils/schema/client";
+import { clientNoIDSchema } from "@/utils/schema/client";
 import {
     XMarkIcon,
     EnvelopeIcon,
     PhoneIcon,
 } from "@heroicons/react/24/outline";
-import { RES_STATUS } from "@/configs/types";
+import { RES_STATUS } from "@/utils/types";
 
 type Tprops = {
     client: TclientView;

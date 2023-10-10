@@ -21,11 +21,11 @@ import {
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 
-import Pagination from "./pagination";
-import SearchBar from "./searchBar";
-import { sortingIcon } from "./config";
+import Pagination from "@/components/table/pagination";
+import SearchBar from "@/components/table/searchBar";
+import { sortingIcon } from "@/components/table/config";
 import { TclientView } from "@/utils/schema/client";
-import MenuBtn from "../menuBtn/tMenuBtn";
+import MenuBtn from "@/components/menuBtn/tMenuBtn";
 
 type TtableProps = {
     data: TclientView[];
@@ -34,7 +34,7 @@ type TtableProps = {
     clickDel: (open: TclientView) => void;
 };
 
-const PaginatedTable: FC<TtableProps> = ({
+const ClientTable: FC<TtableProps> = ({
     data,
     columns,
     clickEdit,
@@ -194,4 +194,4 @@ const PaginatedTable: FC<TtableProps> = ({
     );
 };
 
-export default PaginatedTable;
+export default ClientTable;

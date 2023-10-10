@@ -45,7 +45,7 @@ const clientColumns = [
     },
     {
         header: "Menu",
-        cell: (info: Cell<{ Menu: string }, string>) => {
+        cell: (info: Cell<{ menu: string }, string>) => {
             return <></>;
         },
     },

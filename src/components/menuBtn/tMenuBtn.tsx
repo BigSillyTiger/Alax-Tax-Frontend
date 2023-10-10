@@ -2,19 +2,20 @@ import React, { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import clsx from "clsx";
-import { TclientView } from "@/configs/schema/client";
+import { TclientView } from "@/utils/schema/client";
 
-type Tprops = {
+type Tprops<T> = {
     mLabel: ReactNode | string;
     mList: {
         label: string;
-        clickFn: (e: TclientView) => void;
+        clickFn: (e: T) => void;
         icon: ReactNode;
     }[];
-    mClient: TclientView;
+    mItem: T;
 };
+
 // this component is about building a menu button template with headlessui Menu
-const MenuBtn: FC<Tprops> = ({ mLabel, mList, mClient }) => {
+const MenuBtn = <T,>({ mLabel, mList, mItem }: Tprops<T>) => {
     const menuContent = mList.map((item, index) => {
         return (
             <div className="p-1" key={index}>
@@ -23,7 +24,7 @@ const MenuBtn: FC<Tprops> = ({ mLabel, mList, mClient }) => {
                         <button
                             onClick={(e) => {
                                 e.preventDefault();
-                                item.clickFn(mClient);
+                                item.clickFn(mItem);
                             }}
                             className={`group flex w-full items-center rounded-md px-2 py-2 text-sm ${
                                 active

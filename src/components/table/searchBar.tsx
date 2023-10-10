@@ -3,7 +3,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 type Tprops = {
     value: string;
-    onChange: Function;
+    onChange: (value: string) => void;
     debounce?: number;
 };
 

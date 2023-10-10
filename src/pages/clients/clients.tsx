@@ -3,21 +3,18 @@ import type { FC, TouchEvent, MouseEvent } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 
 import LoadingPage from "@/components/loadingEle";
-import {
-    VirtualTable as VTable,
-    PaginatedTable as PTable,
-} from "@/components/table";
-import clientColumns from "./clientColumnDefs";
+import ClientTable from "./tables/clientTable";
+import clientColumns from "./tables/clientColumnDefs";
 import Card from "@/components/card";
 import MAddNewClient from "./modals/mAddNewClient";
-import { Tresponse } from "@/configs/types";
-import { toastError, toastSuccess } from "@/configs/utils";
+import { Tresponse } from "@/utils/types";
+import { toastError, toastSuccess } from "@/utils/utils";
 
-import { TclientView } from "@/configs/schema/client";
+import { TclientView } from "@/utils/schema/client";
 import MClientInfo from "./modals/mClient";
 import MDelete from "@/pages/clients/modals/mDelete";
 import MUpdateClient from "./modals/mUpdateClient";
-import { RES_STATUS } from "@/configs/types";
+import { RES_STATUS } from "@/utils/types";
 
 type Tprops = {
     clients: TclientView[] | null;
@@ -122,10 +119,9 @@ const Clients: FC = () => {
                     {/* table */}
                     {clients ? (
                         <Card className="mt-8">
-                            <PTable
+                            <ClientTable
                                 data={clients}
                                 columns={clientColumns}
-                                clickInfo={setClientInfo}
                                 clickEdit={setClientEdit}
                                 clickDel={setClientDel}
                             />
