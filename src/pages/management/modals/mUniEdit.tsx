@@ -1,29 +1,20 @@
 import React, { Fragment, useState, useEffect, useDeferredValue } from "react";
-import type { FC, FormEvent, MouseEvent, TouchEvent, ChangeEvent } from "react";
+import type { FC, FormEvent, MouseEvent, TouchEvent } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import type { Tservice, Tunit } from "@/utils/schema/manage";
 import { newServiceSchema, newUnitSchema } from "@/utils/schema/manage";
-import {
-    XMarkIcon,
-    EnvelopeIcon,
-    PhoneIcon,
-} from "@heroicons/react/24/outline";
-import { RES_STATUS } from "@/utils/types";
-import { it } from "node:test";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { isServiceType } from "@/utils/utils";
 
 type Tprops = {
     uni: Tservice | Tunit;
     setOpen: (open: Tservice | Tunit) => void;
     serviceList: Tservice[] | null;
     unitList: Tunit[] | null;
-};
-
-const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
-    return (obj as Tservice).service !== undefined;
 };
 
 // this component is about building a modal with transition to update a client
@@ -59,23 +50,18 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
     }, [isServiceType(uni) ? uni.service : uni.unit_name]);
 
     useEffect(() => {
-        if (defService) {
+        if (isServiceType(uni) && defService) {
             const isDup = serviceList?.some(
                 (item) => item.service === defService && item.id !== uni.id
             );
             setIsConflict(isDup ? true : false);
-        }
-    }, [defService]);
-
-    useEffect(() => {
-        if (defUnitName) {
+        } else if (defUnitName) {
             const isDup = unitList?.some(
                 (item) => item.unit_name === defUnitName && item.id !== uni.id
             );
-            console.log("-> dup test: ", isDup);
             setIsConflict(isDup ? true : false);
         }
-    }, [defUnitName]);
+    }, [isServiceType(uni) ? defService : defUnitName]);
 
     const {
         register,
@@ -133,7 +119,7 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                 </Transition.Child>
 
                 {/*  */}
-                <div className="fixed inset-0 z-20 overflow-y-auto border-2">
+                <div className="fixed inset-0 z-20 overflow-y-auto">
                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <Transition.Child
                             as={Fragment}
@@ -145,7 +131,14 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             {/* removed transform */}
-                            <Dialog.Panel className="relative overflow-hidden  rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                            <Dialog.Panel
+                                className={clsx(
+                                    "relative overflow-hidden  rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full  sm:p-6",
+                                    isServiceType(uni)
+                                        ? "sm:max-w-lg"
+                                        : "sm:max-w-xs"
+                                )}
+                            >
                                 {/* right top close button */}
                                 <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
                                     <button
@@ -163,7 +156,7 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
 
                                 <div className="sm:flex sm:items-start">
                                     {/* title */}
-                                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                    <div className="mt-3 text-center sm:mx-auto sm:mt-0 sm:text-left w-full ">
                                         <Dialog.Title
                                             as="h3"
                                             className="text-base font-semibold leading-6 text-gray-900"
@@ -322,10 +315,10 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                                                 </div>
                                             )}
 
-                                            <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse border-t border-gray-900/10 pt-4">
+                                            <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse border-t border-gray-900/10 pt-4 justify-evenly">
                                                 <button
                                                     type="submit"
-                                                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                                                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto"
                                                     disabled={
                                                         navigation.state ===
                                                             "submitting" ||

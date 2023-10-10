@@ -1,10 +1,9 @@
 import apis from "./axios";
 import {
-    REQ_MANAGE_SERVICE_ADD,
     REQ_MANAGE_UNI_ALL,
+    REQ_MANAGE_UNI_ADD,
     REQ_MANAGE_UNI_DEL,
     REQ_MANAGE_UNI_EDIT,
-    REQ_MANAGE_UNIT_ADD,
 } from "./req_list";
 import { TnewService, TnewUnit, Tservice, Tunit } from "@/utils/schema/manage";
 
@@ -56,29 +55,15 @@ export const uniEdit = async (uni: Tservice | Tunit) => {
     }
 };
 
-export const serviceAdd = async (service: TnewService) => {
+export const uniAdd = async (unit: TnewService | TnewUnit) => {
     try {
-        const response = await apis.post(REQ_MANAGE_SERVICE_ADD, service);
+        const response = await apis.post(REQ_MANAGE_UNI_ADD, unit);
         return response.data;
     } catch (err) {
-        console.log("-> insert one service err: ", err);
+        console.log("-> insert service / unit err: ", err);
         return {
             status: 400,
-            msg: "Failed: add service",
-            data: "",
-        };
-    }
-};
-
-export const unitAdd = async (unit: TnewUnit) => {
-    try {
-        const response = await apis.post(REQ_MANAGE_UNIT_ADD, unit);
-        return response.data;
-    } catch (err) {
-        console.log("-> insert one service err: ", err);
-        return {
-            status: 400,
-            msg: "Failed: add service",
+            msg: "Failed: add service / unit",
             data: "",
         };
     }

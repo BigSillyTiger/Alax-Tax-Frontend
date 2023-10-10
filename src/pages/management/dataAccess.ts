@@ -17,19 +17,17 @@ export const action = async ({
 }: ActionFunctionArgs): Promise<Tresponse> => {
     //console.log("-> /management action request: ", request);
     const data = await request.formData();
-    if ("POST" === request.method && data.get("service")) {
-        /* add new service action */
-        const result = await API_MANAGE.serviceAdd({
-            service: data.get("service") as string,
-            unit: data.get("unit") as string,
-            unit_price: Number(data.get("unit_price")),
-        });
-        return result;
-    } else if ("POST" === request.method && data.get("unit_name")) {
-        /* add new unit action */
-        const result = await API_MANAGE.unitAdd({
-            unit_name: data.get("unit_name") as string,
-        });
+    if ("POST" === request.method) {
+        /* add new service / unit action */
+        const temp = data.get("service")
+            ? {
+                  // service
+                  service: data.get("service") as string,
+                  unit: data.get("unit") as string,
+                  unit_price: Number(data.get("unit_price")),
+              }
+            : { unit_name: data.get("unit_name") as string }; // unit
+        const result = await API_MANAGE.uniAdd(temp);
         return result;
     } else if ("DELETE" === request.method) {
         /* delete service / unit action */

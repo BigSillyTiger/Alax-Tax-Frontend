@@ -1,4 +1,5 @@
 import toast from "react-hot-toast";
+import { Tservice, Tunit } from "./schema/manage";
 
 export const toastSuccess = (text: string) => {
     toast.success(text, {
@@ -62,4 +63,8 @@ export const toastCustomize = (text: string) => {
             </div>
         </div>
     ));
+};
+
+export const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
+    return (obj as Tservice).service !== undefined;
 };

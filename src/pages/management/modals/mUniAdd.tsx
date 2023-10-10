@@ -112,7 +112,12 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             {/* removed transform */}
-                            <Dialog.Panel className="relative overflow-hidden  rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                            <Dialog.Panel
+                                className={clsx(
+                                    "relative overflow-hidden  rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full  sm:p-6",
+                                    open === "S" ? "sm:max-w-lg" : "sm:max-w-xs"
+                                )}
+                            >
                                 {/* right top close button */}
                                 <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
                                     <button
@@ -272,12 +277,12 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
                                             )}
 
                                             {/* button */}
-                                            <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse border-t border-gray-900/10 pt-4">
+                                            <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse border-t border-gray-900/10 pt-4 justify-evenly">
                                                 <button
                                                     name="intent"
                                                     value="add"
                                                     type="submit"
-                                                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                                                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto"
                                                     disabled={
                                                         navigation.state ===
                                                             "submitting" ||

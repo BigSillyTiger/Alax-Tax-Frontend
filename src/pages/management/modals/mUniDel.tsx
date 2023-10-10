@@ -5,14 +5,11 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useSubmit } from "react-router-dom";
 import Card from "@/components/card";
 import { Tservice, Tunit } from "@/utils/schema/manage";
+import { isServiceType } from "@/utils/utils";
 
 type Tprops = {
     uni: Tservice | Tunit;
     setOpen: (value: Tservice | Tunit) => void;
-};
-
-const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
-    return (obj as Tservice).service !== undefined;
 };
 
 // this component is about building a modal with transition to delete a client
