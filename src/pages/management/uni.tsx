@@ -6,6 +6,8 @@ import UniTable from "./tables/uniTable";
 import { serviceListColDefs, unitListColDefs } from "./tables/uniListColDefs";
 import { Tunivers } from "@/utils/types";
 import MUniAdd from "./modals/mUniAdd";
+import MUniDel from "./modals/mUniDel";
+import MUniEdit from "./modals/mUniEdit";
 
 type Tprops = Tunivers;
 
@@ -24,10 +26,8 @@ const initU = {
 const Uni: FC<Tprops> = ({ services, units }) => {
     const [uniAdd, setUniAdd] = useState<"S" | "U" | false>(false);
     const [uAdd, setUAdd] = useState(false);
-    const [sEdit, setSEdit] = useState<Tservice>(initS);
-    const [uEdit, setUEdit] = useState<Tunit>(initU);
-
-    const [uniDel, setUniDel] = useState<Tservice | Tunit | null>(null);
+    const [uniEdit, setUniEdit] = useState<Tservice | Tunit>(initS);
+    const [uniDel, setUniDel] = useState<Tservice | Tunit>(initU);
 
     const ServiceTable: FC<{ services: Tservice[] | null }> = ({
         services,
@@ -54,7 +54,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                             data={services}
                             columns={serviceListColDefs}
                             clickDel={setUniDel}
-                            clickEdit={setSEdit}
+                            clickEdit={setUniEdit}
                         />
                     </Card>
                 ) : (
@@ -92,7 +92,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                             data={units}
                             columns={unitListColDefs}
                             clickDel={setUniDel}
-                            clickEdit={setUEdit}
+                            clickEdit={setUniEdit}
                         />
                     </Card>
                 ) : (
@@ -119,6 +119,13 @@ const Uni: FC<Tprops> = ({ services, units }) => {
             <MUniAdd
                 open={uniAdd}
                 setOpen={setUniAdd}
+                serviceList={services}
+                unitList={units}
+            />
+            <MUniDel uni={uniDel} setOpen={setUniDel} />
+            <MUniEdit
+                uni={uniEdit}
+                setOpen={setUniEdit}
                 serviceList={services}
                 unitList={units}
             />

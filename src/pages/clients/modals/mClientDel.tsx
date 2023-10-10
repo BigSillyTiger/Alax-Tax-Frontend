@@ -13,7 +13,7 @@ type Tprops = {
 };
 
 // this component is about building a modal with transition to delete a client
-const MDelete: FC<Tprops> = ({ client, setOpen }) => {
+const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
     const submit = useSubmit();
 
     const handleDeleteClient = async (id: number) => {
@@ -143,4 +143,4 @@ const MDelete: FC<Tprops> = ({ client, setOpen }) => {
     );
 };
 
-export default MDelete;
+export default MClientDel;

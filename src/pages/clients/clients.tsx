@@ -6,14 +6,14 @@ import LoadingPage from "@/components/loadingEle";
 import ClientTable from "./tables/clientTable";
 import clientColumns from "./tables/clientColumnDefs";
 import Card from "@/components/card";
-import MAddNewClient from "./modals/mAddNewClient";
 import { Tresponse } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/utils";
 
 import { TclientView } from "@/utils/schema/client";
 import MClientInfo from "./modals/mClient";
-import MDelete from "@/pages/clients/modals/mDelete";
-import MUpdateClient from "./modals/mUpdateClient";
+import MClientAdd from "./modals/mClientAdd";
+import MClientDel from "./modals/mClientDel";
+import MClientEdit from "./modals/mClientEdit.tsx";
 import { RES_STATUS } from "@/utils/types";
 
 type Tprops = {
@@ -151,14 +151,14 @@ const Clients: FC = () => {
 
             {/* Modal for add new client, and this modal can not be insert into Await*/}
             {/* otherwise, the animation would get lost*/}
-            <MAddNewClient
+            <MClientAdd
                 open={addNewOpen}
                 setOpen={setAddNewOpen}
                 isConflict={infoConflict}
             />
             <MClientInfo client={clientInfo} setOpen={setClientInfo} />
-            <MDelete client={clientDel} setOpen={setClientDel} />
-            <MUpdateClient
+            <MClientDel client={clientDel} setOpen={setClientDel} />
+            <MClientEdit
                 client={clientEdit}
                 setOpen={setClientEdit}
                 isConflict={infoConflict}

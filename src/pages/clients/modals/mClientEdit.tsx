@@ -1,55 +1,69 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import type { FC, FormEvent, MouseEvent, TouchEvent, ChangeEvent } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { set, useForm } from "react-hook-form";
+import { useNavigation, useSubmit, Form } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import clsx from "clsx";
+import type { Tclient, TclientView } from "@/utils/schema/client";
+import { clientNoIDSchema } from "@/utils/schema/client";
 import {
+    XMarkIcon,
     EnvelopeIcon,
     PhoneIcon,
-    XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigation, useSubmit, Form } from "react-router-dom";
-import type { Tstate } from "@/utils/schema/univers";
-import type { Tclient } from "@/utils/schema/client";
-import { clientNoIDSchema } from "@/utils/schema/client";
 import { RES_STATUS } from "@/utils/types";
-import clsx from "clsx";
 
 type Tprops = {
-    open: boolean;
-    setOpen: (value: boolean) => void;
+    client: TclientView;
+    setOpen: (open: TclientView) => void;
     isConflict: number;
 };
+// this component is about building a modal with transition to update a client
+// the modal structure is similar to MAddNewClient
+const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
+    // set default value based on client for id first_name, last_name, phone, email, address, city, state, country, postcode
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [address, setAddress] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [country, setCountry] = useState("");
+    const [postcode, setPostcode] = useState("");
 
-const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
-    const [state, setState] = useState<Tstate>("SA");
-    const [city, setCity] = useState<string>("Adelaide");
-    const [postcode, setPostcode] = useState<string>("5000");
-    const navigation = useNavigation();
     const submit = useSubmit();
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        setFirstName(client?.full_name.split(" ")[0]);
+        setLastName(client?.full_name.split(" ")[1]);
+        setPhone(client.phone);
+        setEmail(client.email);
+        setAddress(client.address || "");
+        setCity(client.city || "");
+        setState(client.state || "");
+        setCountry(client.country || "");
+        setPostcode(client.postcode || "");
+        reset();
+    }, [client.phone]);
 
     const {
         register,
-        trigger,
         reset,
         getValues,
         formState: { errors },
+        trigger,
     } = useForm<Tclient>({ resolver: zodResolver(clientNoIDSchema) });
-
-    const handleState = (e: ChangeEvent<HTMLSelectElement>) => {
-        setState(e.target.value as Tstate);
-    };
-    const handleCity = (e: ChangeEvent<HTMLInputElement>) => {
-        setCity(e.target.value as string);
-    };
-    const handlePostcode = (e: ChangeEvent<HTMLInputElement>) => {
-        setPostcode(e.target.value as string);
-    };
 
     const handleClose = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
-        setOpen(false);
-        reset();
+
+        setOpen({
+            ...client,
+            id: 0,
+        });
     };
 
     const onSubmit = async (e: FormEvent) => {
@@ -57,19 +71,24 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
         e.preventDefault();
         if (isValid) {
             const values = getValues();
-            submit(values, { action: "/clients", method: "POST" });
-            //reset();
+            submit(
+                { ...values, id: client.id },
+                { method: "PUT", action: "/clients" }
+            );
         }
     };
 
     return (
-        <Transition.Root show={open} as={Fragment}>
+        <Transition.Root show={!!client.id} as={Fragment}>
             <Dialog
                 as="div"
-                className="relative z-10"
-                onClose={(value) => {
-                    setOpen(value);
-                    reset();
+                className="relative z-21"
+                onClose={(_) => {
+                    console.log("-> called onclose");
+                    setOpen({
+                        ...client,
+                        id: 0,
+                    });
                 }}
             >
                 {/* background overlay */}
@@ -86,7 +105,7 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                 </Transition.Child>
 
                 {/*  */}
-                <div className="fixed inset-0 z-10 overflow-y-auto border-2">
+                <div className="fixed inset-0 z-20 overflow-y-auto border-2">
                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <Transition.Child
                             as={Fragment}
@@ -115,19 +134,13 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                 </div>
 
                                 <div className="sm:flex sm:items-start">
-                                    {/* <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                                        <ExclamationTriangleIcon
-                                            className="h-6 w-6 text-red-600"
-                                            aria-hidden="true"
-                                        />
-                                    </div> */}
                                     {/* title */}
                                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                         <Dialog.Title
                                             as="h3"
                                             className="text-base font-semibold leading-6 text-gray-900"
                                         >
-                                            Register New Client
+                                            Update Client Info
                                         </Dialog.Title>
                                         {/* content */}
                                         <Form
@@ -135,10 +148,10 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                             action="/clients" */
                                             onSubmit={onSubmit}
                                         >
-                                            <p className="mt-1 text-sm leading-6 text-gray-600">
+                                            {/* <p className="mt-1 text-sm leading-6 text-gray-600">
                                                 Use a permanent address where
                                                 you can receive mail.
-                                            </p>
+                                            </p> */}
 
                                             <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
                                                 <div className="sm:col-span-3">
@@ -159,6 +172,14 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             autoComplete="given-name"
                                                             required
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                                            value={firstName}
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setFirstName(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
                                                         />
                                                     </div>
                                                 </div>
@@ -181,6 +202,14 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             autoComplete="family-name"
                                                             required
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                                            value={lastName}
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setLastName(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
                                                         />
                                                     </div>
                                                 </div>
@@ -221,6 +250,14 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
                                                             placeholder="you@example.com"
+                                                            value={email}
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setEmail(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
                                                         />
                                                     </div>
                                                 </div>
@@ -261,6 +298,14 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                         RES_STATUS.FAILED_DUP_EMAIL) &&
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
+                                                            value={phone}
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setPhone(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
                                                         />
                                                     </div>
                                                 </div>
@@ -282,9 +327,17 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             id="country"
                                                             name="country"
                                                             autoComplete="country-name"
-                                                            value="Australia"
-                                                            //onChange={(e) => {}}
                                                             className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            value={
+                                                                country as string
+                                                            }
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setCountry(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
                                                         />
                                                     </div>
                                                 </div>
@@ -306,6 +359,14 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             id="address"
                                                             autoComplete="street-address"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                                            value={address}
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setAddress(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
                                                         />
                                                     </div>
                                                 </div>
@@ -325,12 +386,16 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             type="text"
                                                             name="city"
                                                             id="city"
-                                                            value={city}
-                                                            onChange={
-                                                                handleCity
-                                                            }
                                                             autoComplete="address-level2"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                                            value={city}
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setCity(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
                                                         />
                                                     </div>
                                                 </div>
@@ -340,7 +405,7 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                         htmlFor="region"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
-                                                        State / Province
+                                                        State
                                                     </label>
                                                     <div className="mt-1">
                                                         <select
@@ -350,17 +415,21 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             id="state"
                                                             name="state"
                                                             autoComplete="state-name"
-                                                            value={state}
-                                                            onChange={
-                                                                handleState
-                                                            }
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                                            value={state}
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setState(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
                                                         >
                                                             <option value="SA">
                                                                 SA
                                                             </option>
-                                                            <option value="NSW">
-                                                                NSW
+                                                            <option value="NS">
+                                                                NS
                                                             </option>
                                                             <option value="VIC">
                                                                 VIC
@@ -384,7 +453,7 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             htmlFor="postcode"
                                                             className="block text-sm font-medium leading-6 text-gray-900"
                                                         >
-                                                            ZIP / Postal code
+                                                            Postcode
                                                         </label>
                                                     </>
                                                     <div className="mt-1">
@@ -395,10 +464,6 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             type="text"
                                                             name="postcode"
                                                             id="postcode"
-                                                            value={postcode}
-                                                            onChange={
-                                                                handlePostcode
-                                                            }
                                                             autoComplete="postal-code"
                                                             className={clsx(
                                                                 "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2",
@@ -406,14 +471,20 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                     ? "ring-2 ring-red-600 focus:ring-red-400"
                                                                     : "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
+                                                            value={postcode}
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setPostcode(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse border-t border-gray-900/10 pt-4">
                                                 <button
-                                                    name="intent"
-                                                    value="add"
                                                     type="submit"
                                                     className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                                                     disabled={
@@ -449,4 +520,4 @@ const MAddNewClient: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
     );
 };
 
-export default MAddNewClient;
+export default MClientEdit;

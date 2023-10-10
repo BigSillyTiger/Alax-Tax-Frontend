@@ -19,7 +19,7 @@ export const action = async ({
     const data = await request.formData();
 
     if ("POST" === request.method) {
-        const result = await API_CLIENT.registerNewClient({
+        const result = await API_CLIENT.clientAdd({
             first_name: data.get("first_name") as string,
             last_name: data.get("last_name") as string,
             phone: data.get("phone") as string,
@@ -32,10 +32,10 @@ export const action = async ({
         });
         return result;
     } else if ("DELETE" === request.method) {
-        const result = await API_CLIENT.delSingleClient(Number(data.get("id")));
+        const result = await API_CLIENT.clientSingleDel(Number(data.get("id")));
         return result;
     } else if ("PUT" === request.method) {
-        const result = await API_CLIENT.updateSingleClient({
+        const result = await API_CLIENT.clientSingleUpdate({
             id: Number(data.get("id")),
             first_name: data.get("first_name") as string,
             last_name: data.get("last_name") as string,

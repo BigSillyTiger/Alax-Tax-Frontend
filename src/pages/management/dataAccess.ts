@@ -8,7 +8,7 @@ import type { Tresponse } from "@/utils/types";
 
 // create loader and action function for service list page
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-    const univers = API_MANAGE.universAll();
+    const univers = API_MANAGE.uniAll();
     return defer({ univers });
 };
 
@@ -30,6 +30,28 @@ export const action = async ({
         const result = await API_MANAGE.unitAdd({
             unit_name: data.get("unit_name") as string,
         });
+        return result;
+    } else if ("DELETE" === request.method) {
+        /* delete service / unit action */
+        const result = await API_MANAGE.uniDel({
+            id: Number(data.get("id")),
+            type: data.get("type") as "service" | "unit",
+        });
+        return result;
+    } else if ("PUT" === request.method) {
+        /* edit service / unit action */
+        const temp = data.get("service")
+            ? {
+                  id: Number(data.get("id")),
+                  service: data.get("service") as string,
+                  unit: data.get("unit") as string,
+                  unit_price: Number(data.get("unit_price")),
+              }
+            : {
+                  id: Number(data.get("id")),
+                  unit_name: data.get("unit_name") as string,
+              };
+        const result = await API_MANAGE.uniEdit(temp);
         return result;
     } else {
         return {

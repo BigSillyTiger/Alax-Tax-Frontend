@@ -47,9 +47,7 @@ export const clientInfo = async (id: number): Promise<Tresponse> => {
     }
 };
 
-export const registerNewClient = async (
-    client: TclientUnreg
-): Promise<Tresponse> => {
+export const clientAdd = async (client: TclientUnreg): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_CLIENT_SINGLE_REGISTER, client);
         return response.data;
@@ -63,7 +61,7 @@ export const registerNewClient = async (
     }
 };
 
-export const delSingleClient = async (id: number): Promise<Tresponse> => {
+export const clientSingleDel = async (id: number): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_CLIENT_SINGLE_DEL, { id });
         return response.data;
@@ -77,7 +75,7 @@ export const delSingleClient = async (id: number): Promise<Tresponse> => {
     }
 };
 
-export const updateSingleClient = async (
+export const clientSingleUpdate = async (
     client: Tclient
 ): Promise<Tresponse> => {
     try {
