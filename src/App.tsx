@@ -17,7 +17,7 @@ import { initLoader, initAction } from "@/pages/initPage";
 import { loginLoader, loginAction } from "@/pages/login";
 import Layout, { layoutLoader } from "@/components/layout";
 import Clients from "@/pages/clients/clients";
-import Orders from "@/pages/orders";
+import Orders from "@/pages/orders/orders";
 import Employees from "@/pages/employees";
 import Management from "@/pages/management";
 import Calendar from "./pages/calendar";
@@ -26,7 +26,10 @@ import {
     loader as clientsLoader,
     action as clientsAction,
 } from "@/pages/clients";
-import { loader as clientLoader } from "@/pages/client/dataAccess";
+import {
+    loader as clientLoader,
+    action as clientAction,
+} from "@/pages/client/dataAccess";
 import {
     loader as universLoader,
     action as universAction,
@@ -71,6 +74,7 @@ const App: FC = () => {
                         path={"/clients/:cid"}
                         element={<Client />}
                         loader={clientLoader}
+                        action={clientAction}
                         /* handle={{
                             crumb: (data: any) => {
                                 return <span>{"/id"}</span>;

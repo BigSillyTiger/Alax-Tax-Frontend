@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
 import type { FC, MouseEvent, TouchEvent } from "react";
-import type { TclientView } from "@/utils/schema/client";
+import type { Tclient } from "@/utils/schema/client";
 import { Transition, Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Card from "@/components/card";
 
 type Tprops = {
-    client: TclientView | null;
-    setOpen: (open: TclientView | null) => void;
+    client: Tclient | null;
+    setOpen: (open: Tclient | null) => void;
 };
 
 // a modal based on headlessui to display client info
@@ -75,7 +75,8 @@ const MClientInfo: FC<Tprops> = ({ client, setOpen }) => {
                                         <b className="text-indigo-600">
                                             Client:
                                         </b>{" "}
-                                        {client?.full_name}
+                                        {client?.first_name}&nbsp;
+                                        {client?.last_name}
                                     </Dialog.Title>
                                     <Card className="mt-4 w-full">
                                         <div className="m-3 grid grid-cols-6 gap-x-4 gap-y-4">

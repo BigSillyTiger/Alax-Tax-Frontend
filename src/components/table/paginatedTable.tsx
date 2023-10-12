@@ -134,16 +134,6 @@ const PaginatedTable: FC<TtableProps> = ({
                                   key={cell.id}
                                   className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
                               >
-                                  {/* <button
-                                      onClick={(e) => {
-                                          clickEdit({ ...row.original });
-                                      }}
-                                  >
-                                      <EllipsisVerticalIcon
-                                          className="h-6 w-6 text-indigo-500"
-                                          aria-hidden="true"
-                                      />
-                                  </button> */}
                                   <MenuBtn
                                       mLabel={
                                           <EllipsisVerticalIcon

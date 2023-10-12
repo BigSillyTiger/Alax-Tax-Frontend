@@ -33,9 +33,9 @@ export const clientAll = async (): Promise<Tresponse> => {
     }
 };
 
-export const clientInfo = async (id: number): Promise<Tresponse> => {
+export const clientInfo = async (client_id: number): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_CLIENT_INFO, { id });
+        const response = await apis.post(REQ_CLIENT_INFO, { client_id });
         return response.data;
     } catch (err: any) {
         console.log("-> retrieve client info error: ", err);

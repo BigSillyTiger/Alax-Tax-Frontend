@@ -24,14 +24,14 @@ import { useNavigate } from "react-router-dom";
 import Pagination from "@/components/table/pagination";
 import SearchBar from "@/components/table/searchBar";
 import { sortingIcon } from "@/components/table/config";
-import { TclientView } from "@/utils/schema/client";
+import { Tclient } from "@/utils/schema/client";
 import MenuBtn from "@/components/menuBtn/tMenuBtn";
 
 type TtableProps = {
-    data: TclientView[];
+    data: Tclient[];
     columns: any;
-    clickEdit: (open: TclientView) => void;
-    clickDel: (open: TclientView) => void;
+    clickEdit: (open: Tclient) => void;
+    clickDel: (open: Tclient) => void;
 };
 
 const ClientTable: FC<TtableProps> = ({
@@ -49,14 +49,14 @@ const ClientTable: FC<TtableProps> = ({
         {
             label: "Edit",
             icon: <PencilIcon />,
-            clickFn: (v: TclientView) => {
+            clickFn: (v: Tclient) => {
                 clickEdit(v);
             },
         },
         {
             label: "Delete",
             icon: <TrashIcon />,
-            clickFn: (v: TclientView) => {
+            clickFn: (v: Tclient) => {
                 clickDel(v);
             },
         },
@@ -98,7 +98,7 @@ const ClientTable: FC<TtableProps> = ({
     ));
 
     const tableBody = table.getRowModel().rows.length
-        ? table.getRowModel().rows.map((row: Row<TclientView>, i: number) => (
+        ? table.getRowModel().rows.map((row: Row<Tclient>, i: number) => (
               <tr
                   key={row.id}
                   className={i % 2 === 0 ? undefined : "bg-gray-100"}
@@ -116,7 +116,8 @@ const ClientTable: FC<TtableProps> = ({
                                       onClick={(e) => {
                                           e.preventDefault();
                                           return nevigate(
-                                              "/clients/" + row.original.id,
+                                              "/clients/" +
+                                                  row.original.client_id,
                                               { replace: false }
                                           );
                                       }}

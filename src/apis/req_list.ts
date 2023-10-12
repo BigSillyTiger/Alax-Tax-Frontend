@@ -14,12 +14,19 @@ export const REQ_TEST = "/api/test";
 
 export const REQ_HERO_SLIDE_IMG = "/api/heroslideimgs";
 
+// Job
 export const REQ_CLIENT_ALL = "/client/all";
 export const REQ_CLIENT_INFO = "/client/info";
-export const REQ_CLIENT_SINGLE_DEL = "/client/single-del";
 export const REQ_CLIENT_SINGLE_REGISTER = "/client/single-insert";
 export const REQ_CLIENT_SINGLE_UPDATE = "/client/single-update";
+export const REQ_CLIENT_SINGLE_DEL = "/client/single-del";
 
+export const REQ_ORDER_ALL = "/order/all";
+export const REQ_ORDER_ADD = "/order/add";
+export const REQ_ORDER_UPDATE = "/order/update";
+export const REQ_ORDER_DEL = "/order/del";
+
+// Assist
 export const REQ_MANAGE_UNI_ALL = "/manage/uni_all";
 export const REQ_MANAGE_UNI_ADD = "/manage/uni_add";
 export const REQ_MANAGE_UNI_DEL = "/manage/uni_del";

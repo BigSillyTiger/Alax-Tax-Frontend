@@ -4,12 +4,12 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 import { useSubmit } from "react-router-dom";
-import type { TclientView } from "@/utils/schema/client";
+import type { Tclient } from "@/utils/schema/client";
 import Card from "@/components/card";
 
 type Tprops = {
-    client: TclientView;
-    setOpen: (value: TclientView) => void;
+    client: Tclient;
+    setOpen: (value: Tclient) => void;
 };
 
 // this component is about building a modal with transition to delete a client
@@ -26,7 +26,7 @@ const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
                 <div className="col-span-5">
                     <p>
                         <b className="text-indigo-600">Client: </b>{" "}
-                        {client.full_name}
+                        {client.first_name}&nbsp;{client.last_name}
                     </p>
                 </div>
                 <div className="col-span-3">
@@ -59,11 +59,11 @@ const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
     );
 
     return (
-        <Transition.Root show={!!client.id} as={Fragment}>
+        <Transition.Root show={!!client.client_id} as={Fragment}>
             <Dialog
                 as="div"
                 className="fixed z-20 inset-0 overflow-y-auto"
-                onClose={(_) => setOpen({ ...client, id: 0 })}
+                onClose={(_) => setOpen({ ...client, client_id: 0 })}
             >
                 {/* background */}
                 <Transition.Child
@@ -117,8 +117,13 @@ const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
                                         type="button"
                                         className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                                         onClick={() => {
-                                            handleDeleteClient(client.id);
-                                            setOpen({ ...client, id: 0 });
+                                            handleDeleteClient(
+                                                client.client_id
+                                            );
+                                            setOpen({
+                                                ...client,
+                                                client_id: 0,
+                                            });
                                         }}
                                     >
                                         Delete
@@ -128,7 +133,10 @@ const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            setOpen({ ...client, id: 0 });
+                                            setOpen({
+                                                ...client,
+                                                client_id: 0,
+                                            });
                                         }}
                                     >
                                         Cancel

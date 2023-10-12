@@ -9,15 +9,15 @@ import Card from "@/components/card";
 import { Tresponse } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/utils";
 
-import { TclientView } from "@/utils/schema/client";
-import MClientInfo from "./modals/mClient";
+import { Tclient } from "@/utils/schema/client";
+import MClientInfo from "./modals/mClientInfo.tsx";
 import MClientAdd from "./modals/mClientAdd";
 import MClientDel from "./modals/mClientDel";
 import MClientEdit from "./modals/mClientEdit.tsx";
 import { RES_STATUS } from "@/utils/types";
 
 type Tprops = {
-    clients: TclientView[] | null;
+    clients: Tclient[] | null;
 };
 
 type TisConflict =
@@ -26,36 +26,29 @@ type TisConflict =
     | RES_STATUS.FAILED_DUP_EMAIL
     | RES_STATUS.FAILED_DUP_P_E;
 
+const initClient = {
+    client_id: 0,
+    first_name: "",
+    last_name: "",
+    phone: "",
+    email: "",
+    address: "",
+    city: "",
+    state: "",
+    country: "",
+    postcode: "",
+};
+
 const Clients: FC = () => {
     const [addNewOpen, setAddNewOpen] = useState(false);
-    const [clientInfo, setClientInfo] = useState<TclientView | null>(null);
-    const [clientEdit, setClientEdit] = useState<TclientView>({
-        id: 0,
-        full_name: "",
-        email: "",
-        phone: "",
-        address: "",
-        city: "",
-        state: "",
-        country: "",
-        postcode: "",
-    });
-    const [clientDel, setClientDel] = useState<TclientView>({
-        id: 0,
-        full_name: "",
-        email: "",
-        phone: "",
-        address: "",
-        city: "",
-        state: "",
-        country: "",
-        postcode: "",
-    });
+    const [clientInfo, setClientInfo] = useState<Tclient | null>(null);
+    const [clientEdit, setClientEdit] = useState<Tclient>(initClient);
+    const [clientDel, setClientDel] = useState<Tclient>(initClient);
     const [infoConflict, setInfoConflict] = useState<TisConflict>(
         RES_STATUS.SUCCESS
     );
     const { clients } = useLoaderData() as {
-        clients: TclientView[] | null;
+        clients: Tclient[] | null;
     };
     const actionData = useActionData() as Tresponse;
 
@@ -65,9 +58,8 @@ const Clients: FC = () => {
             if (addNewOpen) {
                 setAddNewOpen(false);
                 toastSuccess("Registered a new client");
-            }
-            if (clientEdit.id) {
-                setClientEdit({ ...clientEdit, id: 0 });
+            } else if (clientEdit.client_id) {
+                setClientEdit(initClient);
                 toastSuccess("Updated client informaton");
             }
         } else if (
@@ -129,7 +121,7 @@ const Clients: FC = () => {
                     ) : (
                         <Card className="mt-8">
                             <span className="m-5 p-5  text-center h-15">
-                                No client content
+                                No Client Content
                             </span>
                         </Card>
                     )}
@@ -143,7 +135,6 @@ const Clients: FC = () => {
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={clients}>
                     {(clientList) => {
-                        //setClientList(clientList.data);
                         return <ClientTableContent clients={clientList.data} />;
                     }}
                 </Await>

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const clientSchema = z.object({
-    id: z.number(),
+    client_id: z.number(),
     first_name: z.string().trim(),
     last_name: z.string().trim(),
     phone: z
@@ -31,21 +31,7 @@ export const clientSchema = z.object({
         .nullable(),
 });
 
-export const clientViewSchema = clientSchema
-    .pick({
-        id: true,
-        phone: true,
-        email: true,
-        address: true,
-        city: true,
-        state: true,
-        country: true,
-        postcode: true,
-    })
-    .extend({ full_name: z.string().trim() });
-
-export const clientNoIDSchema = clientSchema.omit({ id: true });
+export const clientNoIDSchema = clientSchema.omit({ client_id: true });
 
 export type Tclient = z.infer<typeof clientSchema>;
 export type TclientUnreg = z.infer<typeof clientNoIDSchema>;
-export type TclientView = z.infer<typeof clientViewSchema>;

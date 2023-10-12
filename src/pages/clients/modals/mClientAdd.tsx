@@ -340,7 +340,7 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                         htmlFor="region"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
-                                                        State / Province
+                                                        State
                                                     </label>
                                                     <div className="mt-1">
                                                         <select
@@ -356,37 +356,36 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             }
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         >
-                                                            <option value="SA">
-                                                                SA
-                                                            </option>
                                                             <option value="NSW">
                                                                 NSW
                                                             </option>
-                                                            <option value="VIC">
-                                                                VIC
+                                                            <option value="QLD">
+                                                                QLD
+                                                            </option>
+                                                            <option value="SA">
+                                                                SA
                                                             </option>
                                                             <option value="TAS">
                                                                 TAS
                                                             </option>
+                                                            <option value="VIC">
+                                                                VIC
+                                                            </option>
                                                             <option value="WA">
                                                                 WA
-                                                            </option>
-                                                            <option value="QLD">
-                                                                QLD
                                                             </option>
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div className="sm:col-span-2">
-                                                    <>
-                                                        <label
-                                                            htmlFor="postcode"
-                                                            className="block text-sm font-medium leading-6 text-gray-900"
-                                                        >
-                                                            ZIP / Postal code
-                                                        </label>
-                                                    </>
+                                                    <label
+                                                        htmlFor="postcode"
+                                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                                    >
+                                                        Postcode
+                                                    </label>
+
                                                     <div className="mt-1">
                                                         <input
                                                             {...register(
@@ -410,6 +409,7 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse border-t border-gray-900/10 pt-4">
                                                 <button
                                                     name="intent"

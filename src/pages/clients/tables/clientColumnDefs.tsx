@@ -1,5 +1,4 @@
 import { Cell } from "@tanstack/react-table";
-import { Bars3CenterLeftIcon } from "@heroicons/react/24/outline";
 
 const clientColumns = [
     {
@@ -9,9 +8,16 @@ const clientColumns = [
         },
     },
     {
-        header: "Name",
-        accessorKey: "full_name",
-        cell: (info: Cell<{ full_name: string }, string>) => (
+        header: "First Name",
+        accessorKey: "first_name",
+        cell: (info: Cell<{ first_name: string }, string>) => (
+            <span>{info.getValue()}</span>
+        ),
+    },
+    {
+        header: "Last Name",
+        accessorKey: "last_name",
+        cell: (info: Cell<{ last_name: string }, string>) => (
             <span>{info.getValue()}</span>
         ),
     },

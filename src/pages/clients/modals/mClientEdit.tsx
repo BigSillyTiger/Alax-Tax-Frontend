@@ -5,7 +5,7 @@ import { set, useForm } from "react-hook-form";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-import type { Tclient, TclientView } from "@/utils/schema/client";
+import type { Tclient } from "@/utils/schema/client";
 import { clientNoIDSchema } from "@/utils/schema/client";
 import {
     XMarkIcon,
@@ -15,43 +15,39 @@ import {
 import { RES_STATUS } from "@/utils/types";
 
 type Tprops = {
-    client: TclientView;
-    setOpen: (open: TclientView) => void;
+    client: Tclient;
+    setOpen: (open: Tclient) => void;
     isConflict: number;
 };
 // this component is about building a modal with transition to update a client
 // the modal structure is similar to MAddNewClient
 const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
     // set default value based on client for id first_name, last_name, phone, email, address, city, state, country, postcode
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
-    const [postcode, setPostcode] = useState("");
+
+    const [defaultClient, setDefaultClient] = useState<Tclient>({
+        client_id: 0,
+        first_name: "",
+        last_name: "",
+        phone: "",
+        email: "",
+        address: "",
+        city: "",
+        state: "",
+        country: "",
+        postcode: "",
+    });
 
     const submit = useSubmit();
     const navigation = useNavigation();
 
     useEffect(() => {
-        setFirstName(client?.full_name.split(" ")[0]);
-        setLastName(client?.full_name.split(" ")[1]);
-        setPhone(client.phone);
-        setEmail(client.email);
-        setAddress(client.address || "");
-        setCity(client.city || "");
-        setState(client.state || "");
-        setCountry(client.country || "");
-        setPostcode(client.postcode || "");
-        reset();
-    }, [client.phone]);
+        if (client) {
+            setDefaultClient(client);
+        }
+    }, [client]);
 
     const {
         register,
-        reset,
         getValues,
         formState: { errors },
         trigger,
@@ -62,8 +58,18 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
 
         setOpen({
             ...client,
-            id: 0,
+            client_id: 0,
         });
+    };
+
+    const handleChange = (
+        e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+    ) => {
+        const { name, value } = e.target;
+        setDefaultClient((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
     const onSubmit = async (e: FormEvent) => {
@@ -72,14 +78,14 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
         if (isValid) {
             const values = getValues();
             submit(
-                { ...values, id: client.id },
+                { ...values, id: client.client_id },
                 { method: "PUT", action: "/clients" }
             );
         }
     };
 
     return (
-        <Transition.Root show={!!client.id} as={Fragment}>
+        <Transition.Root show={!!client.client_id} as={Fragment}>
             <Dialog
                 as="div"
                 className="relative z-21"
@@ -87,7 +93,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                     console.log("-> called onclose");
                     setOpen({
                         ...client,
-                        id: 0,
+                        client_id: 0,
                     });
                 }}
             >
@@ -172,14 +178,12 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             autoComplete="given-name"
                                                             required
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                                            value={firstName}
-                                                            onChange={(e) => {
-                                                                e.preventDefault();
-                                                                setFirstName(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
+                                                            value={
+                                                                defaultClient.first_name
+                                                            }
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                         />
                                                     </div>
                                                 </div>
@@ -202,14 +206,12 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             autoComplete="family-name"
                                                             required
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                                            value={lastName}
-                                                            onChange={(e) => {
-                                                                e.preventDefault();
-                                                                setLastName(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
+                                                            value={
+                                                                defaultClient.last_name
+                                                            }
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                         />
                                                     </div>
                                                 </div>
@@ -250,14 +252,12 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
                                                             placeholder="you@example.com"
-                                                            value={email}
-                                                            onChange={(e) => {
-                                                                e.preventDefault();
-                                                                setEmail(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
+                                                            value={
+                                                                defaultClient.email
+                                                            }
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                         />
                                                     </div>
                                                 </div>
@@ -298,14 +298,12 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                                         RES_STATUS.FAILED_DUP_EMAIL) &&
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
-                                                            value={phone}
-                                                            onChange={(e) => {
-                                                                e.preventDefault();
-                                                                setPhone(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
+                                                            value={
+                                                                defaultClient.phone
+                                                            }
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                         />
                                                     </div>
                                                 </div>
@@ -329,15 +327,13 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             autoComplete="country-name"
                                                             className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                             value={
-                                                                country as string
+                                                                defaultClient.country as
+                                                                    | string
+                                                                    | undefined
                                                             }
-                                                            onChange={(e) => {
-                                                                e.preventDefault();
-                                                                setCountry(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                         />
                                                     </div>
                                                 </div>
@@ -359,14 +355,14 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             id="address"
                                                             autoComplete="street-address"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                                            value={address}
-                                                            onChange={(e) => {
-                                                                e.preventDefault();
-                                                                setAddress(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
+                                                            value={
+                                                                defaultClient.address as
+                                                                    | string
+                                                                    | undefined
+                                                            }
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                         />
                                                     </div>
                                                 </div>
@@ -388,21 +384,21 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             id="city"
                                                             autoComplete="address-level2"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                                            value={city}
-                                                            onChange={(e) => {
-                                                                e.preventDefault();
-                                                                setCity(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
+                                                            value={
+                                                                defaultClient.city as
+                                                                    | string
+                                                                    | undefined
+                                                            }
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                         />
                                                     </div>
                                                 </div>
 
                                                 <div className="sm:col-span-2">
                                                     <label
-                                                        htmlFor="region"
+                                                        htmlFor="state"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
                                                         State
@@ -416,14 +412,14 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             name="state"
                                                             autoComplete="state-name"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                                            value={state}
-                                                            onChange={(e) => {
-                                                                e.preventDefault();
-                                                                setState(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
+                                                            value={
+                                                                defaultClient.state as
+                                                                    | string
+                                                                    | undefined
+                                                            }
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                         >
                                                             <option value="SA">
                                                                 SA
@@ -471,14 +467,12 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                                     ? "ring-2 ring-red-600 focus:ring-red-400"
                                                                     : "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
-                                                            value={postcode}
-                                                            onChange={(e) => {
-                                                                e.preventDefault();
-                                                                setPostcode(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
+                                                            value={
+                                                                defaultClient.postcode as string
+                                                            }
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                         />
                                                     </div>
                                                 </div>
