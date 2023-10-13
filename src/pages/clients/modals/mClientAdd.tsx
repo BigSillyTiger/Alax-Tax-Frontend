@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from "react";
-import type { FC, FormEvent, MouseEvent, TouchEvent, ChangeEvent } from "react";
+import React, { Fragment } from "react";
+import type { FC, FormEvent, MouseEvent, TouchEvent } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
     EnvelopeIcon,
@@ -9,7 +9,6 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
-import type { Tstate } from "@/utils/schema/universSchema";
 import type { Tclient } from "@/utils/schema/clientSchema";
 import { clientNoIDSchema } from "@/utils/schema/clientSchema";
 import { RES_STATUS } from "@/utils/types";
@@ -22,9 +21,6 @@ type Tprops = {
 };
 
 const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
-    const [state, setState] = useState<Tstate>("SA");
-    const [city, setCity] = useState<string>("Adelaide");
-    const [postcode, setPostcode] = useState<string>("5000");
     const navigation = useNavigation();
     const submit = useSubmit();
 
@@ -34,17 +30,16 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
         reset,
         getValues,
         formState: { errors },
-    } = useForm<Tclient>({ resolver: zodResolver(clientNoIDSchema) });
-
-    const handleState = (e: ChangeEvent<HTMLSelectElement>) => {
-        setState(e.target.value as Tstate);
-    };
-    const handleCity = (e: ChangeEvent<HTMLInputElement>) => {
-        setCity(e.target.value as string);
-    };
-    const handlePostcode = (e: ChangeEvent<HTMLInputElement>) => {
-        setPostcode(e.target.value as string);
-    };
+    } = useForm<Tclient>({
+        resolver: zodResolver(clientNoIDSchema),
+        defaultValues: {
+            suburb: "Adelaide",
+            city: "Adelaide",
+            state: "SA",
+            country: "Australia",
+            postcode: "5000",
+        },
+    });
 
     const handleClose = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
@@ -154,7 +149,6 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                 "first_name"
                                                             )}
                                                             type="text"
-                                                            name="first_name"
                                                             id="first_name"
                                                             autoComplete="given-name"
                                                             required
@@ -176,7 +170,6 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                 "last_name"
                                                             )}
                                                             type="text"
-                                                            name="last_name"
                                                             id="last_name"
                                                             autoComplete="family-name"
                                                             required
@@ -204,7 +197,6 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                 "email"
                                                             )}
                                                             type="email"
-                                                            name="email"
                                                             id="email"
                                                             required
                                                             className={clsx(
@@ -225,7 +217,7 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                     </div>
                                                 </div>
 
-                                                <div className="sm:col-span-3">
+                                                <div className="sm:col-span-4">
                                                     <label
                                                         htmlFor="phone"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
@@ -245,7 +237,6 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             )}
                                                             type="text"
                                                             id="phone"
-                                                            name="phone"
                                                             autoComplete="tel"
                                                             placeholder="0-xxx-xxx-xxx"
                                                             className={clsx(
@@ -265,30 +256,6 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                     </div>
                                                 </div>
 
-                                                <div className="sm:col-span-3">
-                                                    <label
-                                                        htmlFor="country"
-                                                        className="block text-sm font-medium leading-6 text-gray-900"
-                                                    >
-                                                        Country
-                                                    </label>
-                                                    <div className="mt-1">
-                                                        <input
-                                                            {...register(
-                                                                "country"
-                                                            )}
-                                                            type="text"
-                                                            //disabled
-                                                            id="country"
-                                                            name="country"
-                                                            autoComplete="country-name"
-                                                            value="Australia"
-                                                            //onChange={(e) => {}}
-                                                            className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                        />
-                                                    </div>
-                                                </div>
-
                                                 <div className="col-span-full">
                                                     <label
                                                         htmlFor="address"
@@ -302,7 +269,6 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                 "address"
                                                             )}
                                                             type="text"
-                                                            name="address"
                                                             id="address"
                                                             autoComplete="street-address"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
@@ -310,7 +276,27 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                     </div>
                                                 </div>
 
-                                                <div className="sm:col-span-2 sm:col-start-1">
+                                                <div className="sm:col-span-2">
+                                                    <label
+                                                        htmlFor="suburb"
+                                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                                    >
+                                                        Suburb
+                                                    </label>
+                                                    <div className="mt-1">
+                                                        <input
+                                                            {...register(
+                                                                "suburb"
+                                                            )}
+                                                            type="text"
+                                                            id="suburb"
+                                                            autoComplete="address-level1"
+                                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="sm:col-span-2">
                                                     <label
                                                         htmlFor="city"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
@@ -323,12 +309,7 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                 "city"
                                                             )}
                                                             type="text"
-                                                            name="city"
                                                             id="city"
-                                                            value={city}
-                                                            onChange={
-                                                                handleCity
-                                                            }
                                                             autoComplete="address-level2"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         />
@@ -348,12 +329,7 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                 "state"
                                                             )}
                                                             id="state"
-                                                            name="state"
-                                                            autoComplete="state-name"
-                                                            value={state}
-                                                            onChange={
-                                                                handleState
-                                                            }
+                                                            autoComplete="address-level3"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                         >
                                                             <option value="NSW">
@@ -380,6 +356,27 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
 
                                                 <div className="sm:col-span-2">
                                                     <label
+                                                        htmlFor="country"
+                                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                                    >
+                                                        Country
+                                                    </label>
+                                                    <div className="mt-1">
+                                                        <input
+                                                            {...register(
+                                                                "country"
+                                                            )}
+                                                            type="text"
+                                                            disabled
+                                                            id="country"
+                                                            autoComplete="country-name"
+                                                            className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="sm:col-span-2">
+                                                    <label
                                                         htmlFor="postcode"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
@@ -392,12 +389,7 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                                 "postcode"
                                                             )}
                                                             type="text"
-                                                            name="postcode"
                                                             id="postcode"
-                                                            value={postcode}
-                                                            onChange={
-                                                                handlePostcode
-                                                            }
                                                             autoComplete="postal-code"
                                                             className={clsx(
                                                                 "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2",

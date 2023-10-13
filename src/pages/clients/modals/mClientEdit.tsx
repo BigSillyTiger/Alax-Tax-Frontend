@@ -15,61 +15,50 @@ import {
 import { RES_STATUS } from "@/utils/types";
 
 type Tprops = {
-    defaultClient: Tclient;
+    client: Tclient;
     setOpen: (open: Tclient) => void;
     isConflict: number;
 };
+
+const initClient = {
+    client_id: 0,
+    first_name: "",
+    last_name: "",
+    phone: "",
+    email: "",
+    address: "",
+    suburb: "",
+    city: "",
+    state: "",
+    country: "",
+    postcode: "",
+};
+
 // this component is about building a modal with transition to update a client
 // the modal structure is similar to MAddNewClient
-const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
-    // set default value based on client for id first_name, last_name, phone, email, address, city, state, country, postcode
-
-    const [client, setClient] = useState<Tclient>({
-        client_id: 0,
-        first_name: "",
-        last_name: "",
-        phone: "",
-        email: "",
-        address: "",
-        city: "",
-        state: "",
-        country: "",
-        postcode: "",
-    });
-
+const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
     const submit = useSubmit();
     const navigation = useNavigation();
-
-    useEffect(() => {
-        if (defaultClient) {
-            setClient(defaultClient);
-        }
-    }, [defaultClient]);
 
     const {
         register,
         getValues,
         formState: { errors },
         trigger,
-    } = useForm<Tclient>({ resolver: zodResolver(clientNoIDSchema) });
+        reset,
+    } = useForm<Tclient>({
+        resolver: zodResolver(clientNoIDSchema),
+        defaultValues: client,
+    });
+
+    useEffect(() => {
+        reset(client);
+    }, [client, reset]);
 
     const handleClose = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
 
-        setOpen({
-            ...client,
-            client_id: 0,
-        });
-    };
-
-    const handleChange = (
-        e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
-    ) => {
-        const { name, value } = e.target;
-        setClient((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+        setOpen(initClient);
     };
 
     const onSubmit = async (e: FormEvent) => {
@@ -90,11 +79,7 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                 as="div"
                 className="relative z-21"
                 onClose={(_) => {
-                    console.log("-> called onclose");
-                    setOpen({
-                        ...client,
-                        client_id: 0,
-                    });
+                    setOpen(initClient);
                 }}
             >
                 {/* background overlay */}
@@ -173,17 +158,10 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                                 "first_name"
                                                             )}
                                                             type="text"
-                                                            name="first_name"
                                                             id="first_name"
                                                             autoComplete="given-name"
                                                             required
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                                            value={
-                                                                client.first_name
-                                                            }
-                                                            onChange={
-                                                                handleChange
-                                                            }
                                                         />
                                                     </div>
                                                 </div>
@@ -200,18 +178,11 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                             {...register(
                                                                 "last_name"
                                                             )}
-                                                            type="text"
-                                                            name="last_name"
                                                             id="last_name"
+                                                            type="text"
                                                             autoComplete="family-name"
                                                             required
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                                            value={
-                                                                client.last_name
-                                                            }
-                                                            onChange={
-                                                                handleChange
-                                                            }
                                                         />
                                                     </div>
                                                 </div>
@@ -235,7 +206,6 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                                 "email"
                                                             )}
                                                             type="email"
-                                                            name="email"
                                                             id="email"
                                                             required
                                                             className={clsx(
@@ -252,15 +222,11 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
                                                             placeholder="you@example.com"
-                                                            value={client.email}
-                                                            onChange={
-                                                                handleChange
-                                                            }
                                                         />
                                                     </div>
                                                 </div>
 
-                                                <div className="sm:col-span-3">
+                                                <div className="sm:col-span-4">
                                                     <label
                                                         htmlFor="phone"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
@@ -280,7 +246,6 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                             )}
                                                             type="text"
                                                             id="phone"
-                                                            name="phone"
                                                             autoComplete="tel"
                                                             placeholder="0-xxx-xxx-xxx"
                                                             className={clsx(
@@ -296,40 +261,6 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                                         RES_STATUS.FAILED_DUP_EMAIL) &&
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
-                                                            value={client.phone}
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                <div className="sm:col-span-3">
-                                                    <label
-                                                        htmlFor="country"
-                                                        className="block text-sm font-medium leading-6 text-gray-900"
-                                                    >
-                                                        Country
-                                                    </label>
-                                                    <div className="mt-1">
-                                                        <input
-                                                            {...register(
-                                                                "country"
-                                                            )}
-                                                            type="text"
-                                                            //disabled
-                                                            id="country"
-                                                            name="country"
-                                                            autoComplete="country-name"
-                                                            className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                            value={
-                                                                client.country as
-                                                                    | string
-                                                                    | undefined
-                                                            }
-                                                            onChange={
-                                                                handleChange
-                                                            }
                                                         />
                                                     </div>
                                                 </div>
@@ -347,23 +278,34 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                                 "address"
                                                             )}
                                                             type="text"
-                                                            name="address"
                                                             id="address"
                                                             autoComplete="street-address"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                                            value={
-                                                                client.address as
-                                                                    | string
-                                                                    | undefined
-                                                            }
-                                                            onChange={
-                                                                handleChange
-                                                            }
                                                         />
                                                     </div>
                                                 </div>
 
-                                                <div className="sm:col-span-2 sm:col-start-1">
+                                                <div className="sm:col-span-2">
+                                                    <label
+                                                        htmlFor="suburb"
+                                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                                    >
+                                                        Suburb
+                                                    </label>
+                                                    <div className="mt-1">
+                                                        <input
+                                                            {...register(
+                                                                "suburb"
+                                                            )}
+                                                            type="text"
+                                                            id="suburb"
+                                                            autoComplete="address-level1"
+                                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="sm:col-span-2">
                                                     <label
                                                         htmlFor="city"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
@@ -376,18 +318,9 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                                 "city"
                                                             )}
                                                             type="text"
-                                                            name="city"
                                                             id="city"
                                                             autoComplete="address-level2"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                                            value={
-                                                                client.city as
-                                                                    | string
-                                                                    | undefined
-                                                            }
-                                                            onChange={
-                                                                handleChange
-                                                            }
                                                         />
                                                     </div>
                                                 </div>
@@ -405,17 +338,8 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                                 "state"
                                                             )}
                                                             id="state"
-                                                            name="state"
                                                             autoComplete="state-name"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                                            value={
-                                                                client.state as
-                                                                    | string
-                                                                    | undefined
-                                                            }
-                                                            onChange={
-                                                                handleChange
-                                                            }
                                                         >
                                                             <option value="SA">
                                                                 SA
@@ -440,6 +364,27 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                 </div>
 
                                                 <div className="sm:col-span-2">
+                                                    <label
+                                                        htmlFor="country"
+                                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                                    >
+                                                        Country
+                                                    </label>
+                                                    <div className="mt-1">
+                                                        <input
+                                                            {...register(
+                                                                "country"
+                                                            )}
+                                                            type="text"
+                                                            disabled
+                                                            id="country"
+                                                            autoComplete="country-name"
+                                                            className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="sm:col-span-2">
                                                     <>
                                                         <label
                                                             htmlFor="postcode"
@@ -454,7 +399,6 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                                 "postcode"
                                                             )}
                                                             type="text"
-                                                            name="postcode"
                                                             id="postcode"
                                                             autoComplete="postal-code"
                                                             className={clsx(
@@ -463,12 +407,6 @@ const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
                                                                     ? "ring-2 ring-red-600 focus:ring-red-400"
                                                                     : "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
-                                                            value={
-                                                                client.postcode as string
-                                                            }
-                                                            onChange={
-                                                                handleChange
-                                                            }
                                                         />
                                                     </div>
                                                 </div>

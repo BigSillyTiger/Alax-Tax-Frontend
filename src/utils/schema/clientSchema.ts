@@ -19,6 +19,7 @@ export const clientSchema = z.object({
         }),
     email: z.string().email().trim().toLowerCase(),
     address: z.string().trim().nullable(),
+    suburb: z.string().trim().nullable(),
     city: z.string().trim().nullable(),
     state: z.string().trim().nullable(),
     country: z.string().trim().nullable(),

@@ -10,7 +10,6 @@ import { Tresponse } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/utils";
 
 import { Tclient } from "@/utils/schema/clientSchema.ts";
-import MClientInfo from "./modals/mClientInfo.tsx";
 import MClientAdd from "./modals/mClientAdd";
 import MClientDel from "./modals/mClientDel";
 import MClientEdit from "./modals/mClientEdit.tsx";
@@ -33,6 +32,7 @@ const initClient = {
     phone: "",
     email: "",
     address: "",
+    suburb: "",
     city: "",
     state: "",
     country: "",
@@ -41,7 +41,6 @@ const initClient = {
 
 const Clients: FC = () => {
     const [addNewOpen, setAddNewOpen] = useState(false);
-    const [clientInfo, setClientInfo] = useState<Tclient | null>(null);
     const [clientEdit, setClientEdit] = useState<Tclient>(initClient);
     const [clientDel, setClientDel] = useState<Tclient>(initClient);
     const [infoConflict, setInfoConflict] = useState<TisConflict>(
@@ -147,10 +146,9 @@ const Clients: FC = () => {
                 setOpen={setAddNewOpen}
                 isConflict={infoConflict}
             />
-            <MClientInfo client={clientInfo} setOpen={setClientInfo} />
             <MClientDel client={clientDel} setOpen={setClientDel} />
             <MClientEdit
-                defaultClient={clientEdit}
+                client={clientEdit}
                 setOpen={setClientEdit}
                 isConflict={infoConflict}
             />

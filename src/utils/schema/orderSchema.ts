@@ -5,6 +5,7 @@ export const orderSchema = z.object({
     fk_client_id: z.number(),
     fk_invoice_id: z.number(),
     order_address: z.string().trim(),
+    order_suburb: z.string().trim(),
     order_city: z.string().trim(),
     order_state: z.string().trim(),
     order_country: z.string().trim(),

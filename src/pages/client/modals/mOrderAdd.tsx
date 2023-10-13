@@ -37,6 +37,7 @@ const initOrderDesc: TnewOrderDesc = {
 
 const defaultOrder: TnewOrder = {
     order_address: "4A big street, Richmond",
+    order_suburb: "RICHMOND",
     order_city: "Adelaide",
     order_state: "NSW",
     order_country: "Australia",
