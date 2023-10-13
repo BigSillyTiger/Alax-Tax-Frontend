@@ -5,8 +5,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Transition, Dialog } from "@headlessui/react";
-import { TnewService, TnewUnit, Tservice, Tunit } from "@/utils/schema/manage";
-import { newServiceSchema, newUnitSchema } from "@/utils/schema/manage";
+import {
+    TnewService,
+    TnewUnit,
+    Tservice,
+    Tunit,
+} from "@/utils/schema/manageSchema";
+import { newServiceSchema, newUnitSchema } from "@/utils/schema/manageSchema";
 import clsx from "clsx";
 import { toastError } from "@/utils/utils";
 

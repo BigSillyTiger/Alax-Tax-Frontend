@@ -9,7 +9,7 @@ import Card from "@/components/card";
 import { Tresponse } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/utils";
 
-import { Tclient } from "@/utils/schema/client";
+import { Tclient } from "@/utils/schema/clientSchema.ts";
 import MClientInfo from "./modals/mClientInfo.tsx";
 import MClientAdd from "./modals/mClientAdd";
 import MClientDel from "./modals/mClientDel";
@@ -150,7 +150,7 @@ const Clients: FC = () => {
             <MClientInfo client={clientInfo} setOpen={setClientInfo} />
             <MClientDel client={clientDel} setOpen={setClientDel} />
             <MClientEdit
-                client={clientEdit}
+                defaultClient={clientEdit}
                 setOpen={setClientEdit}
                 isConflict={infoConflict}
             />

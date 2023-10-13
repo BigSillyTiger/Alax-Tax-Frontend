@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import type { FC } from "react";
 import Card from "@/components/card";
-import { Tservice, Tunit } from "@/utils/schema/manage";
+import { Tservice, Tunit } from "@/utils/schema/manageSchema";
 import UniTable from "./tables/uniTable";
 import { serviceListColDefs, unitListColDefs } from "./tables/uniListColDefs";
 import { Tunivers } from "@/utils/types";
@@ -49,7 +49,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                 </div>
                 {/* table */}
                 {services?.length ? (
-                    <Card>
+                    <Card className="">
                         <UniTable
                             data={services}
                             columns={serviceListColDefs}
@@ -87,7 +87,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
 
                 {/* table */}
                 {units?.length ? (
-                    <Card>
+                    <Card className="">
                         <UniTable
                             data={units}
                             columns={unitListColDefs}

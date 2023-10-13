@@ -4,7 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 import { useSubmit } from "react-router-dom";
-import type { Tclient } from "@/utils/schema/client";
+import type { Tclient } from "@/utils/schema/clientSchema";
 import Card from "@/components/card";
 
 type Tprops = {

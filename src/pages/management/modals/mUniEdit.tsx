@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-import type { Tservice, Tunit } from "@/utils/schema/manage";
-import { newServiceSchema, newUnitSchema } from "@/utils/schema/manage";
+import type { Tservice, Tunit } from "@/utils/schema/manageSchema";
+import { newServiceSchema, newUnitSchema } from "@/utils/schema/manageSchema";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { isServiceType } from "@/utils/utils";
 

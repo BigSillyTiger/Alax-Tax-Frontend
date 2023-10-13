@@ -5,8 +5,8 @@ import { set, useForm } from "react-hook-form";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-import type { Tclient } from "@/utils/schema/client";
-import { clientNoIDSchema } from "@/utils/schema/client";
+import type { Tclient } from "@/utils/schema/clientSchema";
+import { clientNoIDSchema } from "@/utils/schema/clientSchema";
 import {
     XMarkIcon,
     EnvelopeIcon,
@@ -15,16 +15,16 @@ import {
 import { RES_STATUS } from "@/utils/types";
 
 type Tprops = {
-    client: Tclient;
+    defaultClient: Tclient;
     setOpen: (open: Tclient) => void;
     isConflict: number;
 };
 // this component is about building a modal with transition to update a client
 // the modal structure is similar to MAddNewClient
-const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
+const MClientEdit: FC<Tprops> = ({ defaultClient, setOpen, isConflict }) => {
     // set default value based on client for id first_name, last_name, phone, email, address, city, state, country, postcode
 
-    const [defaultClient, setDefaultClient] = useState<Tclient>({
+    const [client, setClient] = useState<Tclient>({
         client_id: 0,
         first_name: "",
         last_name: "",
@@ -41,10 +41,10 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
     const navigation = useNavigation();
 
     useEffect(() => {
-        if (client) {
-            setDefaultClient(client);
+        if (defaultClient) {
+            setClient(defaultClient);
         }
-    }, [client]);
+    }, [defaultClient]);
 
     const {
         register,
@@ -66,7 +66,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
         e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
     ) => {
         const { name, value } = e.target;
-        setDefaultClient((prev) => ({
+        setClient((prev) => ({
             ...prev,
             [name]: value,
         }));
@@ -179,7 +179,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             required
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                             value={
-                                                                defaultClient.first_name
+                                                                client.first_name
                                                             }
                                                             onChange={
                                                                 handleChange
@@ -207,7 +207,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             required
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                             value={
-                                                                defaultClient.last_name
+                                                                client.last_name
                                                             }
                                                             onChange={
                                                                 handleChange
@@ -252,9 +252,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
                                                             placeholder="you@example.com"
-                                                            value={
-                                                                defaultClient.email
-                                                            }
+                                                            value={client.email}
                                                             onChange={
                                                                 handleChange
                                                             }
@@ -298,9 +296,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                                         RES_STATUS.FAILED_DUP_EMAIL) &&
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
-                                                            value={
-                                                                defaultClient.phone
-                                                            }
+                                                            value={client.phone}
                                                             onChange={
                                                                 handleChange
                                                             }
@@ -327,7 +323,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             autoComplete="country-name"
                                                             className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                             value={
-                                                                defaultClient.country as
+                                                                client.country as
                                                                     | string
                                                                     | undefined
                                                             }
@@ -356,7 +352,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             autoComplete="street-address"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                             value={
-                                                                defaultClient.address as
+                                                                client.address as
                                                                     | string
                                                                     | undefined
                                                             }
@@ -385,7 +381,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             autoComplete="address-level2"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                             value={
-                                                                defaultClient.city as
+                                                                client.city as
                                                                     | string
                                                                     | undefined
                                                             }
@@ -413,7 +409,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             autoComplete="state-name"
                                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                                             value={
-                                                                defaultClient.state as
+                                                                client.state as
                                                                     | string
                                                                     | undefined
                                                             }
@@ -468,7 +464,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                                     : "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
                                                             value={
-                                                                defaultClient.postcode as string
+                                                                client.postcode as string
                                                             }
                                                             onChange={
                                                                 handleChange

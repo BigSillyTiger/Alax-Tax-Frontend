@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { Tservice, Tunit } from "./schema/manage";
+import { Tservice, Tunit } from "./schema/manageSchema";
 
 export const toastSuccess = (text: string) => {
     toast.success(text, {

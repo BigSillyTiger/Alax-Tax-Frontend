@@ -9,9 +9,9 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
-import type { Tstate } from "@/utils/schema/univers";
-import type { Tclient } from "@/utils/schema/client";
-import { clientNoIDSchema } from "@/utils/schema/client";
+import type { Tstate } from "@/utils/schema/universSchema";
+import type { Tclient } from "@/utils/schema/clientSchema";
+import { clientNoIDSchema } from "@/utils/schema/clientSchema";
 import { RES_STATUS } from "@/utils/types";
 import clsx from "clsx";
 

@@ -7,7 +7,7 @@ import {
     useActionData,
 } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
-import { Tclient } from "@/utils/schema/client";
+import { Tclient } from "@/utils/schema/clientSchema";
 import Card from "@/components/card";
 import MOrderAdd from "./modals/mOrderAdd";
 

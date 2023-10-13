@@ -5,7 +5,12 @@ import {
     REQ_MANAGE_UNI_DEL,
     REQ_MANAGE_UNI_EDIT,
 } from "./req_list";
-import { TnewService, TnewUnit, Tservice, Tunit } from "@/utils/schema/manage";
+import {
+    TnewService,
+    TnewUnit,
+    Tservice,
+    Tunit,
+} from "@/utils/schema/manageSchema";
 
 export const uniAll = async () => {
     try {

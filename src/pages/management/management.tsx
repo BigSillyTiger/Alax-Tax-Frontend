@@ -7,7 +7,7 @@ import { mTabList } from "@/configs/menuList";
 import Uni from "./uni";
 import LoadingPage from "@/components/loadingEle";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
-import { Tservice, Tunit } from "@/utils/schema/manage";
+import { Tservice, Tunit } from "@/utils/schema/manageSchema";
 import { Tunivers } from "@/utils/types";
 import { set } from "zod";
 import { RES_STATUS } from "@/utils/types";

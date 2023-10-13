@@ -3,7 +3,7 @@ import MobileMenu from "./mobileMenu";
 
 import { menuList } from "@/configs/menuList";
 import StaticMenu from "./staticMenu";
-import { Tpermission } from "@/utils/schema/univers";
+import { Tpermission } from "@/utils/schema/universSchema";
 
 export type TmenuList = {
     name: string;

@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
-import { TclientView } from "@/utils/schema/client";
+import { TclientView } from "@/utils/schema/clientSchema";
 import MenuBtn from "../menuBtn/tMenuBtn";
 
 type TtableProps = {

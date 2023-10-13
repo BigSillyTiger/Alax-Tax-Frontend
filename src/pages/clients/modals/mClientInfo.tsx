@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import type { FC, MouseEvent, TouchEvent } from "react";
-import type { Tclient } from "@/utils/schema/client";
+import type { Tclient } from "@/utils/schema/clientSchema";
 import { Transition, Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Card from "@/components/card";

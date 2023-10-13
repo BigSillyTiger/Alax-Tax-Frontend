@@ -19,13 +19,6 @@ export const orderSchema = z.object({
     order_date: z.string().datetime(),
 });
 
-export const newOrderSchema = orderSchema.omit({
-    order_id: true,
-    fk_invoice_id: true,
-    order_status: true,
-    order_date: true,
-});
-
 export const oderDescSchema = z.object({
     des_id: z.number(),
     fk_order_id: z.number(),
@@ -37,7 +30,23 @@ export const oderDescSchema = z.object({
     netto: z.number(),
 });
 
-export const newOrderDescSchema = oderDescSchema.omit({ des_id: true });
+export const newOrderDescSchema = oderDescSchema.omit({
+    des_id: true,
+    fk_order_id: true,
+    ranking: true,
+});
+
+export const newOrderSchema = orderSchema
+    .omit({
+        order_id: true,
+        fk_client_id: true,
+        fk_invoice_id: true,
+        order_status: true,
+        order_date: true,
+    })
+    .extend({
+        order_desc: newOrderDescSchema.array(),
+    });
 
 export type Torder = z.infer<typeof orderSchema>;
 export type TnewOrder = z.infer<typeof newOrderSchema>;

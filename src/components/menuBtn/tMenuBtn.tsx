@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import clsx from "clsx";
-import { TclientView } from "@/utils/schema/client";
+import { TclientView } from "@/utils/schema/clientSchema";
 
 type Tprops<T> = {
     mLabel: ReactNode | string;

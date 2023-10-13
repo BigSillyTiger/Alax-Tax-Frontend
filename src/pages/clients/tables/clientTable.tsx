@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 import Pagination from "@/components/table/pagination";
 import SearchBar from "@/components/table/searchBar";
 import { sortingIcon } from "@/components/table/config";
-import { Tclient } from "@/utils/schema/client";
+import { Tclient } from "@/utils/schema/clientSchema";
 import MenuBtn from "@/components/menuBtn/tMenuBtn";
 
 type TtableProps = {

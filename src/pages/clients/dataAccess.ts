@@ -5,7 +5,7 @@ import {
     LoaderFunctionArgs,
 } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
-import type { Tclient } from "@/utils/schema/client";
+import type { Tclient } from "@/utils/schema/clientSchema";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     const clients = API_CLIENT.clientAll();
@@ -17,7 +17,6 @@ export const action = async ({
 }: ActionFunctionArgs): Promise<Tresponse> => {
     //console.log("-> action request: ", request);
     const data = await request.formData();
-
     if ("POST" === request.method) {
         const result = await API_CLIENT.clientAdd({
             first_name: data.get("first_name") as string,
@@ -36,7 +35,7 @@ export const action = async ({
         return result;
     } else if ("PUT" === request.method) {
         const result = await API_CLIENT.clientSingleUpdate({
-            id: Number(data.get("id")),
+            client_id: Number(data.get("id")),
             first_name: data.get("first_name") as string,
             last_name: data.get("last_name") as string,
             phone: data.get("phone") as string,
