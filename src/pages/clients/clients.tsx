@@ -4,7 +4,7 @@ import { Await, useLoaderData, useActionData } from "react-router-dom";
 
 import LoadingPage from "@/components/loadingEle";
 import ClientTable from "./tables/clientTable";
-import clientColumns from "./tables/clientColumnDefs";
+import clientColumns from "./tables/clientColDefs.tsx";
 import Card from "@/components/card";
 import { Tresponse } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/utils";

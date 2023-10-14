@@ -4,13 +4,14 @@ import {
     LoaderFunctionArgs,
 } from "react-router-dom";
 import { API_ADMIN } from "@/apis";
+import { RES_STATUS } from "@/utils/types";
 
 export const layoutLoader = async ({ request }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;
 
     try {
         const result = await API_ADMIN.adminCheck();
-        if (result.status) {
+        if (result.status === RES_STATUS.SUCCESS) {
             return result.permission;
         }
         return pname

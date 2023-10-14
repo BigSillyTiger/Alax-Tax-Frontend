@@ -12,7 +12,7 @@ type Tprops = {
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     const cid = Number(params.cid);
-    const clientInfo = API_CLIENT.clientInfo(cid);
+    const clientInfo = await API_CLIENT.clientInfo(cid);
     return defer({ clientInfo });
 };
 
@@ -21,19 +21,13 @@ export const action = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
     const data = await request.formData();
-    const values = decode(data, {
-        arrays: ["order_desc"],
-        numbers: [
-            "order_desc.$.qty",
-            "order_desc.$.unit_price",
-            "order_desc.$.netto",
-        ],
-    });
+    const trueData = JSON.parse(data.get("values") as string);
+
     //Object.fromEntries(data.entries())
     const v1 = data.entries();
 
     //console.log("-> client 1: ", Object.fromEntries(data.entries()));
-    //console.log("-> client 1: ", values);
+    console.log("-> action data: ", trueData);
     //console.log("-> client 2: ", v1);
 
     if ("POST" === request.method) {

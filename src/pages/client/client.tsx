@@ -108,7 +108,7 @@ const Client = () => {
                     </Await>
                 </Suspense>
             </div>
-            <MOrderAdd open={orderAddClient} setOpen={setOrderAddClient} />
+            <MOrderAdd client={orderAddClient} setOpen={setOrderAddClient} />
         </>
     );
 };

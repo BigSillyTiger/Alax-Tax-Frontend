@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import type {
     FC,
     FormEvent,
@@ -23,8 +23,8 @@ import { Tclient } from "@/utils/schema/clientSchema";
 import Card from "@/components/card";
 
 type Tprops = {
-    open: Tclient; // for client id
-    setOpen: (open: Tclient) => void;
+    client: Tclient; // for client id
+    setOpen: (client: Tclient) => void;
 };
 
 const initOrderDesc: TnewOrderDesc = {
@@ -35,17 +35,7 @@ const initOrderDesc: TnewOrderDesc = {
     netto: 10,
 };
 
-const defaultOrder: TnewOrder = {
-    order_address: "4A big street, Richmond",
-    order_suburb: "RICHMOND",
-    order_city: "Adelaide",
-    order_state: "NSW",
-    order_country: "Australia",
-    order_pc: "5000",
-    order_desc: [initOrderDesc],
-};
-
-const MOrderAdd: FC<Tprops> = ({ open, setOpen }) => {
+const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
 
@@ -67,9 +57,23 @@ const MOrderAdd: FC<Tprops> = ({ open, setOpen }) => {
         control,
     });
 
+    useEffect(() => {
+        if (client) {
+            reset({
+                order_address: client.address ?? undefined,
+                order_suburb: client.suburb ?? undefined,
+                order_city: client.city ?? undefined,
+                order_state: client.state ?? undefined,
+                order_country: client.country ?? undefined,
+                order_pc: client.postcode ?? undefined,
+                order_desc: [{ ...initOrderDesc }],
+            });
+        }
+    }, [client, reset]);
+
     const handleClose = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
-        setOpen({ ...open, client_id: 0 });
+        setOpen({ ...client, client_id: 0 });
         reset();
     };
 
@@ -79,11 +83,16 @@ const MOrderAdd: FC<Tprops> = ({ open, setOpen }) => {
         const isValid = await trigger();
         //console.log("-> submit isValid: ", errors);
         if (isValid) {
-            const values = getValues();
-            submit(values, {
-                action: `/clients/${open.client_id}`,
-                method: "POST",
-            });
+            const values = JSON.stringify(getValues());
+            console.log("-> submit values: ", values);
+
+            submit(
+                { values },
+                {
+                    action: `/clients/${client.client_id}`,
+                    method: "POST",
+                }
+            );
         }
     };
 
@@ -101,7 +110,6 @@ const MOrderAdd: FC<Tprops> = ({ open, setOpen }) => {
                     <input
                         {...register("order_address")}
                         type="text"
-                        name="order_address"
                         id="order_address"
                         autoComplete="street-address"
                         className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
@@ -109,8 +117,26 @@ const MOrderAdd: FC<Tprops> = ({ open, setOpen }) => {
                 </div>
             </div>
 
+            <div className="sm:col-span-2">
+                <label
+                    htmlFor="order_suburb"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                    Suburb
+                </label>
+                <div className="mt-1">
+                    <input
+                        {...register("order_suburb")}
+                        type="text"
+                        id="order_suburb"
+                        autoComplete="address-level2"
+                        className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                    />
+                </div>
+            </div>
+
             {/* city */}
-            <div className="sm:col-span-2 sm:col-start-1">
+            <div className="sm:col-span-2">
                 <label
                     htmlFor="order_city"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -121,9 +147,7 @@ const MOrderAdd: FC<Tprops> = ({ open, setOpen }) => {
                     <input
                         {...register("order_city")}
                         type="text"
-                        name="order_city"
                         id="order_city"
-                        defaultValue={"Adelaide"}
                         autoComplete="address-level2"
                         className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                     />
@@ -131,7 +155,7 @@ const MOrderAdd: FC<Tprops> = ({ open, setOpen }) => {
             </div>
 
             {/* state */}
-            <div className="sm:col-span-1">
+            <div className="sm:col-span-2">
                 <label
                     htmlFor="order_state"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -142,9 +166,7 @@ const MOrderAdd: FC<Tprops> = ({ open, setOpen }) => {
                     <select
                         {...register("order_state")}
                         id="order_state"
-                        name="order_state"
                         autoComplete="state-name"
-                        defaultValue={"SA"}
                         className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                     >
                         <option value="NSW">NSW</option>
@@ -169,11 +191,9 @@ const MOrderAdd: FC<Tprops> = ({ open, setOpen }) => {
                     <input
                         {...register("order_country")}
                         type="text"
-                        //disabled
+                        disabled
                         id="order_country"
-                        name="order_country"
                         autoComplete="country-name"
-                        value="Australia"
                         className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
@@ -192,9 +212,7 @@ const MOrderAdd: FC<Tprops> = ({ open, setOpen }) => {
                     <input
                         {...register("order_pc")}
                         type="text"
-                        name="order_pc"
                         id="order_pc"
-                        defaultValue={"5000"}
                         autoComplete="postal-code"
                         className={clsx(
                             "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2",
@@ -306,12 +324,12 @@ const MOrderAdd: FC<Tprops> = ({ open, setOpen }) => {
         });
 
     return (
-        <Transition.Root show={!!open.client_id} as={Fragment}>
+        <Transition.Root show={!!client.client_id} as={Fragment}>
             <Dialog
                 as="div"
                 className="relative z-10"
                 onClose={(value) => {
-                    setOpen({ ...open, client_id: 0 });
+                    setOpen({ ...client, client_id: 0 });
                     reset();
                 }}
             >
