@@ -20,7 +20,8 @@ type Tprops = {
     isConflict: number;
 };
 
-const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
+const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict }) => {
+    const [conflict, setConflict] = React.useState(isConflict);
     const navigation = useNavigation();
     const submit = useSubmit();
 
@@ -47,8 +48,15 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
     });
 
     useEffect(() => {
-        !open && reset();
+        if (!open) {
+            reset();
+            setConflict(RES_STATUS.SUCCESS);
+        }
     }, [open, reset]);
+
+    useEffect(() => {
+        setConflict(isConflict);
+    }, [isConflict]);
 
     const handleClose = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
@@ -210,14 +218,14 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             required
                                                             className={clsx(
                                                                 "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10",
-                                                                (isConflict ===
+                                                                (conflict ===
                                                                     RES_STATUS.FAILED_DUP_EMAIL ||
-                                                                    isConflict ===
+                                                                    conflict ===
                                                                         RES_STATUS.FAILED_DUP_P_E) &&
                                                                     "ring-2 ring-red-500 focus:ring-red-600",
-                                                                (isConflict ===
+                                                                (conflict ===
                                                                     RES_STATUS.SUCCESS ||
-                                                                    isConflict ===
+                                                                    conflict ===
                                                                         RES_STATUS.FAILED_DUP_PHONE) &&
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}
@@ -250,14 +258,14 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
                                                             placeholder="0-xxx-xxx-xxx"
                                                             className={clsx(
                                                                 "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10",
-                                                                (isConflict ===
+                                                                (conflict ===
                                                                     RES_STATUS.FAILED_DUP_PHONE ||
-                                                                    isConflict ===
+                                                                    conflict ===
                                                                         RES_STATUS.FAILED_DUP_P_E) &&
                                                                     "ring-2 ring-red-500 focus:ring-red-600",
-                                                                (isConflict ===
+                                                                (conflict ===
                                                                     RES_STATUS.SUCCESS ||
-                                                                    isConflict ===
+                                                                    conflict ===
                                                                         RES_STATUS.FAILED_DUP_EMAIL) &&
                                                                     "ring-1 ring-gray-300 focus:ring-indigo-600"
                                                             )}

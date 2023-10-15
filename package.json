@@ -22,7 +22,6 @@
         "@types/uuid": "^9.0.2",
         "axios": "^1.4.0",
         "clsx": "^2.0.0",
-        "decode-formdata": "^0.3.0",
         "i18next": "^23.5.1",
         "localforage": "^1.10.0",
         "lodash": "^4.17.21",

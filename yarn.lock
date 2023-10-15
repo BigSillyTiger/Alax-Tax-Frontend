@@ -1006,11 +1006,6 @@ debug@^4.1.0, debug@^4.1.1, debug@^4.3.2, debug@^4.3.4:
   dependencies:
     ms "2.1.2"
 
-decode-formdata@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/decode-formdata/-/decode-formdata-0.3.0.tgz#325435be1e0b42f4cdb2407d6c79edca689ab117"
-  integrity sha512-78p4qpuUCKxqtpRsdwo88Xr8z3/A6KQBOGu6naTuyeUlZPnKsKQDu/vqu3TPFfjDA/FQUX1XbCHT7mawRlpWCQ==
-
 deep-is@^0.1.3:
   version "0.1.4"
   resolved "https://registry.npmjs.org/deep-is/-/deep-is-0.1.4.tgz"
