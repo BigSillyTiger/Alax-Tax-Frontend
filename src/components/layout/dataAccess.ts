@@ -12,7 +12,7 @@ export const layoutLoader = async ({ request }: LoaderFunctionArgs) => {
     try {
         const result = await API_ADMIN.adminCheck();
         if (result.status === RES_STATUS.SUCCESS) {
-            return result.permission;
+            return result.data;
         }
         return pname
             ? redirect(`/login?redirect=${pname}`)

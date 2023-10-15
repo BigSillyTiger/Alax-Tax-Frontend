@@ -15,7 +15,7 @@ export const loginAction = async ({ request }: ActionFunctionArgs) => {
         data.get("email") as string,
         data.get("password") as string
     );
-    if (result.status) {
+    if (result.status === RES_STATUS.SUCCESS) {
         return redirect(search ? search : "/dashboard");
     }
     return { actionErr: true };

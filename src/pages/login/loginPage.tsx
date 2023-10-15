@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import {
-    //useLoaderData,
     Form,
     useActionData,
     useLoaderData,
@@ -11,8 +10,7 @@ import { XCircleIcon } from "@heroicons/react/24/solid";
 const LoginPage: FC = () => {
     const navigation = useNavigation();
     const loaderData = useLoaderData();
-    //    const { loaderErr } = useLoaderData() as { loaderErr: boolean };
-    const data = (useActionData() as { actionErr: boolean }) || null;
+    const data = useActionData() as { actionErr: boolean } | null;
 
     const LoginErrorAlert = () => {
         return (

@@ -6,15 +6,18 @@ import {
     REQ_PERMISSION,
     REQ_TEST,
 } from "./req_list";
+import { RES_STATUS, Tresponse } from "@/utils/types";
 
-export const adminLogin = async (email: string, password: string) => {
+export const adminLogin = async (
+    email: string,
+    password: string
+): Promise<Tresponse> => {
     const newPost = {
         email,
         password,
     };
     try {
         const response = await apis.post(REQ_LOGIN, newPost);
-        console.log("-> fe login res: ", response);
         return response.data;
     } catch (err: any) {
         if (err.response) {
@@ -22,8 +25,7 @@ export const adminLogin = async (email: string, password: string) => {
         } else {
             console.error(`error msg: ${err}`);
         }
-        //throw json({ msg: "login failed" }, { status: 401 });
-        return { status: false, msg: "", permission: {} };
+        return { status: RES_STATUS.FAILED, msg: "", data: {} };
     }
 };
 
@@ -41,7 +43,7 @@ export const adminLogout = async () => {
     }
 };
 
-export const adminCheck = async () => {
+export const adminCheck = async (): Promise<Tresponse> => {
     try {
         const response = await apis.get(REQ_ADMIN_CHECK);
         return response.data;
@@ -52,21 +54,26 @@ export const adminCheck = async () => {
             console.log(`error msg: ${err}`);
         }
         return {
-            status: false,
+            status: RES_STATUS.FAILED,
             msg: "admin check error",
-            permission: {},
+            data: {},
         };
     }
 };
 
 /* none used api */
-export const adminPermission = async (email: string) => {
+export const adminPermission = async (email: string): Promise<Tresponse> => {
     const newPost = { email };
     try {
         const response = await apis.post(REQ_PERMISSION, newPost);
         return response.data;
     } catch (err: any) {
         console.log("-> adminPermission: ", err);
+        return {
+            status: RES_STATUS.FAILED,
+            msg: "error: admin permission",
+            data: {},
+        };
     }
 };
 
@@ -83,7 +90,7 @@ export const test = async () => {
         return {
             status: false,
             msg: "api test error",
-            permission: {},
+            data: {},
         };
     }
 };
