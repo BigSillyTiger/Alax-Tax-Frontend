@@ -83,9 +83,11 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
         const isValid = await trigger();
         //console.log("-> submit isValid: ", errors);
         if (isValid) {
-            const values = JSON.stringify(getValues());
-            console.log("-> submit values: ", values);
-
+            const values = JSON.stringify({
+                ...getValues(),
+                client_id: client.client_id,
+            });
+            //console.log("-> submit values: ", values);
             submit(
                 { values },
                 {

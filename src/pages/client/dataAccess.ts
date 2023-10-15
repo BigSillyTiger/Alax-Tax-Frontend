@@ -1,5 +1,5 @@
 import React from "react";
-import { API_CLIENT } from "@/apis";
+import { API_CLIENT, API_ORDER } from "@/apis";
 import { defer } from "react-router-dom";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
@@ -16,16 +16,25 @@ export const action = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
     const data = await request.formData();
-    const trueData = JSON.parse(data.get("values") as string);
-
-    console.log("-> action data: ", trueData);
+    const orData = JSON.parse(data.get("values") as string);
 
     if ("POST" === request.method) {
-        return {
-            status: 400,
-            msg: "invalid request",
-            data: "",
+        console.log("-> action data: ", orData);
+        const order = {
+            order: {
+                fk_client_id: orData.client_id,
+                order_address: orData.order_address,
+                order_suburb: orData.order_suburb,
+                order_city: orData.order_city,
+                order_state: orData.order_state,
+                order_country: orData.order_country,
+                order_pc: orData.order_pc,
+            },
+            order_desc: orData.order_desc,
         };
+        const result = await API_ORDER.orderAdd(order);
+        console.log("-> fe receive add order result: ", result);
+        return result;
     } else {
         return {
             status: 400,
