@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import type { FC, FormEvent, MouseEvent, TouchEvent } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
@@ -9,7 +9,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
-import type { Tclient } from "@/utils/schema/clientSchema";
+import type { Tclient, TclientUnreg } from "@/utils/schema/clientSchema";
 import { clientNoIDSchema } from "@/utils/schema/clientSchema";
 import { RES_STATUS } from "@/utils/types";
 import clsx from "clsx";
@@ -30,9 +30,14 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
         reset,
         getValues,
         formState: { errors },
-    } = useForm<Tclient>({
+    } = useForm<TclientUnreg>({
         resolver: zodResolver(clientNoIDSchema),
         defaultValues: {
+            first_name: "",
+            last_name: "",
+            phone: "",
+            email: "",
+            address: "",
             suburb: "Adelaide",
             city: "Adelaide",
             state: "SA",
@@ -40,6 +45,10 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict = 200 }) => {
             postcode: "5000",
         },
     });
+
+    useEffect(() => {
+        !open && reset();
+    }, [open, reset]);
 
     const handleClose = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();

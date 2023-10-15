@@ -49,7 +49,7 @@ export const clientInfo = async (client_id: number): Promise<Tresponse> => {
 
 export const clientAdd = async (client: TclientUnreg): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_CLIENT_SINGLE_REGISTER, client);
+        const response = await apis.post(REQ_CLIENT_SINGLE_REGISTER, [client]);
         return response.data;
     } catch (err) {
         console.log("-> insert one client err: ", err);
@@ -61,9 +61,11 @@ export const clientAdd = async (client: TclientUnreg): Promise<Tresponse> => {
     }
 };
 
-export const clientSingleDel = async (id: number): Promise<Tresponse> => {
+export const clientSingleDel = async (
+    client_id: number
+): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_CLIENT_SINGLE_DEL, { id });
+        const response = await apis.post(REQ_CLIENT_SINGLE_DEL, { client_id });
         return response.data;
     } catch (err) {
         console.log("-> delete client failed: ", err);
@@ -79,7 +81,7 @@ export const clientSingleUpdate = async (
     client: Tclient
 ): Promise<Tresponse> => {
     try {
-        const response = await apis.put(REQ_CLIENT_SINGLE_UPDATE, client);
+        const response = await apis.put(REQ_CLIENT_SINGLE_UPDATE, [client]);
         return response.data;
     } catch (err) {
         console.log("-> update client failed: ", err);
