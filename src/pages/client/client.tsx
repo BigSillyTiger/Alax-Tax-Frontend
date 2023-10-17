@@ -8,14 +8,19 @@ import {
 } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
 import { Tclient } from "@/utils/schema/clientSchema";
+import { Torder } from "@/utils/schema/orderSchema";
 import Card from "@/components/card";
 import MOrderAdd from "./modals/mOrderAdd";
+import ClientOrderTable from "./tables/clientOrderTable";
 
 const Client = () => {
     //const { cid } = useParams();
-    const { clientInfo } = useLoaderData() as {
+    const { clientInfo, clientOrders } = useLoaderData() as {
         clientInfo: Tclient;
+        clientOrders: Torder[];
     };
+    console.log("-> clientInfo: ", clientInfo);
+    console.log("-> clientOrders: ", clientOrders);
     const [orderAddClient, setOrderAddClient] = useState<Tclient>({
         ...clientInfo,
         client_id: 0,
@@ -88,6 +93,10 @@ const Client = () => {
                         </button>
                     </div>
                 </div>
+                <Card className="col-span-6">
+                    {/* <ClientOrderTable data={} /> */}
+                    <span>test table</span>
+                </Card>
             </div>
         );
     };

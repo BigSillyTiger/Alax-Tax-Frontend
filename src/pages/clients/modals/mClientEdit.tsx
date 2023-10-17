@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import type { FC, FormEvent, MouseEvent, TouchEvent, ChangeEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { Dialog, Transition } from "@headlessui/react";
 import { set, useForm } from "react-hook-form";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
@@ -39,6 +40,7 @@ const initClient = {
 const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
     const submit = useSubmit();
     const navigation = useNavigation();
+    const { t } = useTranslation();
 
     const {
         register,
@@ -116,7 +118,9 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                         className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                         onClick={handleClose}
                                     >
-                                        <span className="sr-only">Close</span>
+                                        <span className="sr-only">
+                                            {t("btn.close")}
+                                        </span>
                                         <XMarkIcon
                                             className="h-6 w-6"
                                             aria-hidden="true"
@@ -131,7 +135,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                             as="h3"
                                             className="text-base font-semibold leading-6 text-gray-900"
                                         >
-                                            Update Client Info
+                                            {t("modal.title.updateClient")}
                                         </Dialog.Title>
                                         {/* content */}
                                         <Form
@@ -150,7 +154,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                         htmlFor="first_name"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
-                                                        First name
+                                                        {t("form.firstName")}
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
@@ -171,7 +175,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                         htmlFor="last_name"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
-                                                        Last name
+                                                        {t("form.lastName")}
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
@@ -192,7 +196,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                         htmlFor="email"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
-                                                        Email address
+                                                        {t("form.email")}
                                                     </label>
                                                     <div className="relative mt-1 rounded-md shadow-sm">
                                                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -231,7 +235,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                         htmlFor="phone"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
-                                                        Phone
+                                                        {t("form.phone")}
                                                     </label>
                                                     <div className="relative mt-1 rounded-md shadow-sm">
                                                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -270,7 +274,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                         htmlFor="address"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
-                                                        Street address
+                                                        {t("form.address")}
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
@@ -290,7 +294,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                         htmlFor="suburb"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
-                                                        Suburb
+                                                        {t("form.suburb")}
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
@@ -310,7 +314,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                         htmlFor="city"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
-                                                        City
+                                                        {t("form.city")}
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
@@ -330,7 +334,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                         htmlFor="state"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
-                                                        State
+                                                        {t("form.state")}
                                                     </label>
                                                     <div className="mt-1">
                                                         <select
@@ -368,7 +372,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                         htmlFor="country"
                                                         className="block text-sm font-medium leading-6 text-gray-900"
                                                     >
-                                                        Country
+                                                        {t("form.Country")}
                                                     </label>
                                                     <div className="mt-1">
                                                         <input
@@ -390,7 +394,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                             htmlFor="postcode"
                                                             className="block text-sm font-medium leading-6 text-gray-900"
                                                         >
-                                                            Postcode
+                                                            {t("form.pc")}
                                                         </label>
                                                     </>
                                                     <div className="mt-1">
@@ -425,15 +429,15 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                                                 >
                                                     {navigation.state ===
                                                     "submitting"
-                                                        ? "Submitting..."
-                                                        : "Submit"}
+                                                        ? t("btn.submitting")
+                                                        : t("btn.submit")}
                                                 </button>
                                                 <button
                                                     type="button"
                                                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                                     onClick={handleClose}
                                                 >
-                                                    Cancel
+                                                    {t("btn.cancel")}
                                                 </button>
                                             </div>
                                         </Form>

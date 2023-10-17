@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect, useDeferredValue } from "react";
 import type { FC, FormEvent, MouseEvent, TouchEvent } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -32,6 +33,7 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
     const defUnit = useDeferredValue(unit);
     const defUnitPrice = useDeferredValue(unitPrice);
     const defUnitName = useDeferredValue(unitName);
+    const { t } = useTranslation();
 
     const submit = useSubmit();
     const navigation = useNavigation();
@@ -146,7 +148,9 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                                         className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                         onClick={handleClose}
                                     >
-                                        <span className="sr-only">Close</span>
+                                        <span className="sr-only">
+                                            {t("btn.close")}
+                                        </span>
                                         <XMarkIcon
                                             className="h-6 w-6"
                                             aria-hidden="true"
@@ -161,10 +165,9 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                                             as="h3"
                                             className="text-base font-semibold leading-6 text-gray-900"
                                         >
-                                            Edit{" "}
                                             {isServiceType(uni)
-                                                ? "Service"
-                                                : "Unit"}
+                                                ? t("model.title.editService")
+                                                : t("model.title.editUnit")}
                                         </Dialog.Title>
                                         {/* content */}
                                         <Form onSubmit={onSubmit}>
@@ -180,7 +183,7 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                                                             htmlFor="service"
                                                             className="block text-sm font-medium leading-6 text-gray-900"
                                                         >
-                                                            Service
+                                                            {t("form.service")}
                                                         </label>
                                                         <div className="relative mt-1 rounded-md shadow-sm">
                                                             <input
@@ -212,7 +215,7 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                                                             htmlFor="unit"
                                                             className="block text-sm font-medium leading-6 text-gray-900"
                                                         >
-                                                            Unit
+                                                            {t("form.unit")}
                                                         </label>
                                                         <div className="mt-1">
                                                             <input
@@ -242,7 +245,7 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                                                             htmlFor="unit_price"
                                                             className="block text-sm font-medium leading-6 text-gray-900"
                                                         >
-                                                            Unit Price
+                                                            {t("form.uPrice")}
                                                         </label>
                                                         <div className="mt-1">
                                                             <input
@@ -285,7 +288,7 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                                                             htmlFor="unit_name"
                                                             className="block text-sm font-medium leading-6 text-gray-900"
                                                         >
-                                                            Unit
+                                                            {t("form.unit")}
                                                         </label>
                                                         <div className="relative mt-1 rounded-md shadow-sm">
                                                             <input
@@ -329,15 +332,15 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                                                 >
                                                     {navigation.state ===
                                                     "submitting"
-                                                        ? "Submitting..."
-                                                        : "Submit"}
+                                                        ? t("btn.submitting")
+                                                        : t("btn.submit")}
                                                 </button>
                                                 <button
                                                     type="button"
                                                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                                     onClick={handleClose}
                                                 >
-                                                    Cancel
+                                                    {t("btn.cancel")}
                                                 </button>
                                             </div>
                                         </Form>

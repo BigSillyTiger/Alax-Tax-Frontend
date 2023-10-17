@@ -31,6 +31,10 @@ export const oderDescSchema = z.object({
     netto: z.number(),
 });
 
+export const orderWithDescSchema = orderSchema.extend({
+    order_desc: oderDescSchema.array(),
+});
+
 export const newOrderDescSchema = oderDescSchema.omit({
     des_id: true,
     fk_order_id: true,
@@ -51,5 +55,6 @@ export const newOrderSchema = orderSchema
 
 export type Torder = z.infer<typeof orderSchema>;
 export type TnewOrder = z.infer<typeof newOrderSchema>;
+export type TorderWithDesc = z.infer<typeof orderWithDescSchema>;
 export type TorderDesc = z.infer<typeof oderDescSchema>;
 export type TnewOrderDesc = z.infer<typeof newOrderDescSchema>;

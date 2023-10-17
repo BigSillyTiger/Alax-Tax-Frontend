@@ -4,7 +4,9 @@ import {
     REQ_ORDER_ADD,
     REQ_ORDER_UPDATE,
     REQ_ORDER_DEL,
+    REQ_ORDER_W_CLIENT,
 } from "./req_list";
+import { Tresponse } from "@/utils/types";
 
 export const orderAll = async () => {
     try {
@@ -29,6 +31,20 @@ export const orderAdd = async (data: any) => {
         return {
             status: 400,
             msg: "failed in adding new order",
+            data: "",
+        };
+    }
+};
+
+export const orderWClient = async (client_id: number): Promise<Tresponse> => {
+    try {
+        const response = await apis.post(REQ_ORDER_W_CLIENT, { client_id });
+        return response.data.data;
+    } catch (err: any) {
+        console.log("-> retrieve client info error: ", err);
+        return {
+            status: 400,
+            msg: "failed in retrieving client info",
             data: "",
         };
     }

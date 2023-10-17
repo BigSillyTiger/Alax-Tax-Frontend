@@ -7,6 +7,7 @@ import type {
     ChangeEvent,
     ReactNode,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -38,6 +39,7 @@ const initOrderDesc: TnewOrderDesc = {
 const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
+    const { t } = useTranslation();
 
     const {
         register,
@@ -106,7 +108,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_address"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    Street address
+                    {t("form.address")}
                 </label>
                 <div className="mt-1">
                     <input
@@ -124,7 +126,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_suburb"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    Suburb
+                    {t("form.suburb")}
                 </label>
                 <div className="mt-1">
                     <input
@@ -143,7 +145,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_city"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    City
+                    {t("form.city")}
                 </label>
                 <div className="mt-1">
                     <input
@@ -162,7 +164,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_state"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    State
+                    {t("form.state")}
                 </label>
                 <div className="mt-1">
                     <select
@@ -187,7 +189,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_country"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    Country
+                    {t("form.Country")}
                 </label>
                 <div className="mt-1">
                     <input
@@ -207,7 +209,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_pc"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    Postcode
+                    {t("form.pc")}
                 </label>
 
                 <div className="mt-1">
@@ -242,7 +244,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                             className="inline-flex w-full justify-center rounded-md bg-red-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto"
                             onClick={() => remove(index)}
                         >
-                            Delete
+                            {t("btn.del")}
                         </button>
                     </div>
                     <div className="col-span-full">
@@ -250,7 +252,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                             htmlFor="description"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            Description
+                            {t("form.desc")}
                         </label>
                         <input
                             {...register(`order_desc.${index}.description`)}
@@ -264,7 +266,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                             htmlFor="qty"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            Qty
+                            {t("form.qty")}
                         </label>
                         <input
                             {...register(`order_desc.${index}.qty`, {
@@ -280,7 +282,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                             htmlFor="unit"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            Unit
+                            {t("form.unit")}
                         </label>
                         <input
                             {...register(`order_desc.${index}.unit`)}
@@ -294,7 +296,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                             htmlFor="unit_price"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            Unit Price
+                            {t("form.uPrice")}
                         </label>
                         <input
                             {...register(`order_desc.${index}.unit_price`, {
@@ -310,7 +312,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                             htmlFor="netto"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            Netto
+                            {t("form.netto")}
                         </label>
                         <input
                             {...register(`order_desc.${index}.netto`, {
@@ -368,7 +370,9 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                                         className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                         onClick={handleClose}
                                     >
-                                        <span className="sr-only">Close</span>
+                                        <span className="sr-only">
+                                            {t("btn.close")}
+                                        </span>
                                         <XMarkIcon
                                             className="h-6 w-6"
                                             aria-hidden="true"
@@ -380,7 +384,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                                     as="h3"
                                     className="text-base font-semibold leading-6 text-gray-900 mb-2"
                                 >
-                                    Add New Order
+                                    {t("modal.title.addOrder")}
                                 </Dialog.Title>
 
                                 <div className="sm:flex sm:items-start mt-3 text-center px-3 mx-auto sm:text-left">
@@ -389,13 +393,13 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                                     <Form onSubmit={onSubmit}>
                                         {/* addres */}
                                         <span className="text-indigo-500">
-                                            <b>Work Address:</b>
+                                            <b>{t("form.workAddr")}:</b>
                                         </span>
                                         {addressContent}
 
                                         {/* order description */}
                                         <span className="text-indigo-500">
-                                            <b>Order Descriptions:</b>
+                                            <b>{t("form.orderDesc")}:</b>
                                         </span>
                                         <Card className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
                                             <div className="col-span-full">
@@ -406,7 +410,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                                                         append(initOrderDesc)
                                                     }
                                                 >
-                                                    Append service description
+                                                    {t("btn.append")}
                                                 </button>
                                             </div>
                                             <Card className="col-span-full">
@@ -431,15 +435,15 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                                             >
                                                 {navigation.state ===
                                                 "submitting"
-                                                    ? "Submitting..."
-                                                    : "Submit"}
+                                                    ? t("btn.submitting")
+                                                    : t("btn.submit")}
                                             </button>
                                             <button
                                                 type="button"
                                                 className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                                 onClick={handleClose}
                                             >
-                                                Cancel
+                                                {t("btn.cancel")}
                                             </button>
                                         </div>
                                     </Form>

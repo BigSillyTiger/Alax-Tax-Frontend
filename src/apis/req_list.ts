@@ -25,6 +25,7 @@ export const REQ_ORDER_ALL = "/order/all";
 export const REQ_ORDER_ADD = "/order/add";
 export const REQ_ORDER_UPDATE = "/order/update";
 export const REQ_ORDER_DEL = "/order/del";
+export const REQ_ORDER_W_CLIENT = "/order/clientOrders";
 
 // Assist
 export const REQ_MANAGE_UNI_ALL = "/manage/uni_all";

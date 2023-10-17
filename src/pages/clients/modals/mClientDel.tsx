@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
@@ -15,6 +16,7 @@ type Tprops = {
 // this component is about building a modal with transition to delete a client
 const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
     const submit = useSubmit();
+    const { t } = useTranslation();
 
     const handleDeleteClient = async (id: number) => {
         submit({ id }, { method: "DELETE", action: "/clients" });
@@ -25,31 +27,33 @@ const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
             <div className="m-3 grid grid-cols-6 gap-x-4 gap-y-4 text-left">
                 <div className="col-span-5">
                     <p>
-                        <b className="text-indigo-600">Client: </b>{" "}
+                        <b className="text-indigo-600">{t("table.client")}: </b>{" "}
                         {client.first_name}&nbsp;{client.last_name}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
-                        <b className="text-indigo-600">Phone: </b>{" "}
+                        <b className="text-indigo-600">{t("table.phone")}: </b>{" "}
                         {client?.phone}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
-                        <b className="text-indigo-600">Postal code: </b>
+                        <b className="text-indigo-600">{t("table.pc")}: </b>
                         {client?.postcode}
                     </p>
                 </div>
                 <div className="col-span-6">
                     <p>
-                        <b className="text-indigo-600">Email: </b>{" "}
+                        <b className="text-indigo-600">{t("table.email")}: </b>{" "}
                         {client?.email}
                     </p>
                 </div>
                 <div className="col-span-6">
                     <p>
-                        <b className="text-indigo-600">Address: </b>{" "}
+                        <b className="text-indigo-600">
+                            {t("table.address")}:{" "}
+                        </b>{" "}
                         {client?.address}, {client?.city}, {client?.state},{" "}
                         {client?.country}
                     </p>
@@ -101,12 +105,11 @@ const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
                                             className="h-5 w-5 inline"
                                             aria-hidden="true"
                                         />
-                                        DELETE WARNING
+                                        {t("modal.title.delete")}
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         <p className="text-gray-700 text-lg">
-                                            Are you sure you want to this client
-                                            from database?
+                                            {t("modal.tips.delete")}
                                         </p>
                                         {clientDisplay}
                                     </div>
@@ -126,7 +129,7 @@ const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
                                             });
                                         }}
                                     >
-                                        Delete
+                                        {t("btn.del")}
                                     </button>
                                     <button
                                         type="button"
@@ -139,7 +142,7 @@ const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
                                             });
                                         }}
                                     >
-                                        Cancel
+                                        {t("btn.cancel")}
                                     </button>
                                 </div>
                             </Dialog.Panel>

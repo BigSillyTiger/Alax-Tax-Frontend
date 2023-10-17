@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useSubmit } from "react-router-dom";
@@ -15,6 +16,7 @@ type Tprops = {
 // this component is about building a modal with transition to delete a client
 const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
     const submit = useSubmit();
+    const { t } = useTranslation();
 
     const handleDeleteClient = async (id: number) => {
         const type = isServiceType(uni) ? "service" : "unit";
@@ -28,19 +30,26 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
                     <>
                         <div className="col-span-6">
                             <p>
-                                <b className="text-indigo-600">Service: </b>{" "}
+                                <b className="text-indigo-600">
+                                    {t("table.service")}:{" "}
+                                </b>{" "}
                                 {uni.service}
                             </p>
                         </div>
                         <div className="col-span-3">
                             <p>
-                                <b className="text-indigo-600">Unit: </b>{" "}
+                                <b className="text-indigo-600">
+                                    {t("table.unit")}:{" "}
+                                </b>{" "}
                                 {uni.unit}
                             </p>
                         </div>
                         <div className="col-span-3">
                             <p>
-                                <b className="text-indigo-600">Unit Price: </b>{" "}
+                                <b className="text-indigo-600">
+                                    {" "}
+                                    {t("table.uPrice")}:{" "}
+                                </b>{" "}
                                 {uni.unit_price}
                             </p>
                         </div>
@@ -48,7 +57,9 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
                 ) : (
                     <div className="col-span-5">
                         <p>
-                            <b className="text-indigo-600">Unit: </b>{" "}
+                            <b className="text-indigo-600">
+                                {t("table.unit")}:{" "}
+                            </b>{" "}
                             {uni.unit_name}
                         </p>
                     </div>
@@ -100,11 +111,11 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
                                             className="h-5 w-5 inline"
                                             aria-hidden="true"
                                         />
-                                        DELETE WARNING
+                                        {t("model.title.delete")}
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         <p className="text-gray-700 text-lg">
-                                            Are you sure you want to this data?
+                                            {t("model.tips.delData")}
                                         </p>
                                         {uniDisplay}
                                     </div>
@@ -119,7 +130,7 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
                                             setOpen({ ...uni, id: 0 });
                                         }}
                                     >
-                                        Delete
+                                        {t("btn.del")}
                                     </button>
                                     <button
                                         type="button"
@@ -129,7 +140,7 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
                                             setOpen({ ...uni, id: 0 });
                                         }}
                                     >
-                                        Cancel
+                                        {t("btn.cancel")}
                                     </button>
                                 </div>
                             </Dialog.Panel>

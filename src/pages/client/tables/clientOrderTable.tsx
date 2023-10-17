@@ -21,22 +21,20 @@ import {
     TrashIcon,
     PencilIcon,
 } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
-
 import Pagination from "@/components/table/pagination";
 import SearchBar from "@/components/table/searchBar";
 import { sortingIcon } from "@/components/table/config";
-import { Tclient } from "@/utils/schema/clientSchema";
+import { TorderWithDesc } from "@/utils/schema/orderSchema";
 import MenuBtn from "@/components/menuBtn/tMenuBtn";
 
 type TtableProps = {
-    data: Tclient[];
+    data: TorderWithDesc[];
     columns: any;
-    clickEdit: (open: Tclient) => void;
-    clickDel: (open: Tclient) => void;
+    clickEdit: (open: any) => void;
+    clickDel: (open: any) => void;
 };
 
-const ClientTable: FC<TtableProps> = ({
+const ClientOrderTable: FC<TtableProps> = ({
     data,
     columns,
     clickEdit,
@@ -45,20 +43,20 @@ const ClientTable: FC<TtableProps> = ({
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
-    const nevigate = useNavigate();
+    //const nevigate = useNavigate();
 
     const opMenu = [
         {
             label: "Edit",
             icon: <PencilIcon />,
-            clickFn: (v: Tclient) => {
+            clickFn: (v: any) => {
                 clickEdit(v);
             },
         },
         {
             label: "Delete",
             icon: <TrashIcon />,
-            clickFn: (v: Tclient) => {
+            clickFn: (v: any) => {
                 clickDel(v);
             },
         },
@@ -100,80 +98,49 @@ const ClientTable: FC<TtableProps> = ({
     ));
 
     const tableBody = table.getRowModel().rows.length
-        ? table.getRowModel().rows.map((row: Row<Tclient>, i: number) => (
-              <tr
-                  key={row.id}
-                  className={i % 2 === 0 ? undefined : "bg-gray-100"}
-              >
-                  {row.getVisibleCells().map((cell: any) => {
-                      //console.log("-> cell details: ", cell);
-                      /* nevigate to details page */
-                      if (cell.column.id === "Details") {
+        ? table
+              .getRowModel()
+              .rows.map((row: Row<TorderWithDesc>, i: number) => (
+                  <tr
+                      key={row.id}
+                      className={i % 2 === 0 ? undefined : "bg-gray-100"}
+                  >
+                      {row.getVisibleCells().map((cell: any) => {
+                          //console.log("-> cell details: ", cell);
+                          /* nevigate to details page */
+                          if (cell.column.id === "Menu") {
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
+                                  >
+                                      <MenuBtn
+                                          mLabel={
+                                              <EllipsisVerticalIcon
+                                                  className="h-6 w-6 text-indigo-500"
+                                                  aria-hidden="true"
+                                              />
+                                          }
+                                          mList={opMenu}
+                                          mItem={row.original}
+                                      />
+                                  </td>
+                              );
+                          }
                           return (
                               <td
                                   key={cell.id}
                                   className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
                               >
-                                  <button
-                                      onClick={(e) => {
-                                          e.preventDefault();
-                                          return nevigate(
-                                              "/clients/" +
-                                                  row.original.client_id,
-                                              { replace: false }
-                                          );
-                                      }}
-                                  >
-                                      <DocumentTextIcon
-                                          className="h-6 w-6 text-indigo-500"
-                                          aria-hidden="true"
-                                      />
-                                  </button>
+                                  {flexRender(
+                                      cell.column.columnDef.cell,
+                                      cell.getContext()
+                                  )}
                               </td>
                           );
-                      } else if (cell.column.id === "Menu") {
-                          return (
-                              <td
-                                  key={cell.id}
-                                  className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
-                              >
-                                  {/* <button
-                                      onClick={(e) => {
-                                          clickEdit({ ...row.original });
-                                      }}
-                                  >
-                                      <EllipsisVerticalIcon
-                                          className="h-6 w-6 text-indigo-500"
-                                          aria-hidden="true"
-                                      />
-                                  </button> */}
-                                  <MenuBtn
-                                      mLabel={
-                                          <EllipsisVerticalIcon
-                                              className="h-6 w-6 text-indigo-500"
-                                              aria-hidden="true"
-                                          />
-                                      }
-                                      mList={opMenu}
-                                      mItem={row.original}
-                                  />
-                              </td>
-                          );
-                      }
-                      return (
-                          <td
-                              key={cell.id}
-                              className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
-                          >
-                              {flexRender(
-                                  cell.column.columnDef.cell,
-                                  cell.getContext()
-                              )}
-                          </td>
-                      );
-                  })}
-              </tr>
-          ))
+                      })}
+                  </tr>
+              ))
         : null;
 
     return (
@@ -197,4 +164,4 @@ const ClientTable: FC<TtableProps> = ({
     );
 };
 
-export default ClientTable;
+export default ClientOrderTable;

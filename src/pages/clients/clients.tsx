@@ -1,7 +1,7 @@
 import React, { Suspense, useState, useEffect } from "react";
 import type { FC, TouchEvent, MouseEvent } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 import LoadingPage from "@/components/loadingEle";
 import ClientTable from "./tables/clientTable";
 import clientColumns from "./tables/clientColDefs.tsx";
@@ -46,6 +46,7 @@ const Clients: FC = () => {
     const [infoConflict, setInfoConflict] = useState<TisConflict>(
         RES_STATUS.SUCCESS
     );
+    const { t } = useTranslation();
     const { clients } = useLoaderData() as {
         clients: Tclient[] | null;
     };
@@ -103,7 +104,7 @@ const Clients: FC = () => {
                                 className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 onClick={handleAddeNew}
                             >
-                                Add New Client
+                                {t("pClients.btn.addClient")}
                             </button>
                         </div>
                     </div>
@@ -120,7 +121,7 @@ const Clients: FC = () => {
                     ) : (
                         <Card className="mt-8">
                             <span className="m-5 p-5  text-center h-15">
-                                No Client Content
+                                {t("pClients.text.noClient")}
                             </span>
                         </Card>
                     )}

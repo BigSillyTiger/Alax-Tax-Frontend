@@ -8,7 +8,8 @@ import { newOrderSchema } from "@/utils/schema/orderSchema";
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     const cid = Number(params.cid);
     const clientInfo = await API_CLIENT.clientInfo(cid);
-    return defer({ clientInfo });
+    const clientOrders = await API_ORDER.orderWClient(cid);
+    return defer({ clientInfo, clientOrders });
 };
 
 export const action = async ({

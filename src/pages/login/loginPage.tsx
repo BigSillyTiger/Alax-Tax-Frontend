@@ -1,4 +1,6 @@
-import React, { FC } from "react";
+import React from "react";
+import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import {
     Form,
     useActionData,
@@ -10,6 +12,7 @@ import { XCircleIcon } from "@heroicons/react/24/solid";
 const LoginPage: FC = () => {
     const navigation = useNavigation();
     const loaderData = useLoaderData();
+    const { t } = useTranslation();
     const data = useActionData() as { actionErr: boolean } | null;
 
     const LoginErrorAlert = () => {
@@ -24,15 +27,15 @@ const LoginPage: FC = () => {
                     </div>
                     <div className="ml-3">
                         <h3 className="text-sm font-medium text-red-800">
-                            Something wrong occured while login:
+                            {t("login.text.errLoginTitle")}
                         </h3>
                         <div className="mt-2 text-sm text-red-700">
                             <ul
                                 role="list"
                                 className="list-disc pl-5 space-y-1"
                             >
-                                <li>Please check your email address</li>
-                                <li>Please check your password</li>
+                                <li>{t("login.text.checkEmail")}</li>
+                                <li>{t("login.text.checkPW")}</li>
                             </ul>
                         </div>
                     </div>
@@ -50,7 +53,7 @@ const LoginPage: FC = () => {
                     alt="Your Company"
                 />
                 <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                    Sign in to your account
+                    {t("login.text.signIn")}
                 </h2>
             </div>
 
@@ -71,7 +74,7 @@ const LoginPage: FC = () => {
                                 htmlFor="email"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                Email address
+                                {t("login.text.email")}
                             </label>
                             <div className="mt-1">
                                 <input
@@ -90,7 +93,7 @@ const LoginPage: FC = () => {
                                 htmlFor="password"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                Password
+                                {t("login.text.pw")}
                             </label>
                             <div className="mt-1">
                                 <input
@@ -116,7 +119,7 @@ const LoginPage: FC = () => {
                                     htmlFor="remember-me"
                                     className="ml-2 block text-sm text-gray-900"
                                 >
-                                    Remember me
+                                    {t("login.text.rememberMe")}
                                 </label>
                             </div>
 
@@ -125,7 +128,7 @@ const LoginPage: FC = () => {
                                     href="#"
                                     className="font-medium text-indigo-600 hover:text-indigo-500"
                                 >
-                                    Forgot your password?
+                                    {t("login.text.forgotPW")}
                                 </a>
                             </div>
                         </div>
@@ -140,8 +143,8 @@ const LoginPage: FC = () => {
                                 }
                             >
                                 {navigation.state === "submitting"
-                                    ? "Logging..."
-                                    : "Sign in"}
+                                    ? t("login.btn.logining")
+                                    : t("login.btn.signIn")}
                             </button>
                         </div>
                     </Form>
