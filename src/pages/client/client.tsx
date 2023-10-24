@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import type { FC, ReactNode } from "react";
 import {
     useParams,
@@ -7,16 +7,14 @@ import {
     useActionData,
 } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
-import { Tclient } from "@/utils/schema/clientSchema";
-import {
-    Torder,
-    TorderWithDesc,
-    orderWithDescSchema,
-} from "@/utils/schema/orderSchema";
+import type { Tclient } from "@/utils/schema/clientSchema";
+import type { TorderWithDesc } from "@/utils/schema/orderSchema";
+import { RES_STATUS, type Tresponse } from "@/utils/types";
 import Card from "@/components/card";
 import MOrderAdd from "./modals/mOrderAdd";
 import ClientOrderTable from "./tables/tableClientOrder";
 import clientOrderColumns from "./tables/defClientOrder";
+import { toastSuccess } from "@/utils/utils";
 
 const Client = () => {
     //const { cid } = useParams();
@@ -25,10 +23,24 @@ const Client = () => {
         clientOrders: TorderWithDesc[];
     };
 
+    const actionData = useActionData() as Tresponse;
+
     const [orderAddClient, setOrderAddClient] = useState<Tclient>({
         ...clientInfo,
         client_id: 0,
     });
+
+    useEffect(() => {
+        if (actionData?.status === RES_STATUS.SUCCESS) {
+            if (orderAddClient.client_id != 0) {
+                setOrderAddClient({
+                    ...orderAddClient,
+                    client_id: 0,
+                });
+                toastSuccess("Added a new order");
+            }
+        }
+    }, [actionData]);
 
     const ClientInfoCard = ({
         client,

@@ -1,12 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import type {
-    FC,
-    FormEvent,
-    MouseEvent,
-    TouchEvent,
-    ChangeEvent,
-    ReactNode,
-} from "react";
+import type { FC, FormEvent, MouseEvent, TouchEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
@@ -18,10 +11,11 @@ import {
     TnewOrder,
     TnewOrderDesc,
     newOrderSchema,
-    newOrderDescSchema,
 } from "@/utils/schema/orderSchema";
 import { Tclient } from "@/utils/schema/clientSchema";
 import Card from "@/components/card";
+import ModalFrame from "@/components/modal";
+import { SubmitBtn } from "@/components/form";
 
 type Tprops = {
     client: Tclient; // for client id
@@ -73,23 +67,14 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
         }
     }, [client, reset]);
 
-    const handleClose = (e: MouseEvent | TouchEvent) => {
-        e.preventDefault();
-        setOpen({ ...client, client_id: 0 });
-        reset();
-    };
-
     const onSubmit = async (e: FormEvent) => {
-        //const onSubmit = async (data: TnewOrder) => {
         e.preventDefault();
         const isValid = await trigger();
-        //console.log("-> submit isValid: ", errors);
         if (isValid) {
             const values = JSON.stringify({
                 ...getValues(),
                 client_id: client.client_id,
             });
-            //console.log("-> submit values: ", values);
             submit(
                 { values },
                 {
@@ -327,133 +312,52 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
             );
         });
 
-    return (
-        <Transition.Root show={!!client.client_id} as={Fragment}>
-            <Dialog
-                as="div"
-                className="relative z-10"
-                onClose={(value) => {
-                    setOpen({ ...client, client_id: 0 });
-                    reset();
-                }}
-            >
-                {/* background overlay */}
-                <Transition.Child
-                    as={Fragment}
-                    enter="transition-opacity ease-out duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="transition-opacity ease-in duration-300"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                >
-                    <div className="fixed inset-0 bg-gray-900/80" />
-                </Transition.Child>
+    const onClose = () => {
+        setOpen({ ...client, client_id: 0 });
+        reset();
+    };
 
-                {/*  */}
-                <div className="fixed inset-0 z-10 overflow-y-auto">
-                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                            enterTo="opacity-100 translate-y-0 sm:scale-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                        >
-                            <Dialog.Panel className="relative overflow-hidden  rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-xl sm:p-6">
-                                {/* right top close button */}
-                                <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
-                                    <button
-                                        type="button"
-                                        className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                        onClick={handleClose}
-                                    >
-                                        <span className="sr-only">
-                                            {t("btn.close")}
-                                        </span>
-                                        <XMarkIcon
-                                            className="h-6 w-6"
-                                            aria-hidden="true"
-                                        />
-                                    </button>
-                                </div>
-                                {/* title */}
-                                <Dialog.Title
-                                    as="h3"
-                                    className="text-base font-semibold leading-6 text-gray-900 mb-2"
-                                >
-                                    {t("modal.title.addOrder")}
-                                </Dialog.Title>
+    const mainContent = (
+        <Form onSubmit={onSubmit}>
+            {/* addres */}
+            <span className="text-indigo-500">
+                <b>{t("form.workAddr")}:</b>
+            </span>
+            {addressContent}
 
-                                <div className="sm:flex sm:items-start mt-3 text-center px-3 mx-auto sm:text-left">
-                                    {/* Form */}
-                                    {/* <Form onSubmit={handleSubmit(onSubmit)}> */}
-                                    <Form onSubmit={onSubmit}>
-                                        {/* addres */}
-                                        <span className="text-indigo-500">
-                                            <b>{t("form.workAddr")}:</b>
-                                        </span>
-                                        {addressContent}
-
-                                        {/* order description */}
-                                        <span className="text-indigo-500">
-                                            <b>{t("form.orderDesc")}:</b>
-                                        </span>
-                                        <Card className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
-                                            <div className="col-span-full">
-                                                <button
-                                                    type="button"
-                                                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:w-auto"
-                                                    onClick={() =>
-                                                        append(initOrderDesc)
-                                                    }
-                                                >
-                                                    {t("btn.append")}
-                                                </button>
-                                            </div>
-                                            <Card className="col-span-full">
-                                                {descContent}
-                                            </Card>
-                                        </Card>
-
-                                        {/* buttons */}
-                                        <div className="mt-4 sm:flex sm:flex-row-reverse justify-evenly mx-auto pt-4">
-                                            <button
-                                                name="intent"
-                                                value="add"
-                                                type="submit"
-                                                className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:w-auto"
-                                                disabled={
-                                                    navigation.state ===
-                                                        "submitting" ||
-                                                    navigation.state ===
-                                                        "loading"
-                                                }
-                                                onClick={() => trigger()}
-                                            >
-                                                {navigation.state ===
-                                                "submitting"
-                                                    ? t("btn.submitting")
-                                                    : t("btn.submit")}
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                                onClick={handleClose}
-                                            >
-                                                {t("btn.cancel")}
-                                            </button>
-                                        </div>
-                                    </Form>
-                                </div>
-                            </Dialog.Panel>
-                        </Transition.Child>
-                    </div>
+            {/* order description */}
+            <span className="text-indigo-500">
+                <b>{t("form.orderDesc")}:</b>
+            </span>
+            <Card className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+                <div className="col-span-full">
+                    <button
+                        type="button"
+                        className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:w-auto"
+                        onClick={() => append(initOrderDesc)}
+                    >
+                        {t("btn.append")}
+                    </button>
                 </div>
-            </Dialog>
-        </Transition.Root>
+                <Card className="col-span-full">{descContent}</Card>
+            </Card>
+
+            <SubmitBtn
+                onClick={() => trigger()}
+                onClose={onClose}
+                navState={navigation.state}
+            />
+        </Form>
+    );
+
+    return (
+        <ModalFrame
+            open={!!client.client_id}
+            onClose={onClose}
+            title={t("modal.title.addOrder")}
+        >
+            {mainContent}
+        </ModalFrame>
     );
 };
 

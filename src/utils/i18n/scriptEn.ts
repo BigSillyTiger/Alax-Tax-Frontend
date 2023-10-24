@@ -26,12 +26,13 @@ const en = {
             title: {
                 delete: "DELETE WARNING",
                 addClient: "Register New Client",
-                updateClient: "Update Client Info",
                 addOrder: "Add New Order",
                 addService: "Add New Service",
                 addUnit: "Add New Unit",
+                updateClient: "Update Client Info",
                 editService: "Edit Service",
                 editUnit: "Edit Unit",
+                editOrder: "Edit Order",
             },
             tips: {
                 delete: "Are you sure to delete this client?",
