@@ -64,7 +64,7 @@ const Clients: FC = () => {
             }
         } else if (
             actionData?.status &&
-            actionData?.status === RES_STATUS.SUC_DEL_SINGLE
+            actionData?.status === RES_STATUS.SUC_DEL
         ) {
             // delete a client
             toastSuccess("Deleted a client");

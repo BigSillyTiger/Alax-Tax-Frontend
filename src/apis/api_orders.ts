@@ -49,3 +49,16 @@ export const orderWClient = async (client_id: number): Promise<Tresponse> => {
         };
     }
 };
+
+export const orderDel = async (data: any): Promise<Tresponse> => {
+    try {
+        const response = await apis.delete(REQ_ORDER_DEL, { data });
+        return response.data;
+    } catch (err: any) {
+        return {
+            status: 400,
+            msg: "failed in deleting client order",
+            data: "",
+        };
+    }
+};

@@ -7,7 +7,7 @@ import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 
 const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
     {
-        header: i18n.t("table.details"), // Details
+        header: i18n.t("label.details"), // Details
         columns: [
             {
                 id: "expander",
@@ -33,21 +33,21 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
                 },
             },
             {
-                header: i18n.t("table.orderId"),
+                header: i18n.t("label.orderId"),
                 accessorKey: "order_id",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
                     <span>{info.getValue()}</span>
                 ),
             },
             {
-                header: i18n.t("table.address"),
+                header: i18n.t("label.address"),
                 accessorKey: "order_address",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
                     <span>{info.getValue()}</span>
                 ),
             },
             {
-                header: i18n.t("table.status"),
+                header: i18n.t("label.status"),
                 accessorKey: "order_status",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
                     <span>{info.getValue()}</span>
@@ -63,30 +63,34 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
         ],
     },
     {
-        header: i18n.t("table.feeStatus"),
+        header: i18n.t("label.feeStatus"),
         columns: [
             {
-                header: i18n.t("table.total"),
+                header: i18n.t("label.total"),
                 accessorKey: "total",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
                     <span>{info.getValue()}</span>
                 ),
             },
             {
-                header: i18n.t("table.paid"),
+                header: i18n.t("label.paid"),
                 accessorKey: "paid",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
                     <span>{info.getValue()}</span>
                 ),
             },
             {
-                header: i18n.t("table.balance"),
+                header: i18n.t("label.balance"),
                 accessorKey: "balance",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
                     <span>{info.getValue()}</span>
                 ),
             },
         ],
+    },
+    {
+        header: i18n.t("label.menu"),
+        cell: (info: CellContext<TorderWithDesc, string>) => <></>,
     },
 ];
 

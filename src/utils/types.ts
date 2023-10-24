@@ -8,7 +8,7 @@ export type Tresponse = {
 
 export enum RES_STATUS {
     SUCCESS = 200,
-    SUC_DEL_SINGLE = 201,
+    SUC_DEL = 201,
     SUC_UPDATE = 202,
     //
     FAILED = 400,

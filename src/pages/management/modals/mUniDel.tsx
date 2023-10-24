@@ -31,7 +31,7 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
                         <div className="col-span-6">
                             <p>
                                 <b className="text-indigo-600">
-                                    {t("table.service")}:{" "}
+                                    {t("label.service")}:{" "}
                                 </b>{" "}
                                 {uni.service}
                             </p>
@@ -39,7 +39,7 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
                         <div className="col-span-3">
                             <p>
                                 <b className="text-indigo-600">
-                                    {t("table.unit")}:{" "}
+                                    {t("label.unit")}:{" "}
                                 </b>{" "}
                                 {uni.unit}
                             </p>
@@ -48,7 +48,7 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
                             <p>
                                 <b className="text-indigo-600">
                                     {" "}
-                                    {t("table.uPrice")}:{" "}
+                                    {t("label.uPrice")}:{" "}
                                 </b>{" "}
                                 {uni.unit_price}
                             </p>
@@ -58,7 +58,7 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
                     <div className="col-span-5">
                         <p>
                             <b className="text-indigo-600">
-                                {t("table.unit")}:{" "}
+                                {t("label.unit")}:{" "}
                             </b>{" "}
                             {uni.unit_name}
                         </p>

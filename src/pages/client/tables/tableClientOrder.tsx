@@ -25,7 +25,7 @@ import {
 import Pagination from "@/components/table/pagination";
 import SearchBar from "@/components/table/searchBar";
 import { sortingIcon } from "@/components/table/config";
-import { TorderWithDesc } from "@/utils/schema/orderSchema";
+import { Torder, TorderWithDesc } from "@/utils/schema/orderSchema";
 import MenuBtn from "@/components/menuBtn/tMenuBtn";
 import OrderDescTable from "./tableOrderDesc";
 import orderDescColumns from "./defOrderDesc";
@@ -33,8 +33,8 @@ import orderDescColumns from "./defOrderDesc";
 type TtableProps = {
     data: TorderWithDesc[];
     columns: any;
-    clickEdit: (open: any) => void;
-    clickDel: (open: any) => void;
+    clickEdit: (open: TorderWithDesc) => void;
+    clickDel: (open: Torder) => void;
     getRowCanExpand: (row: any) => boolean;
 };
 
@@ -54,14 +54,15 @@ const ClientOrderTable: FC<TtableProps> = ({
         {
             label: "Edit",
             icon: <PencilIcon />,
-            clickFn: (v: any) => {
+            clickFn: (v: TorderWithDesc) => {
                 clickEdit(v);
             },
         },
         {
             label: "Delete",
             icon: <TrashIcon />,
-            clickFn: (v: any) => {
+            clickFn: (v: Torder) => {
+                console.log("-> click order del: ", v);
                 clickDel(v);
             },
         },
@@ -90,7 +91,7 @@ const ClientOrderTable: FC<TtableProps> = ({
                     key={header.id}
                     scope="col"
                     colSpan={header.colSpan}
-                    className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 capitalize"
+                    className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 capitalize text-center"
                     onClick={header.column.getToggleSortingHandler()}
                 >
                     <button>
@@ -117,8 +118,6 @@ const ClientOrderTable: FC<TtableProps> = ({
                               }
                           >
                               {row.getVisibleCells().map((cell: any) => {
-                                  //console.log("-> cell details: ", cell);
-                                  /* nevigate to details page */
                                   if (cell.column.id === "Menu") {
                                       return (
                                           <td
@@ -141,7 +140,7 @@ const ClientOrderTable: FC<TtableProps> = ({
                                   return (
                                       <td
                                           key={cell.id}
-                                          className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
+                                          className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center"
                                       >
                                           {flexRender(
                                               cell.column.columnDef.cell,

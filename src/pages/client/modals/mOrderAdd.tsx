@@ -1,8 +1,11 @@
 import React, { Fragment, useEffect } from "react";
-import type { FC, FormEvent, MouseEvent, TouchEvent } from "react";
+import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Dialog, Transition } from "@headlessui/react";
+import {
+    XMarkIcon,
+    ChevronDoubleDownIcon,
+    ChevronDoubleUpIcon,
+} from "@heroicons/react/24/outline";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
@@ -16,6 +19,7 @@ import { Tclient } from "@/utils/schema/clientSchema";
 import Card from "@/components/card";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
+import { toastError } from "@/utils/utils";
 
 type Tprops = {
     client: Tclient; // for client id
@@ -69,6 +73,10 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        if (!fields.length) {
+            toastError("Please add one order description at least.");
+            return;
+        }
         const isValid = await trigger();
         if (isValid) {
             const values = JSON.stringify({
@@ -93,7 +101,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_address"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    {t("form.address")}
+                    {t("label.address")}
                 </label>
                 <div className="mt-1">
                     <input
@@ -111,7 +119,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_suburb"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    {t("form.suburb")}
+                    {t("label.suburb")}
                 </label>
                 <div className="mt-1">
                     <input
@@ -130,7 +138,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_city"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    {t("form.city")}
+                    {t("label.city")}
                 </label>
                 <div className="mt-1">
                     <input
@@ -149,7 +157,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_state"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    {t("form.state")}
+                    {t("label.state")}
                 </label>
                 <div className="mt-1">
                     <select
@@ -174,7 +182,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_country"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    {t("form.Country")}
+                    {t("label.Country")}
                 </label>
                 <div className="mt-1">
                     <input
@@ -194,7 +202,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                     htmlFor="order_pc"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    {t("form.pc")}
+                    {t("label.pc")}
                 </label>
 
                 <div className="mt-1">
@@ -219,95 +227,138 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
         fields.length != 0 &&
         fields.map((field, index) => {
             return (
-                <section
-                    key={field.id}
-                    className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6"
-                >
-                    <div className="col-span-full">
+                <section key={field.id} className="grid grid-cols-10 gap-x-1">
+                    <div className="col-span-1 m-auto">
                         <button
                             type="button"
-                            className="inline-flex w-full justify-center rounded-md bg-red-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto"
+                            className="inline-flex w-full justify-center rounded-md bg-red-300 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto"
                             onClick={() => remove(index)}
                         >
-                            {t("btn.del")}
+                            <span className="sr-only">{t("btn.close")}</span>
+                            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                         </button>
                     </div>
-                    <div className="col-span-full">
-                        <label
-                            htmlFor="description"
-                            className="block text-sm font-medium leading-6 text-gray-900"
-                        >
-                            {t("form.desc")}
-                        </label>
-                        <input
-                            {...register(`order_desc.${index}.description`)}
-                            id="description"
-                            type="text"
-                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                        />
-                    </div>
-                    <div className="col-span-6 sm:col-span-1">
-                        <label
-                            htmlFor="qty"
-                            className="block text-sm font-medium leading-6 text-gray-900"
-                        >
-                            {t("form.qty")}
-                        </label>
-                        <input
-                            {...register(`order_desc.${index}.qty`, {
-                                valueAsNumber: true,
-                            })}
-                            id="qty"
-                            type="number"
-                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                        />
-                    </div>
-                    <div className="col-span-6 sm:col-span-1">
-                        <label
-                            htmlFor="unit"
-                            className="block text-sm font-medium leading-6 text-gray-900"
-                        >
-                            {t("form.unit")}
-                        </label>
-                        <input
-                            {...register(`order_desc.${index}.unit`)}
-                            id="unit"
-                            type="text"
-                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                        />
-                    </div>
-                    <div className="col-span-6 sm:col-span-2">
-                        <label
-                            htmlFor="unit_price"
-                            className="block text-sm font-medium leading-6 text-gray-900"
-                        >
-                            {t("form.uPrice")}
-                        </label>
-                        <input
-                            {...register(`order_desc.${index}.unit_price`, {
-                                valueAsNumber: true,
-                            })}
-                            id="unit_price"
-                            type="number"
-                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                        />
-                    </div>
-                    <div className="col-span-6 sm:col-span-2">
-                        <label
-                            htmlFor="netto"
-                            className="block text-sm font-medium leading-6 text-gray-900"
-                        >
-                            {t("form.netto")}
-                        </label>
-                        <input
-                            {...register(`order_desc.${index}.netto`, {
-                                valueAsNumber: true,
-                            })}
-                            id="netto"
-                            type="number"
-                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                        />
-                    </div>
+                    <Card className="col-span-9 mt-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8 bg-indigo-50">
+                        <section className="col-span-7 grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-6">
+                            <div className="col-span-full">
+                                <label
+                                    htmlFor="description"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    {t("label.desc")}
+                                </label>
+                                <input
+                                    {...register(
+                                        `order_desc.${index}.description`
+                                    )}
+                                    id="description"
+                                    type="text"
+                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                />
+                            </div>
+                            <div className="col-span-6 sm:col-span-1">
+                                <label
+                                    htmlFor="qty"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    {t("label.qty")}
+                                </label>
+                                <input
+                                    {...register(`order_desc.${index}.qty`, {
+                                        valueAsNumber: true,
+                                    })}
+                                    id="qty"
+                                    type="number"
+                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                />
+                            </div>
+                            <div className="col-span-6 sm:col-span-1">
+                                <label
+                                    htmlFor="unit"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    {t("label.unit")}
+                                </label>
+                                <input
+                                    {...register(`order_desc.${index}.unit`)}
+                                    id="unit"
+                                    type="text"
+                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                />
+                            </div>
+                            <div className="col-span-6 sm:col-span-2">
+                                <label
+                                    htmlFor="unit_price"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    {t("label.uPrice")}
+                                </label>
+                                <input
+                                    {...register(
+                                        `order_desc.${index}.unit_price`,
+                                        {
+                                            valueAsNumber: true,
+                                        }
+                                    )}
+                                    id="unit_price"
+                                    type="number"
+                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                />
+                            </div>
+                            <div className="col-span-6 sm:col-span-2">
+                                <label
+                                    htmlFor="netto"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    {t("label.netto")}
+                                </label>
+                                <input
+                                    {...register(`order_desc.${index}.netto`, {
+                                        valueAsNumber: true,
+                                    })}
+                                    id="netto"
+                                    type="number"
+                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                />
+                            </div>
+                        </section>
+                        <section className="col-span-1 flex flex-col justify-around">
+                            <button
+                                type="button"
+                                className={`h-10 rounded-md bg-indigo-400 text-slate-200 ${
+                                    index != 0 &&
+                                    "hover:bg-indigo-600 hover:text-slate-50"
+                                }`}
+                                disabled={index == 0 ? true : false}
+                                onClick={() =>
+                                    console.log("-> click btn up: ", index)
+                                }
+                            >
+                                <ChevronDoubleUpIcon
+                                    className="h-6 w-6 m-auto"
+                                    aria-hidden="true"
+                                />
+                            </button>
+                            <button
+                                type="button"
+                                className={`h-10 rounded-md bg-indigo-400 text-slate-200 ${
+                                    index + 1 !== fields.length &&
+                                    "hover:bg-indigo-600 hover:text-slate-50"
+                                }`}
+                                disabled={
+                                    index + 1 !== fields.length ? false : true
+                                }
+                                onClick={() =>
+                                    console.log("-> click btn down: ", index)
+                                }
+                            >
+                                <ChevronDoubleDownIcon
+                                    className="h-6 w-6 m-auto"
+                                    aria-hidden="true"
+                                />
+                            </button>
+                        </section>
+                    </Card>
                 </section>
             );
         });
@@ -321,15 +372,16 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
         <Form onSubmit={onSubmit}>
             {/* addres */}
             <span className="text-indigo-500">
-                <b>{t("form.workAddr")}:</b>
+                <b>{t("label.workAddr")}:</b>
             </span>
             {addressContent}
 
             {/* order description */}
             <span className="text-indigo-500">
-                <b>{t("form.orderDesc")}:</b>
+                <b>{t("label.orderDesc")}:</b>
             </span>
-            <Card className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+            <section className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+                <section className="col-span-full">{descContent}</section>
                 <div className="col-span-full">
                     <button
                         type="button"
@@ -339,8 +391,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                         {t("btn.append")}
                     </button>
                 </div>
-                <Card className="col-span-full">{descContent}</Card>
-            </Card>
+            </section>
 
             <SubmitBtn
                 onClick={() => trigger()}
@@ -355,6 +406,7 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
             open={!!client.client_id}
             onClose={onClose}
             title={t("modal.title.addOrder")}
+            size={3}
         >
             {mainContent}
         </ModalFrame>

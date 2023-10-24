@@ -106,7 +106,7 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                             htmlFor="service"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            {t("form.service")}
+                            {t("label.service")}
                         </label>
                         <div className="relative mt-1 rounded-md shadow-sm">
                             <input
@@ -131,7 +131,7 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                             htmlFor="unit"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            {t("form.unit")}
+                            {t("label.unit")}
                         </label>
                         <div className="mt-1">
                             <input
@@ -154,7 +154,7 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                             htmlFor="unit_price"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            {t("form.uPrice")}
+                            {t("label.uPrice")}
                         </label>
                         <div className="mt-1">
                             <input
@@ -183,7 +183,7 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                             htmlFor="unit_name"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            {t("form.unit")}
+                            {t("label.unit")}
                         </label>
                         <div className="relative mt-1 rounded-md shadow-sm">
                             <input

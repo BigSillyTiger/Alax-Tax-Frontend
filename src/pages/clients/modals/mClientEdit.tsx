@@ -78,7 +78,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                         htmlFor="first_name"
                         className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                        {t("form.firstName")}
+                        {t("label.firstName")}
                     </label>
                     <div className="mt-1">
                         <input
@@ -97,7 +97,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                         htmlFor="last_name"
                         className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                        {t("form.lastName")}
+                        {t("label.lastName")}
                     </label>
                     <div className="mt-1">
                         <input
@@ -116,7 +116,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                         htmlFor="email"
                         className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                        {t("form.email")}
+                        {t("label.email1")}
                     </label>
                     <div className="relative mt-1 rounded-md shadow-sm">
                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -150,7 +150,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                         htmlFor="phone"
                         className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                        {t("form.phone")}
+                        {t("label.phone1")}
                     </label>
                     <div className="relative mt-1 rounded-md shadow-sm">
                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -184,7 +184,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                         htmlFor="address"
                         className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                        {t("form.address")}
+                        {t("label.address")}
                     </label>
                     <div className="mt-1">
                         <input
@@ -202,7 +202,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                         htmlFor="suburb"
                         className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                        {t("form.suburb")}
+                        {t("label.suburb")}
                     </label>
                     <div className="mt-1">
                         <input
@@ -220,7 +220,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                         htmlFor="city"
                         className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                        {t("form.city")}
+                        {t("label.city")}
                     </label>
                     <div className="mt-1">
                         <input
@@ -238,7 +238,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                         htmlFor="state"
                         className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                        {t("form.state")}
+                        {t("label.state")}
                     </label>
                     <div className="mt-1">
                         <select
@@ -262,7 +262,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                         htmlFor="country"
                         className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                        {t("form.Country")}
+                        {t("label.Country")}
                     </label>
                     <div className="mt-1">
                         <input
@@ -282,7 +282,7 @@ const MClientEdit: FC<Tprops> = ({ client, setOpen, isConflict }) => {
                             htmlFor="postcode"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            {t("form.pc")}
+                            {t("label.pc")}
                         </label>
                     </>
                     <div className="mt-1">

@@ -109,7 +109,7 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
                             htmlFor="service"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            {t("form.serviceDesc")}
+                            {t("label.serviceDesc")}
                         </label>
                         <div className="mt-1">
                             <input
@@ -135,7 +135,7 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
                             htmlFor="unit"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            {t("form.defaultUnit")}
+                            {t("label.defaultUnit")}
                         </label>
                         <div className="mt-1">
                             <input
@@ -156,7 +156,7 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
                             htmlFor="unit_price"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            {t("form.defaultPrice")}
+                            {t("label.defaultPrice")}
                         </label>
                         <div className="relative mt-1 rounded-md shadow-sm">
                             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"></div>
@@ -181,7 +181,7 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
                             htmlFor="unit_name"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
-                            {t("form.unit")}
+                            {t("label.unit")}
                         </label>
                         <div className="mt-1">
                             <input
@@ -221,6 +221,7 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
                     ? t("modal.title.addService")
                     : t("modal.title.addUnit")
             }
+            size={open === "S" ? 1 : 0}
         >
             {mainContent}
         </ModalFrame>

@@ -13,6 +13,7 @@ type Tprops = {
     isDelM?: boolean;
     title: string;
     children: ReactNode[] | ReactNode;
+    size?: 0 | 1 | 2 | 3 | 4;
 };
 
 const ModalFrame: FC<Tprops> = ({
@@ -21,8 +22,24 @@ const ModalFrame: FC<Tprops> = ({
     isDelM = false,
     title,
     children,
+    size = 1,
 }) => {
     const { t } = useTranslation();
+
+    const widthSize = (size: 0 | 1 | 2 | 3 | 4) => {
+        switch (size) {
+            case 0:
+                return "max-w-sm";
+            case 1:
+                return "max-w-xl";
+            case 2:
+                return "max-w-2xl";
+            case 3:
+                return "max-w-3xl";
+            case 4:
+                return "max-w-4xl";
+        }
+    };
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -47,7 +64,7 @@ const ModalFrame: FC<Tprops> = ({
                 </Transition.Child>
 
                 {/* modal content */}
-                <div className="fixed inset-0 z-10 overflow-y-auto">
+                <div className="mt-[7vh] fixed inset-0 z-10 overflow-y-auto">
                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <Transition.Child
                             as={Fragment}
@@ -58,7 +75,11 @@ const ModalFrame: FC<Tprops> = ({
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative overflow-hidden  rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-xl sm:p-6">
+                            <Dialog.Panel
+                                className={`relative overflow-hidden  rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:p-6 ${widthSize(
+                                    size
+                                )}`}
+                            >
                                 {/* right top close button */}
                                 <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
                                     <button
@@ -79,7 +100,7 @@ const ModalFrame: FC<Tprops> = ({
                                     </button>
                                 </div>
                                 <div className="sm:flex sm:items-start">
-                                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+                                    <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                                         {/* title */}
                                         <Dialog.Title
                                             as="h3"

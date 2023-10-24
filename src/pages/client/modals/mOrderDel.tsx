@@ -3,81 +3,73 @@ import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import ModalFrame from "@/components/modal";
 import { useSubmit } from "react-router-dom";
-import type { Tclient } from "@/utils/schema/clientSchema";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
+import { Torder } from "@/utils/schema/orderSchema";
 
 type Tprops = {
-    client: Tclient;
-    setOpen: (value: Tclient) => void;
+    cid: number;
+    order: Torder;
+    setOpen: (value: Torder) => void;
 };
 
 // this component is about building a modal with transition to delete a client
-const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
+const MOrderDel: FC<Tprops> = ({ cid, order, setOpen }) => {
     const submit = useSubmit();
     const { t } = useTranslation();
 
-    const handleDeleteClient = async (id: number) => {
-        submit({ id }, { method: "DELETE", action: "/clients" });
+    const handleDeleteClient = async (order_id: number) => {
+        submit({ order_id }, { method: "DELETE", action: `/clients/${cid}` });
     };
 
     const clientDisplay = (
         <Card className="mt-2">
             <div className="m-3 grid grid-cols-6 gap-x-4 gap-y-4 text-left">
-                <div className="col-span-5">
+                <div className="col-span-3">
                     <p>
-                        <b className="text-indigo-600">{t("label.client")}: </b>{" "}
-                        {client.first_name}&nbsp;{client.last_name}
+                        <b className="text-indigo-600">
+                            {t("label.orderId")}:{" "}
+                        </b>{" "}
+                        {order?.order_id}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
-                        <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
-                        {client?.phone}
+                        <b className="text-indigo-600">{t("label.pc")}: </b>{" "}
+                        {order?.order_pc}
                     </p>
                 </div>
-                <div className="col-span-3">
-                    <p>
-                        <b className="text-indigo-600">{t("label.pc")}: </b>
-                        {client?.postcode}
-                    </p>
-                </div>
-                <div className="col-span-6">
-                    <p>
-                        <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
-                        {client?.email}
-                    </p>
-                </div>
-                <div className="col-span-6">
+
+                <div className="col-span-full">
                     <p>
                         <b className="text-indigo-600">
                             {t("label.address")}:{" "}
                         </b>{" "}
-                        {client?.address}, {client?.city}, {client?.state},{" "}
-                        {client?.country}
+                        {order?.order_address}, {order?.order_suburb},{" "}
+                        {order?.order_city}, {order?.order_state},{" "}
+                        {order?.order_country}
                     </p>
                 </div>
             </div>
         </Card>
     );
 
-    // !!client.client_id  t("modal.title.delete")
     const onClose = () => {
-        setOpen({ ...client, client_id: 0 });
+        setOpen({ ...order, order_id: 0 });
     };
 
     const mainContent = (
         <>
             <div className="mt-2">
                 <p className="text-gray-700 text-lg">
-                    {t("modal.tips.delete")}
+                    {t("modal.tips.delOrder")}
                 </p>
                 {clientDisplay}
             </div>
 
             <DelBtn
                 onClick={() => {
-                    handleDeleteClient(client.client_id);
+                    handleDeleteClient(order.order_id);
                     onClose();
                 }}
                 onClose={onClose}
@@ -87,7 +79,7 @@ const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
 
     return (
         <ModalFrame
-            open={!!client.client_id}
+            open={!!order.order_id}
             onClose={onClose}
             title={t("modal.title.delete")}
             isDelM={true}
@@ -97,4 +89,4 @@ const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
     );
 };
 
-export default MClientDel;
+export default MOrderDel;

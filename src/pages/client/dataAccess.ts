@@ -20,7 +20,7 @@ export const action = async ({
     const orData = JSON.parse(data.get("values") as string);
 
     if ("POST" === request.method) {
-        console.log("-> action data: ", orData);
+        //console.log("-> action add order: ", orData);
         const order = {
             order: {
                 fk_client_id: orData.client_id,
@@ -34,7 +34,14 @@ export const action = async ({
             order_desc: orData.order_desc,
         };
         const result = await API_ORDER.orderAdd(order);
-        console.log("-> fe receive add order result: ", result);
+        //console.log("-> fe receive add order result: ", result);
+        return result;
+    } else if ("DELETE" === request.method) {
+        //console.log("-> action delete order: ", data.get("order_id"));
+        const result = await API_ORDER.orderDel({
+            order_id: Number(data.get("order_id")),
+        });
+        //console.log("-> fe receive delete order result: ", result);
         return result;
     } else {
         return {
