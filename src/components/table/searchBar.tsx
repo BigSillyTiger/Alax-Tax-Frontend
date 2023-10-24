@@ -5,12 +5,14 @@ type Tprops = {
     value: string;
     onChange: (value: string) => void;
     debounce?: number;
+    className?: string;
 };
 
 const SearchBar: FC<Tprops> = ({
     value: initValue,
     onChange,
     debounce = 500,
+    className = "",
 }) => {
     const [value, setValue] = useState(initValue);
 
@@ -26,7 +28,7 @@ const SearchBar: FC<Tprops> = ({
     }, [value]);
 
     return (
-        <div className="flex flex-auto my-3">
+        <div className={`flex flex-auto ${className}`}>
             <span className="sr-only">Search bar</span>
             <MagnifyingGlassIcon
                 className="h-6 w-6 text-indigo-500"

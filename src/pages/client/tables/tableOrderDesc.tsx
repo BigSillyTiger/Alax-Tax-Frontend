@@ -1,4 +1,5 @@
 import React, { useState, useDeferredValue } from "react";
+import type { FC } from "react";
 import {
     useReactTable,
     flexRender,
@@ -13,43 +14,42 @@ import {
     TrashIcon,
     PencilIcon,
 } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
-
 import Pagination from "@/components/table/pagination";
 import SearchBar from "@/components/table/searchBar";
 import { sortingIcon } from "@/components/table/config";
+import { TorderDesc } from "@/utils/schema/orderSchema";
 import MenuBtn from "@/components/menuBtn/tMenuBtn";
+import Card from "@/components/card";
 
-type TtableProps<T> = {
-    data: T[];
+type TtableProps = {
+    data: TorderDesc[];
     columns: any;
-    clickEdit: (open: T) => void;
-    clickDel: (open: T) => void;
+    clickEdit: (open: TorderDesc) => void;
+    clickDel: (open: TorderDesc) => void;
 };
 
-const ServiceTable = <T,>({
+const OrderDescTable: FC<TtableProps> = ({
     data,
     columns,
     clickEdit,
     clickDel,
-}: TtableProps<T>) => {
+}) => {
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
-    const nevigate = useNavigate();
 
     const opMenu = [
         {
             label: "Edit",
             icon: <PencilIcon />,
-            clickFn: (v: T) => {
+            clickFn: (v: TorderDesc) => {
                 clickEdit(v);
             },
         },
         {
             label: "Delete",
             icon: <TrashIcon />,
-            clickFn: (v: T) => {
+            clickFn: (v: TorderDesc) => {
                 clickDel(v);
             },
         },
@@ -91,12 +91,14 @@ const ServiceTable = <T,>({
     ));
 
     const tableBody = table.getRowModel().rows.length
-        ? table.getRowModel().rows.map((row: Row<T>, i: number) => (
+        ? table.getRowModel().rows.map((row: Row<TorderDesc>, i: number) => (
               <tr
                   key={row.id}
                   className={i % 2 === 0 ? undefined : "bg-gray-100"}
               >
                   {row.getVisibleCells().map((cell: any) => {
+                      //console.log("-> cell details: ", cell);
+                      /* nevigate to details page */
                       if (cell.column.id === "Menu") {
                           return (
                               <td
@@ -104,7 +106,6 @@ const ServiceTable = <T,>({
                                   className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
                               >
                                   <MenuBtn
-                                      /* <MenuBtn<Tservice> */
                                       mLabel={
                                           <EllipsisVerticalIcon
                                               className="h-6 w-6 text-indigo-500"
@@ -134,7 +135,7 @@ const ServiceTable = <T,>({
         : null;
 
     return (
-        <div className="container">
+        <Card className="container ring-violet-600 bg-indigo-50">
             {/* search bar */}
             <SearchBar value={globalFilter} onChange={setGlobalFilter} />
 
@@ -150,8 +151,8 @@ const ServiceTable = <T,>({
 
             {/* pagination */}
             <Pagination table={table} />
-        </div>
+        </Card>
     );
 };
 
-export default ServiceTable;
+export default OrderDescTable;

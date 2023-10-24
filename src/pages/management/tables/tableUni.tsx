@@ -1,5 +1,4 @@
 import React, { useState, useDeferredValue } from "react";
-import type { FC } from "react";
 import {
     useReactTable,
     flexRender,
@@ -8,55 +7,49 @@ import {
     getFilteredRowModel,
     getSortedRowModel,
 } from "@tanstack/react-table";
-import type {
-    OnChangeFn,
-    SortingState,
-    Row,
-    Cell,
-    ColumnDef,
-} from "@tanstack/react-table";
+import type { OnChangeFn, SortingState, Row } from "@tanstack/react-table";
 import {
     EllipsisVerticalIcon,
-    DocumentTextIcon,
     TrashIcon,
     PencilIcon,
 } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+
 import Pagination from "@/components/table/pagination";
 import SearchBar from "@/components/table/searchBar";
 import { sortingIcon } from "@/components/table/config";
-import { TorderWithDesc } from "@/utils/schema/orderSchema";
 import MenuBtn from "@/components/menuBtn/tMenuBtn";
 
-type TtableProps = {
-    data: TorderWithDesc[];
+type TtableProps<T> = {
+    data: T[];
     columns: any;
-    clickEdit: (open: any) => void;
-    clickDel: (open: any) => void;
+    clickEdit: (open: T) => void;
+    clickDel: (open: T) => void;
 };
 
-const ClientOrderTable: FC<TtableProps> = ({
+const ServiceTable = <T,>({
     data,
     columns,
     clickEdit,
     clickDel,
-}) => {
+}: TtableProps<T>) => {
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
-    //const nevigate = useNavigate();
+    const nevigate = useNavigate();
 
     const opMenu = [
         {
             label: "Edit",
             icon: <PencilIcon />,
-            clickFn: (v: any) => {
+            clickFn: (v: T) => {
                 clickEdit(v);
             },
         },
         {
             label: "Delete",
             icon: <TrashIcon />,
-            clickFn: (v: any) => {
+            clickFn: (v: T) => {
                 clickDel(v);
             },
         },
@@ -98,55 +91,56 @@ const ClientOrderTable: FC<TtableProps> = ({
     ));
 
     const tableBody = table.getRowModel().rows.length
-        ? table
-              .getRowModel()
-              .rows.map((row: Row<TorderWithDesc>, i: number) => (
-                  <tr
-                      key={row.id}
-                      className={i % 2 === 0 ? undefined : "bg-gray-100"}
-                  >
-                      {row.getVisibleCells().map((cell: any) => {
-                          //console.log("-> cell details: ", cell);
-                          /* nevigate to details page */
-                          if (cell.column.id === "Menu") {
-                              return (
-                                  <td
-                                      key={cell.id}
-                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
-                                  >
-                                      <MenuBtn
-                                          mLabel={
-                                              <EllipsisVerticalIcon
-                                                  className="h-6 w-6 text-indigo-500"
-                                                  aria-hidden="true"
-                                              />
-                                          }
-                                          mList={opMenu}
-                                          mItem={row.original}
-                                      />
-                                  </td>
-                              );
-                          }
+        ? table.getRowModel().rows.map((row: Row<T>, i: number) => (
+              <tr
+                  key={row.id}
+                  className={i % 2 === 0 ? undefined : "bg-gray-100"}
+              >
+                  {row.getVisibleCells().map((cell: any) => {
+                      if (cell.column.id === "Menu") {
                           return (
                               <td
                                   key={cell.id}
                                   className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
                               >
-                                  {flexRender(
-                                      cell.column.columnDef.cell,
-                                      cell.getContext()
-                                  )}
+                                  <MenuBtn
+                                      /* <MenuBtn<Tservice> */
+                                      mLabel={
+                                          <EllipsisVerticalIcon
+                                              className="h-6 w-6 text-indigo-500"
+                                              aria-hidden="true"
+                                          />
+                                      }
+                                      mList={opMenu}
+                                      mItem={row.original}
+                                  />
                               </td>
                           );
-                      })}
-                  </tr>
-              ))
+                      }
+                      return (
+                          <td
+                              key={cell.id}
+                              className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
+                          >
+                              {flexRender(
+                                  cell.column.columnDef.cell,
+                                  cell.getContext()
+                              )}
+                          </td>
+                      );
+                  })}
+              </tr>
+          ))
         : null;
 
     return (
         <div className="container">
             {/* search bar */}
-            <SearchBar value={globalFilter} onChange={setGlobalFilter} />
+            <SearchBar
+                value={globalFilter}
+                onChange={setGlobalFilter}
+                className="my-3"
+            />
 
             <div className="overflow-auto w-full">
                 {/* table */}
@@ -164,4 +158,4 @@ const ClientOrderTable: FC<TtableProps> = ({
     );
 };
 
-export default ClientOrderTable;
+export default ServiceTable;

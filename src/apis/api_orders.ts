@@ -39,12 +39,12 @@ export const orderAdd = async (data: any) => {
 export const orderWClient = async (client_id: number): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_ORDER_W_CLIENT, { client_id });
-        return response.data.data;
+        return response.data;
     } catch (err: any) {
         console.log("-> retrieve client info error: ", err);
         return {
             status: 400,
-            msg: "failed in retrieving client info",
+            msg: "failed in retrieving client orders",
             data: "",
         };
     }

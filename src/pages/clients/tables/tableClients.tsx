@@ -179,7 +179,7 @@ const ClientTable: FC<TtableProps> = ({
     return (
         <div className="container">
             {/* search bar */}
-            <SearchBar value={globalFilter} onChange={setGlobalFilter} />
+            <SearchBar value={globalFilter} onChange={setGlobalFilter} className="my-3"/>
 
             <div className="overflow-auto w-full">
                 {/* table */}

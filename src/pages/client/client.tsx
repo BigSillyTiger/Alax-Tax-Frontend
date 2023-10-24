@@ -8,19 +8,23 @@ import {
 } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
 import { Tclient } from "@/utils/schema/clientSchema";
-import { Torder } from "@/utils/schema/orderSchema";
+import {
+    Torder,
+    TorderWithDesc,
+    orderWithDescSchema,
+} from "@/utils/schema/orderSchema";
 import Card from "@/components/card";
 import MOrderAdd from "./modals/mOrderAdd";
-import ClientOrderTable from "./tables/clientOrderTable";
+import ClientOrderTable from "./tables/tableClientOrder";
+import clientOrderColumns from "./tables/defClientOrder";
 
 const Client = () => {
     //const { cid } = useParams();
     const { clientInfo, clientOrders } = useLoaderData() as {
         clientInfo: Tclient;
-        clientOrders: Torder[];
+        clientOrders: TorderWithDesc[];
     };
-    console.log("-> clientInfo: ", clientInfo);
-    console.log("-> clientOrders: ", clientOrders);
+
     const [orderAddClient, setOrderAddClient] = useState<Tclient>({
         ...clientInfo,
         client_id: 0,
@@ -95,7 +99,27 @@ const Client = () => {
                 </div>
                 <Card className="col-span-6">
                     {/* <ClientOrderTable data={} /> */}
-                    <span>test table</span>
+                    {clientOrders.length > 0 ? (
+                        <ClientOrderTable
+                            data={clientOrders}
+                            columns={clientOrderColumns}
+                            clickEdit={() => {
+                                return;
+                            }}
+                            clickDel={() => {
+                                return;
+                            }}
+                            getRowCanExpand={(row) => {
+                                //console.log("-> expanded row: ", row);
+                                if (row.original.order_desc.length > 0) {
+                                    return true;
+                                }
+                                return false;
+                            }}
+                        />
+                    ) : (
+                        <span>No Order Content</span>
+                    )}
                 </Card>
             </div>
         );
