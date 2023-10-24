@@ -4,22 +4,29 @@ import { useTranslation, Trans } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
-import type { TclientUnreg } from "@/utils/schema/clientSchema";
+import type { Tclient } from "@/utils/schema/clientSchema";
 import { clientNoIDSchema } from "@/utils/schema/clientSchema";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { RES_STATUS } from "@/utils/types";
 import clsx from "clsx";
-import ModalFrame from "@/components/modal";
+import ModalFrame from "@/components/modal/modalFrame";
 import { SubmitBtn } from "@/components/form";
 
+type TisConflict =
+    | RES_STATUS.SUCCESS
+    | RES_STATUS.FAILED_DUP_PHONE
+    | RES_STATUS.FAILED_DUP_EMAIL
+    | RES_STATUS.FAILED_DUP_P_E;
+
 type Tprops = {
-    open: boolean;
-    setOpen: (value: boolean) => void;
+    client: Tclient;
+    setOpen: (open: Tclient) => void;
     isConflict: number;
+    setConflict: (status: TisConflict) => void;
 };
 
 const initClient = {
-    client_id: 0,
+    client_id: -1,
     first_name: "",
     last_name: "",
     phone: "",
@@ -32,8 +39,12 @@ const initClient = {
     postcode: "",
 };
 
-const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict }) => {
-    //const [conflict, setConflict] = React.useState(isConflict);
+const MClientForm: FC<Tprops> = ({
+    client,
+    setOpen,
+    isConflict,
+    setConflict,
+}) => {
     const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
@@ -44,26 +55,31 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict }) => {
         register,
         reset,
         trigger,
-    } = useForm<TclientUnreg>({
+    } = useForm<Tclient>({
         resolver: zodResolver(clientNoIDSchema),
-        defaultValues: initClient,
+        defaultValues: client,
     });
 
     useEffect(() => {
-        reset(initClient);
-    }, [open, reset]);
+        reset(client);
+    }, [client, reset]);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const isValid = await trigger();
         if (isValid) {
             const values = getValues();
-            submit(values, { method: "POST", action: "/clients" });
+            const method = client.client_id === 0 ? "POST" : "PUT";
+            submit(
+                { ...values, id: client.client_id },
+                { method, action: "/clients" }
+            );
         }
     };
 
     const onClose = () => {
-        setOpen(false);
+        setConflict(RES_STATUS.SUCCESS);
+        setOpen(initClient);
         reset(initClient);
     };
 
@@ -322,13 +338,13 @@ const MClientAdd: FC<Tprops> = ({ open, setOpen, isConflict }) => {
 
     return (
         <ModalFrame
-            open={open}
+            open={client.client_id !== -1}
             onClose={onClose}
-            title={t("modal.title.addClient")}
+            title={t("modal.title.updateClient")}
         >
             {mainContent}
         </ModalFrame>
     );
 };
 
-export default MClientAdd;
+export default MClientForm;

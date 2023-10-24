@@ -196,7 +196,7 @@ const MOrderEdit: FC<Tprops> = ({ order, setOpen }) => {
                     htmlFor="order_country"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                    {t("label.Country")}
+                    {t("label.country")}
                 </label>
                 <div className="mt-1">
                     <input
@@ -252,7 +252,13 @@ const MOrderEdit: FC<Tprops> = ({ order, setOpen }) => {
                         </button>
                     </div>
                     <Card className="col-span-9 mt-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8 bg-indigo-50">
-                        <section className="col-span-7 grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-6">
+                        <section
+                            className={`${
+                                fields.length === 1
+                                    ? "col-span-8"
+                                    : "col-span-7"
+                            } grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-6`}
+                        >
                             <div className="col-span-full">
                                 <label
                                     htmlFor="description"
@@ -335,20 +341,44 @@ const MOrderEdit: FC<Tprops> = ({ order, setOpen }) => {
                                 />
                             </div>
                         </section>
-                        <section className="col-span-1 flex flex-col justify-around">
-                            <button className="rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50 h-10">
-                                <ChevronDoubleUpIcon
-                                    className="h-6 w-6 m-auto"
-                                    aria-hidden="true"
-                                />
-                            </button>
-                            <button className="rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50 h-10">
-                                <ChevronDoubleDownIcon
-                                    className="h-6 w-6 m-auto"
-                                    aria-hidden="true"
-                                />
-                            </button>
-                        </section>
+                        {fields.length > 1 && (
+                            <section className="col-span-1 flex flex-col justify-around">
+                                {index != 0 && (
+                                    <button
+                                        type="button"
+                                        className="h-10 rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50"
+                                        onClick={() =>
+                                            console.log(
+                                                "-> click btn up: ",
+                                                index
+                                            )
+                                        }
+                                    >
+                                        <ChevronDoubleUpIcon
+                                            className="h-6 w-6 m-auto"
+                                            aria-hidden="true"
+                                        />
+                                    </button>
+                                )}
+                                {index + 1 !== fields.length && (
+                                    <button
+                                        type="button"
+                                        className="h-10 rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50"
+                                        onClick={() =>
+                                            console.log(
+                                                "-> click btn down: ",
+                                                index
+                                            )
+                                        }
+                                    >
+                                        <ChevronDoubleDownIcon
+                                            className="h-6 w-6 m-auto"
+                                            aria-hidden="true"
+                                        />
+                                    </button>
+                                )}
+                            </section>
+                        )}
                     </Card>
                 </section>
             );
@@ -366,18 +396,18 @@ const MOrderEdit: FC<Tprops> = ({ order, setOpen }) => {
             <span className="text-indigo-500">
                 <b>{t("label.orderDesc")}:</b>
             </span>
-            <section className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+            <Card className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
                 <section className="col-span-full">{descContent}</section>
                 <div className="col-span-full">
                     <button
                         type="button"
-                        className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:w-auto"
+                        className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
                         onClick={() => append(initOrderDesc)}
                     >
                         {t("btn.append")}
                     </button>
                 </div>
-            </section>
+            </Card>
 
             <SubmitBtn
                 onClick={() => trigger()}

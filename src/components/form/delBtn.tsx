@@ -15,7 +15,7 @@ const DelBtn: FC<Tprops> = ({ onClick, onClose }) => {
                 name="intent"
                 value="add"
                 type="submit"
-                className="w-full rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset hover:bg-red-500"
+                className="w-full rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-slate-50 shadow-sm ring-1 ring-inset hover:bg-red-700"
                 onClick={onClick}
             >
                 {t("btn.del")}

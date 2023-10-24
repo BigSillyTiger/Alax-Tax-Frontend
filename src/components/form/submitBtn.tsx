@@ -26,7 +26,7 @@ const SubmitBtn: FC<Tprops> = ({ onClick, onClose, navState }) => {
                 name="intent"
                 value="add"
                 type="submit"
-                className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset hover:bg-indigo-500"
+                className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset hover:bg-indigo-700"
                 disabled={navState === "submitting" || navState === "loading"}
                 onClick={onClick}
             >

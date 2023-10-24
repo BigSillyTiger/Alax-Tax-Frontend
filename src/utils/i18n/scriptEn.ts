@@ -36,7 +36,8 @@ const en = {
             },
             tips: {
                 delete: "Are you sure to delete this client?",
-                addr: "Use a permanent address where you can receive mail.",
+                noDupAddr:
+                    "The email address and phone number must <b>NOT</b> be duplecated.",
                 addService: "description must NOT be duplecated",
                 addUni: "The {{name}} description must <b>NOT</b> be duplecated.",
                 delData: "Are you sure to delete this data?",

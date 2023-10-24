@@ -8,12 +8,10 @@ import clientColumns from "./tables/defClients.tsx";
 import Card from "@/components/card";
 import { Tresponse } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/utils";
-
-import { Tclient } from "@/utils/schema/clientSchema.ts";
-import MClientAdd from "./modals/mClientAdd";
-import MClientDel from "./modals/mClientDel";
-import MClientEdit from "./modals/mClientEdit.tsx";
 import { RES_STATUS } from "@/utils/types";
+import { Tclient } from "@/utils/schema/clientSchema.ts";
+import MClientDel from "./modals/mClientDel";
+import MClientForm from "./modals/mClientForm.tsx";
 
 type Tprops = {
     clients: Tclient[] | null;
@@ -26,7 +24,7 @@ type TisConflict =
     | RES_STATUS.FAILED_DUP_P_E;
 
 const initClient = {
-    client_id: 0,
+    client_id: -1,
     first_name: "",
     last_name: "",
     phone: "",
@@ -40,8 +38,7 @@ const initClient = {
 };
 
 const Clients: FC = () => {
-    const [addNewOpen, setAddNewOpen] = useState(false);
-    const [clientEdit, setClientEdit] = useState<Tclient>(initClient);
+    const [client, setClient] = useState<Tclient>(initClient);
     const [clientDel, setClientDel] = useState<Tclient>(initClient);
     const [infoConflict, setInfoConflict] = useState<TisConflict>(
         RES_STATUS.SUCCESS
@@ -55,23 +52,23 @@ const Clients: FC = () => {
     useEffect(() => {
         /* close modals if RES_STATUS.SUCCESS  */
         if (actionData?.status === RES_STATUS.SUCCESS) {
-            if (addNewOpen) {
-                setAddNewOpen(false);
+            setInfoConflict(actionData?.status);
+            if (client.client_id === 0) {
+                //setAddNewOpen(false);
+                setClient(initClient);
                 toastSuccess("Registered a new client");
-            } else if (clientEdit.client_id) {
-                setClientEdit(initClient);
+            } else if (client.client_id > 0) {
+                //setClientEdit(initClient);
+                setClient(initClient);
                 toastSuccess("Updated client informaton");
             }
         } else if (
-            actionData?.status &&
+            //actionData?.status &&
             actionData?.status === RES_STATUS.SUC_DEL
         ) {
             // delete a client
             toastSuccess("Deleted a client");
-        } else if (
-            actionData?.status &&
-            actionData?.status !== RES_STATUS.SUCCESS
-        ) {
+        } else {
             setInfoConflict(
                 actionData?.status as
                     | RES_STATUS.FAILED_DUP_PHONE
@@ -82,13 +79,9 @@ const Clients: FC = () => {
         }
     }, [actionData]);
 
-    useEffect(() => {
-        !addNewOpen && setInfoConflict(200);
-    }, [addNewOpen]);
-
     const handleAddeNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
-        setAddNewOpen(true);
+        setClient({ ...initClient, client_id: 0 });
     };
 
     const ClientTableContent: FC<Tprops> = ({ clients }) => {
@@ -114,7 +107,7 @@ const Clients: FC = () => {
                             <ClientTable
                                 data={clients}
                                 columns={clientColumns}
-                                clickEdit={setClientEdit}
+                                clickEdit={setClient}
                                 clickDel={setClientDel}
                             />
                         </Card>
@@ -142,16 +135,12 @@ const Clients: FC = () => {
 
             {/* Modal for add new client, and this modal can not be insert into Await*/}
             {/* otherwise, the animation would get lost*/}
-            <MClientAdd
-                open={addNewOpen}
-                setOpen={setAddNewOpen}
-                isConflict={infoConflict}
-            />
             <MClientDel client={clientDel} setOpen={setClientDel} />
-            <MClientEdit
-                client={clientEdit}
-                setOpen={setClientEdit}
+            <MClientForm
+                client={client}
+                setOpen={setClient}
                 isConflict={infoConflict}
+                setConflict={setInfoConflict}
             />
         </div>
     );
