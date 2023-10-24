@@ -8,7 +8,6 @@ import type { Tclient } from "@/utils/schema/clientSchema";
 import { clientNoIDSchema } from "@/utils/schema/clientSchema";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { RES_STATUS } from "@/utils/types";
-import clsx from "clsx";
 import ModalFrame from "@/components/modal/modalFrame";
 import { SubmitBtn } from "@/components/form";
 
@@ -152,18 +151,21 @@ const MClientForm: FC<Tprops> = ({
                                 type="email"
                                 id="email"
                                 required
-                                className={clsx(
-                                    "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10",
-                                    (isConflict ===
-                                        RES_STATUS.FAILED_DUP_EMAIL ||
-                                        isConflict ===
-                                            RES_STATUS.FAILED_DUP_P_E) &&
-                                        "ring-2 ring-red-500 focus:ring-red-600",
-                                    (isConflict === RES_STATUS.SUCCESS ||
-                                        isConflict ===
-                                            RES_STATUS.FAILED_DUP_PHONE) &&
-                                        "ring-1 ring-gray-300 focus:ring-indigo-600"
-                                )}
+                                className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10 
+                                    ${
+                                        (isConflict ===
+                                            RES_STATUS.FAILED_DUP_EMAIL ||
+                                            isConflict ===
+                                                RES_STATUS.FAILED_DUP_P_E) &&
+                                        " ring-2 ring-red-500 focus:ring-red-600 "
+                                    }
+                                    ${
+                                        (isConflict === RES_STATUS.SUCCESS ||
+                                            isConflict ===
+                                                RES_STATUS.FAILED_DUP_PHONE) &&
+                                        " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                                    }
+                                `}
                                 placeholder={t("label.emailPH")}
                             />
                         </div>
@@ -189,18 +191,22 @@ const MClientForm: FC<Tprops> = ({
                                 id="phone"
                                 autoComplete="tel"
                                 placeholder="0-xxx-xxx-xxx"
-                                className={clsx(
-                                    "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10",
-                                    (isConflict ===
-                                        RES_STATUS.FAILED_DUP_PHONE ||
-                                        isConflict ===
-                                            RES_STATUS.FAILED_DUP_P_E) &&
-                                        "ring-2 ring-red-500 focus:ring-red-600",
-                                    (isConflict === RES_STATUS.SUCCESS ||
-                                        isConflict ===
-                                            RES_STATUS.FAILED_DUP_EMAIL) &&
-                                        "ring-1 ring-gray-300 focus:ring-indigo-600"
-                                )}
+                                className={`
+                                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10 
+                                    ${
+                                        (isConflict ===
+                                            RES_STATUS.FAILED_DUP_PHONE ||
+                                            isConflict ===
+                                                RES_STATUS.FAILED_DUP_P_E) &&
+                                        " ring-2 ring-red-500 focus:ring-red-600 "
+                                    }
+                                    ${
+                                        (isConflict === RES_STATUS.SUCCESS ||
+                                            isConflict ===
+                                                RES_STATUS.FAILED_DUP_EMAIL) &&
+                                        " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                                    }
+                                `}
                             />
                         </div>
                     </div>
@@ -316,12 +322,14 @@ const MClientForm: FC<Tprops> = ({
                                 type="text"
                                 id="postcode"
                                 autoComplete="postal-code"
-                                className={clsx(
-                                    "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2",
-                                    errors.postcode
-                                        ? "ring-2 ring-red-600 focus:ring-red-400"
-                                        : "ring-1 ring-gray-300 focus:ring-indigo-600"
-                                )}
+                                className={`
+                                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
+                                    ${
+                                        errors.postcode
+                                            ? " ring-2 ring-red-600 focus:ring-red-400 "
+                                            : " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                                    }
+                                `}
                             />
                         </div>
                     </div>
@@ -340,7 +348,11 @@ const MClientForm: FC<Tprops> = ({
         <ModalFrame
             open={client.client_id !== -1}
             onClose={onClose}
-            title={t("modal.title.updateClient")}
+            title={
+                client.client_id === 0
+                    ? t("modal.title.addClient")
+                    : t("modal.title.updateClient")
+            }
         >
             {mainContent}
         </ModalFrame>

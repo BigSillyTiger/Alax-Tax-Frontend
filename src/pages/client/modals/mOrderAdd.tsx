@@ -1,15 +1,14 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigation, useSubmit, Form } from "react-router-dom";
+import { useForm, useFieldArray } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
     XMarkIcon,
     ChevronDoubleDownIcon,
     ChevronDoubleUpIcon,
 } from "@heroicons/react/24/outline";
-import { useForm, useFieldArray } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigation, useSubmit, Form } from "react-router-dom";
-import clsx from "clsx";
 import {
     TnewOrder,
     TnewOrderDesc,
@@ -26,27 +25,26 @@ type Tprops = {
     setOpen: (client: Tclient) => void;
 };
 
-const initOrderDesc: TnewOrderDesc = {
-    description: "service",
-    qty: 1,
-    unit: "m",
-    unit_price: 10,
-    netto: 10,
-};
-
 const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
 
+    const initOrderDesc: TnewOrderDesc = {
+        description: "service",
+        qty: 1,
+        unit: "m",
+        unit_price: 10,
+        netto: 10,
+    };
+
     const {
-        register,
-        trigger,
-        reset,
-        getValues,
-        formState: { errors },
         control,
-        handleSubmit,
+        formState: { errors },
+        getValues,
+        register,
+        reset,
+        trigger,
     } = useForm<TnewOrder>({
         resolver: zodResolver(newOrderSchema),
         defaultValues: { order_desc: [initOrderDesc] },
@@ -91,6 +89,11 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                 }
             );
         }
+    };
+
+    const onClose = () => {
+        setOpen({ ...client, client_id: 0 });
+        reset();
     };
 
     const addressContent = (
@@ -211,12 +214,13 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                         type="text"
                         id="order_pc"
                         autoComplete="postal-code"
-                        className={clsx(
-                            "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2",
-                            errors.order_pc
-                                ? "ring-2 ring-red-600 focus:ring-red-400"
-                                : "ring-1 ring-gray-300 focus:ring-indigo-600"
-                        )}
+                        className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
+                            ${
+                                errors.order_pc
+                                    ? " ring-2 ring-red-600 focus:ring-red-400 "
+                                    : " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                            }
+                        `}
                     />
                 </div>
             </div>
@@ -370,11 +374,6 @@ const MOrderAdd: FC<Tprops> = ({ client, setOpen }) => {
                 </section>
             );
         });
-
-    const onClose = () => {
-        setOpen({ ...client, client_id: 0 });
-        reset();
-    };
 
     const mainContent = (
         <Form onSubmit={onSubmit}>

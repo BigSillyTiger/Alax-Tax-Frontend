@@ -1,27 +1,20 @@
-import React, { Fragment, useEffect } from "react";
-import type {
-    FC,
-    FormEvent,
-    MouseEvent,
-    TouchEvent,
-    ChangeEvent,
-    ReactNode,
-} from "react";
+import React, { useEffect } from "react";
+import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useForm, useFieldArray } from "react-hook-form";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Card from "@/components/card";
 import {
     XMarkIcon,
     ChevronDoubleDownIcon,
     ChevronDoubleUpIcon,
 } from "@heroicons/react/24/outline";
 import {
+    TorderDesc,
     TorderWithDesc,
     orderWithDescSchema,
-    TorderDesc,
 } from "@/utils/schema/orderSchema";
+import Card from "@/components/card";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { toastError } from "@/utils/utils";
@@ -31,9 +24,9 @@ type Tprops = {
     setOpen: (order: TorderWithDesc) => void;
 };
 
-const MOrderEdit: FC<Tprops> = ({ order, setOpen }) => {
-    const submit = useSubmit();
+const MOrderForm: FC<Tprops> = ({ order, setOpen }) => {
     const navigation = useNavigation();
+    const submit = useSubmit();
     const { t } = useTranslation();
 
     const initOrderDesc: TorderDesc = {
@@ -48,12 +41,12 @@ const MOrderEdit: FC<Tprops> = ({ order, setOpen }) => {
     };
 
     const {
-        register,
-        trigger,
-        reset,
-        getValues,
-        formState: { errors },
         control,
+        formState: { errors },
+        getValues,
+        register,
+        reset,
+        trigger,
     } = useForm<TorderWithDesc>({
         resolver: zodResolver(orderWithDescSchema),
         defaultValues: order,
@@ -78,11 +71,6 @@ const MOrderEdit: FC<Tprops> = ({ order, setOpen }) => {
         }
     }, [order, reset]);
 
-    const onClose = () => {
-        setOpen({ ...order, order_id: 0 });
-        reset();
-    };
-
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         if (!fields.length) {
@@ -104,6 +92,11 @@ const MOrderEdit: FC<Tprops> = ({ order, setOpen }) => {
                 }
             );
         }
+    };
+
+    const onClose = () => {
+        setOpen({ ...order, order_id: 0 });
+        reset();
     };
 
     const addressContent = (
@@ -224,18 +217,20 @@ const MOrderEdit: FC<Tprops> = ({ order, setOpen }) => {
                         type="text"
                         id="order_pc"
                         autoComplete="postal-code"
-                        className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
+                        className={`
+                            outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
                             ${
                                 errors.order_pc
                                     ? " ring-2 ring-red-600 focus:ring-red-400 "
                                     : " ring-1 ring-gray-300 focus:ring-indigo-600 "
                             }
-                        `}
+                    `}
                     />
                 </div>
             </div>
         </Card>
     );
+
     const descContent =
         fields.length != 0 &&
         fields.map((field, index) => {
@@ -429,4 +424,4 @@ const MOrderEdit: FC<Tprops> = ({ order, setOpen }) => {
     );
 };
 
-export default MOrderEdit;
+export default MOrderForm;

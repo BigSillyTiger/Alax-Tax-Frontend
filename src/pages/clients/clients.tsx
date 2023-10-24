@@ -68,13 +68,12 @@ const Clients: FC = () => {
         ) {
             // delete a client
             toastSuccess("Deleted a client");
-        } else {
-            setInfoConflict(
-                actionData?.status as
-                    | RES_STATUS.FAILED_DUP_PHONE
-                    | RES_STATUS.FAILED_DUP_EMAIL
-                    | RES_STATUS.FAILED_DUP_P_E
-            );
+        } else if (
+            actionData?.status === RES_STATUS.FAILED_DUP_PHONE ||
+            actionData?.status === RES_STATUS.FAILED_DUP_EMAIL ||
+            actionData?.status === RES_STATUS.FAILED_DUP_P_E
+        ) {
+            setInfoConflict(actionData?.status);
             toastError("Email or Phone already existed");
         }
     }, [actionData]);

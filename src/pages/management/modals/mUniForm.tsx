@@ -17,9 +17,7 @@ type Tprops = {
     unitList: Tunit[] | null;
 };
 
-// this component is about building a modal with transition to update a client
-// the modal structure is similar to MAddNewClient
-const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
+const MUniForm: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
     const [isConflict, setIsConflict] = useState(false);
     // service
     const [service, setService] = useState("");
@@ -31,16 +29,15 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
     const defService = useDeferredValue(service);
     const defUnitName = useDeferredValue(unitName);
     const { t } = useTranslation();
-
     const submit = useSubmit();
     const navigation = useNavigation();
     const schema = isServiceType(uni) ? newServiceSchema : newUnitSchema;
     const {
+        formState: { errors },
+        getValues,
         register,
         reset,
         trigger,
-        getValues,
-        formState: { errors },
     } = useForm<Tservice | Tunit>({ resolver: zodResolver(schema) });
 
     useEffect(() => {
@@ -107,11 +104,11 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                                 id="service"
                                 required
                                 className={`
-                                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-2 
+                                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-2
                                     ${
                                         isConflict
-                                            ? " ring-2 ring-red-500 focus:ring-red-600 "
-                                            : " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                                            ? "ring-2 ring-red-500 focus:ring-red-600"
+                                            : "ring-1 ring-gray-300 focus:ring-indigo-600"
                                     }
                                 `}
                                 value={service}
@@ -186,11 +183,11 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                                 id="unit_name"
                                 required
                                 className={`
-                                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-2 
+                                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-2
                                     ${
                                         isConflict
                                             ? " ring-2 ring-red-500 focus:ring-red-600 "
-                                            : " ring-1 ring-gray-300 focus:ring-indigo-600"
+                                            : " ring-1 ring-gray-300 focus:ring-indigo-600 "
                                     }
                                 `}
                                 value={unitName}
@@ -218,10 +215,11 @@ const MUniEdit: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
                     ? t("model.title.editService")
                     : t("model.title.editUnit")
             }
+            size={isServiceType(uni) ? 1 : 0}
         >
             {mainContent}
         </ModalFrame>
     );
 };
 
-export default MUniEdit;
+export default MUniForm;

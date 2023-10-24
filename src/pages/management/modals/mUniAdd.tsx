@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useDeferredValue } from "react";
 import type { FC, FormEvent, MouseEvent, TouchEvent } from "react";
-import { useForm } from "react-hook-form";
 import { useTranslation, Trans } from "react-i18next";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import {
@@ -11,7 +11,6 @@ import {
     Tunit,
 } from "@/utils/schema/manageSchema";
 import { newServiceSchema, newUnitSchema } from "@/utils/schema/manageSchema";
-import clsx from "clsx";
 import { toastError } from "@/utils/utils";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
@@ -31,13 +30,12 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
     const { t } = useTranslation();
     const submit = useSubmit();
     const schema = open === "S" ? newServiceSchema : newUnitSchema;
-
     const {
-        register,
-        trigger,
-        reset,
-        getValues,
         formState: { errors },
+        getValues,
+        register,
+        reset,
+        trigger,
     } = useForm<TnewService | TnewUnit>({ resolver: zodResolver(schema) });
 
     useEffect(() => {
@@ -120,12 +118,14 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
                                 required
                                 value={value}
                                 onChange={(e) => setValue(e.target.value)}
-                                className={clsx(
-                                    "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-2",
-                                    isConflict
-                                        ? "ring-2 ring-red-500 focus:ring-red-600"
-                                        : "ring-1 ring-gray-300 focus:ring-indigo-600"
-                                )}
+                                className={`
+                                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-2 
+                                    ${
+                                        isConflict
+                                            ? " ring-2 ring-red-500 focus:ring-red-600 "
+                                            : " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                                    }
+                                `}
                             />
                         </div>
                     </div>
@@ -192,12 +192,14 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
                                 required
                                 value={value}
                                 onChange={(e) => setValue(e.target.value)}
-                                className={clsx(
-                                    "outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-2",
-                                    isConflict
-                                        ? "ring-2 ring-red-500 focus:ring-red-600"
-                                        : "ring-1 ring-gray-300 focus:ring-indigo-600"
-                                )}
+                                className={`
+                                        outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-2 
+                                        ${
+                                            isConflict
+                                                ? " ring-2 ring-red-500 focus:ring-red-600 "
+                                                : " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                                        }
+                                `}
                             />
                         </div>
                     </div>

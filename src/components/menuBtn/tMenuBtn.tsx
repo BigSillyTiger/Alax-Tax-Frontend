@@ -1,8 +1,6 @@
 import React, { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import clsx from "clsx";
-import { TclientView } from "@/utils/schema/clientSchema";
 
 type Tprops<T> = {
     mLabel: ReactNode | string;
@@ -33,11 +31,11 @@ const MenuBtn = <T,>({ mLabel, mList, mItem }: Tprops<T>) => {
                             }`}
                         >
                             <div
-                                className={clsx(
-                                    "mr-2 h-5 w-5",
-                                    active && "text-slate-50",
-                                    !active && "text-gray-400"
-                                )}
+                                className={`
+                                    mr-2 h-5 w-5 
+                                    ${active && " text-slate-50 "}
+                                    ${!active && " text-gray-400 "}
+                                `}
                             >
                                 {item.icon}
                             </div>
