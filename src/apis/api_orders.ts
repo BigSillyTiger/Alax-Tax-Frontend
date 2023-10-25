@@ -5,6 +5,7 @@ import {
     REQ_ORDER_UPDATE,
     REQ_ORDER_DEL,
     REQ_ORDER_W_CLIENT,
+    REQ_ORDER_STATUS,
 } from "./req_list";
 import { Tresponse } from "@/utils/types";
 
@@ -36,6 +37,20 @@ export const orderAdd = async (data: any) => {
     }
 };
 
+export const orderUpdate = async (data: any) => {
+    try {
+        const response = await apis.put(REQ_ORDER_UPDATE, data);
+        return response.data;
+    } catch (err: any) {
+        console.log("-> error: update order: ", err);
+        return {
+            status: 400,
+            msg: "failed in updating order",
+            data: "",
+        };
+    }
+};
+
 export const orderWClient = async (client_id: number): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_ORDER_W_CLIENT, { client_id });
@@ -58,6 +73,19 @@ export const orderDel = async (data: any): Promise<Tresponse> => {
         return {
             status: 400,
             msg: "failed in deleting client order",
+            data: "",
+        };
+    }
+};
+
+export const orderChangeStatus = async (data: any): Promise<Tresponse> => {
+    try {
+        const response = await apis.put(REQ_ORDER_STATUS, data);
+        return response.data;
+    } catch (err: any) {
+        return {
+            status: 400,
+            msg: "failed in changing order status",
             data: "",
         };
     }

@@ -26,7 +26,7 @@ const MenuBtn = <T,>({ mLabel, mList, mItem }: Tprops<T>) => {
                             }}
                             className={`group flex w-full items-center rounded-md px-2 py-2 text-sm ${
                                 active
-                                    ? "bg-indigo-400 text-white"
+                                    ? "bg-indigo-400 text-slate-50"
                                     : "text-gray-900"
                             }`}
                         >

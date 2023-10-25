@@ -61,6 +61,8 @@ const Client = () => {
             }
         } else if (actionData?.status === RES_STATUS.SUC_DEL) {
             toastSuccess(t("toastS.delOrder"));
+        } else if (actionData?.status === RES_STATUS.SUC_UPDATE_STATUS) {
+            toastSuccess(t("toastS.updateOrderStatus"));
         } else if (actionData?.status === RES_STATUS.SUC_UPDATE) {
             setOrder(initOrder);
             toastSuccess(t("toastS.updateOrder"));

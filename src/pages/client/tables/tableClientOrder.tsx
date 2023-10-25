@@ -29,6 +29,8 @@ import { Torder, TorderWithDesc } from "@/utils/schema/orderSchema";
 import MenuBtn from "@/components/menuBtn/tMenuBtn";
 import OrderDescTable from "./tableOrderDesc";
 import orderDescColumns from "./defOrderDesc";
+import { tableItemsId } from "@/configs/statusList";
+import StatusBtn from "@/components/menuBtn/tStatusBtn";
 
 type TtableProps = {
     data: TorderWithDesc[];
@@ -135,18 +137,54 @@ const ClientOrderTable: FC<TtableProps> = ({
                                               />
                                           </td>
                                       );
+                                  } else if (
+                                      cell.column.id === tableItemsId.status
+                                  ) {
+                                      return (
+                                          <td
+                                              key={cell.id}
+                                              className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center"
+                                          >
+                                              {/* <button
+                                                  onClick={() => {
+                                                      console.log(
+                                                          "-> click status"
+                                                      );
+                                                  }}
+                                              >
+                                                  {flexRender(
+                                                      cell.column.columnDef
+                                                          .cell,
+                                                      cell.getContext()
+                                                  )}
+                                              </button> */}
+                                              <StatusBtn
+                                                  mLabel={flexRender(
+                                                      cell.column.columnDef
+                                                          .cell,
+                                                      cell.getContext()
+                                                  )}
+                                                  current={
+                                                      row.original.order_status
+                                                  }
+                                                  orId={row.original.order_id}
+                                                  action={`/clients/${row.original.fk_client_id}`}
+                                              />
+                                          </td>
+                                      );
+                                  } else {
+                                      return (
+                                          <td
+                                              key={cell.id}
+                                              className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center"
+                                          >
+                                              {flexRender(
+                                                  cell.column.columnDef.cell,
+                                                  cell.getContext()
+                                              )}
+                                          </td>
+                                      );
                                   }
-                                  return (
-                                      <td
-                                          key={cell.id}
-                                          className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center"
-                                      >
-                                          {flexRender(
-                                              cell.column.columnDef.cell,
-                                              cell.getContext()
-                                          )}
-                                      </td>
-                                  );
                               })}
                           </tr>
                           {row.getIsExpanded() && (

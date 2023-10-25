@@ -84,6 +84,7 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
             const values = JSON.stringify({
                 ...getValues(),
                 client_id: cid,
+                req: "orderUpdate",
             });
             const method = order.order_id === 0 ? "POST" : "PUT";
             submit(

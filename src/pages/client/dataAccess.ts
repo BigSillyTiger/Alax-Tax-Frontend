@@ -19,9 +19,10 @@ export const action = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
     const data = await request.formData();
-    const orData = JSON.parse(data.get("values") as string);
+    console.log("-> action data: ", data.get("req"));
 
     if ("POST" === request.method) {
+        const orData = JSON.parse(data.get("values") as string);
         console.log("-> action add order: ", orData);
         const order = {
             order: {
@@ -37,6 +38,29 @@ export const action = async ({
         };
         const result = await API_ORDER.orderAdd(order);
         console.log("-> fe receive add order result: ", result);
+        return result;
+    } else if ("PUT" === request.method && data.get("req") === "orderUpdate") {
+        const orData = JSON.parse(data.get("values") as string);
+        const order = {
+            order: {
+                fk_client_id: orData.client_id,
+                order_address: orData.order_address,
+                order_suburb: orData.order_suburb,
+                order_city: orData.order_city,
+                order_state: orData.order_state,
+                order_country: orData.order_country,
+                order_pc: orData.order_pc,
+            },
+            order_desc: orData.order_desc,
+        };
+        const result = await API_ORDER.orderUpdate(order);
+        console.log("-> fe receive add order result: ", result);
+        return result;
+    } else if ("PUT" === request.method && data.get("req") === "orderStatus") {
+        const result = await API_ORDER.orderChangeStatus({
+            order_id: data.get("order_id"),
+            status: data.get("status"),
+        });
         return result;
     } else if ("DELETE" === request.method) {
         //console.log("-> action delete order: ", data.get("order_id"));
