@@ -52,6 +52,7 @@ const en = {
             cancel: "Cancel",
             del: "Delete",
             append: "Append",
+            newOrder: "New Order",
         },
         label: {
             address: "Address",
@@ -93,15 +94,18 @@ const en = {
             serviceDesc: "Service Description",
             workAddr: "Work Address",
         },
+        tips: {
+            noOrder: "No Order Content",
+        },
         toastS: {
             addOrder: "Added A New Order",
             delOrder: "Deleted An Order",
             updateOrder: "Updated Order Details",
         },
         toastF: {
-            addOrder: "Error: Add A New Order Failed",
-            delOrder: "Error: Delete An Order Failed",
-            updateOrder: "Error: Update An Order Failed",
+            addOrder: "Error: Adding New Order Failed",
+            delOrder: "Error: Deleting Order Failed",
+            updateOrder: "Error: Updating Order Failed",
         },
     },
 };

@@ -12,7 +12,7 @@ import {
 import {
     TorderDesc,
     TorderWithDesc,
-    orderWithDescSchema,
+    OrderFormSchema,
 } from "@/utils/schema/orderSchema";
 import Card from "@/components/card";
 import ModalFrame from "@/components/modal";
@@ -20,11 +20,12 @@ import { SubmitBtn } from "@/components/form";
 import { toastError } from "@/utils/utils";
 
 type Tprops = {
+    cid: number;
     order: TorderWithDesc;
     setOpen: (order: TorderWithDesc) => void;
 };
 
-const MOrderForm: FC<Tprops> = ({ order, setOpen }) => {
+const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
@@ -48,7 +49,7 @@ const MOrderForm: FC<Tprops> = ({ order, setOpen }) => {
         reset,
         trigger,
     } = useForm<TorderWithDesc>({
-        resolver: zodResolver(orderWithDescSchema),
+        resolver: zodResolver(OrderFormSchema),
         defaultValues: order,
     });
 
@@ -77,25 +78,27 @@ const MOrderForm: FC<Tprops> = ({ order, setOpen }) => {
             toastError("Please add one order description at least.");
             return;
         }
+        console.log("-> click submit err: ", errors);
         const isValid = await trigger();
         if (isValid) {
             const values = JSON.stringify({
                 ...getValues(),
-                order_id: order.order_id,
+                client_id: cid,
             });
+            const method = order.order_id === 0 ? "POST" : "PUT";
             submit(
                 { values },
                 {
                     // this action need to be modified
+                    method,
                     action: `/clients/${order.fk_client_id}`,
-                    method: "PUT",
                 }
             );
         }
     };
 
     const onClose = () => {
-        setOpen({ ...order, order_id: 0 });
+        setOpen({ ...order, order_id: -1 });
         reset();
     };
 
@@ -414,9 +417,13 @@ const MOrderForm: FC<Tprops> = ({ order, setOpen }) => {
 
     return (
         <ModalFrame
-            open={!!order.order_id}
+            open={order.order_id !== -1}
             onClose={onClose}
-            title={t("modal.title.editOrder")}
+            title={
+                order.order_id === 0
+                    ? t("modal.title.addOrder")
+                    : t("modal.title.editOrder")
+            }
             size={3}
         >
             {mainContent}

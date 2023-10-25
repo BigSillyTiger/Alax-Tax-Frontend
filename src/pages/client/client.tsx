@@ -1,5 +1,5 @@
 import React, { Suspense, useState, useEffect } from "react";
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 import {
     useParams,
     Await,
@@ -8,92 +8,69 @@ import {
 } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
 import type { Tclient } from "@/utils/schema/clientSchema";
-import type { Torder, TorderWithDesc } from "@/utils/schema/orderSchema";
+import type { TorderWithDesc } from "@/utils/schema/orderSchema";
 import { RES_STATUS, type Tresponse } from "@/utils/types";
 import Card from "@/components/card";
-import MOrderAdd from "./modals/mOrderAdd";
 import MOrderDel from "./modals/mOrderDel";
-import MOrderEdit from "./modals/mOrderEdit";
 import ClientOrderTable from "./tables/tableClientOrder";
 import clientOrderColumns from "./tables/defClientOrder";
 import { toastError, toastSuccess } from "@/utils/utils";
 import { useTranslation } from "react-i18next";
-
-const initOrder = {
-    order_id: 0,
-    fk_client_id: 0,
-    fk_invoice_id: 0,
-    order_address: "",
-    order_suburb: "",
-    order_city: "",
-    order_state: "",
-    order_country: "",
-    order_pc: "5000",
-    order_status: "pending",
-    order_date: "",
-};
-const initOrderWithDesc = {
-    order_id: 0,
-    fk_client_id: 0,
-    fk_invoice_id: 0,
-    order_address: "",
-    order_suburb: "",
-    order_city: "",
-    order_state: "",
-    order_country: "",
-    order_pc: "5000",
-    order_status: "pending",
-    order_date: "",
-    order_desc: [],
-};
+import MOrderForm from "./modals/mOrderForm";
 
 const Client = () => {
     const { t } = useTranslation();
     const { cid } = useParams();
     const { clientInfo, clientOrders } = useLoaderData() as {
-        clientInfo: Tclient;
+        clientInfo: {
+            status: number;
+            msg: string;
+            data: Tclient[];
+        };
         clientOrders: TorderWithDesc[];
     };
+    const client = clientInfo.data[0] as Tclient;
 
+    const initOrder: TorderWithDesc = {
+        // -1 - close the modal; 0 - add new order; >0 = update order
+        order_id: -1,
+        fk_client_id: client.client_id,
+        fk_invoice_id: 0,
+        order_address: client.address,
+        order_suburb: client.suburb,
+        order_city: client.city,
+        order_state: client.state,
+        order_country: client.country,
+        order_pc: client.postcode,
+        order_status: "pending",
+        order_date: "",
+        order_desc: [],
+    };
     const actionData = useActionData() as Tresponse;
-
-    const [orderAdd, setOrderAdd] = useState<Tclient>({
-        ...clientInfo,
-        client_id: 0,
-    });
-
-    const [orderDel, setOrderDel] = useState<Torder>(initOrder);
-
-    const [orderEdit, setOrderEdit] =
-        useState<TorderWithDesc>(initOrderWithDesc);
+    const [order, setOrder] = useState<TorderWithDesc>(initOrder);
+    const [orderDel, setOrderDel] = useState<TorderWithDesc>(initOrder);
 
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
-            if (orderAdd.client_id != 0) {
-                setOrderAdd({
-                    ...orderAdd,
-                    client_id: 0,
+            if (order.order_id != -1) {
+                setOrder({
+                    ...order,
+                    order_id: -1,
                 });
                 toastSuccess(t("toastS.addOrder"));
             }
         } else if (actionData?.status === RES_STATUS.SUC_DEL) {
             toastSuccess(t("toastS.delOrder"));
         } else if (actionData?.status === RES_STATUS.SUC_UPDATE) {
-            setOrderEdit(initOrderWithDesc);
+            setOrder(initOrder);
             toastSuccess(t("toastS.updateOrder"));
-        } else {
-            if (orderAdd.client_id != 0) {
-                /* setOrderAdd({
-                    ...orderAdd,
-                    client_id: 0,
-                }); */
+        } else if (actionData?.status === RES_STATUS.FAILED) {
+            if (order.order_id === 0) {
                 toastError(t("toastF.addOrder"));
-            } else if (orderDel.order_id != 0) {
-                //setOrderDel(initOrder);
-                toastError(t("toastF.delOrder"));
-            } else if (orderEdit.order_id != 0) {
-                //setOrderEdit(initOrderWithDesc);
+            } else if (order.order_id > 0) {
                 toastError(t("toastF.updateOrder"));
+            } else if (orderDel.order_id > 0) {
+                toastError(t("toastF.delOrder"));
             }
         }
     }, [actionData]);
@@ -111,31 +88,33 @@ const Client = () => {
             >
                 <div className="col-span-5">
                     <p>
-                        <b className="text-indigo-600">Client: </b>{" "}
+                        <b className="text-indigo-600">{t("label.client")}: </b>{" "}
                         {client.first_name}&nbsp;{client.last_name}
                     </p>
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                     <p>
-                        <b className="text-indigo-600">Phone: </b>{" "}
+                        <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
                         {client?.phone}
                     </p>
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                     <p>
-                        <b className="text-indigo-600">Postcode: </b>
+                        <b className="text-indigo-600">{t("label.pc")}: </b>
                         {client?.postcode}
                     </p>
                 </div>
                 <div className="col-span-6">
                     <p>
-                        <b className="text-indigo-600">Email: </b>{" "}
+                        <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
                         {client?.email}
                     </p>
                 </div>
                 <div className="col-span-6">
                     <p>
-                        <b className="text-indigo-600">Address: </b>{" "}
+                        <b className="text-indigo-600">
+                            {t("label.address")}:{" "}
+                        </b>{" "}
                         {client?.address}, {client?.city}, {client?.state},{" "}
                         {client?.country}
                     </p>
@@ -158,23 +137,24 @@ const Client = () => {
                             className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             onClick={(e) => {
                                 e.preventDefault();
-                                setOrderAdd(client);
+                                setOrder({
+                                    ...initOrder,
+                                    order_id: 0,
+                                });
                             }}
                         >
-                            New Order
+                            {t("btn.newOrder")}
                         </button>
                     </div>
                 </div>
                 <Card className="col-span-6">
-                    {/* <ClientOrderTable data={} /> */}
                     {clientOrders.length > 0 ? (
                         <ClientOrderTable
                             data={clientOrders}
                             columns={clientOrderColumns}
-                            clickEdit={setOrderEdit}
+                            clickEdit={setOrder}
                             clickDel={setOrderDel}
                             getRowCanExpand={(row) => {
-                                //console.log("-> expanded row: ", row);
                                 if (row.original.order_desc.length > 0) {
                                     return true;
                                 }
@@ -182,7 +162,7 @@ const Client = () => {
                             }}
                         />
                     ) : (
-                        <span>No Order Content</span>
+                        <span>{t("tips.noOrder")}</span>
                     )}
                 </Card>
             </div>
@@ -195,7 +175,6 @@ const Client = () => {
                 <Suspense fallback={<LoadingPage />}>
                     <Await resolve={clientInfo}>
                         {(clientInfo) => {
-                            //setClientList(clientList.data);
                             return (
                                 <ClientInfoContent
                                     client={clientInfo.data[0]}
@@ -205,13 +184,13 @@ const Client = () => {
                     </Await>
                 </Suspense>
             </div>
-            <MOrderAdd client={orderAdd} setOpen={setOrderAdd} />
-            <MOrderEdit order={orderEdit} setOpen={setOrderEdit} />
+
             <MOrderDel
                 cid={Number(cid)}
                 order={orderDel}
                 setOpen={setOrderDel}
             />
+            <MOrderForm cid={Number(cid)} order={order} setOpen={setOrder} />
         </>
     );
 };

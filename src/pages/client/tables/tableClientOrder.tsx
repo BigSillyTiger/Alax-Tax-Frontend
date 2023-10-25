@@ -34,7 +34,7 @@ type TtableProps = {
     data: TorderWithDesc[];
     columns: any;
     clickEdit: (open: TorderWithDesc) => void;
-    clickDel: (open: Torder) => void;
+    clickDel: (open: TorderWithDesc) => void;
     getRowCanExpand: (row: any) => boolean;
 };
 
@@ -61,8 +61,7 @@ const ClientOrderTable: FC<TtableProps> = ({
         {
             label: "Delete",
             icon: <TrashIcon />,
-            clickFn: (v: Torder) => {
-                console.log("-> click order del: ", v);
+            clickFn: (v: TorderWithDesc) => {
                 clickDel(v);
             },
         },

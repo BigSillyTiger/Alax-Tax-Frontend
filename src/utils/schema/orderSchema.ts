@@ -4,11 +4,11 @@ export const orderSchema = z.object({
     order_id: z.number(),
     fk_client_id: z.number(),
     fk_invoice_id: z.number(),
-    order_address: z.string().trim(),
-    order_suburb: z.string().trim(),
-    order_city: z.string().trim(),
-    order_state: z.string().trim(),
-    order_country: z.string().trim(),
+    order_address: z.string().trim().nullable(),
+    order_suburb: z.string().trim().nullable(),
+    order_city: z.string().trim().nullable(),
+    order_state: z.string().trim().nullable(),
+    order_country: z.string().trim().nullable(),
     order_pc: z
         .string()
         //match 4 digits string which may start with 0
@@ -41,7 +41,7 @@ export const newOrderDescSchema = oderDescSchema.omit({
     ranking: true,
 });
 
-export const newOrderSchema = orderSchema
+export const OrderFormSchema = orderSchema
     .omit({
         order_id: true,
         fk_client_id: true,
@@ -54,7 +54,7 @@ export const newOrderSchema = orderSchema
     });
 
 export type Torder = z.infer<typeof orderSchema>;
-export type TnewOrder = z.infer<typeof newOrderSchema>;
+export type TorderForm = z.infer<typeof OrderFormSchema>;
 export type TorderWithDesc = z.infer<typeof orderWithDescSchema>;
 export type TorderDesc = z.infer<typeof oderDescSchema>;
 export type TnewOrderDesc = z.infer<typeof newOrderDescSchema>;
