@@ -234,6 +234,44 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
             </div>
         </Card>
     );
+    const detailsContent = (
+        <Card className="mt-1 mb-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+            {/* order satus */}
+            <div className="sm:col-span-2">
+                <label
+                    htmlFor="order_status"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                    {t("label.status")}
+                </label>
+                <div className="mt-1">
+                    <select
+                        {...register("order_status")}
+                        id="order_status"
+                        autoComplete="order_status"
+                        className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                    >
+                        <option value={t("label.processing")}>
+                            {t("label.pending")}
+                        </option>
+                        <option value={t("label.processing")}>
+                            {t("label.processing")}
+                        </option>
+                        <option value={t("label.completed")}>
+                            {t("label.completed")}
+                        </option>
+                        <option value={t("label.closed")}>
+                            {t("label.closed")}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            {/* order total fee */}
+            <div>
+                
+            </div>
+        </Card>
+    );
 
     const descContent =
         fields.length != 0 &&
@@ -386,14 +424,19 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
     const mainContent = (
         <Form onSubmit={onSubmit}>
             {/* addres */}
-            <span className="text-indigo-500">
+            <span className="text-indigo-500 text-bold">
                 <b>{t("label.workAddr")}:</b>
             </span>
             {addressContent}
 
+            <span className="text-indigo-500 text-bold">
+                {t("label.orderDetail")}:
+            </span>
+            {detailsContent}
+
             {/* order description */}
-            <span className="text-indigo-500">
-                <b>{t("label.orderDesc")}:</b>
+            <span className="text-indigo-500 text-bold">
+                {t("label.orderDesc")}:
             </span>
             <Card className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
                 <section className="col-span-full">{descContent}</section>

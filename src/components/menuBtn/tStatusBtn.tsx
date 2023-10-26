@@ -7,23 +7,23 @@ import { statusList } from "@/configs/statusList";
 const slist = [
     {
         label: statusList.pending,
-        activeCss: "bg-amber-200 text-amber-800",
-        inactiveCss: "bg-slate-50 text-amber-800",
+        activeCss: "bg-yellow-200 text-yellow-700",
+        inactiveCss: "bg-slate-50 text-yellow-700",
     },
     {
         label: statusList.processing,
-        activeCss: "bg-cyan-200 text-cyan-800",
-        inactiveCss: "bg-slate-50 text-cyan-800",
+        activeCss: "bg-cyan-200 text-cyan-700",
+        inactiveCss: "bg-slate-50 text-cyan-700",
     },
     {
         label: statusList.closed,
-        activeCss: "bg-red-200 text-red-800",
-        inactiveCss: "bg-slate-50 text-red-800",
+        activeCss: "bg-red-200 text-red-700",
+        inactiveCss: "bg-slate-50 text-red-700",
     },
     {
         label: statusList.completed,
-        activeCss: "bg-green-200 text-green-800",
-        inactiveCss: "bg-slate-50 text-green-800",
+        activeCss: "bg-green-200 text-green-700",
+        inactiveCss: "bg-slate-50 text-green-700",
     },
 ];
 

@@ -8,13 +8,13 @@ import { statusList, tableItemsId } from "@/configs/statusList";
 const setColor = (value: string) => {
     switch (value) {
         case statusList.pending:
-            return "bg-amber-200 text-amber-800";
+            return "bg-yellow-200 text-yellow-700 ring-yellow-700";
         case statusList.processing:
-            return "bg-cyan-200 text-cyan-800";
+            return "bg-cyan-200 text-cyan-700 ring-cyan-700";
         case statusList.closed:
-            return "bg-red-200 text-red-800";
+            return "bg-red-200 text-red-700 ring-red-700";
         case statusList.completed:
-            return "bg-green-200 text-green-800";
+            return "bg-green-200 text-green-700 ring-green-700";
     }
 };
 

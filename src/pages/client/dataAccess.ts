@@ -33,6 +33,7 @@ export const action = async ({
                 order_state: orData.order_state,
                 order_country: orData.order_country,
                 order_pc: orData.order_pc,
+                order_status: orData.order_status,
             },
             order_desc: orData.order_desc,
         };
@@ -50,6 +51,7 @@ export const action = async ({
                 order_state: orData.order_state,
                 order_country: orData.order_country,
                 order_pc: orData.order_pc,
+                order_status: orData.order_status,
             },
             order_desc: orData.order_desc,
         };
