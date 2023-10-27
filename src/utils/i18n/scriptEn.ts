@@ -64,6 +64,7 @@ const en = {
             country: "Country",
             defaultUnit: "Default Unit",
             defaultPrice: "Default Price",
+            deposit: "Deposit",
             desc: "Description",
             details: "Details",
             email1: "Email",

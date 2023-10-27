@@ -1,5 +1,5 @@
 import React from "react";
-import { API_CLIENT, API_ORDER } from "@/apis";
+import { API_CLIENT, API_MANAGE, API_ORDER } from "@/apis";
 import { defer } from "react-router-dom";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
@@ -8,9 +8,11 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     const cid = Number(params.cid);
     const clientInfo = await API_CLIENT.clientInfo(cid);
     const clientOrders = await API_ORDER.orderWClient(cid);
+    const uniData = await API_MANAGE.uniAll();
     return defer({
         clientInfo,
         clientOrders: clientOrders.data,
+        uniData: uniData.data,
     });
 };
 

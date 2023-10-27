@@ -22,12 +22,17 @@ import {
     PencilIcon,
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-
-import Pagination from "@/components/table/pagination";
-import SearchBar from "@/components/table/searchBar";
-import { sortingIcon } from "@/components/table/config";
 import { Tclient } from "@/utils/schema/clientSchema";
 import MenuBtn from "@/components/menuBtn/tMenuBtn";
+import {
+    CTable,
+    CTHead,
+    CTBody,
+    Pagination,
+    SearchBar,
+    sortingIcon,
+} from "@/components/table";
+import CTh from "@/components/table/CTh";
 
 type TtableProps = {
     data: Tclient[];
@@ -81,10 +86,8 @@ const ClientTable: FC<TtableProps> = ({
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-                <th
-                    key={header.id}
+                <CTh
                     scope="col"
-                    className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 capitalize"
                     onClick={header.column.getToggleSortingHandler()}
                 >
                     <button>
@@ -94,7 +97,7 @@ const ClientTable: FC<TtableProps> = ({
                         )}
                         {sortingIcon(header.column.getIsSorted())}
                     </button>
-                </th>
+                </CTh>
             ))}
         </tr>
     ));
@@ -179,17 +182,16 @@ const ClientTable: FC<TtableProps> = ({
     return (
         <div className="container">
             {/* search bar */}
-            <SearchBar value={globalFilter} onChange={setGlobalFilter} className="my-3"/>
+            <SearchBar
+                value={globalFilter}
+                onChange={setGlobalFilter}
+                className="my-3"
+            />
 
-            <div className="overflow-auto w-full">
-                {/* table */}
-                <table className="table-fixed min-w-full divide-y divide-gray-300">
-                    <thead className="w-full">{tableHeader}</thead>
-                    <tbody className="divide-y divide-gray-200 bg-white">
-                        {tableBody}
-                    </tbody>
-                </table>
-            </div>
+            <CTable className="h-[65vh]">
+                <CTHead>{tableHeader}</CTHead>
+                <CTBody>{tableBody}</CTBody>
+            </CTable>
 
             {/* pagination */}
             <Pagination table={table} />

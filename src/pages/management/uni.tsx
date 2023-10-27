@@ -25,7 +25,6 @@ const initU = {
 
 const Uni: FC<Tprops> = ({ services, units }) => {
     const [uniAdd, setUniAdd] = useState<"S" | "U" | false>(false);
-    const [uAdd, setUAdd] = useState(false);
     const [uniEdit, setUniEdit] = useState<Tservice | Tunit>(initS);
     const [uniDel, setUniDel] = useState<Tservice | Tunit>(initU);
 

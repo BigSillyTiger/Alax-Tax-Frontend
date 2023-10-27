@@ -14,12 +14,18 @@ import {
     TrashIcon,
     PencilIcon,
 } from "@heroicons/react/24/outline";
-import Pagination from "@/components/table/pagination";
-import SearchBar from "@/components/table/searchBar";
-import { sortingIcon } from "@/components/table/config";
 import { TorderDesc } from "@/utils/schema/orderSchema";
 import MenuBtn from "@/components/menuBtn/tMenuBtn";
 import Card from "@/components/card";
+import {
+    CTable,
+    CTHead,
+    CTBody,
+    Pagination,
+    SearchBar,
+    sortingIcon,
+} from "@/components/table";
+import CTh from "@/components/table/CTh";
 
 type TtableProps = {
     data: TorderDesc[];
@@ -72,10 +78,9 @@ const OrderDescTable: FC<TtableProps> = ({
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-                <th
+                <CTh
                     key={header.id}
                     scope="col"
-                    className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 capitalize"
                     onClick={header.column.getToggleSortingHandler()}
                 >
                     <button>
@@ -85,7 +90,7 @@ const OrderDescTable: FC<TtableProps> = ({
                         )}
                         {sortingIcon(header.column.getIsSorted())}
                     </button>
-                </th>
+                </CTh>
             ))}
         </tr>
     ));
@@ -135,19 +140,14 @@ const OrderDescTable: FC<TtableProps> = ({
         : null;
 
     return (
-        <Card className="container ring-violet-600 bg-indigo-50">
+        <Card className="container ring-violet-600 bg-green-50">
             {/* search bar */}
             <SearchBar value={globalFilter} onChange={setGlobalFilter} />
 
-            <div className="overflow-auto w-full">
-                {/* table */}
-                <table className="table-fixed min-w-full divide-y divide-gray-300">
-                    <thead className="w-full">{tableHeader}</thead>
-                    <tbody className="divide-y divide-gray-200 bg-white">
-                        {tableBody}
-                    </tbody>
-                </table>
-            </div>
+            <CTable>
+                <CTHead>{tableHeader}</CTHead>
+                <CTBody>{tableBody}</CTBody>
+            </CTable>
 
             {/* pagination */}
             <Pagination table={table} />

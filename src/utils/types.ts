@@ -21,6 +21,6 @@ export enum RES_STATUS {
 }
 
 export type Tunivers = {
-    services: Tservice[] | null;
-    units: Tunit[] | null;
+    services: Tservice[];
+    units: Tunit[];
 };

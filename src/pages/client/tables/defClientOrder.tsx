@@ -20,6 +20,7 @@ const setColor = (value: string) => {
 
 const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
     {
+        id: "details",
         header: i18n.t("label.details"), // Details
         columns: [
             {
@@ -87,6 +88,7 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
         ],
     },
     {
+        id: "feeStatus",
         header: i18n.t("label.feeStatus"),
         columns: [
             {
@@ -113,8 +115,10 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
         ],
     },
     {
+        id: "menu",
         header: i18n.t("label.menu"),
         //cell: (info: CellContext<TorderWithDesc, string>) => <></>,
+        columns: [],
     },
 ];
 

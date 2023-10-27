@@ -18,19 +18,24 @@ import type {
 } from "@tanstack/react-table";
 import {
     EllipsisVerticalIcon,
-    DocumentTextIcon,
     TrashIcon,
     PencilIcon,
 } from "@heroicons/react/24/outline";
-import Pagination from "@/components/table/pagination";
-import SearchBar from "@/components/table/searchBar";
-import { sortingIcon } from "@/components/table/config";
 import { Torder, TorderWithDesc } from "@/utils/schema/orderSchema";
 import MenuBtn from "@/components/menuBtn/tMenuBtn";
 import OrderDescTable from "./tableOrderDesc";
 import orderDescColumns from "./defOrderDesc";
 import { tableItemsId } from "@/configs/statusList";
 import StatusBtn from "@/components/menuBtn/tStatusBtn";
+import {
+    CTable,
+    CTHead,
+    CTBody,
+    Pagination,
+    SearchBar,
+    sortingIcon,
+} from "@/components/table";
+import CTh from "@/components/table/CTh";
 
 type TtableProps = {
     data: TorderWithDesc[];
@@ -88,11 +93,10 @@ const ClientOrderTable: FC<TtableProps> = ({
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-                <th
+                <CTh
                     key={header.id}
                     scope="col"
                     colSpan={header.colSpan}
-                    className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 capitalize text-center"
                     onClick={header.column.getToggleSortingHandler()}
                 >
                     <button>
@@ -102,7 +106,7 @@ const ClientOrderTable: FC<TtableProps> = ({
                         )}
                         {sortingIcon(header.column.getIsSorted())}
                     </button>
-                </th>
+                </CTh>
             ))}
         </tr>
     ));
@@ -218,15 +222,10 @@ const ClientOrderTable: FC<TtableProps> = ({
                 className="my-3"
             />
 
-            <div className="overflow-auto w-full">
-                {/* table */}
-                <table className="table-fixed min-w-full divide-y divide-gray-300">
-                    <thead className="w-full">{tableHeader}</thead>
-                    <tbody className="divide-y divide-gray-200 bg-white">
-                        {tableBody}
-                    </tbody>
-                </table>
-            </div>
+            <CTable className="h-[55vh]">
+                <CTHead>{tableHeader}</CTHead>
+                <CTBody>{tableBody}</CTBody>
+            </CTable>
 
             {/* pagination */}
             <Pagination table={table} />

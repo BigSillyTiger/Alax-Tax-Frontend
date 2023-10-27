@@ -17,13 +17,20 @@ export const orderSchema = z.object({
         .max(4)
         .nullable(),
     order_status: z.string().trim(),
-    order_date: z.string().datetime(),
+    order_total: z.number(),
+    order_deposit: z.number(),
+    order_date: z.string().datetime().nullable(),
+    quotation_date: z.string().datetime().nullable(),
+    invoice_issue_date: z.string().datetime().nullable(),
+    invoice_update_date: z.string().datetime().nullable(),
 });
 
 export const oderDescSchema = z.object({
     des_id: z.number(),
     fk_order_id: z.number(),
     ranking: z.number(),
+    title: z.string().trim(),
+    taxable: z.boolean(),
     description: z.string().trim(),
     qty: z.number(),
     unit: z.string().trim(),

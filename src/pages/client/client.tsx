@@ -9,7 +9,8 @@ import {
 import LoadingPage from "@/components/loadingEle";
 import type { Tclient } from "@/utils/schema/clientSchema";
 import type { TorderWithDesc } from "@/utils/schema/orderSchema";
-import { RES_STATUS, type Tresponse } from "@/utils/types";
+import { RES_STATUS } from "@/utils/types";
+import type { Tresponse, Tunivers } from "@/utils/types";
 import Card from "@/components/card";
 import MOrderDel from "./modals/mOrderDel";
 import ClientOrderTable from "./tables/tableClientOrder";
@@ -21,13 +22,14 @@ import MOrderForm from "./modals/mOrderForm";
 const Client = () => {
     const { t } = useTranslation();
     const { cid } = useParams();
-    const { clientInfo, clientOrders } = useLoaderData() as {
+    const { clientInfo, clientOrders, uniData } = useLoaderData() as {
         clientInfo: {
             status: number;
             msg: string;
             data: Tclient[];
         };
         clientOrders: TorderWithDesc[];
+        uniData: Tunivers | null;
     };
     const client = clientInfo.data[0] as Tclient;
 
@@ -43,7 +45,12 @@ const Client = () => {
         order_country: client.country,
         order_pc: client.postcode,
         order_status: "pending",
+        order_total: 0,
+        order_deposit: 0,
         order_date: "",
+        quotation_date: "",
+        invoice_issue_date: "",
+        invoice_update_date: "",
         order_desc: [],
     };
     const actionData = useActionData() as Tresponse;
@@ -192,7 +199,12 @@ const Client = () => {
                 order={orderDel}
                 setOpen={setOrderDel}
             />
-            <MOrderForm cid={Number(cid)} order={order} setOpen={setOrder} />
+            <MOrderForm
+                cid={Number(cid)}
+                order={order}
+                setOpen={setOrder}
+                uniData={uniData}
+            />
         </>
     );
 };

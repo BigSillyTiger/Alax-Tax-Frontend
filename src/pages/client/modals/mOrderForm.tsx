@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
@@ -18,28 +18,44 @@ import Card from "@/components/card";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { toastError } from "@/utils/utils";
+import { Tunivers } from "@/utils/types";
 
 type Tprops = {
     cid: number;
     order: TorderWithDesc;
     setOpen: (order: TorderWithDesc) => void;
+    uniData: Tunivers | null;
 };
 
-const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
+const initOrderDesc: TorderDesc = {
+    des_id: 0,
+    fk_order_id: -1,
+    title: "",
+    taxable: true,
+    ranking: 0,
+    description: "",
+    qty: 1,
+    unit: "m",
+    unit_price: 0,
+    netto: 0,
+};
+
+const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
-
-    const initOrderDesc: TorderDesc = {
+    const [desc] = useState({
         des_id: 0,
         fk_order_id: order.order_id,
+        title: uniData?.services[0].service as string,
+        taxable: true,
         ranking: 0,
-        description: "service",
+        description: "",
         qty: 1,
-        unit: "m",
-        unit_price: 10,
-        netto: 10,
-    };
+        unit: uniData?.services[0].unit as string,
+        unit_price: uniData?.services[0].unit_price as number,
+        netto: uniData?.services[0].unit_price as number,
+    });
 
     const {
         control,
@@ -59,7 +75,7 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
     });
 
     useEffect(() => {
-        if (order) {
+        if (order && uniData?.services) {
             reset({
                 order_address: order.order_address ?? undefined,
                 order_suburb: order.order_suburb ?? undefined,
@@ -68,6 +84,7 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
                 order_country: order.order_country ?? undefined,
                 order_pc: order.order_pc ?? undefined,
                 order_desc: order.order_desc ?? undefined,
+                order_status: order.order_status ?? t("label.pending"),
             });
         }
     }, [order, reset]);
@@ -102,6 +119,22 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
         setOpen({ ...order, order_id: -1 });
         reset();
     };
+
+    const serviceTitleList = uniData ? (
+        <datalist id="service_title">
+            {uniData.services.map((item) => (
+                <option key={item.service}>{item.service}</option>
+            ))}
+        </datalist>
+    ) : null;
+
+    const unitsList = uniData ? (
+        <datalist id="unit_name">
+            {uniData.units.map((item) => (
+                <option key={item.id}>{item.unit_name}</option>
+            ))}
+        </datalist>
+    ) : null;
 
     const addressContent = (
         <Card className="mt-1 mb-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
@@ -234,6 +267,7 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
             </div>
         </Card>
     );
+
     const detailsContent = (
         <Card className="mt-1 mb-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
             {/* order satus */}
@@ -266,9 +300,39 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
                     </select>
                 </div>
             </div>
+            {/* order deposit fee */}
+            <div className="sm:col-span-2">
+                <label
+                    htmlFor="order_deposit"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                    {t("label.deposit")}
+                </label>
+                <div className="mt-1">
+                    <input
+                        {...register("order_deposit")}
+                        type="number"
+                        id="order_deposit"
+                        className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                </div>
+            </div>
             {/* order total fee */}
-            <div>
-                
+            <div className="sm:col-span-2">
+                <label
+                    htmlFor="order_total"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                    {t("label.total")}
+                </label>
+                <div className="mt-1">
+                    <input
+                        {...register("order_total")}
+                        type="number"
+                        id="order_total"
+                        className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                </div>
             </div>
         </Card>
     );
@@ -296,21 +360,21 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
                                     : "col-span-7"
                             } grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-6`}
                         >
-                            <div className="col-span-full">
+                            <div className="col-span-8">
                                 <label
-                                    htmlFor="description"
+                                    htmlFor="title"
                                     className="block text-sm font-medium leading-6 text-gray-900"
                                 >
                                     {t("label.desc")}
                                 </label>
                                 <input
-                                    {...register(
-                                        `order_desc.${index}.description`
-                                    )}
-                                    id="description"
+                                    {...register(`order_desc.${index}.title`)}
+                                    id="title"
                                     type="text"
+                                    list="service_title"
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                 />
+                                {serviceTitleList}
                             </div>
                             <div className="col-span-6 sm:col-span-1">
                                 <label
@@ -339,8 +403,10 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
                                     {...register(`order_desc.${index}.unit`)}
                                     id="unit"
                                     type="text"
+                                    list="unit_name"
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                 />
+                                {unitsList}
                             </div>
                             <div className="col-span-6 sm:col-span-2">
                                 <label
@@ -374,6 +440,39 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
                                     })}
                                     id="netto"
                                     type="number"
+                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                />
+                            </div>
+
+                            <div className="col-span-6 sm:col-span-1">
+                                <label
+                                    htmlFor="taxable"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    {t("label.taxable")}
+                                </label>
+                                <input
+                                    {...register(`order_desc.${index}.taxable`)}
+                                    id="taxable"
+                                    type="checkbox"
+                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6 pl-2"
+                                />
+                            </div>
+                            <div className="col-span-6 sm:col-span-7">
+                                <label
+                                    htmlFor="description"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    {t("label.desc")}
+                                </label>
+                                <textarea
+                                    {...register(
+                                        `order_desc.${index}.description`
+                                    )}
+                                    id="description"
+                                    name="description"
+                                    rows={4}
+                                    //type="textarea"
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                 />
                             </div>
@@ -444,7 +543,10 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen }) => {
                     <button
                         type="button"
                         className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-                        onClick={() => append(initOrderDesc)}
+                        onClick={() => {
+                            console.log("-> append: ", desc);
+                            append(desc);
+                        }}
                     >
                         {t("btn.append")}
                     </button>
