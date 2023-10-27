@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
     XMarkIcon,
@@ -10,15 +10,16 @@ import {
     ChevronDoubleUpIcon,
 } from "@heroicons/react/24/outline";
 import {
-    TorderDesc,
     TorderWithDesc,
     OrderFormSchema,
+    TnewOrderDesc,
 } from "@/utils/schema/orderSchema";
 import Card from "@/components/card";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
-import { toastError } from "@/utils/utils";
+import { plusAB, timesAB, toastError } from "@/utils/utils";
 import { Tunivers } from "@/utils/types";
+import Big from "big.js";
 
 type Tprops = {
     cid: number;
@@ -27,22 +28,10 @@ type Tprops = {
     uniData: Tunivers | null;
 };
 
-const initOrderDesc: TorderDesc = {
-    des_id: 0,
-    fk_order_id: -1,
-    title: "",
-    taxable: true,
-    ranking: 0,
-    description: "",
-    qty: 1,
-    unit: "m",
-    unit_price: 0,
-    netto: 0,
-};
-
 const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
+    const [total, setTotal] = useState<number>(0);
     const { t } = useTranslation();
     const [desc] = useState({
         des_id: 0,
@@ -63,7 +52,9 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
         getValues,
         register,
         reset,
+        setValue,
         trigger,
+        watch,
     } = useForm<TorderWithDesc>({
         resolver: zodResolver(OrderFormSchema),
         defaultValues: order,
@@ -73,6 +64,36 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
         name: "order_desc",
         control,
     });
+
+    const values = useWatch({ control, name: "order_desc" });
+
+    const calTotal = useMemo(() => {
+        let total = 0;
+        for (const item of values) {
+            const netto = timesAB(item.unit_price, item.qty);
+            total = plusAB(total, netto);
+        }
+        //console.log("-> total fee: ", total);
+        return total;
+    }, [values]);
+
+    const calNetto = useCallback(
+        (index: number) => {
+            const total = timesAB(
+                watch(`order_desc.${index}.qty`, 0),
+                watch(`order_desc.${index}.unit_price`, 0)
+            );
+            setValue(`order_desc.${index}.netto`, total);
+        },
+        [values]
+    );
+
+    useEffect(() => {
+        // Calculate totals initially and whenever qty or unitPrice changes
+        fields.forEach((_, index) => {
+            calNetto(index);
+        });
+    }, [fields, watch]);
 
     useEffect(() => {
         if (order && uniData?.services) {
@@ -282,10 +303,10 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
                     <select
                         {...register("order_status")}
                         id="order_status"
-                        autoComplete="order_status"
+                        //autoComplete="order_status"
                         className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                     >
-                        <option value={t("label.processing")}>
+                        <option value={t("label.pending")}>
                             {t("label.pending")}
                         </option>
                         <option value={t("label.processing")}>
@@ -330,6 +351,7 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
                         {...register("order_total")}
                         type="number"
                         id="order_total"
+                        value={calTotal}
                         className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
@@ -386,10 +408,19 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
                                 <input
                                     {...register(`order_desc.${index}.qty`, {
                                         valueAsNumber: true,
+                                        min: 0,
                                     })}
                                     id="qty"
+                                    min={0}
                                     type="number"
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                    onChange={(e) => {
+                                        setValue(
+                                            `order_desc.${index}.qty`,
+                                            Number(e.target.value)
+                                        );
+                                        return calNetto(index);
+                                    }}
                                 />
                             </div>
                             <div className="col-span-6 sm:col-span-1">
@@ -420,11 +451,20 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
                                         `order_desc.${index}.unit_price`,
                                         {
                                             valueAsNumber: true,
+                                            min: 0,
                                         }
                                     )}
                                     id="unit_price"
                                     type="number"
+                                    min={0}
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                    onChange={(e) => {
+                                        setValue(
+                                            `order_desc.${index}.unit_price`,
+                                            Number(e.target.value)
+                                        );
+                                        return calNetto(index);
+                                    }}
                                 />
                             </div>
                             <div className="col-span-6 sm:col-span-2">
@@ -539,18 +579,33 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
             </span>
             <Card className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
                 <section className="col-span-full">{descContent}</section>
-                <div className="col-span-full">
-                    <button
-                        type="button"
-                        className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-                        onClick={() => {
-                            console.log("-> append: ", desc);
-                            append(desc);
-                        }}
-                    >
-                        {t("btn.append")}
-                    </button>
-                </div>
+                {/*  */}
+                <section className="col-span-full grid grid-cols-6 mt-4 pt-2 pb-1 gap-x-3 border-t-2 border-indigo-300 border-dashed">
+                    <div className="col-span-4">
+                        <label
+                            htmlFor="sTitle"
+                            className="text-indigo-500 text-bold"
+                        >
+                            {t("modal.tips.pickService")}:
+                        </label>
+                        <input
+                            id="sTitle"
+                            type="text"
+                            list="service_title"
+                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                        />
+                        {serviceTitleList}
+                    </div>
+                    <div className="col-span-2 my-auto">
+                        <button
+                            type="button"
+                            className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+                            onClick={() => append(desc)}
+                        >
+                            {t("btn.append")}
+                        </button>
+                    </div>
+                </section>
             </Card>
 
             <SubmitBtn

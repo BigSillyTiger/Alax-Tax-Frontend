@@ -42,6 +42,7 @@ const en = {
                 addUni: "The {{name}} description must <b>NOT</b> be duplecated.",
                 delData: "Are you sure to delete this data?",
                 delOrder: "Are you sure to delete this order?",
+                pickService: "Pick a service",
             },
         },
         btn: {

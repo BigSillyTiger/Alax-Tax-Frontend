@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { Tservice, Tunit } from "./schema/manageSchema";
 import { format } from "date-fns";
+import Big from "big.js";
 
 export const toastSuccess = (text: string) => {
     toast.success(text, {
@@ -72,4 +73,16 @@ export const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
 
 export const dateFormat = (dateString: string) => {
     return format(Date.parse(dateString), "MM-dd-yyyy");
+};
+
+export const timesAB = (x: number, y: number): number => {
+    const a = new Big(x);
+    const b = new Big(y);
+    return a.times(b).toNumber();
+};
+
+export const plusAB = (x: number, y: number): number => {
+    const a = new Big(x);
+    const b = new Big(y);
+    return a.plus(b).toNumber();
 };

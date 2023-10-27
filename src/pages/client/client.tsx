@@ -44,7 +44,7 @@ const Client = () => {
         order_state: client.state,
         order_country: client.country,
         order_pc: client.postcode,
-        order_status: "pending",
+        order_status: t("label.pending"),
         order_total: 0,
         order_deposit: 0,
         order_date: "",
