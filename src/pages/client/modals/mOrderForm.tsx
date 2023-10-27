@@ -17,7 +17,7 @@ import {
 import Card from "@/components/card";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
-import { plusAB, timesAB, toastError } from "@/utils/utils";
+import { calculateNetto, plusAB, timesAB, toastError } from "@/utils/utils";
 import { Tunivers } from "@/utils/types";
 import Big from "big.js";
 
@@ -79,9 +79,14 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
 
     const calNetto = useCallback(
         (index: number) => {
-            const total = timesAB(
+            /* console.log(
+                "-> taxable: ",
+                watch(`order_desc.${index}.taxable`, true)
+            ); */
+            const total = calculateNetto(
                 watch(`order_desc.${index}.qty`, 0),
-                watch(`order_desc.${index}.unit_price`, 0)
+                watch(`order_desc.${index}.unit_price`, 0),
+                watch(`order_desc.${index}.taxable`, true)
             );
             setValue(`order_desc.${index}.netto`, total);
         },
@@ -496,6 +501,13 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
                                     id="taxable"
                                     type="checkbox"
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6 pl-2"
+                                    onChange={(e) => {
+                                        setValue(
+                                            `order_desc.${index}.taxable`,
+                                            Boolean(e.target.checked)
+                                        );
+                                        return calNetto(index);
+                                    }}
                                 />
                             </div>
                             <div className="col-span-6 sm:col-span-7">

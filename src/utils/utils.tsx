@@ -81,6 +81,12 @@ export const timesAB = (x: number, y: number): number => {
     return a.times(b).toNumber();
 };
 
+export const calculateNetto = (q: number, p: number, t: boolean): number => {
+    const a = new Big(p);
+    const b = new Big(q);
+    return t ? a.times(b).times(1.1).toNumber() : a.times(b).toNumber();
+};
+
 export const plusAB = (x: number, y: number): number => {
     const a = new Big(x);
     const b = new Big(y);
