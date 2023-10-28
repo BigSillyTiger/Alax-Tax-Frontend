@@ -83,6 +83,7 @@ const MOrderDel: FC<Tprops> = ({ cid, order, setOpen }) => {
             onClose={onClose}
             title={t("modal.title.delete")}
             isDelM={true}
+            mode={"md"}
         >
             {mainContent}
         </ModalFrame>

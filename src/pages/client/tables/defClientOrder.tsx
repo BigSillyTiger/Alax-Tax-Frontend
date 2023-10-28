@@ -118,7 +118,6 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
         id: "menu",
         header: i18n.t("label.menu"),
         //cell: (info: CellContext<TorderWithDesc, string>) => <></>,
-        columns: [],
     },
 ];
 

@@ -66,6 +66,7 @@ const MClientForm: FC<Tprops> = ({
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const isValid = await trigger();
+        console.log("-> client add: ", errors);
         if (isValid) {
             const values = getValues();
             const method = client.client_id === 0 ? "POST" : "PUT";
@@ -92,8 +93,8 @@ const MClientForm: FC<Tprops> = ({
                     }}
                 />
             </p>
-            <Form onSubmit={onSubmit}>
-                <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+            <Form onSubmit={onSubmit} className="">
+                <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 overflow-y-auto h-[70vh] sm:h-auto">
                     <div className="sm:col-span-3">
                         <label
                             htmlFor="first_name"
@@ -334,7 +335,6 @@ const MClientForm: FC<Tprops> = ({
                         </div>
                     </div>
                 </div>
-
                 <SubmitBtn
                     onClick={() => trigger()}
                     onClose={onClose}

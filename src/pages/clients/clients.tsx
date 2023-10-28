@@ -31,10 +31,10 @@ const initClient = {
     email: "",
     address: "",
     suburb: "",
-    city: "",
-    state: "",
-    country: "",
-    postcode: "",
+    city: "Adelaide",
+    state: "SA",
+    country: "Australia",
+    postcode: "5000",
 };
 
 const Clients: FC = () => {

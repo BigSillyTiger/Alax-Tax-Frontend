@@ -87,6 +87,7 @@ const ClientTable: FC<TtableProps> = ({
         <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
                 <CTh
+                    key={header.id}
                     scope="col"
                     onClick={header.column.getToggleSortingHandler()}
                 >

@@ -18,6 +18,7 @@ import clientOrderColumns from "./tables/defClientOrder";
 import { toastError, toastSuccess } from "@/utils/utils";
 import { useTranslation } from "react-i18next";
 import MOrderForm from "./modals/mOrderForm";
+import ClientInfoCard from "./components";
 
 const Client = () => {
     const { t } = useTranslation();
@@ -83,54 +84,6 @@ const Client = () => {
             }
         }
     }, [actionData]);
-
-    const ClientInfoCard = ({
-        client,
-        className,
-    }: {
-        client: Tclient;
-        className: string;
-    }) => {
-        return (
-            <Card
-                className={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 ${className}`}
-            >
-                <div className="col-span-5">
-                    <p>
-                        <b className="text-indigo-600">{t("label.client")}: </b>{" "}
-                        {client.first_name}&nbsp;{client.last_name}
-                    </p>
-                </div>
-                <div className="col-span-6 sm:col-span-3">
-                    <p>
-                        <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
-                        {client?.phone}
-                    </p>
-                </div>
-                <div className="col-span-6 sm:col-span-3">
-                    <p>
-                        <b className="text-indigo-600">{t("label.pc")}: </b>
-                        {client?.postcode}
-                    </p>
-                </div>
-                <div className="col-span-6">
-                    <p>
-                        <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
-                        {client?.email}
-                    </p>
-                </div>
-                <div className="col-span-6">
-                    <p>
-                        <b className="text-indigo-600">
-                            {t("label.address")}:{" "}
-                        </b>{" "}
-                        {client?.address}, {client?.city}, {client?.state},{" "}
-                        {client?.country}
-                    </p>
-                </div>
-            </Card>
-        );
-    };
 
     const ClientInfoContent: FC<{ client: Tclient }> = ({ client }) => {
         return (
@@ -200,7 +153,7 @@ const Client = () => {
                 setOpen={setOrderDel}
             />
             <MOrderForm
-                cid={Number(cid)}
+                client={client}
                 order={order}
                 setOpen={setOrder}
                 uniData={uniData}

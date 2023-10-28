@@ -9,7 +9,7 @@ type Tprops = {
 const Card: FC<Tprops> = ({ className, children }) => {
     return (
         <div
-            className={`overflow-hidden shadow ring-1 ring-indigo-600 ring-opacity-25 sm:rounded-lg p-3 ${className}`}
+            className={`overflow-hidden shadow ring-1 ring-indigo-600 ring-opacity-25 rounded-lg p-3 ${className}`}
         >
             {children}
         </div>

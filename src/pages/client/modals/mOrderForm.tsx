@@ -9,29 +9,26 @@ import {
     ChevronDoubleDownIcon,
     ChevronDoubleUpIcon,
 } from "@heroicons/react/24/outline";
-import {
-    TorderWithDesc,
-    OrderFormSchema,
-    TnewOrderDesc,
-} from "@/utils/schema/orderSchema";
+import { TorderWithDesc, OrderFormSchema } from "@/utils/schema/orderSchema";
 import Card from "@/components/card";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
-import { calculateNetto, plusAB, timesAB, toastError } from "@/utils/utils";
+import { calculateNetto, plusAB, toastError } from "@/utils/utils";
 import { Tunivers } from "@/utils/types";
-import Big from "big.js";
+import DataList from "@/components/dataList";
+import { Tclient } from "@/utils/schema/clientSchema";
+import ClientInfoCard from "../components";
 
 type Tprops = {
-    cid: number;
+    client: Tclient;
     order: TorderWithDesc;
     setOpen: (order: TorderWithDesc) => void;
     uniData: Tunivers | null;
 };
 
-const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
+const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
-    const [total, setTotal] = useState<number>(0);
     const { t } = useTranslation();
     const [desc] = useState({
         des_id: 0,
@@ -70,19 +67,14 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
     const calTotal = useMemo(() => {
         let total = 0;
         for (const item of values) {
-            const netto = timesAB(item.unit_price, item.qty);
-            total = plusAB(total, netto);
+            //const netto = timesAB(item.unit_price, item.qty);
+            total = plusAB(total, item.netto);
         }
-        //console.log("-> total fee: ", total);
         return total;
     }, [values]);
 
     const calNetto = useCallback(
         (index: number) => {
-            /* console.log(
-                "-> taxable: ",
-                watch(`order_desc.${index}.taxable`, true)
-            ); */
             const total = calculateNetto(
                 watch(`order_desc.${index}.qty`, 0),
                 watch(`order_desc.${index}.unit_price`, 0),
@@ -93,12 +85,12 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
         [values]
     );
 
-    useEffect(() => {
+    /* useEffect(() => {
         // Calculate totals initially and whenever qty or unitPrice changes
         fields.forEach((_, index) => {
             calNetto(index);
         });
-    }, [fields, watch]);
+    }, [fields, watch]); */
 
     useEffect(() => {
         if (order && uniData?.services) {
@@ -126,7 +118,7 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
         if (isValid) {
             const values = JSON.stringify({
                 ...getValues(),
-                client_id: cid,
+                client_id: client.client_id,
                 req: "orderUpdate",
             });
             const method = order.order_id === 0 ? "POST" : "PUT";
@@ -147,23 +139,19 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
     };
 
     const serviceTitleList = uniData ? (
-        <datalist id="service_title">
-            {uniData.services.map((item) => (
-                <option key={item.service}>{item.service}</option>
-            ))}
-        </datalist>
+        <DataList
+            id={"service_title"}
+            name={"service"}
+            data={uniData.services}
+        />
     ) : null;
 
     const unitsList = uniData ? (
-        <datalist id="unit_name">
-            {uniData.units.map((item) => (
-                <option key={item.id}>{item.unit_name}</option>
-            ))}
-        </datalist>
+        <DataList id={"unit_name"} name={"unit_name"} data={uniData.units} />
     ) : null;
 
     const addressContent = (
-        <Card className="mt-1 mb-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+        <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
             {/* street */}
             <div className="col-span-full">
                 <label
@@ -295,7 +283,7 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
     );
 
     const detailsContent = (
-        <Card className="mt-1 mb-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+        <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
             {/* order satus */}
             <div className="sm:col-span-2">
                 <label
@@ -573,59 +561,87 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
         });
 
     const mainContent = (
-        <Form onSubmit={onSubmit}>
-            {/* addres */}
-            <span className="text-indigo-500 text-bold">
-                <b>{t("label.workAddr")}:</b>
-            </span>
-            {addressContent}
-
-            <span className="text-indigo-500 text-bold">
-                {t("label.orderDetail")}:
-            </span>
-            {detailsContent}
-
-            {/* order description */}
-            <span className="text-indigo-500 text-bold">
-                {t("label.orderDesc")}:
-            </span>
-            <Card className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
-                <section className="col-span-full">{descContent}</section>
-                {/*  */}
-                <section className="col-span-full grid grid-cols-6 mt-4 pt-2 pb-1 gap-x-3 border-t-2 border-indigo-300 border-dashed">
-                    <div className="col-span-4">
-                        <label
-                            htmlFor="sTitle"
-                            className="text-indigo-500 text-bold"
-                        >
-                            {t("modal.tips.pickService")}:
-                        </label>
-                        <input
-                            id="sTitle"
-                            type="text"
-                            list="service_title"
-                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                        />
-                        {serviceTitleList}
-                    </div>
-                    <div className="col-span-2 my-auto">
-                        <button
-                            type="button"
-                            className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-                            onClick={() => append(desc)}
-                        >
-                            {t("btn.append")}
-                        </button>
-                    </div>
+        <div>
+            <Form
+                onSubmit={onSubmit}
+                className="grid grid-cols-1  gap-y-3 gap-x-4"
+            >
+                <div className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[74vh] sm:h-[77vh] lg:h-auto">
+                    <section className="col-span-1 lg:col-span-3 grid grid-cols-1">
+                        {/* client info */}
+                        <section className="">
+                            <span className="text-indigo-500 text-bold">
+                                <b>{t("label.clientInfo")}:</b>
+                            </span>
+                            <ClientInfoCard
+                                client={client}
+                                className="my-2 mx-1 text-sm"
+                            />
+                        </section>
+                        {/* addres */}
+                        <section className="">
+                            <span className="text-indigo-500 text-bold">
+                                <b>{t("label.workAddr")}:</b>
+                            </span>
+                            {addressContent}
+                        </section>
+                        {/* details */}
+                        <section className="">
+                            <span className="text-indigo-500 text-bold">
+                                {t("label.orderDetail")}:
+                            </span>
+                            {detailsContent}
+                        </section>
+                    </section>
+                    {/* order services list */}
+                    <section className="col-span-full lg:col-span-5">
+                        <span className="text-indigo-500 text-bold">
+                            {t("label.orderDesc")}:
+                        </span>
+                        <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[65vh] overflow-y-auto">
+                            <section className="col-span-full">
+                                {descContent}
+                            </section>
+                            {/*  */}
+                        </Card>
+                        <section className="col-span-full grid grid-cols-6 mt-4 pt-2 gap-x-3 border-t-2 border-indigo-300 border-dashed">
+                            <div className="col-span-4 ">
+                                <label
+                                    htmlFor="sTitle"
+                                    className="text-indigo-500 text-bold"
+                                >
+                                    {t("modal.tips.pickService")}:
+                                </label>
+                                <input
+                                    id="sTitle"
+                                    type="text"
+                                    list="service_title"
+                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                />
+                                {serviceTitleList}
+                            </div>
+                            <div className="col-span-2 mt-6">
+                                <button
+                                    type="button"
+                                    className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+                                    onClick={() => append(desc)}
+                                >
+                                    {t("btn.append")}
+                                </button>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+                <section className="col-span-full row-span-2">
+                    {/* btns */}
+                    <SubmitBtn
+                        onClick={() => trigger()}
+                        onClose={onClose}
+                        navState={navigation.state}
+                    />
                 </section>
-            </Card>
-
-            <SubmitBtn
-                onClick={() => trigger()}
-                onClose={onClose}
-                navState={navigation.state}
-            />
-        </Form>
+            </Form>
+        </div>
     );
 
     return (
@@ -637,7 +653,7 @@ const MOrderForm: FC<Tprops> = ({ cid, order, setOpen, uniData }) => {
                     ? t("modal.title.addOrder")
                     : t("modal.title.editOrder")
             }
-            size={3}
+            mode={"full"}
         >
             {mainContent}
         </ModalFrame>

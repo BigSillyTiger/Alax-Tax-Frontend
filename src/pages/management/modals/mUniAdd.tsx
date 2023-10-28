@@ -14,6 +14,7 @@ import { newServiceSchema, newUnitSchema } from "@/utils/schema/manageSchema";
 import { toastError } from "@/utils/utils";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
+import DataList from "@/components/dataList";
 
 type Tprops = {
     open: "S" | "U" | false;
@@ -75,11 +76,7 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
     };
 
     const unitOptionList = unitList ? (
-        <datalist id="unit_option">
-            {unitList.map((item) => (
-                <option key={item.unit_name}>{item.unit_name}</option>
-            ))}
-        </datalist>
+        <DataList id={"unit_option"} name={"unit_name"} data={unitList} />
     ) : null;
 
     const onClose = () => {

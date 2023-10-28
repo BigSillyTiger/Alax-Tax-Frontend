@@ -60,6 +60,8 @@ const en = {
             balance: "Balance",
             city: "City",
             client: "Client",
+            clientID: "Client ID",
+            clientInfo: "Client Info",
             closed: "Closed",
             completed: "Completed",
             country: "Country",

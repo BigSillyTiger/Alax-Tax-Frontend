@@ -123,7 +123,7 @@ const ClientOrderTable: FC<TtableProps> = ({
                               }
                           >
                               {row.getVisibleCells().map((cell: any) => {
-                                  if (cell.column.id === "Menu") {
+                                  if (cell.column.id === "menu") {
                                       return (
                                           <td
                                               key={cell.id}
