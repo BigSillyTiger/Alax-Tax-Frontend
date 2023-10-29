@@ -20,6 +20,7 @@ import DataList from "@/components/dataList";
 import { Tclient } from "@/utils/schema/clientSchema";
 import ClientInfoCard from "../components";
 import StatesOptions from "@/components/stateOptions";
+import MQuit from "./mQuit";
 
 type Tprops = {
     client: Tclient;
@@ -32,6 +33,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
+    const [openQuit, setOpenQuit] = useState(false);
     //console.log("-> init order: ", order);
     const [desc, setDesc] = useState({
         des_id: 0,
@@ -161,6 +163,10 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
     const onClose = () => {
         setOpen({ ...order, order_id: -1 });
         reset();
+    };
+
+    const onOpenQuit = () => {
+        setOpenQuit(true);
     };
 
     const serviceTitleList = uniData ? (
@@ -738,18 +744,27 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
     );
 
     return (
-        <ModalFrame
-            open={order.order_id !== -1}
-            onClose={onClose}
-            title={
-                order.order_id === 0
-                    ? t("modal.title.addOrder")
-                    : t("modal.title.editOrder")
-            }
-            mode={"full"}
-        >
-            {mainContent}
-        </ModalFrame>
+        <>
+            <ModalFrame
+                open={order.order_id !== -1}
+                onClose={onOpenQuit}
+                title={
+                    order.order_id === 0
+                        ? t("modal.title.addOrder")
+                        : t("modal.title.editOrder") + ` #${order.order_id}`
+                }
+                mode={"full"}
+            >
+                {mainContent}
+            </ModalFrame>
+            <MQuit
+                open={openQuit}
+                setOpen={() => {
+                    setOpenQuit(false);
+                }}
+                closeMainModal={onClose}
+            />
+        </>
     );
 };
 

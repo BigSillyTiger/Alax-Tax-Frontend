@@ -96,7 +96,7 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
             open={!!uni.id}
             onClose={onClose}
             title={t("modal.title.delete")}
-            isDelM={true}
+            isMajor={true}
         >
             {mainContent}
         </ModalFrame>

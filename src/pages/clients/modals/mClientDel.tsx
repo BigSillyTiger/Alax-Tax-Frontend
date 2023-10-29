@@ -90,7 +90,7 @@ const MClientDel: FC<Tprops> = ({ client, setOpen }) => {
             open={client.client_id > 0}
             onClose={onClose}
             title={t("modal.title.delete")}
-            isDelM={true}
+            isMajor={true}
             mode={"md"}
         >
             {mainContent}

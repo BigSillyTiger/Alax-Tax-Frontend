@@ -82,7 +82,7 @@ const MOrderDel: FC<Tprops> = ({ cid, order, setOpen }) => {
             open={order.order_id > 0}
             onClose={onClose}
             title={t("modal.title.delete")}
-            isDelM={true}
+            isMajor={true}
             mode={"md"}
         >
             {mainContent}

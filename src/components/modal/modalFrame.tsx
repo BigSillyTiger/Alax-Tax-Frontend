@@ -12,7 +12,7 @@ type Tmode = "sm" | "md" | "lg" | "xl" | "full" | "md-full";
 type Tprops = {
     open: boolean;
     onClose: () => void;
-    isDelM?: boolean;
+    isMajor?: boolean;
     title: string;
     children: ReactNode[] | ReactNode;
     mode?: Tmode;
@@ -22,7 +22,7 @@ type Tprops = {
 const ModalFrame: FC<Tprops> = ({
     open,
     onClose,
-    isDelM = false,
+    isMajor = false,
     title,
     children,
     mode = "md",
@@ -112,17 +112,18 @@ const ModalFrame: FC<Tprops> = ({
                                         <Dialog.Title
                                             as="h3"
                                             className={`text-base font-semibold leading-6 mb-4  ${
-                                                isDelM
+                                                isMajor
                                                     ? "text-red-600 flex items-center justify-center"
                                                     : "text-gray-900"
                                             }`}
                                         >
-                                            {isDelM && (
+                                            {isMajor && (
                                                 <ExclamationTriangleIcon
                                                     className="h-5 w-5 inline"
                                                     aria-hidden="true"
                                                 />
                                             )}
+                                            &nbsp;
                                             {title}
                                         </Dialog.Title>
 
