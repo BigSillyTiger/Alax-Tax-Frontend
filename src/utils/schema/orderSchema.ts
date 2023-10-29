@@ -57,6 +57,9 @@ export const OrderFormSchema = orderSchema
         fk_invoice_id: true,
         order_status: true,
         order_date: true,
+        quotation_date: true,
+        invoice_issue_date: true,
+        invoice_update_date: true,
     })
     .extend({
         order_desc: newOrderDescSchema.array(),

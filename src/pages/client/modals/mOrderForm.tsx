@@ -32,6 +32,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
+    //console.log("-> init order: ", order);
     const [desc, setDesc] = useState({
         des_id: 0,
         fk_order_id: order.order_id,
@@ -121,6 +122,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                 order_pc: order.order_pc ?? undefined,
                 order_desc: order.order_desc ?? undefined,
                 order_status: order.order_status ?? t("label.pending"),
+                order_deposit: order.order_deposit ?? 0,
             });
         }
     }, [order, reset]);
@@ -288,7 +290,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
             </div>
 
             {/* postcode */}
-            <div className="sm:col-span-1">
+            <div className="sm:col-span-2">
                 <label
                     htmlFor="order_pc"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -358,8 +360,10 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                 </label>
                 <div className="mt-1">
                     <input
-                        {...register("order_deposit")}
+                        {...register("order_deposit", { valueAsNumber: true })}
                         type="number"
+                        step="0.01"
+                        min={0}
                         id="order_deposit"
                         name="order_deposit"
                         className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -376,8 +380,10 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                 </label>
                 <div className="mt-1">
                     <input
-                        {...register("order_gst")}
+                        {...register("order_gst", { valueAsNumber: true })}
                         type="number"
+                        step="0.01"
+                        min={0}
                         id="order_gst"
                         name="order_gst"
                         value={calTotalGst}
@@ -395,8 +401,10 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                 </label>
                 <div className="mt-1">
                     <input
-                        {...register("order_total")}
+                        {...register("order_total", { valueAsNumber: true })}
                         type="number"
+                        step="0.01"
+                        min={0}
                         id="order_total"
                         value={calTotal}
                         className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -462,6 +470,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                     id="qty"
                                     min={0}
                                     type="number"
+                                    step="0.01"
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                     onChange={(e) => {
                                         setValue(
@@ -523,6 +532,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                     {...register(`order_desc.${index}.gst`)}
                                     id="gst"
                                     type="number"
+                                    step="0.01"
                                     min={0}
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                 />
@@ -546,6 +556,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                     )}
                                     id="unit_price"
                                     type="number"
+                                    step="0.01"
                                     min={0}
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                     onChange={(e) => {
@@ -571,6 +582,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                     })}
                                     id="netto"
                                     type="number"
+                                    step="0.01"
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                 />
                             </div>
