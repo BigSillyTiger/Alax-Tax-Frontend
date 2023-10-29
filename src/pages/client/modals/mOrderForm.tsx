@@ -60,7 +60,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
         defaultValues: order,
     });
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, swap } = useFieldArray({
         name: "order_desc",
         control,
     });
@@ -105,8 +105,9 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
     /* useEffect(() => {
         // Calculate totals initially and whenever qty or unitPrice changes
         fields.forEach((_, index) => {
-            calNetto(index);
+            
         });
+        console.log("-> fields changed");
     }, [fields, watch]); */
 
     useEffect(() => {
@@ -594,18 +595,16 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                 />
                             </div>
                         </section>
+                        {/* adjust arrows btns */}
                         {fields.length > 1 && (
                             <section className="col-span-1 flex flex-col justify-around">
                                 {index != 0 && (
                                     <button
                                         type="button"
                                         className="h-10 rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50"
-                                        onClick={() =>
-                                            console.log(
-                                                "-> click btn up: ",
-                                                index
-                                            )
-                                        }
+                                        onClick={() => {
+                                            swap(index, index - 1);
+                                        }}
                                     >
                                         <ChevronDoubleUpIcon
                                             className="h-6 w-6 m-auto"
@@ -617,12 +616,9 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                     <button
                                         type="button"
                                         className="h-10 rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50"
-                                        onClick={() =>
-                                            console.log(
-                                                "-> click btn down: ",
-                                                index
-                                            )
-                                        }
+                                        onClick={() => {
+                                            swap(index, index + 1);
+                                        }}
                                     >
                                         <ChevronDoubleDownIcon
                                             className="h-6 w-6 m-auto"
@@ -696,10 +692,6 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                     list="service_title"
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                     onChange={(e) => {
-                                        console.log(
-                                            "-< change: ",
-                                            e.target.value
-                                        );
                                         setDefaultService(e.target.value);
                                     }}
                                 />
