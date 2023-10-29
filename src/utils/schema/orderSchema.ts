@@ -29,7 +29,6 @@ export const orderSchema = z.object({
 export const oderDescSchema = z.object({
     des_id: z.number(),
     fk_order_id: z.number(),
-    ranking: z.number(),
     title: z.string().trim(),
     taxable: z.boolean(),
     description: z.string().trim(),
@@ -47,7 +46,6 @@ export const orderWithDescSchema = orderSchema.extend({
 export const newOrderDescSchema = oderDescSchema.omit({
     des_id: true,
     fk_order_id: true,
-    ranking: true,
 });
 
 export const OrderFormSchema = orderSchema

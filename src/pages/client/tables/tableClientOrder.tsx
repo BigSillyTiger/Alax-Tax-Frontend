@@ -9,13 +9,7 @@ import {
     getSortedRowModel,
     getExpandedRowModel,
 } from "@tanstack/react-table";
-import type {
-    OnChangeFn,
-    SortingState,
-    Row,
-    Cell,
-    ColumnDef,
-} from "@tanstack/react-table";
+import type { OnChangeFn, SortingState, Row } from "@tanstack/react-table";
 import {
     EllipsisVerticalIcon,
     TrashIcon,

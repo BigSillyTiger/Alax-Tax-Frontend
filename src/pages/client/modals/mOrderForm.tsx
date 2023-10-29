@@ -38,7 +38,6 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
         fk_order_id: order.order_id,
         title: uniData?.services[0].service as string,
         taxable: true,
-        ranking: 0,
         description: "",
         qty: 1,
         unit: uniData?.services[0].unit as string,
@@ -133,17 +132,23 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
             toastError("Please add one order description at least.");
             return;
         }
-        console.log("-> click submit err: ", errors);
+        errors ?? console.log("-> click submit err: ", errors);
         const isValid = await trigger();
         if (isValid) {
+            const req = order.order_id === 0 ? "orderCreate" : "orderUpdate";
             const values = JSON.stringify({
                 ...getValues(),
                 client_id: client.client_id,
-                req: "orderUpdate",
+                // these 3 the value has be manually calculated or registered
+                // therefore, they are not in the form
+                // we need to manually add them to the values
+                order_id: order.order_id,
+                order_gst: calTotalGst,
+                order_total: calTotal,
             });
             const method = order.order_id === 0 ? "POST" : "PUT";
             submit(
-                { values },
+                { values, req },
                 {
                     // this action need to be modified
                     method,
@@ -180,7 +185,6 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                 fk_order_id: order.order_id,
                 title: service.service as string,
                 taxable: true,
-                ranking: 0,
                 description: "",
                 qty: 1,
                 unit: service.unit as string,

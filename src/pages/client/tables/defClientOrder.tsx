@@ -93,7 +93,7 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
         columns: [
             {
                 header: i18n.t("label.total"),
-                accessorKey: "total",
+                accessorKey: "order_total",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
                     <span>{info.getValue()}</span>
                 ),

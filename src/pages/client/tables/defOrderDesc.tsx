@@ -4,8 +4,8 @@ import { TorderDesc } from "@/utils/schema/orderSchema";
 
 const orderDescColumns: ColumnDef<TorderDesc>[] = [
     {
-        header: i18n.t("label.rank"),
-        accessorKey: "ranking",
+        header: i18n.t("label.service"),
+        accessorKey: "title",
         cell: (info: CellContext<TorderDesc, unknown>) => {
             return <span>{info.getValue<number>()}</span>;
         },

@@ -40,6 +40,10 @@ const OrderDescTable: FC<TtableProps> = ({
     clickEdit,
     clickDel,
 }) => {
+    // adjust the order of the data
+    data.sort((a, b) => {
+        return a.des_id - b.des_id;
+    });
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
