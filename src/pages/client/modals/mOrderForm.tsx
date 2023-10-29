@@ -13,11 +13,13 @@ import { TorderWithDesc, OrderFormSchema } from "@/utils/schema/orderSchema";
 import Card from "@/components/card";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
-import { calculateNetto, plusAB, toastError } from "@/utils/utils";
+import { calGst, plusAB, calNetto } from "@/utils/calculations";
+import { toastError } from "@/utils/toaster";
 import { Tunivers } from "@/utils/types";
 import DataList from "@/components/dataList";
 import { Tclient } from "@/utils/schema/clientSchema";
 import ClientInfoCard from "../components";
+import StatesOptions from "@/components/stateOptions";
 
 type Tprops = {
     client: Tclient;
@@ -30,7 +32,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
-    const [desc] = useState({
+    const [desc, setDesc] = useState({
         des_id: 0,
         fk_order_id: order.order_id,
         title: uniData?.services[0].service as string,
@@ -40,6 +42,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
         qty: 1,
         unit: uniData?.services[0].unit as string,
         unit_price: uniData?.services[0].unit_price as number,
+        gst: calGst(Number(uniData?.services[0].unit_price)),
         netto: uniData?.services[0].unit_price as number,
     });
 
@@ -73,13 +76,27 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
         return total;
     }, [values]);
 
-    const calNetto = useCallback(
+    const calTotalGst = useMemo(() => {
+        let gst = 0;
+        for (const item of values) {
+            //const netto = timesAB(item.unit_price, item.qty);
+            gst = plusAB(gst, item.gst);
+        }
+        return gst;
+    }, [values]);
+
+    const calSNettoGst = useCallback(
         (index: number) => {
-            const total = calculateNetto(
+            const total = calNetto(
                 watch(`order_desc.${index}.qty`, 0),
-                watch(`order_desc.${index}.unit_price`, 0),
-                watch(`order_desc.${index}.taxable`, true)
+                watch(`order_desc.${index}.unit_price`, 0)
             );
+            if (watch(`order_desc.${index}.taxable`, true)) {
+                const gst = calGst(total);
+                setValue(`order_desc.${index}.gst`, gst);
+            } else {
+                setValue(`order_desc.${index}.gst`, 0);
+            }
             setValue(`order_desc.${index}.netto`, total);
         },
         [values]
@@ -149,6 +166,27 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
     const unitsList = uniData ? (
         <DataList id={"unit_name"} name={"unit_name"} data={uniData.units} />
     ) : null;
+
+    const setDefaultService = (value: string) => {
+        const service = uniData?.services.find(
+            (item) => item.service === value
+        );
+        if (service) {
+            setDesc({
+                des_id: 0,
+                fk_order_id: order.order_id,
+                title: service.service as string,
+                taxable: true,
+                ranking: 0,
+                description: "",
+                qty: 1,
+                unit: service.unit as string,
+                unit_price: service.unit_price as number,
+                gst: calGst(Number(service.unit_price)),
+                netto: service.unit_price as number,
+            });
+        }
+    };
 
     const addressContent = (
         <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
@@ -223,12 +261,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                         autoComplete="state-name"
                         className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                     >
-                        <option value="NSW">NSW</option>
-                        <option value="QLD">QLD</option>
-                        <option value="SA">SA</option>
-                        <option value="TAS">TAS</option>
-                        <option value="VIC">VIC</option>
-                        <option value="WA">WA</option>
+                        <StatesOptions />
                     </select>
                 </div>
             </div>
@@ -285,7 +318,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
     const detailsContent = (
         <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
             {/* order satus */}
-            <div className="sm:col-span-2">
+            <div className="sm:col-span-3">
                 <label
                     htmlFor="order_status"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -315,7 +348,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                 </div>
             </div>
             {/* order deposit fee */}
-            <div className="sm:col-span-2">
+            <div className="sm:col-span-3">
                 <label
                     htmlFor="order_deposit"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -327,12 +360,32 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                         {...register("order_deposit")}
                         type="number"
                         id="order_deposit"
+                        name="order_deposit"
+                        className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                </div>
+            </div>
+            {/* order total Gst */}
+            <div className="sm:col-span-3">
+                <label
+                    htmlFor="order_gst"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                    {t("label.totalGst")}
+                </label>
+                <div className="mt-1">
+                    <input
+                        {...register("order_gst")}
+                        type="number"
+                        id="order_gst"
+                        name="order_gst"
+                        value={calTotalGst}
                         className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
             </div>
             {/* order total fee */}
-            <div className="sm:col-span-2">
+            <div className="sm:col-span-3">
                 <label
                     htmlFor="order_total"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -375,12 +428,13 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                     : "col-span-7"
                             } grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-6`}
                         >
+                            {/* title - 6*/}
                             <div className="col-span-8">
                                 <label
                                     htmlFor="title"
                                     className="block text-sm font-medium leading-6 text-gray-900"
                                 >
-                                    {t("label.desc")}
+                                    {t("label.service")}
                                 </label>
                                 <input
                                     {...register(`order_desc.${index}.title`)}
@@ -391,6 +445,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                 />
                                 {serviceTitleList}
                             </div>
+                            {/* qty - 1 */}
                             <div className="col-span-6 sm:col-span-1">
                                 <label
                                     htmlFor="qty"
@@ -412,11 +467,12 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                             `order_desc.${index}.qty`,
                                             Number(e.target.value)
                                         );
-                                        return calNetto(index);
+                                        return calSNettoGst(index);
                                     }}
                                 />
                             </div>
-                            <div className="col-span-6 sm:col-span-1">
+                            {/* unit - 2 */}
+                            <div className="col-span-6 sm:col-span-2">
                                 <label
                                     htmlFor="unit"
                                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -432,7 +488,47 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                 />
                                 {unitsList}
                             </div>
+                            {/* taxable - 1 */}
+                            <div className="col-span-6 sm:col-span-1">
+                                <label
+                                    htmlFor="taxable"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    {t("label.taxable")}
+                                </label>
+                                <input
+                                    {...register(`order_desc.${index}.taxable`)}
+                                    id="taxable"
+                                    type="checkbox"
+                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6 pl-2"
+                                    onChange={(e) => {
+                                        setValue(
+                                            `order_desc.${index}.taxable`,
+                                            Boolean(e.target.checked)
+                                        );
+                                        return calSNettoGst(index);
+                                    }}
+                                />
+                            </div>
+                            {/* gst - 2 */}
                             <div className="col-span-6 sm:col-span-2">
+                                <label
+                                    htmlFor="unit"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    {t("label.gst")}
+                                </label>
+                                <input
+                                    {...register(`order_desc.${index}.gst`)}
+                                    id="gst"
+                                    type="number"
+                                    min={0}
+                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                />
+                            </div>
+
+                            {/* unit price - 2 */}
+                            <div className="col-span-6 sm:col-span-3">
                                 <label
                                     htmlFor="unit_price"
                                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -456,11 +552,12 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                             `order_desc.${index}.unit_price`,
                                             Number(e.target.value)
                                         );
-                                        return calNetto(index);
+                                        return calSNettoGst(index);
                                     }}
                                 />
                             </div>
-                            <div className="col-span-6 sm:col-span-2">
+                            {/* netto - 2 */}
+                            <div className="col-span-6 sm:col-span-3">
                                 <label
                                     htmlFor="netto"
                                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -477,27 +574,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                 />
                             </div>
 
-                            <div className="col-span-6 sm:col-span-1">
-                                <label
-                                    htmlFor="taxable"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                >
-                                    {t("label.taxable")}
-                                </label>
-                                <input
-                                    {...register(`order_desc.${index}.taxable`)}
-                                    id="taxable"
-                                    type="checkbox"
-                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6 pl-2"
-                                    onChange={(e) => {
-                                        setValue(
-                                            `order_desc.${index}.taxable`,
-                                            Boolean(e.target.checked)
-                                        );
-                                        return calNetto(index);
-                                    }}
-                                />
-                            </div>
+                            {/* desc - 6 */}
                             <div className="col-span-6 sm:col-span-7">
                                 <label
                                     htmlFor="description"
@@ -604,6 +681,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                             </section>
                             {/*  */}
                         </Card>
+                        {/* append btn - adding a new service */}
                         <section className="col-span-full grid grid-cols-6 mt-4 pt-2 gap-x-3 border-t-2 border-indigo-300 border-dashed">
                             <div className="col-span-4 ">
                                 <label
@@ -617,6 +695,13 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                     type="text"
                                     list="service_title"
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                    onChange={(e) => {
+                                        console.log(
+                                            "-< change: ",
+                                            e.target.value
+                                        );
+                                        setDefaultService(e.target.value);
+                                    }}
                                 />
                                 {serviceTitleList}
                             </div>

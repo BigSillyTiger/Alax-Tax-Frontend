@@ -10,6 +10,7 @@ import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { RES_STATUS } from "@/utils/types";
 import ModalFrame from "@/components/modal/modalFrame";
 import { SubmitBtn } from "@/components/form";
+import StatesOptions from "@/components/stateOptions";
 
 type TisConflict =
     | RES_STATUS.SUCCESS
@@ -280,12 +281,7 @@ const MClientForm: FC<Tprops> = ({
                                 autoComplete="address-level3"
                                 className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                             >
-                                <option value="NSW">NSW</option>
-                                <option value="QLD">QLD</option>
-                                <option value="SA">SA</option>
-                                <option value="TAS">TAS</option>
-                                <option value="VIC">VIC</option>
-                                <option value="WA">WA</option>
+                                <StatesOptions />
                             </select>
                         </div>
                     </div>

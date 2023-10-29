@@ -8,13 +8,17 @@ type Tprops = {
 };
 
 const DataList: FC<Tprops> = ({ id, data, name }) => {
-    return (
-        <datalist id={id}>
-            {data.map((item) => (
-                <option key={item[name]}>{item[name]}</option>
-            ))}
-        </datalist>
-    );
+    if (data.length) {
+        return (
+            <datalist id={id}>
+                {data.map((item) => (
+                    <option key={item[name]}>{item[name]}</option>
+                ))}
+            </datalist>
+        );
+    } else {
+        return <></>;
+    }
 };
 
 export default DataList;

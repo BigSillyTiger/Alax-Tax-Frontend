@@ -7,7 +7,7 @@ import ClientTable from "./tables/tableClients.tsx";
 import clientColumns from "./tables/defClients.tsx";
 import Card from "@/components/card";
 import { Tresponse } from "@/utils/types";
-import { toastError, toastSuccess } from "@/utils/utils";
+import { toastError, toastSuccess } from "@/utils/toaster";
 import { RES_STATUS } from "@/utils/types";
 import { Tclient } from "@/utils/schema/clientSchema.ts";
 import MClientDel from "./modals/mClientDel";

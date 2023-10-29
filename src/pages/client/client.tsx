@@ -15,7 +15,7 @@ import Card from "@/components/card";
 import MOrderDel from "./modals/mOrderDel";
 import ClientOrderTable from "./tables/tableClientOrder";
 import clientOrderColumns from "./tables/defClientOrder";
-import { toastError, toastSuccess } from "@/utils/utils";
+import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 import MOrderForm from "./modals/mOrderForm";
 import ClientInfoCard from "./components";
@@ -47,6 +47,7 @@ const Client = () => {
         order_pc: client.postcode,
         order_status: t("label.pending"),
         order_total: 0,
+        order_gst: 0,
         order_deposit: 0,
         order_date: "",
         quotation_date: "",

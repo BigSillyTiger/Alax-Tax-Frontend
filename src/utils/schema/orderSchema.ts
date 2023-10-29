@@ -17,6 +17,7 @@ export const orderSchema = z.object({
         .max(4)
         .nullable(),
     order_status: z.string().trim(),
+    order_gst: z.number(),
     order_total: z.number(),
     order_deposit: z.number(),
     order_date: z.string().datetime().nullable(),
@@ -35,6 +36,7 @@ export const oderDescSchema = z.object({
     qty: z.number(),
     unit: z.string().trim(),
     unit_price: z.number(),
+    gst: z.number(),
     netto: z.number(),
 });
 

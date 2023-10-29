@@ -11,7 +11,7 @@ import {
     Tunit,
 } from "@/utils/schema/manageSchema";
 import { newServiceSchema, newUnitSchema } from "@/utils/schema/manageSchema";
-import { toastError } from "@/utils/utils";
+import { toastError } from "@/utils/toaster";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import DataList from "@/components/dataList";
@@ -220,7 +220,7 @@ const MUniAdd: FC<Tprops> = ({ open, setOpen, serviceList, unitList }) => {
                     ? t("modal.title.addService")
                     : t("modal.title.addUnit")
             }
-            size={open === "S" ? 1 : 0}
+            mode={open === "S" ? "md" : "sm"}
         >
             {mainContent}
         </ModalFrame>
