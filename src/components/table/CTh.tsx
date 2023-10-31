@@ -12,7 +12,7 @@ type Tprops = {
 const CTh: FC<Tprops> = ({ className, children, scope, colSpan, onClick }) => {
     return (
         <th
-            className={`whitespace-nowrap px-2 py-3.5 text-sm font-semibold text-gray-900 capitalize text-center border-indigo-200 border-2 ${className}`}
+            className={`whitespace-nowrap px-2 text-sm font-semibold text-gray-900 capitalize text-center border-indigo-200 border-2 ${className}`}
             scope={scope}
             colSpan={colSpan}
             onClick={onClick}

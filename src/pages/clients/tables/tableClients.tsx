@@ -33,6 +33,7 @@ import {
     sortingIcon,
 } from "@/components/table";
 import CTh from "@/components/table/CTh";
+import HeaderFilter from "@/components/table/headerFilter";
 
 type TtableProps = {
     data: Tclient[];
@@ -86,18 +87,17 @@ const ClientTable: FC<TtableProps> = ({
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-                <CTh
-                    key={header.id}
-                    scope="col"
-                    onClick={header.column.getToggleSortingHandler()}
-                >
-                    <button>
+                <CTh key={header.id} className="py-3" scope="col">
+                    <button onClick={header.column.getToggleSortingHandler()}>
                         {flexRender(
                             header.column.columnDef.header,
                             header.getContext()
                         )}
                         {sortingIcon(header.column.getIsSorted())}
                     </button>
+                    {header.column.getCanFilter() ? (
+                        <HeaderFilter column={header.column} table={table} />
+                    ) : null}
                 </CTh>
             ))}
         </tr>
@@ -190,7 +190,9 @@ const ClientTable: FC<TtableProps> = ({
             />
 
             <CTable className="h-[65vh]">
-                <CTHead>{tableHeader}</CTHead>
+                <CTHead className="sticky z-20 bg-indigo-300">
+                    {tableHeader}
+                </CTHead>
                 <CTBody>{tableBody}</CTBody>
             </CTable>
 

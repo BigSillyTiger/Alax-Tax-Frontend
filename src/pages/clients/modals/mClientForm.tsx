@@ -168,7 +168,7 @@ const MClientForm: FC<Tprops> = ({
                                         " ring-1 ring-gray-300 focus:ring-indigo-600 "
                                     }
                                 `}
-                                placeholder={t("label.emailPH")}
+                                placeholder={t("placeholder.emailPH")}
                             />
                         </div>
                     </div>

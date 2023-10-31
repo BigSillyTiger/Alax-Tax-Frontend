@@ -8,7 +8,7 @@ type Tprops = {
 
 const CTHead: FC<Tprops> = ({ className, children }) => {
     return (
-        <thead className={`w-full sticky top-0 bg-indigo-50 ${className}`}>
+        <thead className={`w-full top-0 bg-indigo-50 ${className}`}>
             {children}
         </thead>
     );

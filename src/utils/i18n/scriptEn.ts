@@ -59,6 +59,12 @@ const en = {
             submitting: "Submitting...",
             yes: "Yes",
         },
+        placeholder: {
+            emailPH: "you@example.com",
+            max: "Max",
+            min: "Min",
+            search: "Search",
+        },
         label: {
             address: "Address",
             balance: "Balance",
@@ -76,7 +82,7 @@ const en = {
             details: "Details",
             email1: "Email",
             email2: "Email Address",
-            emailPH: "you@example.com",
+
             feeStatus: "Fee Status",
             firstName: "First Name",
             gst: "GST",

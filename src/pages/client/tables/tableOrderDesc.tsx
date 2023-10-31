@@ -26,6 +26,7 @@ import {
     sortingIcon,
 } from "@/components/table";
 import CTh from "@/components/table/CTh";
+import HeaderFilter from "@/components/table/headerFilter";
 
 type TtableProps = {
     data: TorderDesc[];
@@ -80,20 +81,19 @@ const OrderDescTable: FC<TtableProps> = ({
     });
 
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
-        <tr key={headerGroup.id}>
+        <tr key={headerGroup.id} className="z-0">
             {headerGroup.headers.map((header) => (
-                <CTh
-                    key={header.id}
-                    scope="col"
-                    onClick={header.column.getToggleSortingHandler()}
-                >
-                    <button>
+                <CTh key={header.id} scope="col" className="py-1.5">
+                    <button onClick={header.column.getToggleSortingHandler()}>
                         {flexRender(
                             header.column.columnDef.header,
                             header.getContext()
                         )}
                         {sortingIcon(header.column.getIsSorted())}
                     </button>
+                    {header.column.getCanFilter() ? (
+                        <HeaderFilter column={header.column} table={table} />
+                    ) : null}
                 </CTh>
             ))}
         </tr>
@@ -146,11 +146,11 @@ const OrderDescTable: FC<TtableProps> = ({
     return (
         <Card className="container ring-violet-600 bg-green-50">
             {/* search bar */}
-            <SearchBar value={globalFilter} onChange={setGlobalFilter} />
+            {/* <SearchBar value={globalFilter} onChange={setGlobalFilter} /> */}
 
-            <CTable>
-                <CTHead>{tableHeader}</CTHead>
-                <CTBody>{tableBody}</CTBody>
+            <CTable className="mt-3">
+                <CTHead className="">{tableHeader}</CTHead>
+                <CTBody className="">{tableBody}</CTBody>
             </CTable>
 
             {/* pagination */}

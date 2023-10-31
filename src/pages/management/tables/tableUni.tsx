@@ -79,6 +79,7 @@ const ServiceTable = <T,>({
             {headerGroup.headers.map((header) => (
                 <CTh
                     key={header.id}
+                    className="py-3"
                     scope="col"
                     onClick={header.column.getToggleSortingHandler()}
                 >
@@ -147,7 +148,9 @@ const ServiceTable = <T,>({
             />
 
             <CTable className="h-[58vh]">
-                <CTHead>{tableHeader}</CTHead>
+                <CTHead className="sticky z-20 bg-indigo-300">
+                    {tableHeader}
+                </CTHead>
                 <CTBody>{tableBody}</CTBody>
             </CTable>
 

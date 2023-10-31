@@ -85,10 +85,11 @@ const ClientOrderTable: FC<TtableProps> = ({
     });
 
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
-        <tr key={headerGroup.id}>
+        <tr key={headerGroup.id} className="z-20">
             {headerGroup.headers.map((header) => (
                 <CTh
                     key={header.id}
+                    className="py-3"
                     scope="col"
                     colSpan={header.colSpan}
                     onClick={header.column.getToggleSortingHandler()}
@@ -141,7 +142,7 @@ const ClientOrderTable: FC<TtableProps> = ({
                                       return (
                                           <td
                                               key={cell.id}
-                                              className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center"
+                                              className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
                                           >
                                               {/* <button
                                                   onClick={() => {
@@ -217,7 +218,9 @@ const ClientOrderTable: FC<TtableProps> = ({
             />
 
             <CTable className="h-[55vh]">
-                <CTHead>{tableHeader}</CTHead>
+                <CTHead className="sticky z-20 bg-indigo-300">
+                    {tableHeader}
+                </CTHead>
                 <CTBody>{tableBody}</CTBody>
             </CTable>
 

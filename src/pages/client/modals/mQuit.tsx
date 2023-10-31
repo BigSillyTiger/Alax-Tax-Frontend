@@ -19,7 +19,7 @@ const MQuit: FC<Tprops> = ({ open, setOpen, closeMainModal }) => {
 
     const mainContent = (
         <>
-            <div className="mt-4 mb-2 px-4 text-center ">
+            <div className="mt-4 mb-3 px-4 py-2 text-center ">
                 <p className="">{t("modal.tips.quit")}</p>
                 <p className="">{t("modal.tips.dataLost")}</p>
             </div>
