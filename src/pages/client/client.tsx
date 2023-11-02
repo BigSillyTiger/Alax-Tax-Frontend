@@ -13,12 +13,13 @@ import { RES_STATUS } from "@/utils/types";
 import type { Tresponse, Tunivers } from "@/utils/types";
 import Card from "@/components/card";
 import MOrderDel from "./modals/mOrderDel";
-import ClientOrderTable from "./tables/tableClientOrder";
 import clientOrderColumns from "./tables/defClientOrder";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 import MOrderForm from "./modals/mOrderForm";
 import ClientInfoCard from "./components";
+import { PTable } from "@/components/table";
+import orderDescColumns from "./tables/defOrderDesc";
 
 const Client = () => {
     const { t } = useTranslation();
@@ -86,6 +87,24 @@ const Client = () => {
         }
     }, [actionData]);
 
+    const subServiceTable = (row: any) => {
+        return (
+            <PTable
+                hFilter={true}
+                data={row.order_desc}
+                columns={orderDescColumns}
+                clickEdit={() => {
+                    return;
+                }}
+                clickDel={() => {
+                    return;
+                }}
+                cnTable="mt-3"
+                cnTh="py-1.5"
+            />
+        );
+    };
+
     const ClientInfoContent: FC<{ client: Tclient }> = ({ client }) => {
         return (
             <div className="px-4 sm:px-6 lg:px-8 top-0 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 ">
@@ -112,7 +131,8 @@ const Client = () => {
                 </div>
                 <Card className="col-span-6">
                     {clientOrders.length > 0 ? (
-                        <ClientOrderTable
+                        <PTable
+                            search={true}
                             data={clientOrders}
                             columns={clientOrderColumns}
                             clickEdit={setOrder}
@@ -123,6 +143,11 @@ const Client = () => {
                                 }
                                 return false;
                             }}
+                            expandContent={subServiceTable}
+                            cnSearch="my-3"
+                            cnTable="h-[55vh]"
+                            cnHead="sticky z-10 bg-indigo-300"
+                            cnTh="py-3"
                         />
                     ) : (
                         <span>{t("tips.noOrder")}</span>

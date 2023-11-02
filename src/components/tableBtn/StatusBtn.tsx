@@ -2,26 +2,27 @@ import React, { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import { useSubmit } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
-import { statusList } from "@/configs/statusList";
+import i18n from "@/utils/i18n";
+import { TorderWithDesc } from "@/utils/schema/orderSchema";
 
 const slist = [
     {
-        label: statusList.pending,
+        label: i18n.t("label.pending"),
         activeCss: "bg-yellow-200 text-yellow-700",
         inactiveCss: "bg-slate-50 text-yellow-700",
     },
     {
-        label: statusList.processing,
+        label: i18n.t("label.processing"),
         activeCss: "bg-cyan-200 text-cyan-700",
         inactiveCss: "bg-slate-50 text-cyan-700",
     },
     {
-        label: statusList.closed,
+        label: i18n.t("label.closed"),
         activeCss: "bg-red-200 text-red-700",
         inactiveCss: "bg-slate-50 text-red-700",
     },
     {
-        label: statusList.completed,
+        label: i18n.t("label.completed"),
         activeCss: "bg-green-200 text-green-700",
         inactiveCss: "bg-slate-50 text-green-700",
     },
@@ -29,24 +30,22 @@ const slist = [
 
 type Tprops = {
     mLabel: ReactNode | string;
-    orId: number;
-    action: string;
-    current: string;
+    data: TorderWithDesc | any;
 };
 
 // this menu btn group component is highly designed for order status change usage
-const StatusBtn: FC<Tprops> = ({ mLabel, orId, action, current }) => {
+const StatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     const submit = useSubmit();
 
     const handleClick = async (order_id: number, status: string) => {
         submit(
             { req: "orderStatus", order_id, status },
-            { method: "PUT", action }
+            { method: "PUT", action: `/clients/${data.fk_client_id}` }
         );
     };
 
     const menuContent = slist.map((item, index) => {
-        if (item.label === current) return;
+        if (item.label === data.order_status) return;
         return (
             <div className="p-1" key={index}>
                 <Menu.Item as={Fragment}>
@@ -54,7 +53,7 @@ const StatusBtn: FC<Tprops> = ({ mLabel, orId, action, current }) => {
                         <button
                             onClick={(e) => {
                                 e.preventDefault();
-                                handleClick(orId, item.label);
+                                handleClick(data.order_id, item.label);
                             }}
                             className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-bold ${
                                 active ? item.activeCss : item.inactiveCss

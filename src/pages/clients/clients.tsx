@@ -3,7 +3,6 @@ import type { FC, TouchEvent, MouseEvent } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LoadingPage from "@/components/loadingEle";
-import ClientTable from "./tables/tableClients.tsx";
 import clientColumns from "./tables/defClients.tsx";
 import Card from "@/components/card";
 import { Tresponse } from "@/utils/types";
@@ -12,6 +11,7 @@ import { RES_STATUS } from "@/utils/types";
 import { Tclient } from "@/utils/schema/clientSchema.ts";
 import MClientDel from "./modals/mClientDel";
 import MClientForm from "./modals/mClientForm.tsx";
+import { PTable } from "@/components/table";
 
 type Tprops = {
     clients: Tclient[] | null;
@@ -83,6 +83,12 @@ const Clients: FC = () => {
         setClient({ ...initClient, client_id: 0 });
     };
 
+    /* const clickDetails = () => {
+        return nevigate("/clients/" + row.original.client_id, {
+            replace: false,
+        });
+    }; */
+
     const ClientTableContent: FC<Tprops> = ({ clients }) => {
         return (
             <>
@@ -103,11 +109,17 @@ const Clients: FC = () => {
                     {/* table */}
                     {clients ? (
                         <Card className="mt-8">
-                            <ClientTable
+                            <PTable
+                                search={true}
+                                hFilter={true}
                                 data={clients}
                                 columns={clientColumns}
                                 clickEdit={setClient}
                                 clickDel={setClientDel}
+                                cnSearch="my-3"
+                                cnTable="h-[65vh]"
+                                cnHead="sticky z-20 bg-indigo-300"
+                                cnTh="py-3"
                             />
                         </Card>
                     ) : (

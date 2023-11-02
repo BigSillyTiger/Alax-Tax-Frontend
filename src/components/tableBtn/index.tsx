@@ -1,3 +1,3 @@
-import MenuBtn from "./tMenuBtn";
-import StatusBtn from "./tStatusBtn";
+import MenuBtn from "./MenuBtn";
+import StatusBtn from "./StatusBtn";
 export { MenuBtn, StatusBtn };

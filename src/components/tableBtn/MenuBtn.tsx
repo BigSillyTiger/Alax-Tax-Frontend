@@ -2,16 +2,16 @@ import React, { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import genOptions from "./btnOptions";
+import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 
 type Tprops<T> = {
-    mLabel: ReactNode | string;
     mItem: T;
     clickEdit?: (open: T) => void;
     clickDel?: (open: T) => void;
 };
 
 // this component is about building a menu button template with headlessui Menu
-const MenuBtn = <T,>({ mLabel, mItem, clickEdit, clickDel }: Tprops<T>) => {
+const MenuBtn = <T,>({ mItem, clickEdit, clickDel }: Tprops<T>) => {
     const mList = genOptions({ clickEdit, clickDel });
 
     const menuContent = mList.map((item, index) => {
@@ -49,7 +49,12 @@ const MenuBtn = <T,>({ mLabel, mItem, clickEdit, clickDel }: Tprops<T>) => {
 
     return (
         <Menu as="div" className="relative">
-            <Menu.Button>{mLabel}</Menu.Button>
+            <Menu.Button>
+                <EllipsisVerticalIcon
+                    className="h-6 w-6 text-indigo-500"
+                    aria-hidden="true"
+                />
+            </Menu.Button>
             <Transition
                 as={Fragment}
                 enter="transition ease-out duration-100"

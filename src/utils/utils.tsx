@@ -8,3 +8,5 @@ export const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
 export const dateFormat = (dateString: string) => {
     return format(Date.parse(dateString), "MM-dd-yyyy");
 };
+
+export type AreTypesEqual<T, U> = T extends U ? true : false;

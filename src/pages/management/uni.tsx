@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import type { FC } from "react";
 import Card from "@/components/card";
 import { Tservice, Tunit } from "@/utils/schema/manageSchema";
-import UniTable from "./tables/tableUni";
 import { serviceListColDefs, unitListColDefs } from "./tables/defUniList";
 import { Tunivers } from "@/utils/types";
 import MUniAdd from "./modals/mUniAdd";
 import MUniDel from "./modals/mUniDel";
 import MUniEdit from "./modals/mUniEdit";
+import { PTable } from "@/components/table";
 
 type Tprops = Tunivers;
 
@@ -49,7 +49,8 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                 {/* table */}
                 {services?.length ? (
                     <Card className="">
-                        <UniTable
+                        <PTable
+                            search={true}
                             data={services}
                             columns={serviceListColDefs}
                             clickDel={setUniDel}
@@ -87,7 +88,8 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                 {/* table */}
                 {units?.length ? (
                     <Card className="">
-                        <UniTable
+                        <PTable
+                            search={true}
                             data={units}
                             columns={unitListColDefs}
                             clickDel={setUniDel}

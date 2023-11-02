@@ -3,17 +3,16 @@ import i18n from "@/utils/i18n";
 import { TorderWithDesc } from "@/utils/schema/orderSchema";
 import { dateFormat } from "@/utils/utils";
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
-import { statusList, tableItemsId } from "@/configs/statusList";
 
 const setColor = (value: string) => {
     switch (value) {
-        case statusList.pending:
+        case i18n.t("label.pending"):
             return "bg-yellow-200 text-yellow-700 ring-yellow-700";
-        case statusList.processing:
+        case i18n.t("label.processing"):
             return "bg-cyan-200 text-cyan-700 ring-cyan-700";
-        case statusList.closed:
+        case i18n.t("label.closed"):
             return "bg-red-200 text-red-700 ring-red-700";
-        case statusList.completed:
+        case i18n.t("label.completed"):
             return "bg-green-200 text-green-700 ring-green-700";
     }
 };
@@ -62,7 +61,7 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
                 ),
             },
             {
-                id: tableItemsId.status,
+                id: "status",
                 header: i18n.t("label.status"),
                 accessorKey: "order_status",
                 cell: (info: CellContext<TorderWithDesc, string>) => {
