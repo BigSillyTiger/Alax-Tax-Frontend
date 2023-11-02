@@ -82,7 +82,6 @@ const en = {
             details: "Details",
             email1: "Email",
             email2: "Email Address",
-
             feeStatus: "Fee Status",
             firstName: "First Name",
             gst: "GST",
@@ -96,6 +95,7 @@ const en = {
             orderDate: "Order Date",
             orderDetail: "Order Details",
             paid: "Paid",
+            pDate: "Payment Date",
             pending: "Pending",
             pc: "Poscode",
             phone1: "Phone",

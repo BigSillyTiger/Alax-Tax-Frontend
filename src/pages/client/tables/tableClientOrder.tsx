@@ -15,21 +15,20 @@ import {
     TrashIcon,
     PencilIcon,
 } from "@heroicons/react/24/outline";
-import { Torder, TorderWithDesc } from "@/utils/schema/orderSchema";
-import MenuBtn from "@/components/menuBtn/tMenuBtn";
+import { TorderWithDesc } from "@/utils/schema/orderSchema";
+import { MenuBtn, StatusBtn } from "@/components/tableBtn";
 import OrderDescTable from "./tableOrderDesc";
 import orderDescColumns from "./defOrderDesc";
 import { tableItemsId } from "@/configs/statusList";
-import StatusBtn from "@/components/menuBtn/tStatusBtn";
 import {
     CTable,
     CTHead,
     CTBody,
+    CTh,
     Pagination,
     SearchBar,
     sortingIcon,
 } from "@/components/table";
-import CTh from "@/components/table/CTh";
 
 type TtableProps = {
     data: TorderWithDesc[];
@@ -50,23 +49,6 @@ const ClientOrderTable: FC<TtableProps> = ({
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
     //const nevigate = useNavigate();
-
-    const opMenu = [
-        {
-            label: "Edit",
-            icon: <PencilIcon />,
-            clickFn: (v: TorderWithDesc) => {
-                clickEdit(v);
-            },
-        },
-        {
-            label: "Delete",
-            icon: <TrashIcon />,
-            clickFn: (v: TorderWithDesc) => {
-                clickDel(v);
-            },
-        },
-    ];
 
     const table = useReactTable({
         data,
@@ -92,9 +74,8 @@ const ClientOrderTable: FC<TtableProps> = ({
                     className="py-3"
                     scope="col"
                     colSpan={header.colSpan}
-                    onClick={header.column.getToggleSortingHandler()}
                 >
-                    <button>
+                    <button onClick={header.column.getToggleSortingHandler()}>
                         {flexRender(
                             header.column.columnDef.header,
                             header.getContext()
@@ -131,7 +112,8 @@ const ClientOrderTable: FC<TtableProps> = ({
                                                           aria-hidden="true"
                                                       />
                                                   }
-                                                  mList={opMenu}
+                                                  clickDel={clickDel}
+                                                  clickEdit={clickEdit}
                                                   mItem={row.original}
                                               />
                                           </td>
@@ -218,7 +200,7 @@ const ClientOrderTable: FC<TtableProps> = ({
             />
 
             <CTable className="h-[55vh]">
-                <CTHead className="sticky z-20 bg-indigo-300">
+                <CTHead className="sticky z-10 bg-indigo-300">
                     {tableHeader}
                 </CTHead>
                 <CTBody>{tableBody}</CTBody>

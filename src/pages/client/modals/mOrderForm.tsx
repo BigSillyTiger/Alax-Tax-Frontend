@@ -9,7 +9,7 @@ import {
     ChevronDoubleDownIcon,
     ChevronDoubleUpIcon,
 } from "@heroicons/react/24/outline";
-import { TorderWithDesc, OrderFormSchema } from "@/utils/schema/orderSchema";
+import { TorderWithDesc, orderFormSchema } from "@/utils/schema/orderSchema";
 import Card from "@/components/card";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
@@ -58,7 +58,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
         trigger,
         watch,
     } = useForm<TorderWithDesc>({
-        resolver: zodResolver(OrderFormSchema),
+        resolver: zodResolver(orderFormSchema),
         defaultValues: order,
     });
 

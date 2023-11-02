@@ -6,13 +6,8 @@ import {
     getPaginationRowModel,
     getFilteredRowModel,
     getSortedRowModel,
-    //type
-    OnChangeFn,
-    SortingState,
-    Row,
-    Cell,
-    ColumnDef,
 } from "@tanstack/react-table";
+import type { OnChangeFn, SortingState, Row } from "@tanstack/react-table";
 import {
     EllipsisVerticalIcon,
     DocumentTextIcon,
@@ -20,18 +15,17 @@ import {
     PencilIcon,
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
-import { TclientView } from "@/utils/schema/clientSchema";
-import MenuBtn from "../menuBtn/tMenuBtn";
+import { Tclient } from "@/utils/schema/clientSchema";
+import { MenuBtn } from "../tableBtn";
 
 type TtableProps = {
-    data: TclientView[];
+    data: Tclient[];
     columns: any;
-    clickEdit: (open: TclientView) => void;
-    clickDel: (open: TclientView) => void;
+    clickEdit: (open: Tclient) => void;
+    clickDel: (open: Tclient) => void;
 };
 
 const PaginatedTable: FC<TtableProps> = ({
@@ -49,14 +43,14 @@ const PaginatedTable: FC<TtableProps> = ({
         {
             label: "Edit",
             icon: <PencilIcon />,
-            clickFn: (v: TclientView) => {
+            clickFn: (v: Tclient) => {
                 clickEdit(v);
             },
         },
         {
             label: "Delete",
             icon: <TrashIcon />,
-            clickFn: (v: TclientView) => {
+            clickFn: (v: Tclient) => {
                 clickDel(v);
             },
         },
@@ -98,7 +92,7 @@ const PaginatedTable: FC<TtableProps> = ({
     ));
 
     const tableBody = table.getRowModel().rows.length
-        ? table.getRowModel().rows.map((row: Row<TclientView>, i: number) => (
+        ? table.getRowModel().rows.map((row: Row<Tclient>, i: number) => (
               <tr
                   key={row.id}
                   className={i % 2 === 0 ? undefined : "bg-gray-100"}
@@ -116,7 +110,8 @@ const PaginatedTable: FC<TtableProps> = ({
                                       onClick={(e) => {
                                           e.preventDefault();
                                           return nevigate(
-                                              "/clients/" + row.original.id,
+                                              "/clients/" +
+                                                  row.original.client_id,
                                               { replace: false }
                                           );
                                       }}
@@ -141,7 +136,8 @@ const PaginatedTable: FC<TtableProps> = ({
                                               aria-hidden="true"
                                           />
                                       }
-                                      mList={opMenu}
+                                      clickDel={clickDel}
+                                      clickEdit={clickEdit}
                                       mItem={row.original}
                                   />
                               </td>

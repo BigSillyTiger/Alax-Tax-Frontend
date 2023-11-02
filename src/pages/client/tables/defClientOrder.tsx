@@ -31,10 +31,11 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
                         <button
                             {...{
                                 onClick: row.getToggleExpandedHandler(),
-                                style: { cursor: "pointer" },
                             }}
+                            // why this not working?
+                            //onClick={row.getToggleExpandedHandler}
+                            className="cursor-pointer"
                         >
-                            {/* {row.getIsExpanded() ? "👇" : "👉"} */}
                             {row.getIsExpanded() ? (
                                 <MinusIcon className="h-6 w-6" />
                             ) : (

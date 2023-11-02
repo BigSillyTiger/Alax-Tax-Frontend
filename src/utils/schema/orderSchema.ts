@@ -48,7 +48,7 @@ export const newOrderDescSchema = oderDescSchema.omit({
     fk_order_id: true,
 });
 
-export const OrderFormSchema = orderSchema
+export const orderFormSchema = orderSchema
     .omit({
         order_id: true,
         fk_client_id: true,
@@ -63,8 +63,15 @@ export const OrderFormSchema = orderSchema
         order_desc: newOrderDescSchema.array(),
     });
 
+export const orderPaymentSchema = z.object({
+    pay_id: z.number(),
+    paid: z.number(),
+    paid_date: z.string().datetime(),
+});
+
 export type Torder = z.infer<typeof orderSchema>;
-export type TorderForm = z.infer<typeof OrderFormSchema>;
+export type TorderForm = z.infer<typeof orderFormSchema>;
 export type TorderWithDesc = z.infer<typeof orderWithDescSchema>;
 export type TorderDesc = z.infer<typeof oderDescSchema>;
 export type TnewOrderDesc = z.infer<typeof newOrderDescSchema>;
+export type TorderPayment = z.infer<typeof orderPaymentSchema>;

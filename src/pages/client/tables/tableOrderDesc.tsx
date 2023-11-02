@@ -15,17 +15,17 @@ import {
     PencilIcon,
 } from "@heroicons/react/24/outline";
 import { TorderDesc } from "@/utils/schema/orderSchema";
-import MenuBtn from "@/components/menuBtn/tMenuBtn";
+import { MenuBtn } from "@/components/tableBtn";
 import Card from "@/components/card";
 import {
     CTable,
     CTHead,
     CTBody,
+    CTh,
     Pagination,
     SearchBar,
     sortingIcon,
 } from "@/components/table";
-import CTh from "@/components/table/CTh";
 import HeaderFilter from "@/components/table/headerFilter";
 
 type TtableProps = {
@@ -49,23 +49,6 @@ const OrderDescTable: FC<TtableProps> = ({
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
 
-    const opMenu = [
-        {
-            label: "Edit",
-            icon: <PencilIcon />,
-            clickFn: (v: TorderDesc) => {
-                clickEdit(v);
-            },
-        },
-        {
-            label: "Delete",
-            icon: <TrashIcon />,
-            clickFn: (v: TorderDesc) => {
-                clickDel(v);
-            },
-        },
-    ];
-
     const table = useReactTable({
         data,
         columns,
@@ -83,7 +66,12 @@ const OrderDescTable: FC<TtableProps> = ({
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id} className="z-0">
             {headerGroup.headers.map((header) => (
-                <CTh key={header.id} scope="col" className="py-1.5">
+                <CTh
+                    key={header.id}
+                    scope="col"
+                    colSpan={header.colSpan}
+                    className="py-1.5"
+                >
                     <button onClick={header.column.getToggleSortingHandler()}>
                         {flexRender(
                             header.column.columnDef.header,
@@ -121,7 +109,8 @@ const OrderDescTable: FC<TtableProps> = ({
                                               aria-hidden="true"
                                           />
                                       }
-                                      mList={opMenu}
+                                      clickDel={clickDel}
+                                      clickEdit={clickEdit}
                                       mItem={row.original}
                                   />
                               </td>

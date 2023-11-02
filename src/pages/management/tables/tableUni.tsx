@@ -14,16 +14,16 @@ import {
     PencilIcon,
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-import MenuBtn from "@/components/menuBtn/tMenuBtn";
+import { MenuBtn } from "@/components/tableBtn";
 import {
     CTable,
     CTHead,
     CTBody,
+    CTh,
     Pagination,
     SearchBar,
     sortingIcon,
 } from "@/components/table";
-import CTh from "@/components/table/CTh";
 
 type TtableProps<T> = {
     data: T[];
@@ -41,24 +41,7 @@ const ServiceTable = <T,>({
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
-    const nevigate = useNavigate();
-
-    const opMenu = [
-        {
-            label: "Edit",
-            icon: <PencilIcon />,
-            clickFn: (v: T) => {
-                clickEdit(v);
-            },
-        },
-        {
-            label: "Delete",
-            icon: <TrashIcon />,
-            clickFn: (v: T) => {
-                clickDel(v);
-            },
-        },
-    ];
+    //const nevigate = useNavigate();
 
     const table = useReactTable({
         data,
@@ -116,7 +99,8 @@ const ServiceTable = <T,>({
                                               aria-hidden="true"
                                           />
                                       }
-                                      mList={opMenu}
+                                      clickEdit={clickEdit}
+                                      clickDel={clickDel}
                                       mItem={row.original}
                                   />
                               </td>

@@ -8,22 +8,15 @@ import {
     getFilteredRowModel,
     getSortedRowModel,
 } from "@tanstack/react-table";
-import type {
-    OnChangeFn,
-    SortingState,
-    Row,
-    Cell,
-    ColumnDef,
-} from "@tanstack/react-table";
+import type { OnChangeFn, SortingState, Row } from "@tanstack/react-table";
 import {
     EllipsisVerticalIcon,
-    DocumentTextIcon,
     TrashIcon,
     PencilIcon,
 } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
-import { Tclient } from "@/utils/schema/clientSchema";
+import { TorderPayment } from "@/utils/schema/orderSchema";
 import { MenuBtn } from "@/components/tableBtn";
+import Card from "@/components/card";
 import {
     CTable,
     CTHead,
@@ -35,23 +28,17 @@ import {
 } from "@/components/table";
 import HeaderFilter from "@/components/table/headerFilter";
 
-type TtableProps = {
-    data: Tclient[];
+type Tprops = {
+    data: TorderPayment[];
     columns: any;
-    clickEdit: (open: Tclient) => void;
-    clickDel: (open: Tclient) => void;
+    clickEdit: (open: TorderPayment) => void;
+    clickDel: (open: TorderPayment) => void;
 };
 
-const ClientTable: FC<TtableProps> = ({
-    data,
-    columns,
-    clickEdit,
-    clickDel,
-}) => {
+const PaymentTalbe: FC<Tprops> = ({ data, columns, clickEdit, clickDel }) => {
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
-    const nevigate = useNavigate();
 
     const table = useReactTable({
         data,
@@ -68,9 +55,14 @@ const ClientTable: FC<TtableProps> = ({
     });
 
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
-        <tr key={headerGroup.id}>
+        <tr key={headerGroup.id} className="z-0">
             {headerGroup.headers.map((header) => (
-                <CTh key={header.id} className="py-3" scope="col">
+                <CTh
+                    key={header.id}
+                    scope="col"
+                    colSpan={header.colSpan}
+                    className="py-1.5"
+                >
                     <button onClick={header.column.getToggleSortingHandler()}>
                         {flexRender(
                             header.column.columnDef.header,
@@ -87,7 +79,7 @@ const ClientTable: FC<TtableProps> = ({
     ));
 
     const tableBody = table.getRowModel().rows.length
-        ? table.getRowModel().rows.map((row: Row<Tclient>, i: number) => (
+        ? table.getRowModel().rows.map((row: Row<TorderPayment>, i: number) => (
               <tr
                   key={row.id}
                   className={i % 2 === 0 ? undefined : "bg-gray-100"}
@@ -95,45 +87,12 @@ const ClientTable: FC<TtableProps> = ({
                   {row.getVisibleCells().map((cell: any) => {
                       //console.log("-> cell details: ", cell);
                       /* nevigate to details page */
-                      if (cell.column.id === "Details") {
+                      if (cell.column.id === "Menu") {
                           return (
                               <td
                                   key={cell.id}
                                   className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
                               >
-                                  <button
-                                      onClick={(e) => {
-                                          e.preventDefault();
-                                          return nevigate(
-                                              "/clients/" +
-                                                  row.original.client_id,
-                                              { replace: false }
-                                          );
-                                      }}
-                                  >
-                                      <DocumentTextIcon
-                                          className="h-6 w-6 text-indigo-500"
-                                          aria-hidden="true"
-                                      />
-                                  </button>
-                              </td>
-                          );
-                      } else if (cell.column.id === "Menu") {
-                          return (
-                              <td
-                                  key={cell.id}
-                                  className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
-                              >
-                                  {/* <button
-                                      onClick={(e) => {
-                                          clickEdit({ ...row.original });
-                                      }}
-                                  >
-                                      <EllipsisVerticalIcon
-                                          className="h-6 w-6 text-indigo-500"
-                                          aria-hidden="true"
-                                      />
-                                  </button> */}
                                   <MenuBtn
                                       mLabel={
                                           <EllipsisVerticalIcon
@@ -141,8 +100,8 @@ const ClientTable: FC<TtableProps> = ({
                                               aria-hidden="true"
                                           />
                                       }
-                                      clickEdit={clickEdit}
                                       clickDel={clickDel}
+                                      clickEdit={clickEdit}
                                       mItem={row.original}
                                   />
                               </td>
@@ -165,25 +124,19 @@ const ClientTable: FC<TtableProps> = ({
         : null;
 
     return (
-        <div className="container">
+        <Card className="container ring-violet-600 bg-green-50">
             {/* search bar */}
-            <SearchBar
-                value={globalFilter}
-                onChange={setGlobalFilter}
-                className="my-3"
-            />
+            {/* <SearchBar value={globalFilter} onChange={setGlobalFilter} /> */}
 
-            <CTable className="h-[65vh]">
-                <CTHead className="sticky z-20 bg-indigo-300">
-                    {tableHeader}
-                </CTHead>
-                <CTBody>{tableBody}</CTBody>
+            <CTable className="mt-3">
+                <CTHead className="">{tableHeader}</CTHead>
+                <CTBody className="">{tableBody}</CTBody>
             </CTable>
 
             {/* pagination */}
             <Pagination table={table} />
-        </div>
+        </Card>
     );
 };
 
-export default ClientTable;
+export default PaymentTalbe;

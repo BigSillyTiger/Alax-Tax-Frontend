@@ -1,19 +1,19 @@
 import React, { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import genOptions from "./btnOptions";
 
 type Tprops<T> = {
     mLabel: ReactNode | string;
-    mList: {
-        label: string;
-        clickFn: (e: T) => void;
-        icon: ReactNode;
-    }[];
     mItem: T;
+    clickEdit?: (open: T) => void;
+    clickDel?: (open: T) => void;
 };
 
 // this component is about building a menu button template with headlessui Menu
-const MenuBtn = <T,>({ mLabel, mList, mItem }: Tprops<T>) => {
+const MenuBtn = <T,>({ mLabel, mItem, clickEdit, clickDel }: Tprops<T>) => {
+    const mList = genOptions({ clickEdit, clickDel });
+
     const menuContent = mList.map((item, index) => {
         return (
             <div className="p-1" key={index}>
