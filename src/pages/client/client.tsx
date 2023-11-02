@@ -13,13 +13,13 @@ import { RES_STATUS } from "@/utils/types";
 import type { Tresponse, Tunivers } from "@/utils/types";
 import Card from "@/components/card";
 import MOrderDel from "./modals/mOrderDel";
-import clientOrderColumns from "./tables/defClientOrder";
+import clientOrderColumns from "../../components/table/columnDefs/defClientOrder";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 import MOrderForm from "./modals/mOrderForm";
 import ClientInfoCard from "./components";
 import { PTable } from "@/components/table";
-import orderDescColumns from "./tables/defOrderDesc";
+import orderDescColumns from "../../components/table/columnDefs/defOrderDesc";
 
 const Client = () => {
     const { t } = useTranslation();

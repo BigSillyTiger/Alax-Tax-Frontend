@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import type { FC } from "react";
 import Card from "@/components/card";
 import { Tservice, Tunit } from "@/utils/schema/manageSchema";
-import { serviceListColDefs, unitListColDefs } from "./tables/defUniList";
+import { serviceListColDefs, unitListColDefs } from "../../components/table/columnDefs/defUniList";
 import { Tunivers } from "@/utils/types";
 import MUniAdd from "./modals/mUniAdd";
 import MUniDel from "./modals/mUniDel";

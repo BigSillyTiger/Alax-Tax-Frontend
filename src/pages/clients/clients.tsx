@@ -3,7 +3,7 @@ import type { FC, TouchEvent, MouseEvent } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LoadingPage from "@/components/loadingEle";
-import clientColumns from "./tables/defClients.tsx";
+import clientColumns from "../../components/table/columnDefs/defClients.tsx";
 import Card from "@/components/card";
 import { Tresponse } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/toaster";

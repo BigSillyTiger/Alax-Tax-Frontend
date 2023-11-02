@@ -17,10 +17,10 @@ import {
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
-import { MenuBtn, StatusBtn } from "../tableBtn";
+import { MenuBtn, StatusBtn } from "./tableBtn";
 import HeaderFilter from "./headerFilter";
 import { CTable, CTBody, CTHead, CTh } from ".";
-import DetailBtn from "../tableBtn/DetailBtn";
+import DetailBtn from "./tableBtn/DetailBtn";
 
 type Tprops<T> = {
     data: T[];
