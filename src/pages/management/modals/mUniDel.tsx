@@ -7,14 +7,16 @@ import { Tservice, Tunit } from "@/utils/schema/manageSchema";
 import { isServiceType } from "@/utils/utils";
 import ModalFrame from "@/components/modal/modalFrame";
 import { DelBtn } from "@/components/form";
+import { TclientOrderModal } from "@/utils/types";
 
 type Tprops = {
     uni: Tservice | Tunit;
-    setOpen: (value: Tservice | Tunit) => void;
+    open: TclientOrderModal;
+    setOpen: (value: TclientOrderModal) => void;
 };
 
 // this component is about building a modal with transition to delete a client
-const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
+const MUniDel: FC<Tprops> = ({ uni, open, setOpen }) => {
     const submit = useSubmit();
     const { t } = useTranslation();
 
@@ -69,7 +71,7 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
     );
 
     const onClose = () => {
-        setOpen({ ...uni, id: 0 });
+        setOpen("");
     };
 
     const mainContent = (
@@ -84,7 +86,7 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
             <DelBtn
                 onClick={() => {
                     uni && handleDeleteClient(uni.id);
-                    setOpen({ ...uni, id: 0 });
+                    setOpen("");
                 }}
                 onClose={onClose}
             />
@@ -93,10 +95,11 @@ const MUniDel: FC<Tprops> = ({ uni, setOpen }) => {
 
     return (
         <ModalFrame
-            open={!!uni.id}
+            open={!!(open === "Del")}
             onClose={onClose}
             title={t("modal.title.delete")}
             isMajor={true}
+            mode={"md"}
         >
             {mainContent}
         </ModalFrame>

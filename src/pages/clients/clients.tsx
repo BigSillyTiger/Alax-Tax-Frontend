@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import LoadingPage from "@/components/loadingEle";
 import clientColumns from "../../components/table/columnDefs/defClients.tsx";
 import Card from "@/components/card";
-import { Tresponse } from "@/utils/types";
+import { Tresponse, TclientOrderModal } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { RES_STATUS } from "@/utils/types";
 import { Tclient } from "@/utils/schema/clientSchema.ts";
@@ -43,6 +43,7 @@ const Clients: FC = () => {
     const [infoConflict, setInfoConflict] = useState<TisConflict>(
         RES_STATUS.SUCCESS
     );
+    const [modalOpen, setModalOpen] = useState<TclientOrderModal>("");
     const { t } = useTranslation();
     const { clients } = useLoaderData() as {
         clients: Tclient[] | null;
@@ -55,10 +56,12 @@ const Clients: FC = () => {
             setInfoConflict(actionData?.status);
             if (client.client_id === 0) {
                 //setAddNewOpen(false);
+                setModalOpen("");
                 setClient(initClient);
                 toastSuccess("Registered a new client");
             } else if (client.client_id > 0) {
                 //setClientEdit(initClient);
+                setModalOpen("");
                 setClient(initClient);
                 toastSuccess("Updated client informaton");
             }
@@ -81,6 +84,7 @@ const Clients: FC = () => {
     const handleAddeNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
         setClient({ ...initClient, client_id: 0 });
+        setModalOpen("Add");
     };
 
     /* const clickDetails = () => {
@@ -114,11 +118,12 @@ const Clients: FC = () => {
                                 hFilter={true}
                                 data={clients}
                                 columns={clientColumns}
-                                clickEdit={setClient}
-                                clickDel={setClientDel}
+                                menuOptions={{ edit: true, del: true }}
+                                setModalOpen={setModalOpen}
+                                setData={setClient}
                                 cnSearch="my-3"
                                 cnTable="h-[65vh]"
-                                cnHead="sticky z-20 bg-indigo-300"
+                                cnHead="sticky z-10 bg-indigo-300"
                                 cnTh="py-3"
                             />
                         </Card>
@@ -146,10 +151,15 @@ const Clients: FC = () => {
 
             {/* Modal for add new client, and this modal can not be insert into Await*/}
             {/* otherwise, the animation would get lost*/}
-            <MClientDel client={clientDel} setOpen={setClientDel} />
+            <MClientDel
+                client={client}
+                open={modalOpen}
+                setOpen={setModalOpen}
+            />
             <MClientForm
                 client={client}
-                setOpen={setClient}
+                open={modalOpen}
+                setOpen={setModalOpen}
                 isConflict={infoConflict}
                 setConflict={setInfoConflict}
             />

@@ -1,18 +1,29 @@
 import React, { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import genOptions from "./btnOptions";
+import genOptions from "./genOptions";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
+import { TclientOrderModal } from "@/utils/types";
 
 type Tprops<T> = {
     mItem: T;
-    clickEdit?: (open: T) => void;
-    clickDel?: (open: T) => void;
+    edit?: boolean;
+    del?: boolean;
+    pay?: boolean;
+    setModalOpen: (open: TclientOrderModal) => void;
+    setData: (data: T) => void;
 };
 
 // this component is about building a menu button template with headlessui Menu
-const MenuBtn = <T,>({ mItem, clickEdit, clickDel }: Tprops<T>) => {
-    const mList = genOptions({ clickEdit, clickDel });
+const MenuBtn = <T,>({
+    mItem,
+    edit = false,
+    del = false,
+    pay = false,
+    setModalOpen,
+    setData,
+}: Tprops<T>) => {
+    const mList = genOptions({ edit, del, pay, setModalOpen, setData });
 
     const menuContent = mList.map((item, index) => {
         return (

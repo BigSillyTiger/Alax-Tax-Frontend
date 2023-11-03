@@ -9,15 +9,23 @@ import { newServiceSchema, newUnitSchema } from "@/utils/schema/manageSchema";
 import { isServiceType } from "@/utils/utils";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
+import { TclientOrderModal } from "@/utils/types";
 
 type Tprops = {
     uni: Tservice | Tunit;
-    setOpen: (open: Tservice | Tunit) => void;
-    serviceList: Tservice[] | null;
-    unitList: Tunit[] | null;
+    serviceList: Tservice[] | null; // duplication check
+    unitList: Tunit[] | null; // duplication check
+    open: TclientOrderModal;
+    setOpen: (open: TclientOrderModal) => void;
 };
 
-const MUniForm: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
+const MUniForm: FC<Tprops> = ({
+    uni,
+    serviceList,
+    unitList,
+    open,
+    setOpen,
+}) => {
     const [isConflict, setIsConflict] = useState(false);
     // service
     const [service, setService] = useState("");
@@ -78,10 +86,8 @@ const MUniForm: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
     };
 
     const onClose = () => {
-        setOpen({
-            ...uni,
-            id: 0,
-        });
+        setOpen("");
+        reset();
     };
 
     const mainContent = (
@@ -208,14 +214,17 @@ const MUniForm: FC<Tprops> = ({ uni, setOpen, serviceList, unitList }) => {
 
     return (
         <ModalFrame
-            open={!!uni.id}
+            open={!!(open === "Add" || open === "Edit")}
             onClose={onClose}
             title={
                 isServiceType(uni)
-                    ? t("model.title.editService")
-                    : t("model.title.editUnit")
+                    ? open === "Add"
+                        ? t("modal.title.addService")
+                        : t("modal.title.editService")
+                    : open === "Add"
+                    ? t("modal.title.addUnit")
+                    : t("modal.title.editUnit")
             }
-            size={isServiceType(uni) ? 1 : 0}
         >
             {mainContent}
         </ModalFrame>

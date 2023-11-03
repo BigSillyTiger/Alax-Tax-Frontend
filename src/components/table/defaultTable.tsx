@@ -17,14 +17,20 @@ import { MenuBtn, StatusBtn, DetailBtn, ExpandBtn } from "./tableBtn";
 import HeaderFilter from "./headerFilter";
 import { CTable, CTBody, CTHead, CTh } from ".";
 import ContentWithSwitch from "./SwitchWContent";
+import type { TclientOrderModal } from "@/utils/types";
 
 type Tprops<T> = {
     data: T[];
     columns: any;
     // specific options
-    // for menu btn: edit & del
-    clickEdit?: (open: T) => void;
-    clickDel?: (open: T) => void;
+    // for menu btn open modal: edit & del & payment
+    menuOptions?: {
+        edit?: boolean;
+        del?: boolean;
+        pay?: boolean;
+    };
+    setModalOpen?: (open: TclientOrderModal) => void;
+    setData?: (data: T) => void;
     // for search bar
     search?: boolean;
     // for header filter:
@@ -44,10 +50,15 @@ type Tprops<T> = {
 const PTable = <T,>({
     data,
     columns,
-    clickEdit,
-    clickDel,
-    hFilter,
+    menuOptions = {
+        edit: false,
+        del: false,
+        pay: false,
+    },
+    setModalOpen,
+    setData,
     search,
+    hFilter,
     getRowCanExpand,
     expandContent,
     cnSearch,
@@ -131,15 +142,22 @@ const PTable = <T,>({
                                       <ExpandBtn row={row} />
                                   </td>
                               );
-                          } else if (cell.column.id === "Menu") {
+                          } else if (
+                              cell.column.id === "Menu" &&
+                              setModalOpen &&
+                              setData
+                          ) {
                               return (
                                   <td
                                       key={cell.id}
                                       className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
                                   >
                                       <MenuBtn
-                                          clickDel={clickDel}
-                                          clickEdit={clickEdit}
+                                          edit={menuOptions.edit}
+                                          del={menuOptions.del}
+                                          pay={menuOptions.pay}
+                                          setModalOpen={setModalOpen}
+                                          setData={setData}
                                           mItem={row.original}
                                       />
                                   </td>

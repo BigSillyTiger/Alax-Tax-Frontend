@@ -10,23 +10,23 @@ import LoadingPage from "@/components/loadingEle";
 import type { Tclient } from "@/utils/schema/clientSchema";
 import type { TorderWithDetails } from "@/utils/schema/orderSchema";
 import { RES_STATUS } from "@/utils/types";
-import type { Tresponse, Tunivers } from "@/utils/types";
+import type { Tresponse, Tunivers, TclientOrderModal } from "@/utils/types";
 import Card from "@/components/card";
 import MOrderDel from "./modals/mOrderDel";
 import clientOrderColumns from "../../components/table/columnDefs/defClientOrder";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 import MOrderForm from "./modals/mOrderForm";
-import ClientInfoCard from "./components";
+import { ClientInfoCard } from "./components";
 import { PTable } from "@/components/table";
 import orderDescColumns from "../../components/table/columnDefs/defOrderDesc";
 import orderPaymentsColumns from "@/components/table/columnDefs/defPayments";
+import MOrderPay from "./modals/mOrderPay";
 
 const Client = () => {
     const { t } = useTranslation();
     const { cid } = useParams();
     // true for services, false for payments
-    const [subType, setSubType] = useState<boolean>(true);
     const { clientInfo, clientOrders, uniData } = useLoaderData() as {
         clientInfo: {
             status: number;
@@ -61,16 +61,14 @@ const Client = () => {
         payments: [],
     };
     const actionData = useActionData() as Tresponse;
+    const [modalOpen, setModalOpen] = useState<TclientOrderModal>("");
     const [order, setOrder] = useState<TorderWithDetails>(initOrder);
-    const [orderDel, setOrderDel] = useState<TorderWithDetails>(initOrder);
+    //const [orderDel, setOrderDel] = useState<TorderWithDetails>(initOrder);
 
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
-            if (order.order_id != -1) {
-                setOrder({
-                    ...order,
-                    order_id: -1,
-                });
+            if (modalOpen === "Add") {
+                setModalOpen("");
                 toastSuccess(t("toastS.addOrder"));
             }
         } else if (actionData?.status === RES_STATUS.SUC_DEL) {
@@ -78,14 +76,14 @@ const Client = () => {
         } else if (actionData?.status === RES_STATUS.SUC_UPDATE_STATUS) {
             toastSuccess(t("toastS.updateOrderStatus"));
         } else if (actionData?.status === RES_STATUS.SUC_UPDATE) {
-            setOrder(initOrder);
+            setModalOpen("");
             toastSuccess(t("toastS.updateOrder"));
         } else if (actionData?.status === RES_STATUS.FAILED) {
-            if (order.order_id === 0) {
+            if (modalOpen === "Add") {
                 toastError(t("toastF.addOrder"));
-            } else if (order.order_id > 0) {
+            } else if (modalOpen === "Edit") {
                 toastError(t("toastF.updateOrder"));
-            } else if (orderDel.order_id > 0) {
+            } else if (modalOpen === "Del") {
                 toastError(t("toastF.delOrder"));
             }
         }
@@ -99,12 +97,7 @@ const Client = () => {
                 <PTable
                     data={data.order_desc}
                     columns={orderDescColumns}
-                    clickEdit={() => {
-                        return;
-                    }}
-                    clickDel={() => {
-                        return;
-                    }}
+                    cnHead="bg-indigo-50"
                 />
             ) : (
                 <div className="my-2 px-1">{t("tips.noServices")}</div>
@@ -114,16 +107,7 @@ const Client = () => {
         items.push({
             title: t("label.payments"),
             content: data?.payments?.length ? (
-                <PTable
-                    data={data.payments}
-                    columns={orderPaymentsColumns}
-                    clickEdit={() => {
-                        return;
-                    }}
-                    clickDel={() => {
-                        return;
-                    }}
-                />
+                <PTable data={data.payments} columns={orderPaymentsColumns} />
             ) : (
                 <div className="my-2 px-1">{t("tips.noPayments")}</div>
             ),
@@ -150,6 +134,7 @@ const Client = () => {
                                     ...initOrder,
                                     order_id: 0,
                                 });
+                                setModalOpen("Add");
                             }}
                         >
                             {t("btn.newOrder")}
@@ -163,8 +148,9 @@ const Client = () => {
                             search={true}
                             data={clientOrders}
                             columns={clientOrderColumns}
-                            clickEdit={setOrder}
-                            clickDel={setOrderDel}
+                            setModalOpen={setModalOpen}
+                            setData={setOrder}
+                            menuOptions={{ edit: true, del: true, pay: true }}
                             getRowCanExpand={(row) => {
                                 if (row.original.order_desc.length > 0) {
                                     return true;
@@ -203,14 +189,22 @@ const Client = () => {
 
             <MOrderDel
                 cid={Number(cid)}
-                order={orderDel}
-                setOpen={setOrderDel}
+                order={order}
+                open={modalOpen}
+                setOpen={setModalOpen}
             />
             <MOrderForm
                 client={client}
                 order={order}
-                setOpen={setOrder}
+                open={modalOpen}
+                setOpen={setModalOpen}
                 uniData={uniData}
+            />
+            <MOrderPay
+                client={client}
+                order={order}
+                open={modalOpen}
+                setOpen={setModalOpen}
             />
         </>
     );

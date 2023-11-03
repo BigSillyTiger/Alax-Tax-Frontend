@@ -6,15 +6,17 @@ import { useSubmit } from "react-router-dom";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
 import { TorderWithDetails } from "@/utils/schema/orderSchema";
+import { TclientOrderModal } from "@/utils/types";
 
 type Tprops = {
     cid: number;
     order: TorderWithDetails;
-    setOpen: (value: TorderWithDetails) => void;
+    open: TclientOrderModal;
+    setOpen: (value: TclientOrderModal) => void;
 };
 
 // this component is about building a modal with transition to delete a client
-const MOrderDel: FC<Tprops> = ({ cid, order, setOpen }) => {
+const MOrderDel: FC<Tprops> = ({ cid, order, open, setOpen }) => {
     const submit = useSubmit();
     const { t } = useTranslation();
 
@@ -55,7 +57,7 @@ const MOrderDel: FC<Tprops> = ({ cid, order, setOpen }) => {
     );
 
     const onClose = () => {
-        setOpen({ ...order, order_id: 0 });
+        setOpen("");
     };
 
     const mainContent = (
@@ -79,7 +81,7 @@ const MOrderDel: FC<Tprops> = ({ cid, order, setOpen }) => {
 
     return (
         <ModalFrame
-            open={order.order_id > 0}
+            open={!!(open === "Del")}
             onClose={onClose}
             title={t("modal.title.delete")}
             isMajor={true}

@@ -11,7 +11,6 @@ const ExpandBtn = <T,>({ row }: Tprops<T>) => {
         <button
             className="cursor-pointer"
             onClick={(e) => {
-                console.log("-->click triggered");
                 e.preventDefault();
                 row.getToggleExpandedHandler()();
             }}

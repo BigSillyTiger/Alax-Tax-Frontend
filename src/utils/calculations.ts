@@ -14,6 +14,12 @@ export const calNetto = (qty: number, price: number): number => {
     return a.times(b).toNumber();
 };
 
+export const minusAB = (x: number, y: number): number => {
+    const a = new Big(x);
+    const b = new Big(y);
+    return a.minus(b).toNumber();
+};
+
 export const plusAB = (x: number, y: number): number => {
     const a = new Big(x);
     const b = new Big(y);

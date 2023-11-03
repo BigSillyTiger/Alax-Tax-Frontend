@@ -24,3 +24,5 @@ export type Tunivers = {
     services: Tservice[];
     units: Tunit[];
 };
+
+export type TclientOrderModal = "" | "Del" | "Edit" | "Add" | "Pay";

@@ -7,7 +7,7 @@ import { useNavigation, useSubmit, Form } from "react-router-dom";
 import type { Tclient } from "@/utils/schema/clientSchema";
 import { clientNoIDSchema } from "@/utils/schema/clientSchema";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
-import { RES_STATUS } from "@/utils/types";
+import { RES_STATUS, TclientOrderModal } from "@/utils/types";
 import ModalFrame from "@/components/modal/modalFrame";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
@@ -20,7 +20,8 @@ type TisConflict =
 
 type Tprops = {
     client: Tclient;
-    setOpen: (open: Tclient) => void;
+    open: TclientOrderModal;
+    setOpen: (open: TclientOrderModal) => void;
     isConflict: number;
     setConflict: (status: TisConflict) => void;
 };
@@ -41,6 +42,7 @@ const initClient = {
 
 const MClientForm: FC<Tprops> = ({
     client,
+    open,
     setOpen,
     isConflict,
     setConflict,
@@ -80,7 +82,7 @@ const MClientForm: FC<Tprops> = ({
 
     const onClose = () => {
         setConflict(RES_STATUS.SUCCESS);
-        setOpen(initClient);
+        setOpen("");
         reset(initClient);
     };
 
@@ -342,10 +344,10 @@ const MClientForm: FC<Tprops> = ({
 
     return (
         <ModalFrame
-            open={client.client_id !== -1}
+            open={!!(open === "Add" || open === "Edit")}
             onClose={onClose}
             title={
-                client.client_id === 0
+                open === "Add"
                     ? t("modal.title.addClient")
                     : t("modal.title.updateClient")
             }

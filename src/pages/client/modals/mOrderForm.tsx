@@ -15,26 +15,26 @@ import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { calGst, plusAB, calNetto } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
-import { Tunivers } from "@/utils/types";
+import { TclientOrderModal, Tunivers } from "@/utils/types";
 import DataList from "@/components/dataList";
 import { Tclient } from "@/utils/schema/clientSchema";
-import ClientInfoCard from "../components";
+import { ClientInfoCard } from "../components";
 import StatesOptions from "@/components/stateOptions";
 import MQuit from "./mQuit";
 
 type Tprops = {
     client: Tclient;
     order: TorderWithDetails;
-    setOpen: (order: TorderWithDetails) => void;
+    open: TclientOrderModal;
+    setOpen: (order: TclientOrderModal) => void;
     uniData: Tunivers | null;
 };
 
-const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
+const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
     const [openQuit, setOpenQuit] = useState(false);
-    //console.log("-> init order: ", order);
     const [desc, setDesc] = useState({
         des_id: 0,
         fk_order_id: order.order_id,
@@ -104,14 +104,6 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
         [values]
     );
 
-    /* useEffect(() => {
-        // Calculate totals initially and whenever qty or unitPrice changes
-        fields.forEach((_, index) => {
-            
-        });
-        console.log("-> fields changed");
-    }, [fields, watch]); */
-
     useEffect(() => {
         if (order && uniData?.services) {
             reset({
@@ -134,7 +126,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
             toastError("Please add one order description at least.");
             return;
         }
-        errors ?? console.log("-> click submit err: ", errors);
+        //console.log("-> click submit err: ", errors);
         const isValid = await trigger();
         if (isValid) {
             const req = order.order_id === 0 ? "orderCreate" : "orderUpdate";
@@ -161,7 +153,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
     };
 
     const onClose = () => {
-        setOpen({ ...order, order_id: -1 });
+        setOpen("");
         reset();
     };
 
@@ -480,7 +472,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
                                     id="qty"
                                     min={0}
                                     type="number"
-                                    step="0.01"
+                                    step="1"
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                     onChange={(e) => {
                                         setValue(
@@ -656,97 +648,92 @@ const MOrderForm: FC<Tprops> = ({ client, order, setOpen, uniData }) => {
         });
 
     const mainContent = (
-        <div>
-            <Form
-                onSubmit={onSubmit}
-                className="grid grid-cols-1  gap-y-3 gap-x-4"
-            >
-                <div className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[74vh] sm:h-[77vh] lg:h-auto">
-                    <section className="col-span-1 lg:col-span-3 grid grid-cols-1">
-                        {/* client info */}
-                        <section className="">
-                            <span className="text-indigo-500 text-bold">
-                                <b>{t("label.clientInfo")}:</b>
-                            </span>
-                            <ClientInfoCard
-                                client={client}
-                                className="my-2 mx-1 text-sm"
-                            />
-                        </section>
-                        {/* addres */}
-                        <section className="">
-                            <span className="text-indigo-500 text-bold">
-                                <b>{t("label.workAddr")}:</b>
-                            </span>
-                            {addressContent}
-                        </section>
-                        {/* details */}
-                        <section className="">
-                            <span className="text-indigo-500 text-bold">
-                                {t("label.orderDetail")}:
-                            </span>
-                            {detailsContent}
-                        </section>
-                    </section>
-                    {/* order services list */}
-                    <section className="col-span-full lg:col-span-5">
-                        <span className="text-indigo-500 text-bold">
-                            {t("label.orderDesc")}:
-                        </span>
-                        <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[65vh] overflow-y-auto">
-                            <section className="col-span-full">
-                                {descContent}
-                            </section>
-                            {/*  */}
-                        </Card>
-                        {/* append btn - adding a new service */}
-                        <section className="col-span-full grid grid-cols-6 mt-4 pt-2 gap-x-3 border-t-2 border-indigo-300 border-dashed">
-                            <div className="col-span-4 ">
-                                <label
-                                    htmlFor="sTitle"
-                                    className="text-indigo-500 text-bold"
-                                >
-                                    {t("modal.tips.pickService")}:
-                                </label>
-                                <input
-                                    id="sTitle"
-                                    type="text"
-                                    list="service_title"
-                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                    onChange={(e) => {
-                                        setDefaultService(e.target.value);
-                                    }}
-                                />
-                                {serviceTitleList}
-                            </div>
-                            <div className="col-span-2 mt-6">
-                                <button
-                                    type="button"
-                                    className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-                                    onClick={() => append(desc)}
-                                >
-                                    {t("btn.append")}
-                                </button>
-                            </div>
-                        </section>
-                    </section>
-                </div>
-                <section className="col-span-full row-span-2">
-                    {/* btns */}
-                    <SubmitBtn
-                        onClick={() => trigger()}
-                        onClose={onClose}
-                        navState={navigation.state}
-                    />
+        <Form onSubmit={onSubmit} className="grid grid-cols-1  gap-y-3 gap-x-4">
+            <div className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[74vh] sm:h-[77vh] lg:h-auto">
+                <section className="col-span-1 lg:col-span-3 grid grid-cols-1">
+                    {/* client info */}
+                    <fieldset className="">
+                        <legend className="text-indigo-500 text-bold">
+                            <b>{t("label.clientInfo")}:</b>
+                        </legend>
+                        <ClientInfoCard
+                            client={client}
+                            className="my-2 mx-1 text-sm"
+                        />
+                    </fieldset>
+                    {/* addres */}
+                    <fieldset className="">
+                        <legend className="text-indigo-500 text-bold">
+                            <b>{t("label.workAddr")}:</b>
+                        </legend>
+                        {addressContent}
+                    </fieldset>
+                    {/* details */}
+                    <fieldset className="">
+                        <legend className="text-indigo-500 text-bold">
+                            {t("label.orderDetail")}:
+                        </legend>
+                        {detailsContent}
+                    </fieldset>
                 </section>
-            </Form>
-        </div>
+                {/* order services list */}
+                <fieldset className="col-span-full lg:col-span-5">
+                    <legend className="text-indigo-500 text-bold">
+                        {t("label.orderDesc")}:
+                    </legend>
+                    <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[65vh] overflow-y-auto">
+                        <section className="col-span-full">
+                            {descContent}
+                        </section>
+                        {/*  */}
+                    </Card>
+                    {/* append btn - adding a new service */}
+                    <section className="col-span-full grid grid-cols-6 mt-4 pt-2 gap-x-3 border-t-2 border-indigo-300 border-dashed">
+                        <div className="col-span-4 ">
+                            <label
+                                htmlFor="sTitle"
+                                className="text-indigo-500 text-bold"
+                            >
+                                {t("modal.tips.pickService")}:
+                            </label>
+                            <input
+                                id="sTitle"
+                                type="text"
+                                list="service_title"
+                                className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                onChange={(e) => {
+                                    setDefaultService(e.target.value);
+                                }}
+                            />
+                            {serviceTitleList}
+                        </div>
+                        <div className="col-span-2 mt-6">
+                            <button
+                                type="button"
+                                className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+                                onClick={() => append(desc)}
+                            >
+                                {t("btn.append")}
+                            </button>
+                        </div>
+                    </section>
+                </fieldset>
+            </div>
+            <section className="col-span-full row-span-2">
+                {/* btns */}
+                <SubmitBtn
+                    onClick={() => trigger()}
+                    onClose={onOpenQuit}
+                    navState={navigation.state}
+                />
+            </section>
+        </Form>
     );
 
     return (
         <>
             <ModalFrame
-                open={order.order_id !== -1}
+                open={!!(open === "Edit" || open === "Add")}
                 onClose={onOpenQuit}
                 title={
                     order.order_id === 0

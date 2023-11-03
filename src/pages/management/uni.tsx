@@ -6,12 +6,11 @@ import {
     serviceListColDefs,
     unitListColDefs,
 } from "../../components/table/columnDefs/defUniList";
-import { Tunivers } from "@/utils/types";
-import MUniAdd from "./modals/mUniAdd";
+import { TclientOrderModal, Tunivers } from "@/utils/types";
 import MUniDel from "./modals/mUniDel";
-import MUniEdit from "./modals/mUniEdit";
 import { PTable } from "@/components/table";
 import { useTranslation } from "react-i18next";
+import MUniForm from "./modals/mUniForm";
 
 type Tprops = Tunivers;
 
@@ -28,9 +27,8 @@ const initU = {
 };
 
 const Uni: FC<Tprops> = ({ services, units }) => {
-    const [uniAdd, setUniAdd] = useState<"S" | "U" | false>(false);
-    const [uniEdit, setUniEdit] = useState<Tservice | Tunit>(initS);
-    const [uniDel, setUniDel] = useState<Tservice | Tunit>(initU);
+    const [uniData, setUniData] = useState<Tservice | Tunit>(initS);
+    const [modalOpen, setModalOpen] = useState<TclientOrderModal>("");
     const { t } = useTranslation();
 
     const ServiceTable: FC<{ services: Tservice[] | null }> = ({
@@ -41,36 +39,43 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                 {/* header area */}
                 <div className="sm:flex sm:items-center">
                     <div className="sm:flex-auto sm:flex">
-                        {t("label.servicesList")}
+                        {t("label.serviceList")}
                     </div>
                     <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                         <button
                             type="button"
                             className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            onClick={(e) => setUniAdd("S")}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setUniData(initS);
+                                setModalOpen("Add");
+                            }}
                         >
                             {t("btn.newService")}
                         </button>
                     </div>
                 </div>
                 {/* table */}
-                {services?.length ? (
-                    <Card className="">
+                <Card className="">
+                    {services?.length ? (
                         <PTable
                             search={true}
                             data={services}
                             columns={serviceListColDefs}
-                            clickDel={setUniDel}
-                            clickEdit={setUniEdit}
+                            setModalOpen={setModalOpen}
+                            setData={setUniData}
+                            menuOptions={{ edit: true, del: true }}
+                            cnSearch="my-3"
+                            cnTable="h-[55vh]"
+                            cnHead="sticky z-10 bg-indigo-300"
+                            cnTh="py-3"
                         />
-                    </Card>
-                ) : (
-                    <Card className="mt-8">
+                    ) : (
                         <span className="m-5 p-5  text-center h-15">
-                            No services content
+                            {t("tips.npPreService")}
                         </span>
-                    </Card>
-                )}
+                    )}
+                </Card>
             </Card>
         );
     };
@@ -80,36 +85,45 @@ const Uni: FC<Tprops> = ({ services, units }) => {
             <Card className="m-1">
                 {/* header area */}
                 <div className="sm:flex sm:items-center">
-                    <div className="sm:flex-auto sm:flex">unit list</div>
+                    <div className="sm:flex-auto sm:flex">
+                        {t("label.unitList")}
+                    </div>
                     <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                         <button
                             type="button"
                             className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            onClick={(e) => setUniAdd("U")}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setUniData(initU);
+                                setModalOpen("Add");
+                            }}
                         >
-                            New Unit
+                            {t("btn.newUnit")}
                         </button>
                     </div>
                 </div>
 
                 {/* table */}
-                {units?.length ? (
-                    <Card className="">
+                <Card className="">
+                    {units?.length ? (
                         <PTable
                             search={true}
                             data={units}
                             columns={unitListColDefs}
-                            clickDel={setUniDel}
-                            clickEdit={setUniEdit}
+                            setModalOpen={setModalOpen}
+                            setData={setUniData}
+                            menuOptions={{ edit: true, del: true }}
+                            cnSearch="my-3"
+                            cnTable="h-[55vh]"
+                            cnHead="sticky z-10 bg-indigo-300"
+                            cnTh="py-3"
                         />
-                    </Card>
-                ) : (
-                    <Card className="mt-8">
+                    ) : (
                         <span className="m-5 p-5  text-center h-15">
-                            No units content
+                            {t("tips.npPreUnit")}
                         </span>
-                    </Card>
-                )}
+                    )}
+                </Card>
             </Card>
         );
     };
@@ -124,16 +138,11 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                 </div>
             </div>
             {/* modals */}
-            <MUniAdd
-                open={uniAdd}
-                setOpen={setUniAdd}
-                serviceList={services}
-                unitList={units}
-            />
-            <MUniDel uni={uniDel} setOpen={setUniDel} />
-            <MUniEdit
-                uni={uniEdit}
-                setOpen={setUniEdit}
+            <MUniDel uni={uniData} open={modalOpen} setOpen={setModalOpen} />
+            <MUniForm
+                uni={uniData}
+                open={modalOpen}
+                setOpen={setModalOpen}
                 serviceList={services}
                 unitList={units}
             />

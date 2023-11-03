@@ -54,6 +54,7 @@ export const orderFormSchema = orderSchema
         fk_client_id: true,
         order_status: true,
         order_date: true,
+        order_paid: true,
         quotation_date: true,
         invoice_issue_date: true,
         invoice_update_date: true,
