@@ -23,30 +23,7 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
         header: i18n.t("label.details"), // Details
         columns: [
             {
-                id: "expander",
-                header: () => null,
-                cell: ({ row }) => {
-                    return row.getCanExpand() ? (
-                        <button
-                            {...{
-                                onClick: row.getToggleExpandedHandler(),
-                            }}
-                            // why this not working?
-                            //onClick={row.getToggleExpandedHandler}
-                            className="cursor-pointer"
-                        >
-                            {row.getIsExpanded() ? (
-                                <MinusIcon className="h-6 w-6" />
-                            ) : (
-                                <PlusIcon className="h-6 w-6" />
-                            )}
-                        </button>
-                    ) : (
-                        "🔵"
-                    );
-                },
-            },
-            {
+                id: "orderID",
                 header: i18n.t("label.orderId"),
                 accessorKey: "order_id",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
@@ -99,8 +76,9 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
                 ),
             },
             {
+                id: "Paid",
                 header: i18n.t("label.paid"),
-                accessorKey: "paid",
+                accessorKey: "order_paid",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
                     <span>{info.getValue()}</span>
                 ),
@@ -115,7 +93,7 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
         ],
     },
     {
-        id: "menu",
+        id: "Menu",
         header: i18n.t("label.menu"),
         //cell: (info: CellContext<TorderWithDesc, string>) => <></>,
     },

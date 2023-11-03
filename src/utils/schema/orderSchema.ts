@@ -3,7 +3,6 @@ import { z } from "zod";
 export const orderSchema = z.object({
     order_id: z.number(),
     fk_client_id: z.number(),
-    fk_invoice_id: z.number(),
     order_address: z.string().trim().nullable(),
     order_suburb: z.string().trim().nullable(),
     order_city: z.string().trim().nullable(),
@@ -19,6 +18,7 @@ export const orderSchema = z.object({
     order_status: z.string().trim(),
     order_gst: z.number(),
     order_total: z.number(),
+    order_paid: z.number(),
     order_deposit: z.number(),
     order_date: z.string().datetime().nullable(),
     quotation_date: z.string().datetime().nullable(),
@@ -52,7 +52,6 @@ export const orderFormSchema = orderSchema
     .omit({
         order_id: true,
         fk_client_id: true,
-        fk_invoice_id: true,
         order_status: true,
         order_date: true,
         quotation_date: true,
@@ -64,9 +63,14 @@ export const orderFormSchema = orderSchema
     });
 
 export const orderPaymentSchema = z.object({
+    fk_order_id: z.number(),
     pay_id: z.number(),
     paid: z.number(),
     paid_date: z.string().datetime(),
+});
+
+export const orderWithDetailsSchema = orderWithDescSchema.extend({
+    payments: orderPaymentSchema.array(),
 });
 
 export type Torder = z.infer<typeof orderSchema>;
@@ -75,3 +79,4 @@ export type TorderWithDesc = z.infer<typeof orderWithDescSchema>;
 export type TorderDesc = z.infer<typeof oderDescSchema>;
 export type TnewOrderDesc = z.infer<typeof newOrderDescSchema>;
 export type TorderPayment = z.infer<typeof orderPaymentSchema>;
+export type TorderWithDetails = z.infer<typeof orderWithDetailsSchema>;

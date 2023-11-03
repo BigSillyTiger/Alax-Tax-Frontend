@@ -5,12 +5,12 @@ import ModalFrame from "@/components/modal";
 import { useSubmit } from "react-router-dom";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
-import { TorderWithDesc } from "@/utils/schema/orderSchema";
+import { TorderWithDetails } from "@/utils/schema/orderSchema";
 
 type Tprops = {
     cid: number;
-    order: TorderWithDesc;
-    setOpen: (value: TorderWithDesc) => void;
+    order: TorderWithDetails;
+    setOpen: (value: TorderWithDetails) => void;
 };
 
 // this component is about building a modal with transition to delete a client

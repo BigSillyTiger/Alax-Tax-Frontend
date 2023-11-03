@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import type { FC } from "react";
 import Card from "@/components/card";
 import { Tservice, Tunit } from "@/utils/schema/manageSchema";
-import { serviceListColDefs, unitListColDefs } from "../../components/table/columnDefs/defUniList";
+import {
+    serviceListColDefs,
+    unitListColDefs,
+} from "../../components/table/columnDefs/defUniList";
 import { Tunivers } from "@/utils/types";
 import MUniAdd from "./modals/mUniAdd";
 import MUniDel from "./modals/mUniDel";
 import MUniEdit from "./modals/mUniEdit";
 import { PTable } from "@/components/table";
+import { useTranslation } from "react-i18next";
 
 type Tprops = Tunivers;
 
@@ -27,6 +31,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
     const [uniAdd, setUniAdd] = useState<"S" | "U" | false>(false);
     const [uniEdit, setUniEdit] = useState<Tservice | Tunit>(initS);
     const [uniDel, setUniDel] = useState<Tservice | Tunit>(initU);
+    const { t } = useTranslation();
 
     const ServiceTable: FC<{ services: Tservice[] | null }> = ({
         services,
@@ -35,14 +40,16 @@ const Uni: FC<Tprops> = ({ services, units }) => {
             <Card className="m-1">
                 {/* header area */}
                 <div className="sm:flex sm:items-center">
-                    <div className="sm:flex-auto sm:flex">services list</div>
+                    <div className="sm:flex-auto sm:flex">
+                        {t("label.servicesList")}
+                    </div>
                     <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                         <button
                             type="button"
                             className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             onClick={(e) => setUniAdd("S")}
                         >
-                            New Service
+                            {t("btn.newService")}
                         </button>
                     </div>
                 </div>

@@ -10,17 +10,13 @@ import {
 } from "@tanstack/react-table";
 import type { OnChangeFn, SortingState, Row } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
-import {
-    EllipsisVerticalIcon,
-    DocumentTextIcon,
-} from "@heroicons/react/24/outline";
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
-import { MenuBtn, StatusBtn } from "./tableBtn";
+import { MenuBtn, StatusBtn, DetailBtn, ExpandBtn } from "./tableBtn";
 import HeaderFilter from "./headerFilter";
 import { CTable, CTBody, CTHead, CTh } from ".";
-import DetailBtn from "./tableBtn/DetailBtn";
+import ContentWithSwitch from "./SwitchWContent";
 
 type Tprops<T> = {
     data: T[];
@@ -35,7 +31,7 @@ type Tprops<T> = {
     hFilter?: boolean;
     // for sub table
     getRowCanExpand?: (row: any) => boolean;
-    expandContent?: (row: any) => JSX.Element;
+    expandContent?: (row: any) => { title: string; content: JSX.Element }[];
 
     // for each components className
     cnSearch?: string;
@@ -120,6 +116,21 @@ const PTable = <T,>({
                                       <DetailBtn data={row.original} />
                                   </td>
                               );
+                          } else if (cell.column.id === "orderID") {
+                              /* expand btn is with this */
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex items-center justify-center"
+                                  >
+                                      {flexRender(
+                                          cell.column.columnDef.cell,
+                                          cell.getContext()
+                                      )}
+                                      &nbsp;
+                                      <ExpandBtn row={row} />
+                                  </td>
+                              );
                           } else if (cell.column.id === "Menu") {
                               return (
                                   <td
@@ -162,11 +173,13 @@ const PTable = <T,>({
                           );
                       })}
                   </tr>
-                  {getRowCanExpand && row.getIsExpanded() && (
+                  {getRowCanExpand && expandContent && row.getIsExpanded() && (
                       <tr>
                           <td colSpan={row.getVisibleCells().length}>
                               {/* 2nd row is a custom 1 cell row */}
-                              {expandContent && expandContent(row.original)}
+                              <ContentWithSwitch
+                                  items={expandContent(row.original)}
+                              />
                           </td>
                       </tr>
                   )}

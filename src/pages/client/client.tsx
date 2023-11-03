@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
 import type { Tclient } from "@/utils/schema/clientSchema";
-import type { TorderWithDesc } from "@/utils/schema/orderSchema";
+import type { TorderWithDetails } from "@/utils/schema/orderSchema";
 import { RES_STATUS } from "@/utils/types";
 import type { Tresponse, Tunivers } from "@/utils/types";
 import Card from "@/components/card";
@@ -20,26 +20,28 @@ import MOrderForm from "./modals/mOrderForm";
 import ClientInfoCard from "./components";
 import { PTable } from "@/components/table";
 import orderDescColumns from "../../components/table/columnDefs/defOrderDesc";
+import orderPaymentsColumns from "@/components/table/columnDefs/defPayments";
 
 const Client = () => {
     const { t } = useTranslation();
     const { cid } = useParams();
+    // true for services, false for payments
+    const [subType, setSubType] = useState<boolean>(true);
     const { clientInfo, clientOrders, uniData } = useLoaderData() as {
         clientInfo: {
             status: number;
             msg: string;
             data: Tclient[];
         };
-        clientOrders: TorderWithDesc[];
+        clientOrders: TorderWithDetails[];
         uniData: Tunivers | null;
     };
     const client = clientInfo.data[0] as Tclient;
 
-    const initOrder: TorderWithDesc = {
+    const initOrder: TorderWithDetails = {
         // -1 - close the modal; 0 - add new order; >0 = update order
         order_id: -1,
         fk_client_id: client.client_id,
-        fk_invoice_id: 0,
         order_address: client.address,
         order_suburb: client.suburb,
         order_city: client.city,
@@ -48,6 +50,7 @@ const Client = () => {
         order_pc: client.postcode,
         order_status: t("label.pending"),
         order_total: 0,
+        order_paid: 0,
         order_gst: 0,
         order_deposit: 0,
         order_date: "",
@@ -55,10 +58,11 @@ const Client = () => {
         invoice_issue_date: "",
         invoice_update_date: "",
         order_desc: [],
+        payments: [],
     };
     const actionData = useActionData() as Tresponse;
-    const [order, setOrder] = useState<TorderWithDesc>(initOrder);
-    const [orderDel, setOrderDel] = useState<TorderWithDesc>(initOrder);
+    const [order, setOrder] = useState<TorderWithDetails>(initOrder);
+    const [orderDel, setOrderDel] = useState<TorderWithDetails>(initOrder);
 
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
@@ -87,22 +91,45 @@ const Client = () => {
         }
     }, [actionData]);
 
-    const subServiceTable = (row: any) => {
-        return (
-            <PTable
-                hFilter={true}
-                data={row.order_desc}
-                columns={orderDescColumns}
-                clickEdit={() => {
-                    return;
-                }}
-                clickDel={() => {
-                    return;
-                }}
-                cnTable="mt-3"
-                cnTh="py-1.5"
-            />
-        );
+    const subOrderTable = (data: any) => {
+        const items = [];
+        items.push({
+            title: t("label.services"),
+            content: data?.order_desc?.length ? (
+                <PTable
+                    data={data.order_desc}
+                    columns={orderDescColumns}
+                    clickEdit={() => {
+                        return;
+                    }}
+                    clickDel={() => {
+                        return;
+                    }}
+                />
+            ) : (
+                <div className="my-2 px-1">{t("tips.noServices")}</div>
+            ),
+        });
+
+        items.push({
+            title: t("label.payments"),
+            content: data?.payments?.length ? (
+                <PTable
+                    data={data.payments}
+                    columns={orderPaymentsColumns}
+                    clickEdit={() => {
+                        return;
+                    }}
+                    clickDel={() => {
+                        return;
+                    }}
+                />
+            ) : (
+                <div className="my-2 px-1">{t("tips.noPayments")}</div>
+            ),
+        });
+
+        return items;
     };
 
     const ClientInfoContent: FC<{ client: Tclient }> = ({ client }) => {
@@ -130,6 +157,7 @@ const Client = () => {
                     </div>
                 </div>
                 <Card className="col-span-6">
+                    {/* order table */}
                     {clientOrders.length > 0 ? (
                         <PTable
                             search={true}
@@ -143,7 +171,7 @@ const Client = () => {
                                 }
                                 return false;
                             }}
-                            expandContent={subServiceTable}
+                            expandContent={subOrderTable}
                             cnSearch="my-3"
                             cnTable="h-[55vh]"
                             cnHead="sticky z-10 bg-indigo-300"
