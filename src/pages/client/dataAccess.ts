@@ -3,13 +3,8 @@ import { API_CLIENT, API_MANAGE, API_ORDER } from "@/apis";
 import { defer } from "react-router-dom";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
-import {
-    TnewOrderDesc,
-    Torder,
-    TorderWithDesc,
-} from "@/utils/schema/orderSchema";
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const loader = async ({ params }: LoaderFunctionArgs) => {
     const cid = Number(params.cid);
     const clientInfo = await API_CLIENT.clientInfo(cid);
     const clientOrders = await API_ORDER.orderWClient(cid);
@@ -41,12 +36,12 @@ export const action = async ({
                 order_country: orData.order_country,
                 order_pc: orData.order_pc,
                 order_status: orData.order_status,
-                order_total: orData.order_total,
                 order_deposit: orData.order_deposit,
+                order_gst: orData.order_gst,
+                order_total: orData.order_total,
             },
             order_desc: orData.order_desc,
         };
-        console.log("-> action add order: ", order);
         const result = await API_ORDER.orderAdd(order);
         console.log("-> fe receive add order result: ", result);
         return result;
@@ -65,8 +60,10 @@ export const action = async ({
                 order_country: orData.order_country,
                 order_pc: orData.order_pc,
                 order_status: orData.order_status,
-                order_total: orData.order_total,
                 order_deposit: orData.order_deposit,
+                order_gst: orData.order_gst,
+                order_paid: orData.order_paid,
+                order_total: orData.order_total,
             },
             order_desc: orData.order_desc,
         };

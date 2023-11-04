@@ -1,6 +1,6 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/utils/i18n";
-import { Tclient } from "@/utils/schema/clientSchema";
+import { Tclient } from "@/configs/schema/clientSchema";
 
 /**
  * @description

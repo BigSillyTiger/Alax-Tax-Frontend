@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useSubmit } from "react-router-dom";
 import Card from "@/components/card";
-import { Tservice, Tunit } from "@/utils/schema/manageSchema";
+import { Tservice, Tunit } from "@/configs/schema/manageSchema";
 import { isServiceType } from "@/utils/utils";
 import ModalFrame from "@/components/modal/modalFrame";
 import { DelBtn } from "@/components/form";

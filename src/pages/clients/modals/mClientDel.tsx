@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import ModalFrame from "@/components/modal";
 import { useSubmit } from "react-router-dom";
-import type { Tclient } from "@/utils/schema/clientSchema";
+import type { Tclient } from "@/configs/schema/clientSchema";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
 import { TclientOrderModal } from "@/utils/types";

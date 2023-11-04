@@ -3,7 +3,7 @@ import type { FC, ReactNode } from "react";
 import { useSubmit } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import i18n from "@/utils/i18n";
-import { TorderWithDesc } from "@/utils/schema/orderSchema";
+import { TorderWithDesc } from "@/configs/schema/orderSchema";
 
 const slist = [
     {

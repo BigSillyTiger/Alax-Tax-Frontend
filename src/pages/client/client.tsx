@@ -36,6 +36,10 @@ const Client = () => {
         clientOrders: TorderWithDetails[];
         uniData: Tunivers | null;
     };
+    /**
+     * the boolean in mysql is stored as 1 and 0
+     * when working with values like these, need to convert them to boolean
+     */
     const newClientOrders = clientOrders.map((item) => {
         return {
             ...item,

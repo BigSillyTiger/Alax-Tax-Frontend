@@ -1,4 +1,4 @@
-import { Tservice, Tunit } from "./schema/manageSchema";
+import { Tservice, Tunit } from "../configs/schema/manageSchema";
 import { format } from "date-fns";
 
 export const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {

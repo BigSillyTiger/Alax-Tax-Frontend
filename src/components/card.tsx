@@ -1,5 +1,5 @@
-import React, { FC, ReactNode } from "react";
-import { Outlet } from "react-router-dom";
+import React from "react";
+import type { FC, ReactNode } from "react";
 
 type Tprops = {
     className: string;

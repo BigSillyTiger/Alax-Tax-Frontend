@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import type { FC } from "react";
 import Card from "@/components/card";
-import { Tservice, Tunit } from "@/utils/schema/manageSchema";
+import { Tservice, Tunit } from "@/configs/schema/manageSchema";
 import {
     serviceListColDefs,
     unitListColDefs,
-} from "../../components/table/columnDefs/defUniList";
+} from "../../configs/columnDefs/defUniList";
 import { TclientOrderModal, Tunivers } from "@/utils/types";
 import MUniDel from "./modals/mUniDel";
 import { PTable } from "@/components/table";

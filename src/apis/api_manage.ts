@@ -10,7 +10,7 @@ import {
     TnewUnit,
     Tservice,
     Tunit,
-} from "@/utils/schema/manageSchema";
+} from "@/configs/schema/manageSchema";
 
 export const uniAll = async () => {
     try {

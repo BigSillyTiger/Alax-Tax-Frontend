@@ -5,7 +5,7 @@ import ModalFrame from "@/components/modal";
 import { useSubmit } from "react-router-dom";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
-import { TorderWithDetails } from "@/utils/schema/orderSchema";
+import { TorderWithDetails } from "@/configs/schema/orderSchema";
 import { TclientOrderModal } from "@/utils/types";
 
 type Tprops = {

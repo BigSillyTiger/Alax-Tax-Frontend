@@ -3,7 +3,7 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import MainMenu from "@/components/mainMenu";
 import HeadBar from "@/components/headBar";
 import { Toaster } from "react-hot-toast";
-import { Tpermission } from "@/utils/schema/universSchema";
+import { Tpermission } from "@/configs/schema/universSchema";
 
 const Layout: FC = () => {
     const loaderData = useLoaderData() as Tpermission; // permission data

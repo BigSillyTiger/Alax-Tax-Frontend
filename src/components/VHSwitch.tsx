@@ -9,9 +9,9 @@ type Tprops = {
 };
 
 const VHSwitch: FC<Tprops> = ({ direct = "h", isChecked, setIsChecked }) => {
-    const transS = direct === "h" ? "translate-x-8" : "translate-y-8";
+    const transS = direct === "h" ? "translate-x-6" : "translate-y-6";
     const transE = direct === "h" ? "translate-x-0" : "translate-y-0";
-    const size = direct === "h" ? "h-[27px] w-[61px]" : "h-[61px] w-[27px]";
+    const size = direct === "h" ? "h-[29px] w-[53px]" : "h-[53px] w-[29px]";
     return (
         <div className="py-2">
             <Switch

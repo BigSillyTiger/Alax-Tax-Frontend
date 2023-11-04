@@ -1,6 +1,6 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/utils/i18n";
-import { TorderWithDesc } from "@/utils/schema/orderSchema";
+import { TorderWithDesc } from "@/configs/schema/orderSchema";
 import { dateFormat } from "@/utils/utils";
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 
@@ -72,6 +72,14 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
                 header: i18n.t("label.total"),
                 accessorKey: "order_total",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
+                    <span>{info.getValue()}</span>
+                ),
+            },
+            {
+                id: "Gst",
+                header: i18n.t("label.gst"),
+                accessorKey: "order_gst",
+                cell: (info: CellContext<TorderWithDesc, number>) => (
                     <span>{info.getValue()}</span>
                 ),
             },

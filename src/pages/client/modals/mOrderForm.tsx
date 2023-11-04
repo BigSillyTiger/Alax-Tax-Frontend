@@ -9,7 +9,10 @@ import {
     ChevronDoubleDownIcon,
     ChevronDoubleUpIcon,
 } from "@heroicons/react/24/outline";
-import { TorderWithDetails, orderFormSchema } from "@/utils/schema/orderSchema";
+import {
+    TorderWithDetails,
+    orderFormSchema,
+} from "@/configs/schema/orderSchema";
 import Card from "@/components/card";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
@@ -17,8 +20,8 @@ import { calGst, plusAB, calNetto } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
 import { TclientOrderModal, Tunivers } from "@/utils/types";
 import DataList from "@/components/dataList";
-import { Tclient } from "@/utils/schema/clientSchema";
-import { ClientInfoCard } from "../components";
+import { Tclient } from "@/configs/schema/clientSchema";
+import { ClientInfoCard } from "@/components/customized";
 import StatesOptions from "@/components/stateOptions";
 import MQuit from "./mQuit";
 
@@ -74,6 +77,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
         for (const item of values) {
             //const netto = timesAB(item.unit_price, item.qty);
             total = plusAB(total, item.netto);
+            total = plusAB(total, item.gst);
         }
         return total;
     }, [values]);
@@ -126,7 +130,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
             toastError("Please add one order description at least.");
             return;
         }
-        //console.log("-> click submit err: ", errors);
+        console.log("-> click submit err: ", errors);
         const isValid = await trigger();
         if (isValid) {
             const req = order.order_id === 0 ? "orderCreate" : "orderUpdate";
@@ -416,236 +420,306 @@ const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
         </Card>
     );
 
-    const descContent =
-        fields.length != 0 &&
-        fields.map((field, index) => {
-            return (
-                <section key={field.id} className="grid grid-cols-10 gap-x-1">
-                    <div className="col-span-1 m-auto">
-                        <button
-                            type="button"
-                            className="inline-flex w-full justify-center rounded-md bg-red-300 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto"
-                            onClick={() => remove(index)}
-                        >
-                            <span className="sr-only">{t("btn.close")}</span>
-                            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                        </button>
-                    </div>
-                    <Card className="col-span-9 mt-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8 bg-indigo-50">
+    const descContent = (
+        <Card className="my-2 mx-1 lg:h-[65vh] overflow-y-auto">
+            {fields.length ? (
+                fields.map((field, index) => {
+                    return (
                         <section
-                            className={`${
-                                fields.length === 1
-                                    ? "col-span-8"
-                                    : "col-span-7"
-                            } grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-6`}
+                            key={field.id}
+                            className="col-span-full grid grid-cols-10 gap-x-1"
                         >
-                            {/* title - 6*/}
-                            <div className="col-span-8">
-                                <label
-                                    htmlFor="title"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
+                            {/* x btn */}
+                            <div className="col-span-1 m-auto">
+                                <button
+                                    type="button"
+                                    className="inline-flex w-full justify-center rounded-md bg-red-300 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto"
+                                    onClick={() => remove(index)}
                                 >
-                                    {t("label.service")}
-                                </label>
-                                <input
-                                    {...register(`order_desc.${index}.title`)}
-                                    id="title"
-                                    type="text"
-                                    list="service_title"
-                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                />
-                                {serviceTitleList}
+                                    <span className="sr-only">
+                                        {t("btn.close")}
+                                    </span>
+                                    <XMarkIcon
+                                        className="h-6 w-6"
+                                        aria-hidden="true"
+                                    />
+                                </button>
                             </div>
-                            {/* qty - 1 */}
-                            <div className="col-span-6 sm:col-span-1">
-                                <label
-                                    htmlFor="qty"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
+                            {/* content */}
+                            <Card className="col-span-9 mt-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8 bg-indigo-50">
+                                <section
+                                    className={`${
+                                        fields.length === 1
+                                            ? "col-span-8"
+                                            : "col-span-7"
+                                    } grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-6`}
                                 >
-                                    {t("label.qty")}
-                                </label>
-                                <input
-                                    {...register(`order_desc.${index}.qty`, {
-                                        valueAsNumber: true,
-                                        min: 0,
-                                    })}
-                                    id="qty"
-                                    min={0}
-                                    type="number"
-                                    step="1"
-                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                    onChange={(e) => {
-                                        setValue(
-                                            `order_desc.${index}.qty`,
-                                            Number(e.target.value)
-                                        );
-                                        return calSNettoGst(index);
-                                    }}
-                                />
-                            </div>
-                            {/* unit - 2 */}
-                            <div className="col-span-6 sm:col-span-2">
-                                <label
-                                    htmlFor="unit"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                >
-                                    {t("label.unit")}
-                                </label>
-                                <input
-                                    {...register(`order_desc.${index}.unit`)}
-                                    id="unit"
-                                    type="text"
-                                    list="unit_name"
-                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                />
-                                {unitsList}
-                            </div>
-                            {/* taxable - 1 */}
-                            <div className="col-span-6 sm:col-span-1">
-                                <label
-                                    htmlFor="taxable"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                >
-                                    {t("label.taxable")}
-                                </label>
-                                <input
-                                    {...register(`order_desc.${index}.taxable`)}
-                                    id="taxable"
-                                    type="checkbox"
-                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6 pl-2"
-                                    onChange={(e) => {
-                                        setValue(
-                                            `order_desc.${index}.taxable`,
-                                            Boolean(e.target.checked)
-                                        );
-                                        return calSNettoGst(index);
-                                    }}
-                                />
-                            </div>
-                            {/* gst - 2 */}
-                            <div className="col-span-6 sm:col-span-2">
-                                <label
-                                    htmlFor="unit"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                >
-                                    {t("label.gst")}
-                                </label>
-                                <input
-                                    {...register(`order_desc.${index}.gst`)}
-                                    id="gst"
-                                    type="number"
-                                    step="0.01"
-                                    min={0}
-                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                />
-                            </div>
+                                    {/* title - 6*/}
+                                    <div className="col-span-8">
+                                        <label
+                                            htmlFor="title"
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
+                                            {t("label.service")}
+                                        </label>
+                                        <input
+                                            {...register(
+                                                `order_desc.${index}.title`
+                                            )}
+                                            id="title"
+                                            type="text"
+                                            list="service_title"
+                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                        />
+                                        {serviceTitleList}
+                                    </div>
+                                    {/* qty - 1 */}
+                                    <div className="col-span-6 sm:col-span-1">
+                                        <label
+                                            htmlFor="qty"
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
+                                            {t("label.qty")}
+                                        </label>
+                                        <input
+                                            {...register(
+                                                `order_desc.${index}.qty`,
+                                                {
+                                                    valueAsNumber: true,
+                                                    min: 0,
+                                                }
+                                            )}
+                                            id="qty"
+                                            min={0}
+                                            type="number"
+                                            step="1"
+                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                            onChange={(e) => {
+                                                setValue(
+                                                    `order_desc.${index}.qty`,
+                                                    Number(e.target.value)
+                                                );
+                                                calSNettoGst(index);
+                                                //return Number(e.target.value);
+                                            }}
+                                        />
+                                    </div>
+                                    {/* unit - 2 */}
+                                    <div className="col-span-6 sm:col-span-2">
+                                        <label
+                                            htmlFor="unit"
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
+                                            {t("label.unit")}
+                                        </label>
+                                        <input
+                                            {...register(
+                                                `order_desc.${index}.unit`
+                                            )}
+                                            id="unit"
+                                            type="text"
+                                            list="unit_name"
+                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                        />
+                                        {unitsList}
+                                    </div>
+                                    {/* taxable - 1 */}
+                                    <div className="col-span-6 sm:col-span-1">
+                                        <label
+                                            htmlFor="taxable"
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
+                                            {t("label.taxable")}
+                                        </label>
+                                        <input
+                                            {...register(
+                                                `order_desc.${index}.taxable`
+                                            )}
+                                            id="taxable"
+                                            type="checkbox"
+                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6 pl-2"
+                                            onChange={(e) => {
+                                                setValue(
+                                                    `order_desc.${index}.taxable`,
+                                                    e.target.checked
+                                                );
+                                                calSNettoGst(index);
+                                                console.log(
+                                                    "-> taxable type: ",
+                                                    typeof e.target.checked
+                                                );
+                                                console.log(
+                                                    "-> value: ",
+                                                    e.target.value
+                                                );
+                                            }}
+                                        />
+                                    </div>
+                                    {/* gst - 2 */}
+                                    <div className="col-span-6 sm:col-span-2">
+                                        <label
+                                            htmlFor="unit"
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
+                                            {t("label.gst")}
+                                        </label>
+                                        <input
+                                            {...register(
+                                                `order_desc.${index}.gst`
+                                            )}
+                                            id="gst"
+                                            type="number"
+                                            step="0.01"
+                                            min={0}
+                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                        />
+                                    </div>
 
-                            {/* unit price - 2 */}
-                            <div className="col-span-6 sm:col-span-3">
-                                <label
-                                    htmlFor="unit_price"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                >
-                                    {t("label.uPrice")}
-                                </label>
-                                <input
-                                    {...register(
-                                        `order_desc.${index}.unit_price`,
-                                        {
-                                            valueAsNumber: true,
-                                            min: 0,
-                                        }
-                                    )}
-                                    id="unit_price"
-                                    type="number"
-                                    step="0.01"
-                                    min={0}
-                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                    onChange={(e) => {
-                                        setValue(
-                                            `order_desc.${index}.unit_price`,
-                                            Number(e.target.value)
-                                        );
-                                        return calSNettoGst(index);
-                                    }}
-                                />
-                            </div>
-                            {/* netto - 2 */}
-                            <div className="col-span-6 sm:col-span-3">
-                                <label
-                                    htmlFor="netto"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                >
-                                    {t("label.netto")}
-                                </label>
-                                <input
-                                    {...register(`order_desc.${index}.netto`, {
-                                        valueAsNumber: true,
-                                    })}
-                                    id="netto"
-                                    type="number"
-                                    step="0.01"
-                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                />
-                            </div>
+                                    {/* unit price - 2 */}
+                                    <div className="col-span-6 sm:col-span-3">
+                                        <label
+                                            htmlFor="unit_price"
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
+                                            {t("label.uPrice")}
+                                        </label>
+                                        <input
+                                            {...register(
+                                                `order_desc.${index}.unit_price`,
+                                                {
+                                                    valueAsNumber: true,
+                                                    min: 0,
+                                                }
+                                            )}
+                                            id="unit_price"
+                                            type="number"
+                                            step="0.01"
+                                            min={0}
+                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                            onChange={(e) => {
+                                                setValue(
+                                                    `order_desc.${index}.unit_price`,
+                                                    Number(e.target.value)
+                                                );
+                                                return calSNettoGst(index);
+                                            }}
+                                        />
+                                    </div>
+                                    {/* netto - 2 */}
+                                    <div className="col-span-6 sm:col-span-3">
+                                        <label
+                                            htmlFor="netto"
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
+                                            {t("label.netto")}
+                                        </label>
+                                        <input
+                                            {...register(
+                                                `order_desc.${index}.netto`,
+                                                {
+                                                    valueAsNumber: true,
+                                                }
+                                            )}
+                                            id="netto"
+                                            type="number"
+                                            step="0.01"
+                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                        />
+                                    </div>
 
-                            {/* desc - 6 */}
-                            <div className="col-span-6 sm:col-span-7">
-                                <label
-                                    htmlFor="description"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                >
-                                    {t("label.desc")}
-                                </label>
-                                <textarea
-                                    {...register(
-                                        `order_desc.${index}.description`
-                                    )}
-                                    id="description"
-                                    name="description"
-                                    rows={4}
-                                    //type="textarea"
-                                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                />
-                            </div>
+                                    {/* desc - 6 */}
+                                    <div className="col-span-6 sm:col-span-7">
+                                        <label
+                                            htmlFor="description"
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
+                                            {t("label.desc")}
+                                        </label>
+                                        <textarea
+                                            {...register(
+                                                `order_desc.${index}.description`
+                                            )}
+                                            id="description"
+                                            name="description"
+                                            rows={4}
+                                            //type="textarea"
+                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                        />
+                                    </div>
+                                </section>
+                                {/* adjust arrows btns */}
+                                {fields.length > 1 && (
+                                    <section className="col-span-1 flex flex-col justify-around">
+                                        {index != 0 && (
+                                            <button
+                                                type="button"
+                                                className="h-10 rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50"
+                                                onClick={() => {
+                                                    swap(index, index - 1);
+                                                }}
+                                            >
+                                                <ChevronDoubleUpIcon
+                                                    className="h-6 w-6 m-auto"
+                                                    aria-hidden="true"
+                                                />
+                                            </button>
+                                        )}
+                                        {index + 1 !== fields.length && (
+                                            <button
+                                                type="button"
+                                                className="h-10 rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50"
+                                                onClick={() => {
+                                                    swap(index, index + 1);
+                                                }}
+                                            >
+                                                <ChevronDoubleDownIcon
+                                                    className="h-6 w-6 m-auto"
+                                                    aria-hidden="true"
+                                                />
+                                            </button>
+                                        )}
+                                    </section>
+                                )}
+                            </Card>
                         </section>
-                        {/* adjust arrows btns */}
-                        {fields.length > 1 && (
-                            <section className="col-span-1 flex flex-col justify-around">
-                                {index != 0 && (
-                                    <button
-                                        type="button"
-                                        className="h-10 rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50"
-                                        onClick={() => {
-                                            swap(index, index - 1);
-                                        }}
-                                    >
-                                        <ChevronDoubleUpIcon
-                                            className="h-6 w-6 m-auto"
-                                            aria-hidden="true"
-                                        />
-                                    </button>
-                                )}
-                                {index + 1 !== fields.length && (
-                                    <button
-                                        type="button"
-                                        className="h-10 rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50"
-                                        onClick={() => {
-                                            swap(index, index + 1);
-                                        }}
-                                    >
-                                        <ChevronDoubleDownIcon
-                                            className="h-6 w-6 m-auto"
-                                            aria-hidden="true"
-                                        />
-                                    </button>
-                                )}
-                            </section>
-                        )}
-                    </Card>
-                </section>
-            );
-        });
+                    );
+                })
+            ) : (
+                <span className="text-bold text-indigo-300">
+                    {t("tips.noServices")}
+                </span>
+            )}
+        </Card>
+    );
+
+    const appendNewService = (
+        <section className="col-span-full grid grid-cols-6 mt-4 pt-2 gap-x-3 border-t-2 border-indigo-300 border-dashed">
+            <div className="col-span-4 ">
+                <label htmlFor="sTitle" className="text-indigo-500 text-bold">
+                    {t("modal.tips.pickService")}:
+                </label>
+                <input
+                    id="sTitle"
+                    type="text"
+                    list="service_title"
+                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                    onChange={(e) => {
+                        setDefaultService(e.target.value);
+                    }}
+                />
+                {serviceTitleList}
+            </div>
+            <div className="col-span-2 mt-6">
+                <button
+                    type="button"
+                    className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+                    onClick={() => append(desc)}
+                >
+                    {t("btn.append")}
+                </button>
+            </div>
+        </section>
+    );
 
     const mainContent = (
         <Form onSubmit={onSubmit} className="grid grid-cols-1  gap-y-3 gap-x-4">
@@ -679,44 +753,11 @@ const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
                 {/* order services list */}
                 <fieldset className="col-span-full lg:col-span-5">
                     <legend className="text-indigo-500 text-bold">
-                        {t("label.orderDesc")}:
+                        {t("label.serviceList")}:
                     </legend>
-                    <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[65vh] overflow-y-auto">
-                        <section className="col-span-full">
-                            {descContent}
-                        </section>
-                        {/*  */}
-                    </Card>
+                    {descContent}
                     {/* append btn - adding a new service */}
-                    <section className="col-span-full grid grid-cols-6 mt-4 pt-2 gap-x-3 border-t-2 border-indigo-300 border-dashed">
-                        <div className="col-span-4 ">
-                            <label
-                                htmlFor="sTitle"
-                                className="text-indigo-500 text-bold"
-                            >
-                                {t("modal.tips.pickService")}:
-                            </label>
-                            <input
-                                id="sTitle"
-                                type="text"
-                                list="service_title"
-                                className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                onChange={(e) => {
-                                    setDefaultService(e.target.value);
-                                }}
-                            />
-                            {serviceTitleList}
-                        </div>
-                        <div className="col-span-2 mt-6">
-                            <button
-                                type="button"
-                                className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-                                onClick={() => append(desc)}
-                            >
-                                {t("btn.append")}
-                            </button>
-                        </div>
-                    </section>
+                    {appendNewService}
                 </fieldset>
             </div>
             <section className="col-span-full row-span-2">

@@ -5,7 +5,7 @@ import {
     LoaderFunctionArgs,
 } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
-import type { Tclient } from "@/utils/schema/clientSchema";
+import type { Tclient } from "@/configs/schema/clientSchema";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     const clients = API_CLIENT.clientAll();

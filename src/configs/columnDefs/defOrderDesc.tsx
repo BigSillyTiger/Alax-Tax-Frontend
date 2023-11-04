@@ -1,6 +1,6 @@
 import { Cell, ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/utils/i18n";
-import { TorderDesc } from "@/utils/schema/orderSchema";
+import { TorderDesc } from "@/configs/schema/orderSchema";
 
 const orderDescColumns: ColumnDef<TorderDesc>[] = [
     {

@@ -1,4 +1,4 @@
-import { Tservice, Tunit } from "./schema/manageSchema";
+import { Tservice, Tunit } from "../configs/schema/manageSchema";
 
 export type Tresponse = {
     status: number;
