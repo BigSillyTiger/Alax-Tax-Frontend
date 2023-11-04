@@ -7,20 +7,20 @@ import {
     useActionData,
 } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
-import type { Tclient } from "@/utils/schema/clientSchema";
-import type { TorderWithDetails } from "@/utils/schema/orderSchema";
+import type { Tclient } from "@/configs/schema/clientSchema";
+import type { TorderWithDetails } from "@/configs/schema/orderSchema";
 import { RES_STATUS } from "@/utils/types";
 import type { Tresponse, Tunivers, TclientOrderModal } from "@/utils/types";
 import Card from "@/components/card";
 import MOrderDel from "./modals/mOrderDel";
-import clientOrderColumns from "../../components/table/columnDefs/defClientOrder";
+import clientOrderColumns from "../../configs/columnDefs/defClientOrder";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 import MOrderForm from "./modals/mOrderForm";
-import { ClientInfoCard } from "./components";
+import { ClientInfoCard } from "@/components/customized";
 import { PTable } from "@/components/table";
-import orderDescColumns from "../../components/table/columnDefs/defOrderDesc";
-import orderPaymentsColumns from "@/components/table/columnDefs/defPayments";
+import orderDescColumns from "../../configs/columnDefs/defOrderDesc";
+import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
 import MOrderPay from "./modals/mOrderPay";
 
 const Client = () => {
@@ -36,6 +36,18 @@ const Client = () => {
         clientOrders: TorderWithDetails[];
         uniData: Tunivers | null;
     };
+    const newClientOrders = clientOrders.map((item) => {
+        return {
+            ...item,
+            order_desc: item.order_desc.map((desc) => {
+                return {
+                    ...desc,
+                    taxable: Boolean(desc.taxable),
+                };
+            }),
+        };
+    });
+
     const client = clientInfo.data[0] as Tclient;
 
     const initOrder: TorderWithDetails = {
@@ -143,10 +155,10 @@ const Client = () => {
                 </div>
                 <Card className="col-span-6">
                     {/* order table */}
-                    {clientOrders.length > 0 ? (
+                    {newClientOrders.length > 0 ? (
                         <PTable
                             search={true}
-                            data={clientOrders}
+                            data={newClientOrders}
                             columns={clientOrderColumns}
                             setModalOpen={setModalOpen}
                             setData={setOrder}
