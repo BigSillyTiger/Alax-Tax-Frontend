@@ -39,7 +39,6 @@ type Tpayment = {
 };
 
 const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
-    console.log("-> received order: ", order);
     const navigation = useNavigation();
     const [payment, setPayment] = useState<TorderPayment>({
         fk_order_id: order.order_id,
@@ -69,7 +68,20 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
         name: "payments",
         control,
     });
-    console.log("-> test fields: ", fields);
+
+    /**
+     * this is essential for reseting data while opening the modal
+     * if this operation is missing, the data that useForm read will
+     * always be the initial one, which is empty
+     */
+    useEffect(() => {
+        if (order) {
+            reset({
+                // this is the essential part of reading data from payments fields
+                payments: order.payments ?? [],
+            });
+        }
+    }, [order, reset]);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();

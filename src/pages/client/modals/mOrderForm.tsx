@@ -117,9 +117,11 @@ const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
                 order_state: order.order_state ?? undefined,
                 order_country: order.order_country ?? undefined,
                 order_pc: order.order_pc ?? undefined,
-                order_desc: order.order_desc ?? undefined,
                 order_status: order.order_status ?? t("label.pending"),
                 order_deposit: order.order_deposit ?? 0,
+                // notice this is the major operation for fields to read data
+                // from the order_desc field
+                order_desc: order.order_desc ?? undefined,
             });
         }
     }, [order, reset]);

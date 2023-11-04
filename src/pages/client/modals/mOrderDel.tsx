@@ -7,21 +7,25 @@ import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
 import { TorderWithDetails } from "@/configs/schema/orderSchema";
 import { TclientOrderModal } from "@/utils/types";
+import { Tclient } from "@/configs/schema/clientSchema";
 
 type Tprops = {
-    cid: number;
+    client: Tclient;
     order: TorderWithDetails;
     open: TclientOrderModal;
     setOpen: (value: TclientOrderModal) => void;
 };
 
 // this component is about building a modal with transition to delete a client
-const MOrderDel: FC<Tprops> = ({ cid, order, open, setOpen }) => {
+const MOrderDel: FC<Tprops> = ({ client, order, open, setOpen }) => {
     const submit = useSubmit();
     const { t } = useTranslation();
 
     const handleDeleteClient = async (order_id: number) => {
-        submit({ order_id }, { method: "DELETE", action: `/clients/${cid}` });
+        submit(
+            { order_id },
+            { method: "DELETE", action: `/clients/${client.client_id}` }
+        );
     };
 
     const clientDisplay = (

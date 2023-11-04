@@ -40,17 +40,19 @@ const Client = () => {
      * the boolean in mysql is stored as 1 and 0
      * when working with values like these, need to convert them to boolean
      */
-    const newClientOrders = clientOrders.map((item) => {
-        return {
-            ...item,
-            order_desc: item.order_desc.map((desc) => {
-                return {
-                    ...desc,
-                    taxable: Boolean(desc.taxable),
-                };
-            }),
-        };
-    });
+    const newClientOrders =
+        clientOrders &&
+        clientOrders.map((item) => {
+            return {
+                ...item,
+                order_desc: item.order_desc.map((desc) => {
+                    return {
+                        ...desc,
+                        taxable: Boolean(desc.taxable),
+                    };
+                }),
+            };
+        });
 
     const client = clientInfo.data[0] as Tclient;
 
@@ -123,7 +125,11 @@ const Client = () => {
         items.push({
             title: t("label.payments"),
             content: data?.payments?.length ? (
-                <PTable data={data.payments} columns={orderPaymentsColumns} />
+                <PTable
+                    data={data.payments}
+                    columns={orderPaymentsColumns}
+                    cnHead="bg-indigo-50"
+                />
             ) : (
                 <div className="my-2 px-1">{t("tips.noPayments")}</div>
             ),
@@ -204,7 +210,7 @@ const Client = () => {
             </div>
 
             <MOrderDel
-                cid={Number(cid)}
+                client={client}
                 order={order}
                 open={modalOpen}
                 setOpen={setModalOpen}
