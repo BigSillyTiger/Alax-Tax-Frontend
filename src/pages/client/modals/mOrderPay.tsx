@@ -20,10 +20,8 @@ import { SubmitBtn } from "@/components/form";
 import { calGst, plusAB, calNetto } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
 import { TclientOrderModal, Tunivers } from "@/utils/types";
-import DataList from "@/components/dataList";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { ClientInfoCard, OrderInfoCard } from "@/components/customized";
-import StatesOptions from "@/components/stateOptions";
 import MQuit from "./mQuit";
 import OrderDescCard from "@/components/customized/OrderDescCard";
 
@@ -42,9 +40,8 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
     const navigation = useNavigation();
     const [payment, setPayment] = useState<TorderPayment>({
         fk_order_id: order.order_id,
-        pay_id: 0,
         paid: 0,
-        paid_date: "",
+        paid_date: new Date().toISOString().split("T")[0],
     });
     const { t } = useTranslation();
     const submit = useSubmit();
@@ -78,7 +75,16 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
         if (order) {
             reset({
                 // this is the essential part of reading data from payments fields
-                payments: order.payments ?? [],
+                payments: order.payments
+                    ? order.payments.map((item) => {
+                          return {
+                              ...item,
+                              paid_date: new Date(item.paid_date)
+                                  .toISOString()
+                                  .split("T")[0],
+                          };
+                      })
+                    : [],
             });
         }
     }, [order, reset]);
@@ -212,6 +218,7 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                         required
                         min={0}
                         step="0.01"
+                        defaultValue={0}
                         onChange={(e) => {
                             setPayment({
                                 ...payment,
@@ -233,6 +240,7 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                         name="payDate"
                         type="date"
                         required
+                        defaultValue={new Date().toISOString().split("T")[0]}
                         onChange={(e) => {
                             setPayment({
                                 ...payment,
@@ -247,7 +255,7 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                         type="button"
                         className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
                         onClick={() => {
-                            console.log("-> new payment: ", payment);
+                            //console.log("-> new payment: ", payment);
                             prepend(payment);
                         }}
                     >

@@ -40,19 +40,23 @@ const Client = () => {
      * the boolean in mysql is stored as 1 and 0
      * when working with values like these, need to convert them to boolean
      */
+    console.log("-> clientOrders: ", clientOrders);
     const newClientOrders =
         clientOrders &&
         clientOrders.map((item) => {
             return {
                 ...item,
-                order_desc: item.order_desc.map((desc) => {
-                    return {
-                        ...desc,
-                        taxable: Boolean(desc.taxable),
-                    };
-                }),
+                order_desc: item.order_desc
+                    .sort((a, b) => a.ranking - b.ranking)
+                    .map((desc) => {
+                        return {
+                            ...desc,
+                            taxable: Boolean(desc.taxable),
+                        };
+                    }),
             };
         });
+    console.log("-> newClientOrders: ", newClientOrders);
 
     const client = clientInfo.data[0] as Tclient;
 

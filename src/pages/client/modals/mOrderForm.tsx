@@ -39,8 +39,8 @@ const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
     const { t } = useTranslation();
     const [openQuit, setOpenQuit] = useState(false);
     const [desc, setDesc] = useState({
-        des_id: 0,
         fk_order_id: order.order_id,
+        ranking: 0,
         title: uniData?.services[0].service as string,
         taxable: true,
         description: "",
@@ -185,7 +185,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
         );
         if (service) {
             setDesc({
-                des_id: 0,
+                ranking: 0,
                 fk_order_id: order.order_id,
                 title: service.service as string,
                 taxable: true,

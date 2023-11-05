@@ -16,7 +16,7 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
             return (
                 // total col: 6
                 <section
-                    key={item.des_id}
+                    key={index}
                     className="col-span-full grid grid-cols-12"
                 >
                     <p className="m-auto text-bold text-indigo-400">

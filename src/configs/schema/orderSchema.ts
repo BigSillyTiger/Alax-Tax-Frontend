@@ -27,8 +27,8 @@ export const orderSchema = z.object({
 });
 
 export const oderDescSchema = z.object({
-    des_id: z.number(),
     fk_order_id: z.number(),
+    ranking: z.number(),
     title: z.string().trim(),
     taxable: z.boolean(),
     description: z.string().trim(),
@@ -44,7 +44,6 @@ export const orderWithDescSchema = orderSchema.extend({
 });
 
 export const newOrderDescSchema = oderDescSchema.omit({
-    des_id: true,
     fk_order_id: true,
 });
 
@@ -65,7 +64,6 @@ export const orderFormSchema = orderSchema
 
 export const orderPaymentSchema = z.object({
     fk_order_id: z.number(),
-    pay_id: z.number(),
     paid: z.number(),
     paid_date: z.string().datetime(),
 });

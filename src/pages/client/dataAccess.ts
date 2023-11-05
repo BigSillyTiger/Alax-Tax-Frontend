@@ -3,15 +3,18 @@ import { API_CLIENT, API_MANAGE, API_ORDER } from "@/apis";
 import { defer } from "react-router-dom";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
+import { TorderDesc, TorderWithDetails } from "@/configs/schema/orderSchema";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
     const cid = Number(params.cid);
     const clientInfo = await API_CLIENT.clientInfo(cid);
     const clientOrders = await API_ORDER.orderWClient(cid);
     const uniData = await API_MANAGE.uniAll();
+    console.log("-> client order: ", clientOrders.data);
+
     return defer({
         clientInfo,
-        clientOrders: clientOrders.data,
+        clientOrders: clientOrders.data as TorderWithDetails[],
         uniData: uniData.data,
     });
 };
@@ -65,7 +68,14 @@ export const action = async ({
                 order_paid: orData.order_paid,
                 order_total: orData.order_total,
             },
-            order_desc: orData.order_desc,
+            order_desc: orData.order_desc.map(
+                (item: TorderDesc, index: number) => {
+                    return {
+                        ...item,
+                        ranking: index + 1,
+                    };
+                }
+            ),
         };
         const result = await API_ORDER.orderUpdate(order);
         console.log("-> fe receive add order result: ", result);
