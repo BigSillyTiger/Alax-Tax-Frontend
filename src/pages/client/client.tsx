@@ -40,7 +40,6 @@ const Client = () => {
      * the boolean in mysql is stored as 1 and 0
      * when working with values like these, need to convert them to boolean
      */
-    console.log("-> clientOrders: ", clientOrders);
     const newClientOrders =
         clientOrders &&
         clientOrders.map((item) => {
@@ -56,7 +55,6 @@ const Client = () => {
                     }),
             };
         });
-    console.log("-> newClientOrders: ", newClientOrders);
 
     const client = clientInfo.data[0] as Tclient;
 
@@ -100,6 +98,9 @@ const Client = () => {
         } else if (actionData?.status === RES_STATUS.SUC_UPDATE) {
             setModalOpen("");
             toastSuccess(t("toastS.updateOrder"));
+        } else if (actionData?.status === RES_STATUS.SUC_UPDATE_PAYMENTS) {
+            setModalOpen("");
+            toastSuccess(t("toastS.updatePayment"));
         } else if (actionData?.status === RES_STATUS.FAILED) {
             if (modalOpen === "Add") {
                 toastError(t("toastF.addOrder"));

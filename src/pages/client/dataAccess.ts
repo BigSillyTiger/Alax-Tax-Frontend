@@ -10,7 +10,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     const clientInfo = await API_CLIENT.clientInfo(cid);
     const clientOrders = await API_ORDER.orderWClient(cid);
     const uniData = await API_MANAGE.uniAll();
-    console.log("-> client order: ", clientOrders.data);
 
     return defer({
         clientInfo,
@@ -87,6 +86,14 @@ export const action = async ({
             order_id: data.get("order_id"),
             status: data.get("status"),
         });
+        return result;
+    } else if (
+        "PUT" === request.method &&
+        data.get("req") === "paymentUpdate"
+    ) {
+        const payData = JSON.parse(data.get("values") as string);
+        //console.log("-> action payment update: ", payData);
+        const result = await API_ORDER.paymentUpdate(payData);
         return result;
     }
     // delete an order

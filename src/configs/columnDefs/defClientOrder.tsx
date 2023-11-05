@@ -1,8 +1,9 @@
-import { ColumnDef, CellContext } from "@tanstack/react-table";
+import { ColumnDef, CellContext, Row } from "@tanstack/react-table";
 import i18n from "@/utils/i18n";
 import { TorderWithDesc } from "@/configs/schema/orderSchema";
 import { dateFormat } from "@/utils/utils";
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
+import { minusAB } from "@/utils/calculations";
 
 const setColor = (value: string) => {
     switch (value) {
@@ -95,7 +96,12 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
                 header: i18n.t("label.balance"),
                 accessorKey: "balance",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
-                    <span>{info.getValue()}</span>
+                    <span>
+                        {minusAB(
+                            info.row.original.order_total,
+                            info.row.original.order_paid
+                        )}
+                    </span>
                 ),
             },
         ],

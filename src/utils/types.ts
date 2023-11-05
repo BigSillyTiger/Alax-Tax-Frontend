@@ -11,6 +11,7 @@ export enum RES_STATUS {
     SUC_DEL = 201,
     SUC_UPDATE = 202,
     SUC_UPDATE_STATUS = 203,
+    SUC_UPDATE_PAYMENTS = 204,
     //
     FAILED = 400,
     FAILED_DUP = 401,

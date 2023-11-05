@@ -1,4 +1,5 @@
 import { z } from "zod";
+import orderPaymentsColumns from "../columnDefs/defPayments";
 
 export const orderSchema = z.object({
     order_id: z.number(),
@@ -66,6 +67,10 @@ export const orderPaymentSchema = z.object({
     fk_order_id: z.number(),
     paid: z.number(),
     paid_date: z.string().datetime(),
+});
+
+export const paymentFormSchema = orderPaymentSchema.omit({
+    fk_order_id: true,
 });
 
 export const orderWithDetailsSchema = orderWithDescSchema.extend({

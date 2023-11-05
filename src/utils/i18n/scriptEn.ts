@@ -139,12 +139,15 @@ const en = {
             delOrder: "Deleted An Order",
             updateOrder: "Updated Order Details",
             updateOrderStatus: "Updated Order Status",
+            updatePayment: "Updated Payment Details",
         },
         toastF: {
             addOrder: "Error: Adding New Order Failed",
             delOrder: "Error: Deleting Order Failed",
             updateOrder: "Error: Updating Order Failed",
             updateOrderStatus: "Error: Updated Order Status Failed",
+            invalidPayment: "Error: Invalid Payment Amount or Paid Date",
+            overPaid: "Error: Over Paid Amount",
         },
     },
 };

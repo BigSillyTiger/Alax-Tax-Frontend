@@ -7,10 +7,11 @@ import { minusAB } from "@/utils/calculations";
 
 type TorderInfo = {
     order: Torder;
+    paid: number;
     className: string;
 };
 
-const OrderInfoCard: FC<TorderInfo> = ({ order, className }) => {
+const OrderInfoCard: FC<TorderInfo> = ({ order, paid, className }) => {
     const { t } = useTranslation();
     return (
         <Card
@@ -39,13 +40,14 @@ const OrderInfoCard: FC<TorderInfo> = ({ order, className }) => {
             <div className="col-span-3">
                 <p>
                     <b className="text-indigo-600">{t("label.paid")}: </b>
-                    {order?.order_paid}
+                    {paid}
                 </p>
             </div>
             <div className="col-span-3">
                 <p>
                     <b className="text-indigo-600">{t("label.balance")}: </b>{" "}
-                    {minusAB(order?.order_total, order?.order_paid)}
+                    {minusAB(order?.order_total, paid)}
+                    {}
                 </p>
             </div>
         </Card>

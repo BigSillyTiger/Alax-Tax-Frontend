@@ -28,6 +28,8 @@ export const REQ_ORDER_DEL = "/order/del";
 export const REQ_ORDER_W_CLIENT = "/order/withClientID";
 export const REQ_ORDER_STATUS = "/order/status";
 
+export const REQ_PAYMENT_UPDATE = "/order/updatePayments";
+
 // Assist
 export const REQ_MANAGE_UNI_ALL = "/manage/uni_all";
 export const REQ_MANAGE_UNI_ADD = "/manage/uni_add";

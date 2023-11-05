@@ -2,28 +2,25 @@ import React, { useEffect, useState } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
-import { useForm, useFieldArray, useWatch } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    XMarkIcon,
-    ChevronDoubleDownIcon,
-    ChevronDoubleUpIcon,
-} from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
     TorderPayment,
     TorderWithDetails,
-    orderPaymentSchema,
+    paymentFormSchema,
 } from "@/configs/schema/orderSchema";
 import Card from "@/components/card";
 import ModalFrame from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { calGst, plusAB, calNetto } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
-import { TclientOrderModal, Tunivers } from "@/utils/types";
+import { TclientOrderModal } from "@/utils/types";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { ClientInfoCard, OrderInfoCard } from "@/components/customized";
 import MQuit from "./mQuit";
 import OrderDescCard from "@/components/customized/OrderDescCard";
+import { set } from "date-fns";
 
 type Tprops = {
     client: Tclient;
@@ -39,10 +36,11 @@ type Tpayment = {
 const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
     const navigation = useNavigation();
     const [payment, setPayment] = useState<TorderPayment>({
-        fk_order_id: order.order_id,
+        fk_order_id: 0,
         paid: 0,
         paid_date: new Date().toISOString().split("T")[0],
     });
+    const [totalPaid, setTotalPaid] = useState(0);
     const { t } = useTranslation();
     const submit = useSubmit();
     const [openQuit, setOpenQuit] = useState(false);
@@ -57,7 +55,7 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
         trigger,
         watch,
     } = useForm<Tpayment>({
-        resolver: zodResolver(orderPaymentSchema),
+        resolver: zodResolver(paymentFormSchema),
         defaultValues: { payments: order.payments },
     });
 
@@ -89,30 +87,34 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
         }
     }, [order, reset]);
 
+    useEffect(() => {
+        setTotalPaid(
+            fields.reduce(
+                (accumulator, item) => plusAB(accumulator, item.paid),
+                0
+            )
+        );
+    }, [fields]);
+
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        if (fields.length) {
+        if (!fields.length) {
             toastError("Please add one payment at least.");
             return;
         }
         //console.log("-> click submit err: ", errors);
-        const isValid = await trigger();
+        const isValid = await trigger("payments");
         if (isValid) {
-            const req = order.order_id === 0 ? "orderCreate" : "orderUpdate";
+            const req = "paymentUpdate";
             const values = JSON.stringify({
                 ...getValues(),
-                client_id: client.client_id,
-                // the value has be manually calculated or registered
-                // therefore, they are not in the form
-                // we need to manually add them to the values
-                order_id: order.order_id,
+                fk_order_id: order.order_id,
+                paid: totalPaid,
             });
-            const method = order.order_id === 0 ? "POST" : "PUT";
             submit(
                 { values, req },
                 {
-                    // this action need to be modified
-                    method,
+                    method: "PUT",
                     action: `/clients/${order.fk_client_id}`,
                 }
             );
@@ -126,6 +128,15 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
     const onClose = () => {
         setOpen("");
         reset();
+    };
+
+    const handlePayment = () => {
+        const inputCheck = payment.paid > 0 && payment.paid_date.length > 0;
+        !inputCheck && toastError(t("toastF.invalidPayment"));
+        const overPaidCheck =
+            plusAB(totalPaid, payment.paid) <= order.order_total;
+        !overPaidCheck && toastError(t("toastF.overPaid"));
+        inputCheck && overPaidCheck && prepend(payment);
     };
 
     const paymentsContent = fields.length ? (
@@ -215,7 +226,6 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                         id="payAmount"
                         name="payAmount"
                         type="number"
-                        required
                         min={0}
                         step="0.01"
                         defaultValue={0}
@@ -239,7 +249,6 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                         id="payDate"
                         name="payDate"
                         type="date"
-                        required
                         defaultValue={new Date().toISOString().split("T")[0]}
                         onChange={(e) => {
                             setPayment({
@@ -254,10 +263,7 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                     <button
                         type="button"
                         className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-                        onClick={() => {
-                            //console.log("-> new payment: ", payment);
-                            prepend(payment);
-                        }}
+                        onClick={handlePayment}
                     >
                         {t("btn.pay")}
                     </button>
@@ -287,6 +293,7 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                         </legend>
                         <OrderInfoCard
                             order={order}
+                            paid={totalPaid}
                             className="my-2 mx-1 text-sm"
                         />
                     </fieldset>
