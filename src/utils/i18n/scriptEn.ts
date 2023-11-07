@@ -85,6 +85,7 @@ const en = {
             deposit: "Deposit",
             desc: "Description",
             details: "Details",
+            due: "Due",
             email1: "Email",
             email2: "Email Address",
             feeStatus: "Fee Status",

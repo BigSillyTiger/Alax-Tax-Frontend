@@ -27,7 +27,7 @@ const OrderInfoCard: FC<TorderInfo> = ({ order, paid, className }) => {
             </div>
             <div className="col-span-3">
                 <p>
-                    <b className="text-indigo-600">{t("label.total")}: </b>{" "}
+                    <b className="text-indigo-600">{t("label.due")}: </b>{" "}
                     {order?.order_total}
                 </p>
             </div>
