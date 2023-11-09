@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { Await, useLoaderData } from "react-router-dom";
 import SpinningEle from "@/components/loadingEle/SpinningEle";
-import TestPdf from "./TestPdf";
+import PDFTemplate from "@/PDF/template1";
 
 const T1 = memo(
     ({
@@ -24,7 +24,7 @@ const T1 = memo(
         const [values, setValues] = useState(init);
         return (
             <section>
-                <div className="col-span-2">
+                <div className="col-span-2 h-20">
                     <label htmlFor="dataInput">Input data:</label>
                     <input
                         id="dataInput"
@@ -58,16 +58,20 @@ const Dashboard: FC = () => {
 
     const DashboardContent = () => {
         return (
-            <div className="grid grid-cols-2 gap-x-2">
-                <T1 data={data} setData={memoizedSetData} />
-                <TestPdf data={data} />
+            <div className="grid grid-cols-8 gap-x-2">
+                <section className="col-span-3">
+                    <T1 data={data} setData={memoizedSetData} />
+                </section>
+                <section className="col-span-5">
+                    <PDFTemplate />
+                </section>
             </div>
         );
     };
 
     return (
         <div className="mx-2 px-0 border-2 border-dashed border-blue-600">
-            <div>Dashboard</div>
+            <div className="">Dashboard</div>
             <Suspense fallback={<SpinningEle />}>
                 <Await resolve={loaderData.content}>
                     {(loadedContent) => {

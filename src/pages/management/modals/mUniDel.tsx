@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useSubmit } from "react-router-dom";
@@ -106,4 +106,4 @@ const MUniDel: FC<Tprops> = ({ uni, open, setOpen }) => {
     );
 };
 
-export default MUniDel;
+export default memo(MUniDel);

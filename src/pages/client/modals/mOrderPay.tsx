@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
@@ -352,4 +352,4 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
     );
 };
 
-export default MOrderPay;
+export default memo(MOrderPay);

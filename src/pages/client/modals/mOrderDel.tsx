@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import ModalFrame from "@/components/modal";
@@ -96,4 +96,4 @@ const MOrderDel: FC<Tprops> = ({ client, order, open, setOpen }) => {
     );
 };
 
-export default MOrderDel;
+export default memo(MOrderDel);

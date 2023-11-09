@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import type { FC } from "react";
 import ModalFrame from "@/components/modal";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { ConfirmBtn } from "@/components/form";
 
 type Tprops = {
@@ -46,4 +46,4 @@ const MQuit: FC<Tprops> = ({ open, setOpen, closeMainModal }) => {
     );
 };
 
-export default MQuit;
+export default memo(MQuit);
