@@ -5,7 +5,7 @@ import { useSubmit } from "react-router-dom";
 import Card from "@/components/card";
 import { Tservice, Tunit } from "@/configs/schema/manageSchema";
 import { isServiceType } from "@/utils/utils";
-import ModalFrame from "@/components/modal/modalFrame";
+import { ModalFrame } from "@/components/modal";
 import { DelBtn } from "@/components/form";
 import { TclientOrderModal } from "@/utils/types";
 

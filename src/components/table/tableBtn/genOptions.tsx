@@ -2,14 +2,13 @@ import {
     TrashIcon,
     PencilIcon,
     CurrencyDollarIcon,
+    DocumentIcon,
+    ClipboardIcon,
 } from "@heroicons/react/24/outline";
 import i18n from "@/utils/i18n";
-import { TclientOrderModal } from "@/utils/types";
+import { TclientOrderModal, TmenuOptions } from "@/utils/types";
 
-type Tprops<T> = {
-    edit?: boolean;
-    del?: boolean;
-    pay?: boolean;
+type Tprops<T> = TmenuOptions & {
     setModalOpen: (open: TclientOrderModal) => void;
     setData: (data: T) => void;
 };
@@ -23,6 +22,8 @@ const genOptions = <T,>({
     edit = false,
     del = false,
     pay = false,
+    invoice = false,
+    quotation = false,
     setModalOpen,
     setData,
 }: Tprops<T>): Tresult<T>[] => {
@@ -61,6 +62,27 @@ const genOptions = <T,>({
         });
     }
 
+    if (invoice) {
+        result.push({
+            label: i18n.t("btn.invoice"),
+            icon: <DocumentIcon />,
+            clickFn: (v: T) => {
+                setModalOpen("Invoice");
+                setData(v);
+            },
+        });
+    }
+
+    if (quotation) {
+        result.push({
+            label: i18n.t("btn.quotation"),
+            icon: <ClipboardIcon />,
+            clickFn: (v: T) => {
+                setModalOpen("Quotation");
+                setData(v);
+            },
+        });
+    }
     return result;
 };
 

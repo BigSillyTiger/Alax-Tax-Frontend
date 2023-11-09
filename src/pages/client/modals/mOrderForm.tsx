@@ -14,7 +14,7 @@ import {
     orderFormSchema,
 } from "@/configs/schema/orderSchema";
 import Card from "@/components/card";
-import ModalFrame from "@/components/modal";
+import { ModalFrame, MQuit } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { calGst, plusAB, calNetto } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
@@ -23,7 +23,6 @@ import DataList from "@/components/dataList";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { ClientInfoCard } from "@/components/customized";
 import StatesOptions from "@/components/stateOptions";
-import MQuit from "./mQuit";
 
 type Tprops = {
     client: Tclient;

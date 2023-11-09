@@ -1,2 +1,3 @@
 import ModalFrame from "./modalFrame";
-export default ModalFrame;
+import MQuit from "./mQuit";
+export { ModalFrame, MQuit };

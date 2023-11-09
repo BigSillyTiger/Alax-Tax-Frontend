@@ -3,13 +3,10 @@ import type { FC, ReactNode } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import genOptions from "./genOptions";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-import { TclientOrderModal } from "@/utils/types";
+import { TclientOrderModal, TmenuOptions } from "@/utils/types";
 
-type Tprops<T> = {
+type Tprops<T> = TmenuOptions & {
     mItem: T;
-    edit?: boolean;
-    del?: boolean;
-    pay?: boolean;
     setModalOpen: (open: TclientOrderModal) => void;
     setData: (data: T) => void;
 };
@@ -20,10 +17,20 @@ const MenuBtn = <T,>({
     edit = false,
     del = false,
     pay = false,
+    invoice = false,
+    quotation = false,
     setModalOpen,
     setData,
 }: Tprops<T>) => {
-    const mList = genOptions({ edit, del, pay, setModalOpen, setData });
+    const mList = genOptions({
+        edit,
+        del,
+        pay,
+        invoice,
+        quotation,
+        setModalOpen,
+        setData,
+    });
 
     const menuContent = mList.map((item, index) => {
         return (

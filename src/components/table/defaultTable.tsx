@@ -17,18 +17,14 @@ import { MenuBtn, StatusBtn, DetailBtn, ExpandBtn } from "./tableBtn";
 import HeaderFilter from "./headerFilter";
 import { CTable, CTBody, CTHead, CTh } from ".";
 import ContentWithSwitch from "./SwitchWContent";
-import type { TclientOrderModal } from "@/utils/types";
+import type { TclientOrderModal, TmenuOptions } from "@/utils/types";
 
 type Tprops<T> = {
     data: T[];
     columns: any;
     // specific options
     // for menu btn open modal: edit & del & payment
-    menuOptions?: {
-        edit?: boolean;
-        del?: boolean;
-        pay?: boolean;
-    };
+    menuOptions?: TmenuOptions;
     setModalOpen?: (open: TclientOrderModal) => void;
     setData?: (data: T) => void;
     // for search bar
@@ -54,6 +50,8 @@ const PTable = <T,>({
         edit: false,
         del: false,
         pay: false,
+        invoice: false,
+        quotation: false,
     },
     setModalOpen,
     setData,
@@ -156,6 +154,8 @@ const PTable = <T,>({
                                           edit={menuOptions.edit}
                                           del={menuOptions.del}
                                           pay={menuOptions.pay}
+                                          invoice={menuOptions.invoice}
+                                          quotation={menuOptions.quotation}
                                           setModalOpen={setModalOpen}
                                           setData={setData}
                                           mItem={row.original}

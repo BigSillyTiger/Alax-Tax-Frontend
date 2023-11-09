@@ -177,7 +177,13 @@ const Client = () => {
                             columns={clientOrderColumns}
                             setModalOpen={setModalOpen}
                             setData={setOrder}
-                            menuOptions={{ edit: true, del: true, pay: true }}
+                            menuOptions={{
+                                edit: true,
+                                del: true,
+                                pay: true,
+                                invoice: true,
+                                quotation: true,
+                            }}
                             getRowCanExpand={(row) => {
                                 if (row.original.order_desc.length > 0) {
                                     return true;

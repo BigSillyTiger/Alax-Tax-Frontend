@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { Tservice, Tunit } from "@/configs/schema/manageSchema";
 import { newServiceSchema, newUnitSchema } from "@/configs/schema/manageSchema";
 import { isServiceType } from "@/utils/utils";
-import ModalFrame from "@/components/modal";
+import { ModalFrame } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { TclientOrderModal } from "@/utils/types";
 

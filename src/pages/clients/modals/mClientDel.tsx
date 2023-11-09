@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
-import ModalFrame from "@/components/modal";
+import { ModalFrame } from "@/components/modal";
 import { useSubmit } from "react-router-dom";
 import type { Tclient } from "@/configs/schema/clientSchema";
 import Card from "@/components/card";

@@ -11,14 +11,13 @@ import {
     paymentFormSchema,
 } from "@/configs/schema/orderSchema";
 import Card from "@/components/card";
-import ModalFrame from "@/components/modal";
+import { ModalFrame, MQuit } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { calGst, plusAB, calNetto } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
 import { TclientOrderModal } from "@/utils/types";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { ClientInfoCard, OrderInfoCard } from "@/components/customized";
-import MQuit from "./mQuit";
 import OrderDescCard from "@/components/customized/OrderDescCard";
 import { set } from "date-fns";
 

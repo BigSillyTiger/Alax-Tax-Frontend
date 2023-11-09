@@ -26,4 +26,19 @@ export type Tunivers = {
     units: Tunit[];
 };
 
-export type TclientOrderModal = "" | "Del" | "Edit" | "Add" | "Pay";
+export type TclientOrderModal =
+    | ""
+    | "Del"
+    | "Edit"
+    | "Add"
+    | "Pay"
+    | "Invoice"
+    | "Quotation";
+
+export type TmenuOptions = {
+    edit?: boolean;
+    del?: boolean;
+    pay?: boolean;
+    invoice?: boolean;
+    quotation?: boolean;
+};

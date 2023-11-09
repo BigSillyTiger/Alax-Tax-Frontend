@@ -8,7 +8,7 @@ import type { Tclient } from "@/configs/schema/clientSchema";
 import { clientNoIDSchema } from "@/configs/schema/clientSchema";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { RES_STATUS, TclientOrderModal } from "@/utils/types";
-import ModalFrame from "@/components/modal/modalFrame";
+import { ModalFrame } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
 
