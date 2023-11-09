@@ -1,3 +1,2 @@
-import ModalFrame from "./modalFrame";
-import MQuit from "./mQuit";
-export { ModalFrame, MQuit };
+import MTemplate from "./modalTemplate";
+export { MTemplate };

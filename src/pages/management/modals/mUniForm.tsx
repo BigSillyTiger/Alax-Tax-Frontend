@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { Tservice, Tunit } from "@/configs/schema/manageSchema";
 import { newServiceSchema, newUnitSchema } from "@/configs/schema/manageSchema";
 import { isServiceType } from "@/utils/utils";
-import { ModalFrame } from "@/components/modal";
+import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { TclientOrderModal } from "@/utils/types";
 
@@ -213,7 +213,7 @@ const MUniForm: FC<Tprops> = ({
     );
 
     return (
-        <ModalFrame
+        <MTemplate
             open={!!(open === "Add" || open === "Edit")}
             onClose={onClose}
             title={
@@ -225,9 +225,10 @@ const MUniForm: FC<Tprops> = ({
                     ? t("modal.title.addUnit")
                     : t("modal.title.editUnit")
             }
+            mQuit={true}
         >
             {mainContent}
-        </ModalFrame>
+        </MTemplate>
     );
 };
 

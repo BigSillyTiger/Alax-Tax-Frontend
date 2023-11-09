@@ -42,3 +42,5 @@ export type TmenuOptions = {
     invoice?: boolean;
     quotation?: boolean;
 };
+
+export type Tmode = "sm" | "md" | "lg" | "xl" | "full" | "md-full";

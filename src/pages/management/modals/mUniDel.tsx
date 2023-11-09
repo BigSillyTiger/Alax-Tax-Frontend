@@ -5,7 +5,7 @@ import { useSubmit } from "react-router-dom";
 import Card from "@/components/card";
 import { Tservice, Tunit } from "@/configs/schema/manageSchema";
 import { isServiceType } from "@/utils/utils";
-import { ModalFrame } from "@/components/modal";
+import { MTemplate } from "@/components/modal";
 import { DelBtn } from "@/components/form";
 import { TclientOrderModal } from "@/utils/types";
 
@@ -94,15 +94,16 @@ const MUniDel: FC<Tprops> = ({ uni, open, setOpen }) => {
     );
 
     return (
-        <ModalFrame
+        <MTemplate
             open={!!(open === "Del")}
             onClose={onClose}
             title={t("modal.title.delete")}
             isMajor={true}
             mode={"md"}
+            mQuit={false}
         >
             {mainContent}
-        </ModalFrame>
+        </MTemplate>
     );
 };
 

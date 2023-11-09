@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import type { FC } from "react";
-import { ModalFrame } from "@/components/modal";
+import ModalFrame from "./modalFrame";
 import { useTranslation } from "react-i18next";
 import { ConfirmBtn } from "@/components/form";
 

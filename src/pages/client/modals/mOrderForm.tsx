@@ -14,7 +14,7 @@ import {
     orderFormSchema,
 } from "@/configs/schema/orderSchema";
 import Card from "@/components/card";
-import { ModalFrame, MQuit } from "@/components/modal";
+import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { calGst, plusAB, calNetto } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
@@ -36,7 +36,6 @@ const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
     const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
-    const [openQuit, setOpenQuit] = useState(false);
     const [desc, setDesc] = useState({
         fk_order_id: order.order_id,
         ranking: 0,
@@ -160,10 +159,6 @@ const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
     const onClose = () => {
         setOpen("");
         reset();
-    };
-
-    const onOpenQuit = () => {
-        setOpenQuit(true);
     };
 
     const serviceTitleList = uniData ? (
@@ -765,7 +760,7 @@ const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
                 {/* btns */}
                 <SubmitBtn
                     onClick={() => trigger()}
-                    onClose={onOpenQuit}
+                    onClose={onClose}
                     navState={navigation.state}
                 />
             </section>
@@ -774,25 +769,19 @@ const MOrderForm: FC<Tprops> = ({ client, order, open, setOpen, uniData }) => {
 
     return (
         <>
-            <ModalFrame
+            <MTemplate
                 open={!!(open === "Edit" || open === "Add")}
-                onClose={onOpenQuit}
+                onClose={onClose}
                 title={
                     order.order_id === 0
                         ? t("modal.title.addOrder")
                         : t("modal.title.editOrder") + ` #${order.order_id}`
                 }
                 mode={"full"}
+                mQuit={true}
             >
                 {mainContent}
-            </ModalFrame>
-            <MQuit
-                open={openQuit}
-                setOpen={() => {
-                    setOpenQuit(false);
-                }}
-                closeMainModal={onClose}
-            />
+            </MTemplate>
         </>
     );
 };

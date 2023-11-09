@@ -8,7 +8,7 @@ import type { Tclient } from "@/configs/schema/clientSchema";
 import { clientNoIDSchema } from "@/configs/schema/clientSchema";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { RES_STATUS, TclientOrderModal } from "@/utils/types";
-import { ModalFrame } from "@/components/modal";
+import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
 
@@ -343,7 +343,7 @@ const MClientForm: FC<Tprops> = ({
     );
 
     return (
-        <ModalFrame
+        <MTemplate
             open={!!(open === "Add" || open === "Edit")}
             onClose={onClose}
             title={
@@ -351,9 +351,10 @@ const MClientForm: FC<Tprops> = ({
                     ? t("modal.title.addClient")
                     : t("modal.title.updateClient")
             }
+            mQuit={true}
         >
             {mainContent}
-        </ModalFrame>
+        </MTemplate>
     );
 };
 

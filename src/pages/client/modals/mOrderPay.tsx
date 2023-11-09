@@ -11,7 +11,7 @@ import {
     paymentFormSchema,
 } from "@/configs/schema/orderSchema";
 import Card from "@/components/card";
-import { ModalFrame, MQuit } from "@/components/modal";
+import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { calGst, plusAB, calNetto } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
@@ -332,21 +332,15 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
 
     return (
         <>
-            <ModalFrame
+            <MTemplate
                 open={!!(open === "Pay")}
-                onClose={onOpenQuit}
+                onClose={onClose}
                 title={t("modal.title.payments") + ` #${order.order_id}`}
                 mode={"full"}
+                mQuit={true}
             >
                 {mainContent}
-            </ModalFrame>
-            <MQuit
-                open={openQuit}
-                setOpen={() => {
-                    setOpenQuit(false);
-                }}
-                closeMainModal={onClose}
-            />
+            </MTemplate>
         </>
     );
 };

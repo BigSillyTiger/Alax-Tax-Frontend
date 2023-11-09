@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import ModalFrame from "./modalFrame";
 
 const MInQ = () => {
-  return (
-    <div>MInQ</div>
-  )
-}
+    return (
+        <>
+            <ModalFrame open={} onClose={} title={} mode="full" />
+        </>
+    );
+};
 
-export default MInQ
+export default MInQ;

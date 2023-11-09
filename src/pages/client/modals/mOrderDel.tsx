@@ -1,7 +1,8 @@
 import React, { memo } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { ModalFrame } from "@/components/modal";
+import { MTemplate } from "@/components/modal";
+
 import { useSubmit } from "react-router-dom";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
@@ -84,15 +85,16 @@ const MOrderDel: FC<Tprops> = ({ client, order, open, setOpen }) => {
     );
 
     return (
-        <ModalFrame
+        <MTemplate
             open={!!(open === "Del")}
             onClose={onClose}
             title={t("modal.title.delete")}
             isMajor={true}
             mode={"md"}
+            mQuit={false}
         >
             {mainContent}
-        </ModalFrame>
+        </MTemplate>
     );
 };
 

@@ -6,12 +6,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
-
-type Tmode = "sm" | "md" | "lg" | "xl" | "full" | "md-full";
+import { Tmode } from "@/utils/types";
 
 type Tprops = {
     open: boolean;
     onClose: () => void;
+    // using red color for major warning
     isMajor?: boolean;
     title: string;
     children: ReactNode[] | ReactNode;

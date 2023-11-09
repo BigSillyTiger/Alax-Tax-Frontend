@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { ModalFrame } from "@/components/modal";
+import { MTemplate } from "@/components/modal";
 import { useSubmit } from "react-router-dom";
 import type { Tclient } from "@/configs/schema/clientSchema";
 import Card from "@/components/card";
@@ -88,15 +88,16 @@ const MClientDel: FC<Tprops> = ({ client, open, setOpen }) => {
     );
 
     return (
-        <ModalFrame
+        <MTemplate
             open={!!(open === "Del")}
             onClose={onClose}
             title={t("modal.title.delete")}
             isMajor={true}
             mode={"md"}
+            mQuit={false}
         >
             {mainContent}
-        </ModalFrame>
+        </MTemplate>
     );
 };
 
