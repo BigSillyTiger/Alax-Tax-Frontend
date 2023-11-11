@@ -21,6 +21,50 @@ type Tprops = {
     company: Tcompany;
 };
 
+const DatePicker = ({
+    date,
+    setDate,
+}: {
+    date: string;
+    setDate: (v: string) => void;
+}) => {
+    const { t } = useTranslation();
+    const [newDate, setNewDate] = useState(date);
+
+    return (
+        <div className="grid grid-cols-2 gap-x-3 h-[10vh]">
+            <div className="col-span-1 my-auto">
+                <label
+                    htmlFor="issuedDate"
+                    className="text-indigo-500 text-bold"
+                >
+                    {t("label.issuedDate")}
+                </label>
+                <input
+                    id="issuedDate"
+                    name="issuedDate"
+                    type="date"
+                    max={newDateFormat(new Date())}
+                    defaultValue={newDateFormat(new Date())}
+                    onChange={(e) => {
+                        setNewDate(e.target.value);
+                    }}
+                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                />
+            </div>
+            <div className="col-span-1 mt-7">
+                <NormalBtn
+                    name={t("btn.updateIssueDate")}
+                    onClick={() => {
+                        123;
+                    }}
+                    className="h-[4vh] mt-[1vh]"
+                />
+            </div>
+        </div>
+    );
+};
+
 const MInQ: FC<Tprops> = ({ open, setOpen, client, order, company }) => {
     const [date, setDate] = useState(newDateFormat(new Date())); // [0] is date, [1] is time
     const { t } = useTranslation();
@@ -53,43 +97,11 @@ const MInQ: FC<Tprops> = ({ open, setOpen, client, order, company }) => {
         </section>
     );
 
-    const datePicker = (
-        <div className="grid grid-cols-2 gap-x-3 h-[10vh]">
-            <div className="col-span-1 my-auto">
-                <label
-                    htmlFor="issuedDate"
-                    className="text-indigo-500 text-bold"
-                >
-                    {t("label.issuedDate")}
-                </label>
-                <input
-                    id="issuedDate"
-                    name="issuedDate"
-                    type="date"
-                    defaultValue={newDateFormat(new Date())}
-                    onChange={(e) => {
-                        setDate(e.target.value);
-                    }}
-                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                />
-            </div>
-            <div className="col-span-1 mt-7">
-                <NormalBtn
-                    name={t("btn.updateIssueDate")}
-                    onClick={() => {
-                        123;
-                    }}
-                    className="h-[4vh] mt-[1vh]"
-                />
-            </div>
-        </div>
-    );
-
     const mainContent = (
         <main className="grid grid-cols-1 sm:grid-cols-8 gap-x-2">
             <section className="col-span-1 sm: col-span-3 ">
                 {detailContent}
-                {datePicker}
+                <DatePicker date={date} setDate={setDate} />
             </section>
             <section className="col-span-1 sm: col-span-5">
                 <PDFTemplate
