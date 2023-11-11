@@ -31,8 +31,8 @@ const BillTitle: FC<Tprops> = ({ company, client }) => {
                     <Text style={tw("text-zinc-700")}>{company.phone}</Text>
                 </Text>
                 <Text style={tw("text-base leading-5 text-orange-700")}>
-                    {t("label.addr")}:{" "}
-                    <Text style={tw("text-zinc-700")}>{company.address}</Text>
+                    {t("label.email1")}:{" "}
+                    <Text style={tw("text-zinc-700")}>{company.email}</Text>
                 </Text>
             </View>
             <View style={tw("flex-1 items-end")}>

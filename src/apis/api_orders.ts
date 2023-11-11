@@ -7,6 +7,7 @@ import {
     REQ_ORDER_W_CLIENT,
     REQ_ORDER_STATUS,
     REQ_PAYMENT_UPDATE,
+    REQ_INVOICE_ISSUE_UPDATE,
 } from "./req_list";
 import { Tresponse } from "@/utils/types";
 
@@ -100,6 +101,25 @@ export const paymentUpdate = async (data: any): Promise<Tresponse> => {
         return {
             status: 400,
             msg: "failed in updating payment",
+            data: "",
+        };
+    }
+};
+
+export const updateInvoiceIssue = async (
+    date: string,
+    order_id: number
+): Promise<Tresponse> => {
+    try {
+        const response = await apis.put(REQ_INVOICE_ISSUE_UPDATE, {
+            date,
+            order_id,
+        });
+        return response.data;
+    } catch (error) {
+        return {
+            status: 400,
+            msg: "failed in updating invoice issue",
             data: "",
         };
     }

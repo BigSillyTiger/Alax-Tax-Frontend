@@ -97,6 +97,20 @@ export const action = async ({
         //console.log("-> action payment update: ", payData);
         const result = await API_ORDER.paymentUpdate(payData);
         return result;
+    } else if (
+        "PUT" === request.method &&
+        data.get("req") === "updateInvoiceIssue"
+    ) {
+        console.log(
+            "-> action update invoice issue: ",
+            data.get("newDate"),
+            data.get("order_id")
+        );
+        const result = await API_ORDER.updateInvoiceIssue(
+            data.get("date") as string,
+            Number(data.get("order_id"))
+        );
+        return result;
     }
     // delete an order
     else if ("DELETE" === request.method) {

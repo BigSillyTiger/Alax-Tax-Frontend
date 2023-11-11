@@ -23,6 +23,7 @@ import {
     OrderDescCard,
 } from "@/components/customized";
 import { newDateFormat } from "@/utils/utils";
+import { dateMax, dateMin } from "@/configs/utils";
 
 type Tprops = {
     client: Tclient;
@@ -195,7 +196,8 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                                     id="paid_date"
                                     name="paid_date"
                                     type="date"
-                                    max={newDateFormat(new Date())}
+                                    min={dateMin}
+                                    max={dateMax}
                                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                 />
                             </div>
@@ -247,7 +249,8 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                         id="payDate"
                         name="payDate"
                         type="date"
-                        max={newDateFormat(new Date())}
+                        min={dateMin}
+                        max={dateMax}
                         defaultValue={newDateFormat(new Date())}
                         onChange={(e) => {
                             setPayment({

@@ -5,6 +5,7 @@ import { createTw } from "react-pdf-tailwind";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { Tcompany } from "@/configs/schema/manageSchema";
+import { dateFormat } from "@/utils/utils";
 
 type Tprops = {
     company: Tcompany;
@@ -47,8 +48,7 @@ const Title: FC<Tprops> = ({ company, invoiceID, issueDate }) => {
                     {" " + "#" + invoiceID}
                 </Text>
                 <Text style={tw("text-xs text-gray-600")}>
-                    {t("label.issuedDate")}:{" "}
-                    {format(Date.parse(issueDate), "MM-dd-yyyy")}
+                    {t("label.issuedDate")}: {dateFormat(issueDate)}
                 </Text>
             </View>
         </View>

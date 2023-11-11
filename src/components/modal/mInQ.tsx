@@ -1,9 +1,10 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import type { FC } from "react";
 import { MTemplate } from ".";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { TclientOrderModal } from "@/utils/types";
 import { TorderWithDetails } from "@/configs/schema/orderSchema";
+import { useSubmit } from "react-router-dom";
 import PDFTemplate from "@/PDF/invoices/template1";
 import { useTranslation } from "react-i18next";
 import { Toggle } from "../disclosure";
@@ -12,6 +13,8 @@ import { NormalBtn } from "../btns";
 import { Tcompany } from "@/configs/schema/manageSchema";
 import CompanyInfoCard from "../customized/CompanyInfoCard";
 import { newDateFormat } from "@/utils/utils";
+import { dateMax, dateMin } from "@/configs/utils";
+import { API_ORDER } from "@/apis";
 
 type Tprops = {
     open: TclientOrderModal;
@@ -22,58 +25,121 @@ type Tprops = {
 };
 
 const DatePicker = ({
+    order_id,
+    client_id,
     date,
     setDate,
+    defaultDate,
 }: {
+    order_id: number;
+    client_id: number;
     date: string;
     setDate: (v: string) => void;
+    defaultDate: string;
 }) => {
     const { t } = useTranslation();
     const [newDate, setNewDate] = useState(date);
+    const submit = useSubmit();
+
+    const onSubmit = async (date: string) => {
+        //const result = await API_ORDER.updateInvoiceIssue(date, order_id);
+        submit(
+            { date, order_id, req: "updateInvoiceIssue" },
+            {
+                method: "PUT",
+                action: `/clients/${client_id}`,
+            }
+        );
+    };
 
     return (
-        <div className="grid grid-cols-2 gap-x-3 h-[10vh]">
-            <div className="col-span-1 my-auto">
-                <label
-                    htmlFor="issuedDate"
-                    className="text-indigo-500 text-bold"
-                >
-                    {t("label.issuedDate")}
-                </label>
-                <input
-                    id="issuedDate"
-                    name="issuedDate"
-                    type="date"
-                    max={newDateFormat(new Date())}
-                    defaultValue={newDateFormat(new Date())}
-                    onChange={(e) => {
-                        setNewDate(e.target.value);
-                    }}
-                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                />
+        <div className="flex flex-col h-[18vh] border-t-2 border-dotted border-indigo-400 my-3 py-2">
+            <div className="grid grid-cols-2 gap-2 my-2">
+                <div className="col-span-1">
+                    <section className="col-span-1">
+                        <label
+                            htmlFor="issuedDate"
+                            className="text-indigo-500 text-bold"
+                        >
+                            {t("label.newIssueDate")}
+                        </label>
+                        <input
+                            id="issuedDate"
+                            name="issuedDate"
+                            type="date"
+                            min={dateMin}
+                            max={dateMax}
+                            defaultValue={newDateFormat(new Date(defaultDate))}
+                            onChange={(e) => {
+                                setNewDate(e.target.value);
+                            }}
+                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 "
+                        />
+                    </section>
+                </div>
+                <div className="col-span-1 mt-3.5">
+                    <NormalBtn
+                        name={t("btn.updateIssueDate")}
+                        onClick={() => {
+                            setDate(newDate);
+                            onSubmit(newDate);
+                        }}
+                        className="h-[4vh] mt-[1vh]"
+                    />
+                </div>
             </div>
-            <div className="col-span-1 mt-7">
-                <NormalBtn
-                    name={t("btn.updateIssueDate")}
-                    onClick={() => {
-                        123;
-                    }}
-                    className="h-[4vh] mt-[1vh]"
-                />
+            {/* default issued date */}
+            <div className="grid grid-cols-2 gap-2 my-2 ">
+                <div className="col-span-1">
+                    <section>
+                        <label
+                            htmlFor="issuedDate"
+                            className="text-indigo-500 text-bold"
+                        >
+                            {t("label.defaultIssueDate")}
+                        </label>
+                        <input
+                            id="issuedDate"
+                            name="issuedDate"
+                            type="date"
+                            min={dateMin}
+                            max={dateMax}
+                            defaultValue={newDateFormat(new Date(defaultDate))}
+                            disabled
+                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                        />
+                    </section>
+                </div>
+                <div className="col-span-1 mt-3.5">
+                    <NormalBtn
+                        name={t("btn.resetIssue")}
+                        onClick={() => {
+                            setDate(defaultDate);
+                            onSubmit(defaultDate);
+                        }}
+                        className="h-[4vh] mt-[1vh]"
+                    />
+                </div>
             </div>
         </div>
     );
 };
 
 const MInQ: FC<Tprops> = ({ open, setOpen, client, order, company }) => {
-    const [date, setDate] = useState(newDateFormat(new Date())); // [0] is date, [1] is time
+    const [date, setDate] = useState(newDateFormat(new Date()));
     const { t } = useTranslation();
     const onClose = () => {
         setOpen("");
     };
 
+    useEffect(() => {
+        if (order.invoice_issue_date) {
+            setDate(newDateFormat(new Date(order.invoice_issue_date)));
+        }
+    }, [order.invoice_issue_date]);
+
     const detailContent = (
-        <section className="h-[75vh] overflow-y-auto">
+        <section className="h-[67vh] overflow-y-auto">
             <Toggle
                 defaultOpen={true}
                 title={t("label.companyInfo")}
@@ -98,17 +164,24 @@ const MInQ: FC<Tprops> = ({ open, setOpen, client, order, company }) => {
     );
 
     const mainContent = (
-        <main className="grid grid-cols-1 sm:grid-cols-8 gap-x-2">
-            <section className="col-span-1 sm: col-span-3 ">
+        <main className="grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[93vh]">
+            <section className="col-span-1 md:col-span-3 ">
                 {detailContent}
-                <DatePicker date={date} setDate={setDate} />
+                <DatePicker
+                    order_id={order.order_id}
+                    client_id={order.fk_client_id}
+                    date={date}
+                    setDate={setDate}
+                    defaultDate={order.invoice_issue_date}
+                />
             </section>
-            <section className="col-span-1 sm: col-span-5">
+            <section className="col-span-1 md:col-span-5">
                 <PDFTemplate
                     client={client}
                     order={order}
                     company={company}
                     unit="$"
+                    date={date}
                 />
             </section>
         </main>

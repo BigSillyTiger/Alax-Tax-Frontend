@@ -4,6 +4,7 @@ import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { TorderPayment } from "@/configs/schema/orderSchema";
 import { format } from "date-fns";
+import { dateFormat } from "@/utils/utils";
 
 type Tprops = {
     data: TorderPayment[];
@@ -29,7 +30,7 @@ const PayRows: FC<Tprops> = ({ data, unit: u }) => {
                     {item.paid}
                 </Text>
                 <Text style={tw("text-sm w-[263pt] text-center my-auto")}>
-                    {format(Date.parse(item.paid_date), "MM-dd-yyyy")}
+                    {dateFormat(item.paid_date)}
                 </Text>
             </View>
         );

@@ -26,9 +26,16 @@ type Tprops = {
     order: TorderWithDetails;
     company: Tcompany;
     unit?: "$" | "AUD";
+    date: string;
 };
 
-const PDFTemplate: FC<Tprops> = ({ client, order, company, unit = "$" }) => {
+const PDFTemplate: FC<Tprops> = ({
+    client,
+    order,
+    company,
+    unit = "$",
+    date,
+}) => {
     const { t } = useTranslation();
 
     const Services = ({ order }: { order: TorderDesc[] }) => {
@@ -61,7 +68,7 @@ const PDFTemplate: FC<Tprops> = ({ client, order, company, unit = "$" }) => {
             <Title
                 company={company}
                 invoiceID={order.order_id}
-                issueDate={order.invoice_issue_date}
+                issueDate={date}
             />
             <BillTitle company={company} client={client} />
             <Services order={order.order_desc} />
