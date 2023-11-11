@@ -22,12 +22,14 @@ import { PTable } from "@/components/table";
 import orderDescColumns from "../../configs/columnDefs/defOrderDesc";
 import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
 import MOrderPay from "./modals/mOrderPay";
+import MInQ from "@/components/modal/mInQ";
+import { Tcompany } from "@/configs/schema/manageSchema";
 
 const Client = () => {
     const { t } = useTranslation();
     const { cid } = useParams();
     // true for services, false for payments
-    const { clientInfo, clientOrders, uniData } = useLoaderData() as {
+    const { clientInfo, clientOrders, uniData, company } = useLoaderData() as {
         clientInfo: {
             status: number;
             msg: string;
@@ -35,6 +37,7 @@ const Client = () => {
         };
         clientOrders: TorderWithDetails[];
         uniData: Tunivers | null;
+        company: Tcompany;
     };
     /**
      * the boolean in mysql is stored as 1 and 0
@@ -76,7 +79,6 @@ const Client = () => {
         order_date: "",
         quotation_date: "",
         invoice_issue_date: "",
-        invoice_update_date: "",
         order_desc: [],
         payments: [],
     };
@@ -238,6 +240,13 @@ const Client = () => {
                 order={order}
                 open={modalOpen}
                 setOpen={setModalOpen}
+            />
+            <MInQ
+                open={modalOpen}
+                setOpen={setModalOpen}
+                client={client}
+                order={order}
+                company={company}
             />
         </>
     );

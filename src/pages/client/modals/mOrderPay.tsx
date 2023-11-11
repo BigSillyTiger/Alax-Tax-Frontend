@@ -13,13 +13,15 @@ import {
 import Card from "@/components/card";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
-import { calGst, plusAB, calNetto } from "@/utils/calculations";
+import { plusAB } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
 import { TclientOrderModal } from "@/utils/types";
 import { Tclient } from "@/configs/schema/clientSchema";
-import { ClientInfoCard, OrderInfoCard } from "@/components/customized";
-import OrderDescCard from "@/components/customized/OrderDescCard";
-import { set } from "date-fns";
+import {
+    ClientInfoCard,
+    OrderInfoCard,
+    OrderDescCard,
+} from "@/components/customized";
 
 type Tprops = {
     client: Tclient;
@@ -42,7 +44,6 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
     const [totalPaid, setTotalPaid] = useState(0);
     const { t } = useTranslation();
     const submit = useSubmit();
-    const [openQuit, setOpenQuit] = useState(false);
 
     const {
         control,
@@ -118,10 +119,6 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                 }
             );
         }
-    };
-
-    const onOpenQuit = () => {
-        setOpenQuit(true);
     };
 
     const onClose = () => {
@@ -321,7 +318,7 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                         {/* btns */}
                         <SubmitBtn
                             onClick={() => trigger()}
-                            onClose={onOpenQuit}
+                            onClose={onClose}
                             navState={navigation.state}
                         />
                     </section>

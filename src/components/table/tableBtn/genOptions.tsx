@@ -51,12 +51,12 @@ const genOptions = <T,>({
         });
     }
 
-    if (del) {
+    if (quotation) {
         result.push({
-            label: i18n.t("btn.del"),
-            icon: <TrashIcon />,
+            label: i18n.t("btn.quotation"),
+            icon: <ClipboardIcon />,
             clickFn: (v: T) => {
-                setModalOpen("Del");
+                setModalOpen("Quotation");
                 setData(v);
             },
         });
@@ -73,12 +73,12 @@ const genOptions = <T,>({
         });
     }
 
-    if (quotation) {
+    if (del) {
         result.push({
-            label: i18n.t("btn.quotation"),
-            icon: <ClipboardIcon />,
+            label: i18n.t("btn.del"),
+            icon: <TrashIcon />,
             clickFn: (v: T) => {
-                setModalOpen("Quotation");
+                setModalOpen("Del");
                 setData(v);
             },
         });

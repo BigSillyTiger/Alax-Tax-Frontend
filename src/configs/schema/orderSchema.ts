@@ -23,8 +23,7 @@ export const orderSchema = z.object({
     order_deposit: z.number(),
     order_date: z.string().datetime().nullable(),
     quotation_date: z.string().datetime().nullable(),
-    invoice_issue_date: z.string().datetime().nullable(),
-    invoice_update_date: z.string().datetime().nullable(),
+    invoice_issue_date: z.string().datetime(),
 });
 
 export const oderDescSchema = z.object({

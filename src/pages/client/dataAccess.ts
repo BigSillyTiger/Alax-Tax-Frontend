@@ -10,11 +10,13 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     const clientInfo = await API_CLIENT.clientInfo(cid);
     const clientOrders = await API_ORDER.orderWClient(cid);
     const uniData = await API_MANAGE.uniAll();
+    const company = await API_MANAGE.companyGet();
 
     return defer({
         clientInfo,
         clientOrders: clientOrders.data as TorderWithDetails[],
         uniData: uniData.data,
+        company: company.data,
     });
 };
 

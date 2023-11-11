@@ -31,7 +31,7 @@ const SearchBar: FC<Tprops> = ({
         <div className={`flex flex-auto ${className}`}>
             <span className="sr-only">Search bar</span>
             <MagnifyingGlassIcon
-                className="h-6 w-6 text-indigo-500"
+                className="h-6 w-6 text-indigo-500 my-auto"
                 aria-hidden="true"
             />
             <input

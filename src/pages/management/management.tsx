@@ -1,19 +1,34 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import type { FC } from "react";
 import { Tab } from "@headlessui/react";
 import { mTabList } from "@/configs/menuList";
 import Uni from "./uni";
 import LoadingPage from "@/components/loadingEle";
-import { Await, useLoaderData } from "react-router-dom";
-import { Tunivers } from "@/utils/types";
+import { Await, useLoaderData, useActionData } from "react-router-dom";
+import { RES_STATUS, Tresponse, Tunivers } from "@/utils/types";
+import Company from "./company";
+import { Tcompany } from "@/configs/schema/manageSchema";
+import { toastSuccess } from "@/utils/toaster";
+import { useTranslation } from "react-i18next";
 
 const Management: FC = () => {
-    const { univers } = useLoaderData() as { univers: Tunivers | null };
+    const { univers, company } = useLoaderData() as {
+        univers: Tunivers | null;
+        company: Tcompany | null;
+    };
+    const { t } = useTranslation();
+
+    const actionData = useActionData() as Tresponse;
+    useEffect(() => {
+        if (actionData?.status === RES_STATUS.SUC_UPDATE_COMPANY) {
+            toastSuccess(t("toastS.updateCompany"));
+        }
+    }, [actionData]);
 
     const UniversContent: FC<{ univers: Tunivers }> = ({ univers }) => {
         return (
             <div className="container mx-auto">
-                <Tab.Group defaultIndex={1}>
+                <Tab.Group defaultIndex={0}>
                     <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
                         {mTabList.map((item, index) => {
                             return (
@@ -37,7 +52,7 @@ const Management: FC = () => {
                     </Tab.List>
                     <Tab.Panels className="mt-2">
                         <Tab.Panel className="rounded-xl bg-white p-3ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400">
-                            Content 1
+                            <Company company={company} />
                         </Tab.Panel>
                         <Tab.Panel className="rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400">
                             <Uni

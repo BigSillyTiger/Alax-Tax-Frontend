@@ -19,10 +19,12 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
                     key={index}
                     className="col-span-full grid grid-cols-12"
                 >
+                    {/* index */}
                     <p className="m-auto text-bold text-indigo-400">
                         {index + 1}
                     </p>
-                    <Card className="col-span-11 grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-6 bg-indigo-50">
+                    {/* card */}
+                    <Card className="col-span-11 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-6 bg-indigo-50">
                         {/* title - 6*/}
                         <div className="col-span-full">
                             <p>
@@ -33,7 +35,7 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
                             </p>
                         </div>
                         {/* qty - 1 */}
-                        <div className="col-span-6 sm:col-span-1">
+                        <div className="col-span-1">
                             <p>
                                 <b className="text-indigo-600">
                                     {t("label.qty")}:{" "}
@@ -42,7 +44,7 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
                             </p>
                         </div>
                         {/* unit - 2 */}
-                        <div className="col-span-6 sm:col-span-2">
+                        <div className="col-span-1 sm:col-span-2">
                             <p>
                                 <b className="text-indigo-600">
                                     {t("label.unit")}:{" "}
@@ -51,10 +53,10 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
                             </p>
                         </div>
                         {/* taxable - 1 */}
-                        <div className="col-span-6 sm:col-span-1">
+                        <div className="col-span-1 sm:col-span-1">
                             <p>
                                 <b className="text-indigo-600">
-                                    {t("label.taxable")}:{" "}
+                                    {t("label.tax")}:{" "}
                                 </b>
                                 <input
                                     type="checkbox"
@@ -64,7 +66,7 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
                         </div>
 
                         {/* gst - 2 */}
-                        <div className="col-span-6 sm:col-span-2">
+                        <div className="col-span-1 sm:col-span-2">
                             <p>
                                 <b className="text-indigo-600">
                                     {t("label.gst")}:{" "}
@@ -74,7 +76,7 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
                         </div>
 
                         {/* unit price - 3 */}
-                        <div className="col-span-6 sm:col-span-3">
+                        <div className="col-span-1 sm:col-span-3">
                             <p>
                                 <b className="text-indigo-600">
                                     {t("label.uPrice")}:{" "}
@@ -83,7 +85,7 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
                             </p>
                         </div>
                         {/* netto - 2 */}
-                        <div className="col-span-6 sm:col-span-3">
+                        <div className="col-span-1 sm:col-span-3">
                             <p>
                                 <b className="text-indigo-600">
                                     {t("label.netto")}:{" "}

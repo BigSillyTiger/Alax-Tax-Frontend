@@ -5,8 +5,10 @@ import type { Tresponse } from "@/utils/types";
 
 // create loader and action function for service list page
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-    const univers = API_MANAGE.uniAll();
-    return defer({ univers });
+    const univers = await API_MANAGE.uniAll();
+    const company = await API_MANAGE.companyGet();
+
+    return defer({ univers, company: company.data });
 };
 
 export const action = async ({
@@ -33,7 +35,7 @@ export const action = async ({
             type: data.get("type") as "service" | "unit",
         });
         return result;
-    } else if ("PUT" === request.method) {
+    } else if ("PUT" === request.method && !data.get("req")) {
         /* edit service / unit action */
         const temp = data.get("service")
             ? {
@@ -47,6 +49,22 @@ export const action = async ({
                   unit_name: data.get("unit_name") as string,
               };
         const result = await API_MANAGE.uniEdit(temp);
+        return result;
+    } else if ("PUT" === request.method && data.get("req") === "company") {
+        const temp = {
+            id: Number(data.get("id")),
+            name: data.get("name") as string,
+            bld: data.get("bld") as string,
+            phone: data.get("phone") as string,
+            email: data.get("email") as string,
+            address: data.get("address") as string,
+            abn: data.get("abn") as string,
+            bsb: data.get("bsb") as string,
+            acc: data.get("acc") as string,
+            logoName: data.get("logoName") as string,
+        };
+        console.log("-> action company: ", temp);
+        const result = await API_MANAGE.companyUpdate(temp);
         return result;
     } else {
         return {

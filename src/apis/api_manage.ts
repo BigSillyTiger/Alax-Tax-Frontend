@@ -4,13 +4,45 @@ import {
     REQ_MANAGE_UNI_ADD,
     REQ_MANAGE_UNI_DEL,
     REQ_MANAGE_UNI_EDIT,
+    REQ_MANAGE_GET_COMPANY,
+    REQ_MANAGE_UPDATE_COMPANY,
 } from "./req_list";
 import {
+    Tcompany,
     TnewService,
     TnewUnit,
     Tservice,
     Tunit,
 } from "@/configs/schema/manageSchema";
+import { Tresponse } from "@/utils/types";
+
+export const companyGet = async (): Promise<Tresponse> => {
+    try {
+        const response = await apis.get(REQ_MANAGE_GET_COMPANY);
+        return response.data;
+    } catch (error) {
+        console.log("-> retrieve company error: ", error);
+        return {
+            status: 400,
+            msg: "failed in retrieving company",
+            data: "",
+        };
+    }
+};
+
+export const companyUpdate = async (company: Tcompany) => {
+    try {
+        const response = await apis.put(REQ_MANAGE_UPDATE_COMPANY, company);
+        return response.data;
+    } catch (error) {
+        console.log("-> update company error: ", error);
+        return {
+            status: 400,
+            msg: "failed in updating company",
+            data: "",
+        };
+    }
+};
 
 export const uniAll = async () => {
     try {
