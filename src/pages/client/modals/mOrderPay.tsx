@@ -22,6 +22,7 @@ import {
     OrderInfoCard,
     OrderDescCard,
 } from "@/components/customized";
+import { newDateFormat } from "@/utils/utils";
 
 type Tprops = {
     client: Tclient;
@@ -39,7 +40,7 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
     const [payment, setPayment] = useState<TorderPayment>({
         fk_order_id: 0,
         paid: 0,
-        paid_date: new Date().toISOString().split("T")[0],
+        paid_date: newDateFormat(new Date()),
     });
     const [totalPaid, setTotalPaid] = useState(0);
     const { t } = useTranslation();
@@ -77,9 +78,9 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                     ? order.payments.map((item) => {
                           return {
                               ...item,
-                              paid_date: new Date(item.paid_date)
-                                  .toISOString()
-                                  .split("T")[0],
+                              paid_date: newDateFormat(
+                                  new Date(item.paid_date)
+                              ),
                           };
                       })
                     : [],
@@ -245,7 +246,7 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
                         id="payDate"
                         name="payDate"
                         type="date"
-                        defaultValue={new Date().toISOString().split("T")[0]}
+                        defaultValue={newDateFormat(new Date())}
                         onChange={(e) => {
                             setPayment({
                                 ...payment,

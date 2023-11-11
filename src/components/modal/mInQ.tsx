@@ -6,13 +6,12 @@ import { TclientOrderModal } from "@/utils/types";
 import { TorderWithDetails } from "@/configs/schema/orderSchema";
 import PDFTemplate from "@/PDF/invoices/template1";
 import { useTranslation } from "react-i18next";
-import Card from "../card";
-import { Disclosure } from "@headlessui/react";
 import { Toggle } from "../disclosure";
 import { ClientInfoCard, OrderDescCard, OrderDetailsCard } from "../customized";
 import { NormalBtn } from "../btns";
 import { Tcompany } from "@/configs/schema/manageSchema";
 import CompanyInfoCard from "../customized/CompanyInfoCard";
+import { newDateFormat } from "@/utils/utils";
 
 type Tprops = {
     open: TclientOrderModal;
@@ -23,7 +22,7 @@ type Tprops = {
 };
 
 const MInQ: FC<Tprops> = ({ open, setOpen, client, order, company }) => {
-    const [date, setDate] = useState(new Date().toISOString().split("T")[0]); // [0] is date, [1] is time
+    const [date, setDate] = useState(newDateFormat(new Date())); // [0] is date, [1] is time
     const { t } = useTranslation();
     const onClose = () => {
         setOpen("");
@@ -67,7 +66,7 @@ const MInQ: FC<Tprops> = ({ open, setOpen, client, order, company }) => {
                     id="issuedDate"
                     name="issuedDate"
                     type="date"
-                    defaultValue={new Date().toISOString().split("T")[0]}
+                    defaultValue={newDateFormat(new Date())}
                     onChange={(e) => {
                         setDate(e.target.value);
                     }}
