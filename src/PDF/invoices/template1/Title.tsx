@@ -28,13 +28,19 @@ const Title: FC<Tprops> = ({ company, invoiceID, issueDate }) => {
             fixed
         >
             <Image src={imgSrc} style={tw("rounded-lg h-20 w-20")} />
+            {/* company */}
             <View style={tw("flex justify-center")}>
                 <Text style={tw("font-bold text-base")}>{company.name}</Text>
                 <Text style={tw("text-xs text-gray-600")}>
+                    {t("label.address") + ":"}
                     {company.address}
                 </Text>
-                <Text style={tw("text-xs text-gray-600")}>{company.phone}</Text>
+                <Text style={tw("text-xs text-gray-600")}>
+                    {t("label.tel") + ":"}
+                    {company.phone}
+                </Text>
             </View>
+            {/* invoice */}
             <View style={tw("ml-auto flex justify-center items-end")}>
                 <Text style={tw("font-bold text-base")}>
                     {t("label.invoice")}

@@ -5,9 +5,10 @@ import { createTw } from "react-pdf-tailwind";
 import { TorderDesc } from "@/configs/schema/orderSchema";
 import { useTranslation } from "react-i18next";
 import { minusAB } from "@/utils/calculations";
+import { Tcompany } from "@/configs/schema/manageSchema";
 
 type Tprops = {
-    company?: any;
+    company: Tcompany;
     order: TorderDesc[];
     paid: number;
     unit: "AUD" | "$";
@@ -31,18 +32,22 @@ const TableFooter: FC<Tprops> = ({ company, order, paid, unit: u }) => {
                 <Text style={tw("text-sm text-orange-600")}>
                     {t("label.paymentTo")}
                 </Text>
-                <Text style={tw("text-base leading-6")}>Company Name</Text>
+                <Text style={tw("text-base leading-6")}>{company.name}</Text>
+                <Text style={tw("text-base leading-6 text-orange-700")}>
+                    {t("label.bld")}:{" "}
+                    <Text style={tw("text-zinc-700")}>{company.bld}</Text>
+                </Text>
                 <Text style={tw("text-base leading-6 text-orange-700")}>
                     {t("label.abn")}:{" "}
-                    <Text style={tw("text-zinc-700")}>123 12312 412</Text>
+                    <Text style={tw("text-zinc-700")}>{company.abn}</Text>
                 </Text>
                 <Text style={tw("text-base leading-6 text-orange-700")}>
                     {t("label.bsb")}:{" "}
-                    <Text style={tw("text-zinc-700")}>123 12312 412</Text>
+                    <Text style={tw("text-zinc-700")}>{company.bsb}</Text>
                 </Text>
                 <Text style={tw("text-base leading-6 text-orange-700")}>
-                    {t("label.bank")}:{" "}
-                    <Text style={tw("text-zinc-700")}>123 12312 412</Text>
+                    {t("label.acc")}:{" "}
+                    <Text style={tw("text-zinc-700")}>{company.acc}</Text>
                 </Text>
             </View>
             <View

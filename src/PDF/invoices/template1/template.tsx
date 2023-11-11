@@ -67,6 +67,7 @@ const PDFTemplate: FC<Tprops> = ({ client, order, company, unit = "$" }) => {
             <Services order={order.order_desc} />
             <Payments payments={order.payments} />
             <TableFooter
+                company={company}
                 order={order.order_desc}
                 paid={order.order_paid}
                 unit={unit}

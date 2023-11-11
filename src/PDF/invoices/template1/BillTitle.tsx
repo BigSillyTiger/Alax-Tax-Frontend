@@ -27,10 +27,6 @@ const BillTitle: FC<Tprops> = ({ company, client }) => {
                 </Text>
                 <Text style={tw("text-lg leading-6")}>{company.name}</Text>
                 <Text style={tw("text-base leading-5 text-orange-700")}>
-                    {t("label.bld")}:{" "}
-                    <Text style={tw("text-zinc-700")}>{company.bld}</Text>
-                </Text>
-                <Text style={tw("text-base leading-5 text-orange-700")}>
                     {t("label.tel")}::{" "}
                     <Text style={tw("text-zinc-700")}>{company.phone}</Text>
                 </Text>
