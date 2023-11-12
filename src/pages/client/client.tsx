@@ -29,16 +29,18 @@ const Client = () => {
     const { t } = useTranslation();
     const { cid } = useParams();
     // true for services, false for payments
-    const { clientInfo, clientOrders, uniData, company } = useLoaderData() as {
-        clientInfo: {
-            status: number;
-            msg: string;
-            data: Tclient[];
+    const { clientInfo, clientOrders, uniData, company, logo } =
+        useLoaderData() as {
+            clientInfo: {
+                status: number;
+                msg: string;
+                data: Tclient[];
+            };
+            clientOrders: TorderWithDetails[];
+            uniData: Tunivers | null;
+            company: Tcompany;
+            logo: string;
         };
-        clientOrders: TorderWithDetails[];
-        uniData: Tunivers | null;
-        company: Tcompany;
-    };
     /**
      * the boolean in mysql is stored as 1 and 0
      * when working with values like these, need to convert them to boolean
@@ -247,6 +249,7 @@ const Client = () => {
                 client={client}
                 order={order}
                 company={company}
+                logo={logo}
             />
         </>
     );

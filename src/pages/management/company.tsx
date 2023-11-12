@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
-import type { FC, FormEvent } from "react";
+import type { FC, FormEvent, ChangeEvent } from "react";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Tcompany, companySchema } from "@/configs/schema/manageSchema";
 import { useTranslation } from "react-i18next";
 import Card from "@/components/card";
+import { NormalBtn } from "@/components/btns";
+import { API_MANAGE } from "@/apis";
+import { RES_STATUS } from "@/utils/types";
+import { toastSuccess } from "@/utils/toaster";
 
 type Tprops = {
     company: Tcompany | null;
+    logo: string;
 };
 
 const initCompany = {
@@ -23,42 +28,41 @@ const initCompany = {
     acc: "",
 };
 
-const Company: FC<Tprops> = ({ company }) => {
+const Company: FC<Tprops> = ({ company, logo }) => {
     const { t } = useTranslation();
     const [imagePreview, setImagePreview] = useState<string | null>(null);
-    const [file, setFile] = useState<any>(null);
+    const [uploadFile, setUploadFile] = useState<File | null>(null);
+    const [logoSrc, setLogoSrc] = useState<string>(logo);
     const [id] = useState<number>(company?.id ? company.id : 0);
     const submit = useSubmit();
     const {
-        control,
+        //control,
         formState: { errors },
         getValues,
         register,
-        reset,
+        //reset,
         trigger,
-        watch,
+        //watch,
     } = useForm<Tcompany>({
         resolver: zodResolver(companySchema),
         defaultValues: company ? company : initCompany,
     });
 
-    /* const logoFile = watch("logo");
+    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files ? e.target.files[0] : null;
 
-    useEffect(() => {
-        if (logoFile && logoFile.length > 0) {
-            const fileReader = new FileReader();
-            fileReader.onload = () =>
-                setImagePreview(fileReader.result as string);
-            fileReader.readAsDataURL(logoFile[0]);
-            setFile(logoFile[0]);
-        } else {
-            setImagePreview(null);
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result as string);
+                setUploadFile(file);
+            };
+            reader.readAsDataURL(file);
         }
-    }, [logoFile]); */
+    };
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        //console.log("-> click submit err: ", errors);
         const isValid = await trigger([
             "name",
             "address",
@@ -255,7 +259,65 @@ const Company: FC<Tprops> = ({ company }) => {
         </Form>
     );
 
-    const logoContent = <Card className="">123</Card>;
+    const logoContent = (
+        <Card className="">
+            <label
+                htmlFor="logo"
+                className="block text-sm font-medium leading-6 text-indigo-500"
+            >
+                {t("label.logo")}
+            </label>
+            <input
+                type="file"
+                id="logo"
+                name="logo"
+                accept=".png,.jpg,.jpeg"
+                onChange={handleImageChange}
+                className="outline-none h-full block w-full rounded-md border-0 py-1.5 text-indigo-500 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+            />
+            <section className="grid grid-cols-2 gap-x-3 mt-2">
+                <Card className="col-span-1">
+                    <p className="text-indigo-500 text-xs mb-2">
+                        {t("label.logoCurrent")}
+                    </p>
+                    <img
+                        id="logo"
+                        src={logoSrc}
+                        className="max-w-[100px] max-h-[100px] m-auto"
+                    />
+                </Card>
+                {imagePreview && (
+                    <Card className="col-span-1">
+                        <p className="text-indigo-500 text-xs mb-2">
+                            {t("label.logoUpload")}
+                        </p>
+                        <img
+                            id="imagePreview"
+                            src={imagePreview}
+                            alt="Image preview"
+                            className="max-w-[100px] max-h-[100px] m-auto"
+                        />
+                    </Card>
+                )}
+            </section>
+            <div className="border-t-2 border-dotted border-indigo-400 mt-3">
+                <NormalBtn
+                    name={t("btn.updateLogo")}
+                    onClick={async () => {
+                        if (uploadFile) {
+                            const result =
+                                await API_MANAGE.logoUpdate(uploadFile);
+                            if (result.status === RES_STATUS.SUC_UPDATE_LOGO) {
+                                toastSuccess(t("toastS.updateLogo"));
+                                setLogoSrc(result.data);
+                            }
+                        }
+                    }}
+                    className="h-[4vh] mt-[1vh]"
+                />
+            </div>
+        </Card>
+    );
 
     const mainContent = (
         <section className="grid grid-cols-6 gap-x-8">

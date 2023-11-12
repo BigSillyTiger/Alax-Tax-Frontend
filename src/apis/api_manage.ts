@@ -6,6 +6,8 @@ import {
     REQ_MANAGE_UNI_EDIT,
     REQ_MANAGE_GET_COMPANY,
     REQ_MANAGE_UPDATE_COMPANY,
+    REQ_MANAGE_LOGO_UPDATE,
+    REQ_MANAGE_LOGO,
 } from "./req_list";
 import {
     Tcompany,
@@ -101,6 +103,42 @@ export const uniAdd = async (unit: TnewService | TnewUnit) => {
         return {
             status: 400,
             msg: "Failed: add service / unit",
+            data: "",
+        };
+    }
+};
+
+export const logoUpdate = async (logoData: File) => {
+    try {
+        const response = await apis.put(
+            REQ_MANAGE_LOGO_UPDATE,
+            { logo: logoData },
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.log("-> update logo error: ", error);
+        return {
+            status: 400,
+            msg: "failed in updating logo",
+            data: "",
+        };
+    }
+};
+
+export const logo = async () => {
+    try {
+        const response = await apis.get(REQ_MANAGE_LOGO);
+        return response.data;
+    } catch (error) {
+        console.log("-> retrieve logo error: ", error);
+        return {
+            status: 400,
+            msg: "failed in retrieving logo",
             data: "",
         };
     }

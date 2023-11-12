@@ -27,6 +27,7 @@ type Tprops = {
     company: Tcompany;
     unit?: "$" | "AUD";
     date: string;
+    logo: string;
 };
 
 const PDFTemplate: FC<Tprops> = ({
@@ -35,6 +36,7 @@ const PDFTemplate: FC<Tprops> = ({
     company,
     unit = "$",
     date,
+    logo,
 }) => {
     const { t } = useTranslation();
 
@@ -69,6 +71,7 @@ const PDFTemplate: FC<Tprops> = ({
                 company={company}
                 invoiceID={order.order_id}
                 issueDate={date}
+                logo={logo}
             />
             <BillTitle company={company} client={client} />
             <Services order={order.order_desc} />

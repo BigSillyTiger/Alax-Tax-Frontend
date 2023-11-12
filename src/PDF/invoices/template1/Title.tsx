@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import type { FC } from "react";
 import { Text, View, Image } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
@@ -11,14 +11,12 @@ type Tprops = {
     company: Tcompany;
     invoiceID: number;
     issueDate: string;
+    logo: string;
 };
 
 const tw = createTw({});
 
-const imgSrc =
-    "https://pbs.twimg.com/media/F-T6w9SW8AEiITX?format=jpg&name=small";
-
-const Title: FC<Tprops> = ({ company, invoiceID, issueDate }) => {
+const Title: FC<Tprops> = ({ company, invoiceID, issueDate, logo }) => {
     const { t } = useTranslation();
 
     return (
@@ -28,7 +26,7 @@ const Title: FC<Tprops> = ({ company, invoiceID, issueDate }) => {
             )}
             fixed
         >
-            <Image src={imgSrc} style={tw("rounded-lg h-20 w-20")} />
+            <Image src={logo} style={tw("rounded-lg h-20 w-20")} />
             {/* company */}
             <View style={tw("flex justify-center")}>
                 <Text style={tw("font-bold text-base")}>{company.name}</Text>

@@ -12,9 +12,10 @@ import { toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 
 const Management: FC = () => {
-    const { univers, company } = useLoaderData() as {
+    const { univers, company, logo } = useLoaderData() as {
         univers: Tunivers | null;
         company: Tcompany | null;
+        logo: string;
     };
     const { t } = useTranslation();
 
@@ -52,7 +53,7 @@ const Management: FC = () => {
                     </Tab.List>
                     <Tab.Panels className="mt-2">
                         <Tab.Panel className="rounded-xl bg-white p-3ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400">
-                            <Company company={company} />
+                            <Company company={company} logo={logo} />
                         </Tab.Panel>
                         <Tab.Panel className="rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400">
                             <Uni

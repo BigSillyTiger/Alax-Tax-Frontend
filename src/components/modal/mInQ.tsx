@@ -14,7 +14,6 @@ import { Tcompany } from "@/configs/schema/manageSchema";
 import CompanyInfoCard from "../customized/CompanyInfoCard";
 import { newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin } from "@/configs/utils";
-import { API_ORDER } from "@/apis";
 
 type Tprops = {
     open: TclientOrderModal;
@@ -22,6 +21,7 @@ type Tprops = {
     client: Tclient;
     order: TorderWithDetails;
     company: Tcompany;
+    logo: string;
 };
 
 const DatePicker = ({
@@ -125,7 +125,7 @@ const DatePicker = ({
     );
 };
 
-const MInQ: FC<Tprops> = ({ open, setOpen, client, order, company }) => {
+const MInQ: FC<Tprops> = ({ open, setOpen, client, order, company, logo }) => {
     const [date, setDate] = useState(newDateFormat(new Date()));
     const { t } = useTranslation();
     const onClose = () => {
@@ -182,6 +182,7 @@ const MInQ: FC<Tprops> = ({ open, setOpen, client, order, company }) => {
                     company={company}
                     unit="$"
                     date={date}
+                    logo={logo}
                 />
             </section>
         </main>

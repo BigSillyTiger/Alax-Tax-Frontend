@@ -68,6 +68,7 @@ const en = {
             submitting: "Submitting...",
             update: "Update",
             updateIssueDate: "Update Issue Date",
+            updateLogo: "Update Logo",
             yes: "Yes",
         },
         placeholder: {
@@ -116,6 +117,8 @@ const en = {
             lastName: "Last Name",
             logo: "Logo",
             logoName: "Logo Name",
+            logoCurrent: "Current Logo",
+            logoUpload: "Upload Logo",
             menu: "Menu",
             netto: "Netto",
             newIssueDate: "New Issue Date",
@@ -176,6 +179,7 @@ const en = {
             updateOrderStatus: "Updated Order Status",
             updatePayment: "Updated Payment Details",
             updateCompany: "Updated Company Info",
+            updateLogo: "Updated Logo",
         },
         toastF: {
             addOrder: "Error: Adding New Order Failed",

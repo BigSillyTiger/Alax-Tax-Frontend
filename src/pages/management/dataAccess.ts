@@ -7,8 +7,8 @@ import type { Tresponse } from "@/utils/types";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     const univers = await API_MANAGE.uniAll();
     const company = await API_MANAGE.companyGet();
-
-    return defer({ univers, company: company.data });
+    const logo = await API_MANAGE.logo();
+    return defer({ univers, company: company.data, logo: logo.data });
 };
 
 export const action = async ({

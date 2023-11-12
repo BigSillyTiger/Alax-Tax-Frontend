@@ -38,3 +38,5 @@ export const REQ_MANAGE_UNI_DEL = "/manage/uni_del";
 export const REQ_MANAGE_UNI_EDIT = "/manage/uni_edit";
 export const REQ_MANAGE_GET_COMPANY = "/manage/company_get";
 export const REQ_MANAGE_UPDATE_COMPANY = "/manage/company_update";
+export const REQ_MANAGE_LOGO_UPDATE = "/manage/logo_update";
+export const REQ_MANAGE_LOGO = "/manage/logo";
