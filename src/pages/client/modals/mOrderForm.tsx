@@ -23,6 +23,7 @@ import DataList from "@/components/dataList";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { ClientInfoCard } from "@/components/customized";
 import StatesOptions from "@/components/stateOptions";
+import Animate from "@/components/transitions/Animate";
 
 type Tprops = {
     client: Tclient;
