@@ -3,7 +3,7 @@ import { Cell } from "@tanstack/react-table";
 const orderColumns = [
     {
         header: "Details",
-        cell: (info: Cell<{ details: string }, string>) => {
+        cell: () => {
             return <></>;
         },
     },
@@ -58,7 +58,7 @@ const orderColumns = [
     },
     {
         header: "Order Details",
-        cell: (info: Cell<{ order_details: string }, string>) => {
+        cell: () => {
             return <></>;
         },
     },

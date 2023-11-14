@@ -22,7 +22,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 export const action = async ({
-    params,
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
     const data = await request.formData();

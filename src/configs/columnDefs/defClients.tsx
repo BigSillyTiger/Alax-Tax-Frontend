@@ -57,7 +57,7 @@ const clientColumns: ColumnDef<Tclient>[] = [
     },
     {
         header: i18n.t("label.menu"),
-        cell: (info: CellContext<Tclient, unknown>) => <></>,
+        cell: () => <></>,
     },
 ];
 

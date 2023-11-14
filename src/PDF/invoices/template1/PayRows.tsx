@@ -3,7 +3,6 @@ import type { FC } from "react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { TorderPayment } from "@/configs/schema/orderSchema";
-import { format } from "date-fns";
 import { dateFormat } from "@/utils/utils";
 
 type Tprops = {

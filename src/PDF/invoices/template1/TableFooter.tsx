@@ -1,5 +1,5 @@
 import { memo } from "react";
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { TorderDesc } from "@/configs/schema/orderSchema";

@@ -1,4 +1,5 @@
-import React, { FC, Fragment } from "react";
+import { Fragment } from "react";
+import type { FC } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";

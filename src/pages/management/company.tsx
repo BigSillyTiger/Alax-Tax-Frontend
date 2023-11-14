@@ -37,7 +37,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
     const submit = useSubmit();
     const {
         //control,
-        formState: { errors },
+        //formState: { errors },
         getValues,
         register,
         //reset,

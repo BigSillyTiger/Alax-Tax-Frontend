@@ -9,7 +9,6 @@ import {
     getExpandedRowModel,
 } from "@tanstack/react-table";
 import type { OnChangeFn, SortingState, Row } from "@tanstack/react-table";
-import { useNavigate } from "react-router-dom";
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
@@ -68,7 +67,6 @@ const PTable = <T,>({
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
-    const nevigate = useNavigate();
 
     const table = useReactTable({
         data,

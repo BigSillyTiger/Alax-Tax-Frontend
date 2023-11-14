@@ -1,4 +1,3 @@
-import React from "react";
 import type { FC, ReactNode } from "react";
 import { Disclosure } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";

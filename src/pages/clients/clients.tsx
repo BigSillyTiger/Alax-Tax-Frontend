@@ -39,7 +39,6 @@ const initClient = {
 
 const Clients: FC = () => {
     const [client, setClient] = useState<Tclient>(initClient);
-    const [clientDel, setClientDel] = useState<Tclient>(initClient);
     const [infoConflict, setInfoConflict] = useState<TisConflict>(
         RES_STATUS.SUCCESS
     );

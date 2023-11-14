@@ -1,9 +1,9 @@
 import { API_ORDER } from "@/apis";
 import { defer } from "react-router-dom";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router-dom";
+import type { ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async () => {
     const orders = await API_ORDER.orderAll();
     return defer({ orders });
 };

@@ -1,5 +1,4 @@
 import { z } from "zod";
-import orderPaymentsColumns from "../columnDefs/defPayments";
 
 export const orderSchema = z.object({
     order_id: z.number(),

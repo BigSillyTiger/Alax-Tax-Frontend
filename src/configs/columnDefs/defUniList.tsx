@@ -32,7 +32,7 @@ export const serviceListColDefs = [
     },
     {
         header: i18n.t("label.menu"),
-        cell: (info: Cell<{ menu: string }, string>) => {
+        cell: () => {
             return <></>;
         },
     },
@@ -55,7 +55,7 @@ export const unitListColDefs = [
     },
     {
         header: i18n.t("label.menu"),
-        cell: (info: Cell<{ menu: string }, string>) => {
+        cell: () => {
             return <></>;
         },
     },

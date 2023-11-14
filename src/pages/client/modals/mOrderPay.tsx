@@ -49,13 +49,13 @@ const MOrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
 
     const {
         control,
-        formState: { errors },
+        //formState: { errors },
         getValues,
         register,
         reset,
-        setValue,
+        //setValue,
         trigger,
-        watch,
+        //watch,
     } = useForm<Tpayment>({
         resolver: zodResolver(paymentFormSchema),
         defaultValues: { payments: order.payments },

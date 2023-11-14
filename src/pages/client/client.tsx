@@ -27,7 +27,6 @@ import { Tcompany } from "@/configs/schema/manageSchema";
 
 const Client = () => {
     const { t } = useTranslation();
-    const { cid } = useParams();
     // true for services, false for payments
     const { clientInfo, clientOrders, uniData, company, logo } =
         useLoaderData() as {

@@ -1,6 +1,6 @@
 import { API_MANAGE } from "@/apis";
 import { defer } from "react-router-dom";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router-dom";
+import type { ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
 
 // create loader and action function for service list page

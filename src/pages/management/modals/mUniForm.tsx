@@ -41,7 +41,7 @@ const MUniForm: FC<Tprops> = ({
     const navigation = useNavigation();
     const schema = isServiceType(uni) ? newServiceSchema : newUnitSchema;
     const {
-        formState: { errors },
+        //formState: { errors },
         getValues,
         register,
         reset,

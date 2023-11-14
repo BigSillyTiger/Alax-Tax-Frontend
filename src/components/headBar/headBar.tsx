@@ -20,7 +20,7 @@ const classNames = (...classes: any) => {
     return classes.filter(Boolean).join(" ");
 };
 
-const HeadBar: FC<Tprops> = ({ open, setOpen }) => {
+const HeadBar: FC<Tprops> = ({ setOpen }) => {
     const nevigate = useNavigate();
 
     const handleLogout = async (e: MouseEvent | TouchEvent) => {

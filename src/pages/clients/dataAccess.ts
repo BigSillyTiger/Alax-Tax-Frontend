@@ -1,13 +1,9 @@
 import { API_CLIENT } from "@/apis";
-import {
-    defer,
-    ActionFunctionArgs,
-    LoaderFunctionArgs,
-} from "react-router-dom";
+import { defer, ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
 import type { Tclient } from "@/configs/schema/clientSchema";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async () => {
     const clients = API_CLIENT.clientAll();
     return defer({ clients });
 };
