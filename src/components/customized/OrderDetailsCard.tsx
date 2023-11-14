@@ -1,4 +1,3 @@
-import React from "react";
 import type { FC } from "react";
 import Card from "@/components/card";
 import { useTranslation } from "react-i18next";

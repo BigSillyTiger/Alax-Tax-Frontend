@@ -1,5 +1,4 @@
-import React from "react";
-import type { FC, ReactNode, HTMLAttributes } from "react";
+import type { FC, ReactNode } from "react";
 
 type Tprops = {
     className?: string;

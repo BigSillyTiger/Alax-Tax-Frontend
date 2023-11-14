@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import type { FC, TouchEvent, MouseEvent } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { useTranslation } from "react-i18next";

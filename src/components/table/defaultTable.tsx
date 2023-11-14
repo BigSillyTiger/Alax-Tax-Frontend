@@ -1,4 +1,4 @@
-import React, { useState, useDeferredValue, Fragment } from "react";
+import { useState, useDeferredValue, Fragment } from "react";
 import {
     useReactTable,
     flexRender,

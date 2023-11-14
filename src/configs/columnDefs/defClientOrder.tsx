@@ -1,8 +1,7 @@
-import { ColumnDef, CellContext, Row } from "@tanstack/react-table";
+import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/utils/i18n";
 import { TorderWithDesc } from "@/configs/schema/orderSchema";
 import { dateFormat } from "@/utils/utils";
-import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 import { minusAB } from "@/utils/calculations";
 
 const setColor = (value: string) => {

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import type { FC, ReactNode } from "react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useDeferredValue, memo } from "react";
+import { useState, useEffect, useDeferredValue, memo } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";

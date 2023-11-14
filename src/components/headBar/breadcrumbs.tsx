@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import type { FC } from "react";
 import useBreadcrumbs from "use-react-router-breadcrumbs";
 import { NavLink } from "react-router-dom";

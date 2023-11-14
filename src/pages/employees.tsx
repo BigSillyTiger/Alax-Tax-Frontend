@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import type { FC } from "react";
 
 const Employees: FC = () => {
     return <div>hello Employees Page</div>;

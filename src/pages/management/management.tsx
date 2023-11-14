@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import type { FC } from "react";
 import { Tab } from "@headlessui/react";
 import { mTabList } from "@/configs/menuList";

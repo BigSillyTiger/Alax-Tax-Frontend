@@ -1,5 +1,5 @@
-import React, { FC, useState, Suspense } from "react";
-import { Await, useLoaderData, useActionData } from "react-router-dom";
+import { FC, Suspense } from "react";
+import { Await, useLoaderData } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
 import Card from "@/components/card";
 

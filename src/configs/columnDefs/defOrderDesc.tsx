@@ -1,4 +1,4 @@
-import {  ColumnDef, CellContext } from "@tanstack/react-table";
+import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/utils/i18n";
 import { TorderDesc } from "@/configs/schema/orderSchema";
 

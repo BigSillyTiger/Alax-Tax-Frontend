@@ -1,4 +1,3 @@
-import React from "react";
 import type { Row } from "@tanstack/react-table";
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 

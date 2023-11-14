@@ -1,4 +1,3 @@
-import React from "react";
 import { API_CLIENT, API_MANAGE, API_ORDER } from "@/apis";
 import { defer } from "react-router-dom";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";

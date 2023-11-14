@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from "react";
+import { useEffect, memo } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation, Trans } from "react-i18next";
 import { useForm } from "react-hook-form";

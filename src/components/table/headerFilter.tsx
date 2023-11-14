@@ -1,4 +1,3 @@
-import React from "react";
 import type { FC } from "react";
 import { Column, Table } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";

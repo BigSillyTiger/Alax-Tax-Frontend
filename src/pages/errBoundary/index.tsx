@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { useRouteError, redirect } from "react-router-dom";
+import type { FC } from "react";
+import { useRouteError } from "react-router-dom";
 
 const ErrBoundary: FC = () => {
     const error = useRouteError() as any;

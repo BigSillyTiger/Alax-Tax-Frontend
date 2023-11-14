@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import type { FC } from "react";
 import { redirect } from "react-router-dom";
 import SpinningEle from "@/components/loadingEle/SpinningEle";
 import { API_ADMIN } from "@/apis";

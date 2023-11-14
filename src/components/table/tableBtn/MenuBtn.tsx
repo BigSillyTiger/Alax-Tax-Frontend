@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import type { FC, ReactNode } from "react";
+import { Fragment } from "react";
+import type { FC } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import genOptions from "./genOptions";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";

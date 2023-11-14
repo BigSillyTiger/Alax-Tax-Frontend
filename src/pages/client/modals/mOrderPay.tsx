@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation, useSubmit, Form } from "react-router-dom";

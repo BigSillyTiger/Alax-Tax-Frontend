@@ -4,7 +4,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
 
 // create loader and action function for service list page
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async () => {
     const univers = await API_MANAGE.uniAll();
     const company = await API_MANAGE.companyGet();
     const logo = await API_MANAGE.logo();

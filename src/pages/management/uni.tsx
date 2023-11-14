@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import type { FC } from "react";
 import Card from "@/components/card";
 import { Tservice, Tunit } from "@/configs/schema/manageSchema";

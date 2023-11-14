@@ -1,4 +1,3 @@
-import React from "react";
 import type { FC } from "react";
 import { TorderDesc } from "@/configs/schema/orderSchema";
 import { useTranslation } from "react-i18next";

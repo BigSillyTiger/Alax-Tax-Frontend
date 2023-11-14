@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import type { FC } from "react";
 import { ColorRing } from "react-loader-spinner";
 
 const SpinningEle: FC = () => {

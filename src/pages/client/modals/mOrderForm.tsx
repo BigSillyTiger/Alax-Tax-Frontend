@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState, memo } from "react";
+import { useCallback, useEffect, useMemo, useState, memo } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
@@ -23,7 +23,6 @@ import DataList from "@/components/dataList";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { ClientInfoCard } from "@/components/customized";
 import StatesOptions from "@/components/stateOptions";
-import Animate from "@/components/transitions/Animate";
 
 type Tprops = {
     client: Tclient;

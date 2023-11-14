@@ -26,7 +26,7 @@ export const toastError = (text: string) => {
     });
 };
 
-export const toastCustomize = (text: string) => {
+export const toastCustomize = () => {
     toast.custom((t) => (
         <div
             className={`${

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import {
     XMarkIcon,
@@ -52,7 +52,7 @@ const ModalFrame: FC<Tprops> = ({
             <Dialog
                 as="div"
                 className="relative z-10"
-                onClose={(value) => {
+                onClose={() => {
                     onClose();
                 }}
             >

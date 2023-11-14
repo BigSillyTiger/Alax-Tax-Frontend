@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import { useSubmit } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";

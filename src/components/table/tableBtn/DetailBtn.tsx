@@ -1,4 +1,3 @@
-import React from "react";
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { DocumentTextIcon } from "@heroicons/react/24/outline";

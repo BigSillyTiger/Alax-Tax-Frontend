@@ -1,4 +1,5 @@
-import React, { FC, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import type { FC } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 type Tprops = {

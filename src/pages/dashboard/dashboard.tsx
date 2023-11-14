@@ -1,4 +1,5 @@
-import React, { FC, Suspense } from "react";
+import { Suspense } from "react";
+import type { FC } from "react";
 import { Await, useLoaderData } from "react-router-dom";
 import SpinningEle from "@/components/loadingEle/SpinningEle";
 
@@ -14,7 +15,7 @@ const Dashboard: FC = () => {
             <div className="">Dashboard</div>
             <Suspense fallback={<SpinningEle />}>
                 <Await resolve={loaderData.content}>
-                    {(loadedContent) => {
+                    {() => {
                         return <DashboardContent />;
                     }}
                 </Await>

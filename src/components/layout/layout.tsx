@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
 import MainMenu from "@/components/mainMenu";
 import HeadBar from "@/components/headBar";
@@ -27,12 +27,5 @@ const Layout: FC = () => {
         </>
     );
 };
-
-/* const mapStateToProps = (state: any) => {
-    const loginStatus = selectAdmin(state).loginState;
-    return { loginStatus };
-};
-
-export default connect(mapStateToProps, { updateAdminStatus })(Layout); */
 
 export default Layout;

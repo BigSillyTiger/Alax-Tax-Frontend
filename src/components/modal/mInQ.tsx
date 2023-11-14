@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import type { FC } from "react";
 import { MTemplate } from ".";
 import { Tclient } from "@/configs/schema/clientSchema";

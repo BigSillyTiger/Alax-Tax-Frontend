@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import type { FC, FormEvent, ChangeEvent } from "react";
-import { useNavigation, useSubmit, Form } from "react-router-dom";
-import { useForm, useWatch } from "react-hook-form";
+import { useSubmit, Form } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Tcompany, companySchema } from "@/configs/schema/manageSchema";
 import { useTranslation } from "react-i18next";

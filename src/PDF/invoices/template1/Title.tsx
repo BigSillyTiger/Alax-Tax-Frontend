@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
 import type { FC } from "react";
 import { Text, View, Image } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
-import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { Tcompany } from "@/configs/schema/manageSchema";
 import { dateFormat } from "@/utils/utils";

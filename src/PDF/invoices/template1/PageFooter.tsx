@@ -1,4 +1,3 @@
-import React from "react";
 import type { FC } from "react";
 import { Text } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";

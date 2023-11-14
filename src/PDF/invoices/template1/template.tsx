@@ -1,5 +1,4 @@
-import React from "react";
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 import { PDFViewer, Page, View, Document, Text } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { Tclient } from "@/configs/schema/clientSchema";

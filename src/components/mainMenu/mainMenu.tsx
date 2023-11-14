@@ -1,4 +1,9 @@
-import React, { FC } from "react";
+import type {
+    FC,
+    ForwardRefExoticComponent,
+    SVGProps,
+    RefAttributes,
+} from "react";
 import MobileMenu from "./mobileMenu";
 
 import { menuList } from "@/configs/menuList";
@@ -8,11 +13,11 @@ import { Tpermission } from "@/configs/schema/universSchema";
 export type TmenuList = {
     name: string;
     href: string;
-    icon: React.ForwardRefExoticComponent<
-        Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
+    icon: ForwardRefExoticComponent<
+        Omit<SVGProps<SVGSVGElement>, "ref"> & {
             title?: string | undefined;
             titleId?: string | undefined;
-        } & React.RefAttributes<SVGSVGElement>
+        } & RefAttributes<SVGSVGElement>
     >;
     current: boolean;
 }[];
