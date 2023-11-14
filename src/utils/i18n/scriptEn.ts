@@ -69,6 +69,7 @@ const en = {
             update: "Update",
             updateIssueDate: "Update Issue Date",
             updateLogo: "Update Logo",
+            updateCompany: "Update Company Info",
             yes: "Yes",
         },
         placeholder: {

@@ -245,62 +245,64 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                 </div>
                 {/* submit btn */}
             </Card>
-            <section className="col-span-full flex items-center">
+            <section className="col-span-full flex items-center mt-1">
                 <button
                     name="intent"
                     value="add"
                     type="submit"
-                    className="w-20 mx-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset hover:bg-indigo-700"
+                    className="w-full mx-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset hover:bg-indigo-700"
                     onClick={() => trigger()}
                 >
-                    {t("btn.update")}
+                    {t("btn.updateCompany")}
                 </button>
             </section>
         </Form>
     );
 
     const logoContent = (
-        <Card className="">
-            <label
-                htmlFor="logo"
-                className="block text-sm font-medium leading-6 text-indigo-500"
-            >
-                {t("label.logo")}
-            </label>
-            <input
-                type="file"
-                id="logo"
-                name="logo"
-                accept=".png,.jpg,.jpeg"
-                onChange={handleImageChange}
-                className="outline-none h-full block w-full rounded-md border-0 py-1.5 text-indigo-500 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-            />
-            <section className="grid grid-cols-2 gap-x-3 mt-2">
-                <Card className="col-span-1">
-                    <p className="text-indigo-500 text-xs mb-2">
-                        {t("label.logoCurrent")}
-                    </p>
-                    <img
-                        id="logo"
-                        src={logoSrc}
-                        className="max-w-[100px] max-h-[100px] m-auto"
-                    />
-                </Card>
-                {imagePreview && (
+        <>
+            <Card className="">
+                <label
+                    htmlFor="logo"
+                    className="block text-sm font-medium leading-6 text-indigo-500"
+                >
+                    {t("label.logo")}
+                </label>
+                <input
+                    type="file"
+                    id="logo"
+                    name="logo"
+                    accept=".png,.jpg,.jpeg"
+                    onChange={handleImageChange}
+                    className="outline-none h-full block w-full rounded-md border-0 py-1.5 text-indigo-500 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                />
+                <section className="grid grid-cols-2 gap-x-3 mt-2">
                     <Card className="col-span-1">
                         <p className="text-indigo-500 text-xs mb-2">
-                            {t("label.logoUpload")}
+                            {t("label.logoCurrent")}
                         </p>
                         <img
-                            id="imagePreview"
-                            src={imagePreview}
-                            alt="Image preview"
+                            id="logo"
+                            src={logoSrc}
                             className="max-w-[100px] max-h-[100px] m-auto"
                         />
                     </Card>
-                )}
-            </section>
-            <div className="border-t-2 border-dotted border-indigo-400 mt-3">
+                    {imagePreview && (
+                        <Card className="col-span-1">
+                            <p className="text-indigo-500 text-xs mb-2">
+                                {t("label.logoUpload")}
+                            </p>
+                            <img
+                                id="imagePreview"
+                                src={imagePreview}
+                                alt="Image preview"
+                                className="max-w-[100px] max-h-[100px] m-auto"
+                            />
+                        </Card>
+                    )}
+                </section>
+            </Card>
+            <div className="mt-1">
                 <NormalBtn
                     name={t("btn.updateLogo")}
                     onClick={async () => {
@@ -316,18 +318,18 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                     className="h-[4vh] mt-[1vh]"
                 />
             </div>
-        </Card>
+        </>
     );
 
     const mainContent = (
-        <section className="grid grid-cols-6 gap-x-8">
-            <section className="col-span-4">
+        <section className="grid grid-cols-1 md:grid-cols-6 gap-x-8">
+            <section className="col-span-1 md:col-span-4">
                 <p className="text-lg text-indigo-600 text-bold mb-4">
                     {t("label.companyInfo")}
                 </p>
                 {formContent}
             </section>
-            <section className="col-span-2">
+            <section className="col-span-1 md:col-span-2">
                 <p className="text-lg text-indigo-600 text-bold mb-4">
                     {t("label.logo")}
                 </p>
@@ -336,7 +338,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
         </section>
     );
 
-    return <section className="w-[60vw] mx-auto mt-10">{mainContent}</section>;
+    return <section className="mx-auto mt-10">{mainContent}</section>;
 };
 
 export default Company;
