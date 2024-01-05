@@ -40,7 +40,7 @@ const initClient = {
     postcode: "",
 };
 
-const MClientForm: FC<Tprops> = ({
+const ClientForm: FC<Tprops> = ({
     client,
     open,
     setOpen,
@@ -358,4 +358,6 @@ const MClientForm: FC<Tprops> = ({
     );
 };
 
-export default memo(MClientForm);
+const MClientForm = memo(ClientForm);
+
+export default MClientForm;

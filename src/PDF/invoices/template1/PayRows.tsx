@@ -12,7 +12,7 @@ type Tprops = {
 
 const tw = createTw({});
 
-const PayRows: FC<Tprops> = ({ data, unit: u }) => {
+const Pay_Rows: FC<Tprops> = ({ data, unit: u }) => {
     if (data.length <= 0) return null;
 
     return data.map((item, i) => {
@@ -36,4 +36,6 @@ const PayRows: FC<Tprops> = ({ data, unit: u }) => {
     });
 };
 
-export default memo(PayRows);
+const PayRows = memo(Pay_Rows);
+
+export default PayRows;

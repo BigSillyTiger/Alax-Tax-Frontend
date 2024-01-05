@@ -17,7 +17,7 @@ type Tprops = {
     className?: string;
 };
 
-const MTemplate: FC<Tprops> = ({
+const Template: FC<Tprops> = ({
     open,
     onClose,
     isMajor = false,
@@ -51,7 +51,7 @@ const MTemplate: FC<Tprops> = ({
             >
                 {children}
             </ModalFrame>
-            ;
+
             {mQuit && (
                 <MQuit
                     open={openQuit}
@@ -63,4 +63,6 @@ const MTemplate: FC<Tprops> = ({
     );
 };
 
-export default memo(MTemplate);
+const MTemplate = memo(Template);
+
+export default MTemplate;

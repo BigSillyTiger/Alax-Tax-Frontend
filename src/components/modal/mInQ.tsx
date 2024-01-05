@@ -125,7 +125,7 @@ const DatePicker = ({
     );
 };
 
-const MInQ: FC<Tprops> = ({ open, setOpen, client, order, company, logo }) => {
+const InQ: FC<Tprops> = ({ open, setOpen, client, order, company, logo }) => {
     const [date, setDate] = useState(newDateFormat(new Date()));
     const { t } = useTranslation();
     const onClose = () => {
@@ -203,4 +203,6 @@ const MInQ: FC<Tprops> = ({ open, setOpen, client, order, company, logo }) => {
     );
 };
 
-export default memo(MInQ);
+const MInQ = memo(InQ);
+
+export default MInQ;

@@ -16,7 +16,7 @@ type Tprops = {
 };
 
 // this component is about building a modal with transition to delete a client
-const MUniDel: FC<Tprops> = ({ uni, open, setOpen }) => {
+const UniDel: FC<Tprops> = ({ uni, open, setOpen }) => {
     const submit = useSubmit();
     const { t } = useTranslation();
 
@@ -107,4 +107,6 @@ const MUniDel: FC<Tprops> = ({ uni, open, setOpen }) => {
     );
 };
 
-export default memo(MUniDel);
+const MUniDel = memo(UniDel);
+
+export default MUniDel;

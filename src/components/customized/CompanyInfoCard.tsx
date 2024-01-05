@@ -9,7 +9,7 @@ type Tinfo = {
     className: string;
 };
 
-const CompanyInfoCard: FC<Tinfo> = ({ company, className }) => {
+const CompanyInfo_Card: FC<Tinfo> = ({ company, className }) => {
     const { t } = useTranslation();
     return (
         <Card
@@ -67,4 +67,6 @@ const CompanyInfoCard: FC<Tinfo> = ({ company, className }) => {
     );
 };
 
-export default memo(CompanyInfoCard);
+const CompanyInfoCard = memo(CompanyInfo_Card);
+
+export default CompanyInfoCard;

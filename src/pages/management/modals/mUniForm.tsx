@@ -19,13 +19,7 @@ type Tprops = {
     setOpen: (open: TclientOrderModal) => void;
 };
 
-const MUniForm: FC<Tprops> = ({
-    uni,
-    serviceList,
-    unitList,
-    open,
-    setOpen,
-}) => {
+const UniForm: FC<Tprops> = ({ uni, serviceList, unitList, open, setOpen }) => {
     const [isConflict, setIsConflict] = useState(false);
     // service
     const [service, setService] = useState("");
@@ -222,8 +216,8 @@ const MUniForm: FC<Tprops> = ({
                         ? t("modal.title.addService")
                         : t("modal.title.editService")
                     : open === "Add"
-                    ? t("modal.title.addUnit")
-                    : t("modal.title.editUnit")
+                      ? t("modal.title.addUnit")
+                      : t("modal.title.editUnit")
             }
             mQuit={true}
         >
@@ -232,4 +226,6 @@ const MUniForm: FC<Tprops> = ({
     );
 };
 
-export default memo(MUniForm);
+const MUniForm = memo(UniForm);
+
+export default MUniForm;
