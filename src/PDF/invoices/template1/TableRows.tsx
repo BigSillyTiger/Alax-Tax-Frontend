@@ -12,7 +12,7 @@ type Tprops = {
 
 const tw = createTw({});
 
-const Table_Rows: FC<Tprops> = ({ data, unit: u }) => {
+const TableRows: FC<Tprops> = memo(({ data, unit: u }) => {
     if (data.length <= 0) return null;
 
     return data.map((item, i) => {
@@ -56,8 +56,6 @@ const Table_Rows: FC<Tprops> = ({ data, unit: u }) => {
             </View>
         );
     });
-};
-
-const TableRows = memo(Table_Rows);
+});
 
 export default TableRows;

@@ -15,7 +15,7 @@ type Tprops = {
 };
 
 // this component is about building a modal with transition to delete a client
-const ClientDel: FC<Tprops> = ({ client, open, setOpen }) => {
+const MClientDel: FC<Tprops> = memo(({ client, open, setOpen }) => {
     const submit = useSubmit();
     const { t } = useTranslation();
 
@@ -99,8 +99,6 @@ const ClientDel: FC<Tprops> = ({ client, open, setOpen }) => {
             {mainContent}
         </MTemplate>
     );
-};
-
-const MClientDel = memo(ClientDel);
+});
 
 export default MClientDel;

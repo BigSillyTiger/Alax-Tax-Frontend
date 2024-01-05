@@ -36,7 +36,7 @@ type Tpayment = {
     payments: TorderPayment[];
 };
 
-const OrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
+const MOrderPay: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
     const navigation = useNavigation();
     const [payment, setPayment] = useState<TorderPayment>({
         fk_order_id: 0,
@@ -346,8 +346,6 @@ const OrderPay: FC<Tprops> = ({ client, order, open, setOpen }) => {
             </MTemplate>
         </>
     );
-};
+});
 
-const MorderPay = memo(OrderPay);
-
-export default MorderPay;
+export default MOrderPay;

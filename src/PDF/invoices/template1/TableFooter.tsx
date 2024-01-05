@@ -16,7 +16,7 @@ type Tprops = {
 
 const tw = createTw({});
 
-const Table_Footer: FC<Tprops> = ({ company, order, paid, unit: u }) => {
+const TableFooter: FC<Tprops> = memo(({ company, order, paid, unit: u }) => {
     const { t } = useTranslation();
 
     const gst = order.reduce(
@@ -118,8 +118,6 @@ const Table_Footer: FC<Tprops> = ({ company, order, paid, unit: u }) => {
             </View>
         </View>
     );
-};
-
-const TableFooter = memo(Table_Footer);
+});
 
 export default TableFooter;

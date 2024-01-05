@@ -10,7 +10,7 @@ type Tprops = {
     closeMainModal: () => void;
 };
 
-const Quit: FC<Tprops> = ({ open, setOpen, closeMainModal }) => {
+const MQuit: FC<Tprops> = memo(({ open, setOpen, closeMainModal }) => {
     const { t } = useTranslation();
 
     const onClose = () => {
@@ -44,8 +44,6 @@ const Quit: FC<Tprops> = ({ open, setOpen, closeMainModal }) => {
             {mainContent}
         </ModalFrame>
     );
-};
-
-const MQuit = memo(Quit);
+});
 
 export default MQuit;
