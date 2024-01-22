@@ -12,7 +12,7 @@ const permissionSchema = z.object({
     clients: pItemSchema,
     orders: pItemSchema,
     calendar: pItemSchema,
-    employees: pItemSchema,
+    staff: pItemSchema,
     management: pItemSchema,
 });
 

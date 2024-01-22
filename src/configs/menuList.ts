@@ -33,8 +33,8 @@ export const menuList = [
         current: false,
     },
     {
-        name: "Employees",
-        href: "/employees",
+        name: "Staff",
+        href: "/staff",
         icon: IdentificationIcon,
         current: false,
     },

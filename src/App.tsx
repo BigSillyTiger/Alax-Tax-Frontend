@@ -29,7 +29,7 @@ import Orders, {
     loader as ordersLoader,
     action as ordersAction,
 } from "@/pages/orders";
-import Employees from "@/pages/employees";
+import Staff from "@/pages/staff";
 import Management from "@/pages/management";
 import Calendar from "./pages/calendar";
 import {
@@ -83,7 +83,7 @@ const App: FC = () => {
                         action={ordersAction}
                     />
                     <Route path={"/calendar"} element={<Calendar />} />
-                    <Route path={"/employees"} element={<Employees />} />
+                    <Route path={"/staff"} element={<Staff />} />
                     <Route
                         path={"/management"}
                         element={<Management />}

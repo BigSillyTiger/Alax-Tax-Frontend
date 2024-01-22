@@ -6,7 +6,7 @@ type TpermissionProps = {
     dashboard: 0 | 1 | 2 | 3;
     clients: 0 | 1 | 2 | 3;
     orders: 0 | 1 | 2 | 3;
-    employees: 0 | 1 | 2 | 3;
+    staff: 0 | 1 | 2 | 3;
     management: 0 | 1 | 2 | 3;
 };
 
@@ -24,7 +24,7 @@ const initialState: TadminProps = {
             dashboard: 0,
             clients: 0,
             orders: 0,
-            employees: 0,
+            staff: 0,
             management: 0,
         },
     },
