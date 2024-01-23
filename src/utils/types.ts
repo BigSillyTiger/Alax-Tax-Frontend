@@ -23,11 +23,20 @@ export enum RES_STATUS {
     FAILED_DEL = 405,
 }
 
+export type TisConflict =
+    | RES_STATUS.SUCCESS
+    | RES_STATUS.FAILED_DUP_PHONE
+    | RES_STATUS.FAILED_DUP_EMAIL
+    | RES_STATUS.FAILED_DUP_P_E;
+
 export type Tunivers = {
     services: Tservice[];
     units: Tunit[];
 };
 
+/**
+ * @description  modal types for client order page
+ */
 export type TclientOrderModal =
     | ""
     | "Del"

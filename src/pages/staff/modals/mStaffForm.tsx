@@ -40,7 +40,7 @@ const initClient = {
     postcode: "",
 };
 
-const MClientForm: FC<Tprops> = memo(
+const MStaffForm: FC<Tprops> = memo(
     ({ client, open, setOpen, isConflict, setConflict }) => {
         const navigation = useNavigation();
         const submit = useSubmit();
@@ -354,4 +354,4 @@ const MClientForm: FC<Tprops> = memo(
     }
 );
 
-export default MClientForm;
+export default MStaffForm;
