@@ -3,6 +3,7 @@ import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { useForm, useFieldArray } from "react-hook-form";
+import { useAtom } from "jotai";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -15,7 +16,7 @@ import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { plusAB } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
-import { TclientOrderModal } from "@/utils/types";
+import { TmodalOpenStates } from "@/utils/types";
 import { Tclient } from "@/configs/schema/clientSchema";
 import {
     ClientInfoCard,
@@ -24,20 +25,18 @@ import {
 } from "@/components/customized";
 import { newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin } from "@/configs/utils";
-
-type Tprops = {
-    client: Tclient;
-    open: TclientOrderModal;
-    order: TorderWithDetails;
-    setOpen: (order: TclientOrderModal) => void;
-};
+import { atClient, atClientOrder } from "../states";
+import { atModalOpen } from "@/pages/uniStates";
 
 type Tpayment = {
     payments: TorderPayment[];
 };
 
-const MOrderPay: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
+const MOrderPay: FC = memo(() => {
     const navigation = useNavigation();
+    const [client] = useAtom(atClient);
+    const [clientOrder] = useAtom(atClientOrder);
+    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [payment, setPayment] = useState<TorderPayment>({
         fk_order_id: 0,
         paid: 0,
@@ -58,7 +57,7 @@ const MOrderPay: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
         //watch,
     } = useForm<Tpayment>({
         resolver: zodResolver(paymentFormSchema),
-        defaultValues: { payments: order.payments },
+        defaultValues: { payments: clientOrder.payments },
     });
 
     const { fields, prepend, remove } = useFieldArray({
@@ -72,11 +71,11 @@ const MOrderPay: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
      * always be the initial one, which is empty
      */
     useEffect(() => {
-        if (order) {
+        if (clientOrder) {
             reset({
                 // this is the essential part of reading data from payments fields
-                payments: order.payments
-                    ? order.payments.map((item) => {
+                payments: clientOrder.payments
+                    ? clientOrder.payments.map((item) => {
                           return {
                               ...item,
                               paid_date: newDateFormat(
@@ -87,7 +86,7 @@ const MOrderPay: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
                     : [],
             });
         }
-    }, [order, reset]);
+    }, [clientOrder, reset]);
 
     useEffect(() => {
         setTotalPaid(
@@ -110,21 +109,21 @@ const MOrderPay: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
             const req = "paymentUpdate";
             const values = JSON.stringify({
                 ...getValues(),
-                fk_order_id: order.order_id,
+                fk_order_id: clientOrder.order_id,
                 paid: totalPaid,
             });
             submit(
                 { values, req },
                 {
                     method: "PUT",
-                    action: `/clients/${order.fk_client_id}`,
+                    action: `/clients/${clientOrder.fk_client_id}`,
                 }
             );
         }
     };
 
     const onClose = () => {
-        setOpen("");
+        setModalOpen("");
         reset();
     };
 
@@ -132,7 +131,7 @@ const MOrderPay: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
         const inputCheck = payment.paid > 0 && payment.paid_date.length > 0;
         !inputCheck && toastError(t("toastF.invalidPayment"));
         const overPaidCheck =
-            plusAB(totalPaid, payment.paid) <= order.order_total;
+            plusAB(totalPaid, payment.paid) <= clientOrder.order_total;
         !overPaidCheck && toastError(t("toastF.overPaid"));
         inputCheck && overPaidCheck && prepend(payment);
     };
@@ -294,7 +293,7 @@ const MOrderPay: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
                             <b>{t("label.orderInfo")}:</b>
                         </legend>
                         <OrderInfoCard
-                            order={order}
+                            order={clientOrder}
                             paid={totalPaid}
                             className="my-2 mx-1 text-sm"
                         />
@@ -313,7 +312,7 @@ const MOrderPay: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
                         </legend>
                         <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[60vh] overflow-y-auto">
                             <section className="col-span-full">
-                                <OrderDescCard data={order.order_desc} />
+                                <OrderDescCard data={clientOrder.order_desc} />
                             </section>
                         </Card>
                     </fieldset>
@@ -336,9 +335,9 @@ const MOrderPay: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
     return (
         <>
             <MTemplate
-                open={!!(open === "Pay")}
+                open={!!(modalOpen === "Pay")}
                 onClose={onClose}
-                title={t("modal.title.payments") + ` #${order.order_id}`}
+                title={t("modal.title.payments") + ` #${clientOrder.order_id}`}
                 mode={"full"}
                 mQuit={true}
             >

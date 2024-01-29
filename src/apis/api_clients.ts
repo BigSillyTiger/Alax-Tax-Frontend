@@ -12,7 +12,6 @@ import { Tresponse } from "@/utils/types";
 export const clientAll = async (): Promise<Tresponse> => {
     try {
         const response = await apis.get(REQ_CLIENT_ALL);
-        console.log("-> receive client all response: ", response);
         return response.data;
     } catch (err: any) {
         console.log("-> retrieve all client error: ", err);

@@ -3,21 +3,19 @@ import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { MTemplate } from "@/components/modal";
 import { useSubmit } from "react-router-dom";
-import type { Tclient } from "@/configs/schema/clientSchema";
+import { useAtom } from "jotai";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
-import { TclientOrderModal } from "@/utils/types";
-
-type Tprops = {
-    client: Tclient;
-    open: TclientOrderModal;
-    setOpen: (value: TclientOrderModal) => void;
-};
+import { atClient } from "../states.ts";
+import { atModalOpen } from "../../uniStates.ts";
 
 // this component is about building a modal with transition to delete a client
-const MClientDel: FC<Tprops> = memo(({ client, open, setOpen }) => {
+const MClientDel: FC = memo(() => {
     const submit = useSubmit();
     const { t } = useTranslation();
+
+    const [client] = useAtom(atClient);
+    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
 
     const handleDeleteClient = async (id: number) => {
         submit({ id }, { method: "DELETE", action: "/clients" });
@@ -65,7 +63,7 @@ const MClientDel: FC<Tprops> = memo(({ client, open, setOpen }) => {
 
     // !!client.client_id  t("modal.title.delete")
     const onClose = () => {
-        setOpen("");
+        setModalOpen("");
     };
 
     const mainContent = (
@@ -89,7 +87,7 @@ const MClientDel: FC<Tprops> = memo(({ client, open, setOpen }) => {
 
     return (
         <MTemplate
-            open={!!(open === "Del")}
+            open={!!(modalOpen === "Del")}
             onClose={onClose}
             title={t("modal.title.delete")}
             isMajor={true}

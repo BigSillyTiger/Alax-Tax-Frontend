@@ -1,8 +1,9 @@
 import { memo, useEffect, useState } from "react";
 import type { FC } from "react";
+import { useAtom } from "jotai";
 import { MTemplate } from ".";
 import { Tclient } from "@/configs/schema/clientSchema";
-import { TclientOrderModal } from "@/utils/types";
+import { TmodalOpenStates } from "@/utils/types";
 import { TorderWithDetails } from "@/configs/schema/orderSchema";
 import { useSubmit } from "react-router-dom";
 import PDFTemplate from "@/PDF/invoices/template1";
@@ -14,15 +15,8 @@ import { Tcompany } from "@/configs/schema/manageSchema";
 import CompanyInfoCard from "../customized/CompanyInfoCard";
 import { newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin } from "@/configs/utils";
-
-type Tprops = {
-    open: TclientOrderModal;
-    setOpen: (order: TclientOrderModal) => void;
-    client: Tclient;
-    order: TorderWithDetails;
-    company: Tcompany;
-    logo: string;
-};
+import { atClientOrder, atClient } from "@/pages/client/states";
+import { atModalOpen, atCompany, atLogo } from "@/pages/uniStates";
 
 const DatePicker = ({
     order_id,
@@ -125,84 +119,88 @@ const DatePicker = ({
     );
 };
 
-const MInQ: FC<Tprops> = memo(
-    ({ open, setOpen, client, order, company, logo }) => {
-        const [date, setDate] = useState(newDateFormat(new Date()));
-        const { t } = useTranslation();
-        const onClose = () => {
-            setOpen("");
-        };
+const MInQ: FC = memo(() => {
+    const [date, setDate] = useState(newDateFormat(new Date()));
+    const { t } = useTranslation();
+    const [client] = useAtom(atClient);
+    const [clientOrder] = useAtom(atClientOrder);
+    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
+    const [company] = useAtom(atCompany);
+    const [logo] = useAtom(atLogo);
 
-        useEffect(() => {
-            if (order.invoice_issue_date) {
-                setDate(newDateFormat(new Date(order.invoice_issue_date)));
-            }
-        }, [order.invoice_issue_date]);
+    const onClose = () => {
+        setModalOpen("");
+    };
 
-        const detailContent = (
-            <section className="h-[67vh] overflow-y-auto">
-                <Toggle
-                    defaultOpen={true}
-                    title={t("label.companyInfo")}
-                    content={<CompanyInfoCard company={company} className="" />}
-                />
-                <Toggle
-                    defaultOpen={true}
-                    title={t("label.clientInfo")}
-                    content={<ClientInfoCard client={client} className="" />}
-                />
-                <Toggle
-                    defaultOpen={true}
-                    title={t("label.orderInfo")}
-                    content={<OrderDetailsCard order={order} className="" />}
-                />
-                <Toggle
-                    defaultOpen={true}
-                    title={t("label.orderServices")}
-                    content={<OrderDescCard data={order.order_desc} />}
+    useEffect(() => {
+        if (clientOrder.invoice_issue_date) {
+            setDate(newDateFormat(new Date(clientOrder.invoice_issue_date)));
+        }
+    }, [clientOrder.invoice_issue_date]);
+
+    const detailContent = (
+        <section className="h-[67vh] overflow-y-auto">
+            <Toggle
+                defaultOpen={true}
+                title={t("label.companyInfo")}
+                content={<CompanyInfoCard company={company} className="" />}
+            />
+            <Toggle
+                defaultOpen={true}
+                title={t("label.clientInfo")}
+                content={<ClientInfoCard client={client} className="" />}
+            />
+            <Toggle
+                defaultOpen={true}
+                title={t("label.orderInfo")}
+                content={<OrderDetailsCard order={clientOrder} className="" />}
+            />
+            <Toggle
+                defaultOpen={true}
+                title={t("label.orderServices")}
+                content={<OrderDescCard data={clientOrder.order_desc} />}
+            />
+        </section>
+    );
+
+    const mainContent = (
+        <main className="grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[93vh]">
+            <section className="col-span-1 md:col-span-3 ">
+                {detailContent}
+                <DatePicker
+                    order_id={clientOrder.order_id}
+                    client_id={clientOrder.fk_client_id}
+                    date={date}
+                    setDate={setDate}
+                    defaultDate={clientOrder.invoice_issue_date}
                 />
             </section>
-        );
+            <section className="col-span-1 md:col-span-5">
+                <PDFTemplate
+                    client={client}
+                    order={clientOrder}
+                    company={company}
+                    unit="$"
+                    date={date}
+                    logo={logo}
+                />
+            </section>
+        </main>
+    );
 
-        const mainContent = (
-            <main className="grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[93vh]">
-                <section className="col-span-1 md:col-span-3 ">
-                    {detailContent}
-                    <DatePicker
-                        order_id={order.order_id}
-                        client_id={order.fk_client_id}
-                        date={date}
-                        setDate={setDate}
-                        defaultDate={order.invoice_issue_date}
-                    />
-                </section>
-                <section className="col-span-1 md:col-span-5">
-                    <PDFTemplate
-                        client={client}
-                        order={order}
-                        company={company}
-                        unit="$"
-                        date={date}
-                        logo={logo}
-                    />
-                </section>
-            </main>
-        );
-
-        return (
-            <>
-                <MTemplate
-                    open={!!(open === "Invoice")}
-                    onClose={onClose}
-                    title={t("modal.title.invoice")}
-                    mode="full"
-                    mQuit={true}
-                >
-                    {mainContent}
-                </MTemplate>
-            </>
-        );
-    }
-);
+    return (
+        <>
+            <MTemplate
+                open={!!(modalOpen === "Invoice")}
+                onClose={onClose}
+                title={t("modal.title.invoice")}
+                mode="full"
+                mQuit={true}
+            >
+                {mainContent}
+            </MTemplate>
+        </>
+    );
+});
 
 export default MInQ;

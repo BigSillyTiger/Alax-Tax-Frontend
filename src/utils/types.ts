@@ -37,7 +37,7 @@ export type Tunivers = {
 /**
  * @description  modal types for client order page
  */
-export type TclientOrderModal =
+export type TmodalOpenStates =
     | ""
     | "Del"
     | "Edit"

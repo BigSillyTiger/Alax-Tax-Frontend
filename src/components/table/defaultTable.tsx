@@ -16,7 +16,7 @@ import { MenuBtn, StatusBtn, DetailBtn, ExpandBtn } from "./tableBtn";
 import HeaderFilter from "./headerFilter";
 import { CTable, CTBody, CTHead, CTh } from ".";
 import ContentWithSwitch from "./SwitchWContent";
-import type { TclientOrderModal, TmenuOptions } from "@/utils/types";
+import type { TmodalOpenStates, TmenuOptions } from "@/utils/types";
 
 type Tprops<T> = {
     data: T[];
@@ -24,7 +24,7 @@ type Tprops<T> = {
     // specific options
     // for menu btn open modal: edit & del & payment
     menuOptions?: TmenuOptions;
-    setModalOpen?: (open: TclientOrderModal) => void;
+    setModalOpen?: (open: TmodalOpenStates) => void;
     setData?: (data: T) => void;
     // for search bar
     search?: boolean;

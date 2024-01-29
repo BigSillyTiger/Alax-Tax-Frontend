@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import LoadingPage from "@/components/loadingEle";
 import staffColumns from "@/configs/columnDefs/defStaff.tsx";
 import Card from "@/components/card";
-import { Tresponse, TclientOrderModal } from "@/utils/types";
+import { Tresponse, TmodalOpenStates } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { RES_STATUS, TisConflict } from "@/utils/types";
 import { Tstaff } from "@/configs/schema/staffSchema.ts";

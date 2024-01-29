@@ -6,10 +6,10 @@ import {
     ClipboardIcon,
 } from "@heroicons/react/24/outline";
 import i18n from "@/utils/i18n";
-import { TclientOrderModal, TmenuOptions } from "@/utils/types";
+import { TmodalOpenStates, TmenuOptions } from "@/utils/types";
 
 type Tprops<T> = TmenuOptions & {
-    setModalOpen: (open: TclientOrderModal) => void;
+    setModalOpen: (open: TmodalOpenStates) => void;
     setData: (data: T) => void;
 };
 type Tresult<T> = {

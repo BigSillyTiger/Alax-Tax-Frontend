@@ -1,11 +1,12 @@
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import type { FC } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
+import { useAtom } from "jotai";
 import LoadingPage from "@/components/loadingEle";
 import type { Tclient } from "@/configs/schema/clientSchema";
 import type { TorderWithDetails } from "@/configs/schema/orderSchema";
 import { RES_STATUS } from "@/utils/types";
-import type { Tresponse, Tunivers, TclientOrderModal } from "@/utils/types";
+import type { Tresponse, Tunivers } from "@/utils/types";
 import Card from "@/components/card";
 import MOrderDel from "./modals/mOrderDel";
 import clientOrderColumns from "../../configs/columnDefs/defClientOrder";
@@ -19,6 +20,8 @@ import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
 import MOrderPay from "./modals/mOrderPay";
 import MInQ from "@/components/modal/mInQ";
 import { Tcompany } from "@/configs/schema/manageSchema";
+import { atClient, atClientOrder } from "./states";
+import { atCompany, atLogo, atModalOpen, atUniData } from "../uniStates";
 
 const Client = () => {
     const { t } = useTranslation();
@@ -31,10 +34,11 @@ const Client = () => {
                 data: Tclient[];
             };
             clientOrders: TorderWithDetails[];
-            uniData: Tunivers | null;
+            uniData: Tunivers;
             company: Tcompany;
             logo: string;
         };
+
     /**
      * the boolean in mysql is stored as 1 and 0
      * when working with values like these, need to convert them to boolean
@@ -55,7 +59,10 @@ const Client = () => {
             };
         });
 
-    const client = clientInfo.data[0] as Tclient;
+    const actionData = useActionData() as Tresponse;
+    //const client = clientInfo.data[0] as Tclient;
+    const [client, setClient] = useAtom(atClient);
+    setClient(clientInfo.data[0]);
 
     const initOrder: TorderWithDetails = {
         // -1 - close the modal; 0 - add new order; >0 = update order
@@ -78,10 +85,17 @@ const Client = () => {
         order_desc: [],
         payments: [],
     };
-    const actionData = useActionData() as Tresponse;
-    const [modalOpen, setModalOpen] = useState<TclientOrderModal>("");
-    const [order, setOrder] = useState<TorderWithDetails>(initOrder);
-    //const [orderDel, setOrderDel] = useState<TorderWithDetails>(initOrder);
+
+    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
+    const [, setClientOrder] = useAtom(atClientOrder);
+    const [, setUniData] = useAtom(atUniData);
+    const [, setCompany] = useAtom(atCompany);
+    const [, setLogo] = useAtom(atLogo);
+
+    // init the atom values
+    setUniData(uniData);
+    setCompany(company);
+    setLogo(logo);
 
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
@@ -155,7 +169,7 @@ const Client = () => {
                             className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             onClick={(e) => {
                                 e.preventDefault();
-                                setOrder({
+                                setClientOrder({
                                     ...initOrder,
                                     order_id: 0,
                                 });
@@ -174,7 +188,7 @@ const Client = () => {
                             data={newClientOrders}
                             columns={clientOrderColumns}
                             setModalOpen={setModalOpen}
-                            setData={setOrder}
+                            setData={setClientOrder}
                             menuOptions={{
                                 edit: true,
                                 del: true,
@@ -218,33 +232,10 @@ const Client = () => {
                 </Suspense>
             </div>
 
-            <MOrderDel
-                client={client}
-                order={order}
-                open={modalOpen}
-                setOpen={setModalOpen}
-            />
-            <MOrderForm
-                client={client}
-                order={order}
-                open={modalOpen}
-                setOpen={setModalOpen}
-                uniData={uniData}
-            />
-            <MOrderPay
-                client={client}
-                order={order}
-                open={modalOpen}
-                setOpen={setModalOpen}
-            />
-            <MInQ
-                open={modalOpen}
-                setOpen={setModalOpen}
-                client={client}
-                order={order}
-                company={company}
-                logo={logo}
-            />
+            <MOrderDel />
+            <MOrderForm />
+            <MOrderPay />
+            <MInQ />
         </>
     );
 };

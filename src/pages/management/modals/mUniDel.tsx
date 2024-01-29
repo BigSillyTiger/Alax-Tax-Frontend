@@ -2,40 +2,45 @@ import { memo } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useSubmit } from "react-router-dom";
+import { useAtom } from "jotai";
 import Card from "@/components/card";
 import { Tservice, Tunit } from "@/configs/schema/manageSchema";
 import { isServiceType } from "@/utils/utils";
 import { MTemplate } from "@/components/modal";
 import { DelBtn } from "@/components/form";
-import { TclientOrderModal } from "@/utils/types";
+import { TmodalOpenStates } from "@/utils/types";
+import { atUniData } from "../states";
+import { atModalOpen } from "../../uniStates";
 
 type Tprops = {
-    uni: Tservice | Tunit;
-    open: TclientOrderModal;
-    setOpen: (value: TclientOrderModal) => void;
+    //uni: Tservice | Tunit;
+    //open: TmodalOpenStates;
+    //setOpen: (value: TmodalOpenStates) => void;
 };
 
 // this component is about building a modal with transition to delete a client
-const MUniDel: FC<Tprops> = memo(({ uni, open, setOpen }) => {
+const MUniDel: FC = memo(() => {
     const submit = useSubmit();
     const { t } = useTranslation();
+    const [uniData] = useAtom(atUniData);
+    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
 
     const handleDeleteClient = async (id: number) => {
-        const type = isServiceType(uni) ? "service" : "unit";
+        const type = isServiceType(uniData) ? "service" : "unit";
         submit({ id, type }, { method: "DELETE", action: "/management" });
     };
 
     const uniDisplay = (
         <Card className="mt-2">
             <div className="m-3 grid grid-cols-6 gap-x-4 gap-y-4 text-left">
-                {isServiceType(uni) ? (
+                {isServiceType(uniData) ? (
                     <>
                         <div className="col-span-6">
                             <p>
                                 <b className="text-indigo-600">
                                     {t("label.service")}:{" "}
                                 </b>{" "}
-                                {uni.service}
+                                {uniData.service}
                             </p>
                         </div>
                         <div className="col-span-3">
@@ -43,7 +48,7 @@ const MUniDel: FC<Tprops> = memo(({ uni, open, setOpen }) => {
                                 <b className="text-indigo-600">
                                     {t("label.unit")}:{" "}
                                 </b>{" "}
-                                {uni.unit}
+                                {uniData.unit}
                             </p>
                         </div>
                         <div className="col-span-3">
@@ -52,7 +57,7 @@ const MUniDel: FC<Tprops> = memo(({ uni, open, setOpen }) => {
                                     {" "}
                                     {t("label.uPrice")}:{" "}
                                 </b>{" "}
-                                {uni.unit_price}
+                                {uniData.unit_price}
                             </p>
                         </div>
                     </>
@@ -62,7 +67,7 @@ const MUniDel: FC<Tprops> = memo(({ uni, open, setOpen }) => {
                             <b className="text-indigo-600">
                                 {t("label.unit")}:{" "}
                             </b>{" "}
-                            {uni.unit_name}
+                            {uniData.unit_name}
                         </p>
                     </div>
                 )}
@@ -71,7 +76,7 @@ const MUniDel: FC<Tprops> = memo(({ uni, open, setOpen }) => {
     );
 
     const onClose = () => {
-        setOpen("");
+        setModalOpen("");
     };
 
     const mainContent = (
@@ -85,8 +90,8 @@ const MUniDel: FC<Tprops> = memo(({ uni, open, setOpen }) => {
             {/* del btn */}
             <DelBtn
                 onClick={() => {
-                    uni && handleDeleteClient(uni.id);
-                    setOpen("");
+                    uniData && handleDeleteClient(uniData.id);
+                    setModalOpen("");
                 }}
                 onClose={onClose}
             />
@@ -95,7 +100,7 @@ const MUniDel: FC<Tprops> = memo(({ uni, open, setOpen }) => {
 
     return (
         <MTemplate
-            open={!!(open === "Del")}
+            open={!!(modalOpen === "Del")}
             onClose={onClose}
             title={t("modal.title.delete")}
             isMajor={true}

@@ -61,9 +61,9 @@ const Management: FC = () => {
                                 units={univers.units}
                             />
                         </Tab.Panel>
-                        <Tab.Panel className="rounded-xl bg-white p-3ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400">
+                        {/* <Tab.Panel className="rounded-xl bg-white p-3ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400">
                             Content 3
-                        </Tab.Panel>
+                        </Tab.Panel> */}
                     </Tab.Panels>
                 </Tab.Group>
             </div>

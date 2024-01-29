@@ -1,25 +1,21 @@
 import { memo } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { useAtom } from "jotai";
 import { MTemplate } from "@/components/modal";
 import { useSubmit } from "react-router-dom";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
-import { TorderWithDetails } from "@/configs/schema/orderSchema";
-import { TclientOrderModal } from "@/utils/types";
-import { Tclient } from "@/configs/schema/clientSchema";
-
-type Tprops = {
-    client: Tclient;
-    order: TorderWithDetails;
-    open: TclientOrderModal;
-    setOpen: (value: TclientOrderModal) => void;
-};
+import { atModalOpen } from "@/pages/uniStates";
+import { atClientOrder, atClient } from "../states";
 
 // this component is about building a modal with transition to delete a client
-const MOrderDel: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
+const MOrderDel: FC = memo(() => {
     const submit = useSubmit();
     const { t } = useTranslation();
+    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
+    const [client] = useAtom(atClient);
+    const [clientOrder] = useAtom(atClientOrder);
 
     const handleDeleteClient = async (order_id: number) => {
         submit(
@@ -36,13 +32,13 @@ const MOrderDel: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
                         <b className="text-indigo-600">
                             {t("label.orderId")}:{" "}
                         </b>{" "}
-                        {order?.order_id}
+                        {clientOrder?.order_id}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
                         <b className="text-indigo-600">{t("label.pc")}: </b>{" "}
-                        {order?.order_pc}
+                        {clientOrder?.order_pc}
                     </p>
                 </div>
 
@@ -51,9 +47,9 @@ const MOrderDel: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
                         <b className="text-indigo-600">
                             {t("label.address")}:{" "}
                         </b>{" "}
-                        {order?.order_address}, {order?.order_suburb},{" "}
-                        {order?.order_city}, {order?.order_state},{" "}
-                        {order?.order_country}
+                        {clientOrder?.order_address},{" "}
+                        {clientOrder?.order_suburb}, {clientOrder?.order_city},{" "}
+                        {clientOrder?.order_state}, {clientOrder?.order_country}
                     </p>
                 </div>
             </div>
@@ -61,7 +57,7 @@ const MOrderDel: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
     );
 
     const onClose = () => {
-        setOpen("");
+        setModalOpen("");
     };
 
     const mainContent = (
@@ -75,7 +71,7 @@ const MOrderDel: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
 
             <DelBtn
                 onClick={() => {
-                    handleDeleteClient(order.order_id);
+                    handleDeleteClient(clientOrder.order_id);
                     onClose();
                 }}
                 onClose={onClose}
@@ -85,7 +81,7 @@ const MOrderDel: FC<Tprops> = memo(({ client, order, open, setOpen }) => {
 
     return (
         <MTemplate
-            open={!!(open === "Del")}
+            open={!!(modalOpen === "Del")}
             onClose={onClose}
             title={t("modal.title.delete")}
             isMajor={true}

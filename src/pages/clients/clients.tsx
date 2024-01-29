@@ -1,17 +1,20 @@
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import type { FC, TouchEvent, MouseEvent } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAtom } from "jotai";
 import LoadingPage from "@/components/loadingEle";
-import clientColumns from "../../configs/columnDefs/defClients.tsx";
+import clientColumns from "@/configs/columnDefs/defClients.tsx";
 import Card from "@/components/card";
-import { Tresponse, TclientOrderModal } from "@/utils/types";
+import { Tresponse } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/toaster";
-import { RES_STATUS, TisConflict } from "@/utils/types";
+import { RES_STATUS } from "@/utils/types";
 import { Tclient } from "@/configs/schema/clientSchema.ts";
+import { PTable } from "@/components/table";
 import MClientDel from "./modals/mClientDel";
 import MClientForm from "./modals/mClientForm.tsx";
-import { PTable } from "@/components/table";
+import { atClient } from "./states.ts";
+import { atInfoConflict, atModalOpen } from "../uniStates.ts";
 
 type Tprops = {
     clients: Tclient[] | null;
@@ -32,11 +35,9 @@ const initClient = {
 };
 
 const Clients: FC = () => {
-    const [client, setClient] = useState<Tclient>(initClient);
-    const [infoConflict, setInfoConflict] = useState<TisConflict>(
-        RES_STATUS.SUCCESS
-    );
-    const [modalOpen, setModalOpen] = useState<TclientOrderModal>("");
+    const [client, setClient] = useAtom(atClient);
+    const [, setInfoConflict] = useAtom(atInfoConflict);
+    const [, setModalOpen] = useAtom(atModalOpen);
     const { t } = useTranslation();
     const { clients } = useLoaderData() as {
         clients: Tclient[] | null;
@@ -144,18 +145,8 @@ const Clients: FC = () => {
 
             {/* Modal for add new client, and this modal can not be insert into Await*/}
             {/* otherwise, the animation would get lost*/}
-            <MClientDel
-                client={client}
-                open={modalOpen}
-                setOpen={setModalOpen}
-            />
-            <MClientForm
-                client={client}
-                open={modalOpen}
-                setOpen={setModalOpen}
-                isConflict={infoConflict}
-                setConflict={setInfoConflict}
-            />
+            <MClientDel />
+            <MClientForm />
         </div>
     );
 };

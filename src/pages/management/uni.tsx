@@ -1,34 +1,24 @@
-import { useState } from "react";
 import type { FC } from "react";
+import { useAtom } from "jotai";
 import Card from "@/components/card";
 import { Tservice, Tunit } from "@/configs/schema/manageSchema";
 import {
     serviceListColDefs,
     unitListColDefs,
 } from "../../configs/columnDefs/defUniList";
-import { TclientOrderModal, Tunivers } from "@/utils/types";
+import { Tunivers } from "@/utils/types";
 import MUniDel from "./modals/mUniDel";
 import { PTable } from "@/components/table";
 import { useTranslation } from "react-i18next";
 import MUniForm from "./modals/mUniForm";
+import { atUniData, initS, initU } from "./states.ts";
+import { atModalOpen } from "../uniStates";
 
 type Tprops = Tunivers;
 
-const initS = {
-    id: 0,
-    service: "",
-    unit: "",
-    unit_price: 0,
-};
-
-const initU = {
-    id: 0,
-    unit_name: "",
-};
-
 const Uni: FC<Tprops> = ({ services, units }) => {
-    const [uniData, setUniData] = useState<Tservice | Tunit>(initS);
-    const [modalOpen, setModalOpen] = useState<TclientOrderModal>("");
+    const [, setUniData] = useAtom(atUniData);
+    const [, setModalOpen] = useAtom(atModalOpen);
     const { t } = useTranslation();
 
     const ServiceTable: FC<{ services: Tservice[] | null }> = ({
@@ -138,14 +128,8 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                 </div>
             </div>
             {/* modals */}
-            <MUniDel uni={uniData} open={modalOpen} setOpen={setModalOpen} />
-            <MUniForm
-                uni={uniData}
-                open={modalOpen}
-                setOpen={setModalOpen}
-                serviceList={services}
-                unitList={units}
-            />
+            <MUniDel />
+            <MUniForm serviceList={services} unitList={units} />
         </>
     );
 };

@@ -2,11 +2,11 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import genOptions from "./genOptions";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-import { TclientOrderModal, TmenuOptions } from "@/utils/types";
+import { TmodalOpenStates, TmenuOptions } from "@/utils/types";
 
 type Tprops<T> = TmenuOptions & {
     mItem: T;
-    setModalOpen: (open: TclientOrderModal) => void;
+    setModalOpen: (open: TmodalOpenStates) => void;
     setData: (data: T) => void;
 };
 
