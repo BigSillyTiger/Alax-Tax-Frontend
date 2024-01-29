@@ -99,7 +99,7 @@ const Clients: FC = () => {
                                 className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 onClick={handleAddeNew}
                             >
-                                {t("pClients.btn.addClient")}
+                                {t("btn.addClient")}
                             </button>
                         </div>
                     </div>
@@ -123,7 +123,7 @@ const Clients: FC = () => {
                     ) : (
                         <Card className="mt-8">
                             <span className="m-5 p-5  text-center h-15">
-                                {t("pClients.text.noClient")}
+                                {t("pageText.noClient")}
                             </span>
                         </Card>
                     )}

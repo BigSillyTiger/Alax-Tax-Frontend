@@ -14,13 +14,8 @@ const en = {
             },
             btn: { signIn: "Sign In", logining: "Logging..." },
         },
-        pClients: {
-            text: {
-                noClient: "No client found.",
-            },
-            btn: {
-                addClient: "Add New Client",
-            },
+        pageText: {
+            noClient: "No client found.",
         },
         modal: {
             title: {
@@ -52,6 +47,8 @@ const en = {
         },
         btn: {
             append: "Append",
+            addClient: "Add New Client",
+            addStuff: "Add New Staff",
             confirm: "Confirm",
             close: "Close",
             cancel: "Cancel",

@@ -13,6 +13,7 @@ import { Tstaff } from "@/configs/schema/staffSchema.ts";
 import MClientForm from "./modals/mClientForm.tsx"; */
 import { PTable } from "@/components/table";
 import { all } from "axios";
+import MStaffForm from "./modals/mStaffForm";
 
 type Tprops = {
     allStaff: Tstaff[] | null;
@@ -54,7 +55,7 @@ const Staff: FC = () => {
                                     console.log("-> no implementation");
                                 }}
                             >
-                                {t("pClients.btn.addClient")}
+                                {t("btn.addStuff")}
                             </button>
                         </div>
                     </div>
@@ -78,7 +79,7 @@ const Staff: FC = () => {
                     ) : (
                         <Card className="mt-8">
                             <span className="m-5 p-5  text-center h-15">
-                                {t("pClients.text.noClient")}
+                                {t("pageText.noClient")}
                             </span>
                         </Card>
                     )}
@@ -103,14 +104,14 @@ const Staff: FC = () => {
                 client={client}
                 open={modalOpen}
                 setOpen={setModalOpen}
-            />
-            <MClientForm
-                client={client}
+            /> */}
+            <MStaffForm
+                staff={staff}
                 open={modalOpen}
                 setOpen={setModalOpen}
                 isConflict={infoConflict}
                 setConflict={setInfoConflict}
-            /> */}
+            />
         </div>
     );
 };

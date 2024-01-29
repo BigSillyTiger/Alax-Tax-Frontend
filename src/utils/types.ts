@@ -46,6 +46,8 @@ export type TclientOrderModal =
     | "Invoice"
     | "Quotation";
 
+export type TstaffModal = "" | "Del" | "Edit" | "Add";
+
 export type TmenuOptions = {
     edit?: boolean;
     del?: boolean;

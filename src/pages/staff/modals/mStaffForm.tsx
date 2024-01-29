@@ -7,21 +7,15 @@ import { useNavigation, useSubmit, Form } from "react-router-dom";
 import type { Tclient } from "@/configs/schema/clientSchema";
 import { clientNoIDSchema } from "@/configs/schema/clientSchema";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
-import { RES_STATUS, TclientOrderModal } from "@/utils/types";
+import { RES_STATUS, TisConflict, TstaffModal } from "@/utils/types";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
 
-type TisConflict =
-    | RES_STATUS.SUCCESS
-    | RES_STATUS.FAILED_DUP_PHONE
-    | RES_STATUS.FAILED_DUP_EMAIL
-    | RES_STATUS.FAILED_DUP_P_E;
-
 type Tprops = {
     client: Tclient;
-    open: TclientOrderModal;
-    setOpen: (open: TclientOrderModal) => void;
+    open: TstaffModal;
+    setOpen: (open: TstaffModal) => void;
     isConflict: number;
     setConflict: (status: TisConflict) => void;
 };
@@ -32,12 +26,9 @@ const initClient = {
     last_name: "",
     phone: "",
     email: "",
+    password: "",
     address: "",
-    suburb: "",
-    city: "",
-    state: "",
-    country: "",
-    postcode: "",
+    role: "employee",
 };
 
 const MStaffForm: FC<Tprops> = memo(

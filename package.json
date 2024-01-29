@@ -37,7 +37,6 @@
         "react-loader-spinner": "^5.3.4",
         "react-pdf": "^7.5.1",
         "react-pdf-tailwind": "^2.1.0",
-        "react-redux": "^8.1.1",
         "react-router-dom": "^6.16.0",
         "react-scroll-up": "^1.4.0",
         "sort-by": "^0.0.2",
