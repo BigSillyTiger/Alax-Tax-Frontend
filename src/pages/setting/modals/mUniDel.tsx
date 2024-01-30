@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useSubmit } from "react-router-dom";
 import { useAtom } from "jotai";
 import Card from "@/components/card";
-import { Tservice, Tunit } from "@/configs/schema/manageSchema";
+import { Tservice, Tunit } from "@/configs/schema/settingSchema";
 import { isServiceType } from "@/utils/utils";
 import { MTemplate } from "@/components/modal";
 import { DelBtn } from "@/components/form";

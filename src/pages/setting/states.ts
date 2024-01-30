@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { Tservice, Tunit } from "@/configs/schema/manageSchema";
+import { Tservice, Tunit } from "@/configs/schema/settingSchema";
 
 const initS = {
     id: 0,

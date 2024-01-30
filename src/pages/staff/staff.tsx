@@ -2,42 +2,71 @@ import { Suspense, useState, useEffect } from "react";
 import type { FC, TouchEvent, MouseEvent } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAtom } from "jotai";
+import { RESET } from "jotai/utils";
 import LoadingPage from "@/components/loadingEle";
 import staffColumns from "@/configs/columnDefs/defStaff.tsx";
 import Card from "@/components/card";
-import { Tresponse, TmodalOpenStates } from "@/utils/types";
+import { Tresponse } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { RES_STATUS, TisConflict } from "@/utils/types";
 import { Tstaff } from "@/configs/schema/staffSchema.ts";
 /* import MClientDel from "./modals/mClientDel";
 import MClientForm from "./modals/mClientForm.tsx"; */
 import { PTable } from "@/components/table";
-import { all } from "axios";
 import MStaffForm from "./modals/mStaffForm";
+import { atModalOpen } from "../uniStates";
+import { atStaff, initStaff } from "./states";
 
 type Tprops = {
     allStaff: Tstaff[] | null;
 };
 
-const initStaff = {
-    uid: -1,
-    first_name: "",
-    last_name: "",
-    phone: "",
-    email: "",
-    address: "",
-    role: "employee", // manager | employee
-};
-
 const Staff: FC = () => {
-    const [staff, setStaff] = useState<Tstaff>(initStaff);
-    const [infoConflict, setInfoConflict] = useState<TisConflict>(
-        RES_STATUS.SUCCESS
-    );
-    const [modalOpen, setModalOpen] = useState("");
+    const [, setInfoConflict] = useState<TisConflict>(RES_STATUS.SUCCESS);
+    const [staff, setStaff] = useAtom(atStaff);
+    const [, setModalOpen] = useAtom(atModalOpen);
     const { t } = useTranslation();
     const { allStaff } = useLoaderData() as {
         allStaff: Tstaff[] | null;
+    };
+
+    const actionData = useActionData() as Tresponse;
+    useEffect(() => {
+        /* close modals if RES_STATUS.SUCCESS  */
+        if (actionData?.status === RES_STATUS.SUCCESS) {
+            setInfoConflict(actionData?.status);
+            if (staff.uid === 0) {
+                //setAddNewOpen(false);
+                setModalOpen("");
+                setStaff(RESET);
+                toastSuccess("Registered a new client");
+            } else if (staff.uid > 0) {
+                //setClientEdit(initClient);
+                setModalOpen("");
+                setStaff(RESET);
+                toastSuccess("Updated client informaton");
+            }
+        } else if (
+            //actionData?.status &&
+            actionData?.status === RES_STATUS.SUC_DEL
+        ) {
+            // delete a client
+            toastSuccess("Deleted a client");
+        } else if (
+            actionData?.status === RES_STATUS.FAILED_DUP_PHONE ||
+            actionData?.status === RES_STATUS.FAILED_DUP_EMAIL ||
+            actionData?.status === RES_STATUS.FAILED_DUP_P_E
+        ) {
+            setInfoConflict(actionData?.status);
+            toastError("Email or Phone already existed");
+        }
+    }, [actionData, staff.uid, setStaff, setInfoConflict, setModalOpen]);
+
+    const handleAddNew = (e: MouseEvent | TouchEvent) => {
+        e.preventDefault();
+        setStaff(initStaff);
+        setModalOpen("Add");
     };
 
     const StaffTableContent: FC<Tprops> = ({ allStaff }) => {
@@ -51,9 +80,7 @@ const Staff: FC = () => {
                             <button
                                 type="button"
                                 className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                onClick={() => {
-                                    console.log("-> no implementation");
-                                }}
+                                onClick={handleAddNew}
                             >
                                 {t("btn.addStuff")}
                             </button>
@@ -98,20 +125,14 @@ const Staff: FC = () => {
                 </Await>
             </Suspense>
 
-            {/* Modal for add new client, and this modal can not be insert into Await*/}
+            {/* Modal for add new staff, and this modal can not be insert into Await*/}
             {/* otherwise, the animation would get lost*/}
             {/* <MClientDel
                 client={client}
                 open={modalOpen}
                 setOpen={setModalOpen}
             /> */}
-            <MStaffForm
-                staff={staff}
-                open={modalOpen}
-                setOpen={setModalOpen}
-                isConflict={infoConflict}
-                setConflict={setInfoConflict}
-            />
+            <MStaffForm />
         </div>
     );
 };

@@ -2,7 +2,7 @@ import { memo } from "react";
 import type { FC } from "react";
 import Card from "@/components/card";
 import { useTranslation } from "react-i18next";
-import { Tcompany } from "@/configs/schema/manageSchema";
+import { Tcompany } from "@/configs/schema/settingSchema";
 
 type Tinfo = {
     company: Tcompany;

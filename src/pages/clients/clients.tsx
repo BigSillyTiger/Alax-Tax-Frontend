@@ -73,9 +73,15 @@ const Clients: FC = () => {
             setInfoConflict(actionData?.status);
             toastError("Email or Phone already existed");
         }
-    }, [actionData]);
+    }, [
+        actionData,
+        client.client_id,
+        setClient,
+        setInfoConflict,
+        setModalOpen,
+    ]);
 
-    const handleAddeNew = (e: MouseEvent | TouchEvent) => {
+    const handleAddNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
         setClient({ ...initClient, client_id: 0 });
         setModalOpen("Add");
@@ -98,7 +104,7 @@ const Clients: FC = () => {
                             <button
                                 type="button"
                                 className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                onClick={handleAddeNew}
+                                onClick={handleAddNew}
                             >
                                 {t("btn.addClient")}
                             </button>

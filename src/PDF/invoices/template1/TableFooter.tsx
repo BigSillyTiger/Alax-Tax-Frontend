@@ -5,7 +5,7 @@ import { createTw } from "react-pdf-tailwind";
 import { TorderDesc } from "@/configs/schema/orderSchema";
 import { useTranslation } from "react-i18next";
 import { minusAB, plusAB } from "@/utils/calculations";
-import { Tcompany } from "@/configs/schema/manageSchema";
+import { Tcompany } from "@/configs/schema/settingSchema";
 
 type Tprops = {
     company: Tcompany;

@@ -3,7 +3,7 @@ import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { useTranslation } from "react-i18next";
-import { Tcompany } from "@/configs/schema/manageSchema";
+import { Tcompany } from "@/configs/schema/settingSchema";
 
 type Tprops = {
     company: Tcompany;

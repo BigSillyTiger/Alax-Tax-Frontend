@@ -7,11 +7,11 @@ import LoadingPage from "@/components/loadingEle";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { RES_STATUS, Tresponse, Tunivers } from "@/utils/types";
 import Company from "./company";
-import { Tcompany } from "@/configs/schema/manageSchema";
+import { Tcompany } from "@/configs/schema/settingSchema";
 import { toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 
-const Management: FC = () => {
+const Setting: FC = () => {
     const { univers, company, logo } = useLoaderData() as {
         univers: Tunivers | null;
         company: Tcompany | null;
@@ -83,4 +83,4 @@ const Management: FC = () => {
     );
 };
 
-export default Management;
+export default Setting;

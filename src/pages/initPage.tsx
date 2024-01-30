@@ -18,8 +18,10 @@ export const initAction = async () => {
 const InitPage: FC = () => {
     return (
         <>
-            <div>initPage</div>;
-            <SpinningEle />
+            <div className="h-[100dvh] w-[100dvw] flex justify-center content-center">
+                <span>12312312312312</span>
+                <SpinningEle />
+            </div>
         </>
     );
 };

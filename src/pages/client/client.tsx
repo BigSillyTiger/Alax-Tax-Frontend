@@ -19,7 +19,7 @@ import orderDescColumns from "../../configs/columnDefs/defOrderDesc";
 import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
 import MOrderPay from "./modals/mOrderPay";
 import MInQ from "@/components/modal/mInQ";
-import { Tcompany } from "@/configs/schema/manageSchema";
+import { Tcompany } from "@/configs/schema/settingSchema";
 import { atClient, atClientOrder } from "./states";
 import { atCompany, atLogo, atModalOpen, atUniData } from "../uniStates";
 

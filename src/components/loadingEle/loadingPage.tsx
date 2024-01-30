@@ -3,8 +3,7 @@ import SpinningEle from "./SpinningEle";
 const LoadingPage = () => {
     return (
         <>
-            <div className="px-auto py-auto">
-                <p>loadingPage</p>;
+            <div className="flex justify-center">
                 <SpinningEle />
             </div>
         </>

@@ -15,7 +15,7 @@ import {
     TnewUnit,
     Tservice,
     Tunit,
-} from "@/configs/schema/manageSchema";
+} from "@/configs/schema/settingSchema";
 import { Tresponse } from "@/utils/types";
 
 export const companyGet = async (): Promise<Tresponse> => {

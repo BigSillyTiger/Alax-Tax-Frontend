@@ -4,86 +4,177 @@ import { useTranslation, Trans } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
-import type { Tclient } from "@/configs/schema/clientSchema";
-import { clientNoIDSchema } from "@/configs/schema/clientSchema";
+import { useAtom } from "jotai";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
-import { RES_STATUS, TisConflict, TstaffModal } from "@/utils/types";
+import { RES_STATUS } from "@/utils/types";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
+import { initStaff, atStaff, atRoleSelected } from "../states";
+import { atModalOpen, atInfoConflict } from "@/pages/uniStates";
+import { pageAdminList } from "@/configs/utils";
+import { Tstaff, staffNoIDSchema } from "@/configs/schema/staffSchema";
 
-type Tprops = {
-    client: Tclient;
-    open: TstaffModal;
-    setOpen: (open: TstaffModal) => void;
-    isConflict: number;
-    setConflict: (status: TisConflict) => void;
-};
+const MStaffForm: FC = memo(() => {
+    const navigation = useNavigation();
+    const submit = useSubmit();
+    const { t } = useTranslation();
+    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
+    const [infoConflict, setInfoConflict] = useAtom(atInfoConflict);
+    const [staff] = useAtom(atStaff);
+    const [roleSelected, setRoleSelected] = useAtom(atRoleSelected);
 
-const initClient = {
-    client_id: -1,
-    first_name: "",
-    last_name: "",
-    phone: "",
-    email: "",
-    password: "",
-    address: "",
-    role: "employee",
-};
+    const {
+        formState: { errors },
+        getValues,
+        register,
+        reset,
+        trigger,
+    } = useForm<Tstaff>({
+        resolver: zodResolver(staffNoIDSchema),
+        defaultValues: staff,
+    });
 
-const MStaffForm: FC<Tprops> = memo(
-    ({ client, open, setOpen, isConflict, setConflict }) => {
-        const navigation = useNavigation();
-        const submit = useSubmit();
-        const { t } = useTranslation();
+    useEffect(() => {
+        reset(staff);
+    }, [staff, reset]);
 
-        const {
-            formState: { errors },
-            getValues,
-            register,
-            reset,
-            trigger,
-        } = useForm<Tclient>({
-            resolver: zodResolver(clientNoIDSchema),
-            defaultValues: client,
-        });
+    const onSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        const isValid = await trigger();
+        console.log("-> staff add: ", errors);
+        if (isValid) {
+            const values = getValues();
+            const method = staff.uid === 0 ? "POST" : "PUT";
+            submit({ ...values, id: staff.uid }, { method, action: "/staff" });
+        }
+    };
 
-        useEffect(() => {
-            reset(client);
-        }, [client, reset]);
+    const onClose = () => {
+        setInfoConflict(RES_STATUS.SUCCESS);
+        setModalOpen("");
+        reset(initStaff);
+    };
 
-        const onSubmit = async (e: FormEvent) => {
-            e.preventDefault();
-            const isValid = await trigger();
-            console.log("-> client add: ", errors);
-            if (isValid) {
-                const values = getValues();
-                const method = client.client_id === 0 ? "POST" : "PUT";
-                submit(
-                    { ...values, id: client.client_id },
-                    { method, action: "/clients" }
-                );
-            }
-        };
+    const RoleField = () => (
+        <fieldset className="py-2 border-2 border-indigo-100 flex justify-evenly">
+            <legend className="ml-2 px-2">{t("label.selectRole")}</legend>
+            <div>
+                <input
+                    {...register("role")}
+                    type="radio"
+                    id="employee"
+                    name="role"
+                    value="Employee"
+                    className="mr-2"
+                    defaultChecked
+                    onChange={() => {
+                        setRoleSelected("employee");
+                    }}
+                />
+                <label htmlFor="employee" className="text-lg">
+                    {t("label.employee")}
+                </label>
+            </div>
 
-        const onClose = () => {
-            setConflict(RES_STATUS.SUCCESS);
-            setOpen("");
-            reset(initClient);
-        };
+            <div>
+                <input
+                    {...register("role")}
+                    type="radio"
+                    id="manager"
+                    name="role"
+                    value="Manager"
+                    className="mr-2"
+                    onChange={() => {
+                        setRoleSelected("manager");
+                    }}
+                />
+                <label htmlFor="manager" className="text-lg">
+                    {t("label.manager")}
+                </label>
+            </div>
+        </fieldset>
+    );
 
-        const mainContent = (
-            <>
-                <p className="mt-1 text-sm leading-6 text-gray-600">
-                    <Trans
-                        defaults={t("modal.tips.noDupAddr")}
-                        components={{
-                            b: <strong className="text-red-400" />,
-                        }}
-                    />
-                </p>
-                <Form onSubmit={onSubmit} className="">
-                    <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 overflow-y-auto h-[70vh] sm:h-auto">
+    const AdminTable = () => (
+        <fieldset className="mt-4 py-2 border-2 border-indigo-100 flex justify-evenly">
+            <legend className="ml-2 px-2">
+                {t("label.pageAccessSetting")}
+            </legend>
+            <div className="mx-3 w-full">
+                <table className="min-w-full">
+                    <thead className="bg-indigo-200">
+                        <tr>
+                            <th className="text-base">{t("label.page")}</th>
+                            <th className="text-base text-center">
+                                {t("label.readOnly")}
+                            </th>
+                            <th className="text-base text-center">
+                                {t("label.fullAccess")}
+                            </th>
+                            <th className="text-base text-center">
+                                {t("label.none")}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {pageAdminList.map((item) => {
+                            return (
+                                <tr key={item.page}>
+                                    <td>{item.page}</td>
+                                    <td className="bg-indigo-100">
+                                        <input
+                                            /* {...register("role")} */
+                                            type="radio"
+                                            id="readOnly"
+                                            name={item.page}
+                                            value="readOnly"
+                                            className="h-full w-full"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            /* {...register("role")} */
+                                            type="radio"
+                                            id="fullAccess"
+                                            name={item.page}
+                                            value="fullAccess"
+                                            className="h-full w-full"
+                                            defaultChecked
+                                        />
+                                    </td>
+                                    <td className="bg-indigo-100">
+                                        <input
+                                            /* {...register("role")} */
+                                            type="radio"
+                                            id="none"
+                                            name={item.page}
+                                            value="none"
+                                            className="h-full w-full"
+                                        />
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    );
+
+    const mainContent = (
+        <>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+                <Trans
+                    defaults={t("modal.tips.noDupAddr")}
+                    components={{
+                        b: <strong className="text-red-400" />,
+                    }}
+                />
+            </p>
+            <Form onSubmit={onSubmit} className="mt-4">
+                <div className="grid sm:grid-cols-6 grid-cols-1 gap-3">
+                    <div className="sm:col-span-3 col-span-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 overflow-y-auto h-[70vh] sm:h-auto">
                         <div className="sm:col-span-3">
                             <label
                                 htmlFor="first_name"
@@ -143,15 +234,15 @@ const MStaffForm: FC<Tprops> = memo(
                                     required
                                     className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10 
                                     ${
-                                        (isConflict ===
+                                        (infoConflict ===
                                             RES_STATUS.FAILED_DUP_EMAIL ||
-                                            isConflict ===
+                                            infoConflict ===
                                                 RES_STATUS.FAILED_DUP_P_E) &&
                                         " ring-2 ring-red-500 focus:ring-red-600 "
                                     }
                                     ${
-                                        (isConflict === RES_STATUS.SUCCESS ||
-                                            isConflict ===
+                                        (infoConflict === RES_STATUS.SUCCESS ||
+                                            infoConflict ===
                                                 RES_STATUS.FAILED_DUP_PHONE) &&
                                         " ring-1 ring-gray-300 focus:ring-indigo-600 "
                                     }
@@ -184,15 +275,15 @@ const MStaffForm: FC<Tprops> = memo(
                                     className={`
                                     outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10 
                                     ${
-                                        (isConflict ===
+                                        (infoConflict ===
                                             RES_STATUS.FAILED_DUP_PHONE ||
-                                            isConflict ===
+                                            infoConflict ===
                                                 RES_STATUS.FAILED_DUP_P_E) &&
                                         " ring-2 ring-red-500 focus:ring-red-600 "
                                     }
                                     ${
-                                        (isConflict === RES_STATUS.SUCCESS ||
-                                            isConflict ===
+                                        (infoConflict === RES_STATUS.SUCCESS ||
+                                            infoConflict ===
                                                 RES_STATUS.FAILED_DUP_EMAIL) &&
                                         " ring-1 ring-gray-300 focus:ring-indigo-600 "
                                     }
@@ -319,30 +410,35 @@ const MStaffForm: FC<Tprops> = memo(
                             </div>
                         </div>
                     </div>
-                    <SubmitBtn
-                        onClick={() => trigger()}
-                        onClose={onClose}
-                        navState={navigation.state}
-                    />
-                </Form>
-            </>
-        );
+                    <div className="sm:col-span-3 col-span-1">
+                        <RoleField />
+                        <AdminTable />
+                    </div>
+                </div>
+                <SubmitBtn
+                    onClick={() => trigger()}
+                    onClose={onClose}
+                    navState={navigation.state}
+                />
+            </Form>
+        </>
+    );
 
-        return (
-            <MTemplate
-                open={!!(open === "Add" || open === "Edit")}
-                onClose={onClose}
-                title={
-                    open === "Add"
-                        ? t("modal.title.addClient")
-                        : t("modal.title.updateClient")
-                }
-                mQuit={true}
-            >
-                {mainContent}
-            </MTemplate>
-        );
-    }
-);
+    return (
+        <MTemplate
+            open={!!(modalOpen === "Add" || modalOpen === "Edit")}
+            onClose={onClose}
+            title={
+                modalOpen === "Add"
+                    ? t("modal.title.addStaff")
+                    : t("modal.title.updateStaff")
+            }
+            mQuit={true}
+            mode="xl"
+        >
+            {mainContent}
+        </MTemplate>
+    );
+});
 
 export default MStaffForm;

@@ -43,7 +43,14 @@ const clientColumns: ColumnDef<Tclient>[] = [
     },
     {
         header: i18n.t("label.address"),
-        accessorKey: "address",
+        accessorFn: (data: Tclient) =>
+            data.address +
+            ", " +
+            data.suburb +
+            ", " +
+            data.city +
+            ", " +
+            data.postcode,
         cell: (info: CellContext<Tclient, unknown>) => (
             <span>{info.getValue<string>()}</span>
         ),

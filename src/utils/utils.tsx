@@ -1,4 +1,4 @@
-import { Tservice, Tunit } from "../configs/schema/manageSchema";
+import { Tservice, Tunit } from "../configs/schema/settingSchema";
 import { format } from "date-fns";
 
 export const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
@@ -28,3 +28,10 @@ export const newDateFormat = (date: Date) => {
 };
 
 export type AreTypesEqual<T, U> = T extends U ? true : false;
+
+/**
+ * @param str
+ * @returns generate new string with 1st letter capitalized and rest lowercased
+ */
+export const capFirstLetter = (str: string) =>
+    `${str.charAt(0).toUpperCase()}${str.slice(1).toLowerCase()}`;

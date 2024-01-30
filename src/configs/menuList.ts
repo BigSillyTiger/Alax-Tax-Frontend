@@ -40,7 +40,7 @@ export const menuList = [
     },
     {
         name: "Management",
-        href: "/management",
+        href: "/setting",
         icon: WrenchScrewdriverIcon,
         current: false,
     },

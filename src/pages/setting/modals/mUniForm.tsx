@@ -5,8 +5,11 @@ import { useForm } from "react-hook-form";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtom } from "jotai";
-import type { Tservice, Tunit } from "@/configs/schema/manageSchema";
-import { newServiceSchema, newUnitSchema } from "@/configs/schema/manageSchema";
+import type { Tservice, Tunit } from "@/configs/schema/settingSchema";
+import {
+    newServiceSchema,
+    newUnitSchema,
+} from "@/configs/schema/settingSchema";
 import { isServiceType } from "@/utils/utils";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";

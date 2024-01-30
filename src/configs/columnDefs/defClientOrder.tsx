@@ -32,6 +32,16 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
             },
             {
                 header: i18n.t("label.address"),
+                accessorFn: (data: TorderWithDesc) =>
+                    data.order_address +
+                    ", " +
+                    data.order_suburb +
+                    ", " +
+                    data.order_city +
+                    ", " +
+                    data.order_state +
+                    ", " +
+                    data.order_pc,
                 accessorKey: "order_address",
                 cell: (info: CellContext<TorderWithDesc, string>) => (
                     <span>{info.getValue()}</span>

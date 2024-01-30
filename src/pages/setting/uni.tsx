@@ -1,18 +1,18 @@
 import type { FC } from "react";
 import { useAtom } from "jotai";
 import Card from "@/components/card";
-import { Tservice, Tunit } from "@/configs/schema/manageSchema";
+import { Tservice, Tunit } from "@/configs/schema/settingSchema.ts";
 import {
     serviceListColDefs,
     unitListColDefs,
-} from "../../configs/columnDefs/defUniList";
+} from "../../configs/columnDefs/defUniList.tsx";
 import { Tunivers } from "@/utils/types";
 import MUniDel from "./modals/mUniDel";
 import { PTable } from "@/components/table";
 import { useTranslation } from "react-i18next";
 import MUniForm from "./modals/mUniForm";
 import { atUniData, initS, initU } from "./states.ts";
-import { atModalOpen } from "../uniStates";
+import { atModalOpen } from "../uniStates.ts";
 
 type Tprops = Tunivers;
 

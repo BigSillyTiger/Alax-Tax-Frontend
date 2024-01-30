@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { TisConflict, Tunivers } from "@/utils/types";
 import { RES_STATUS } from "@/utils/types";
 import { TmodalOpenStates } from "@/utils/types.ts";
-import { Tcompany } from "@/configs/schema/manageSchema";
+import { Tcompany } from "@/configs/schema/settingSchema";
 
 /**
  * @description info conflict state for data checking with backend

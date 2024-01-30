@@ -1,3 +1,4 @@
+import Dashboard from "@/pages/dashboard";
 import { z } from "zod";
 
 export const staffSchema = z.object({
@@ -19,11 +20,31 @@ export const staffSchema = z.object({
         }),
     email: z.string().email().trim().toLowerCase(),
     address: z.string().trim().nullable(),
-    role: z.string().trim().nullable(),
+    suburb: z.string().trim().nullable(),
+    city: z.string().trim().nullable(),
+    state: z.string().trim().nullable(),
+    country: z.string().trim().nullable(),
+    postcode: z
+        .string()
+        //match 4 digits string which may start with 0
+        .regex(/^[0-9]{4}$/, { message: "Must be numbers" })
+        .min(4)
+        .max(4)
+        .nullable(),
+    role: z.string().trim(),
     //created_date: z.string().trim().nullable(),
 });
 
 export const staffNoIDSchema = staffSchema.omit({ uid: true });
+
+export const staffWithAdminSchema = staffSchema.extend({
+    dashboard: z.number(),
+    clients: z.number(),
+    orders: z.number(),
+    calendar: z.number(),
+    staff: z.number(),
+    setting: z.number(),
+});
 
 export type Tstaff = z.infer<typeof staffSchema>;
 export type TstaffUnreg = z.infer<typeof staffNoIDSchema>;

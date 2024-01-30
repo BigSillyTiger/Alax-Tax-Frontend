@@ -15,7 +15,7 @@ import TableFooter from "./TableFooter";
 import PageFooter from "./PageFooter";
 import PayHeader from "./PayHeader";
 import PayRows from "./PayRows";
-import { Tcompany } from "@/configs/schema/manageSchema";
+import { Tcompany } from "@/configs/schema/settingSchema";
 import { useTranslation } from "react-i18next";
 
 const tw = createTw({});

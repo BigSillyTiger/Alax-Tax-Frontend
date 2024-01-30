@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 
 //import Layout from "./components/layout";
-import SpinningEle from "@/components/loadingEle/SpinningEle";
 import LoginPage from "@/pages/login/loginPage";
 import ErrBoundary from "@/pages/errBoundary";
 
@@ -33,12 +32,13 @@ import Staff, {
     loader as staffLoader,
     action as staffAction,
 } from "@/pages/staff";
-import Management from "@/pages/management";
+import Setting from "@/pages/setting";
 import Calendar from "./pages/calendar";
 import {
     loader as universLoader,
     action as universAction,
-} from "@/pages/management/dataAccess";
+} from "@/pages/setting/dataAccess";
+import LoadingPage from "./components/loadingEle";
 
 const App: FC = () => {
     const router = createBrowserRouter(
@@ -93,8 +93,8 @@ const App: FC = () => {
                         action={staffAction}
                     />
                     <Route
-                        path={"/management"}
-                        element={<Management />}
+                        path={"/setting"}
+                        element={<Setting />}
                         loader={universLoader}
                         action={universAction}
                     />
@@ -104,7 +104,7 @@ const App: FC = () => {
             </>
         )
     );
-    return <RouterProvider router={router} fallbackElement={<SpinningEle />} />;
+    return <RouterProvider router={router} fallbackElement={<LoadingPage />} />;
 };
 
 export default App;

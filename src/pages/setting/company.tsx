@@ -3,7 +3,7 @@ import type { FC, FormEvent, ChangeEvent } from "react";
 import { useSubmit, Form } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Tcompany, companySchema } from "@/configs/schema/manageSchema";
+import { Tcompany, companySchema } from "@/configs/schema/settingSchema";
 import { useTranslation } from "react-i18next";
 import Card from "@/components/card";
 import { NormalBtn } from "@/components/btns";

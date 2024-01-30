@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { Text, View, Image } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { useTranslation } from "react-i18next";
-import { Tcompany } from "@/configs/schema/manageSchema";
+import { Tcompany } from "@/configs/schema/settingSchema";
 import { dateFormat } from "@/utils/utils";
 
 type Tprops = {

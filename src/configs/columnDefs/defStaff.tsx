@@ -50,7 +50,14 @@ const staffColumns: ColumnDef<Tstaff>[] = [
     },
     {
         header: i18n.t("label.address"),
-        accessorKey: "address",
+        accessorFn: (data: Tstaff) =>
+            data.address +
+            ", " +
+            data.suburb +
+            ", " +
+            data.city +
+            ", " +
+            data.postcode,
         cell: (info: CellContext<Tstaff, unknown>) => (
             <span>{info.getValue<string>()}</span>
         ),

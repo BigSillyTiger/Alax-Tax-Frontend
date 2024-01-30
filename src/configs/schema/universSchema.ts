@@ -13,7 +13,7 @@ const permissionSchema = z.object({
     orders: pItemSchema,
     calendar: pItemSchema,
     staff: pItemSchema,
-    management: pItemSchema,
+    setting: pItemSchema,
 });
 
 const stateItemSchema = z.union([
