@@ -55,9 +55,10 @@ export const staffUnregWithAdmin = staffWithAdminSchema
     })
     .superRefine(({ pwConfirm, password }, ctx) => {
         if (pwConfirm !== password) {
+            ctx.path.push("pwConfirm");
             ctx.addIssue({
                 code: "custom",
-                message: "The passwords did not match",
+                message: "Passwords do not match.",
             });
         }
     });

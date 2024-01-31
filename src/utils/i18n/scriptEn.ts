@@ -45,6 +45,7 @@ const en = {
                 delOrder: "Are you sure to delete this order?",
                 pickService: "Pick a service to append",
                 quit: "Are you sure to quit?",
+                noMatch: "Confirm Password <b>NOT Match</b>",
             },
         },
         btn: {
@@ -202,6 +203,7 @@ const en = {
             updateOrderStatus: "Error: Updated Order Status Failed",
             invalidPayment: "Error: Invalid Payment Amount or Paid Date",
             overPaid: "Error: Over Paid Amount",
+            unMatchPW: "Error: Passwords do not match",
         },
     },
 };

@@ -1,4 +1,4 @@
-import { useEffect, memo } from "react";
+import { useEffect, useState, memo } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation, Trans } from "react-i18next";
 import { useForm } from "react-hook-form";
@@ -18,6 +18,7 @@ import {
     staffUnregWithAdmin,
 } from "@/configs/schema/staffSchema";
 import Fieldset from "@/components/form/fieldset";
+import { toastError } from "@/utils/toaster";
 
 const MStaffForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -27,6 +28,7 @@ const MStaffForm: FC = memo(() => {
     const [infoConflict, setInfoConflict] = useAtom(atInfoConflict);
     const [staff] = useAtom(atStaff);
     const [roleSelected, setRoleSelected] = useAtom(atRoleSelected);
+    const [pwConfirmF, setPWConfirmF] = useState(true);
 
     const {
         formState: { errors },
@@ -38,6 +40,8 @@ const MStaffForm: FC = memo(() => {
     } = useForm<TstaffUnregWithAdmin>({
         resolver: zodResolver(staffUnregWithAdmin),
         defaultValues: staff,
+        mode: "onBlur",
+        reValidateMode: "onBlur",
     });
 
     useEffect(() => {
@@ -47,12 +51,13 @@ const MStaffForm: FC = memo(() => {
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const isValid = await trigger();
+        console.log("-> staff add isValid: ", isValid);
         console.log("-> staff add err: ", errors);
-        //console.log("-> staff form all value: ", getValues());
+        console.log("-> staff form all value: ", getValues());
         if (isValid) {
             const values = getValues();
             const method = staff.uid === 0 ? "POST" : "PUT";
-            submit({ ...values, id: staff.uid }, { method, action: "/staff" });
+            //submit({ ...values, id: staff.uid }, { method, action: "/staff" });
         }
     };
 
@@ -69,31 +74,34 @@ const MStaffForm: FC = memo(() => {
                     {t("label.pwInput")}
                 </label>
                 <input
-                    {...register("password", {
-                        required: "Password is required",
-                    })}
+                    {...register("password")}
                     id="inputPW"
                     type="password"
                     autoComplete="new-password"
                     required
-                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                    className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2 ${errors.pwConfirm && "ring-2 ring-red-600 focus:ring-red-400"}`}
                 />
             </div>
             <div className="mx-3 my-1 ">
-                <label htmlFor="confirmPW" className="text-sm pl-2">
-                    {t("label.pwConfirm")}
+                <label htmlFor="pwConfirm" className="text-sm pl-2">
+                    {errors.pwConfirm ? (
+                        <Trans
+                            defaults={t("modal.tips.noMatch")}
+                            components={{
+                                b: <strong className="text-red-400" />,
+                            }}
+                        />
+                    ) : (
+                        t("label.pwConfirm")
+                    )}
                 </label>
                 <input
-                    {...register("pwConfirm", {
-                        validate: (value) =>
-                            value === watch("password") ||
-                            "Passwords do not match",
-                    })}
-                    id="confirmPW"
+                    {...register("pwConfirm")}
+                    id="pwConfirm"
                     type="password"
                     autoComplete="new-password"
                     required
-                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                    className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2 ${errors.pwConfirm && "ring-2 ring-red-600 focus:ring-red-400"}`}
                 />
             </div>
         </Fieldset>
