@@ -20,7 +20,8 @@ import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
 import MOrderPay from "./modals/mOrderPay";
 import MInQ from "@/components/modal/mInQ";
 import { Tcompany } from "@/configs/schema/settingSchema";
-import { atClient, atClientOrder } from "./states";
+import { calGst } from "@/utils/calculations";
+import { atClient, atClientOrder, atServiceDesc } from "./states";
 import { atCompany, atLogo, atModalOpen, atUniData } from "../uniStates";
 
 const Client = () => {
@@ -59,21 +60,16 @@ const Client = () => {
             };
         });
 
-    const actionData = useActionData() as Tresponse;
-    //const client = clientInfo.data[0] as Tclient;
-    const [client, setClient] = useAtom(atClient);
-    setClient(clientInfo.data[0]);
-
     const initOrder: TorderWithDetails = {
         // -1 - close the modal; 0 - add new order; >0 = update order
         order_id: -1,
-        fk_client_id: client.client_id,
-        order_address: client.address,
-        order_suburb: client.suburb,
-        order_city: client.city,
-        order_state: client.state,
-        order_country: client.country,
-        order_pc: client.postcode,
+        fk_client_id: clientInfo.data[0].client_id,
+        order_address: clientInfo.data[0].address,
+        order_suburb: clientInfo.data[0].suburb,
+        order_city: clientInfo.data[0].city,
+        order_state: clientInfo.data[0].state,
+        order_country: clientInfo.data[0].country,
+        order_pc: clientInfo.data[0].postcode,
         order_status: t("label.pending"),
         order_total: 0,
         order_paid: 0,
@@ -86,40 +82,77 @@ const Client = () => {
         payments: [],
     };
 
+    const actionData = useActionData() as Tresponse;
+    //const client = clientInfo.data[0] as Tclient;
+    const [, setClient] = useAtom(atClient);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
-    const [, setClientOrder] = useAtom(atClientOrder);
+    const [clientOrder, setClientOrder] = useAtom(atClientOrder);
     const [, setUniData] = useAtom(atUniData);
     const [, setCompany] = useAtom(atCompany);
     const [, setLogo] = useAtom(atLogo);
+    const [, setServiceDesc] = useAtom(atServiceDesc);
 
-    // init the atom values
-    setUniData(uniData);
-    setCompany(company);
-    setLogo(logo);
+    useEffect(() => {
+        setClient(clientInfo.data[0]);
+        setCompany(company);
+        setLogo(logo);
+        setUniData(uniData);
+        setServiceDesc({
+            fk_order_id: clientOrder.order_id,
+            ranking: 0,
+            title: uniData?.services[0].service as string,
+            taxable: true,
+            description: "",
+            qty: 1,
+            unit: uniData?.services[0].unit as string,
+            unit_price: uniData?.services[0].unit_price as number,
+            gst: calGst(Number(uniData?.services[0].unit_price)),
+            netto: uniData?.services[0].unit_price as number,
+        });
+    }, [
+        setClient,
+        setCompany,
+        setLogo,
+        clientInfo,
+        company,
+        logo,
+        setUniData,
+        uniData,
+        setServiceDesc,
+        clientOrder,
+    ]);
 
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
             if (modalOpen === "Add") {
                 setModalOpen("");
                 toastSuccess(t("toastS.addOrder"));
+                actionData.status = RES_STATUS.DEFAULT;
             }
         } else if (actionData?.status === RES_STATUS.SUC_DEL) {
             toastSuccess(t("toastS.delOrder"));
+            actionData.status = RES_STATUS.DEFAULT;
         } else if (actionData?.status === RES_STATUS.SUC_UPDATE_STATUS) {
             toastSuccess(t("toastS.updateOrderStatus"));
+            actionData.status = RES_STATUS.DEFAULT;
         } else if (actionData?.status === RES_STATUS.SUC_UPDATE) {
             setModalOpen("");
             toastSuccess(t("toastS.updateOrder"));
+            actionData.status = RES_STATUS.DEFAULT;
         } else if (actionData?.status === RES_STATUS.SUC_UPDATE_PAYMENTS) {
             setModalOpen("");
             toastSuccess(t("toastS.updatePayment"));
+            actionData.status = RES_STATUS.DEFAULT;
         } else if (actionData?.status === RES_STATUS.FAILED) {
             if (modalOpen === "Add") {
                 toastError(t("toastF.addOrder"));
+                actionData.status = RES_STATUS.DEFAULT;
             } else if (modalOpen === "Edit") {
                 toastError(t("toastF.updateOrder"));
+                actionData.status = RES_STATUS.DEFAULT;
             } else if (modalOpen === "Del") {
                 toastError(t("toastF.delOrder"));
+                actionData.status = RES_STATUS.DEFAULT;
             }
         }
     }, [actionData]);

@@ -3,6 +3,7 @@ import type { FC, TouchEvent, MouseEvent } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
+import { RESET } from "jotai/utils";
 import LoadingPage from "@/components/loadingEle";
 import clientColumns from "@/configs/columnDefs/defClients.tsx";
 import Card from "@/components/card";
@@ -13,25 +14,11 @@ import { Tclient } from "@/configs/schema/clientSchema.ts";
 import { PTable } from "@/components/table";
 import MClientDel from "./modals/mClientDel";
 import MClientForm from "./modals/mClientForm.tsx";
-import { atClient } from "./states.ts";
+import { initClient, atClient } from "./states.ts";
 import { atInfoConflict, atModalOpen } from "../uniStates.ts";
 
 type Tprops = {
     clients: Tclient[] | null;
-};
-
-const initClient = {
-    client_id: -1,
-    first_name: "",
-    last_name: "",
-    phone: "",
-    email: "",
-    address: "",
-    suburb: "",
-    city: "Adelaide",
-    state: "SA",
-    country: "Australia",
-    postcode: "5000",
 };
 
 const Clients: FC = () => {
@@ -47,31 +34,31 @@ const Clients: FC = () => {
     useEffect(() => {
         /* close modals if RES_STATUS.SUCCESS  */
         if (actionData?.status === RES_STATUS.SUCCESS) {
+            // update or add a client
             setInfoConflict(actionData?.status);
             if (client.client_id === 0) {
-                //setAddNewOpen(false);
                 setModalOpen("");
-                setClient(initClient);
+                setClient(RESET);
                 toastSuccess("Registered a new client");
             } else if (client.client_id > 0) {
-                //setClientEdit(initClient);
                 setModalOpen("");
-                setClient(initClient);
+                setClient(RESET);
                 toastSuccess("Updated client informaton");
             }
-        } else if (
-            //actionData?.status &&
-            actionData?.status === RES_STATUS.SUC_DEL
-        ) {
+            actionData.status = RES_STATUS.DEFAULT;
+        } else if (actionData?.status === RES_STATUS.SUC_DEL) {
             // delete a client
             toastSuccess("Deleted a client");
+            actionData.status = RES_STATUS.DEFAULT;
         } else if (
             actionData?.status === RES_STATUS.FAILED_DUP_PHONE ||
             actionData?.status === RES_STATUS.FAILED_DUP_EMAIL ||
             actionData?.status === RES_STATUS.FAILED_DUP_P_E
         ) {
+            // duplicated register info
             setInfoConflict(actionData?.status);
             toastError("Email or Phone already existed");
+            actionData.status = RES_STATUS.DEFAULT;
         }
     }, [
         actionData,

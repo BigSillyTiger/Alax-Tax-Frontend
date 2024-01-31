@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { TorderWithDetails } from "@/configs/schema/orderSchema";
+import { TorderDesc, TorderWithDetails } from "@/configs/schema/orderSchema";
 import { Tclient } from "@/configs/schema/clientSchema";
 import i18n from "@/utils/i18n";
 
@@ -39,4 +39,17 @@ const atClient = atom<Tclient>({
     postcode: "5000",
 });
 
-export { atClientOrder, atClient };
+const atServiceDesc = atom<TorderDesc>({
+    fk_order_id: 0,
+    ranking: 0,
+    title: "",
+    taxable: true,
+    description: "",
+    qty: 1,
+    unit: "",
+    unit_price: 0,
+    gst: 0,
+    netto: 0,
+});
+
+export { atClientOrder, atClient, atServiceDesc };

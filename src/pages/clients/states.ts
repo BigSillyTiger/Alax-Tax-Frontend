@@ -1,10 +1,7 @@
 import { atomWithReset } from "jotai/utils";
 import { Tclient } from "@/configs/schema/clientSchema.ts";
 
-/**
- * @description client info state for client adding
- */
-const atClient = atomWithReset<Tclient>({
+const initClient = {
     client_id: -1,
     first_name: "",
     last_name: "",
@@ -16,6 +13,11 @@ const atClient = atomWithReset<Tclient>({
     state: "SA",
     country: "Australia",
     postcode: "5000",
-});
+};
 
-export { atClient };
+/**
+ * @description client info state for client adding
+ */
+const atClient = atomWithReset<Tclient>(initClient);
+
+export { initClient, atClient };

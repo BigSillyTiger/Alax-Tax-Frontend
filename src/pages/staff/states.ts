@@ -8,6 +8,7 @@ const initStaff: Tstaff = {
     phone: "",
     email: "",
     address: "",
+    password: "",
     suburb: "Adelaide",
     city: "Adelaide",
     state: "SA",

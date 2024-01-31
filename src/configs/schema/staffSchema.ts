@@ -1,4 +1,3 @@
-import Dashboard from "@/pages/dashboard";
 import { z } from "zod";
 
 export const staffSchema = z.object({
@@ -19,6 +18,7 @@ export const staffSchema = z.object({
             }
         }),
     email: z.string().email().trim().toLowerCase(),
+    password: z.string(),
     address: z.string().trim().nullable(),
     suburb: z.string().trim().nullable(),
     city: z.string().trim().nullable(),
@@ -46,5 +46,23 @@ export const staffWithAdminSchema = staffSchema.extend({
     setting: z.number(),
 });
 
+export const staffUnregWithAdmin = staffWithAdminSchema
+    .omit({
+        uid: true,
+    })
+    .extend({
+        pwConfirm: z.string(),
+    })
+    .superRefine(({ pwConfirm, password }, ctx) => {
+        if (pwConfirm !== password) {
+            ctx.addIssue({
+                code: "custom",
+                message: "The passwords did not match",
+            });
+        }
+    });
+
 export type Tstaff = z.infer<typeof staffSchema>;
 export type TstaffUnreg = z.infer<typeof staffNoIDSchema>;
+export type TstaffWithAdmin = z.infer<typeof staffWithAdminSchema>;
+export type TstaffUnregWithAdmin = z.infer<typeof staffUnregWithAdmin>;

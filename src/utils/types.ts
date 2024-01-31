@@ -7,6 +7,7 @@ export type Tresponse = {
 };
 
 export enum RES_STATUS {
+    DEFAULT = 9900,
     SUCCESS = 200,
     SUC_DEL = 201,
     SUC_UPDATE = 202,

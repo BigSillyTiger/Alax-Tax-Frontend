@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, memo } from "react";
+import { useCallback, useEffect, useMemo, memo } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
@@ -23,7 +23,7 @@ import DataList from "@/components/dataList";
 import { ClientInfoCard } from "@/components/customized";
 import StatesOptions from "@/components/stateOptions";
 import { atModalOpen, atUniData } from "@/pages/uniStates";
-import { atClient, atClientOrder } from "../states";
+import { atClient, atClientOrder, atServiceDesc } from "../states";
 
 const MOrderForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -34,18 +34,7 @@ const MOrderForm: FC = memo(() => {
     const [clientOrder] = useAtom(atClientOrder);
     const [uniData] = useAtom(atUniData);
 
-    const [desc, setDesc] = useState({
-        fk_order_id: clientOrder.order_id,
-        ranking: 0,
-        title: uniData?.services[0].service as string,
-        taxable: true,
-        description: "",
-        qty: 1,
-        unit: uniData?.services[0].unit as string,
-        unit_price: uniData?.services[0].unit_price as number,
-        gst: calGst(Number(uniData?.services[0].unit_price)),
-        netto: uniData?.services[0].unit_price as number,
-    });
+    const [serviceDesc, setServiceDesc] = useAtom(atServiceDesc);
 
     const {
         control,
@@ -71,7 +60,6 @@ const MOrderForm: FC = memo(() => {
     const calTotal = useMemo(() => {
         let total = 0;
         for (const item of values) {
-            //const netto = timesAB(item.unit_price, item.qty);
             total = plusAB(total, item.netto);
             total = plusAB(total, item.gst);
         }
@@ -81,7 +69,6 @@ const MOrderForm: FC = memo(() => {
     const calTotalGst = useMemo(() => {
         let gst = 0;
         for (const item of values) {
-            //const netto = timesAB(item.unit_price, item.qty);
             gst = plusAB(gst, item.gst);
         }
         return gst;
@@ -177,7 +164,7 @@ const MOrderForm: FC = memo(() => {
             (item) => item.service === value
         );
         if (service) {
-            setDesc({
+            setServiceDesc({
                 ranking: 0,
                 fk_order_id: clientOrder.order_id,
                 title: service.service as string,
@@ -712,7 +699,7 @@ const MOrderForm: FC = memo(() => {
                 <button
                     type="button"
                     className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-                    onClick={() => append(desc)}
+                    onClick={() => append(serviceDesc)}
                 >
                     {t("btn.append")}
                 </button>

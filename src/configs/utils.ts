@@ -33,11 +33,14 @@ export const roleOptions = [
     },
 ];
 
-export const pageAdminList: { page: string; admin: 0 | 1 | 2 }[] = [
-    { page: "Dashboard", admin: 2 },
-    { page: "Clients", admin: 0 },
-    { page: "Orders", admin: 0 },
-    { page: "Calendar", admin: 0 },
-    { page: "Staff", admin: 0 },
-    { page: "Setting", admin: 0 },
+export const pageAdminList: {
+    page: "dashboard" | "clients" | "orders" | "calendar" | "staff" | "setting";
+    admin: 0 | 1 | 2;
+}[] = [
+    { page: "dashboard", admin: 2 },
+    { page: "clients", admin: 0 },
+    { page: "orders", admin: 0 },
+    { page: "calendar", admin: 0 },
+    { page: "staff", admin: 0 },
+    { page: "setting", admin: 0 },
 ];

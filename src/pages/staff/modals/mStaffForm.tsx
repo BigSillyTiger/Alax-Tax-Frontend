@@ -13,7 +13,11 @@ import StatesOptions from "@/components/stateOptions";
 import { initStaff, atStaff, atRoleSelected } from "../states";
 import { atModalOpen, atInfoConflict } from "@/pages/uniStates";
 import { pageAdminList } from "@/configs/utils";
-import { Tstaff, staffNoIDSchema } from "@/configs/schema/staffSchema";
+import {
+    TstaffUnregWithAdmin,
+    staffUnregWithAdmin,
+} from "@/configs/schema/staffSchema";
+import Fieldset from "@/components/form/fieldset";
 
 const MStaffForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -30,8 +34,9 @@ const MStaffForm: FC = memo(() => {
         register,
         reset,
         trigger,
-    } = useForm<Tstaff>({
-        resolver: zodResolver(staffNoIDSchema),
+        watch,
+    } = useForm<TstaffUnregWithAdmin>({
+        resolver: zodResolver(staffUnregWithAdmin),
         defaultValues: staff,
     });
 
@@ -42,7 +47,8 @@ const MStaffForm: FC = memo(() => {
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const isValid = await trigger();
-        console.log("-> staff add: ", errors);
+        console.log("-> staff add err: ", errors);
+        //console.log("-> staff form all value: ", getValues());
         if (isValid) {
             const values = getValues();
             const method = staff.uid === 0 ? "POST" : "PUT";
@@ -56,21 +62,52 @@ const MStaffForm: FC = memo(() => {
         reset(initStaff);
     };
 
+    const PWsection = () => (
+        <Fieldset title={t("label.password")} sFieldset="flex flex-col">
+            <div className="mx-3">
+                <label htmlFor="inputPW" className="text-sm pl-2">
+                    {t("label.pwInput")}
+                </label>
+                <input
+                    {...register("password", {
+                        required: "Password is required",
+                    })}
+                    id="inputPW"
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                />
+            </div>
+            <div className="mx-3 my-1 ">
+                <label htmlFor="confirmPW" className="text-sm pl-2">
+                    {t("label.pwConfirm")}
+                </label>
+                <input
+                    {...register("pwConfirm", {
+                        validate: (value) =>
+                            value === watch("password") ||
+                            "Passwords do not match",
+                    })}
+                    id="confirmPW"
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                />
+            </div>
+        </Fieldset>
+    );
+
     const RoleField = () => (
-        <fieldset className="py-2 border-2 border-indigo-100 flex justify-evenly">
-            <legend className="ml-2 px-2">{t("label.selectRole")}</legend>
+        <Fieldset sFieldset="flex justify-evenly" title={t("label.selectRole")}>
             <div>
                 <input
                     {...register("role")}
                     type="radio"
                     id="employee"
-                    name="role"
-                    value="Employee"
-                    className="mr-2"
-                    defaultChecked
-                    onChange={() => {
-                        setRoleSelected("employee");
-                    }}
+                    value="employee"
+                    checked={watch("role") === "employee"}
                 />
                 <label htmlFor="employee" className="text-lg">
                     {t("label.employee")}
@@ -82,25 +119,22 @@ const MStaffForm: FC = memo(() => {
                     {...register("role")}
                     type="radio"
                     id="manager"
-                    name="role"
-                    value="Manager"
+                    value="manager"
                     className="mr-2"
-                    onChange={() => {
-                        setRoleSelected("manager");
-                    }}
+                    checked={watch("role") === "manager"}
                 />
                 <label htmlFor="manager" className="text-lg">
                     {t("label.manager")}
                 </label>
             </div>
-        </fieldset>
+        </Fieldset>
     );
 
     const AdminTable = () => (
-        <fieldset className="mt-4 py-2 border-2 border-indigo-100 flex justify-evenly">
-            <legend className="ml-2 px-2">
-                {t("label.pageAccessSetting")}
-            </legend>
+        <Fieldset
+            sFieldset="mt-4 flex justify-evenly"
+            title={t("label.pageAccessSetting")}
+        >
             <div className="mx-3 w-full">
                 <table className="min-w-full">
                     <thead className="bg-indigo-200">
@@ -124,32 +158,38 @@ const MStaffForm: FC = memo(() => {
                                     <td>{item.page}</td>
                                     <td className="bg-indigo-100">
                                         <input
-                                            /* {...register("role")} */
+                                            {...register(item.page, {
+                                                valueAsNumber: true,
+                                            })}
                                             type="radio"
-                                            id="readOnly"
-                                            name={item.page}
-                                            value="readOnly"
+                                            id={`readOnly-${item.page}`}
+                                            //name={item.page}
+                                            value={1}
                                             className="h-full w-full"
                                         />
                                     </td>
                                     <td>
                                         <input
-                                            /* {...register("role")} */
+                                            {...register(item.page, {
+                                                valueAsNumber: true,
+                                            })}
                                             type="radio"
-                                            id="fullAccess"
-                                            name={item.page}
-                                            value="fullAccess"
+                                            id={`fullAccess-${item.page}`}
+                                            //name={item.page}
+                                            value={2}
                                             className="h-full w-full"
                                             defaultChecked
                                         />
                                     </td>
                                     <td className="bg-indigo-100">
                                         <input
-                                            /* {...register("role")} */
+                                            {...register(item.page, {
+                                                valueAsNumber: true,
+                                            })}
                                             type="radio"
-                                            id="none"
-                                            name={item.page}
-                                            value="none"
+                                            id={`none-${item.page}`}
+                                            //name={item.page}
+                                            value={0}
                                             className="h-full w-full"
                                         />
                                     </td>
@@ -159,7 +199,7 @@ const MStaffForm: FC = memo(() => {
                     </tbody>
                 </table>
             </div>
-        </fieldset>
+        </Fieldset>
     );
 
     const mainContent = (
@@ -411,6 +451,7 @@ const MStaffForm: FC = memo(() => {
                         </div>
                     </div>
                     <div className="sm:col-span-3 col-span-1">
+                        <PWsection />
                         <RoleField />
                         <AdminTable />
                     </div>
