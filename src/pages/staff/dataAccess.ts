@@ -11,9 +11,10 @@ export const loader = async () => {
 export const action = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
-    //console.log("-> action request: ", request);
+    console.log("-> staff action request: ", request);
     const data = await request.formData();
     if ("POST" === request.method) {
+        console.log("-> staff api - add new staff");
         const result = await API_STAFF.staffAdd({
             first_name: data.get("first_name") as string,
             last_name: data.get("last_name") as string,
@@ -21,6 +22,19 @@ export const action = async ({
             email: data.get("email") as string,
             address: data.get("address") as string | null,
             role: data.get("role") as string,
+            password: data.get("password") as string,
+            pwConfirm: data.get("pwConfirm") as string,
+            suburb: data.get("suburb") as string | null,
+            city: data.get("city") as string | null,
+            state: data.get("state") as string | null,
+            country: data.get("country") as string | null,
+            postcode: data.get("postcode") as string | null,
+            dashboard: Number(data.get("dashboard")),
+            clients: Number(data.get("clients")),
+            orders: Number(data.get("orders")),
+            calendar: Number(data.get("calendar")),
+            staff: Number(data.get("staff")),
+            setting: Number(data.get("setting")),
         });
         return result;
     } else if ("DELETE" === request.method) {

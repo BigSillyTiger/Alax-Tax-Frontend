@@ -14,7 +14,7 @@ import { Tclient } from "@/configs/schema/clientSchema.ts";
 import { PTable } from "@/components/table";
 import MClientDel from "./modals/mClientDel";
 import MClientForm from "./modals/mClientForm.tsx";
-import { initClient, atClient } from "./states.ts";
+import { atClient } from "./states.ts";
 import { atInfoConflict, atModalOpen } from "../uniStates.ts";
 
 type Tprops = {
@@ -36,7 +36,7 @@ const Clients: FC = () => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
             // update or add a client
             setInfoConflict(actionData?.status);
-            if (client.client_id === 0) {
+            if (client.client_id === -1) {
                 setModalOpen("");
                 setClient(RESET);
                 toastSuccess("Registered a new client");
@@ -70,15 +70,9 @@ const Clients: FC = () => {
 
     const handleAddNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
-        setClient({ ...initClient, client_id: 0 });
+        setClient(RESET);
         setModalOpen("Add");
     };
-
-    /* const clickDetails = () => {
-        return nevigate("/clients/" + row.original.client_id, {
-            replace: false,
-        });
-    }; */
 
     const ClientTableContent: FC<Tprops> = ({ clients }) => {
         return (

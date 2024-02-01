@@ -6,7 +6,7 @@ import {
     REQ_STAFF_SINGLE_REGISTER,
     REQ_STAFF_SINGLE_UPDATE,
 } from "./req_list";
-import { Tstaff, TstaffUnreg } from "@/configs/schema/staffSchema";
+import { Tstaff, TstaffForm } from "@/configs/schema/staffSchema";
 import { Tresponse } from "@/utils/types";
 
 export const staffAll = async (): Promise<Tresponse> => {
@@ -37,7 +37,7 @@ export const staffInfo = async (uid: number): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_STAFF_INFO, { uid });
         return response.data;
-    } catch (err: any) {
+    } catch (err) {
         console.log("-> retrieve staff info error: ", err);
         return {
             status: 400,
@@ -47,8 +47,9 @@ export const staffInfo = async (uid: number): Promise<Tresponse> => {
     }
 };
 
-export const staffAdd = async (staff: TstaffUnreg): Promise<Tresponse> => {
+export const staffAdd = async (staff: TstaffForm): Promise<Tresponse> => {
     try {
+        console.log("-> send register new staff req");
         const response = await apis.post(REQ_STAFF_SINGLE_REGISTER, [staff]);
         return response.data;
     } catch (err) {

@@ -17,6 +17,14 @@ const en = {
         pageText: {
             noClient: "No client found.",
         },
+        menu: {
+            dashboard: "Dashboard",
+            calendar: "Calendar",
+            clients: "Clients",
+            orders: "Orders",
+            staffs: "Staffs",
+            setting: "Setting",
+        },
         modal: {
             title: {
                 delete: "DELETE WARNING",

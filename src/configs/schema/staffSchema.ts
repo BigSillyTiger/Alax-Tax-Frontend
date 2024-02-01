@@ -32,21 +32,16 @@ export const staffSchema = z.object({
         .max(4)
         .nullable(),
     role: z.string().trim(),
-    //created_date: z.string().trim().nullable(),
-});
-
-export const staffNoIDSchema = staffSchema.omit({ uid: true });
-
-export const staffWithAdminSchema = staffSchema.extend({
     dashboard: z.number(),
     clients: z.number(),
     orders: z.number(),
     calendar: z.number(),
     staff: z.number(),
     setting: z.number(),
+    //created_date: z.string().trim().nullable(),
 });
 
-export const staffUnregWithAdmin = staffWithAdminSchema
+export const staffForm = staffSchema
     .omit({
         uid: true,
     })
@@ -64,6 +59,4 @@ export const staffUnregWithAdmin = staffWithAdminSchema
     });
 
 export type Tstaff = z.infer<typeof staffSchema>;
-export type TstaffUnreg = z.infer<typeof staffNoIDSchema>;
-export type TstaffWithAdmin = z.infer<typeof staffWithAdminSchema>;
-export type TstaffUnregWithAdmin = z.infer<typeof staffUnregWithAdmin>;
+export type TstaffForm = z.infer<typeof staffForm>;

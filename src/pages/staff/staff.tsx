@@ -33,10 +33,11 @@ const Staff: FC = () => {
 
     const actionData = useActionData() as Tresponse;
     useEffect(() => {
+        console.log("-> staff action updated: ");
         /* close modals if RES_STATUS.SUCCESS  */
         if (actionData?.status === RES_STATUS.SUCCESS) {
             setInfoConflict(actionData?.status);
-            if (staff.uid === 0) {
+            if (staff.uid === -1) {
                 //setAddNewOpen(false);
                 setModalOpen("");
                 setStaff(RESET);
@@ -65,7 +66,7 @@ const Staff: FC = () => {
 
     const handleAddNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
-        setStaff(initStaff);
+        setStaff(RESET);
         setModalOpen("Add");
     };
 

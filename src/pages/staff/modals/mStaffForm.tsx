@@ -3,7 +3,7 @@ import type { FC, FormEvent } from "react";
 import { useTranslation, Trans } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigation, Form } from "react-router-dom";
+import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { useAtom } from "jotai";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { RES_STATUS } from "@/utils/types";
@@ -12,16 +12,14 @@ import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
 import { initStaff, atStaff } from "../states";
 import { atModalOpen, atInfoConflict } from "@/pages/uniStates";
-import { pageList, roleOptions } from "@/configs/utils";
-import {
-    TstaffUnregWithAdmin,
-    staffUnregWithAdmin,
-} from "@/configs/schema/staffSchema";
+import { roleOptions } from "@/configs/utils";
+import { menuList } from "@/configs/menuList";
+import { staffForm, TstaffForm } from "@/configs/schema/staffSchema";
 import Fieldset from "@/components/form/fieldset";
 
 const MStaffForm: FC = memo(() => {
     const navigation = useNavigation();
-
+    const submit = useSubmit();
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [infoConflict, setInfoConflict] = useAtom(atInfoConflict);
@@ -35,8 +33,8 @@ const MStaffForm: FC = memo(() => {
         setValue,
         trigger,
         watch,
-    } = useForm<TstaffUnregWithAdmin>({
-        resolver: zodResolver(staffUnregWithAdmin),
+    } = useForm<TstaffForm>({
+        resolver: zodResolver(staffForm),
         defaultValues: staff,
         mode: "onSubmit",
         reValidateMode: "onSubmit",
@@ -47,20 +45,16 @@ const MStaffForm: FC = memo(() => {
     }, [staff, reset]);
 
     useEffect(() => {
-        if (watch("role") === "employee") {
-            setValue("dashboard", roleOptions.employee.dashboard);
-            setValue("clients", roleOptions.employee.clients);
-            setValue("orders", roleOptions.employee.orders);
-            setValue("calendar", roleOptions.employee.calendar);
-            setValue("staff", roleOptions.employee.staff);
-            setValue("setting", roleOptions.employee.setting);
-        } else if (watch("role") === "manager") {
-            setValue("dashboard", roleOptions.manager.dashboard);
-            setValue("clients", roleOptions.manager.clients);
-            setValue("orders", roleOptions.manager.orders);
-            setValue("calendar", roleOptions.manager.calendar);
-            setValue("staff", roleOptions.manager.staff);
-            setValue("setting", roleOptions.manager.setting);
+        const selectedRole = watch("role") as keyof typeof roleOptions;
+        const roleData = roleOptions[selectedRole];
+
+        if (roleOptions[selectedRole]) {
+            Object.keys(roleData).forEach((field) => {
+                setValue(
+                    field as keyof TstaffForm,
+                    roleData[field as keyof typeof roleData] as 0 | 1 | 2
+                );
+            });
         }
     }, [watch("role"), watch, setValue]);
 
@@ -72,8 +66,8 @@ const MStaffForm: FC = memo(() => {
         console.log("-> staff form all value: ", getValues());
         if (isValid) {
             const values = getValues();
-            const method = staff.uid === 0 ? "POST" : "PUT";
-            //submit({ ...values, id: staff.uid }, { method, action: "/staff" });
+            const method = staff.uid === -1 ? "POST" : "PUT";
+            submit({ ...values, id: staff.uid }, { method, action: "/staff" });
         }
     };
 
@@ -204,13 +198,13 @@ const MStaffForm: FC = memo(() => {
                         </tr>
                     </thead>
                     <tbody>
-                        {pageList.map((item) => {
+                        {menuList.map((item) => {
                             return (
-                                <tr key={item.page}>
-                                    <td>{item.page}</td>
+                                <tr key={item.id}>
+                                    <td>{item.name}</td>
                                     <td className="bg-yellow-50">
                                         <input
-                                            {...register(item.page, {
+                                            {...register(item.id, {
                                                 valueAsNumber: true,
                                                 onChange: () => {
                                                     null;
@@ -219,16 +213,16 @@ const MStaffForm: FC = memo(() => {
                                             className="h-full w-full"
                                             type="radio"
                                             value={1}
-                                            checked={watch(item.page) === 1}
+                                            checked={watch(item.id) === 1}
                                             disabled={setRadioDisable(
-                                                item.page,
+                                                item.id,
                                                 1
                                             )}
                                         />
                                     </td>
                                     <td className="bg-green-50">
                                         <input
-                                            {...register(item.page, {
+                                            {...register(item.id, {
                                                 valueAsNumber: true,
                                                 onChange: () => {
                                                     null;
@@ -237,16 +231,16 @@ const MStaffForm: FC = memo(() => {
                                             className="h-full w-full"
                                             type="radio"
                                             value={2}
-                                            checked={watch(item.page) === 2}
+                                            checked={watch(item.id) === 2}
                                             disabled={setRadioDisable(
-                                                item.page,
+                                                item.id,
                                                 2
                                             )}
                                         />
                                     </td>
                                     <td className="bg-red-50">
                                         <input
-                                            {...register(item.page, {
+                                            {...register(item.id, {
                                                 valueAsNumber: true,
                                                 onChange: () => {
                                                     null;
@@ -255,9 +249,9 @@ const MStaffForm: FC = memo(() => {
                                             className="h-full w-full"
                                             type="radio"
                                             value={0}
-                                            checked={watch(item.page) === 0}
+                                            checked={watch(item.id) === 0}
                                             disabled={setRadioDisable(
-                                                item.page,
+                                                item.id,
                                                 0
                                             )}
                                         />

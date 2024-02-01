@@ -16,24 +16,28 @@ import { loginLoader, loginAction } from "@/pages/login";
 import Layout, { layoutLoader } from "@/components/layout";
 
 import Dashboard, { loader as dashboardLoader } from "@/pages/dashboard";
-import Clients, {
+import Clients from "@/pages/clients";
+import {
     loader as clientsLoader,
     action as clientsAction,
-} from "@/pages/clients";
-import Client, {
+} from "@/pages/clients/dataAccess";
+import Client from "@/pages/client";
+import {
     loader as clientLoader,
     action as clientAction,
-} from "@/pages/client";
-import Orders, {
+} from "@/pages/client/dataAccess";
+import Orders from "@/pages/orders";
+import {
     loader as ordersLoader,
     action as ordersAction,
-} from "@/pages/orders";
-import Staff, {
+} from "@/pages/orders/dataAccess";
+import Staff from "@/pages/staff";
+import {
     loader as staffLoader,
     action as staffAction,
-} from "@/pages/staff";
-import Setting from "@/pages/setting";
+} from "@/pages/staff/dataAccess";
 import Calendar from "./pages/calendar";
+import Setting from "@/pages/setting";
 import {
     loader as universLoader,
     action as universAction,

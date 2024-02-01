@@ -1,33 +1,22 @@
 import type { FC } from "react";
 import { useForm } from "react-hook-form";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
-import Fieldset from "@/components/form/fieldset";
-import {
-    TstaffUnregWithAdmin,
-    staffUnregWithAdmin,
-} from "@/configs/schema/staffSchema";
+//import Fieldset from "@/components/form/fieldset";
+import { TstaffForm, staffForm } from "@/configs/schema/staffSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { atStaff } from "./staff/states";
-import { pageList } from "@/configs/utils";
+import { menuList } from "@/configs/menuList";
 
 const Calendar: FC = () => {
     const { t } = useTranslation();
     const [staff] = useAtom(atStaff);
 
-    const {
-        formState: { errors },
-        getValues,
-        register,
-        reset,
-        setValue,
-        trigger,
-        watch,
-    } = useForm<TstaffUnregWithAdmin>({
-        resolver: zodResolver(staffUnregWithAdmin),
+    const { register } = useForm<TstaffForm>({
+        resolver: zodResolver(staffForm),
         defaultValues: staff,
-        mode: "onBlur",
-        reValidateMode: "onBlur",
+        /*         mode: "onBlur",
+        reValidateMode: "onBlur", */
     });
 
     const AdminTable = () => (
@@ -49,13 +38,13 @@ const Calendar: FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {pageList.map((item) => {
+                        {menuList.map((item) => {
                             return (
-                                <tr key={item.page}>
-                                    <td>{item.page}</td>
+                                <tr key={item.id}>
+                                    <td>{item.name}</td>
                                     <td className="bg-yellow-50">
                                         <input
-                                            {...register(item.page, {
+                                            {...register(item.id, {
                                                 valueAsNumber: true,
                                             })}
                                             type="radio"
@@ -65,7 +54,7 @@ const Calendar: FC = () => {
                                     </td>
                                     <td className="bg-green-50">
                                         <input
-                                            {...register(item.page, {
+                                            {...register(item.id, {
                                                 valueAsNumber: true,
                                             })}
                                             type="radio"
@@ -75,7 +64,7 @@ const Calendar: FC = () => {
                                     </td>
                                     <td className="bg-red-50">
                                         <input
-                                            {...register(item.page, {
+                                            {...register(item.id, {
                                                 valueAsNumber: true,
                                             })}
                                             type="radio"

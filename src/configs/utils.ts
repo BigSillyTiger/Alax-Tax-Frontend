@@ -26,14 +26,3 @@ export const roleOptions = {
         setting: 2,
     },
 };
-
-export const pageList: {
-    page: "dashboard" | "clients" | "orders" | "calendar" | "staff" | "setting";
-}[] = [
-    { page: "dashboard" },
-    { page: "clients" },
-    { page: "orders" },
-    { page: "calendar" },
-    { page: "staff" },
-    { page: "setting" },
-];
