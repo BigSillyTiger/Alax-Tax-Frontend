@@ -3,7 +3,7 @@ import type { FC, ReactNode } from "react";
 type Tprops = {
     sFieldset?: string;
     sLegend?: string;
-    title: string;
+    title: string | ReactNode;
     children: ReactNode[] | ReactNode;
 };
 

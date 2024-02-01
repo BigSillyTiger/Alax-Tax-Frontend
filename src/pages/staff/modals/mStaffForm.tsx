@@ -1,52 +1,68 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, memo } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation, Trans } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigation, useSubmit, Form } from "react-router-dom";
+import { useNavigation, Form } from "react-router-dom";
 import { useAtom } from "jotai";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { RES_STATUS } from "@/utils/types";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
-import { initStaff, atStaff, atRoleSelected } from "../states";
+import { initStaff, atStaff } from "../states";
 import { atModalOpen, atInfoConflict } from "@/pages/uniStates";
-import { pageAdminList } from "@/configs/utils";
+import { pageList, roleOptions } from "@/configs/utils";
 import {
     TstaffUnregWithAdmin,
     staffUnregWithAdmin,
 } from "@/configs/schema/staffSchema";
 import Fieldset from "@/components/form/fieldset";
-import { toastError } from "@/utils/toaster";
 
 const MStaffForm: FC = memo(() => {
     const navigation = useNavigation();
-    const submit = useSubmit();
+
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [infoConflict, setInfoConflict] = useAtom(atInfoConflict);
     const [staff] = useAtom(atStaff);
-    const [roleSelected, setRoleSelected] = useAtom(atRoleSelected);
-    const [pwConfirmF, setPWConfirmF] = useState(true);
 
     const {
         formState: { errors },
         getValues,
         register,
         reset,
+        setValue,
         trigger,
         watch,
     } = useForm<TstaffUnregWithAdmin>({
         resolver: zodResolver(staffUnregWithAdmin),
         defaultValues: staff,
-        mode: "onBlur",
-        reValidateMode: "onBlur",
+        mode: "onSubmit",
+        reValidateMode: "onSubmit",
     });
 
     useEffect(() => {
         reset(staff);
     }, [staff, reset]);
+
+    useEffect(() => {
+        if (watch("role") === "employee") {
+            setValue("dashboard", roleOptions.employee.dashboard);
+            setValue("clients", roleOptions.employee.clients);
+            setValue("orders", roleOptions.employee.orders);
+            setValue("calendar", roleOptions.employee.calendar);
+            setValue("staff", roleOptions.employee.staff);
+            setValue("setting", roleOptions.employee.setting);
+        } else if (watch("role") === "manager") {
+            setValue("dashboard", roleOptions.manager.dashboard);
+            setValue("clients", roleOptions.manager.clients);
+            setValue("orders", roleOptions.manager.orders);
+            setValue("calendar", roleOptions.manager.calendar);
+            setValue("staff", roleOptions.manager.staff);
+            setValue("setting", roleOptions.manager.setting);
+        }
+    }, [watch("role"), watch, setValue]);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -96,7 +112,11 @@ const MStaffForm: FC = memo(() => {
                     )}
                 </label>
                 <input
-                    {...register("pwConfirm")}
+                    {...register("pwConfirm", {
+                        validate: (value) =>
+                            watch("password") === value ||
+                            t("modal.tips.noMatch"),
+                    })}
                     id="pwConfirm"
                     type="password"
                     autoComplete="new-password"
@@ -107,43 +127,67 @@ const MStaffForm: FC = memo(() => {
         </Fieldset>
     );
 
+    const setRadioDisable = (
+        page:
+            | "dashboard"
+            | "clients"
+            | "orders"
+            | "calendar"
+            | "staff"
+            | "setting",
+        adminNum: 0 | 1 | 2
+    ) => {
+        return !(watch(page) === adminNum);
+    };
+
     const RoleField = () => (
-        <Fieldset sFieldset="flex justify-evenly" title={t("label.selectRole")}>
-            <div>
-                <input
-                    {...register("role")}
-                    type="radio"
-                    id="employee"
-                    value="employee"
-                    checked={watch("role") === "employee"}
-                />
-                <label htmlFor="employee" className="text-lg">
-                    {t("label.employee")}
-                </label>
-            </div>
-
-            <div>
-                <input
-                    {...register("role")}
-                    type="radio"
-                    id="manager"
-                    value="manager"
-                    className="mr-2"
-                    checked={watch("role") === "manager"}
-                />
-                <label htmlFor="manager" className="text-lg">
-                    {t("label.manager")}
-                </label>
-            </div>
-        </Fieldset>
-    );
-
-    const AdminTable = () => (
         <Fieldset
-            sFieldset="mt-4 flex justify-evenly"
-            title={t("label.pageAccessSetting")}
+            sFieldset="mt-4 flex flex-col"
+            title={
+                <p className="mb-1">
+                    <Trans
+                        defaults={t("modal.title.roleAdmin")}
+                        components={{
+                            s: <strong className="text-sm font-light" />,
+                        }}
+                    />
+                </p>
+            }
         >
-            <div className="mx-3 w-full">
+            <div className="flex justify-evenly">
+                <div>
+                    <input
+                        {...register("role")}
+                        id="employee"
+                        type="radio"
+                        value="employee"
+                        checked={watch("role") === "employee"}
+                        className="mr-2 cursor-pointer"
+                    />
+                    <label
+                        htmlFor="employee"
+                        className="text-lg cursor-pointer"
+                    >
+                        {t("label.employee")}
+                    </label>
+                </div>
+                <div>
+                    <input
+                        {...register("role")}
+                        id="manager"
+                        type="radio"
+                        value="manager"
+                        className="mr-2 cursor-pointer"
+                        checked={watch("role") === "manager"}
+                    />
+                    <label htmlFor="manager" className="text-lg cursor-pointer">
+                        {t("label.manager")}
+                    </label>
+                </div>
+            </div>
+
+            {/* role access setting table */}
+            <div className="mx-3 mt-2 mb-1">
                 <table className="min-w-full">
                     <thead className="bg-indigo-200">
                         <tr>
@@ -160,45 +204,62 @@ const MStaffForm: FC = memo(() => {
                         </tr>
                     </thead>
                     <tbody>
-                        {pageAdminList.map((item) => {
+                        {pageList.map((item) => {
                             return (
                                 <tr key={item.page}>
                                     <td>{item.page}</td>
-                                    <td className="bg-indigo-100">
+                                    <td className="bg-yellow-50">
                                         <input
                                             {...register(item.page, {
                                                 valueAsNumber: true,
+                                                onChange: () => {
+                                                    null;
+                                                },
                                             })}
+                                            className="h-full w-full"
                                             type="radio"
-                                            id={`readOnly-${item.page}`}
-                                            //name={item.page}
                                             value={1}
-                                            className="h-full w-full"
+                                            checked={watch(item.page) === 1}
+                                            disabled={setRadioDisable(
+                                                item.page,
+                                                1
+                                            )}
                                         />
                                     </td>
-                                    <td>
+                                    <td className="bg-green-50">
                                         <input
                                             {...register(item.page, {
                                                 valueAsNumber: true,
+                                                onChange: () => {
+                                                    null;
+                                                },
                                             })}
+                                            className="h-full w-full"
                                             type="radio"
-                                            id={`fullAccess-${item.page}`}
-                                            //name={item.page}
                                             value={2}
-                                            className="h-full w-full"
-                                            defaultChecked
+                                            checked={watch(item.page) === 2}
+                                            disabled={setRadioDisable(
+                                                item.page,
+                                                2
+                                            )}
                                         />
                                     </td>
-                                    <td className="bg-indigo-100">
+                                    <td className="bg-red-50">
                                         <input
                                             {...register(item.page, {
                                                 valueAsNumber: true,
+                                                onChange: () => {
+                                                    null;
+                                                },
                                             })}
-                                            type="radio"
-                                            id={`none-${item.page}`}
-                                            //name={item.page}
-                                            value={0}
                                             className="h-full w-full"
+                                            type="radio"
+                                            value={0}
+                                            checked={watch(item.page) === 0}
+                                            disabled={setRadioDisable(
+                                                item.page,
+                                                0
+                                            )}
                                         />
                                     </td>
                                 </tr>
@@ -222,6 +283,7 @@ const MStaffForm: FC = memo(() => {
             </p>
             <Form onSubmit={onSubmit} className="mt-4">
                 <div className="grid sm:grid-cols-6 grid-cols-1 gap-3">
+                    {/* left input area */}
                     <div className="sm:col-span-3 col-span-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 overflow-y-auto h-[70vh] sm:h-auto">
                         <div className="sm:col-span-3">
                             <label
@@ -458,10 +520,12 @@ const MStaffForm: FC = memo(() => {
                             </div>
                         </div>
                     </div>
+                    {/* right input area */}
                     <div className="sm:col-span-3 col-span-1">
                         <PWsection />
                         <RoleField />
-                        <AdminTable />
+
+                        {/* <RoleSelection /> */}
                     </div>
                 </div>
                 <SubmitBtn

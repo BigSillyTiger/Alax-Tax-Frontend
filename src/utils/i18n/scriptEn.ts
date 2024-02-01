@@ -31,6 +31,7 @@ const en = {
                 editOrder: "Edit Order",
                 invoice: "Invoice",
                 payments: "Make or Edit Payments to Order",
+                roleAdmin: "Role <s>(Page Visting Access)</s>",
                 updateClient: "Update Client Info",
                 updateStaff: "Update Staff Info",
             },

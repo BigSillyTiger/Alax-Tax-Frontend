@@ -6,40 +6,63 @@ import {
     ClipboardDocumentIcon,
     WrenchScrewdriverIcon,
 } from "@heroicons/react/24/outline";
+import i18n from "@/utils/i18n";
+import type { ForwardRefExoticComponent, SVGProps, RefAttributes } from "react";
 
-export const menuList = [
+type Ticon = ForwardRefExoticComponent<
+    Omit<SVGProps<SVGSVGElement>, "ref"> & {
+        title?: string | undefined;
+        titleId?: string | undefined;
+    } & RefAttributes<SVGSVGElement>
+>;
+
+type TmenuList = {
+    id: "dashboard" | "clients" | "orders" | "calendar" | "staff" | "setting";
+    name: string;
+    href: string;
+    icon: Ticon;
+    current: boolean;
+};
+
+export const menuList: TmenuList[] = [
     {
-        name: "Dashboard",
+        id: "dashboard",
+        name: i18n.t("menu.dashboard"),
         href: "/dashboard",
         icon: HomeIcon,
         current: true,
     },
     {
-        name: "Clients",
+        id: "clients",
+        name: i18n.t("menu.clients"),
         href: "/clients",
         icon: UserGroupIcon,
         current: false,
     },
     {
-        name: "Orders",
+        id: "orders",
+        name: i18n.t("menu.orders"),
         href: "/orders",
         icon: ClipboardDocumentIcon,
         current: false,
     },
     {
-        name: "Calendar",
+        id: "calendar",
+        name: i18n.t("menu.calendar"),
         href: "/calendar",
         icon: CalendarIcon,
         current: false,
     },
     {
-        name: "Staff",
+        id: "staff",
+        name: i18n.t("menu.staff"),
         href: "/staff",
         icon: IdentificationIcon,
         current: false,
     },
     {
-        name: "Management",
+        id: "setting",
+        name: i18n.t("menu.setting"),
         href: "/setting",
         icon: WrenchScrewdriverIcon,
         current: false,
