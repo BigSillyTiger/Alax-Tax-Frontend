@@ -14,7 +14,7 @@ import { Tstaff } from "@/configs/schema/staffSchema.ts";
 import MStaffDel from "./modals/mStaffDel";
 import { PTable } from "@/components/table";
 import MStaffForm from "./modals/mStaffForm";
-import { atModalOpen } from "../uniStates";
+import { at2ndModalOpen, atModalOpen } from "../uniStates";
 import { atStaff } from "./states";
 import MResetPW from "./modals/mResetPW";
 
@@ -26,6 +26,7 @@ const Staff: FC = () => {
     const [, setInfoConflict] = useState<TisConflict>(RES_STATUS.SUCCESS);
     const [staff, setStaff] = useAtom(atStaff);
     const [, setModalOpen] = useAtom(atModalOpen);
+    const [secModalOpen, setSecModalOpen] = useAtom(at2ndModalOpen);
     const { t } = useTranslation();
     const { allStaff } = useLoaderData() as {
         allStaff: Tstaff[] | null;
@@ -33,6 +34,7 @@ const Staff: FC = () => {
 
     const actionData = useActionData() as Tresponse;
     useEffect(() => {
+        console.log("-> 2nc staff.uid: ", staff.uid);
         /* close modals if RES_STATUS.SUCCESS  */
         if (actionData?.status === RES_STATUS.SUCCESS) {
             setInfoConflict(actionData?.status);
@@ -42,7 +44,8 @@ const Staff: FC = () => {
                 setStaff(RESET);
                 toastSuccess(t("toastS.addedStaff"));
             } else if (staff.uid > 0) {
-                //setClientEdit(initClient);
+                // close the password reset modal
+                secModalOpen === "ResetPW" && setSecModalOpen("");
                 setModalOpen("");
                 setStaff(RESET);
                 toastSuccess(t("toastS.updateStaff"));

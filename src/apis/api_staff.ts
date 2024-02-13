@@ -5,6 +5,7 @@ import {
     REQ_STAFF_SINGLE_DEL,
     REQ_STAFF_SINGLE_REGISTER,
     REQ_STAFF_SINGLE_UPDATE,
+    REQ_STAFF_UPDATE_PW,
 } from "./req_list";
 import { Tstaff, TstaffForm } from "@/configs/schema/staffSchema";
 import { Tresponse } from "@/utils/types";
@@ -85,6 +86,23 @@ export const staffSingleUpdate = async (staff: Tstaff): Promise<Tresponse> => {
         return {
             status: 400,
             msg: "failed in updating staff",
+            data: "",
+        };
+    }
+};
+
+export const staffUpdatePW = async (
+    uid: number,
+    pw: string
+): Promise<Tresponse> => {
+    try {
+        const response = await apis.put(REQ_STAFF_UPDATE_PW, { uid, pw });
+        return response.data;
+    } catch (err) {
+        console.log("-> update staff pw failed: ", err);
+        return {
+            status: 400,
+            msg: "failed in updating staff pw",
             data: "",
         };
     }

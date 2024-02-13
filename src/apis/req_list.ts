@@ -26,6 +26,7 @@ export const REQ_STAFF_INFO = "/staff/info";
 export const REQ_STAFF_SINGLE_REGISTER = "/staff/single-insert";
 export const REQ_STAFF_SINGLE_UPDATE = "/staff/single-update";
 export const REQ_STAFF_SINGLE_DEL = "/staff/single-del";
+export const REQ_STAFF_UPDATE_PW = "/staff/update-pw";
 
 export const REQ_ORDER_ALL = "/order/all";
 export const REQ_ORDER_ADD = "/order/add";

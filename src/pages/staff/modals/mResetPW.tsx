@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import type { FC, FormEvent } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { MTemplate } from "@/components/modal";
@@ -29,24 +29,33 @@ const MResetPW: FC = memo(() => {
     } = useForm({
         mode: "onBlur",
         reValidateMode: "onBlur",
+        defaultValues: { password: "", pwConfirm: "" },
     });
+
+    useEffect(() => {
+        if (secModalOpen === "ResetPW") {
+            reset({ password: "", pwConfirm: "" });
+        }
+    }, [secModalOpen, reset]);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const isValid = await trigger();
+        console.log("-> reset pw all values: ", getValues());
         if (isValid) {
             const values = getValues();
             const method = "PUT";
             submit(
-                { ...values, id: staff.uid, req: "resetPW" },
+                { ...values, uid: staff.uid, req: "resetPW" },
                 { method, action: "/staff" }
             );
         }
     };
 
     const onClose = () => {
-        setSecModalOpen("");
+        console.log("-----> reset modal close, reset pw");
         reset({ password: "", pwConfirm: "" });
+        setSecModalOpen("");
     };
 
     const PWsection = () => (
@@ -114,7 +123,7 @@ const MResetPW: FC = memo(() => {
             title={t("modal.title.resetPW")}
             isMajor={true}
             mode={"md"}
-            mQuit={false}
+            mQuit={true}
         >
             {mainContent}
         </MTemplate>

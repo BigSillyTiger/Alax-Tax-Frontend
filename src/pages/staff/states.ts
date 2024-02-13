@@ -1,5 +1,6 @@
 import { atomWithReset } from "jotai/utils";
 import { Tstaff } from "@/configs/schema/staffSchema";
+import { roleOptions } from "@/configs/utils";
 
 const initStaff: Tstaff = {
     uid: -1,
@@ -15,12 +16,12 @@ const initStaff: Tstaff = {
     country: "Australia",
     postcode: "5000",
     role: "employee",
-    dashboard: 2,
-    clients: 0,
-    orders: 0,
-    calendar: 1,
-    staff: 0,
-    setting: 0,
+    dashboard: roleOptions.employee.dashboard,
+    clients: roleOptions.employee.clients,
+    orders: roleOptions.employee.orders,
+    calendar: roleOptions.employee.calendar,
+    staff: roleOptions.employee.staff,
+    setting: roleOptions.employee.setting,
 };
 
 const atStaff = atomWithReset<Tstaff>(initStaff);

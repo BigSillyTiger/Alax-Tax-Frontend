@@ -65,11 +65,11 @@ export const action = async ({
         } as Tstaff);
         return result;
     } else if ("PUT" === request.method && data.get("req") === "resetPW") {
-        return {
-            status: 400,
-            msg: "invalid request",
-            data: "",
-        };
+        const result = await API_STAFF.staffUpdatePW(
+            Number(data.get("uid")),
+            data.get("password") as string
+        );
+        return result;
     } else {
         return {
             status: 400,

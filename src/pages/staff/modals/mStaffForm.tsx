@@ -12,9 +12,9 @@ import { RES_STATUS } from "@/utils/types";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
-import { initStaff, atStaff, atRoleSelected } from "../states";
+import { initStaff, atStaff } from "../states";
 import { atModalOpen, atInfoConflict, at2ndModalOpen } from "@/pages/uniStates";
-import { roleOptions, roleOptions2 } from "@/configs/utils";
+import { roleOptions } from "@/configs/utils";
 import { menuList } from "@/configs/menuList";
 import { staffForm, TstaffForm } from "@/configs/schema/staffSchema";
 import Fieldset from "@/components/form/fieldset";
@@ -29,7 +29,6 @@ const MStaffForm: FC = memo(() => {
     const [infoConflict, setInfoConflict] = useAtom(atInfoConflict);
     const [staff] = useAtom(atStaff);
     const [, setSecModalOpen] = useAtom(at2ndModalOpen);
-    //const [roleSelected, setRoleSelected] = useAtom(atRoleSelected);
 
     const {
         control,
@@ -140,7 +139,7 @@ const MStaffForm: FC = memo(() => {
         </Fieldset>
     );
 
-    /*     const setRadioDisable = (
+    const setRadioDisable = (
         page:
             | "dashboard"
             | "clients"
@@ -151,128 +150,73 @@ const MStaffForm: FC = memo(() => {
         adminNum: 0 | 1 | 2
     ) => {
         return !(watch(page) === adminNum);
-    }; */
+    };
 
-    /*     const RoleField = () => (
-        <Fieldset
-            sFieldset="mt-4 flex flex-col grid-cols-1"
-            title={
-                <p className="mb-1">
-                    <Trans
-                        defaults={t("modal.title.roleAdmin")}
-                        components={{
-                            s: <strong className="text-sm font-light" />,
-                        }}
-                    />
-                </p>
-            }
-        >
-            <div className="flex justify-evenly">
-                <div>
-                    <input
-                        {...register("role")}
-                        id="employee"
-                        type="radio"
-                        value="employee"
-                        checked={watch("role") === "employee"}
-                        className="mr-2 cursor-pointer"
-                    />
-                    <label
-                        htmlFor="employee"
-                        className="text-lg cursor-pointer"
-                    >
-                        {t("label.employee")}
-                    </label>
-                </div>
-                <div>
-                    <input
-                        {...register("role")}
-                        id="manager"
-                        type="radio"
-                        value="manager"
-                        className="mr-2 cursor-pointer"
-                        checked={watch("role") === "manager"}
-                    />
-                    <label htmlFor="manager" className="text-lg cursor-pointer">
-                        {t("label.manager")}
-                    </label>
-                </div>
-            </div>
-
-            <div className="mx-3 mt-2 mb-1">
-                <table className="min-w-full">
-                    <thead className="bg-indigo-200">
-                        <tr>
-                            <th className="text-base">{t("label.page")}</th>
-                            <th className="text-base text-center">
-                                {t("label.readOnly")}
-                            </th>
-                            <th className="text-base text-center">
-                                {t("label.fullAccess")}
-                            </th>
-                            <th className="text-base text-center">
-                                {t("label.none")}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {menuList.map((item) => {
-                            return (
-                                <tr key={item.id}>
-                                    <td>{item.name}</td>
-                                    <td className="bg-yellow-50">
-                                        <input
-                                            {...register(item.id, {
-                                                valueAsNumber: true,
-                                            })}
-                                            className="h-full w-full"
-                                            type="radio"
-                                            value={1}
-                                            //checked={watch(item.id) === 1}
-                                            disabled={setRadioDisable(
-                                                item.id,
-                                                1
-                                            )}
-                                        />
-                                    </td>
-                                    <td className="bg-green-50">
-                                        <input
-                                            {...register(item.id, {
-                                                valueAsNumber: true,
-                                            })}
-                                            className="h-full w-full"
-                                            type="radio"
-                                            value={2}
-                                            //checked={watch(item.id) === 2}
-                                            disabled={setRadioDisable(
-                                                item.id,
-                                                2
-                                            )}
-                                        />
-                                    </td>
-                                    <td className="bg-red-50">
-                                        <input
-                                            {...register(item.id, {
-                                                valueAsNumber: true,
-                                            })}
-                                            className="h-full w-full"
-                                            type="radio"
-                                            value={0}
-                                            //checked={watch(item.id) === 0}
-                                            disabled={setRadioDisable(
-                                                item.id,
-                                                0
-                                            )}
-                                        />
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            </div>
-        </Fieldset>
-    ); */
+    const AccessTable = () => (
+        <div className="mt-2 mb-1 pointer-events-none">
+            <table className="min-w-full">
+                <thead className="bg-indigo-200">
+                    <tr>
+                        <th className="text-base">{t("label.page")}</th>
+                        <th className="text-base text-center">
+                            {t("label.readOnly")}
+                        </th>
+                        <th className="text-base text-center">
+                            {t("label.fullAccess")}
+                        </th>
+                        <th className="text-base text-center">
+                            {t("label.none")}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {menuList.map((item) => {
+                        return (
+                            <tr key={item.id}>
+                                <td>{item.name}</td>
+                                <td className="bg-yellow-50">
+                                    <input
+                                        {...register(item.id, {
+                                            valueAsNumber: true,
+                                        })}
+                                        className="h-full w-full"
+                                        type="radio"
+                                        value={1}
+                                        checked={watch(item.id) === 1}
+                                        disabled={setRadioDisable(item.id, 1)}
+                                    />
+                                </td>
+                                <td className="bg-green-50">
+                                    <input
+                                        {...register(item.id, {
+                                            valueAsNumber: true,
+                                        })}
+                                        className="h-full w-full"
+                                        type="radio"
+                                        value={2}
+                                        checked={watch(item.id) === 2}
+                                        disabled={setRadioDisable(item.id, 2)}
+                                    />
+                                </td>
+                                <td className="bg-red-50">
+                                    <input
+                                        {...register(item.id, {
+                                            valueAsNumber: true,
+                                        })}
+                                        className="h-full w-full"
+                                        type="radio"
+                                        value={0}
+                                        checked={watch(item.id) === 0}
+                                        disabled={setRadioDisable(item.id, 0)}
+                                    />
+                                </td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+        </div>
+    );
 
     const RoleSelection = () => (
         <Fieldset
@@ -288,59 +232,51 @@ const MStaffForm: FC = memo(() => {
                 </p>
             }
         >
-            <Controller
-                control={control}
-                name="role"
-                render={({ field: { onChange, value } }) => (
-                    <RadioGroup
-                        value={value}
-                        onChange={onChange}
-                        className={"min-w-[90%]"}
-                    >
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 sm:gap-x-2">
-                            {roleOptions2.map((item) => (
-                                <RadioGroup.Option
-                                    key={item.role}
-                                    value={item.role}
-                                    className={({ checked, active }) =>
-                                        `${active ? "border-indigo-600 ring-2 ring-indigo-600" : "border-gray-300"} ${checked ? "border-indigo-600 border-2" : "border-gray-200 border"} relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none`
-                                    }
-                                >
-                                    {({ checked }) => (
-                                        <>
-                                            <span className="flex flex-1">
-                                                <span className="flex">
-                                                    <RadioGroup.Label
-                                                        as="span"
-                                                        className={
-                                                            "block text-sm font-medium text-gray-900"
-                                                        }
-                                                    >
-                                                        {capFirstLetter(
-                                                            item.role
-                                                        )}
-                                                    </RadioGroup.Label>
-                                                    {/* <RadioGroup.Description
-                                            as="span"
-                                            className={
-                                                "mt-2 text-sm font-medium text-gray-900"
-                                            }
-                                        >
-                                            {"test string"}
-                                        </RadioGroup.Description> */}
+            <div className={"min-w-[90%]"}>
+                <Controller
+                    control={control}
+                    name="role"
+                    render={({ field: { onChange, value } }) => (
+                        <RadioGroup value={value} onChange={onChange}>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 sm:gap-x-2">
+                                {Object.keys(roleOptions).map((item) => (
+                                    <RadioGroup.Option
+                                        key={item}
+                                        value={item}
+                                        className={({ checked, active }) =>
+                                            `${active ? "border-indigo-600 ring-2 ring-indigo-600" : "border-gray-300"} ${checked ? "border-indigo-600 border-2" : "border-gray-200 border"} relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none`
+                                        }
+                                    >
+                                        {({ checked }) => (
+                                            <>
+                                                <span className="flex flex-1">
+                                                    <span className="flex">
+                                                        <RadioGroup.Label
+                                                            as="span"
+                                                            className={
+                                                                "block text-sm font-medium text-gray-900"
+                                                            }
+                                                        >
+                                                            {capFirstLetter(
+                                                                item
+                                                            )}
+                                                        </RadioGroup.Label>
+                                                    </span>
                                                 </span>
-                                            </span>
-                                            <CheckIcon
-                                                className={`${!checked && "invisible"} h-5 w-5 text-indigo-600`}
-                                            />
-                                        </>
-                                    )}
-                                </RadioGroup.Option>
-                            ))}
-                        </div>
-                    </RadioGroup>
-                )}
-            />
+                                                <CheckIcon
+                                                    className={`${!checked && "invisible"} h-5 w-5 text-indigo-600`}
+                                                />
+                                            </>
+                                        )}
+                                    </RadioGroup.Option>
+                                ))}
+                            </div>
+                        </RadioGroup>
+                    )}
+                />
+
+                <AccessTable />
+            </div>
         </Fieldset>
     );
 

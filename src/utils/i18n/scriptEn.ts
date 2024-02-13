@@ -22,7 +22,7 @@ const en = {
             calendar: "Calendar",
             clients: "Clients",
             orders: "Orders",
-            staffs: "Staffs",
+            staff: "Staff",
             setting: "Setting",
         },
         modal: {
