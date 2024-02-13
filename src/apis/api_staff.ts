@@ -64,7 +64,7 @@ export const staffAdd = async (staff: TstaffForm): Promise<Tresponse> => {
 
 export const staffSingleDel = async (uid: number): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_STAFF_SINGLE_DEL, { uid });
+        const response = await apis.put(REQ_STAFF_SINGLE_DEL, { uid });
         return response.data;
     } catch (err) {
         console.log("-> delete staff failed: ", err);

@@ -11,12 +11,12 @@ import { Tresponse } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { RES_STATUS, TisConflict } from "@/utils/types";
 import { Tstaff } from "@/configs/schema/staffSchema.ts";
-/* import MClientDel from "./modals/mClientDel";
-import MClientForm from "./modals/mClientForm.tsx"; */
+import MStaffDel from "./modals/mStaffDel";
 import { PTable } from "@/components/table";
 import MStaffForm from "./modals/mStaffForm";
 import { atModalOpen } from "../uniStates";
-import { atStaff, initStaff } from "./states";
+import { atStaff } from "./states";
+import MResetPW from "./modals/mResetPW";
 
 type Tprops = {
     allStaff: Tstaff[] | null;
@@ -33,7 +33,6 @@ const Staff: FC = () => {
 
     const actionData = useActionData() as Tresponse;
     useEffect(() => {
-        console.log("-> staff action updated: ");
         /* close modals if RES_STATUS.SUCCESS  */
         if (actionData?.status === RES_STATUS.SUCCESS) {
             setInfoConflict(actionData?.status);
@@ -41,28 +40,30 @@ const Staff: FC = () => {
                 //setAddNewOpen(false);
                 setModalOpen("");
                 setStaff(RESET);
-                toastSuccess("Registered a new client");
+                toastSuccess(t("toastS.addedStaff"));
             } else if (staff.uid > 0) {
                 //setClientEdit(initClient);
                 setModalOpen("");
                 setStaff(RESET);
-                toastSuccess("Updated client informaton");
+                toastSuccess(t("toastS.updateStaff"));
             }
         } else if (
             //actionData?.status &&
             actionData?.status === RES_STATUS.SUC_DEL
         ) {
             // delete a client
-            toastSuccess("Deleted a client");
+            toastSuccess(t("toastS.delStaff"));
         } else if (
             actionData?.status === RES_STATUS.FAILED_DUP_PHONE ||
             actionData?.status === RES_STATUS.FAILED_DUP_EMAIL ||
             actionData?.status === RES_STATUS.FAILED_DUP_P_E
         ) {
             setInfoConflict(actionData?.status);
-            toastError("Email or Phone already existed");
+            toastError(t("toastF.existedPE"));
         }
-    }, [actionData, staff.uid, setStaff, setInfoConflict, setModalOpen]);
+        // set status to default, in case the stale value interfere the next action
+        actionData?.status && (actionData.status = RES_STATUS.DEFAULT);
+    }, [actionData, staff.uid, setStaff, setInfoConflict, setModalOpen, t]);
 
     const handleAddNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
@@ -96,7 +97,6 @@ const Staff: FC = () => {
                                 data={allStaff}
                                 columns={staffColumns}
                                 menuOptions={{ edit: true, del: true }}
-                                setModalOpen={setModalOpen}
                                 setData={setStaff}
                                 cnSearch="my-3"
                                 cnTable="h-[65vh]"
@@ -134,6 +134,8 @@ const Staff: FC = () => {
                 setOpen={setModalOpen}
             /> */}
             <MStaffForm />
+            <MStaffDel />
+            <MResetPW />
         </div>
     );
 };

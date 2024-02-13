@@ -6,19 +6,19 @@ import { useSubmit } from "react-router-dom";
 import { useAtom } from "jotai";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
-import { atClient } from "../states.ts";
+import { atStaff } from "../states.ts";
 import { atModalOpen } from "../../uniStates.ts";
 
-// this component is about building a modal with transition to delete a client
-const MClientDel: FC = memo(() => {
+// this component is about building a modal with transition to delete a staff
+const MStaffDel: FC = memo(() => {
     const submit = useSubmit();
     const { t } = useTranslation();
 
-    const [client] = useAtom(atClient);
+    const [staff] = useAtom(atStaff);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
 
-    const handleDeleteClient = async (id: number) => {
-        submit({ id }, { method: "DELETE", action: "/clients" });
+    const handleDeleteStaff = async (uid: number) => {
+        submit({ uid }, { method: "DELETE", action: "/staff" });
     };
 
     const clientDisplay = (
@@ -26,26 +26,26 @@ const MClientDel: FC = memo(() => {
             <div className="m-3 grid grid-cols-6 gap-x-4 gap-y-4 text-left">
                 <div className="col-span-5">
                     <p>
-                        <b className="text-indigo-600">{t("label.client")}: </b>{" "}
-                        {client.first_name}&nbsp;{client.last_name}
+                        <b className="text-indigo-600">{t("label.staff")}: </b>{" "}
+                        {staff.first_name}&nbsp;{staff.last_name}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
                         <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
-                        {client?.phone}
+                        {staff?.phone}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
                         <b className="text-indigo-600">{t("label.pc")}: </b>
-                        {client?.postcode}
+                        {staff?.postcode}
                     </p>
                 </div>
                 <div className="col-span-6">
                     <p>
                         <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
-                        {client?.email}
+                        {staff?.email}
                     </p>
                 </div>
                 <div className="col-span-6">
@@ -53,8 +53,8 @@ const MClientDel: FC = memo(() => {
                         <b className="text-indigo-600">
                             {t("label.address")}:{" "}
                         </b>{" "}
-                        {client?.address}, {client?.city}, {client?.state},{" "}
-                        {client?.country}
+                        {staff?.address}, {staff?.city}, {staff?.state},{" "}
+                        {staff?.country}
                     </p>
                 </div>
             </div>
@@ -70,14 +70,14 @@ const MClientDel: FC = memo(() => {
         <>
             <div className="mt-2">
                 <p className="text-gray-700 text-lg">
-                    {t("modal.tips.delClient")}
+                    {t("modal.tips.delStaff")}
                 </p>
                 {clientDisplay}
             </div>
 
             <DelBtn
                 onClick={() => {
-                    handleDeleteClient(client.client_id);
+                    handleDeleteStaff(staff.uid);
                     onClose();
                 }}
                 onClose={onClose}
@@ -99,4 +99,4 @@ const MClientDel: FC = memo(() => {
     );
 });
 
-export default MClientDel;
+export default MStaffDel;

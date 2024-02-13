@@ -47,6 +47,8 @@ export type TmodalOpenStates =
     | "Invoice"
     | "Quotation";
 
+export type Tmodal2ndOpenStates = "" | "ResetPW";
+
 export type TstaffModal = "" | "Del" | "Edit" | "Add";
 
 export type TmenuOptions = {

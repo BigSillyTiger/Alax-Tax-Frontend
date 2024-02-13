@@ -709,7 +709,7 @@ const MOrderForm: FC = memo(() => {
 
     const mainContent = (
         <Form onSubmit={onSubmit} className="grid grid-cols-1  gap-y-3 gap-x-4">
-            <div className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[74vh] sm:h-[77vh] lg:h-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[74dvh] sm:h-[77dvh] lg:h-auto">
                 <section className="col-span-1 lg:col-span-3 grid grid-cols-1">
                     {/* client info */}
                     <fieldset className="">

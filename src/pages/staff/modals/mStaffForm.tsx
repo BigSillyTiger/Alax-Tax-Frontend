@@ -1,21 +1,25 @@
 import { useEffect, memo } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation, Trans } from "react-i18next";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RadioGroup } from "@headlessui/react";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { useAtom } from "jotai";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/solid";
 import { RES_STATUS } from "@/utils/types";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
-import { initStaff, atStaff } from "../states";
-import { atModalOpen, atInfoConflict } from "@/pages/uniStates";
-import { roleOptions } from "@/configs/utils";
+import { initStaff, atStaff, atRoleSelected } from "../states";
+import { atModalOpen, atInfoConflict, at2ndModalOpen } from "@/pages/uniStates";
+import { roleOptions, roleOptions2 } from "@/configs/utils";
 import { menuList } from "@/configs/menuList";
 import { staffForm, TstaffForm } from "@/configs/schema/staffSchema";
 import Fieldset from "@/components/form/fieldset";
+import { NormalBtn } from "@/components/btns";
+import { capFirstLetter } from "@/utils/utils";
 
 const MStaffForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -24,8 +28,11 @@ const MStaffForm: FC = memo(() => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [infoConflict, setInfoConflict] = useAtom(atInfoConflict);
     const [staff] = useAtom(atStaff);
+    const [, setSecModalOpen] = useAtom(at2ndModalOpen);
+    //const [roleSelected, setRoleSelected] = useAtom(atRoleSelected);
 
     const {
+        control,
         formState: { errors },
         getValues,
         register,
@@ -52,7 +59,10 @@ const MStaffForm: FC = memo(() => {
             Object.keys(roleData).forEach((field) => {
                 setValue(
                     field as keyof TstaffForm,
-                    roleData[field as keyof typeof roleData] as 0 | 1 | 2
+                    Number(roleData[field as keyof typeof roleData]) as
+                        | 0
+                        | 1
+                        | 2
                 );
             });
         }
@@ -67,7 +77,11 @@ const MStaffForm: FC = memo(() => {
         if (isValid) {
             const values = getValues();
             const method = staff.uid === -1 ? "POST" : "PUT";
-            submit({ ...values, id: staff.uid }, { method, action: "/staff" });
+            console.log("-> valide data, uid: ", staff.uid);
+            submit(
+                { ...values, id: staff.uid, req: "updateStaff" },
+                { method, action: "/staff" }
+            );
         }
     };
 
@@ -75,6 +89,11 @@ const MStaffForm: FC = memo(() => {
         setInfoConflict(RES_STATUS.SUCCESS);
         setModalOpen("");
         reset(initStaff);
+    };
+
+    const handleClickPWReset = () => {
+        setSecModalOpen("ResetPW");
+        onClose();
     };
 
     const PWsection = () => (
@@ -88,7 +107,7 @@ const MStaffForm: FC = memo(() => {
                     id="inputPW"
                     type="password"
                     autoComplete="new-password"
-                    required
+                    required={modalOpen === "Add"}
                     className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2 ${errors.pwConfirm && "ring-2 ring-red-600 focus:ring-red-400"}`}
                 />
             </div>
@@ -114,14 +133,14 @@ const MStaffForm: FC = memo(() => {
                     id="pwConfirm"
                     type="password"
                     autoComplete="new-password"
-                    required
+                    required={modalOpen === "Add"}
                     className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2 ${errors.pwConfirm && "ring-2 ring-red-600 focus:ring-red-400"}`}
                 />
             </div>
         </Fieldset>
     );
 
-    const setRadioDisable = (
+    /*     const setRadioDisable = (
         page:
             | "dashboard"
             | "clients"
@@ -132,11 +151,11 @@ const MStaffForm: FC = memo(() => {
         adminNum: 0 | 1 | 2
     ) => {
         return !(watch(page) === adminNum);
-    };
+    }; */
 
-    const RoleField = () => (
+    /*     const RoleField = () => (
         <Fieldset
-            sFieldset="mt-4 flex flex-col"
+            sFieldset="mt-4 flex flex-col grid-cols-1"
             title={
                 <p className="mb-1">
                     <Trans
@@ -180,7 +199,6 @@ const MStaffForm: FC = memo(() => {
                 </div>
             </div>
 
-            {/* role access setting table */}
             <div className="mx-3 mt-2 mb-1">
                 <table className="min-w-full">
                     <thead className="bg-indigo-200">
@@ -206,14 +224,11 @@ const MStaffForm: FC = memo(() => {
                                         <input
                                             {...register(item.id, {
                                                 valueAsNumber: true,
-                                                onChange: () => {
-                                                    null;
-                                                },
                                             })}
                                             className="h-full w-full"
                                             type="radio"
                                             value={1}
-                                            checked={watch(item.id) === 1}
+                                            //checked={watch(item.id) === 1}
                                             disabled={setRadioDisable(
                                                 item.id,
                                                 1
@@ -224,14 +239,11 @@ const MStaffForm: FC = memo(() => {
                                         <input
                                             {...register(item.id, {
                                                 valueAsNumber: true,
-                                                onChange: () => {
-                                                    null;
-                                                },
                                             })}
                                             className="h-full w-full"
                                             type="radio"
                                             value={2}
-                                            checked={watch(item.id) === 2}
+                                            //checked={watch(item.id) === 2}
                                             disabled={setRadioDisable(
                                                 item.id,
                                                 2
@@ -242,14 +254,11 @@ const MStaffForm: FC = memo(() => {
                                         <input
                                             {...register(item.id, {
                                                 valueAsNumber: true,
-                                                onChange: () => {
-                                                    null;
-                                                },
                                             })}
                                             className="h-full w-full"
                                             type="radio"
                                             value={0}
-                                            checked={watch(item.id) === 0}
+                                            //checked={watch(item.id) === 0}
                                             disabled={setRadioDisable(
                                                 item.id,
                                                 0
@@ -262,6 +271,76 @@ const MStaffForm: FC = memo(() => {
                     </tbody>
                 </table>
             </div>
+        </Fieldset>
+    ); */
+
+    const RoleSelection = () => (
+        <Fieldset
+            sFieldset="mt-2 justify-normal"
+            title={
+                <p className="mb-1">
+                    <Trans
+                        defaults={t("modal.title.roleAdmin")}
+                        components={{
+                            s: <strong className="text-sm font-light" />,
+                        }}
+                    />
+                </p>
+            }
+        >
+            <Controller
+                control={control}
+                name="role"
+                render={({ field: { onChange, value } }) => (
+                    <RadioGroup
+                        value={value}
+                        onChange={onChange}
+                        className={"min-w-[90%]"}
+                    >
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 sm:gap-x-2">
+                            {roleOptions2.map((item) => (
+                                <RadioGroup.Option
+                                    key={item.role}
+                                    value={item.role}
+                                    className={({ checked, active }) =>
+                                        `${active ? "border-indigo-600 ring-2 ring-indigo-600" : "border-gray-300"} ${checked ? "border-indigo-600 border-2" : "border-gray-200 border"} relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none`
+                                    }
+                                >
+                                    {({ checked }) => (
+                                        <>
+                                            <span className="flex flex-1">
+                                                <span className="flex">
+                                                    <RadioGroup.Label
+                                                        as="span"
+                                                        className={
+                                                            "block text-sm font-medium text-gray-900"
+                                                        }
+                                                    >
+                                                        {capFirstLetter(
+                                                            item.role
+                                                        )}
+                                                    </RadioGroup.Label>
+                                                    {/* <RadioGroup.Description
+                                            as="span"
+                                            className={
+                                                "mt-2 text-sm font-medium text-gray-900"
+                                            }
+                                        >
+                                            {"test string"}
+                                        </RadioGroup.Description> */}
+                                                </span>
+                                            </span>
+                                            <CheckIcon
+                                                className={`${!checked && "invisible"} h-5 w-5 text-indigo-600`}
+                                            />
+                                        </>
+                                    )}
+                                </RadioGroup.Option>
+                            ))}
+                        </div>
+                    </RadioGroup>
+                )}
+            />
         </Fieldset>
     );
 
@@ -516,10 +595,16 @@ const MStaffForm: FC = memo(() => {
                     </div>
                     {/* right input area */}
                     <div className="sm:col-span-3 col-span-1">
-                        <PWsection />
-                        <RoleField />
+                        {modalOpen === "Add" && <PWsection />}
+                        {modalOpen === "Edit" && (
+                            <NormalBtn
+                                name={t("btn.resetPW")}
+                                onClick={handleClickPWReset}
+                                className="w-full mt-4"
+                            />
+                        )}
 
-                        {/* <RoleSelection /> */}
+                        <RoleSelection />
                     </div>
                 </div>
                 <SubmitBtn

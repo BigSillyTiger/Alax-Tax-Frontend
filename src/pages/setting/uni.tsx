@@ -52,7 +52,6 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                             search={true}
                             data={services}
                             columns={serviceListColDefs}
-                            setModalOpen={setModalOpen}
                             setData={setUniData}
                             menuOptions={{ edit: true, del: true }}
                             cnSearch="my-3"
@@ -100,7 +99,6 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                             search={true}
                             data={units}
                             columns={unitListColDefs}
-                            setModalOpen={setModalOpen}
                             setData={setUniData}
                             menuOptions={{ edit: true, del: true }}
                             cnSearch="my-3"

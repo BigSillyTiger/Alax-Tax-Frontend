@@ -13,6 +13,7 @@ type Tprops = {
     children: ReactNode[] | ReactNode;
     // for the size of modal
     mode?: Tmode;
+    // true for using quit tips, false for no quit tips
     mQuit?: boolean;
     className?: string;
 };

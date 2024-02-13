@@ -1,7 +1,7 @@
 import { atomWithReset } from "jotai/utils";
-import { TstaffWithAdmin } from "@/configs/schema/staffSchema";
+import { Tstaff } from "@/configs/schema/staffSchema";
 
-const initStaff: TstaffWithAdmin = {
+const initStaff: Tstaff = {
     uid: -1,
     first_name: "",
     last_name: "",
@@ -23,7 +23,7 @@ const initStaff: TstaffWithAdmin = {
     setting: 0,
 };
 
-const atStaff = atomWithReset<TstaffWithAdmin>(initStaff);
+const atStaff = atomWithReset<Tstaff>(initStaff);
 
 const atRoleSelected = atomWithReset<"employee" | "manager">("employee");
 

@@ -220,7 +220,6 @@ const Client = () => {
                             search={true}
                             data={newClientOrders}
                             columns={clientOrderColumns}
-                            setModalOpen={setModalOpen}
                             setData={setClientOrder}
                             menuOptions={{
                                 edit: true,

@@ -16,7 +16,7 @@ import { MenuBtn, StatusBtn, DetailBtn, ExpandBtn } from "./tableBtn";
 import HeaderFilter from "./headerFilter";
 import { CTable, CTBody, CTHead, CTh } from ".";
 import ContentWithSwitch from "./SwitchWContent";
-import type { TmodalOpenStates, TmenuOptions } from "@/utils/types";
+import type { TmenuOptions } from "@/utils/types";
 
 type Tprops<T> = {
     data: T[];
@@ -24,7 +24,6 @@ type Tprops<T> = {
     // specific options
     // for menu btn open modal: edit & del & payment
     menuOptions?: TmenuOptions;
-    setModalOpen?: (open: TmodalOpenStates) => void;
     setData?: (data: T) => void;
     // for search bar
     search?: boolean;
@@ -52,7 +51,6 @@ const PTable = <T,>({
         invoice: false,
         quotation: false,
     },
-    setModalOpen,
     setData,
     search,
     hFilter,
@@ -138,11 +136,7 @@ const PTable = <T,>({
                                       <ExpandBtn row={row} />
                                   </td>
                               );
-                          } else if (
-                              cell.column.id === "Menu" &&
-                              setModalOpen &&
-                              setData
-                          ) {
+                          } else if (cell.column.id === "Menu" && setData) {
                               return (
                                   <td
                                       key={cell.id}
@@ -154,7 +148,6 @@ const PTable = <T,>({
                                           pay={menuOptions.pay}
                                           invoice={menuOptions.invoice}
                                           quotation={menuOptions.quotation}
-                                          setModalOpen={setModalOpen}
                                           setData={setData}
                                           mItem={row.original}
                                       />

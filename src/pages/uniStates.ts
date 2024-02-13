@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { TisConflict, Tunivers } from "@/utils/types";
+import { TisConflict, Tmodal2ndOpenStates, Tunivers } from "@/utils/types";
 import { RES_STATUS } from "@/utils/types";
 import { TmodalOpenStates } from "@/utils/types.ts";
 import { Tcompany } from "@/configs/schema/settingSchema";
@@ -12,8 +12,16 @@ const atInfoConflict = atom<TisConflict>(RES_STATUS.SUCCESS);
 /**
  * @description Modal open/close state for all modal
  * @ arguments: TmodalOpenStates
+ * @ this is the 1st level modal state
  */
 const atModalOpen = atom<TmodalOpenStates>("");
+
+/**
+ * @description 2nd level modal state
+ * @ this level is usually hover on top of the 1st level modal
+ * @
+ */
+const at2ndModalOpen = atom<Tmodal2ndOpenStates>("");
 
 /**
  * @description Universal data state for services list and units list
@@ -43,4 +51,11 @@ const atCompany = atom<Tcompany>({
  */
 const atLogo = atom<string>("");
 
-export { atInfoConflict, atModalOpen, atUniData, atCompany, atLogo };
+export {
+    atInfoConflict,
+    atModalOpen,
+    at2ndModalOpen,
+    atUniData,
+    atCompany,
+    atLogo,
+};

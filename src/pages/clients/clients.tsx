@@ -45,11 +45,9 @@ const Clients: FC = () => {
                 setClient(RESET);
                 toastSuccess("Updated client informaton");
             }
-            actionData.status = RES_STATUS.DEFAULT;
         } else if (actionData?.status === RES_STATUS.SUC_DEL) {
             // delete a client
             toastSuccess("Deleted a client");
-            actionData.status = RES_STATUS.DEFAULT;
         } else if (
             actionData?.status === RES_STATUS.FAILED_DUP_PHONE ||
             actionData?.status === RES_STATUS.FAILED_DUP_EMAIL ||
@@ -58,8 +56,9 @@ const Clients: FC = () => {
             // duplicated register info
             setInfoConflict(actionData?.status);
             toastError("Email or Phone already existed");
-            actionData.status = RES_STATUS.DEFAULT;
         }
+        // set status to default, in case the stale value interfere the next action
+        actionData?.status && (actionData.status = RES_STATUS.DEFAULT);
     }, [
         actionData,
         client.client_id,
@@ -100,7 +99,6 @@ const Clients: FC = () => {
                                 data={clients}
                                 columns={clientColumns}
                                 menuOptions={{ edit: true, del: true }}
-                                setModalOpen={setModalOpen}
                                 setData={setClient}
                                 cnSearch="my-3"
                                 cnTable="h-[65vh]"

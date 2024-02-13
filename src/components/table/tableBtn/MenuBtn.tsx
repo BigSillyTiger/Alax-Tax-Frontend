@@ -1,12 +1,13 @@
 import { Fragment } from "react";
+import { useAtom } from "jotai";
 import { Menu, Transition } from "@headlessui/react";
 import genOptions from "./genOptions";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-import { TmodalOpenStates, TmenuOptions } from "@/utils/types";
+import { TmenuOptions } from "@/utils/types";
+import { atModalOpen } from "@/pages/uniStates";
 
 type Tprops<T> = TmenuOptions & {
     mItem: T;
-    setModalOpen: (open: TmodalOpenStates) => void;
     setData: (data: T) => void;
 };
 
@@ -18,9 +19,10 @@ const MenuBtn = <T,>({
     pay = false,
     invoice = false,
     quotation = false,
-    setModalOpen,
     setData,
 }: Tprops<T>) => {
+    const [, setModalOpen] = useAtom(atModalOpen);
+
     const mList = genOptions({
         edit,
         del,
