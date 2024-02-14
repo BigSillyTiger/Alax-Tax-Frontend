@@ -2,12 +2,19 @@ import { Suspense } from "react";
 import type { FC } from "react";
 import { Await, useLoaderData } from "react-router-dom";
 import SpinningEle from "@/components/loadingEle/SpinningEle";
+import { useAdminStore } from "@/configs/zustore";
 
 const Dashboard: FC = () => {
     const loaderData = useLoaderData() as { content: any };
 
+    const user = useAdminStore((state) => state.user);
+
     const DashboardContent = () => {
-        return <div className="grid grid-cols-8 gap-x-2">dashboard</div>;
+        return (
+            <div className="grid grid-cols-8 gap-x-2">
+                {user.role + ": " + user.first_name}
+            </div>
+        );
     };
 
     return (

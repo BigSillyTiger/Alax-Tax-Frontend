@@ -1,7 +1,6 @@
 export const REQ_LOGIN = "/adminLogin";
 export const REQ_LOGOUT = "/adminLogout";
 export const REQ_ADMIN_CHECK = "/adminCheck";
-export const REQ_PERMISSION = "/permission";
 
 export const REQ_ROAR = "/roars";
 export const REQ_ROAR_ADMIN = "/admin/roars";

@@ -79,7 +79,7 @@ export const staffSingleDel = async (uid: number): Promise<Tresponse> => {
 
 export const staffSingleUpdate = async (staff: Tstaff): Promise<Tresponse> => {
     try {
-        const response = await apis.put(REQ_STAFF_SINGLE_UPDATE, [staff]);
+        const response = await apis.put(REQ_STAFF_SINGLE_UPDATE, staff);
         return response.data;
     } catch (err) {
         console.log("-> update staff failed: ", err);

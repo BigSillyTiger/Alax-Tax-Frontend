@@ -41,6 +41,7 @@ export const action = async ({
         const result = await API_STAFF.staffSingleDel(Number(data.get("uid")));
         return result;
     } else if ("PUT" === request.method && data.get("req") === "updateStaff") {
+        
         const result = await API_STAFF.staffSingleUpdate({
             uid: Number(data.get("uid")),
             first_name: data.get("first_name") as string,

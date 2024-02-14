@@ -58,5 +58,21 @@ export const staffForm = staffSchema
         }
     });
 
+export const staffUpdate = staffSchema.omit({ uid: true, password: true });
+
+export const adminStore = staffSchema.omit({
+    email: true,
+    phone: true,
+    password: true,
+    address: true,
+    suburb: true,
+    city: true,
+    state: true,
+    country: true,
+    postcode: true,
+});
+
 export type Tstaff = z.infer<typeof staffSchema>;
 export type TstaffForm = z.infer<typeof staffForm>;
+export type TstaffUpdate = z.infer<typeof staffUpdate>;
+export type TadminStore = z.infer<typeof adminStore>;

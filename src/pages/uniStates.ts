@@ -3,6 +3,8 @@ import { TisConflict, Tmodal2ndOpenStates, Tunivers } from "@/utils/types";
 import { RES_STATUS } from "@/utils/types";
 import { TmodalOpenStates } from "@/utils/types.ts";
 import { Tcompany } from "@/configs/schema/settingSchema";
+import { Tstaff } from "@/configs/schema/staffSchema";
+import { initStaff } from "./staff/states";
 
 /**
  * @description info conflict state for data checking with backend
@@ -51,6 +53,11 @@ const atCompany = atom<Tcompany>({
  */
 const atLogo = atom<string>("");
 
+/**
+ * @description state for current admin user
+ */
+const atAdminUser = atom<Tstaff>(initStaff);
+
 export {
     atInfoConflict,
     atModalOpen,
@@ -58,4 +65,5 @@ export {
     atUniData,
     atCompany,
     atLogo,
+    atAdminUser,
 };

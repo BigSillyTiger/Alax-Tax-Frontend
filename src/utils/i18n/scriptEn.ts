@@ -224,6 +224,9 @@ const en = {
             overPaid: "Error: Over Paid Amount",
             unMatchPW: "Error: Passwords do not match",
         },
+        sr: {
+            openHeadBarMenu: "Open head bar menu",
+        },
     },
 };
 

@@ -1,12 +1,8 @@
+import { adminStore } from "@/configs/zustore";
 import apis from "./axios";
-import {
-    REQ_LOGIN,
-    REQ_LOGOUT,
-    REQ_ADMIN_CHECK,
-    REQ_PERMISSION,
-    REQ_TEST,
-} from "./req_list";
+import { REQ_LOGIN, REQ_LOGOUT, REQ_ADMIN_CHECK, REQ_TEST } from "./req_list";
 import { RES_STATUS, Tresponse } from "@/utils/types";
+import { TadminStore } from "@/configs/schema/staffSchema";
 
 export const adminLogin = async (
     email: string,
@@ -18,6 +14,8 @@ export const adminLogin = async (
     };
     try {
         const response = await apis.post(REQ_LOGIN, newPost);
+        console.log("-> api test: ", response.data.data);
+        adminStore.setState({ user: response.data.data as TadminStore });
         return response.data;
     } catch (err: any) {
         if (err.response) {
@@ -46,6 +44,7 @@ export const adminLogout = async () => {
 export const adminCheck = async (): Promise<Tresponse> => {
     try {
         const response = await apis.get(REQ_ADMIN_CHECK);
+        adminStore.setState({ user: response.data.data as TadminStore });
         return response.data;
     } catch (err: any) {
         if (err.response) {
@@ -56,22 +55,6 @@ export const adminCheck = async (): Promise<Tresponse> => {
         return {
             status: RES_STATUS.FAILED,
             msg: "admin check error",
-            data: {},
-        };
-    }
-};
-
-/* none used api */
-export const adminPermission = async (email: string): Promise<Tresponse> => {
-    const newPost = { email };
-    try {
-        const response = await apis.post(REQ_PERMISSION, newPost);
-        return response.data;
-    } catch (err: any) {
-        console.log("-> adminPermission: ", err);
-        return {
-            status: RES_STATUS.FAILED,
-            msg: "error: admin permission",
             data: {},
         };
     }

@@ -11,7 +11,7 @@ import LoginPage from "@/pages/login/loginPage";
 import ErrBoundary from "@/pages/errBoundary";
 
 import InitPage from "@/pages/initPage";
-import { initLoader, initAction } from "@/pages/initPage";
+import { initLoader } from "@/pages/initPage";
 import { loginLoader, loginAction } from "@/pages/login";
 import Layout, { layoutLoader } from "@/components/layout";
 
@@ -48,12 +48,7 @@ const App: FC = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <>
-                <Route
-                    path={"/"}
-                    element={<InitPage />}
-                    loader={initLoader}
-                    action={initAction}
-                />
+                <Route path={"/"} element={<InitPage />} loader={initLoader} />
                 <Route
                     path={"/login"}
                     element={<LoginPage />}

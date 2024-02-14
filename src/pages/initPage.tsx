@@ -5,14 +5,12 @@ import { API_ADMIN } from "@/apis";
 import { RES_STATUS } from "@/utils/types";
 
 export const initLoader = async () => {
+    console.log("====> init page loader running...");
     const result = await API_ADMIN.adminCheck();
     if (result.status === RES_STATUS.SUCCESS) {
         return redirect("/dashboard");
     }
     return redirect("/login");
-};
-export const initAction = async () => {
-    return {};
 };
 
 const InitPage: FC = () => {

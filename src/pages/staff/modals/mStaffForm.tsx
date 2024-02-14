@@ -16,7 +16,11 @@ import { initStaff, atStaff } from "../states";
 import { atModalOpen, atInfoConflict, at2ndModalOpen } from "@/pages/uniStates";
 import { roleOptions } from "@/configs/utils";
 import { menuList } from "@/configs/menuList";
-import { staffForm, TstaffForm } from "@/configs/schema/staffSchema";
+import {
+    staffForm,
+    staffUpdate,
+    TstaffForm,
+} from "@/configs/schema/staffSchema";
 import Fieldset from "@/components/form/fieldset";
 import { NormalBtn } from "@/components/btns";
 import { capFirstLetter } from "@/utils/utils";
@@ -40,7 +44,7 @@ const MStaffForm: FC = memo(() => {
         trigger,
         watch,
     } = useForm<TstaffForm>({
-        resolver: zodResolver(staffForm),
+        resolver: zodResolver(modalOpen === "Add" ? staffForm : staffUpdate),
         defaultValues: staff,
         mode: "onSubmit",
         reValidateMode: "onSubmit",
@@ -70,13 +74,10 @@ const MStaffForm: FC = memo(() => {
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const isValid = await trigger();
-        console.log("-> staff add isValid: ", isValid);
-        console.log("-> staff add err: ", errors);
-        console.log("-> staff form all value: ", getValues());
+        errors && console.log("-> staff add err: ", errors);
         if (isValid) {
             const values = getValues();
             const method = staff.uid === -1 ? "POST" : "PUT";
-            console.log("-> valide data, uid: ", staff.uid);
             submit(
                 { ...values, id: staff.uid, req: "updateStaff" },
                 { method, action: "/staff" }
@@ -102,7 +103,7 @@ const MStaffForm: FC = memo(() => {
                     {t("label.pwInput")}
                 </label>
                 <input
-                    {...register("password")}
+                    {...register("password", { required: modalOpen === "Add" })}
                     id="inputPW"
                     type="password"
                     autoComplete="new-password"
@@ -128,6 +129,7 @@ const MStaffForm: FC = memo(() => {
                         validate: (value) =>
                             watch("password") === value ||
                             t("modal.tips.noMatch"),
+                        required: modalOpen === "Add",
                     })}
                     id="pwConfirm"
                     type="password"

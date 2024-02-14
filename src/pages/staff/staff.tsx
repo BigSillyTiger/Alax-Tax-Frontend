@@ -34,12 +34,10 @@ const Staff: FC = () => {
 
     const actionData = useActionData() as Tresponse;
     useEffect(() => {
-        console.log("-> 2nc staff.uid: ", staff.uid);
         /* close modals if RES_STATUS.SUCCESS  */
         if (actionData?.status === RES_STATUS.SUCCESS) {
             setInfoConflict(actionData?.status);
             if (staff.uid === -1) {
-                //setAddNewOpen(false);
                 setModalOpen("");
                 setStaff(RESET);
                 toastSuccess(t("toastS.addedStaff"));
