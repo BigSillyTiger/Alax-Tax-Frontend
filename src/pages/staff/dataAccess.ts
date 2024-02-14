@@ -1,9 +1,14 @@
-import { API_STAFF } from "@/apis";
-import { defer, ActionFunctionArgs } from "react-router-dom";
+import { API_ADMIN, API_STAFF } from "@/apis";
+import { defer, ActionFunctionArgs, redirect } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
 import type { Tstaff } from "@/configs/schema/staffSchema";
+import { menuList } from "@/configs/menuList";
 
 export const loader = async () => {
+    const accessResult = await API_ADMIN.accessCheck(menuList[4].id);
+    if (!accessResult.data) {
+        return redirect("/login");
+    }
     const allStaff = API_STAFF.staffAll();
     return defer({ allStaff });
 };
@@ -41,7 +46,6 @@ export const action = async ({
         const result = await API_STAFF.staffSingleDel(Number(data.get("uid")));
         return result;
     } else if ("PUT" === request.method && data.get("req") === "updateStaff") {
-        
         const result = await API_STAFF.staffSingleUpdate({
             uid: Number(data.get("uid")),
             first_name: data.get("first_name") as string,

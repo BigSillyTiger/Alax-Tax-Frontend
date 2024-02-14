@@ -1,10 +1,16 @@
-import { API_CLIENT, API_MANAGE, API_ORDER } from "@/apis";
-import { defer } from "react-router-dom";
+import { API_ADMIN, API_CLIENT, API_MANAGE, API_ORDER } from "@/apis";
+import { defer, redirect } from "react-router-dom";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
 import { TorderDesc, TorderWithDetails } from "@/configs/schema/orderSchema";
+import { menuList } from "@/configs/menuList";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
+    const accessResult = await API_ADMIN.accessCheck(menuList[1].id);
+    if (!accessResult.data) {
+        return redirect("/login");
+    }
+
     const cid = Number(params.cid);
     const clientInfo = await API_CLIENT.clientInfo(cid);
     const clientOrders = await API_ORDER.orderWClient(cid);

@@ -1,6 +1,11 @@
 import { adminStore } from "@/configs/zustore";
 import apis from "./axios";
-import { REQ_LOGIN, REQ_LOGOUT, REQ_ADMIN_CHECK, REQ_TEST } from "./req_list";
+import {
+    REQ_LOGIN,
+    REQ_LOGOUT,
+    REQ_ADMIN_CHECK,
+    REQ_ACCESS_CHECK,
+} from "./req_list";
 import { RES_STATUS, Tresponse } from "@/utils/types";
 import { TadminStore } from "@/configs/schema/staffSchema";
 
@@ -60,9 +65,9 @@ export const adminCheck = async (): Promise<Tresponse> => {
     }
 };
 
-export const test = async () => {
+export const accessCheck = async (page: string): Promise<Tresponse> => {
     try {
-        const response = await apis.get(REQ_TEST);
+        const response = await apis.post(REQ_ACCESS_CHECK, { page });
         return response.data;
     } catch (err: any) {
         if (err.response) {
@@ -71,9 +76,9 @@ export const test = async () => {
             console.log(`error msg: ${err}`);
         }
         return {
-            status: false,
-            msg: "api test error",
-            data: {},
+            status: RES_STATUS.FAILED,
+            msg: "access check error",
+            data: false,
         };
     }
 };

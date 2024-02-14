@@ -9,6 +9,7 @@ import MobileMenu from "./mobileMenu";
 import { menuList } from "@/configs/menuList";
 import StaticMenu from "./staticMenu";
 import { Tpermission } from "@/configs/schema/universSchema";
+import { useAdminStore } from "@/configs/zustore";
 
 export type TmenuList = {
     name: string;
@@ -23,26 +24,37 @@ export type TmenuList = {
 }[];
 
 type Tprops = {
-    permissionData: Tpermission;
+    permissionData?: Tpermission;
     open: boolean;
     setOpen: (value: boolean) => void;
 };
 
 // create new menu list based on user permission
-const initMenuList = (permission: Tpermission) => {
-    const temp = Object.values(permission);
-    return menuList.filter((_, index) => {
-        return temp[index];
-    });
-};
 
-const MainMenu: FC<Tprops> = ({ permissionData, open, setOpen }) => {
-    const newMenuList = initMenuList(permissionData);
+const MainMenu: FC<Tprops> = ({ open, setOpen }) => {
+    const user = useAdminStore((state) => state.user);
+    const newMenuList = () => {
+        const temp = Object.values({
+            dashboard: user.dashboard,
+            clients: user.clients,
+            orders: user.orders,
+            calendar: user.calendar,
+            staff: user.staff,
+            setting: user.setting,
+        });
+        return menuList.filter((_, index) => {
+            return temp[index];
+        });
+    };
 
     return (
         <div>
-            <MobileMenu menuList={newMenuList} open={open} setOpen={setOpen} />
-            <StaticMenu menuList={newMenuList} />
+            <MobileMenu
+                menuList={newMenuList()}
+                open={open}
+                setOpen={setOpen}
+            />
+            <StaticMenu menuList={newMenuList()} />
         </div>
     );
 };

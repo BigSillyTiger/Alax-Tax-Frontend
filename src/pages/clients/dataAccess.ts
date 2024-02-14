@@ -1,11 +1,21 @@
-import { API_CLIENT } from "@/apis";
-import { defer, ActionFunctionArgs } from "react-router-dom";
+import { API_ADMIN, API_CLIENT } from "@/apis";
+import { defer, ActionFunctionArgs, redirect } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
 import type { Tclient } from "@/configs/schema/clientSchema";
+import { menuList } from "@/configs/menuList";
 
 export const loader = async () => {
-    const clients = API_CLIENT.clientAll();
-    return defer({ clients });
+    console.log("-> clients loader running...");
+    try {
+        const accessResult = await API_ADMIN.accessCheck(menuList[1].id);
+        if (!accessResult.data) {
+            return redirect("/login");
+        }
+        const clients = API_CLIENT.clientAll();
+        return defer({ clients });
+    } catch (err) {
+        console.log("-> client loader err: ", err);
+    }
 };
 
 export const action = async ({
