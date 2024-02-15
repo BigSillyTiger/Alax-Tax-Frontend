@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from "react";
 import type { FC } from "react";
 import { useAtom } from "jotai";
 import { useSubmit } from "react-router-dom";
-import PDFTemplate from "@/PDF/invoices/template1";
+import { QuoTemplate } from "@/PDF/quotations";
 import { useTranslation } from "react-i18next";
 import { Toggle } from "../../disclosure";
 import {
@@ -46,6 +46,7 @@ const DatePicker = ({
     };
 
     return (
+        /* current date */
         <div className="flex flex-col h-[18vh] border-t-2 border-dotted border-indigo-400 my-3 py-2">
             <div className="grid grid-cols-2 gap-2 my-2">
                 <div className="col-span-1">
@@ -62,7 +63,7 @@ const DatePicker = ({
                             type="date"
                             min={dateMin}
                             max={dateMax}
-                            defaultValue={newDateFormat(new Date(defaultDate))}
+                            defaultValue={newDateFormat(new Date())}
                             onChange={(e) => {
                                 setNewDate(e.target.value);
                             }}
@@ -170,7 +171,7 @@ const QuoContent: FC = memo(() => {
                 />
             </section>
             <section className="col-span-1 md:col-span-5">
-                <PDFTemplate
+                <QuoTemplate
                     client={client}
                     order={clientOrder}
                     company={company}

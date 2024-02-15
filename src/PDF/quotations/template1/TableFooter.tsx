@@ -4,19 +4,18 @@ import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { TorderDesc } from "@/configs/schema/orderSchema";
 import { useTranslation } from "react-i18next";
-import { minusAB, plusAB } from "@/utils/calculations";
+import { plusAB } from "@/utils/calculations";
 import { Tcompany } from "@/configs/schema/settingSchema";
 
 type Tprops = {
     company: Tcompany;
     order: TorderDesc[];
-    paid: number;
     unit: "AUD" | "$";
 };
 
 const tw = createTw({});
 
-const TableFooter: FC<Tprops> = memo(({ company, order, paid, unit: u }) => {
+const TableFooter: FC<Tprops> = memo(({ company, order, unit: u }) => {
     const { t } = useTranslation();
 
     const gst = order.reduce(
@@ -34,6 +33,7 @@ const TableFooter: FC<Tprops> = memo(({ company, order, paid, unit: u }) => {
             style={tw("flex flex-row w-[523pt] justify-center mt-3")}
             wrap={false}
         >
+            {/* pament to */}
             <View style={tw("flex flex-col w-[220pt] px-2 leading-6 my-auto")}>
                 <Text style={tw("text-sm text-orange-600")}>
                     {t("label.paymentTo")}
@@ -56,9 +56,10 @@ const TableFooter: FC<Tprops> = memo(({ company, order, paid, unit: u }) => {
                     <Text style={tw("text-zinc-700")}>{company.acc}</Text>
                 </Text>
             </View>
+            {/* total list */}
             <View
                 style={tw(
-                    "flex flex-col bg-orange-50 w-[220pt] px-2 leading-6"
+                    "flex flex-col justify-around bg-orange-50 w-[220pt] px-2 leading-6"
                 )}
             >
                 <View style={tw("flex flex-row h-7 justify-between")}>
@@ -80,39 +81,18 @@ const TableFooter: FC<Tprops> = memo(({ company, order, paid, unit: u }) => {
                         {netto}
                     </Text>
                 </View>
-                <View style={tw("flex flex-row h-7 justify-between")}>
-                    <Text style={tw("text-sm my-auto")}>
-                        {t("label.total")}:
-                    </Text>
-                    <Text style={tw("text-sm my-auto text-right")}>
-                        {u + " "}
-                        {total}
-                    </Text>
-                </View>
-                <View
-                    style={tw(
-                        "flex flex-row h-9 border-t-2 border-dotted border-orange-200 justify-between py-1"
-                    )}
-                >
-                    <Text style={tw("text-sm my-auto")}>
-                        {t("label.totalPaid")}:
-                    </Text>
-                    <Text style={tw("text-sm my-auto text-right")}>
-                        {u + " "}
-                        {paid}
-                    </Text>
-                </View>
+
                 <View
                     style={tw(
                         "flex flex-row justify-between border-t-2 border-orange-200 border-dotted pt-4"
                     )}
                 >
                     <Text style={tw("text-xl my-auto")}>
-                        {t("label.totalDue")}:
+                        {t("label.total")}:
                     </Text>
                     <Text style={tw("text-xl my-auto text-right")}>
                         {u + " "}
-                        {minusAB(total, paid)}
+                        {total}
                     </Text>
                 </View>
             </View>

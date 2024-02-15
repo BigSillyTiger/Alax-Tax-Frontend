@@ -62,7 +62,7 @@ const DatePicker = ({
                             type="date"
                             min={dateMin}
                             max={dateMax}
-                            defaultValue={newDateFormat(new Date(defaultDate))}
+                            defaultValue={newDateFormat(new Date())}
                             onChange={(e) => {
                                 setNewDate(e.target.value);
                             }}

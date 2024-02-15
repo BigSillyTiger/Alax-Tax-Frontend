@@ -89,7 +89,7 @@ const InvTemplate: FC<Tprops> = ({
             <Document
                 creator={"SRC"}
                 producer={"SRC"}
-                title={"invoice-template"}
+                title={t("label.templateInvoice")}
                 author={"Areos"}
             >
                 <Page

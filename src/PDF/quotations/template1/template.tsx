@@ -2,19 +2,13 @@ import type { FC } from "react";
 import { PDFViewer, Page, View, Document, Text } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { Tclient } from "@/configs/schema/clientSchema";
-import {
-    TorderDesc,
-    TorderPayment,
-    TorderWithDetails,
-} from "@/configs/schema/orderSchema";
+import { TorderDesc, TorderWithDetails } from "@/configs/schema/orderSchema";
 import TableHeader from "./TableHeader";
 import TableRows from "./TableRows";
 import BillTitle from "./BillTitle";
 import Title from "./Title";
 import TableFooter from "./TableFooter";
 import PageFooter from "./PageFooter";
-import PayHeader from "./PayHeader";
-import PayRows from "./PayRows";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { useTranslation } from "react-i18next";
 
@@ -51,34 +45,20 @@ const QuoTemplate: FC<Tprops> = ({
         );
     };
 
-    const Payments = ({ payments }: { payments: TorderPayment[] }) => {
-        if (!payments) {
-            return null;
-        }
-        return (
-            <View style={tw("flex w-[523pt] py-3")}>
-                <Text style={tw("text-lg")}>{t("label.payments")}: </Text>
-                <PayHeader />
-                <PayRows data={payments} unit={unit} />
-            </View>
-        );
-    };
-
     const mainContent = (
         <View style={tw("flex flex-col")}>
             <Title
                 company={company}
-                invoiceID={order.order_id}
+                orderID={order.order_id}
                 issueDate={date}
                 logo={logo}
             />
             <BillTitle company={company} client={client} />
             <Services order={order.order_desc} />
-            <Payments payments={order.payments} />
+
             <TableFooter
                 company={company}
                 order={order.order_desc}
-                paid={order.order_paid}
                 unit={unit}
             />
         </View>
@@ -89,7 +69,7 @@ const QuoTemplate: FC<Tprops> = ({
             <Document
                 creator={"SRC"}
                 producer={"SRC"}
-                title={"invoice-template"}
+                title={t("label.templateQuotation")}
                 author={"Areos"}
             >
                 <Page
