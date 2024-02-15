@@ -15,6 +15,7 @@ export const loader = async () => {
         return defer({ clients });
     } catch (err) {
         console.log("-> client loader err: ", err);
+        return redirect("/login");
     }
 };
 

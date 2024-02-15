@@ -6,18 +6,12 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { useAtom } from "jotai";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
-    TorderPayment,
-    TorderWithDetails,
-    paymentFormSchema,
-} from "@/configs/schema/orderSchema";
+import { TorderPayment, paymentFormSchema } from "@/configs/schema/orderSchema";
 import Card from "@/components/card";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { plusAB } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
-import { TmodalOpenStates } from "@/utils/types";
-import { Tclient } from "@/configs/schema/clientSchema";
 import {
     ClientInfoCard,
     OrderInfoCard,

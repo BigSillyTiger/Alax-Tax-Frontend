@@ -3,19 +3,8 @@ import i18n from "@/utils/i18n";
 import { TorderWithDesc } from "@/configs/schema/orderSchema";
 import { dateFormat } from "@/utils/utils";
 import { minusAB } from "@/utils/calculations";
-
-const setColor = (value: string) => {
-    switch (value) {
-        case i18n.t("label.pending"):
-            return "bg-yellow-200 text-yellow-700 ring-yellow-700";
-        case i18n.t("label.processing"):
-            return "bg-cyan-200 text-cyan-700 ring-cyan-700";
-        case i18n.t("label.closed"):
-            return "bg-red-200 text-red-700 ring-red-700";
-        case i18n.t("label.completed"):
-            return "bg-green-200 text-green-700 ring-green-700";
-    }
-};
+import OrderStatus from "@/components/OrderStatus";
+import { TorderStatus } from "@/utils/types";
 
 const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
     {
@@ -52,16 +41,8 @@ const clientOrderColumns: ColumnDef<TorderWithDesc>[] = [
                 header: i18n.t("label.status"),
                 accessorKey: "order_status",
                 cell: (info: CellContext<TorderWithDesc, string>) => {
-                    const value = info.getValue();
                     return (
-                        <span
-                            className={`rounded-md ring-1 ring-inset font-bold py-1 px-2 ${setColor(
-                                value
-                            )}
-                            `}
-                        >
-                            {value}
-                        </span>
+                        <OrderStatus value={info.getValue() as TorderStatus} />
                     );
                 },
             },

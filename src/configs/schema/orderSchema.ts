@@ -42,6 +42,24 @@ export const orderWithDescSchema = orderSchema.extend({
     order_desc: oderDescSchema.array(),
 });
 
+export const totalOrderSchema = orderWithDescSchema.extend({
+    first_name: z.string().trim(),
+    last_name: z.string().trim(),
+    phone: z
+        .string()
+        .trim()
+        .min(3, { message: "Phone number is too short" })
+        .transform((val) => {
+            if (val.length > 6) {
+                return `${val.slice(0, 3)}-${val.slice(3, 6)}-${val.slice(6)}`;
+            } else if (val.length > 3) {
+                return `${val.slice(0, 3)}-${val.slice(3)}`;
+            } else {
+                return val;
+            }
+        }),
+});
+
 export const newOrderDescSchema = oderDescSchema.omit({
     fk_order_id: true,
 });
@@ -82,3 +100,4 @@ export type TorderDesc = z.infer<typeof oderDescSchema>;
 export type TnewOrderDesc = z.infer<typeof newOrderDescSchema>;
 export type TorderPayment = z.infer<typeof orderPaymentSchema>;
 export type TorderWithDetails = z.infer<typeof orderWithDetailsSchema>;
+export type TtotalOrder = z.infer<typeof totalOrderSchema>;

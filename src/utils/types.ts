@@ -52,3 +52,5 @@ export type TmenuOptions = {
 };
 
 export type Tmode = "sm" | "md" | "lg" | "xl" | "full" | "md-full";
+
+export type TorderStatus = "Pending" | "Processing" | "Closed" | "Completed";
