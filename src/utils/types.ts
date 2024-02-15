@@ -1,3 +1,4 @@
+import { mOpenOps } from "@/configs/utils";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
 
 export type Tresponse = {
@@ -36,20 +37,11 @@ export type Tunivers = {
 };
 
 /**
- * @description  modal types for client order page
+ * @description  modal open option types for all modals
  */
-export type TmodalOpenStates =
-    | ""
-    | "Del"
-    | "Edit"
-    | "Add"
-    | "Pay"
-    | "Invoice"
-    | "Quotation";
+export type TmodalOpenStates = (typeof mOpenOps)[keyof typeof mOpenOps];
 
 export type Tmodal2ndOpenStates = "" | "ResetPW";
-
-export type TstaffModal = "" | "Del" | "Edit" | "Add";
 
 export type TmenuOptions = {
     edit?: boolean;

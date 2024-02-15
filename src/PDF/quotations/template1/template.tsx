@@ -29,7 +29,7 @@ type Tprops = {
     logo: string;
 };
 
-const InvTemplate: FC<Tprops> = ({
+const QuoTemplate: FC<Tprops> = ({
     client,
     order,
     company,
@@ -105,4 +105,4 @@ const InvTemplate: FC<Tprops> = ({
     );
 };
 
-export default InvTemplate;
+export default QuoTemplate;

@@ -14,7 +14,7 @@ import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
 import { initStaff, atStaff } from "../states";
 import { atModalOpen, atInfoConflict, at2ndModalOpen } from "@/pages/uniStates";
-import { roleOptions } from "@/configs/utils";
+import { mOpenOps, roleOptions } from "@/configs/utils";
 import { menuList } from "@/configs/menuList";
 import {
     staffForm,
@@ -44,7 +44,9 @@ const MStaffForm: FC = memo(() => {
         trigger,
         watch,
     } = useForm<TstaffForm>({
-        resolver: zodResolver(modalOpen === "Add" ? staffForm : staffUpdate),
+        resolver: zodResolver(
+            modalOpen === mOpenOps.add ? staffForm : staffUpdate
+        ),
         defaultValues: staff,
         mode: "onSubmit",
         reValidateMode: "onSubmit",
@@ -103,11 +105,13 @@ const MStaffForm: FC = memo(() => {
                     {t("label.pwInput")}
                 </label>
                 <input
-                    {...register("password", { required: modalOpen === "Add" })}
+                    {...register("password", {
+                        required: modalOpen === mOpenOps.add,
+                    })}
                     id="inputPW"
                     type="password"
                     autoComplete="new-password"
-                    required={modalOpen === "Add"}
+                    required={modalOpen === mOpenOps.add}
                     className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2 ${errors.pwConfirm && "ring-2 ring-red-600 focus:ring-red-400"}`}
                 />
             </div>
@@ -129,12 +133,12 @@ const MStaffForm: FC = memo(() => {
                         validate: (value) =>
                             watch("password") === value ||
                             t("modal.tips.noMatch"),
-                        required: modalOpen === "Add",
+                        required: modalOpen === mOpenOps.add,
                     })}
                     id="pwConfirm"
                     type="password"
                     autoComplete="new-password"
-                    required={modalOpen === "Add"}
+                    required={modalOpen === mOpenOps.add}
                     className={`outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2 ${errors.pwConfirm && "ring-2 ring-red-600 focus:ring-red-400"}`}
                 />
             </div>
@@ -533,8 +537,8 @@ const MStaffForm: FC = memo(() => {
                     </div>
                     {/* right input area */}
                     <div className="sm:col-span-3 col-span-1">
-                        {modalOpen === "Add" && <PWsection />}
-                        {modalOpen === "Edit" && (
+                        {modalOpen === mOpenOps.add && <PWsection />}
+                        {modalOpen === mOpenOps.edit && (
                             <NormalBtn
                                 name={t("btn.resetPW")}
                                 onClick={handleClickPWReset}
@@ -556,10 +560,10 @@ const MStaffForm: FC = memo(() => {
 
     return (
         <MTemplate
-            open={!!(modalOpen === "Add" || modalOpen === "Edit")}
+            open={!!(modalOpen === mOpenOps.add || modalOpen === mOpenOps.edit)}
             onClose={onClose}
             title={
-                modalOpen === "Add"
+                modalOpen === mOpenOps.add
                     ? t("modal.title.addStaff")
                     : t("modal.title.updateStaff")
             }

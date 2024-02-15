@@ -15,6 +15,7 @@ import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { atUniData } from "../states";
 import { atModalOpen } from "../../uniStates";
+import { mOpenOps } from "@/configs/utils";
 
 type Tprops = {
     serviceList: Tservice[] | null; // duplication check
@@ -225,14 +226,14 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
 
     return (
         <MTemplate
-            open={!!(modalOpen === "Add" || modalOpen === "Edit")}
+            open={!!(modalOpen === mOpenOps.add || modalOpen === mOpenOps.edit)}
             onClose={onClose}
             title={
                 isServiceType(uniData)
-                    ? modalOpen === "Add"
+                    ? modalOpen === mOpenOps.add
                         ? t("modal.title.addService")
                         : t("modal.title.editService")
-                    : modalOpen === "Add"
+                    : modalOpen === mOpenOps.edit
                       ? t("modal.title.addUnit")
                       : t("modal.title.editUnit")
             }

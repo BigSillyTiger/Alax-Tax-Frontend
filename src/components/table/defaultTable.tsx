@@ -143,11 +143,7 @@ const PTable = <T,>({
                                       className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
                                   >
                                       <MenuBtn
-                                          edit={menuOptions.edit}
-                                          del={menuOptions.del}
-                                          pay={menuOptions.pay}
-                                          invoice={menuOptions.invoice}
-                                          quotation={menuOptions.quotation}
+                                          {...menuOptions}
                                           setData={setData}
                                           mItem={row.original}
                                       />

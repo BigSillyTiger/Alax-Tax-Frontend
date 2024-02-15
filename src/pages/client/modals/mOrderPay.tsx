@@ -24,7 +24,7 @@ import {
     OrderDescCard,
 } from "@/components/customized";
 import { newDateFormat } from "@/utils/utils";
-import { dateMax, dateMin } from "@/configs/utils";
+import { dateMax, dateMin, mOpenOps } from "@/configs/utils";
 import { atClient, atClientOrder } from "../states";
 import { atModalOpen } from "@/pages/uniStates";
 
@@ -335,7 +335,7 @@ const MOrderPay: FC = memo(() => {
     return (
         <>
             <MTemplate
-                open={!!(modalOpen === "Pay")}
+                open={!!(modalOpen === mOpenOps.pay)}
                 onClose={onClose}
                 title={t("modal.title.payments") + ` #${clientOrder.order_id}`}
                 mode={"full"}

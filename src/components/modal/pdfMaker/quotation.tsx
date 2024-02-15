@@ -1,18 +1,21 @@
 import { memo, useEffect, useState } from "react";
 import type { FC } from "react";
 import { useAtom } from "jotai";
-import { MTemplate } from ".";
 import { useSubmit } from "react-router-dom";
 import PDFTemplate from "@/PDF/invoices/template1";
 import { useTranslation } from "react-i18next";
-import { Toggle } from "../disclosure";
-import { ClientInfoCard, OrderDescCard, OrderDetailsCard } from "../customized";
-import { NormalBtn } from "../btns";
-import CompanyInfoCard from "../customized/CompanyInfoCard";
+import { Toggle } from "../../disclosure";
+import {
+    ClientInfoCard,
+    OrderDescCard,
+    OrderDetailsCard,
+} from "../../customized";
+import { NormalBtn } from "../../btns";
+import CompanyInfoCard from "../../customized/CompanyInfoCard";
 import { newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin } from "@/configs/utils";
 import { atClientOrder, atClient } from "@/pages/client/states";
-import { atModalOpen, atCompany, atLogo } from "@/pages/uniStates";
+import { atCompany, atLogo } from "@/pages/uniStates";
 
 const DatePicker = ({
     order_id,
@@ -34,7 +37,7 @@ const DatePicker = ({
     const onSubmit = async (date: string) => {
         //const result = await API_ORDER.updateInvoiceIssue(date, order_id);
         submit(
-            { date, order_id, req: "updateInvoiceIssue" },
+            { date, order_id, req: "updateQuotation" },
             {
                 method: "PUT",
                 action: `/clients/${client_id}`,
@@ -115,18 +118,13 @@ const DatePicker = ({
     );
 };
 
-const MInQ: FC = memo(() => {
+const QuoContent: FC = memo(() => {
     const [date, setDate] = useState(newDateFormat(new Date()));
     const { t } = useTranslation();
     const [client] = useAtom(atClient);
     const [clientOrder] = useAtom(atClientOrder);
-    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [company] = useAtom(atCompany);
     const [logo] = useAtom(atLogo);
-
-    const onClose = () => {
-        setModalOpen("");
-    };
 
     useEffect(() => {
         if (clientOrder.invoice_issue_date) {
@@ -159,7 +157,7 @@ const MInQ: FC = memo(() => {
         </section>
     );
 
-    const mainContent = (
+    return (
         <main className="grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[93vh]">
             <section className="col-span-1 md:col-span-3 ">
                 {detailContent}
@@ -183,20 +181,6 @@ const MInQ: FC = memo(() => {
             </section>
         </main>
     );
-
-    return (
-        <>
-            <MTemplate
-                open={!!(modalOpen === "Invoice")}
-                onClose={onClose}
-                title={t("modal.title.invoice")}
-                mode="full"
-                mQuit={true}
-            >
-                {mainContent}
-            </MTemplate>
-        </>
-    );
 });
 
-export default MInQ;
+export default QuoContent;

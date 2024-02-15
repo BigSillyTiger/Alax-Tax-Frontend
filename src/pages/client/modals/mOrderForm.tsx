@@ -24,6 +24,7 @@ import { ClientInfoCard } from "@/components/customized";
 import StatesOptions from "@/components/stateOptions";
 import { atModalOpen, atUniData } from "@/pages/uniStates";
 import { atClient, atClientOrder, atServiceDesc } from "../states";
+import { mOpenOps } from "@/configs/utils";
 
 const MOrderForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -760,7 +761,12 @@ const MOrderForm: FC = memo(() => {
     return (
         <>
             <MTemplate
-                open={!!(modalOpen === "Edit" || modalOpen === "Add")}
+                open={
+                    !!(
+                        modalOpen === mOpenOps.edit ||
+                        modalOpen === mOpenOps.add
+                    )
+                }
                 onClose={onClose}
                 title={
                     clientOrder.order_id === 0

@@ -8,6 +8,7 @@ import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
 import { atClient } from "../states.ts";
 import { atModalOpen } from "../../uniStates.ts";
+import { mOpenOps } from "@/configs/utils.ts";
 
 // this component is about building a modal with transition to delete a client
 const MClientDel: FC = memo(() => {
@@ -87,7 +88,7 @@ const MClientDel: FC = memo(() => {
 
     return (
         <MTemplate
-            open={!!(modalOpen === "Del")}
+            open={!!(modalOpen === mOpenOps.del)}
             onClose={onClose}
             title={t("modal.title.delete")}
             isMajor={true}

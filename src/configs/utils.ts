@@ -26,3 +26,13 @@ export const roleOptions = {
         setting: 2,
     },
 };
+
+export const mOpenOps = {
+    default: "",
+    add: "Add",
+    del: "Del",
+    edit: "Edit",
+    invoice: "Invoice",
+    pay: "Pay",
+    quotation: "Quotation",
+};

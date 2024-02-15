@@ -4,19 +4,12 @@ import { useTranslation } from "react-i18next";
 import { useSubmit } from "react-router-dom";
 import { useAtom } from "jotai";
 import Card from "@/components/card";
-import { Tservice, Tunit } from "@/configs/schema/settingSchema";
 import { isServiceType } from "@/utils/utils";
 import { MTemplate } from "@/components/modal";
 import { DelBtn } from "@/components/form";
-import { TmodalOpenStates } from "@/utils/types";
 import { atUniData } from "../states";
 import { atModalOpen } from "../../uniStates";
-
-type Tprops = {
-    //uni: Tservice | Tunit;
-    //open: TmodalOpenStates;
-    //setOpen: (value: TmodalOpenStates) => void;
-};
+import { mOpenOps } from "@/configs/utils";
 
 // this component is about building a modal with transition to delete a client
 const MUniDel: FC = memo(() => {
@@ -100,7 +93,7 @@ const MUniDel: FC = memo(() => {
 
     return (
         <MTemplate
-            open={!!(modalOpen === "Del")}
+            open={!!(modalOpen === mOpenOps.del)}
             onClose={onClose}
             title={t("modal.title.delete")}
             isMajor={true}

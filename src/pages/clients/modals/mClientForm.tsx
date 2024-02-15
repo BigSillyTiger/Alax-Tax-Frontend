@@ -15,6 +15,7 @@ import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
 import { atClient } from "../states";
 import { atInfoConflict, atModalOpen } from "../../uniStates";
+import { mOpenOps } from "@/configs/utils";
 
 const MClientForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -317,10 +318,10 @@ const MClientForm: FC = memo(() => {
 
     return (
         <MTemplate
-            open={!!(modalOpen === "Add" || modalOpen === "Edit")}
+            open={!!(modalOpen === mOpenOps.add || modalOpen === mOpenOps.edit)}
             onClose={onClose}
             title={
-                modalOpen === "Add"
+                modalOpen === mOpenOps.add
                     ? t("modal.title.addClient")
                     : t("modal.title.updateClient")
             }

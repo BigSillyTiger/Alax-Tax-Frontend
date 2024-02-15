@@ -18,11 +18,12 @@ import { PTable } from "@/components/table";
 import orderDescColumns from "../../configs/columnDefs/defOrderDesc";
 import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
 import MOrderPay from "./modals/mOrderPay";
-import MInQ from "@/components/modal/mInQ";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { calGst } from "@/utils/calculations";
 import { atClient, atClientOrder, atServiceDesc } from "./states";
 import { atCompany, atLogo, atModalOpen, atUniData } from "../uniStates";
+import { mOpenOps } from "@/configs/utils";
+import MpdfMaker from "@/components/modal/pdfMaker";
 
 const Client = () => {
     const { t } = useTranslation();
@@ -124,7 +125,7 @@ const Client = () => {
 
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
-            if (modalOpen === "Add") {
+            if (modalOpen === mOpenOps.add) {
                 setModalOpen("");
                 toastSuccess(t("toastS.addOrder"));
                 actionData.status = RES_STATUS.DEFAULT;
@@ -144,20 +145,20 @@ const Client = () => {
             toastSuccess(t("toastS.updatePayment"));
             actionData.status = RES_STATUS.DEFAULT;
         } else if (actionData?.status === RES_STATUS.FAILED) {
-            if (modalOpen === "Add") {
+            if (modalOpen === mOpenOps.add) {
                 toastError(t("toastF.addOrder"));
                 actionData.status = RES_STATUS.DEFAULT;
-            } else if (modalOpen === "Edit") {
+            } else if (modalOpen === mOpenOps.edit) {
                 toastError(t("toastF.updateOrder"));
                 actionData.status = RES_STATUS.DEFAULT;
-            } else if (modalOpen === "Del") {
+            } else if (modalOpen === mOpenOps.del) {
                 toastError(t("toastF.delOrder"));
                 actionData.status = RES_STATUS.DEFAULT;
             }
         }
-    }, [actionData]);
+    }, [actionData, modalOpen, setModalOpen, t]);
 
-    const subOrderTable = (data: any) => {
+    const subOrderTable = (data: TorderWithDetails) => {
         const items = [];
         items.push({
             title: t("label.services"),
@@ -267,7 +268,7 @@ const Client = () => {
             <MOrderDel />
             <MOrderForm />
             <MOrderPay />
-            <MInQ />
+            <MpdfMaker />
         </>
     );
 };

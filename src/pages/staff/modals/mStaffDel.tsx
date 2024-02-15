@@ -8,6 +8,7 @@ import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
 import { atStaff } from "../states.ts";
 import { atModalOpen } from "../../uniStates.ts";
+import { mOpenOps } from "@/configs/utils.ts";
 
 // this component is about building a modal with transition to delete a staff
 const MStaffDel: FC = memo(() => {
@@ -87,7 +88,7 @@ const MStaffDel: FC = memo(() => {
 
     return (
         <MTemplate
-            open={!!(modalOpen === "Del")}
+            open={!!(modalOpen === mOpenOps.del)}
             onClose={onClose}
             title={t("modal.title.delete")}
             isMajor={true}
