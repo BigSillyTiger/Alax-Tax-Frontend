@@ -35,13 +35,14 @@ const Staff: FC = () => {
     const actionData = useActionData() as Tresponse;
     useEffect(() => {
         /* close modals if RES_STATUS.SUCCESS  */
+
         if (actionData?.status === RES_STATUS.SUCCESS) {
             setInfoConflict(actionData?.status);
-            if (staff.uid === -1) {
+            if (!staff.uid) {
                 setModalOpen("");
                 setStaff(RESET);
                 toastSuccess(t("toastS.addedStaff"));
-            } else if (staff.uid > 0) {
+            } else if (staff.uid) {
                 // close the password reset modal
                 secModalOpen === "ResetPW" && setSecModalOpen("");
                 setModalOpen("");
@@ -64,7 +65,16 @@ const Staff: FC = () => {
         }
         // set status to default, in case the stale value interfere the next action
         actionData?.status && (actionData.status = RES_STATUS.DEFAULT);
-    }, [actionData, staff.uid, setStaff, setInfoConflict, setModalOpen, t]);
+    }, [
+        actionData,
+        staff.uid,
+        setStaff,
+        setInfoConflict,
+        setModalOpen,
+        t,
+        secModalOpen,
+        setSecModalOpen,
+    ]);
 
     const handleAddNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
@@ -129,11 +139,6 @@ const Staff: FC = () => {
 
             {/* Modal for add new staff, and this modal can not be insert into Await*/}
             {/* otherwise, the animation would get lost*/}
-            {/* <MClientDel
-                client={client}
-                open={modalOpen}
-                setOpen={setModalOpen}
-            /> */}
             <MStaffForm />
             <MStaffDel />
             <MResetPW />

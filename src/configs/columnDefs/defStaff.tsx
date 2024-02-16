@@ -17,19 +17,12 @@ const staffColumns: ColumnDef<Tstaff>[] = [
         header: i18n.t("label.uid"),
         accessorFn: (data: Tstaff) => data.uid,
         cell: (info: CellContext<Tstaff, unknown>) => (
-            <span>{info.getValue<number>()}</span>
-        ),
-    },
-    {
-        header: i18n.t("label.firstName"),
-        accessorFn: (data: Tstaff) => data.first_name,
-        cell: (info: CellContext<Tstaff, unknown>) => (
             <span>{info.getValue<string>()}</span>
         ),
     },
     {
-        header: i18n.t("label.lastName"),
-        accessorKey: "last_name",
+        header: i18n.t("label.name"),
+        accessorFn: (data: Tstaff) => data.first_name + " " + data.last_name,
         cell: (info: CellContext<Tstaff, unknown>) => (
             <span>{info.getValue<string>()}</span>
         ),

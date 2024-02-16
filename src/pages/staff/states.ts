@@ -3,7 +3,7 @@ import { Tstaff } from "@/configs/schema/staffSchema";
 import { roleOptions } from "@/configs/utils";
 
 const initStaff: Tstaff = {
-    uid: -1,
+    uid: "",
     first_name: "",
     last_name: "",
     phone: "",

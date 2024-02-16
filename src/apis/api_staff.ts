@@ -34,7 +34,7 @@ export const staffAll = async (): Promise<Tresponse> => {
     }
 };
 
-export const staffInfo = async (uid: number): Promise<Tresponse> => {
+export const staffInfo = async (uid: string): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_STAFF_INFO, { uid });
         return response.data;
@@ -50,7 +50,6 @@ export const staffInfo = async (uid: number): Promise<Tresponse> => {
 
 export const staffAdd = async (staff: TstaffForm): Promise<Tresponse> => {
     try {
-        console.log("-> send register new staff req");
         const response = await apis.post(REQ_STAFF_SINGLE_REGISTER, [staff]);
         return response.data;
     } catch (err) {
@@ -63,7 +62,7 @@ export const staffAdd = async (staff: TstaffForm): Promise<Tresponse> => {
     }
 };
 
-export const staffSingleDel = async (uid: number): Promise<Tresponse> => {
+export const staffSingleDel = async (uid: string): Promise<Tresponse> => {
     try {
         const response = await apis.put(REQ_STAFF_SINGLE_DEL, { uid });
         return response.data;
@@ -92,7 +91,7 @@ export const staffSingleUpdate = async (staff: Tstaff): Promise<Tresponse> => {
 };
 
 export const staffUpdatePW = async (
-    uid: number,
+    uid: string,
     pw: string
 ): Promise<Tresponse> => {
     try {

@@ -19,7 +19,6 @@ export const action = async ({
     console.log("-> staff action request: ", request);
     const data = await request.formData();
     if ("POST" === request.method) {
-        console.log("-> staff api - add new staff");
         const result = await API_STAFF.staffAdd({
             first_name: data.get("first_name") as string,
             last_name: data.get("last_name") as string,
@@ -43,11 +42,13 @@ export const action = async ({
         });
         return result;
     } else if ("DELETE" === request.method) {
-        const result = await API_STAFF.staffSingleDel(Number(data.get("uid")));
+        const result = await API_STAFF.staffSingleDel(
+            data.get("uid") as string
+        );
         return result;
     } else if ("PUT" === request.method && data.get("req") === "updateStaff") {
         const result = await API_STAFF.staffSingleUpdate({
-            uid: Number(data.get("uid")),
+            uid: data.get("uid"),
             first_name: data.get("first_name") as string,
             last_name: data.get("last_name") as string,
             phone: data.get("phone") as string,
@@ -71,7 +72,7 @@ export const action = async ({
         return result;
     } else if ("PUT" === request.method && data.get("req") === "resetPW") {
         const result = await API_STAFF.staffUpdatePW(
-            Number(data.get("uid")),
+            data.get("uid") as string,
             data.get("password") as string
         );
         return result;

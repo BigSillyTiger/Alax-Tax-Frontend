@@ -18,7 +18,7 @@ const MStaffDel: FC = memo(() => {
     const [staff] = useAtom(atStaff);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
 
-    const handleDeleteStaff = async (uid: number) => {
+    const handleDeleteStaff = async (uid: string) => {
         submit({ uid }, { method: "DELETE", action: "/staff" });
     };
 

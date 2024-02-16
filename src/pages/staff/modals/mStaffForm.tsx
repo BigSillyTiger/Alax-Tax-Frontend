@@ -54,7 +54,7 @@ const MStaffForm: FC = memo(() => {
 
     useEffect(() => {
         reset(staff);
-    }, [staff, reset]);
+    }, [staff, reset, modalOpen]);
 
     useEffect(() => {
         const selectedRole = watch("role") as keyof typeof roleOptions;
@@ -79,7 +79,7 @@ const MStaffForm: FC = memo(() => {
         errors && console.log("-> staff add err: ", errors);
         if (isValid) {
             const values = getValues();
-            const method = staff.uid === -1 ? "POST" : "PUT";
+            const method = !staff.uid ? "POST" : "PUT";
             submit(
                 { ...values, id: staff.uid, req: "updateStaff" },
                 { method, action: "/staff" }
