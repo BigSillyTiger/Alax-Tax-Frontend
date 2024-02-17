@@ -33,7 +33,7 @@ export const clientAll = async (): Promise<Tresponse> => {
     }
 };
 
-export const clientInfo = async (client_id: number): Promise<Tresponse> => {
+export const clientInfo = async (client_id: string): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_CLIENT_INFO, { client_id });
         return response.data;
@@ -62,7 +62,7 @@ export const clientAdd = async (client: TclientUnreg): Promise<Tresponse> => {
 };
 
 export const clientSingleDel = async (
-    client_id: number
+    client_id: string
 ): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_CLIENT_SINGLE_DEL, { client_id });

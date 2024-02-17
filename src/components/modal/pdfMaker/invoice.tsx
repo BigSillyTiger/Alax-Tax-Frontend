@@ -24,8 +24,8 @@ const DatePicker = ({
     setDate,
     defaultDate,
 }: {
-    order_id: number;
-    client_id: number;
+    order_id: string;
+    client_id: string;
     date: string;
     setDate: (v: string) => void;
     defaultDate: string;

@@ -5,8 +5,8 @@ import i18n from "@/utils/i18n";
 
 const atClientOrder = atom<TorderWithDetails>({
     // -1 - close the modal; 0 - add new order; >0 = update order
-    order_id: -1,
-    fk_client_id: -1,
+    order_id: "",
+    fk_client_id: "",
     order_address: "",
     order_suburb: "",
     order_city: "Adelaide",
@@ -26,7 +26,7 @@ const atClientOrder = atom<TorderWithDetails>({
 });
 
 const atClient = atom<Tclient>({
-    client_id: -1,
+    client_id: "",
     first_name: "",
     last_name: "",
     phone: "",
@@ -40,7 +40,7 @@ const atClient = atom<Tclient>({
 });
 
 const atServiceDesc = atom<TorderDesc>({
-    fk_order_id: 0,
+    fk_order_id: "",
     ranking: 0,
     title: "",
     taxable: true,

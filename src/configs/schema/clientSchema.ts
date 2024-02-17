@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const clientSchema = z.object({
-    client_id: z.number(),
+    client_id: z.string(),
     first_name: z.string().trim(),
     last_name: z.string().trim(),
     phone: z

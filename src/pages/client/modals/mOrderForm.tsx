@@ -108,7 +108,7 @@ const MOrderForm: FC = memo(() => {
                 order_desc: clientOrder.order_desc ?? undefined,
             });
         }
-    }, [clientOrder, reset]);
+    }, [clientOrder, reset, uniData, client, t]);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -119,8 +119,7 @@ const MOrderForm: FC = memo(() => {
         console.log("-> click submit err: ", errors);
         const isValid = await trigger();
         if (isValid) {
-            const req =
-                clientOrder.order_id === 0 ? "orderCreate" : "orderUpdate";
+            const req = !clientOrder.order_id ? "orderCreate" : "orderUpdate";
             const values = JSON.stringify({
                 ...getValues(),
                 client_id: client.client_id,
@@ -131,7 +130,7 @@ const MOrderForm: FC = memo(() => {
                 order_gst: calTotalGst,
                 order_total: calTotal,
             });
-            const method = clientOrder.order_id === 0 ? "POST" : "PUT";
+            const method = !clientOrder.order_id ? "POST" : "PUT";
             submit(
                 { values, req },
                 {
@@ -769,7 +768,7 @@ const MOrderForm: FC = memo(() => {
                 }
                 onClose={onClose}
                 title={
-                    clientOrder.order_id === 0
+                    !clientOrder.order_id
                         ? t("modal.title.addOrder")
                         : t("modal.title.editOrder") +
                           ` #${clientOrder.order_id}`

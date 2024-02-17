@@ -53,7 +53,7 @@ export const orderUpdate = async (data: any) => {
     }
 };
 
-export const orderWClient = async (client_id: number): Promise<Tresponse> => {
+export const orderWClient = async (client_id: string): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_ORDER_W_CLIENT, { client_id });
         return response.data;

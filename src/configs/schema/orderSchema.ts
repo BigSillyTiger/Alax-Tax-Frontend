@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const orderSchema = z.object({
-    order_id: z.number(),
-    fk_client_id: z.number(),
+    order_id: z.string(),
+    fk_client_id: z.string(),
     order_address: z.string().trim().nullable(),
     order_suburb: z.string().trim().nullable(),
     order_city: z.string().trim().nullable(),
@@ -26,7 +26,7 @@ export const orderSchema = z.object({
 });
 
 export const oderDescSchema = z.object({
-    fk_order_id: z.number(),
+    fk_order_id: z.string(),
     ranking: z.number(),
     title: z.string().trim(),
     taxable: z.boolean(),

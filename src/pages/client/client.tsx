@@ -62,8 +62,7 @@ const Client = () => {
         });
 
     const initOrder: TorderWithDetails = {
-        // -1 - close the modal; 0 - add new order; >0 = update order
-        order_id: -1,
+        order_id: "",
         fk_client_id: clientInfo.data[0].client_id,
         order_address: clientInfo.data[0].address,
         order_suburb: clientInfo.data[0].suburb,
@@ -205,7 +204,7 @@ const Client = () => {
                                 e.preventDefault();
                                 setClientOrder({
                                     ...initOrder,
-                                    order_id: 0,
+                                    order_id: "",
                                 });
                                 setModalOpen("Add");
                             }}

@@ -38,7 +38,7 @@ const MClientForm: FC = memo(() => {
 
     useEffect(() => {
         reset(client);
-    }, [client, reset]);
+    }, [client, reset, modalOpen]);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -46,7 +46,7 @@ const MClientForm: FC = memo(() => {
         console.log("-> client add: ", errors);
         if (isValid) {
             const values = getValues();
-            const method = client.client_id === -1 ? "POST" : "PUT";
+            const method = !client.client_id ? "POST" : "PUT";
             submit(
                 { ...values, id: client.client_id },
                 { method, action: "/clients" }

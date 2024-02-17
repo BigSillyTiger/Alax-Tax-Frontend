@@ -35,11 +35,11 @@ const Clients: FC = () => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
             // update or add a client
             setInfoConflict(actionData?.status);
-            if (client.client_id === -1) {
+            if (!client.client_id) {
                 setModalOpen("");
                 setClient(RESET);
                 toastSuccess("Registered a new client");
-            } else if (client.client_id > 0) {
+            } else if (client.client_id) {
                 setModalOpen("");
                 setClient(RESET);
                 toastSuccess("Updated client informaton");

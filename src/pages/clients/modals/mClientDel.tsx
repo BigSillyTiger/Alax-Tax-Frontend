@@ -18,7 +18,7 @@ const MClientDel: FC = memo(() => {
     const [client] = useAtom(atClient);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
 
-    const handleDeleteClient = async (id: number) => {
+    const handleDeleteClient = async (id: string) => {
         submit({ id }, { method: "DELETE", action: "/clients" });
     };
 
@@ -62,7 +62,6 @@ const MClientDel: FC = memo(() => {
         </Card>
     );
 
-    // !!client.client_id  t("modal.title.delete")
     const onClose = () => {
         setModalOpen("");
     };

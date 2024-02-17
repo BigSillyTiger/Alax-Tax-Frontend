@@ -62,7 +62,6 @@ const MStaffDel: FC = memo(() => {
         </Card>
     );
 
-    // !!client.client_id  t("modal.title.delete")
     const onClose = () => {
         setModalOpen("");
     };

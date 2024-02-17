@@ -39,11 +39,13 @@ export const action = async ({
         });
         return result;
     } else if ("DELETE" === request.method) {
-        const result = await API_CLIENT.clientSingleDel(Number(data.get("id")));
+        const result = await API_CLIENT.clientSingleDel(
+            data.get("id") as string
+        );
         return result;
     } else if ("PUT" === request.method) {
         const result = await API_CLIENT.clientSingleUpdate({
-            client_id: Number(data.get("id")),
+            client_id: data.get("id"),
             first_name: data.get("first_name") as string,
             last_name: data.get("last_name") as string,
             phone: data.get("phone") as string,

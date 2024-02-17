@@ -4,7 +4,7 @@ import { DocumentTextIcon } from "@heroicons/react/24/outline";
 import { Tclient } from "@/configs/schema/clientSchema";
 
 type Tprops = {
-    data: Tclient | any;
+    data: Tclient;
 };
 
 const DetailBtn: FC<Tprops> = ({ data }) => {
