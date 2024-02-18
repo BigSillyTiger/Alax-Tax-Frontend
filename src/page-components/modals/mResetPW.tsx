@@ -6,12 +6,11 @@ import { useForm } from "react-hook-form";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { useAtom } from "jotai";
 import { SubmitBtn } from "@/components/form";
-import { atStaff } from "../states.ts";
-import { at2ndModalOpen } from "../../uniStates.ts";
+import { atStaff, at2ndModalOpen } from "@/configs/atoms";
 import Fieldset from "@/components/form/fieldset.tsx";
 
 // this component is about building a modal with transition to delete a staff
-const MResetPW: FC = memo(() => {
+const MStaffResetPW: FC = memo(() => {
     const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
@@ -130,4 +129,4 @@ const MResetPW: FC = memo(() => {
     );
 });
 
-export default MResetPW;
+export default MStaffResetPW;

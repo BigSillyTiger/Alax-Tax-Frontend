@@ -16,6 +16,7 @@ export enum RES_STATUS {
     SUC_UPDATE_PAYMENTS = 204,
     SUC_UPDATE_COMPANY = 205,
     SUC_UPDATE_LOGO = 206,
+    SUC_ADD_NEW_SU = 207,
     //
     FAILED = 400,
     FAILED_DUP = 401,
@@ -23,6 +24,7 @@ export enum RES_STATUS {
     FAILED_DUP_EMAIL = 403,
     FAILED_DUP_P_E = 404,
     FAILED_DEL = 405,
+    FAILED_ADD_NEW_SU = 406,
 }
 
 export type TisConflict =

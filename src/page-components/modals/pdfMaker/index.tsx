@@ -1,7 +1,7 @@
 import { FC } from "react";
-import MTemplate from "../modalTemplate";
+import MTemplate from "@/components/modal/modalTemplate";
 import { useAtom } from "jotai";
-import { atModalOpen } from "@/pages/uniStates";
+import { atModalOpen } from "@/configs/atoms";
 import { useTranslation } from "react-i18next";
 import InvContent from "./invoice";
 import { mOpenOps } from "@/configs/utils";

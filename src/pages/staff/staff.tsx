@@ -11,12 +11,9 @@ import { Tresponse } from "@/utils/types";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { RES_STATUS, TisConflict } from "@/utils/types";
 import { Tstaff } from "@/configs/schema/staffSchema.ts";
-import MStaffDel from "./modals/mStaffDel";
+import { MStaffDel, MStaffForm, MStaffResetPW } from "@/page-components/modals";
 import { PTable } from "@/components/table";
-import MStaffForm from "./modals/mStaffForm";
-import { at2ndModalOpen, atModalOpen } from "../uniStates";
-import { atStaff } from "./states";
-import MResetPW from "./modals/mResetPW";
+import { atStaff, at2ndModalOpen, atModalOpen } from "@/configs/atoms";
 
 type Tprops = {
     allStaff: Tstaff[] | null;
@@ -141,7 +138,7 @@ const Staff: FC = () => {
             {/* otherwise, the animation would get lost*/}
             <MStaffForm />
             <MStaffDel />
-            <MResetPW />
+            <MStaffResetPW />
         </div>
     );
 };

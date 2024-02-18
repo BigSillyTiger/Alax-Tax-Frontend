@@ -12,8 +12,13 @@ import { RES_STATUS } from "@/utils/types";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
-import { initStaff, atStaff } from "../states";
-import { atModalOpen, atInfoConflict, at2ndModalOpen } from "@/pages/uniStates";
+import {
+    initStaff,
+    atStaff,
+    atModalOpen,
+    atInfoConflict,
+    at2ndModalOpen,
+} from "@/configs/atoms";
 import { mOpenOps, roleOptions } from "@/configs/utils";
 import { menuList } from "@/configs/menuList";
 import {

@@ -13,6 +13,6 @@ const initU = {
     unit_name: "",
 };
 
-const atUniData = atom<Tservice | Tunit>(initS);
+const atSUInitData = atom<Tservice | Tunit>(initS);
 
-export { atUniData, initS, initU };
+export { atSUInitData, initS, initU };

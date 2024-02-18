@@ -8,7 +8,7 @@ import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { RES_STATUS, Tresponse, Tunivers } from "@/utils/types";
 import Company from "./company";
 import { Tcompany } from "@/configs/schema/settingSchema";
-import { toastSuccess } from "@/utils/toaster";
+import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 
 const Setting: FC = () => {
@@ -23,8 +23,13 @@ const Setting: FC = () => {
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUC_UPDATE_COMPANY) {
             toastSuccess(t("toastS.updateCompany"));
+        } else if (actionData?.status === RES_STATUS.SUC_ADD_NEW_SU) {
+            toastSuccess(t("toastS.addedNewSU"));
+        } else if (actionData?.status === RES_STATUS.FAILED_ADD_NEW_SU) {
+            toastError(t("toastE.addedNewSU"));
         }
-    }, [actionData]);
+        actionData?.status && (actionData.status = RES_STATUS.DEFAULT);
+    }, [actionData, t]);
 
     const UniversContent: FC<{ univers: Tunivers }> = ({ univers }) => {
         return (

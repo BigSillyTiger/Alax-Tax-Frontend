@@ -13,8 +13,7 @@ import { RES_STATUS } from "@/utils/types";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
-import { atClient } from "../states";
-import { atInfoConflict, atModalOpen } from "../../uniStates";
+import { atClient, atInfoConflict, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
 
 const MClientForm: FC = memo(() => {

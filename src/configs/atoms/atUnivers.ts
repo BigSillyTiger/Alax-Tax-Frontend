@@ -4,7 +4,7 @@ import { RES_STATUS } from "@/utils/types";
 import { TmodalOpenStates } from "@/utils/types.ts";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { Tstaff } from "@/configs/schema/staffSchema";
-import { initStaff } from "./staff/states";
+import { initStaff } from "./atStaff.ts";
 
 /**
  * @description info conflict state for data checking with backend
@@ -28,7 +28,7 @@ const at2ndModalOpen = atom<Tmodal2ndOpenStates>("");
 /**
  * @description Universal data state for services list and units list
  */
-const atUniData = atom<Tunivers>({
+const atSUData = atom<Tunivers>({
     services: [],
     units: [],
 });
@@ -62,7 +62,7 @@ export {
     atInfoConflict,
     atModalOpen,
     at2ndModalOpen,
-    atUniData,
+    atSUData,
     atCompany,
     atLogo,
     atAdminUser,

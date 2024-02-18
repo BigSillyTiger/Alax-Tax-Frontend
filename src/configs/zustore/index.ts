@@ -12,7 +12,7 @@ type Taction = {
 
 export const adminStore = createStore<Tstate & Taction>((set) => ({
     user: {
-        uid: 0,
+        uid: "",
         first_name: "",
         last_name: "",
         role: "",

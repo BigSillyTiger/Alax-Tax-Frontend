@@ -78,7 +78,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
             console.log("-> test: ", { ...values, id, req: "company" });
             submit(
                 { ...values, id, req: "company" },
-                { method: "PUT", action: "/management" }
+                { method: "PUT", action: "/setting" }
             );
         }
     };

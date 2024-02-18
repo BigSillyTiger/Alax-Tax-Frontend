@@ -11,10 +11,8 @@ import { toastError, toastSuccess } from "@/utils/toaster";
 import { Tresponse, RES_STATUS } from "@/utils/types";
 import { Tclient } from "@/configs/schema/clientSchema.ts";
 import { PTable } from "@/components/table";
-import MClientDel from "./modals/mClientDel";
-import MClientForm from "./modals/mClientForm.tsx";
-import { atClient } from "./states.ts";
-import { atInfoConflict, atModalOpen } from "../uniStates.ts";
+import { MClientDel, MClientForm } from "@/page-components/modals";
+import { atClient, atInfoConflict, atModalOpen } from "@/configs/atoms";
 
 type Tprops = {
     clients: Tclient[] | null;

@@ -1,9 +1,8 @@
 import { atom } from "jotai";
 import { TorderDesc, TorderWithDetails } from "@/configs/schema/orderSchema";
-import { Tclient } from "@/configs/schema/clientSchema";
 import i18n from "@/utils/i18n";
 
-const atClientOrder = atom<TorderWithDetails>({
+const atOrderWithDesc = atom<TorderWithDetails>({
     // -1 - close the modal; 0 - add new order; >0 = update order
     order_id: "",
     fk_client_id: "",
@@ -25,21 +24,7 @@ const atClientOrder = atom<TorderWithDetails>({
     payments: [],
 });
 
-const atClient = atom<Tclient>({
-    client_id: "",
-    first_name: "",
-    last_name: "",
-    phone: "",
-    email: "",
-    address: "",
-    suburb: "",
-    city: "Adelaide",
-    state: "SA",
-    country: "Australia",
-    postcode: "5000",
-});
-
-const atServiceDesc = atom<TorderDesc>({
+const atOrderDesc = atom<TorderDesc>({
     fk_order_id: "",
     ranking: 0,
     title: "",
@@ -52,4 +37,4 @@ const atServiceDesc = atom<TorderDesc>({
     netto: 0,
 });
 
-export { atClientOrder, atClient, atServiceDesc };
+export { atOrderWithDesc, atOrderDesc };

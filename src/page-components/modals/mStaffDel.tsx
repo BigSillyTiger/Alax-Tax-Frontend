@@ -6,8 +6,7 @@ import { useSubmit } from "react-router-dom";
 import { useAtom } from "jotai";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
-import { atStaff } from "../states.ts";
-import { atModalOpen } from "../../uniStates.ts";
+import { atStaff, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils.ts";
 
 // this component is about building a modal with transition to delete a staff

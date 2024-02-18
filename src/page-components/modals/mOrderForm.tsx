@@ -22,8 +22,13 @@ import { toastError } from "@/utils/toaster";
 import DataList from "@/components/dataList";
 import { ClientInfoCard } from "@/components/customized";
 import StatesOptions from "@/components/stateOptions";
-import { atModalOpen, atUniData } from "@/pages/uniStates";
-import { atClient, atClientOrder, atServiceDesc } from "../states";
+import {
+    atModalOpen,
+    atClient,
+    atOrderWithDesc,
+    atOrderDesc,
+    atSUData,
+} from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
 
 const MOrderForm: FC = memo(() => {
@@ -32,10 +37,10 @@ const MOrderForm: FC = memo(() => {
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [client] = useAtom(atClient);
-    const [clientOrder] = useAtom(atClientOrder);
-    const [uniData] = useAtom(atUniData);
+    const [clientOrder] = useAtom(atOrderWithDesc);
+    const [uniData] = useAtom(atSUData);
 
-    const [serviceDesc, setServiceDesc] = useAtom(atServiceDesc);
+    const [serviceDesc, setServiceDesc] = useAtom(atOrderDesc);
 
     const {
         control,
@@ -161,7 +166,7 @@ const MOrderForm: FC = memo(() => {
 
     const setDefaultService = (value: string) => {
         const service = uniData?.services.find(
-            (item) => item.service === value
+            (item: any) => item.service === value
         );
         if (service) {
             setServiceDesc({

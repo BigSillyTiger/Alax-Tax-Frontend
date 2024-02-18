@@ -8,22 +8,27 @@ import type { TorderWithDetails } from "@/configs/schema/orderSchema";
 import { RES_STATUS } from "@/utils/types";
 import type { Tresponse, Tunivers } from "@/utils/types";
 import Card from "@/components/card";
-import MOrderDel from "./modals/mOrderDel";
+import { MOrderDel, MOrderForm, MOrderPay } from "@/page-components/modals";
 import clientOrderColumns from "../../configs/columnDefs/defClientOrder";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
-import MOrderForm from "./modals/mOrderForm";
 import { ClientInfoCard } from "@/components/customized";
 import { PTable } from "@/components/table";
 import orderDescColumns from "../../configs/columnDefs/defOrderDesc";
 import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
-import MOrderPay from "./modals/mOrderPay";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { calGst } from "@/utils/calculations";
-import { atClient, atClientOrder, atServiceDesc } from "./states";
-import { atCompany, atLogo, atModalOpen, atUniData } from "../uniStates";
+import {
+    atClient,
+    atOrderWithDesc,
+    atOrderDesc,
+    atCompany,
+    atLogo,
+    atModalOpen,
+    atSUData,
+} from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
-import MpdfMaker from "@/components/modal/pdfMaker";
+import { MpdfMaker } from "@/page-components/modals";
 
 const Client = () => {
     const { t } = useTranslation();
@@ -86,11 +91,11 @@ const Client = () => {
     //const client = clientInfo.data[0] as Tclient;
     const [, setClient] = useAtom(atClient);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
-    const [clientOrder, setClientOrder] = useAtom(atClientOrder);
-    const [, setUniData] = useAtom(atUniData);
+    const [clientOrder, setClientOrder] = useAtom(atOrderWithDesc);
+    const [, setUniData] = useAtom(atSUData);
     const [, setCompany] = useAtom(atCompany);
     const [, setLogo] = useAtom(atLogo);
-    const [, setServiceDesc] = useAtom(atServiceDesc);
+    const [, setServiceDesc] = useAtom(atOrderDesc);
 
     useEffect(() => {
         setClient(clientInfo.data[0]);

@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 //import Fieldset from "@/components/form/fieldset";
 import { TstaffForm, staffForm } from "@/configs/schema/staffSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { atStaff } from "./staff/states";
+import { atStaff } from "@/configs/atoms";
 import { menuList } from "@/configs/menuList";
 
 const Calendar: FC = () => {

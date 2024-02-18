@@ -41,7 +41,7 @@ type Tprops<T> = {
     cnTh?: string;
 };
 
-const PTable = <T,>({
+const PTable = <T extends object>({
     data,
     columns,
     menuOptions = {

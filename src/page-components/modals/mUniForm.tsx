@@ -13,8 +13,7 @@ import {
 import { isServiceType } from "@/utils/utils";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
-import { atUniData } from "../states";
-import { atModalOpen } from "../../uniStates";
+import { atModalOpen, atSUInitData } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
 
 type Tprops = {
@@ -31,7 +30,7 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
     // unit
     const [unitName, setUnitName] = useState("");
 
-    const [uniData] = useAtom(atUniData);
+    const [uniData] = useAtom(atSUInitData);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
 
     const defService = useDeferredValue(service);
@@ -61,6 +60,7 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
         reset,
         uniData,
         isServiceType(uniData) ? uniData.service : uniData.unit_name,
+        modalOpen,
     ]);
 
     useEffect(() => {
@@ -88,13 +88,15 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
     const onSubmit = async (e: FormEvent) => {
         const isValid = await trigger();
         e.preventDefault();
+        const method = modalOpen === "Add" ? "POST" : "PUT";
         if (isValid) {
             const values = getValues();
             submit(
                 { ...values, id: uniData.id },
-                { method: "PUT", action: "/management" }
+                { method, action: "/setting" }
             );
         }
+        setModalOpen("");
     };
 
     const onClose = () => {
@@ -234,8 +236,8 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
                         ? t("modal.title.addService")
                         : t("modal.title.editService")
                     : modalOpen === mOpenOps.edit
-                      ? t("modal.title.addUnit")
-                      : t("modal.title.editUnit")
+                      ? t("modal.title.editUnit")
+                      : t("modal.title.addUnit")
             }
             mQuit={true}
         >

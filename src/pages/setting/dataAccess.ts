@@ -20,7 +20,7 @@ export const loader = async () => {
 export const action = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
-    //console.log("-> /management action request: ", request);
+    //console.log("-> /setting action request: ", request);
     const data = await request.formData();
     if ("POST" === request.method) {
         /* add new service / unit action */

@@ -11,7 +11,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
         return redirect("/login");
     }
 
-    const cid = Number(params.cid);
+    const cid = params.cid as string;
     const clientInfo = await API_CLIENT.clientInfo(cid);
     const clientOrders = await API_ORDER.orderWClient(cid);
     const uniData = await API_MANAGE.uniAll();

@@ -2,20 +2,19 @@ import { memo, useEffect, useState } from "react";
 import type { FC } from "react";
 import { useAtom } from "jotai";
 import { useSubmit } from "react-router-dom";
-import PDFTemplate from "@/PDF/invoices/template1";
+import { QuoTemplate } from "@/utils/pdf-templates/quotations";
 import { useTranslation } from "react-i18next";
-import { Toggle } from "../../disclosure";
+import { Toggle } from "@/components/disclosure";
 import {
     ClientInfoCard,
     OrderDescCard,
     OrderDetailsCard,
-} from "../../customized";
-import { NormalBtn } from "../../btns";
-import CompanyInfoCard from "../../customized/CompanyInfoCard";
+} from "@/components/customized";
+import { NormalBtn } from "@/components/btns";
+import CompanyInfoCard from "@/components/customized/CompanyInfoCard";
 import { newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin } from "@/configs/utils";
-import { atClientOrder, atClient } from "@/pages/client/states";
-import { atCompany, atLogo } from "@/pages/uniStates";
+import { atCompany, atLogo, atOrderWithDesc, atClient } from "@/configs/atoms";
 
 const DatePicker = ({
     order_id,
@@ -37,7 +36,7 @@ const DatePicker = ({
     const onSubmit = async (date: string) => {
         //const result = await API_ORDER.updateInvoiceIssue(date, order_id);
         submit(
-            { date, order_id, req: "updateInvoiceIssue" },
+            { date, order_id, req: "updateQuotation" },
             {
                 method: "PUT",
                 action: `/clients/${client_id}`,
@@ -46,6 +45,7 @@ const DatePicker = ({
     };
 
     return (
+        /* current date */
         <div className="flex flex-col h-[18vh] border-t-2 border-dotted border-indigo-400 my-3 py-2">
             <div className="grid grid-cols-2 gap-2 my-2">
                 <div className="col-span-1">
@@ -118,11 +118,11 @@ const DatePicker = ({
     );
 };
 
-const InvContent: FC = memo(() => {
+const QuoContent: FC = memo(() => {
     const [date, setDate] = useState(newDateFormat(new Date()));
     const { t } = useTranslation();
     const [client] = useAtom(atClient);
-    const [clientOrder] = useAtom(atClientOrder);
+    const [clientOrder] = useAtom(atOrderWithDesc);
     const [company] = useAtom(atCompany);
     const [logo] = useAtom(atLogo);
 
@@ -170,7 +170,7 @@ const InvContent: FC = memo(() => {
                 />
             </section>
             <section className="col-span-1 md:col-span-5">
-                <PDFTemplate
+                <QuoTemplate
                     client={client}
                     order={clientOrder}
                     company={company}
@@ -183,4 +183,4 @@ const InvContent: FC = memo(() => {
     );
 });
 
-export default InvContent;
+export default QuoContent;

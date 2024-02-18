@@ -1,56 +1,60 @@
 import { memo } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useAtom } from "jotai";
 import { MTemplate } from "@/components/modal";
 import { useSubmit } from "react-router-dom";
+import { useAtom } from "jotai";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
-import { atModalOpen } from "@/pages/uniStates";
-import { atClientOrder, atClient } from "../states";
-import { mOpenOps } from "@/configs/utils";
+import { atClient, atModalOpen } from "@/configs/atoms";
+import { mOpenOps } from "@/configs/utils.ts";
 
 // this component is about building a modal with transition to delete a client
-const MOrderDel: FC = memo(() => {
+const MClientDel: FC = memo(() => {
     const submit = useSubmit();
     const { t } = useTranslation();
-    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
-    const [client] = useAtom(atClient);
-    const [clientOrder] = useAtom(atClientOrder);
 
-    const handleDeleteClient = async (order_id: number) => {
-        submit(
-            { order_id },
-            { method: "DELETE", action: `/clients/${client.client_id}` }
-        );
+    const [client] = useAtom(atClient);
+    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
+
+    const handleDeleteClient = async (id: string) => {
+        submit({ id }, { method: "DELETE", action: "/clients" });
     };
 
     const clientDisplay = (
         <Card className="mt-2">
             <div className="m-3 grid grid-cols-6 gap-x-4 gap-y-4 text-left">
-                <div className="col-span-3">
+                <div className="col-span-5">
                     <p>
-                        <b className="text-indigo-600">
-                            {t("label.orderId")}:{" "}
-                        </b>{" "}
-                        {clientOrder?.order_id}
+                        <b className="text-indigo-600">{t("label.client")}: </b>{" "}
+                        {client.first_name}&nbsp;{client.last_name}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
-                        <b className="text-indigo-600">{t("label.pc")}: </b>{" "}
-                        {clientOrder?.order_pc}
+                        <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
+                        {client?.phone}
                     </p>
                 </div>
-
-                <div className="col-span-full">
+                <div className="col-span-3">
+                    <p>
+                        <b className="text-indigo-600">{t("label.pc")}: </b>
+                        {client?.postcode}
+                    </p>
+                </div>
+                <div className="col-span-6">
+                    <p>
+                        <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
+                        {client?.email}
+                    </p>
+                </div>
+                <div className="col-span-6">
                     <p>
                         <b className="text-indigo-600">
                             {t("label.address")}:{" "}
                         </b>{" "}
-                        {clientOrder?.order_address},{" "}
-                        {clientOrder?.order_suburb}, {clientOrder?.order_city},{" "}
-                        {clientOrder?.order_state}, {clientOrder?.order_country}
+                        {client?.address}, {client?.city}, {client?.state},{" "}
+                        {client?.country}
                     </p>
                 </div>
             </div>
@@ -65,14 +69,14 @@ const MOrderDel: FC = memo(() => {
         <>
             <div className="mt-2">
                 <p className="text-gray-700 text-lg">
-                    {t("modal.tips.delOrder")}
+                    {t("modal.tips.delClient")}
                 </p>
                 {clientDisplay}
             </div>
 
             <DelBtn
                 onClick={() => {
-                    handleDeleteClient(clientOrder.order_id);
+                    handleDeleteClient(client.client_id);
                     onClose();
                 }}
                 onClose={onClose}
@@ -94,4 +98,4 @@ const MOrderDel: FC = memo(() => {
     );
 });
 
-export default MOrderDel;
+export default MClientDel;

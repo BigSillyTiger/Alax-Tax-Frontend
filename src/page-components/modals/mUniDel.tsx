@@ -7,20 +7,19 @@ import Card from "@/components/card";
 import { isServiceType } from "@/utils/utils";
 import { MTemplate } from "@/components/modal";
 import { DelBtn } from "@/components/form";
-import { atUniData } from "../states";
-import { atModalOpen } from "../../uniStates";
+import { atModalOpen, atSUInitData } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
 
 // this component is about building a modal with transition to delete a client
 const MUniDel: FC = memo(() => {
     const submit = useSubmit();
     const { t } = useTranslation();
-    const [uniData] = useAtom(atUniData);
+    const [uniData] = useAtom(atSUInitData);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
 
     const handleDeleteClient = async (id: number) => {
         const type = isServiceType(uniData) ? "service" : "unit";
-        submit({ id, type }, { method: "DELETE", action: "/management" });
+        submit({ id, type }, { method: "DELETE", action: "/setting" });
     };
 
     const uniDisplay = (

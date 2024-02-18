@@ -212,6 +212,7 @@ const en = {
             addOrder: "Added A New Order.",
             addedClient: "Registered a new client.",
             addedStaff: "Registered a new staff.",
+            addedNewSU: "Added A New Service/Unit.",
             delOrder: "Deleted An Order.",
             delStaff: "Deleted A Staff.",
             updateCompany: "Updated Company Information.",
@@ -223,6 +224,7 @@ const en = {
         },
         toastF: {
             addOrder: "Error: Adding New Order Failed",
+            addedNewSU: "Error: Adding A New Service/Unit.",
             delOrder: "Error: Deleting Order Failed",
             existedPE: "Email or Phone already existed",
             updateOrder: "Error: Updating Order Failed",
