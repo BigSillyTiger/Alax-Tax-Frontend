@@ -23,10 +23,7 @@ const Orders: FC = () => {
         logo: string;
     };
     const actionData = useActionData() as Tresponse;
-
     const [, setClientOrder] = useAtom(atOrder);
-
-    console.log("-> orders page -  orders: ", orders);
 
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUCCESS) {

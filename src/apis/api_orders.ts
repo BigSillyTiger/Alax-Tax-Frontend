@@ -108,7 +108,7 @@ export const paymentUpdate = async (data: any): Promise<Tresponse> => {
 
 export const updateInvoiceIssue = async (
     date: string,
-    order_id: number
+    order_id: string
 ): Promise<Tresponse> => {
     try {
         const response = await apis.put(REQ_INVOICE_ISSUE_UPDATE, {

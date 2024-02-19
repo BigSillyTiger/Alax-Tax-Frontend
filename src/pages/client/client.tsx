@@ -46,8 +46,6 @@ const Client = () => {
             logo: string;
         };
 
-    console.log("--> client page - clientOrders: ", clientOrders);
-
     /**
      * the boolean in mysql is stored as 1 and 0
      * when working with values like these, need to convert them to boolean

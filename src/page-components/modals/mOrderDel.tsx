@@ -18,6 +18,7 @@ const MOrderDel: FC = memo(() => {
     const [clientOrder] = useAtom(atOrder);
 
     const handleDeleteClient = async (order_id: string) => {
+        console.log("-> handle delete click: ", order_id);
         await submit(
             { order_id },
             { method: "DELETE", action: `/clients/${client.client_id}` }

@@ -85,7 +85,7 @@ export const action = async ({
             ),
         };
         const result = await API_ORDER.orderUpdate(order);
-        console.log("-> fe receive add order result: ", result);
+        console.log("-> fe receive update order result: ", result);
         return result;
     }
     // change order status
@@ -114,17 +114,20 @@ export const action = async ({
         );
         const result = await API_ORDER.updateInvoiceIssue(
             data.get("date") as string,
-            Number(data.get("order_id"))
+            data.get("order_id") as string
         );
         return result;
     }
     // delete an order
     else if ("DELETE" === request.method) {
-        //console.log("-> action delete order: ", data.get("order_id"));
+        console.log(
+            "-> client page action delete order: ",
+            data.get("order_id")
+        );
         const result = await API_ORDER.orderDel({
-            order_id: Number(data.get("order_id")),
+            order_id: data.get("order_id"),
         });
-        //console.log("-> fe receive delete order result: ", result);
+        console.log("-> client page receive delete order result: ", result);
         return result;
     }
     // errors

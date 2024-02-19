@@ -37,7 +37,7 @@ type Tprops = {
 const StatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     const submit = useSubmit();
 
-    const handleClick = async (order_id: number, status: string) => {
+    const handleClick = async (order_id: string, status: string) => {
         submit(
             { req: "orderStatus", order_id, status },
             { method: "PUT", action: `/clients/${data.fk_client_id}` }
