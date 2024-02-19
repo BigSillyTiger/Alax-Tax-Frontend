@@ -6,6 +6,9 @@ import { TtotalOrder } from "@/configs/schema/orderSchema";
 import { Tresponse, RES_STATUS } from "@/utils/types";
 import { PTable } from "@/components/table";
 import orderColumns from "@/configs/columnDefs/defOrders";
+import { MOrderDel, MOrderForm } from "@/page-components/modals";
+import { useAtom } from "jotai";
+import { atOrderWithPayments } from "@/configs/atoms";
 
 type Torders = {
     orders: TtotalOrder[] | null;
@@ -14,6 +17,8 @@ type Torders = {
 const Orders: FC = () => {
     const { orders } = useLoaderData() as Torders;
     const actionData = useActionData() as Tresponse;
+
+    const [, setClientOrder] = useAtom(atOrderWithPayments);
 
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
@@ -34,8 +39,8 @@ const Orders: FC = () => {
                             hFilter={true}
                             data={orders}
                             columns={orderColumns}
-                            //menuOptions={{ edit: true, del: true }}
-                            setData={() => {}}
+                            menuOptions={{ edit: true, del: true }}
+                            setData={setClientOrder}
                             cnSearch="my-3"
                             cnTable="h-[65vh]"
                             cnHead="sticky z-10 bg-indigo-300"
@@ -62,6 +67,10 @@ const Orders: FC = () => {
                     }}
                 </Await>
             </Suspense>
+
+            {/* modals */}
+            <MOrderForm />
+            <MOrderDel />
         </div>
     );
 };

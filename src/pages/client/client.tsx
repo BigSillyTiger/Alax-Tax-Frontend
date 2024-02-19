@@ -4,7 +4,7 @@ import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { useAtom } from "jotai";
 import LoadingPage from "@/components/loadingEle";
 import type { Tclient } from "@/configs/schema/clientSchema";
-import type { TorderWithDetails } from "@/configs/schema/orderSchema";
+import type { TorderWithPayments } from "@/configs/schema/orderSchema";
 import { RES_STATUS } from "@/utils/types";
 import type { Tresponse, Tunivers } from "@/utils/types";
 import Card from "@/components/card";
@@ -20,8 +20,8 @@ import { Tcompany } from "@/configs/schema/settingSchema";
 import { calGst } from "@/utils/calculations";
 import {
     atClient,
-    atOrderWithDesc,
-    atOrderDesc,
+    atOrderWithPayments,
+    atOrderService,
     atCompany,
     atLogo,
     atModalOpen,
@@ -40,7 +40,7 @@ const Client = () => {
                 msg: string;
                 data: Tclient[];
             };
-            clientOrders: TorderWithDetails[];
+            clientOrders: TorderWithPayments[];
             uniData: Tunivers;
             company: Tcompany;
             logo: string;
@@ -55,7 +55,7 @@ const Client = () => {
         clientOrders.map((item) => {
             return {
                 ...item,
-                order_desc: item.order_desc
+                order_services: item.order_services
                     .sort((a, b) => a.ranking - b.ranking)
                     .map((desc) => {
                         return {
@@ -66,7 +66,7 @@ const Client = () => {
             };
         });
 
-    const initOrder: TorderWithDetails = {
+    const initOrder: TorderWithPayments = {
         order_id: "",
         fk_client_id: clientInfo.data[0].client_id,
         order_address: clientInfo.data[0].address,
@@ -83,7 +83,7 @@ const Client = () => {
         order_date: "",
         quotation_date: "",
         invoice_issue_date: "",
-        order_desc: [],
+        order_services: [],
         payments: [],
     };
 
@@ -91,11 +91,11 @@ const Client = () => {
     //const client = clientInfo.data[0] as Tclient;
     const [, setClient] = useAtom(atClient);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
-    const [clientOrder, setClientOrder] = useAtom(atOrderWithDesc);
+    const [clientOrder, setClientOrder] = useAtom(atOrderWithPayments);
     const [, setUniData] = useAtom(atSUData);
     const [, setCompany] = useAtom(atCompany);
     const [, setLogo] = useAtom(atLogo);
-    const [, setServiceDesc] = useAtom(atOrderDesc);
+    const [, setServiceDesc] = useAtom(atOrderService);
 
     useEffect(() => {
         setClient(clientInfo.data[0]);
@@ -162,13 +162,13 @@ const Client = () => {
         }
     }, [actionData, modalOpen, setModalOpen, t]);
 
-    const subOrderTable = (data: TorderWithDetails) => {
+    const subOrderTable = (data: TorderWithPayments) => {
         const items = [];
         items.push({
             title: t("label.services"),
-            content: data?.order_desc?.length ? (
+            content: data?.order_services?.length ? (
                 <PTable
-                    data={data.order_desc}
+                    data={data.order_services}
                     columns={orderDescColumns}
                     cnHead="bg-indigo-50"
                 />
@@ -234,7 +234,7 @@ const Client = () => {
                                 quotation: true,
                             }}
                             getRowCanExpand={(row) => {
-                                if (row.original.order_desc.length > 0) {
+                                if (row.original.order_services.length > 0) {
                                     return true;
                                 }
                                 return false;

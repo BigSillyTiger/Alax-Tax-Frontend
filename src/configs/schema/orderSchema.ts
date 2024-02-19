@@ -25,7 +25,7 @@ export const orderSchema = z.object({
     invoice_issue_date: z.string().datetime(),
 });
 
-export const oderDescSchema = z.object({
+export const oderServiceSchema = z.object({
     fk_order_id: z.string(),
     ranking: z.number(),
     title: z.string().trim(),
@@ -38,11 +38,19 @@ export const oderDescSchema = z.object({
     netto: z.number(),
 });
 
-export const orderWithDescSchema = orderSchema.extend({
-    order_desc: oderDescSchema.array(),
+/**
+ * @description an order can have multiple services descriptions
+ * and an order must have at least one service description
+ */
+export const oderWithServicesSchema = orderSchema.extend({
+    order_services: oderServiceSchema.array(),
 });
 
-export const totalOrderSchema = orderWithDescSchema.extend({
+/**
+ * @description for order page table displaying
+ * this page will display 2 more columns: full name / phone
+ */
+export const totalOrderSchema = oderWithServicesSchema.extend({
     first_name: z.string().trim(),
     last_name: z.string().trim(),
     phone: z
@@ -60,10 +68,9 @@ export const totalOrderSchema = orderWithDescSchema.extend({
         }),
 });
 
-export const newOrderDescSchema = oderDescSchema.omit({
-    fk_order_id: true,
-});
-
+/**
+ * @description for order form modal
+ */
 export const orderFormSchema = orderSchema
     .omit({
         order_id: true,
@@ -76,7 +83,11 @@ export const orderFormSchema = orderSchema
         invoice_update_date: true,
     })
     .extend({
-        order_desc: newOrderDescSchema.array(),
+        order_services: oderServiceSchema
+            .omit({
+                fk_order_id: true,
+            })
+            .array(),
     });
 
 export const orderPaymentSchema = z.object({
@@ -85,19 +96,14 @@ export const orderPaymentSchema = z.object({
     paid_date: z.string().datetime(),
 });
 
-export const paymentFormSchema = orderPaymentSchema.omit({
-    fk_order_id: true,
-});
-
-export const orderWithDetailsSchema = orderWithDescSchema.extend({
+export const orderWithPaymentsSchema = oderWithServicesSchema.extend({
     payments: orderPaymentSchema.array(),
 });
 
 export type Torder = z.infer<typeof orderSchema>;
 export type TorderForm = z.infer<typeof orderFormSchema>;
-export type TorderWithDesc = z.infer<typeof orderWithDescSchema>;
-export type TorderDesc = z.infer<typeof oderDescSchema>;
-export type TnewOrderDesc = z.infer<typeof newOrderDescSchema>;
+export type TorderWithDesc = z.infer<typeof oderWithServicesSchema>;
+export type TorderDesc = z.infer<typeof oderServiceSchema>;
 export type TorderPayment = z.infer<typeof orderPaymentSchema>;
-export type TorderWithDetails = z.infer<typeof orderWithDetailsSchema>;
+export type TorderWithPayments = z.infer<typeof orderWithPaymentsSchema>;
 export type TtotalOrder = z.infer<typeof totalOrderSchema>;

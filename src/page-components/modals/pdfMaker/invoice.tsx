@@ -14,7 +14,12 @@ import { NormalBtn } from "@/components/btns";
 import CompanyInfoCard from "@/components/customized/CompanyInfoCard";
 import { newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin } from "@/configs/utils";
-import { atCompany, atLogo, atOrderWithDesc, atClient } from "@/configs/atoms";
+import {
+    atCompany,
+    atLogo,
+    atOrderWithPayments,
+    atClient,
+} from "@/configs/atoms";
 
 const DatePicker = ({
     order_id,
@@ -121,7 +126,7 @@ const InvContent: FC = memo(() => {
     const [date, setDate] = useState(newDateFormat(new Date()));
     const { t } = useTranslation();
     const [client] = useAtom(atClient);
-    const [clientOrder] = useAtom(atOrderWithDesc);
+    const [clientOrder] = useAtom(atOrderWithPayments);
     const [company] = useAtom(atCompany);
     const [logo] = useAtom(atLogo);
 
@@ -151,7 +156,7 @@ const InvContent: FC = memo(() => {
             <Toggle
                 defaultOpen={true}
                 title={t("label.orderServices")}
-                content={<OrderDescCard data={clientOrder.order_desc} />}
+                content={<OrderDescCard data={clientOrder.order_services} />}
             />
         </section>
     );

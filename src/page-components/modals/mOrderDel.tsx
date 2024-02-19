@@ -6,7 +6,7 @@ import { MTemplate } from "@/components/modal";
 import { useSubmit } from "react-router-dom";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
-import { atOrderWithDesc, atClient, atModalOpen } from "@/configs/atoms";
+import { atOrderWithPayments, atClient, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
 
 // this component is about building a modal with transition to delete a client
@@ -15,7 +15,7 @@ const MOrderDel: FC = memo(() => {
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [client] = useAtom(atClient);
-    const [clientOrder] = useAtom(atOrderWithDesc);
+    const [clientOrder] = useAtom(atOrderWithPayments);
 
     const handleDeleteClient = async (order_id: string) => {
         await submit(

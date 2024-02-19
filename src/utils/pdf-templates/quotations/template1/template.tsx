@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { PDFViewer, Page, View, Document, Text } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { Tclient } from "@/configs/schema/clientSchema";
-import { TorderDesc, TorderWithDetails } from "@/configs/schema/orderSchema";
+import { TorderDesc, TorderWithPayments } from "@/configs/schema/orderSchema";
 import TableHeader from "./TableHeader";
 import TableRows from "./TableRows";
 import BillTitle from "./BillTitle";
@@ -16,7 +16,7 @@ const tw = createTw({});
 
 type Tprops = {
     client: Tclient;
-    order: TorderWithDetails;
+    order: TorderWithPayments;
     company: Tcompany;
     unit?: "$" | "AUD";
     date: string;
@@ -54,11 +54,11 @@ const QuoTemplate: FC<Tprops> = ({
                 logo={logo}
             />
             <BillTitle company={company} client={client} />
-            <Services order={order.order_desc} />
+            <Services order={order.order_services} />
 
             <TableFooter
                 company={company}
-                order={order.order_desc}
+                order={order.order_services}
                 unit={unit}
             />
         </View>

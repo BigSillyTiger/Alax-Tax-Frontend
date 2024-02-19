@@ -11,7 +11,7 @@ import {
     ChevronDoubleUpIcon,
 } from "@heroicons/react/24/outline";
 import {
-    TorderWithDetails,
+    TorderWithPayments,
     orderFormSchema,
 } from "@/configs/schema/orderSchema";
 import Card from "@/components/card";
@@ -25,8 +25,8 @@ import StatesOptions from "@/components/stateOptions";
 import {
     atModalOpen,
     atClient,
-    atOrderWithDesc,
-    atOrderDesc,
+    atOrderWithPayments,
+    atOrderService,
     atSUData,
 } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
@@ -37,10 +37,10 @@ const MOrderForm: FC = memo(() => {
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [client] = useAtom(atClient);
-    const [clientOrder] = useAtom(atOrderWithDesc);
+    const [clientOrder] = useAtom(atOrderWithPayments);
     const [uniData] = useAtom(atSUData);
 
-    const [serviceDesc, setServiceDesc] = useAtom(atOrderDesc);
+    const [serviceDesc, setServiceDesc] = useAtom(atOrderService);
 
     const {
         control,
@@ -51,17 +51,17 @@ const MOrderForm: FC = memo(() => {
         setValue,
         trigger,
         watch,
-    } = useForm<TorderWithDetails>({
+    } = useForm<TorderWithPayments>({
         resolver: zodResolver(orderFormSchema),
         defaultValues: clientOrder,
     });
 
     const { fields, append, remove, swap } = useFieldArray({
-        name: "order_desc",
+        name: "order_services",
         control,
     });
 
-    const values = useWatch({ control, name: "order_desc" });
+    const values = useWatch({ control, name: "order_services" });
 
     const calTotal = useMemo(() => {
         let total = 0;
@@ -83,16 +83,16 @@ const MOrderForm: FC = memo(() => {
     const calSNettoGst = useCallback(
         (index: number) => {
             const total = calNetto(
-                watch(`order_desc.${index}.qty`, 0),
-                watch(`order_desc.${index}.unit_price`, 0)
+                watch(`order_services.${index}.qty`, 0),
+                watch(`order_services.${index}.unit_price`, 0)
             );
-            if (watch(`order_desc.${index}.taxable`, true)) {
+            if (watch(`order_services.${index}.taxable`, true)) {
                 const gst = calGst(total);
-                setValue(`order_desc.${index}.gst`, gst);
+                setValue(`order_services.${index}.gst`, gst);
             } else {
-                setValue(`order_desc.${index}.gst`, 0);
+                setValue(`order_services.${index}.gst`, 0);
             }
-            setValue(`order_desc.${index}.netto`, total);
+            setValue(`order_services.${index}.netto`, total);
         },
         [values]
     );
@@ -109,8 +109,8 @@ const MOrderForm: FC = memo(() => {
                 order_status: clientOrder.order_status ?? t("label.pending"),
                 order_deposit: clientOrder.order_deposit ?? 0,
                 // notice this is the major operation for fields to read data
-                // from the order_desc field
-                order_desc: clientOrder.order_desc ?? undefined,
+                // from the order_services field
+                order_services: clientOrder.order_services ?? undefined,
             });
         }
     }, [clientOrder, reset, uniData, client, t]);
@@ -455,7 +455,7 @@ const MOrderForm: FC = memo(() => {
                                         </label>
                                         <input
                                             {...register(
-                                                `order_desc.${index}.title`
+                                                `order_services.${index}.title`
                                             )}
                                             id="title"
                                             type="text"
@@ -474,7 +474,7 @@ const MOrderForm: FC = memo(() => {
                                         </label>
                                         <input
                                             {...register(
-                                                `order_desc.${index}.qty`,
+                                                `order_services.${index}.qty`,
                                                 {
                                                     valueAsNumber: true,
                                                     min: 0,
@@ -487,7 +487,7 @@ const MOrderForm: FC = memo(() => {
                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                             onChange={(e) => {
                                                 setValue(
-                                                    `order_desc.${index}.qty`,
+                                                    `order_services.${index}.qty`,
                                                     Number(e.target.value)
                                                 );
                                                 calSNettoGst(index);
@@ -505,7 +505,7 @@ const MOrderForm: FC = memo(() => {
                                         </label>
                                         <input
                                             {...register(
-                                                `order_desc.${index}.unit`
+                                                `order_services.${index}.unit`
                                             )}
                                             id="unit"
                                             type="text"
@@ -524,14 +524,14 @@ const MOrderForm: FC = memo(() => {
                                         </label>
                                         <input
                                             {...register(
-                                                `order_desc.${index}.taxable`
+                                                `order_services.${index}.taxable`
                                             )}
                                             id="taxable"
                                             type="checkbox"
                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6 pl-2"
                                             onChange={(e) => {
                                                 setValue(
-                                                    `order_desc.${index}.taxable`,
+                                                    `order_services.${index}.taxable`,
                                                     e.target.checked
                                                 );
                                                 calSNettoGst(index);
@@ -556,7 +556,7 @@ const MOrderForm: FC = memo(() => {
                                         </label>
                                         <input
                                             {...register(
-                                                `order_desc.${index}.gst`
+                                                `order_services.${index}.gst`
                                             )}
                                             id="gst"
                                             type="number"
@@ -576,7 +576,7 @@ const MOrderForm: FC = memo(() => {
                                         </label>
                                         <input
                                             {...register(
-                                                `order_desc.${index}.unit_price`,
+                                                `order_services.${index}.unit_price`,
                                                 {
                                                     valueAsNumber: true,
                                                     min: 0,
@@ -589,7 +589,7 @@ const MOrderForm: FC = memo(() => {
                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                             onChange={(e) => {
                                                 setValue(
-                                                    `order_desc.${index}.unit_price`,
+                                                    `order_services.${index}.unit_price`,
                                                     Number(e.target.value)
                                                 );
                                                 return calSNettoGst(index);
@@ -606,7 +606,7 @@ const MOrderForm: FC = memo(() => {
                                         </label>
                                         <input
                                             {...register(
-                                                `order_desc.${index}.netto`,
+                                                `order_services.${index}.netto`,
                                                 {
                                                     valueAsNumber: true,
                                                 }
@@ -628,7 +628,7 @@ const MOrderForm: FC = memo(() => {
                                         </label>
                                         <textarea
                                             {...register(
-                                                `order_desc.${index}.description`
+                                                `order_services.${index}.description`
                                             )}
                                             id="description"
                                             name="description"

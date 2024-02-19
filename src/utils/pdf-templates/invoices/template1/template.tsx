@@ -5,7 +5,7 @@ import { Tclient } from "@/configs/schema/clientSchema";
 import {
     TorderDesc,
     TorderPayment,
-    TorderWithDetails,
+    TorderWithPayments,
 } from "@/configs/schema/orderSchema";
 import TableHeader from "./TableHeader";
 import TableRows from "./TableRows";
@@ -22,7 +22,7 @@ const tw = createTw({});
 
 type Tprops = {
     client: Tclient;
-    order: TorderWithDetails;
+    order: TorderWithPayments;
     company: Tcompany;
     unit?: "$" | "AUD";
     date: string;
@@ -73,11 +73,11 @@ const InvTemplate: FC<Tprops> = ({
                 logo={logo}
             />
             <BillTitle company={company} client={client} />
-            <Services order={order.order_desc} />
+            <Services order={order.order_services} />
             <Payments payments={order.payments} />
             <TableFooter
                 company={company}
-                order={order.order_desc}
+                order={order.order_services}
                 paid={order.order_paid}
                 unit={unit}
             />

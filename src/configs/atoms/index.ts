@@ -1,5 +1,5 @@
 import { initClient, atClient } from "./atClient";
-import { atOrderWithDesc, atOrderDesc } from "./atOrder";
+import { atOrderWithPayments, atOrderService } from "./atOrder";
 import { atSUInitData, initS, initU } from "./atSetting";
 import { initStaff, atStaff, atRoleSelected } from "./atStaff";
 import {
@@ -18,8 +18,8 @@ export {
     initStaff,
     initU,
     atClient,
-    atOrderDesc,
-    atOrderWithDesc,
+    atOrderService,
+    atOrderWithPayments,
     atRoleSelected,
     atStaff,
     atSUInitData,

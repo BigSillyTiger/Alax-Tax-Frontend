@@ -11,12 +11,12 @@ const orderColumns: ColumnDef<TtotalOrder>[] = [
         id: "details",
         header: i18n.t("label.details"), // Details
         columns: [
-            {
+            /* {
                 header: "Details",
                 cell: () => {
                     return <></>;
                 },
-            },
+            }, */
             {
                 header: i18n.t("label.idOrder"),
                 accessorKey: "order_id",

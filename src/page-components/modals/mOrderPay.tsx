@@ -6,7 +6,10 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { useAtom } from "jotai";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { TorderPayment, paymentFormSchema } from "@/configs/schema/orderSchema";
+import {
+    TorderPayment,
+    orderPaymentSchema,
+} from "@/configs/schema/orderSchema";
 import Card from "@/components/card";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
@@ -19,7 +22,7 @@ import {
 } from "@/components/customized";
 import { newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin, mOpenOps } from "@/configs/utils";
-import { atClient, atOrderWithDesc, atModalOpen } from "@/configs/atoms";
+import { atClient, atOrderWithPayments, atModalOpen } from "@/configs/atoms";
 
 type Tpayment = {
     payments: TorderPayment[];
@@ -28,7 +31,7 @@ type Tpayment = {
 const MOrderPay: FC = memo(() => {
     const navigation = useNavigation();
     const [client] = useAtom(atClient);
-    const [clientOrder] = useAtom(atOrderWithDesc);
+    const [clientOrder] = useAtom(atOrderWithPayments);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [payment, setPayment] = useState<TorderPayment>({
         fk_order_id: 0,
@@ -49,7 +52,12 @@ const MOrderPay: FC = memo(() => {
         trigger,
         //watch,
     } = useForm<Tpayment>({
-        resolver: zodResolver(paymentFormSchema),
+        resolver: zodResolver(
+            orderPaymentSchema
+            /* orderPaymentSchema.omit({
+                fk_order_id: true,
+            }) */
+        ),
         defaultValues: { payments: clientOrder.payments },
     });
 
@@ -305,7 +313,9 @@ const MOrderPay: FC = memo(() => {
                         </legend>
                         <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[60vh] overflow-y-auto">
                             <section className="col-span-full">
-                                <OrderDescCard data={clientOrder.order_desc} />
+                                <OrderDescCard
+                                    data={clientOrder.order_services}
+                                />
                             </section>
                         </Card>
                     </fieldset>

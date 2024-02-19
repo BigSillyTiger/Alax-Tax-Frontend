@@ -2,7 +2,7 @@ import { API_ADMIN, API_CLIENT, API_MANAGE, API_ORDER } from "@/apis";
 import { defer, redirect } from "react-router-dom";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
-import { TorderDesc, TorderWithDetails } from "@/configs/schema/orderSchema";
+import { TorderDesc, TorderWithPayments } from "@/configs/schema/orderSchema";
 import { menuList } from "@/configs/menuList";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
@@ -20,7 +20,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
     return defer({
         clientInfo,
-        clientOrders: clientOrders.data as TorderWithDetails[],
+        clientOrders: clientOrders.data as TorderWithPayments[],
         uniData: uniData.data,
         company: company.data,
         logo: logo.data,
@@ -50,7 +50,7 @@ export const action = async ({
                 order_gst: orData.order_gst,
                 order_total: orData.order_total,
             },
-            order_desc: orData.order_desc,
+            order_services: orData.order_services,
         };
         const result = await API_ORDER.orderAdd(order);
         console.log("-> fe receive add order result: ", result);
@@ -75,7 +75,7 @@ export const action = async ({
                 order_paid: orData.order_paid,
                 order_total: orData.order_total,
             },
-            order_desc: orData.order_desc.map(
+            order_services: orData.order_services.map(
                 (item: TorderDesc, index: number) => {
                     return {
                         ...item,
