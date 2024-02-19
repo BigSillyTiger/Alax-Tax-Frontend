@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
-import MainMenu from "@/components/mainMenu";
-import HeadBar from "@/components/headBar";
+import MainMenu from "@/page-components/mainMenu";
+import HeadBar from "@/page-components/headBar";
 import { Toaster } from "react-hot-toast";
 import { Tpermission } from "@/configs/schema/universSchema";
 

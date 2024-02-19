@@ -136,6 +136,7 @@ const MOrderForm: FC = memo(() => {
                     // this action need to be modified
                     method,
                     action: `/clients/${clientOrder.fk_client_id}`,
+                    navigate: false,
                 }
             );
         }

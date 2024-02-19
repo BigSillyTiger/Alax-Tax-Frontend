@@ -8,14 +8,18 @@ import { PTable } from "@/components/table";
 import orderColumns from "@/configs/columnDefs/defOrders";
 import { MOrderDel, MOrderForm } from "@/page-components/modals";
 import { useAtom } from "jotai";
-import { atOrder } from "@/configs/atoms";
+import { atModalOpen, atOrder } from "@/configs/atoms";
 import { Tcompany } from "@/configs/schema/settingSchema";
+import { mOpenOps } from "@/configs/utils";
+import { toastError, toastSuccess } from "@/utils/toaster";
+import { useTranslation } from "react-i18next";
 
 type Torders = {
     orders: Torder[] | null;
 };
 
 const Orders: FC = () => {
+    const { t } = useTranslation();
     const { orders, uniData, company, logo } = useLoaderData() as {
         orders: Torder[];
         uniData: Tunivers;
@@ -24,12 +28,48 @@ const Orders: FC = () => {
     };
     const actionData = useActionData() as Tresponse;
     const [, setClientOrder] = useAtom(atOrder);
+    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
 
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
             console.log("--> order page receiving success from server");
         }
     }, [actionData]);
+
+    useEffect(() => {
+        if (actionData?.status === RES_STATUS.SUCCESS) {
+            if (modalOpen === mOpenOps.add) {
+                setModalOpen("");
+                toastSuccess(t("toastS.addOrder"));
+                actionData.status = RES_STATUS.DEFAULT;
+            }
+        } else if (actionData?.status === RES_STATUS.SUC_DEL) {
+            toastSuccess(t("toastS.delOrder"));
+            actionData.status = RES_STATUS.DEFAULT;
+        } else if (actionData?.status === RES_STATUS.SUC_UPDATE_STATUS) {
+            toastSuccess(t("toastS.updateOrderStatus"));
+            actionData.status = RES_STATUS.DEFAULT;
+        } else if (actionData?.status === RES_STATUS.SUC_UPDATE) {
+            setModalOpen("");
+            toastSuccess(t("toastS.updateOrder"));
+            actionData.status = RES_STATUS.DEFAULT;
+        } else if (actionData?.status === RES_STATUS.SUC_UPDATE_PAYMENTS) {
+            setModalOpen("");
+            toastSuccess(t("toastS.updatePayment"));
+            actionData.status = RES_STATUS.DEFAULT;
+        } else if (actionData?.status === RES_STATUS.FAILED) {
+            if (modalOpen === mOpenOps.add) {
+                toastError(t("toastF.addOrder"));
+                actionData.status = RES_STATUS.DEFAULT;
+            } else if (modalOpen === mOpenOps.edit) {
+                toastError(t("toastF.updateOrder"));
+                actionData.status = RES_STATUS.DEFAULT;
+            } else if (modalOpen === mOpenOps.del) {
+                toastError(t("toastF.delOrder"));
+                actionData.status = RES_STATUS.DEFAULT;
+            }
+        }
+    }, [actionData, modalOpen, setModalOpen, t]);
 
     const newClientOrders =
         orders &&

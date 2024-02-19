@@ -36,3 +36,15 @@ export const mOpenOps = {
     pay: "Pay",
     quotation: "Quotation",
 };
+
+export const routerPaths = {
+    init: "/",
+    login: "/login",
+    dashboard: "/dashboard",
+    clients: "/clients",
+    client: "/clients/:cid",
+    orders: "/orders",
+    calendar: "/calendar",
+    staff: "/staff",
+    setting: "/setting",
+};

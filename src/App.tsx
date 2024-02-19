@@ -13,7 +13,11 @@ import ErrBoundary from "@/pages/errBoundary";
 import InitPage from "@/pages/initPage";
 import { initLoader } from "@/pages/initPage";
 import { loginLoader, loginAction } from "@/pages/login";
-import Layout, { layoutLoader } from "@/components/layout";
+import Layout from "@/page-components/layout";
+import {
+    loader as layoutLoader,
+    action as layoutAction,
+} from "@/page-components/layout/dataAccess";
 
 import Dashboard, { loader as dashboardLoader } from "@/pages/dashboard";
 import Clients from "@/pages/clients";
@@ -43,14 +47,19 @@ import {
     action as universAction,
 } from "@/pages/setting/dataAccess";
 import LoadingPage from "./components/loadingEle";
+import { routerPaths } from "./configs/utils";
 
 const App: FC = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <>
-                <Route path={"/"} element={<InitPage />} loader={initLoader} />
                 <Route
-                    path={"/login"}
+                    path={routerPaths.init}
+                    element={<InitPage />}
+                    loader={initLoader}
+                />
+                <Route
+                    path={routerPaths.login}
                     element={<LoginPage />}
                     loader={loginLoader}
                     action={loginAction}
@@ -58,41 +67,42 @@ const App: FC = () => {
                 <Route
                     element={<Layout />}
                     loader={layoutLoader}
+                    action={layoutAction}
                     errorElement={<ErrBoundary />}
                 >
                     <Route
                         index
-                        path={"/dashboard"}
+                        path={routerPaths.dashboard}
                         element={<Dashboard />}
                         loader={dashboardLoader}
                     />
                     <Route
-                        path={"/clients"}
+                        path={routerPaths.clients}
                         element={<Clients />}
                         loader={clientsLoader}
                         action={clientsAction}
                     />
                     <Route
-                        path={"/clients/:cid"}
+                        path={routerPaths.client}
                         element={<Client />}
                         loader={clientLoader}
                         action={clientAction}
                     />
                     <Route
-                        path={"/orders"}
+                        path={routerPaths.orders}
                         element={<Orders />}
                         loader={ordersLoader}
                         action={ordersAction}
                     />
-                    <Route path={"/calendar"} element={<Calendar />} />
+                    <Route path={routerPaths.calendar} element={<Calendar />} />
                     <Route
-                        path={"/staff"}
+                        path={routerPaths.staff}
                         element={<Staff />}
                         loader={staffLoader}
                         action={staffAction}
                     />
                     <Route
-                        path={"/setting"}
+                        path={routerPaths.setting}
                         element={<Setting />}
                         loader={universLoader}
                         action={universAction}

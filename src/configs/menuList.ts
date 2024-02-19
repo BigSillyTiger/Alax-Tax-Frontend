@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import i18n from "@/utils/i18n";
 import type { ForwardRefExoticComponent, SVGProps, RefAttributes } from "react";
+import { routerPaths } from "./utils";
 
 type Ticon = ForwardRefExoticComponent<
     Omit<SVGProps<SVGSVGElement>, "ref"> & {
@@ -28,42 +29,42 @@ export const menuList: TmenuList[] = [
     {
         id: "dashboard",
         name: i18n.t("menu.dashboard"),
-        href: "/dashboard",
+        href: routerPaths.dashboard,
         icon: HomeIcon,
         current: true,
     },
     {
         id: "clients",
         name: i18n.t("menu.clients"),
-        href: "/clients",
+        href: routerPaths.clients,
         icon: UserGroupIcon,
         current: false,
     },
     {
         id: "orders",
         name: i18n.t("menu.orders"),
-        href: "/orders",
+        href: routerPaths.orders,
         icon: ClipboardDocumentIcon,
         current: false,
     },
     {
         id: "calendar",
         name: i18n.t("menu.calendar"),
-        href: "/calendar",
+        href: routerPaths.calendar,
         icon: CalendarIcon,
         current: false,
     },
     {
         id: "staff",
         name: i18n.t("menu.staff"),
-        href: "/staff",
+        href: routerPaths.staff,
         icon: IdentificationIcon,
         current: false,
     },
     {
         id: "setting",
         name: i18n.t("menu.setting"),
-        href: "/setting",
+        href: routerPaths.setting,
         icon: WrenchScrewdriverIcon,
         current: false,
     },

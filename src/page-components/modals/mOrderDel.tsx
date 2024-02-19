@@ -23,6 +23,7 @@ const MOrderDel: FC = memo(() => {
             {
                 method: "DELETE",
                 action: `/clients/${clientOrder.client_info.client_id}`,
+                navigate: false,
             }
         );
     };
