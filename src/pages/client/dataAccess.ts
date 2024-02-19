@@ -120,14 +120,10 @@ export const action = async ({
     }
     // delete an order
     else if ("DELETE" === request.method) {
-        console.log(
-            "-> client page action delete order: ",
-            data.get("order_id")
-        );
         const result = await API_ORDER.orderDel({
             order_id: data.get("order_id"),
         });
-        console.log("-> client page receive delete order result: ", result);
+        //console.log("-> client page receive delete order result: ", result);
         return result;
     }
     // errors

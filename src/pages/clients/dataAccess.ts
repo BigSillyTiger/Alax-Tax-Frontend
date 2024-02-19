@@ -22,6 +22,7 @@ export const loader = async () => {
 export const action = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
+    console.log("-> clients action fn");
     //console.log("-> action request: ", request);
     const data = await request.formData();
     if ("POST" === request.method) {
