@@ -10,10 +10,7 @@ import {
     ChevronDoubleDownIcon,
     ChevronDoubleUpIcon,
 } from "@heroicons/react/24/outline";
-import {
-    TorderWithPayments,
-    orderFormSchema,
-} from "@/configs/schema/orderSchema";
+import { TorderForm, orderFormSchema } from "@/configs/schema/orderSchema";
 import Card from "@/components/card";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
@@ -24,8 +21,7 @@ import { ClientInfoCard } from "@/components/customized";
 import StatesOptions from "@/components/stateOptions";
 import {
     atModalOpen,
-    atClient,
-    atOrderWithPayments,
+    atOrder,
     atOrderService,
     atSUData,
 } from "@/configs/atoms";
@@ -36,10 +32,8 @@ const MOrderForm: FC = memo(() => {
     const submit = useSubmit();
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
-    const [client] = useAtom(atClient);
-    const [clientOrder] = useAtom(atOrderWithPayments);
+    const [clientOrder] = useAtom(atOrder);
     const [uniData] = useAtom(atSUData);
-
     const [serviceDesc, setServiceDesc] = useAtom(atOrderService);
 
     const {
@@ -51,7 +45,7 @@ const MOrderForm: FC = memo(() => {
         setValue,
         trigger,
         watch,
-    } = useForm<TorderWithPayments>({
+    } = useForm<TorderForm>({
         resolver: zodResolver(orderFormSchema),
         defaultValues: clientOrder,
     });
@@ -113,7 +107,7 @@ const MOrderForm: FC = memo(() => {
                 order_services: clientOrder.order_services ?? undefined,
             });
         }
-    }, [clientOrder, reset, uniData, client, t]);
+    }, [clientOrder, reset, uniData, t]);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -121,13 +115,13 @@ const MOrderForm: FC = memo(() => {
             toastError("Please add one client order description at least.");
             return;
         }
-        console.log("-> click submit err: ", errors);
+        console.log("-> mOrderForm click submit err: ", errors);
         const isValid = await trigger();
         if (isValid) {
             const req = !clientOrder.order_id ? "orderCreate" : "orderUpdate";
             const values = JSON.stringify({
                 ...getValues(),
-                client_id: client.client_id,
+                client_id: clientOrder.client_info.client_id,
                 // these 3 the value has be manually calculated or registered
                 // therefore, they are not in the form
                 // we need to manually add them to the values
@@ -722,7 +716,7 @@ const MOrderForm: FC = memo(() => {
                             <b>{t("label.clientInfo")}:</b>
                         </legend>
                         <ClientInfoCard
-                            client={client}
+                            client={clientOrder.client_info}
                             className="my-2 mx-1 text-sm"
                         />
                     </fieldset>

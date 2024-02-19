@@ -2,7 +2,7 @@ import { API_ADMIN, API_CLIENT, API_MANAGE, API_ORDER } from "@/apis";
 import { defer, redirect } from "react-router-dom";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
-import { TorderDesc, TorderWithPayments } from "@/configs/schema/orderSchema";
+import { TorderService, Torder } from "@/configs/schema/orderSchema";
 import { menuList } from "@/configs/menuList";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
@@ -20,7 +20,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
     return defer({
         clientInfo,
-        clientOrders: clientOrders.data as TorderWithPayments[],
+        clientOrders: clientOrders.data as Torder[],
         uniData: uniData.data,
         company: company.data,
         logo: logo.data,
@@ -76,7 +76,7 @@ export const action = async ({
                 order_total: orData.order_total,
             },
             order_services: orData.order_services.map(
-                (item: TorderDesc, index: number) => {
+                (item: TorderService, index: number) => {
                     return {
                         ...item,
                         ranking: index + 1,

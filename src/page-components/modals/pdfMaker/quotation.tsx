@@ -14,12 +14,7 @@ import { NormalBtn } from "@/components/btns";
 import CompanyInfoCard from "@/components/customized/CompanyInfoCard";
 import { newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin } from "@/configs/utils";
-import {
-    atCompany,
-    atLogo,
-    atOrderWithPayments,
-    atClient,
-} from "@/configs/atoms";
+import { atCompany, atLogo, atOrder, atClient } from "@/configs/atoms";
 
 const DatePicker = ({
     order_id,
@@ -127,7 +122,7 @@ const QuoContent: FC = memo(() => {
     const [date, setDate] = useState(newDateFormat(new Date()));
     const { t } = useTranslation();
     const [client] = useAtom(atClient);
-    const [clientOrder] = useAtom(atOrderWithPayments);
+    const [clientOrder] = useAtom(atOrder);
     const [company] = useAtom(atCompany);
     const [logo] = useAtom(atLogo);
 

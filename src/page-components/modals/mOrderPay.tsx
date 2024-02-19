@@ -22,7 +22,7 @@ import {
 } from "@/components/customized";
 import { newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin, mOpenOps } from "@/configs/utils";
-import { atClient, atOrderWithPayments, atModalOpen } from "@/configs/atoms";
+import { atClient, atOrder, atModalOpen } from "@/configs/atoms";
 
 type Tpayment = {
     payments: TorderPayment[];
@@ -31,7 +31,7 @@ type Tpayment = {
 const MOrderPay: FC = memo(() => {
     const navigation = useNavigation();
     const [client] = useAtom(atClient);
-    const [clientOrder] = useAtom(atOrderWithPayments);
+    const [clientOrder] = useAtom(atOrder);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [payment, setPayment] = useState<TorderPayment>({
         fk_order_id: 0,

@@ -1,8 +1,9 @@
-import { API_ORDER, API_ADMIN } from "@/apis";
+import { API_ORDER, API_ADMIN, API_MANAGE } from "@/apis";
 import { defer, redirect } from "react-router-dom";
 import type { ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
 import { menuList } from "@/configs/menuList";
+import { Torder } from "@/configs/schema/orderSchema";
 
 export const loader = async () => {
     try {
@@ -11,7 +12,15 @@ export const loader = async () => {
             return redirect("/login");
         }
         const orders = await API_ORDER.orderAll();
-        return defer({ orders });
+        const uniData = await API_MANAGE.uniAll();
+        const company = await API_MANAGE.companyGet();
+        const logo = await API_MANAGE.logo();
+        return defer({
+            orders: orders.data as Torder[],
+            uniData: uniData.data,
+            company: company.data,
+            logo: logo.data,
+        });
     } catch (err) {
         console.log("-> order page loader error: ", err);
         return redirect("/login");

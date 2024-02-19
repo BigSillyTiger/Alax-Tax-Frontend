@@ -1,10 +1,10 @@
 import type { FC } from "react";
-import { TorderDesc } from "@/configs/schema/orderSchema";
+import { TorderService } from "@/configs/schema/orderSchema";
 import { useTranslation } from "react-i18next";
 import Card from "../card";
 
 type Tprops = {
-    data: TorderDesc[];
+    data: TorderService[];
 };
 
 const OrderDescCard: FC<Tprops> = ({ data }) => {

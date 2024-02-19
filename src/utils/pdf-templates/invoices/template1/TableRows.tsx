@@ -2,11 +2,11 @@ import { memo } from "react";
 import type { FC } from "react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
-import { TorderDesc } from "@/configs/schema/orderSchema";
+import { TorderService } from "@/configs/schema/orderSchema";
 import { plusAB } from "@/utils/calculations";
 
 type Tprops = {
-    data: TorderDesc[];
+    data: TorderService[];
     unit: "AUD" | "$";
 };
 

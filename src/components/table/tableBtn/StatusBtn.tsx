@@ -3,7 +3,7 @@ import type { FC, ReactNode } from "react";
 import { useSubmit } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import i18n from "@/utils/i18n";
-import { TorderWithDesc } from "@/configs/schema/orderSchema";
+import { Torder } from "@/configs/schema/orderSchema";
 
 const slist = [
     {
@@ -30,7 +30,7 @@ const slist = [
 
 type Tprops = {
     mLabel: ReactNode | string;
-    data: TorderWithDesc | any;
+    data: Torder | any;
 };
 
 // this menu btn group component is highly designed for order status change usage

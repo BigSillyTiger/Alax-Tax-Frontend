@@ -4,7 +4,7 @@ import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { useAtom } from "jotai";
 import LoadingPage from "@/components/loadingEle";
 import type { Tclient } from "@/configs/schema/clientSchema";
-import type { TorderWithPayments } from "@/configs/schema/orderSchema";
+import type { Torder } from "@/configs/schema/orderSchema";
 import { RES_STATUS } from "@/utils/types";
 import type { Tresponse, Tunivers } from "@/utils/types";
 import Card from "@/components/card";
@@ -20,7 +20,7 @@ import { Tcompany } from "@/configs/schema/settingSchema";
 import { calGst } from "@/utils/calculations";
 import {
     atClient,
-    atOrderWithPayments,
+    atOrder,
     atOrderService,
     atCompany,
     atLogo,
@@ -40,11 +40,13 @@ const Client = () => {
                 msg: string;
                 data: Tclient[];
             };
-            clientOrders: TorderWithPayments[];
+            clientOrders: Torder[];
             uniData: Tunivers;
             company: Tcompany;
             logo: string;
         };
+
+    console.log("--> client page - clientOrders: ", clientOrders);
 
     /**
      * the boolean in mysql is stored as 1 and 0
@@ -66,8 +68,9 @@ const Client = () => {
             };
         });
 
-    const initOrder: TorderWithPayments = {
+    const initOrder: Torder = {
         order_id: "",
+        client_info: clientInfo.data[0],
         fk_client_id: clientInfo.data[0].client_id,
         order_address: clientInfo.data[0].address,
         order_suburb: clientInfo.data[0].suburb,
@@ -91,7 +94,7 @@ const Client = () => {
     //const client = clientInfo.data[0] as Tclient;
     const [, setClient] = useAtom(atClient);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
-    const [clientOrder, setClientOrder] = useAtom(atOrderWithPayments);
+    const [clientOrder, setClientOrder] = useAtom(atOrder);
     const [, setUniData] = useAtom(atSUData);
     const [, setCompany] = useAtom(atCompany);
     const [, setLogo] = useAtom(atLogo);
@@ -162,7 +165,7 @@ const Client = () => {
         }
     }, [actionData, modalOpen, setModalOpen, t]);
 
-    const subOrderTable = (data: TorderWithPayments) => {
+    const subOrderTable = (data: Torder) => {
         const items = [];
         items.push({
             title: t("label.services"),

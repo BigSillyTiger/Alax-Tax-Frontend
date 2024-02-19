@@ -2,14 +2,14 @@ import { memo } from "react";
 import type { FC } from "react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
-import { TorderDesc } from "@/configs/schema/orderSchema";
+import { TorderService } from "@/configs/schema/orderSchema";
 import { useTranslation } from "react-i18next";
 import { plusAB } from "@/utils/calculations";
 import { Tcompany } from "@/configs/schema/settingSchema";
 
 type Tprops = {
     company: Tcompany;
-    order: TorderDesc[];
+    order: TorderService[];
     unit: "AUD" | "$";
 };
 

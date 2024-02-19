@@ -1,6 +1,7 @@
 import { z } from "zod";
+import { clientSchema } from "./clientSchema";
 
-export const orderSchema = z.object({
+export const plainOrderSchema = z.object({
     order_id: z.string(),
     fk_client_id: z.string(),
     order_address: z.string().trim().nullable(),
@@ -38,44 +39,37 @@ export const oderServiceSchema = z.object({
     netto: z.number(),
 });
 
+export const orderPaymentSchema = z.object({
+    fk_order_id: z.number(),
+    paid: z.number(),
+    paid_date: z.string().datetime(),
+});
+
 /**
  * @description an order can have multiple services descriptions
  * and an order must have at least one service description
  */
-export const oderWithServicesSchema = orderSchema.extend({
+/* export const oderWithServicesSchema = plainOrderSchema.extend({
     order_services: oderServiceSchema.array(),
 });
-
+ */
 /**
  * @description for order page table displaying
  * this page will display 2 more columns: full name / phone
  */
-export const totalOrderSchema = oderWithServicesSchema.extend({
-    first_name: z.string().trim(),
-    last_name: z.string().trim(),
-    phone: z
-        .string()
-        .trim()
-        .min(3, { message: "Phone number is too short" })
-        .transform((val) => {
-            if (val.length > 6) {
-                return `${val.slice(0, 3)}-${val.slice(3, 6)}-${val.slice(6)}`;
-            } else if (val.length > 3) {
-                return `${val.slice(0, 3)}-${val.slice(3)}`;
-            } else {
-                return val;
-            }
-        }),
-});
+/* export const totalOrderSchema = oderWithServicesSchema.extend({
+    client_info: clientSchema,
+}); */
 
 /**
  * @description for order form modal
+ * only contain: client info, order info, and order services
  */
-export const orderFormSchema = orderSchema
+export const orderFormSchema = plainOrderSchema
     .omit({
         order_id: true,
         fk_client_id: true,
-        order_status: true,
+        //order_status: true,
         order_date: true,
         order_paid: true,
         quotation_date: true,
@@ -90,20 +84,14 @@ export const orderFormSchema = orderSchema
             .array(),
     });
 
-export const orderPaymentSchema = z.object({
-    fk_order_id: z.number(),
-    paid: z.number(),
-    paid_date: z.string().datetime(),
-});
-
-export const orderWithPaymentsSchema = oderWithServicesSchema.extend({
+export const orderSchema = plainOrderSchema.extend({
+    client_info: clientSchema,
+    order_services: oderServiceSchema.array(),
     payments: orderPaymentSchema.array(),
 });
 
 export type Torder = z.infer<typeof orderSchema>;
 export type TorderForm = z.infer<typeof orderFormSchema>;
-export type TorderWithDesc = z.infer<typeof oderWithServicesSchema>;
-export type TorderDesc = z.infer<typeof oderServiceSchema>;
+export type TorderService = z.infer<typeof oderServiceSchema>;
 export type TorderPayment = z.infer<typeof orderPaymentSchema>;
-export type TorderWithPayments = z.infer<typeof orderWithPaymentsSchema>;
-export type TtotalOrder = z.infer<typeof totalOrderSchema>;
+//export type TtotalOrder = z.infer<typeof totalOrderSchema>;

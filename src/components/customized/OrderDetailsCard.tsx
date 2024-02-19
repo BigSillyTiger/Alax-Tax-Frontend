@@ -1,11 +1,11 @@
 import type { FC } from "react";
 import Card from "@/components/card";
 import { useTranslation } from "react-i18next";
-import { TorderWithPayments } from "@/configs/schema/orderSchema";
+import { Torder } from "@/configs/schema/orderSchema";
 import { minusAB } from "@/utils/calculations";
 
 type TorderInfo = {
-    order: TorderWithPayments;
+    order: Torder;
     className: string;
 };
 

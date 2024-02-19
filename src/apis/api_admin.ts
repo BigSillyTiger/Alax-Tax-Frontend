@@ -19,7 +19,6 @@ export const adminLogin = async (
     };
     try {
         const response = await apis.post(REQ_LOGIN, newPost);
-        console.log("-> api test: ", response.data.data);
         adminStore.setState({ user: response.data.data as TadminStore });
         return response.data;
     } catch (err: any) {

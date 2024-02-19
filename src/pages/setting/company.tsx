@@ -75,7 +75,6 @@ const Company: FC<Tprops> = ({ company, logo }) => {
         ]);
         if (isValid) {
             const values = getValues();
-            console.log("-> test: ", { ...values, id, req: "company" });
             submit(
                 { ...values, id, req: "company" },
                 { method: "PUT", action: "/setting" }

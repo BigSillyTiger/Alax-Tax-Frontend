@@ -2,29 +2,53 @@ import { FC, Suspense, useEffect } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
 import Card from "@/components/card";
-import { TtotalOrder } from "@/configs/schema/orderSchema";
-import { Tresponse, RES_STATUS } from "@/utils/types";
+import { Torder } from "@/configs/schema/orderSchema";
+import { Tresponse, RES_STATUS, Tunivers } from "@/utils/types";
 import { PTable } from "@/components/table";
 import orderColumns from "@/configs/columnDefs/defOrders";
 import { MOrderDel, MOrderForm } from "@/page-components/modals";
 import { useAtom } from "jotai";
-import { atOrderWithPayments } from "@/configs/atoms";
+import { atOrder } from "@/configs/atoms";
+import { Tcompany } from "@/configs/schema/settingSchema";
 
 type Torders = {
-    orders: TtotalOrder[] | null;
+    orders: Torder[] | null;
 };
 
 const Orders: FC = () => {
-    const { orders } = useLoaderData() as Torders;
+    const { orders, uniData, company, logo } = useLoaderData() as {
+        orders: Torder[];
+        uniData: Tunivers;
+        company: Tcompany;
+        logo: string;
+    };
     const actionData = useActionData() as Tresponse;
 
-    const [, setClientOrder] = useAtom(atOrderWithPayments);
+    const [, setClientOrder] = useAtom(atOrder);
+
+    console.log("-> orders page -  orders: ", orders);
 
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
             console.log("--> order page receiving success from server");
         }
     }, [actionData]);
+
+    const newClientOrders =
+        orders &&
+        orders.map((item) => {
+            return {
+                ...item,
+                order_services: item.order_services
+                    .sort((a, b) => a.ranking - b.ranking)
+                    .map((desc) => {
+                        return {
+                            ...desc,
+                            taxable: Boolean(desc.taxable),
+                        };
+                    }),
+            };
+        });
 
     const OrderTableContent: FC<Torders> = ({ orders }) => {
         return (
@@ -37,9 +61,15 @@ const Orders: FC = () => {
                         <PTable
                             search={true}
                             hFilter={true}
-                            data={orders}
+                            data={newClientOrders}
                             columns={orderColumns}
-                            menuOptions={{ edit: true, del: true }}
+                            menuOptions={{
+                                edit: true,
+                                del: true,
+                                pay: true,
+                                quotation: true,
+                                invoice: true,
+                            }}
                             setData={setClientOrder}
                             cnSearch="my-3"
                             cnTable="h-[65vh]"
@@ -63,7 +93,7 @@ const Orders: FC = () => {
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={orders}>
                     {(ordersList) => {
-                        return <OrderTableContent orders={ordersList.data} />;
+                        return <OrderTableContent orders={ordersList} />;
                     }}
                 </Await>
             </Suspense>
