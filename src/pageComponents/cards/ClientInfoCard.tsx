@@ -5,10 +5,10 @@ import { useTranslation } from "react-i18next";
 
 type Tinfo = {
     client: Tclient;
-    className: string;
+    className?: string;
 };
 
-const ClientInfoCard: FC<Tinfo> = ({ client, className }) => {
+const ClientInfoCard: FC<Tinfo> = ({ client, className = "" }) => {
     const { t } = useTranslation();
     return (
         <Card

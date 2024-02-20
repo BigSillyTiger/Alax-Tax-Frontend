@@ -12,7 +12,7 @@ import { MOrderDel, MOrderForm, MOrderPay } from "@/pageComponents/modals";
 import clientOrderColumns from "../configs/columnDefs/defClientOrder";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
-import { ClientInfoCard } from "@/components/customized";
+import { ClientInfoCard } from "@/pageComponents/cards";
 import { PTable } from "@/components/table";
 import orderDescColumns from "../configs/columnDefs/defOrderDesc";
 import orderPaymentsColumns from "@/configs/columnDefs/defPayments";

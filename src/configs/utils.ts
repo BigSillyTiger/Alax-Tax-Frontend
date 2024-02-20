@@ -32,9 +32,12 @@ export const mOpenOps = {
     add: "Add",
     del: "Del",
     edit: "Edit",
-    invoice: "Invoice",
     pay: "Pay",
+    invoice: "Invoice",
     quotation: "Quotation",
+    workAdd: "WorkAdd",
+    workEdit: "WorkEdit",
+    workDel: "WorkDel",
 };
 
 export const routerPaths = {

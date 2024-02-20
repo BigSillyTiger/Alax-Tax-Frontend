@@ -4,9 +4,11 @@ import {
     CurrencyDollarIcon,
     DocumentIcon,
     ClipboardIcon,
+    UserPlusIcon,
 } from "@heroicons/react/24/outline";
 import i18n from "@/utils/i18n";
 import { TmodalOpenStates, TmenuOptions } from "@/utils/types";
+import { mOpenOps } from "@/configs/utils";
 
 type Tprops<T> = TmenuOptions & {
     setModalOpen: (open: TmodalOpenStates) => void;
@@ -24,65 +26,35 @@ const genOptions = <T,>({
     pay = false,
     invoice = false,
     quotation = false,
+    assign = false,
     setModalOpen,
     setData,
 }: Tprops<T>): Tresult<T>[] => {
     const result: Tresult<T>[] = [];
 
-    if (pay) {
+    const createOption = (
+        label: string,
+        icon: JSX.Element,
+        action: TmodalOpenStates
+    ) => {
         result.push({
-            label: i18n.t("btn.pay"),
-            icon: <CurrencyDollarIcon />,
-            clickFn: (v: T) => {
-                setModalOpen("Pay");
-                setData(v);
+            label: i18n.t(label),
+            icon,
+            clickFn: (value: T) => {
+                setModalOpen(action);
+                setData(value);
             },
         });
-    }
+    };
 
-    if (edit) {
-        result.push({
-            label: i18n.t("btn.edit"),
-            icon: <PencilIcon />,
-            clickFn: (v: T) => {
-                setModalOpen("Edit");
-                setData(v);
-            },
-        });
-    }
+    assign && createOption("btn.assign", <UserPlusIcon />, mOpenOps.workAdd);
+    pay && createOption("btn.pay", <CurrencyDollarIcon />, mOpenOps.pay);
+    edit && createOption("btn.edit", <PencilIcon />, mOpenOps.edit);
+    quotation &&
+        createOption("btn.quotation", <ClipboardIcon />, mOpenOps.quotation);
+    invoice && createOption("btn.invoice", <DocumentIcon />, mOpenOps.invoice);
+    del && createOption("btn.del", <TrashIcon />, mOpenOps.del);
 
-    if (quotation) {
-        result.push({
-            label: i18n.t("btn.quotation"),
-            icon: <ClipboardIcon />,
-            clickFn: (v: T) => {
-                setModalOpen("Quotation");
-                setData(v);
-            },
-        });
-    }
-
-    if (invoice) {
-        result.push({
-            label: i18n.t("btn.invoice"),
-            icon: <DocumentIcon />,
-            clickFn: (v: T) => {
-                setModalOpen("Invoice");
-                setData(v);
-            },
-        });
-    }
-
-    if (del) {
-        result.push({
-            label: i18n.t("btn.del"),
-            icon: <TrashIcon />,
-            clickFn: (v: T) => {
-                setModalOpen("Del");
-                setData(v);
-            },
-        });
-    }
     return result;
 };
 

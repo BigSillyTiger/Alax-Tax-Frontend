@@ -19,10 +19,10 @@ import {
     ClientInfoCard,
     OrderInfoCard,
     OrderDescCard,
-} from "@/components/customized";
+} from "@/pageComponents/cards";
 import { genAction, newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin, mOpenOps } from "@/configs/utils";
-import { atClient, atOrder, atModalOpen } from "@/configs/atoms";
+import { atOrder, atModalOpen } from "@/configs/atoms";
 import { useRouterStore } from "@/configs/zustore";
 
 type Tpayment = {
@@ -31,7 +31,6 @@ type Tpayment = {
 
 const MOrderPay: FC = memo(() => {
     const navigation = useNavigation();
-    const [client] = useAtom(atClient);
     const [clientOrder] = useAtom(atOrder);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [payment, setPayment] = useState<TorderPayment>({
@@ -289,7 +288,7 @@ const MOrderPay: FC = memo(() => {
                             <b>{t("label.clientInfo")}:</b>
                         </legend>
                         <ClientInfoCard
-                            client={client}
+                            client={clientOrder.client_info}
                             className="my-2 mx-1 text-sm"
                         />
                     </fieldset>

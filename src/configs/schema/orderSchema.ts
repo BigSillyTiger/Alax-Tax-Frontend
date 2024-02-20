@@ -46,22 +46,6 @@ export const orderPaymentSchema = z.object({
 });
 
 /**
- * @description an order can have multiple services descriptions
- * and an order must have at least one service description
- */
-/* export const oderWithServicesSchema = plainOrderSchema.extend({
-    order_services: oderServiceSchema.array(),
-});
- */
-/**
- * @description for order page table displaying
- * this page will display 2 more columns: full name / phone
- */
-/* export const totalOrderSchema = oderWithServicesSchema.extend({
-    client_info: clientSchema,
-}); */
-
-/**
  * @description for order form modal
  * only contain: client info, order info, and order services
  */

@@ -7,6 +7,7 @@ import { Tresponse, RES_STATUS, Tunivers } from "@/utils/types";
 import { PTable } from "@/components/table";
 import orderColumns from "@/configs/columnDefs/defOrders";
 import {
+    MJobAssign,
     MOrderDel,
     MOrderForm,
     MOrderPay,
@@ -107,6 +108,7 @@ const Orders: FC = () => {
                             data={newClientOrders}
                             columns={orderColumns}
                             menuOptions={{
+                                assign: true,
                                 edit: true,
                                 del: true,
                                 pay: true,
@@ -153,6 +155,7 @@ const Orders: FC = () => {
             <MOrderDel />
             <MOrderPay />
             <MpdfMaker />
+            <MJobAssign />
         </div>
     );
 };

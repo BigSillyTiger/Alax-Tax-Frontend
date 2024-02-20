@@ -17,7 +17,7 @@ import { SubmitBtn } from "@/components/form";
 import { calGst, plusAB, calNetto } from "@/utils/calculations";
 import { toastError } from "@/utils/toaster";
 import DataList from "@/components/dataList";
-import { ClientInfoCard } from "@/components/customized";
+import { ClientInfoCard } from "@/pageComponents/cards";
 import StatesOptions from "@/components/stateOptions";
 import {
     atModalOpen,
@@ -713,7 +713,7 @@ const MOrderForm: FC = memo(() => {
     );
 
     const mainContent = (
-        <Form onSubmit={onSubmit} className="grid grid-cols-1  gap-y-3 gap-x-4">
+        <Form onSubmit={onSubmit} className="grid grid-cols-1 gap-y-3 gap-x-4">
             <div className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[74dvh] sm:h-[77dvh] lg:h-auto">
                 <section className="col-span-1 lg:col-span-3 grid grid-cols-1">
                     {/* client info */}
@@ -763,27 +763,19 @@ const MOrderForm: FC = memo(() => {
     );
 
     return (
-        <>
-            <MTemplate
-                open={
-                    !!(
-                        modalOpen === mOpenOps.edit ||
-                        modalOpen === mOpenOps.add
-                    )
-                }
-                onClose={onClose}
-                title={
-                    !clientOrder.order_id
-                        ? t("modal.title.addOrder")
-                        : t("modal.title.editOrder") +
-                          ` #${clientOrder.order_id}`
-                }
-                mode={"full"}
-                mQuit={true}
-            >
-                {mainContent}
-            </MTemplate>
-        </>
+        <MTemplate
+            open={!!(modalOpen === mOpenOps.edit || modalOpen === mOpenOps.add)}
+            onClose={onClose}
+            title={
+                !clientOrder.order_id
+                    ? t("modal.title.addOrder")
+                    : t("modal.title.editOrder") + ` #${clientOrder.order_id}`
+            }
+            mode={"full"}
+            mQuit={true}
+        >
+            {mainContent}
+        </MTemplate>
     );
 });
 

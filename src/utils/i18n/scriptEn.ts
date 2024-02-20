@@ -65,6 +65,7 @@ const en = {
             append: "Append",
             addClient: "Register New Client",
             addStuff: "Register New Staff",
+            assign: "Assign",
             confirm: "Confirm",
             close: "Close",
             cancel: "Cancel",
@@ -98,6 +99,7 @@ const en = {
             addr: "Addr",
             address: "Address",
             addrJob: "Job Address",
+            assignStaff: "Assign Staff",
             aud: "AUD",
             balance: "Balance",
             billTo: "Bill To",
@@ -203,6 +205,7 @@ const en = {
             workAddr: "Work Address",
         },
         tips: {
+            noAssignedStaff: "No Assigned Staff",
             noOrder: "No Order",
             noServices: "No Service",
             noPayments: "No Payment",

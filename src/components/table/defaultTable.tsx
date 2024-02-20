@@ -45,6 +45,7 @@ const PTable = <T extends object>({
     data,
     columns,
     menuOptions = {
+        assign: false,
         edit: false,
         del: false,
         pay: false,

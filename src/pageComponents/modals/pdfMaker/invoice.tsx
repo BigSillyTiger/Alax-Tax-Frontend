@@ -9,9 +9,9 @@ import {
     ClientInfoCard,
     OrderDescCard,
     OrderDetailsCard,
-} from "@/components/customized";
+} from "@/pageComponents/cards";
 import { NormalBtn } from "@/components/btns";
-import CompanyInfoCard from "@/components/customized/CompanyInfoCard";
+import CompanyInfoCard from "@/pageComponents/cards/CompanyInfoCard";
 import { newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin } from "@/configs/utils";
 import { atCompany, atLogo, atOrder, atClient } from "@/configs/atoms";

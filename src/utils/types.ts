@@ -51,6 +51,7 @@ export type TmenuOptions = {
     pay?: boolean;
     invoice?: boolean;
     quotation?: boolean;
+    assign?: boolean;
 };
 
 export type Tmode = "sm" | "md" | "lg" | "xl" | "full" | "md-full";

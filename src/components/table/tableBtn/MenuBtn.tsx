@@ -19,6 +19,7 @@ const MenuBtn = <T,>({
     pay = false,
     invoice = false,
     quotation = false,
+    assign = false,
     setData,
 }: Tprops<T>) => {
     const [, setModalOpen] = useAtom(atModalOpen);
@@ -29,6 +30,7 @@ const MenuBtn = <T,>({
         pay,
         invoice,
         quotation,
+        assign,
         setModalOpen,
         setData,
     });
