@@ -7,7 +7,7 @@ import {
     unitListColDefs,
 } from "../../configs/columnDefs/defUniList.tsx";
 import { Tunivers } from "@/utils/types";
-import {MUniDel, MUniForm} from "@/page-components/modals";
+import { MUniDel, MUniForm } from "@/pageComponents/modals";
 import { PTable } from "@/components/table";
 import { useTranslation } from "react-i18next";
 import { atSUInitData, initS, initU, atModalOpen } from "@/configs/atoms";

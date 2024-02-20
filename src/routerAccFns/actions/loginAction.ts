@@ -1,11 +1,6 @@
-import {
-    //useLoaderData,
-    redirect,
-    ActionFunctionArgs,
-    LoaderFunctionArgs,
-} from "react-router-dom";
 import { API_ADMIN } from "@/apis";
 import { RES_STATUS } from "@/utils/types";
+import { ActionFunctionArgs, redirect } from "react-router-dom";
 
 export const loginAction = async ({ request }: ActionFunctionArgs) => {
     const search = new URL(request.url).searchParams.get("redirect");
@@ -19,13 +14,4 @@ export const loginAction = async ({ request }: ActionFunctionArgs) => {
         return redirect(search ? search : "/dashboard");
     }
     return { actionErr: true };
-};
-
-export const loginLoader = async ({ request }: LoaderFunctionArgs) => {
-    const search = new URL(request.url).searchParams.get("redirect");
-    const result = await API_ADMIN.adminCheck();
-    if (result.status === RES_STATUS.SUCCESS) {
-        return redirect("/dashboard");
-    }
-    return search;
 };

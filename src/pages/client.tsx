@@ -8,13 +8,13 @@ import type { Torder } from "@/configs/schema/orderSchema";
 import { RES_STATUS } from "@/utils/types";
 import type { Tresponse, Tunivers } from "@/utils/types";
 import Card from "@/components/card";
-import { MOrderDel, MOrderForm, MOrderPay } from "@/page-components/modals";
-import clientOrderColumns from "../../configs/columnDefs/defClientOrder";
+import { MOrderDel, MOrderForm, MOrderPay } from "@/pageComponents/modals";
+import clientOrderColumns from "../configs/columnDefs/defClientOrder";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 import { ClientInfoCard } from "@/components/customized";
 import { PTable } from "@/components/table";
-import orderDescColumns from "../../configs/columnDefs/defOrderDesc";
+import orderDescColumns from "../configs/columnDefs/defOrderDesc";
 import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { calGst } from "@/utils/calculations";
@@ -28,31 +28,30 @@ import {
     atSUData,
 } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
-import { MpdfMaker } from "@/page-components/modals";
+import { MpdfMaker } from "@/pageComponents/modals";
 
 const Client = () => {
     const { t } = useTranslation();
     // true for services, false for payments
-    const { clientInfo, clientOrders, uniData, company, logo } =
-        useLoaderData() as {
-            clientInfo: {
-                status: number;
-                msg: string;
-                data: Tclient[];
-            };
-            clientOrders: Torder[];
-            uniData: Tunivers;
-            company: Tcompany;
-            logo: string;
+    const { clientInfo, orders, uniData, company, logo } = useLoaderData() as {
+        clientInfo: {
+            status: number;
+            msg: string;
+            data: Tclient[];
         };
+        orders: Torder[];
+        uniData: Tunivers;
+        company: Tcompany;
+        logo: string;
+    };
 
     /**
      * the boolean in mysql is stored as 1 and 0
      * when working with values like these, need to convert them to boolean
      */
     const newClientOrders =
-        clientOrders &&
-        clientOrders.map((item) => {
+        orders &&
+        orders.map((item) => {
             return {
                 ...item,
                 order_services: item.order_services
@@ -89,6 +88,7 @@ const Client = () => {
     };
 
     const actionData = useActionData() as Tresponse;
+
     //const client = clientInfo.data[0] as Tclient;
     const [, setClient] = useAtom(atClient);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);

@@ -1,3 +1,4 @@
+import { routerPaths } from "@/configs/utils";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
 import { format } from "date-fns";
 
@@ -35,3 +36,32 @@ export type AreTypesEqual<T, U> = T extends U ? true : false;
  */
 export const capFirstLetter = (str: string) =>
     `${str.charAt(0).toUpperCase()}${str.slice(1).toLowerCase()}`;
+
+/**
+ * @description generate action for relative router path
+ */
+export const genAction = (
+    path: keyof typeof routerPaths,
+    client_id?: string
+) => {
+    switch (path) {
+        case "init":
+            return `/${path}`;
+        case "login":
+            return `/${path}`;
+        case "dashboard":
+            return `/${path}`;
+        case "clients":
+            return `/${path}`;
+        case "client":
+            return `/${path}s/${client_id}`;
+        case "orders":
+            return `/${path}`;
+        case "calendar":
+            return `/${path}`;
+        case "staff":
+            return `/${path}`;
+        case "setting":
+            return `/${path}`;
+    }
+};

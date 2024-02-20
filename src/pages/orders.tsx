@@ -6,7 +6,7 @@ import { Torder } from "@/configs/schema/orderSchema";
 import { Tresponse, RES_STATUS, Tunivers } from "@/utils/types";
 import { PTable } from "@/components/table";
 import orderColumns from "@/configs/columnDefs/defOrders";
-import { MOrderDel, MOrderForm } from "@/page-components/modals";
+import { MOrderDel, MOrderForm } from "@/pageComponents/modals";
 import { useAtom } from "jotai";
 import { atModalOpen, atOrder } from "@/configs/atoms";
 import { Tcompany } from "@/configs/schema/settingSchema";

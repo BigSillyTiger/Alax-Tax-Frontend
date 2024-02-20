@@ -1,11 +1,11 @@
-import { API_ORDER, API_ADMIN, API_MANAGE } from "@/apis";
-import { defer, redirect } from "react-router-dom";
-import type { ActionFunctionArgs } from "react-router-dom";
-import type { Tresponse } from "@/utils/types";
+import { API_ADMIN, API_MANAGE, API_ORDER } from "@/apis";
 import { menuList } from "@/configs/menuList";
 import { Torder } from "@/configs/schema/orderSchema";
+import { routerStore } from "@/configs/zustore";
+import { defer, redirect } from "react-router-dom";
 
-export const loader = async () => {
+export const ordersLoader = async () => {
+    routerStore.setState({ currentRouter: "orders" });
     try {
         const accessResult = await API_ADMIN.accessCheck(menuList[2].id);
         if (!accessResult.data) {
@@ -15,6 +15,7 @@ export const loader = async () => {
         const uniData = await API_MANAGE.uniAll();
         const company = await API_MANAGE.companyGet();
         const logo = await API_MANAGE.logo();
+
         return defer({
             orders: orders.data as Torder[],
             uniData: uniData.data,
@@ -24,21 +25,5 @@ export const loader = async () => {
     } catch (err) {
         console.log("-> order page loader error: ", err);
         return redirect("/login");
-    }
-};
-
-export const action = async ({
-    request,
-}: ActionFunctionArgs): Promise<Tresponse> => {
-    const data = await request.formData();
-    if ("POST" === request.method) {
-        const result = await API_ORDER.orderAdd(data);
-        return result;
-    } else {
-        return {
-            status: 400,
-            msg: "invalid request",
-            data: "",
-        };
     }
 };

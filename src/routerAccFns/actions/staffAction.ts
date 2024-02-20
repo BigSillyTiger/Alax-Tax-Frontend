@@ -1,19 +1,9 @@
-import { API_ADMIN, API_STAFF } from "@/apis";
-import { defer, ActionFunctionArgs, redirect } from "react-router-dom";
+import { API_STAFF } from "@/apis";
+import { ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
 import type { Tstaff } from "@/configs/schema/staffSchema";
-import { menuList } from "@/configs/menuList";
 
-export const loader = async () => {
-    const accessResult = await API_ADMIN.accessCheck(menuList[4].id);
-    if (!accessResult.data) {
-        return redirect("/login");
-    }
-    const allStaff = API_STAFF.staffAll();
-    return defer({ allStaff });
-};
-
-export const action = async ({
+export const staffAction = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
     console.log("-> staff action request: ", request);

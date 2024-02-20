@@ -1,37 +1,14 @@
-import { API_ADMIN, API_CLIENT, API_MANAGE, API_ORDER } from "@/apis";
-import { defer, redirect } from "react-router-dom";
-import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";
-import type { Tresponse } from "@/utils/types";
-import { TorderService, Torder } from "@/configs/schema/orderSchema";
-import { menuList } from "@/configs/menuList";
+import { API_ORDER } from "@/apis";
+import { TorderService } from "@/configs/schema/orderSchema";
+import { Tresponse } from "@/utils/types";
+import { ActionFunctionArgs } from "react-router-dom";
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
-    const accessResult = await API_ADMIN.accessCheck(menuList[1].id);
-    if (!accessResult.data) {
-        return redirect("/login");
-    }
-
-    const cid = params.cid as string;
-    const clientInfo = await API_CLIENT.clientInfo(cid);
-    const clientOrders = await API_ORDER.orderWClient(cid);
-    const uniData = await API_MANAGE.uniAll();
-    const company = await API_MANAGE.companyGet();
-    const logo = await API_MANAGE.logo();
-
-    return defer({
-        clientInfo,
-        clientOrders: clientOrders.data as Torder[],
-        uniData: uniData.data,
-        company: company.data,
-        logo: logo.data,
-    });
-};
-
-export const action = async ({
+export const ordersAction = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
     const data = await request.formData();
-    data.get("req") && console.log("-> action req data: ", data.get("req"));
+    data.get("req") &&
+        console.log("-> client action req data: ", data.get("req"));
 
     // add a new order
     if ("POST" === request.method && data.get("req") === "orderCreate") {
@@ -53,7 +30,7 @@ export const action = async ({
             order_services: orData.order_services,
         };
         const result = await API_ORDER.orderAdd(order);
-        console.log("-> fe receive add order result: ", result);
+        //console.log("-> fe receive add order result: ", result);
         return result;
     }
     // update an order

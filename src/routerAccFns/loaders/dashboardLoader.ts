@@ -1,8 +1,6 @@
 import { defer } from "react-router-dom";
 
-const loader = async () => {
+export const dashboardLoader = async () => {
     const result = 1;
     return defer({ content: result });
 };
-
-export default loader;

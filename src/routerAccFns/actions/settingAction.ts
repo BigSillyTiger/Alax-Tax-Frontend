@@ -1,23 +1,8 @@
-import { API_ADMIN, API_MANAGE } from "@/apis";
-import { defer, redirect } from "react-router-dom";
+import { API_MANAGE } from "@/apis";
 import type { ActionFunctionArgs } from "react-router-dom";
 import type { Tresponse } from "@/utils/types";
-import { menuList } from "@/configs/menuList";
 
-// create loader and action function for service list page
-export const loader = async () => {
-    const accessResult = await API_ADMIN.accessCheck(menuList[5].id);
-    if (!accessResult.data) {
-        return redirect("/login");
-    }
-
-    const univers = await API_MANAGE.uniAll();
-    const company = await API_MANAGE.companyGet();
-    const logo = await API_MANAGE.logo();
-    return defer({ univers, company: company.data, logo: logo.data });
-};
-
-export const action = async ({
+export const settingAction = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
     //console.log("-> /setting action request: ", request);

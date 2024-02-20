@@ -1,2 +1,2 @@
-import Management from "./setting";
-export default Management;
+import Setting from "./setting";
+export default Setting;
