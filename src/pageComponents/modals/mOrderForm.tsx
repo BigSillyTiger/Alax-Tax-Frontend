@@ -26,6 +26,8 @@ import {
     atSUData,
 } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
+import { useRouterStore } from "@/configs/zustore";
+import { genAction } from "@/utils/utils";
 
 const MOrderForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -35,6 +37,7 @@ const MOrderForm: FC = memo(() => {
     const [clientOrder] = useAtom(atOrder);
     const [uniData] = useAtom(atSUData);
     const [serviceDesc, setServiceDesc] = useAtom(atOrderService);
+    const currentRouter = useRouterStore((state) => state.currentRouter);
 
     const {
         control,
@@ -135,8 +138,10 @@ const MOrderForm: FC = memo(() => {
                 {
                     // this action need to be modified
                     method,
-                    action: `/clients/${clientOrder.fk_client_id}`,
-                    navigate: false,
+                    action:
+                        currentRouter === "client"
+                            ? genAction(currentRouter, clientOrder.fk_client_id)
+                            : genAction(currentRouter),
                 }
             );
         }

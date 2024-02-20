@@ -8,6 +8,8 @@ import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
 import { atOrder, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
+import { useRouterStore } from "@/configs/zustore";
+import { genAction } from "@/utils/utils";
 
 // this component is about building a modal with transition to delete a client
 const MOrderDel: FC = memo(() => {
@@ -15,6 +17,7 @@ const MOrderDel: FC = memo(() => {
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [clientOrder] = useAtom(atOrder);
+    const currentRouter = useRouterStore((state) => state.currentRouter);
 
     const handleDeleteClient = async (order_id: string) => {
         console.log("-> handle delete order click: ", order_id);
@@ -22,8 +25,10 @@ const MOrderDel: FC = memo(() => {
             { order_id },
             {
                 method: "DELETE",
-                action: `/clients/${clientOrder.client_info.client_id}`,
-                navigate: false,
+                action:
+                    currentRouter === "client"
+                        ? genAction(currentRouter, clientOrder.fk_client_id)
+                        : genAction(currentRouter),
             }
         );
     };
