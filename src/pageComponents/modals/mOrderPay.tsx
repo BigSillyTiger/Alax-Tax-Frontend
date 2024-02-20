@@ -20,9 +20,10 @@ import {
     OrderInfoCard,
     OrderDescCard,
 } from "@/components/customized";
-import { newDateFormat } from "@/utils/utils";
+import { genAction, newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin, mOpenOps } from "@/configs/utils";
 import { atClient, atOrder, atModalOpen } from "@/configs/atoms";
+import { useRouterStore } from "@/configs/zustore";
 
 type Tpayment = {
     payments: TorderPayment[];
@@ -39,6 +40,7 @@ const MOrderPay: FC = memo(() => {
         paid_date: newDateFormat(new Date()),
     });
     const [totalPaid, setTotalPaid] = useState(0);
+    const currentRouter = useRouterStore((state) => state.currentRouter);
     const { t } = useTranslation();
     const submit = useSubmit();
 
@@ -117,7 +119,10 @@ const MOrderPay: FC = memo(() => {
                 { values, req },
                 {
                     method: "PUT",
-                    action: `/clients/${clientOrder.fk_client_id}`,
+                    action:
+                        currentRouter === "client"
+                            ? genAction(currentRouter, clientOrder.fk_client_id)
+                            : genAction(currentRouter),
                 }
             );
         }
