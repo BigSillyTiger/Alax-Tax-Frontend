@@ -29,6 +29,7 @@ import {
 } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
 import { MpdfMaker } from "@/pageComponents/modals";
+import { orderSubTable } from "@/pageComponents/orderSubTables";
 
 const Client = () => {
     const { t } = useTranslation();
@@ -163,37 +164,6 @@ const Client = () => {
         }
     }, [actionData, modalOpen, setModalOpen, t]);
 
-    const subOrderTable = (data: Torder) => {
-        const items = [];
-        items.push({
-            title: t("label.services"),
-            content: data?.order_services?.length ? (
-                <PTable
-                    data={data.order_services}
-                    columns={orderDescColumns}
-                    cnHead="bg-indigo-50"
-                />
-            ) : (
-                <div className="my-2 px-1">{t("tips.noServices")}</div>
-            ),
-        });
-
-        items.push({
-            title: t("label.payments"),
-            content: data?.payments?.length ? (
-                <PTable
-                    data={data.payments}
-                    columns={orderPaymentsColumns}
-                    cnHead="bg-indigo-50"
-                />
-            ) : (
-                <div className="my-2 px-1">{t("tips.noPayments")}</div>
-            ),
-        });
-
-        return items;
-    };
-
     const ClientInfoContent: FC<{ client: Tclient }> = ({ client }) => {
         return (
             <div className="px-4 sm:px-6 lg:px-8 top-0 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 ">
@@ -240,7 +210,7 @@ const Client = () => {
                                 }
                                 return false;
                             }}
-                            expandContent={subOrderTable}
+                            expandContent={orderSubTable}
                             cnSearch="my-3"
                             cnTable="h-[55vh]"
                             cnHead="sticky z-10 bg-indigo-300"

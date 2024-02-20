@@ -18,6 +18,7 @@ import { Tcompany } from "@/configs/schema/settingSchema";
 import { mOpenOps } from "@/configs/utils";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
+import { orderSubTable } from "@/pageComponents/orderSubTables";
 
 type Torders = {
     orders: Torder[] | null;
@@ -113,6 +114,13 @@ const Orders: FC = () => {
                                 invoice: true,
                             }}
                             setData={setClientOrder}
+                            getRowCanExpand={(row) => {
+                                if (row.original.order_services.length > 0) {
+                                    return true;
+                                }
+                                return false;
+                            }}
+                            expandContent={orderSubTable}
                             cnSearch="my-3"
                             cnTable="h-[65vh]"
                             cnHead="sticky z-10 bg-indigo-300"

@@ -111,7 +111,7 @@ const PTable = <T extends object>({
               <Fragment key={row.id}>
                   <tr className={i % 2 === 0 ? undefined : "bg-gray-100"}>
                       {row.getVisibleCells().map((cell: any) => {
-                          /* nevigate to details page */
+                          /* nevigate to client details page only*/
                           if (cell.column.id === "Details") {
                               return (
                                   <td

@@ -18,6 +18,7 @@ const orderColumns: ColumnDef<Torder>[] = [
                 },
             }, */
             {
+                id: "orderID",
                 header: i18n.t("label.idOrder"),
                 accessorKey: "order_id",
                 cell: (info: CellContext<Torder, unknown>) => (
@@ -44,6 +45,7 @@ const orderColumns: ColumnDef<Torder>[] = [
             },
             {
                 header: i18n.t("label.phone1"),
+                accessorFn: (data: Torder) => data.client_info.phone,
                 accessorKey: "phone",
                 cell: (info: CellContext<Torder, unknown>) => (
                     <span>{info.getValue<string>()}</span>
@@ -54,6 +56,23 @@ const orderColumns: ColumnDef<Torder>[] = [
                 accessorKey: "order_date",
                 cell: (info: CellContext<Torder, unknown>) => (
                     <span>{dateFormat(info.getValue<string>())}</span>
+                ),
+            },
+            {
+                header: i18n.t("label.addrJob"),
+                accessorFn: (data: Torder) =>
+                    data.order_address +
+                    ", " +
+                    data.order_suburb +
+                    ", " +
+                    data.order_city +
+                    ", " +
+                    data.order_state +
+                    ", " +
+                    data.order_pc,
+                accessorKey: "order_address",
+                cell: (info: CellContext<Torder, string>) => (
+                    <span>{info.getValue()}</span>
                 ),
             },
             {

@@ -97,6 +97,7 @@ const en = {
             acc: "Account",
             addr: "Addr",
             address: "Address",
+            addrJob: "Job Address",
             aud: "AUD",
             balance: "Balance",
             billTo: "Bill To",
