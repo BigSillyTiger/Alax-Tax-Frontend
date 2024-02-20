@@ -78,7 +78,7 @@ const InvTemplate: FC<Tprops> = ({
             <TableFooter
                 company={company}
                 order={order.order_services}
-                paid={order.order_paid}
+                paid={order.paid}
                 unit={unit}
             />
         </View>

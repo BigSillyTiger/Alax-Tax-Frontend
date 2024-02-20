@@ -4,24 +4,24 @@ import { clientSchema } from "./clientSchema";
 export const plainOrderSchema = z.object({
     order_id: z.string(),
     fk_client_id: z.string(),
-    order_address: z.string().trim().nullable(),
-    order_suburb: z.string().trim().nullable(),
-    order_city: z.string().trim().nullable(),
-    order_state: z.string().trim().nullable(),
-    order_country: z.string().trim().nullable(),
-    order_pc: z
+    address: z.string().trim().nullable(),
+    suburb: z.string().trim().nullable(),
+    city: z.string().trim().nullable(),
+    state: z.string().trim().nullable(),
+    country: z.string().trim().nullable(),
+    postcode: z
         .string()
         //match 4 digits string which may start with 0
         .regex(/^[0-9]{4}$/, { message: "Must be numbers" })
         .min(4)
         .max(4)
         .nullable(),
-    order_status: z.string().trim(),
-    order_gst: z.number(),
-    order_total: z.number(),
-    order_paid: z.number(),
-    order_deposit: z.number(),
-    order_date: z.string().datetime().nullable(),
+    status: z.string().trim(),
+    gst: z.number(),
+    total: z.number(),
+    paid: z.number(),
+    deposit: z.number(),
+    created_date: z.string().datetime().nullable(),
     quotation_date: z.string().datetime().nullable(),
     invoice_issue_date: z.string().datetime(),
 });
@@ -53,9 +53,9 @@ export const orderFormSchema = plainOrderSchema
     .omit({
         order_id: true,
         fk_client_id: true,
-        //order_status: true,
-        order_date: true,
-        order_paid: true,
+        //status: true,
+        created_date: true,
+        paid: true,
         quotation_date: true,
         invoice_issue_date: true,
         invoice_update_date: true,

@@ -53,7 +53,7 @@ const orderColumns: ColumnDef<Torder>[] = [
             },
             {
                 header: i18n.t("label.orderDate"),
-                accessorKey: "order_date",
+                accessorKey: "created_date",
                 cell: (info: CellContext<Torder, unknown>) => (
                     <span>{dateFormat(info.getValue<string>())}</span>
                 ),
@@ -61,23 +61,23 @@ const orderColumns: ColumnDef<Torder>[] = [
             {
                 header: i18n.t("label.addrJob"),
                 accessorFn: (data: Torder) =>
-                    data.order_address +
+                    data.address +
                     ", " +
-                    data.order_suburb +
+                    data.suburb +
                     ", " +
-                    data.order_city +
+                    data.city +
                     ", " +
-                    data.order_state +
+                    data.state +
                     ", " +
-                    data.order_pc,
-                accessorKey: "order_address",
+                    data.postcode,
+                accessorKey: "address",
                 cell: (info: CellContext<Torder, string>) => (
                     <span>{info.getValue()}</span>
                 ),
             },
             {
                 header: i18n.t("label.status"),
-                accessorKey: "order_status",
+                accessorKey: "status",
                 cell: (info: CellContext<Torder, unknown>) => {
                     return (
                         <OrderStatus value={info.getValue() as TorderStatus} />
@@ -92,7 +92,7 @@ const orderColumns: ColumnDef<Torder>[] = [
         columns: [
             {
                 header: i18n.t("label.total"),
-                accessorKey: "order_total",
+                accessorKey: "total",
                 cell: (info: CellContext<Torder, string>) => (
                     <span>{info.getValue()}</span>
                 ),
@@ -100,7 +100,7 @@ const orderColumns: ColumnDef<Torder>[] = [
             {
                 id: "Gst",
                 header: i18n.t("label.gst"),
-                accessorKey: "order_gst",
+                accessorKey: "gst",
                 cell: (info: CellContext<Torder, number>) => (
                     <span>{info.getValue()}</span>
                 ),
@@ -108,7 +108,7 @@ const orderColumns: ColumnDef<Torder>[] = [
             {
                 id: "Paid",
                 header: i18n.t("label.paid"),
-                accessorKey: "order_paid",
+                accessorKey: "paid",
                 cell: (info: CellContext<Torder, string>) => (
                     <span>{info.getValue()}</span>
                 ),
@@ -119,8 +119,8 @@ const orderColumns: ColumnDef<Torder>[] = [
                 cell: (info: CellContext<Torder, string>) => (
                     <span>
                         {minusAB(
-                            info.row.original.order_total,
-                            info.row.original.order_paid
+                            info.row.original.total,
+                            info.row.original.paid
                         )}
                     </span>
                 ),

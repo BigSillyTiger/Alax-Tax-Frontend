@@ -136,7 +136,7 @@ const MOrderPay: FC = memo(() => {
         const inputCheck = payment.paid > 0 && payment.paid_date.length > 0;
         !inputCheck && toastError(t("toastF.invalidPayment"));
         const overPaidCheck =
-            plusAB(totalPaid, payment.paid) <= clientOrder.order_total;
+            plusAB(totalPaid, payment.paid) <= clientOrder.total;
         !overPaidCheck && toastError(t("toastF.overPaid"));
         inputCheck && overPaidCheck && prepend(payment);
     };

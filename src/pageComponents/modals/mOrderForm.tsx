@@ -97,14 +97,14 @@ const MOrderForm: FC = memo(() => {
     useEffect(() => {
         if (clientOrder && uniData?.services) {
             reset({
-                order_address: clientOrder.order_address ?? undefined,
-                order_suburb: clientOrder.order_suburb ?? undefined,
-                order_city: clientOrder.order_city ?? undefined,
-                order_state: clientOrder.order_state ?? undefined,
-                order_country: clientOrder.order_country ?? undefined,
-                order_pc: clientOrder.order_pc ?? undefined,
-                order_status: clientOrder.order_status ?? t("label.pending"),
-                order_deposit: clientOrder.order_deposit ?? 0,
+                address: clientOrder.address ?? undefined,
+                suburb: clientOrder.suburb ?? undefined,
+                city: clientOrder.city ?? undefined,
+                state: clientOrder.state ?? undefined,
+                country: clientOrder.country ?? undefined,
+                postcode: clientOrder.postcode ?? undefined,
+                status: clientOrder.status ?? t("label.pending"),
+                deposit: clientOrder.deposit ?? 0,
                 // notice this is the major operation for fields to read data
                 // from the order_services field
                 order_services: clientOrder.order_services ?? undefined,
@@ -129,8 +129,8 @@ const MOrderForm: FC = memo(() => {
                 // therefore, they are not in the form
                 // we need to manually add them to the values
                 order_id: clientOrder.order_id,
-                order_gst: calTotalGst,
-                order_total: calTotal,
+                gst: calTotalGst,
+                total: calTotal,
             });
             const method = !clientOrder.order_id ? "POST" : "PUT";
             submit(
@@ -189,16 +189,16 @@ const MOrderForm: FC = memo(() => {
             {/* street */}
             <div className="col-span-full">
                 <label
-                    htmlFor="order_address"
+                    htmlFor="address"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
                     {t("label.address")}
                 </label>
                 <div className="mt-1">
                     <input
-                        {...register("order_address")}
+                        {...register("address")}
                         type="text"
-                        id="order_address"
+                        id="address"
                         autoComplete="street-address"
                         className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                     />
@@ -207,16 +207,16 @@ const MOrderForm: FC = memo(() => {
 
             <div className="sm:col-span-2">
                 <label
-                    htmlFor="order_suburb"
+                    htmlFor="suburb"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
                     {t("label.suburb")}
                 </label>
                 <div className="mt-1">
                     <input
-                        {...register("order_suburb")}
+                        {...register("suburb")}
                         type="text"
-                        id="order_suburb"
+                        id="suburb"
                         autoComplete="address-level2"
                         className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                     />
@@ -226,16 +226,16 @@ const MOrderForm: FC = memo(() => {
             {/* city */}
             <div className="sm:col-span-2">
                 <label
-                    htmlFor="order_city"
+                    htmlFor="city"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
                     {t("label.city")}
                 </label>
                 <div className="mt-1">
                     <input
-                        {...register("order_city")}
+                        {...register("city")}
                         type="text"
-                        id="order_city"
+                        id="city"
                         autoComplete="address-level2"
                         className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                     />
@@ -245,15 +245,15 @@ const MOrderForm: FC = memo(() => {
             {/* state */}
             <div className="sm:col-span-2">
                 <label
-                    htmlFor="order_state"
+                    htmlFor="state"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
                     {t("label.state")}
                 </label>
                 <div className="mt-1">
                     <select
-                        {...register("order_state")}
-                        id="order_state"
+                        {...register("state")}
+                        id="state"
                         autoComplete="state-name"
                         className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                     >
@@ -265,17 +265,17 @@ const MOrderForm: FC = memo(() => {
             {/* country */}
             <div className="sm:col-span-2">
                 <label
-                    htmlFor="order_country"
+                    htmlFor="country"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
                     {t("label.country")}
                 </label>
                 <div className="mt-1">
                     <input
-                        {...register("order_country")}
+                        {...register("country")}
                         type="text"
                         disabled
-                        id="order_country"
+                        id="country"
                         autoComplete="country-name"
                         className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -285,7 +285,7 @@ const MOrderForm: FC = memo(() => {
             {/* postcode */}
             <div className="sm:col-span-2">
                 <label
-                    htmlFor="order_pc"
+                    htmlFor="postcode"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
                     {t("label.pc")}
@@ -293,14 +293,14 @@ const MOrderForm: FC = memo(() => {
 
                 <div className="mt-1">
                     <input
-                        {...register("order_pc")}
+                        {...register("postcode")}
                         type="text"
-                        id="order_pc"
+                        id="postcode"
                         autoComplete="postal-code"
                         className={`
                             outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
                             ${
-                                errors.order_pc
+                                errors.postcode
                                     ? " ring-2 ring-red-600 focus:ring-red-400 "
                                     : " ring-1 ring-gray-300 focus:ring-indigo-600 "
                             }
@@ -316,16 +316,16 @@ const MOrderForm: FC = memo(() => {
             {/* order satus */}
             <div className="sm:col-span-3">
                 <label
-                    htmlFor="order_status"
+                    htmlFor="status"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
                     {t("label.status")}
                 </label>
                 <div className="mt-1">
                     <select
-                        {...register("order_status")}
-                        id="order_status"
-                        //autoComplete="order_status"
+                        {...register("status")}
+                        id="status"
+                        //autoComplete="status"
                         className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                     >
                         <option value={t("label.pending")}>
@@ -346,21 +346,21 @@ const MOrderForm: FC = memo(() => {
             {/* order deposit fee */}
             <div className="sm:col-span-3">
                 <label
-                    htmlFor="order_deposit"
+                    htmlFor="deposit"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
                     {t("label.deposit")}
                 </label>
                 <div className="mt-1">
                     <input
-                        {...register("order_deposit", {
+                        {...register("deposit", {
                             valueAsNumber: true,
                         })}
                         type="number"
                         step="0.01"
                         min={0}
-                        id="order_deposit"
-                        name="order_deposit"
+                        id="deposit"
+                        name="deposit"
                         className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
@@ -368,19 +368,19 @@ const MOrderForm: FC = memo(() => {
             {/* order total Gst */}
             <div className="sm:col-span-3">
                 <label
-                    htmlFor="order_gst"
+                    htmlFor="gst"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
                     {t("label.totalGst")}
                 </label>
                 <div className="mt-1">
                     <input
-                        {...register("order_gst", { valueAsNumber: true })}
+                        {...register("gst", { valueAsNumber: true })}
                         type="number"
                         step="0.01"
                         min={0}
-                        id="order_gst"
-                        name="order_gst"
+                        id="gst"
+                        name="gst"
                         value={calTotalGst}
                         className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -389,20 +389,20 @@ const MOrderForm: FC = memo(() => {
             {/* order total fee */}
             <div className="sm:col-span-3">
                 <label
-                    htmlFor="order_total"
+                    htmlFor="total"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
                     {t("label.total")}
                 </label>
                 <div className="mt-1">
                     <input
-                        {...register("order_total", {
+                        {...register("total", {
                             valueAsNumber: true,
                         })}
                         type="number"
                         step="0.01"
                         min={0}
-                        id="order_total"
+                        id="total"
                         value={calTotal}
                         className="outline-none pl-2 h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />

@@ -47,7 +47,7 @@ const MOrderDel: FC = memo(() => {
                 <div className="col-span-3">
                     <p>
                         <b className="text-indigo-600">{t("label.pc")}: </b>{" "}
-                        {clientOrder?.order_pc}
+                        {clientOrder?.postcode}
                     </p>
                 </div>
 
@@ -56,9 +56,9 @@ const MOrderDel: FC = memo(() => {
                         <b className="text-indigo-600">
                             {t("label.address")}:{" "}
                         </b>{" "}
-                        {clientOrder?.order_address},{" "}
-                        {clientOrder?.order_suburb}, {clientOrder?.order_city},{" "}
-                        {clientOrder?.order_state}, {clientOrder?.order_country}
+                        {clientOrder?.address}, {clientOrder?.suburb},{" "}
+                        {clientOrder?.city}, {clientOrder?.state},{" "}
+                        {clientOrder?.country}
                     </p>
                 </div>
             </div>

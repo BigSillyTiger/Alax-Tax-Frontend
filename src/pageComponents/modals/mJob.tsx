@@ -85,13 +85,13 @@ const MJobAssign = () => {
                             <b className="text-indigo-600">
                                 {t("label.address")}:&nbsp;
                             </b>
-                            {clientOrder.order_address},&nbsp;
-                            {clientOrder.order_suburb}
+                            {clientOrder.address},&nbsp;
+                            {clientOrder.suburb}
                             ,&nbsp;
-                            {clientOrder.order_city},&nbsp;
-                            {clientOrder.order_state},&nbsp;
-                            {clientOrder.order_country},&nbsp;
-                            {clientOrder.order_pc}
+                            {clientOrder.city},&nbsp;
+                            {clientOrder.state},&nbsp;
+                            {clientOrder.country},&nbsp;
+                            {clientOrder.postcode}
                         </p>
                     </Fieldset>
                 </section>

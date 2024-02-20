@@ -19,21 +19,20 @@ const OrderInfoCard: FC<TorderInfo> = ({ order, paid, className }) => {
             <div className="col-span-full break-words">
                 <p>
                     <b className="text-indigo-600">{t("label.workAddr")}: </b>{" "}
-                    {order?.order_address}, {order?.order_suburb},{" "}
-                    {order?.order_city}, {order?.order_state},{" "}
-                    {order?.order_country}, {order?.order_pc}
+                    {order?.address}, {order?.suburb}, {order?.city},{" "}
+                    {order?.state}, {order?.country}, {order?.postcode}
                 </p>
             </div>
             <div className="col-span-3">
                 <p>
                     <b className="text-indigo-600">{t("label.due")}: </b>{" "}
-                    {order?.order_total}
+                    {order?.total}
                 </p>
             </div>
             <div className="col-span-3">
                 <p>
                     <b className="text-indigo-600">{t("label.gst")}: </b>{" "}
-                    {order?.order_gst}
+                    {order?.gst}
                 </p>
             </div>
             <div className="col-span-3">
@@ -45,7 +44,7 @@ const OrderInfoCard: FC<TorderInfo> = ({ order, paid, className }) => {
             <div className="col-span-3">
                 <p>
                     <b className="text-indigo-600">{t("label.balance")}: </b>{" "}
-                    {minusAB(order?.order_total, paid)}
+                    {minusAB(order?.total, paid)}
                     {}
                 </p>
             </div>

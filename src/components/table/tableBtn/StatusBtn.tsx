@@ -45,7 +45,7 @@ const StatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     };
 
     const menuContent = slist.map((item, index) => {
-        if (item.label === data.order_status) return;
+        if (item.label === data.status) return;
         return (
             <div className="p-1" key={index}>
                 <Menu.Item as={Fragment}>

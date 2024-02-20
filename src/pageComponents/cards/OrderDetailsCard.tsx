@@ -19,9 +19,8 @@ const OrderDetailsCard: FC<TorderInfo> = ({ order, className }) => {
             <section className="col-span-full pb-3 break-words border-b-2 border-dotted border-indigo-300">
                 <p>
                     <b className="text-indigo-600">{t("label.workAddr")}: </b>{" "}
-                    {order?.order_address}, {order?.order_suburb},{" "}
-                    {order?.order_city}, {order?.order_state},{" "}
-                    {order?.order_country}, {order?.order_pc}
+                    {order?.address}, {order?.suburb}, {order?.city},{" "}
+                    {order?.state}, {order?.country}, {order?.postcode}
                 </p>
             </section>
 
@@ -29,19 +28,19 @@ const OrderDetailsCard: FC<TorderInfo> = ({ order, className }) => {
                 <div className="col-span-1">
                     <p>
                         <b className="text-indigo-600">{t("label.due")}: </b>{" "}
-                        {order?.order_total}
+                        {order?.total}
                     </p>
                 </div>
                 <div className="col-span-1">
                     <p>
                         <b className="text-indigo-600">{t("label.gst")}: </b>{" "}
-                        {order?.order_gst}
+                        {order?.gst}
                     </p>
                 </div>
                 <div className="col-span-1">
                     <p>
                         <b className="text-indigo-600">{t("label.paid")}: </b>
-                        {order.order_paid}
+                        {order.paid}
                     </p>
                 </div>
                 <div className="col-span-1">
@@ -49,7 +48,7 @@ const OrderDetailsCard: FC<TorderInfo> = ({ order, className }) => {
                         <b className="text-indigo-600">
                             {t("label.balance")}:{" "}
                         </b>{" "}
-                        {minusAB(order?.order_total, order?.order_paid)}
+                        {minusAB(order?.total, order?.paid)}
                     </p>
                 </div>
             </section>
