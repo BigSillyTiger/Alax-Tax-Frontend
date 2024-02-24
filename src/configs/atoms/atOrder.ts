@@ -3,7 +3,7 @@ import { TorderService, Torder } from "@/configs/schema/orderSchema";
 import i18n from "@/utils/i18n";
 
 const atOrder = atom<Torder>({
-    order_id: "",
+    oid: "",
     fk_client_id: "",
     address: "",
     suburb: "",
@@ -22,7 +22,7 @@ const atOrder = atom<Torder>({
     order_services: [],
     payments: [],
     client_info: {
-        client_id: "",
+        cid: "",
         first_name: "",
         last_name: "",
         phone: "",

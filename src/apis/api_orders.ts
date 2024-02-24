@@ -53,9 +53,9 @@ export const orderUpdate = async (data: any) => {
     }
 };
 
-export const orderWClient = async (client_id: string): Promise<Tresponse> => {
+export const orderWClient = async (cid: string): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_ORDER_W_CLIENT, { client_id });
+        const response = await apis.post(REQ_ORDER_W_CLIENT, { cid });
         return response.data;
     } catch (err: any) {
         console.log("-> retrieve client info error: ", err);
@@ -108,12 +108,12 @@ export const paymentUpdate = async (data: any): Promise<Tresponse> => {
 
 export const updateInvoiceIssue = async (
     date: string,
-    order_id: string
+    oid: string
 ): Promise<Tresponse> => {
     try {
         const response = await apis.put(REQ_INVOICE_ISSUE_UPDATE, {
             date,
-            order_id,
+            oid,
         });
         return response.data;
     } catch (error) {

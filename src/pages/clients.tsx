@@ -33,11 +33,11 @@ const Clients: FC = () => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
             // update or add a client
             setInfoConflict(actionData?.status);
-            if (!client.client_id) {
+            if (!client.cid) {
                 setModalOpen("");
                 setClient(RESET);
                 toastSuccess("Registered a new client");
-            } else if (client.client_id) {
+            } else if (client.cid) {
                 setModalOpen("");
                 setClient(RESET);
                 toastSuccess("Updated client informaton");
@@ -56,13 +56,7 @@ const Clients: FC = () => {
         }
         // set status to default, in case the stale value interfere the next action
         actionData?.status && (actionData.status = RES_STATUS.DEFAULT);
-    }, [
-        actionData,
-        client.client_id,
-        setClient,
-        setInfoConflict,
-        setModalOpen,
-    ]);
+    }, [actionData, client.cid, setClient, setInfoConflict, setModalOpen]);
 
     const handleAddNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();

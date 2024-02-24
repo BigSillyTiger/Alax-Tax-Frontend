@@ -19,10 +19,10 @@ const MOrderDel: FC = memo(() => {
     const [clientOrder] = useAtom(atOrder);
     const currentRouter = useRouterStore((state) => state.currentRouter);
 
-    const handleDeleteClient = async (order_id: string) => {
-        console.log("-> handle delete order click: ", order_id);
+    const handleDeleteClient = async (oid: string) => {
+        console.log("-> handle delete order click: ", oid);
         await submit(
-            { order_id },
+            { oid },
             {
                 method: "DELETE",
                 action:
@@ -41,7 +41,7 @@ const MOrderDel: FC = memo(() => {
                         <b className="text-indigo-600">
                             {t("label.orderId")}:{" "}
                         </b>{" "}
-                        {clientOrder?.order_id}
+                        {clientOrder?.oid}
                     </p>
                 </div>
                 <div className="col-span-3">
@@ -80,7 +80,7 @@ const MOrderDel: FC = memo(() => {
 
             <DelBtn
                 onClick={() => {
-                    handleDeleteClient(clientOrder.order_id);
+                    handleDeleteClient(clientOrder.oid);
                     onClose();
                 }}
                 onClose={onClose}

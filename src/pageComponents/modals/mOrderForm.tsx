@@ -121,18 +121,18 @@ const MOrderForm: FC = memo(() => {
         console.log("-> mOrderForm click submit err: ", errors);
         const isValid = await trigger();
         if (isValid) {
-            const req = !clientOrder.order_id ? "orderCreate" : "orderUpdate";
+            const req = !clientOrder.oid ? "orderCreate" : "orderUpdate";
             const values = JSON.stringify({
                 ...getValues(),
-                client_id: clientOrder.client_info.client_id,
+                cid: clientOrder.client_info.cid,
                 // these 3 the value has be manually calculated or registered
                 // therefore, they are not in the form
                 // we need to manually add them to the values
-                order_id: clientOrder.order_id,
+                oid: clientOrder.oid,
                 gst: calTotalGst,
                 total: calTotal,
             });
-            const method = !clientOrder.order_id ? "POST" : "PUT";
+            const method = !clientOrder.oid ? "POST" : "PUT";
             submit(
                 { values, req },
                 {
@@ -171,7 +171,7 @@ const MOrderForm: FC = memo(() => {
         if (service) {
             setServiceDesc({
                 ranking: 0,
-                fk_order_id: clientOrder.order_id,
+                fk_order_id: clientOrder.oid,
                 title: service.service as string,
                 taxable: true,
                 description: "",
@@ -767,9 +767,9 @@ const MOrderForm: FC = memo(() => {
             open={!!(modalOpen === mOpenOps.edit || modalOpen === mOpenOps.add)}
             onClose={onClose}
             title={
-                !clientOrder.order_id
+                !clientOrder.oid
                     ? t("modal.title.addOrder")
-                    : t("modal.title.editOrder") + ` #${clientOrder.order_id}`
+                    : t("modal.title.editOrder") + ` #${clientOrder.oid}`
             }
             mode={"full"}
             mQuit={true}

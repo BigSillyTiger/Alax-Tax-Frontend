@@ -15,7 +15,7 @@ const clientColumns: ColumnDef<Tclient>[] = [
     },
     {
         header: i18n.t("label.idClient"),
-        accessorFn: (data: Tclient) => data.client_id,
+        accessorFn: (data: Tclient) => data.cid,
         cell: (info: CellContext<Tclient, unknown>) => (
             <span>{info.getValue<string>()}</span>
         ),

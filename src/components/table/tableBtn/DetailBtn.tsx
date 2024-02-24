@@ -12,7 +12,7 @@ const DetailBtn: FC<Tprops> = ({ data }) => {
 
     const handleClick: PointerEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
-        return nevigate("/clients/" + data.client_id, {
+        return nevigate("/clients/" + data.cid, {
             replace: false,
         });
     };

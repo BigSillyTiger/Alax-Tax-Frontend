@@ -12,8 +12,15 @@ export const workSchema = z.object({
     work_note: z.string().trim().nullable(),
 });
 
+export const workUnionSchema = z
+    .object({
+        wuid: z.string(),
+        wu_date: z.date(),
+    })
+    .extend({ work_logs: workSchema.array() });
+
 export const orderWithWorklogs = orderSchema.extend({
-    work_logs: workSchema.array(),
+    workUnion: workUnionSchema,
 });
 
 /**
@@ -24,5 +31,6 @@ export const workAssignmentSchema = orderSchema.extend({
 });
 
 export type Twork = z.infer<typeof workSchema>;
-export type TorderWithWorklogs = z.infer<typeof orderWithWorklogs>;
+export type TworkUnion = z.infer<typeof workUnionSchema>;
 export type TworkAssignment = z.infer<typeof workAssignmentSchema>;
+export type TorderWithWorklogs = z.infer<typeof orderWithWorklogs>;

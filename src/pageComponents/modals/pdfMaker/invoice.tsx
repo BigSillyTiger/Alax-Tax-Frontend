@@ -17,14 +17,14 @@ import { dateMax, dateMin } from "@/configs/utils";
 import { atCompany, atLogo, atOrder, atClient } from "@/configs/atoms";
 
 const DatePicker = ({
-    order_id,
-    client_id,
+    oid,
+    cid,
     date,
     setDate,
     defaultDate,
 }: {
-    order_id: string;
-    client_id: string;
+    oid: string;
+    cid: string;
     date: string;
     setDate: (v: string) => void;
     defaultDate: string;
@@ -34,12 +34,12 @@ const DatePicker = ({
     const submit = useSubmit();
 
     const onSubmit = async (date: string) => {
-        //const result = await API_ORDER.updateInvoiceIssue(date, order_id);
+        //const result = await API_ORDER.updateInvoiceIssue(date, oid);
         submit(
-            { date, order_id, req: "updateInvoiceIssue" },
+            { date, oid, req: "updateInvoiceIssue" },
             {
                 method: "PUT",
-                action: `/clients/${client_id}`,
+                action: `/clients/${cid}`,
             }
         );
     };
@@ -161,8 +161,8 @@ const InvContent: FC = memo(() => {
             <section className="col-span-1 md:col-span-3 ">
                 {detailContent}
                 <DatePicker
-                    order_id={clientOrder.order_id}
-                    client_id={clientOrder.fk_client_id}
+                    oid={clientOrder.oid}
+                    cid={clientOrder.fk_client_id}
                     date={date}
                     setDate={setDate}
                     defaultDate={clientOrder.invoice_issue_date}

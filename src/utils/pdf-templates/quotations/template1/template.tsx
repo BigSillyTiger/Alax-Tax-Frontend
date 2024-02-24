@@ -49,7 +49,7 @@ const QuoTemplate: FC<Tprops> = ({
         <View style={tw("flex flex-col")}>
             <Title
                 company={company}
-                orderID={order.order_id}
+                orderID={order.oid}
                 issueDate={date}
                 logo={logo}
             />

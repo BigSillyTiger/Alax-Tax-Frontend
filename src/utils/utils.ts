@@ -40,10 +40,7 @@ export const capFirstLetter = (str: string) =>
 /**
  * @description generate action for relative router path
  */
-export const genAction = (
-    path: keyof typeof routerPaths,
-    client_id?: string
-) => {
+export const genAction = (path: keyof typeof routerPaths, cid?: string) => {
     switch (path) {
         case "init":
             return `/${path}`;
@@ -54,7 +51,7 @@ export const genAction = (
         case "clients":
             return `/${path}`;
         case "client":
-            return `/${path}s/${client_id}`;
+            return `/${path}s/${cid}`;
         case "orders":
             return `/${path}`;
         case "calendar":

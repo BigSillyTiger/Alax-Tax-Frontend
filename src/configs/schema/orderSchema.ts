@@ -2,7 +2,7 @@ import { z } from "zod";
 import { clientSchema } from "./clientSchema";
 
 export const plainOrderSchema = z.object({
-    order_id: z.string(),
+    oid: z.string(),
     fk_client_id: z.string(),
     address: z.string().trim().nullable(),
     suburb: z.string().trim().nullable(),
@@ -51,7 +51,7 @@ export const orderPaymentSchema = z.object({
  */
 export const orderFormSchema = plainOrderSchema
     .omit({
-        order_id: true,
+        oid: true,
         fk_client_id: true,
         //status: true,
         created_date: true,

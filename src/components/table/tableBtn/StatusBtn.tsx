@@ -37,9 +37,9 @@ type Tprops = {
 const StatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     const submit = useSubmit();
 
-    const handleClick = async (order_id: string, status: string) => {
+    const handleClick = async (oid: string, status: string) => {
         submit(
-            { req: "orderStatus", order_id, status },
+            { req: "orderStatus", oid, status },
             { method: "PUT", action: `/clients/${data.fk_client_id}` }
         );
     };
@@ -53,7 +53,7 @@ const StatusBtn: FC<Tprops> = ({ mLabel, data }) => {
                         <button
                             onClick={(e) => {
                                 e.preventDefault();
-                                handleClick(data.order_id, item.label);
+                                handleClick(data.oid, item.label);
                             }}
                             className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-bold ${
                                 active ? item.activeCss : item.inactiveCss

@@ -1,3 +1,5 @@
+import { date } from "zod";
+
 // the script for the English language
 const en = {
     translation: {
@@ -116,6 +118,7 @@ const en = {
             completed: "Completed",
             companyInfo: "Company Info",
             country: "Country",
+            date: "Date",
             defaultUnit: "Default Unit",
             defaultPrice: "Default Price",
             deposit: "Deposit",

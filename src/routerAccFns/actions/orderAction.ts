@@ -15,7 +15,7 @@ export const ordersAction = async ({
         const orData = JSON.parse(data.get("values") as string);
         const order = {
             order: {
-                fk_client_id: orData.client_id,
+                fk_client_id: orData.cid,
                 address: orData.address,
                 suburb: orData.suburb,
                 city: orData.city,
@@ -38,8 +38,8 @@ export const ordersAction = async ({
         const orData = JSON.parse(data.get("values") as string);
         const order = {
             order: {
-                order_id: orData.order_id,
-                fk_client_id: orData.client_id,
+                oid: orData.oid,
+                fk_client_id: orData.cid,
                 address: orData.address,
                 suburb: orData.suburb,
                 city: orData.city,
@@ -68,7 +68,7 @@ export const ordersAction = async ({
     // change order status
     else if ("PUT" === request.method && data.get("req") === "orderStatus") {
         const result = await API_ORDER.orderChangeStatus({
-            order_id: data.get("order_id"),
+            oid: data.get("oid"),
             status: data.get("status"),
         });
         return result;
@@ -87,18 +87,18 @@ export const ordersAction = async ({
         console.log(
             "-> action update invoice issue: ",
             data.get("newDate"),
-            data.get("order_id")
+            data.get("oid")
         );
         const result = await API_ORDER.updateInvoiceIssue(
             data.get("date") as string,
-            data.get("order_id") as string
+            data.get("oid") as string
         );
         return result;
     }
     // delete an order
     else if ("DELETE" === request.method) {
         const result = await API_ORDER.orderDel({
-            order_id: data.get("order_id"),
+            oid: data.get("oid"),
         });
         //console.log("-> client page receive delete order result: ", result);
         return result;

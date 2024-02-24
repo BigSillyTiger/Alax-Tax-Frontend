@@ -33,9 +33,9 @@ export const clientAll = async (): Promise<Tresponse> => {
     }
 };
 
-export const clientInfo = async (client_id: string): Promise<Tresponse> => {
+export const clientInfo = async (cid: string): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_CLIENT_INFO, { client_id });
+        const response = await apis.post(REQ_CLIENT_INFO, { cid });
         return response.data;
     } catch (err: any) {
         console.log("-> retrieve client info error: ", err);
@@ -61,11 +61,9 @@ export const clientAdd = async (client: TclientUnreg): Promise<Tresponse> => {
     }
 };
 
-export const clientSingleDel = async (
-    client_id: string
-): Promise<Tresponse> => {
+export const clientSingleDel = async (cid: string): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_CLIENT_SINGLE_DEL, { client_id });
+        const response = await apis.post(REQ_CLIENT_SINGLE_DEL, { cid });
         return response.data;
     } catch (err) {
         console.log("-> delete client failed: ", err);

@@ -45,9 +45,9 @@ const MClientForm: FC = memo(() => {
         console.log("-> client add: ", errors);
         if (isValid) {
             const values = getValues();
-            const method = !client.client_id ? "POST" : "PUT";
+            const method = !client.cid ? "POST" : "PUT";
             submit(
-                { ...values, id: client.client_id },
+                { ...values, id: client.cid },
                 { method, action: "/clients" }
             );
         }

@@ -23,7 +23,7 @@ const ClientInfoCard: FC<Tinfo> = ({ client, className = "" }) => {
             <div className="col-span-2">
                 <p>
                     <b className="text-indigo-600">{t("label.clientID")}: </b>{" "}
-                    {client.client_id}
+                    {client.cid}
                 </p>
             </div>
             <div className="col-span-6 sm:col-span-4">

@@ -2,7 +2,7 @@ import { atomWithReset } from "jotai/utils";
 import { Tclient } from "@/configs/schema/clientSchema.ts";
 
 const initClient: Tclient = {
-    client_id: "",
+    cid: "",
     first_name: "",
     last_name: "",
     phone: "",

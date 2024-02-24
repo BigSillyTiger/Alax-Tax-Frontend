@@ -67,9 +67,9 @@ const Client = () => {
         });
 
     const initOrder: Torder = {
-        order_id: "",
+        oid: "",
         client_info: clientInfo.data[0],
-        fk_client_id: clientInfo.data[0].client_id,
+        fk_client_id: clientInfo.data[0].cid,
         address: clientInfo.data[0].address,
         suburb: clientInfo.data[0].suburb,
         city: clientInfo.data[0].city,
@@ -105,7 +105,7 @@ const Client = () => {
         setLogo(logo);
         setUniData(uniData);
         setServiceDesc({
-            fk_order_id: clientOrder.order_id,
+            fk_order_id: clientOrder.oid,
             ranking: 0,
             title: uniData?.services[0].service as string,
             taxable: true,
@@ -180,7 +180,7 @@ const Client = () => {
                                 e.preventDefault();
                                 setClientOrder({
                                     ...initOrder,
-                                    order_id: "",
+                                    oid: "",
                                 });
                                 setModalOpen("Add");
                             }}

@@ -1,6 +1,6 @@
 import Fieldset from "@/components/form/fieldset";
 import { Tclient } from "@/configs/schema/clientSchema";
-import React, { FC } from "react";
+import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 type Tprops = {
@@ -20,8 +20,8 @@ const ClientInfoFs: FC<Tprops> = ({
     return (
         <Fieldset
             title={title}
-            sFieldset={`${sFieldset}`}
-            sLegend={`${sLegend}`}
+            sFieldset={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 my-2 mx-1 text-sm p-4 ${sFieldset}`}
+            sLegend={`text-indigo-500 text-bold text-lg ${sLegend}`}
         >
             <div className="col-span-4">
                 <p>
@@ -32,7 +32,7 @@ const ClientInfoFs: FC<Tprops> = ({
             <div className="col-span-2">
                 <p>
                     <b className="text-indigo-600">{t("label.clientID")}: </b>{" "}
-                    {client.client_id}
+                    {client.cid}
                 </p>
             </div>
             <div className="col-span-6 sm:col-span-4">

@@ -1,0 +1,318 @@
+.rdp {
+    --rdp-cell-size: 40px !important; /* Size of the day cells. */
+    --rdp-caption-font-size: 18px !important; /* Font size for the caption labels. */
+    --rdp-accent-color: #0000ff !important; /* Accent color for the background of selected days. */
+    --rdp-background-color: #e7edff !important; /* Background color for the hovered/focused elements. */
+    --rdp-accent-color-dark: #3003e1 !important; /* Accent color for the background of selected days (to use in dark-mode). */
+    --rdp-background-color-dark: #180270 !important; /* Background color for the hovered/focused elements (to use in dark-mode). */
+    --rdp-outline: 2px solid var(--rdp-accent-color) !important; /* Outline border for focused elements */
+    --rdp-outline-selected: 3px solid var(--rdp-accent-color) !important; /* Outline border for focused _and_ selected elements */
+    --rdp-selected-color: #fff !important; /* Color of selected day text */
+
+    margin: 1em !important;
+}
+
+/* Hide elements for devices that are not screen readers */
+.rdp-vhidden {
+    box-sizing: border-box !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    -moz-appearance: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    position: absolute !important;
+    top: 0 !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    border: 0 !important;
+}
+
+/* Buttons */
+.rdp-button_reset {
+    appearance: none !important;
+    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    cursor: default !important;
+    color: inherit !important;
+    background: none !important;
+    font: inherit !important;
+
+    -moz-appearance: none !important;
+    -webkit-appearance: none !important;
+}
+
+.rdp-button_reset:focus-visible {
+    /* Make sure to reset outline only when :focus-visible is supported */
+    outline: none !important;
+}
+
+.rdp-button {
+    border: 2px solid transparent !important;
+}
+
+.rdp-button[disabled]:not(.rdp-day_selected) {
+    opacity: 0.25 !important;
+}
+
+.rdp-button:not([disabled]) {
+    cursor: pointer !important;
+}
+
+.rdp-button:focus-visible:not([disabled]) {
+    color: inherit !important;
+    background-color: var(--rdp-background-color) !important;
+    border: var(--rdp-outline) !important;
+}
+
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+    background-color: var(--rdp-background-color) !important;
+}
+
+.rdp-months {
+    display: flex !important;
+}
+
+.rdp-month {
+    margin: 0 1em !important;
+}
+
+.rdp-month:first-child {
+    margin-left: 0 !important;
+}
+
+.rdp-month:last-child {
+    margin-right: 0 !important;
+}
+
+.rdp-table {
+    margin: 0 !important;
+    max-width: calc(var(--rdp-cell-size) * 7) !important;
+    border-collapse: collapse !important;
+}
+
+.rdp-with_weeknumber .rdp-table {
+    max-width: calc(var(--rdp-cell-size) * 8) !important;
+    border-collapse: collapse !important;
+}
+
+.rdp-caption {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 !important;
+    text-align: left !important;
+}
+
+.rdp-multiple_months .rdp-caption {
+    position: relative !important;
+    display: block !important;
+    text-align: center !important;
+}
+
+.rdp-caption_dropdowns {
+    position: relative !important;
+    display: inline-flex !important;
+}
+
+.rdp-caption_label {
+    position: relative !important;
+    z-index: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 0.25em !important;
+    white-space: nowrap !important;
+    color: currentColor !important;
+    border: 0 !important;
+    border: 2px solid transparent !important;
+    font-family: inherit !important;
+    font-size: var(--rdp-caption-font-size) !important;
+    font-weight: bold !important;
+}
+
+.rdp-nav {
+    white-space: nowrap !important;
+}
+
+.rdp-multiple_months .rdp-caption_start .rdp-nav {
+    position: absolute !important;
+    top: 50% !important;
+    left: 0 !important;
+    transform: translateY(-50%) !important;
+}
+
+.rdp-multiple_months .rdp-caption_end .rdp-nav {
+    position: absolute !important;
+    top: 50% !important;
+    right: 0 !important;
+    transform: translateY(-50%) !important;
+}
+
+.rdp-nav_button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: var(--rdp-cell-size) !important;
+    height: var(--rdp-cell-size) !important;
+    padding: 0.25em !important;
+    border-radius: 100% !important;
+}
+
+/* ---------- */
+/* Dropdowns  */
+/* ---------- */
+
+.rdp-dropdown_year,
+.rdp-dropdown_month {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.rdp-dropdown {
+    appearance: none !important;
+    position: absolute !important;
+    z-index: 2 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    cursor: inherit !important;
+    opacity: 0 !important;
+    border: none !important;
+    background-color: transparent !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+}
+
+.rdp-dropdown[disabled] {
+    opacity: unset !important;
+    color: unset !important;
+}
+
+.rdp-dropdown:focus-visible:not([disabled]) + .rdp-caption_label {
+    background-color: var(--rdp-background-color) !important;
+    border: var(--rdp-outline) !important;
+    border-radius: 6px !important;
+}
+
+.rdp-dropdown_icon {
+    margin: 0 0 0 5px !important;
+}
+
+.rdp-head {
+    border: 0 !important;
+}
+
+.rdp-head_row,
+.rdp-row {
+    height: 100% !important;
+}
+
+.rdp-head_cell {
+    vertical-align: middle !important;
+    font-size: 0.75em !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    height: 100% !important;
+    height: var(--rdp-cell-size) !important;
+    padding: 0 !important;
+    text-transform: uppercase !important;
+}
+
+.rdp-tbody {
+    border: 0 !important;
+}
+
+.rdp-tfoot {
+    margin: 0.5em !important;
+}
+
+.rdp-cell {
+    width: var(--rdp-cell-size) !important;
+    height: 100% !important;
+    height: var(--rdp-cell-size) !important;
+    padding: 0 !important;
+    text-align: center !important;
+}
+
+.rdp-weeknumber {
+    font-size: 0.75em !important;
+}
+
+.rdp-weeknumber,
+.rdp-day {
+    display: flex !important;
+    overflow: hidden !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    width: var(--rdp-cell-size) !important;
+    max-width: var(--rdp-cell-size) !important;
+    height: var(--rdp-cell-size) !important;
+    margin: 0 !important;
+    border: 2px solid transparent !important;
+    border-radius: 100% !important;
+}
+
+.rdp-day_today:not(.rdp-day_outside) {
+    font-weight: bold !important;
+}
+
+.rdp-day_selected,
+.rdp-day_selected:focus-visible,
+.rdp-day_selected:hover {
+    color: var(--rdp-selected-color) !important;
+    opacity: 1 !important;
+    background-color: var(--rdp-accent-color) !important;
+}
+
+.rdp-day_outside {
+    opacity: 0.5 !important;
+}
+
+.rdp-day_selected:focus-visible {
+    /* Since the background is the same use again the outline */
+    outline: var(--rdp-outline) !important;
+    outline-offset: 2px !important;
+    z-index: 1 !important;
+}
+
+.rdp:not([dir="rtl"]) .rdp-day_range_start:not(.rdp-day_range_end) {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.rdp:not([dir="rtl"]) .rdp-day_range_end:not(.rdp-day_range_start) {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.rdp[dir="rtl"] .rdp-day_range_start:not(.rdp-day_range_end) {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.rdp[dir="rtl"] .rdp-day_range_end:not(.rdp-day_range_start) {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.rdp-day_range_end.rdp-day_range_start {
+    border-radius: 100% !important;
+}
+
+.rdp-day_range_middle {
+    border-radius: 0 !important;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -111,7 +111,7 @@ const MOrderPay: FC = memo(() => {
             const req = "paymentUpdate";
             const values = JSON.stringify({
                 ...getValues(),
-                fk_order_id: clientOrder.order_id,
+                fk_order_id: clientOrder.oid,
                 paid: totalPaid,
             });
             submit(
@@ -344,7 +344,7 @@ const MOrderPay: FC = memo(() => {
             <MTemplate
                 open={!!(modalOpen === mOpenOps.pay)}
                 onClose={onClose}
-                title={t("modal.title.payments") + ` #${clientOrder.order_id}`}
+                title={t("modal.title.payments") + ` #${clientOrder.oid}`}
                 mode={"full"}
                 mQuit={true}
             >

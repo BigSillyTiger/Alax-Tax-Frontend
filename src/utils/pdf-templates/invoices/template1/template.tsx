@@ -68,7 +68,7 @@ const InvTemplate: FC<Tprops> = ({
         <View style={tw("flex flex-col")}>
             <Title
                 company={company}
-                invoiceID={order.order_id}
+                invoiceID={order.oid}
                 issueDate={date}
                 logo={logo}
             />

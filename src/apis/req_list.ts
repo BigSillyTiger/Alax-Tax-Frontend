@@ -39,11 +39,11 @@ export const REQ_PAYMENT_UPDATE = "/order/updatePayments";
 export const REQ_INVOICE_ISSUE_UPDATE = "/order/updateInvoiceIssue";
 
 // Assist
-export const REQ_MANAGE_UNI_ALL = "/manage/uni_all";
-export const REQ_MANAGE_UNI_ADD = "/manage/uni_add";
-export const REQ_MANAGE_UNI_DEL = "/manage/uni_del";
-export const REQ_MANAGE_UNI_EDIT = "/manage/uni_edit";
-export const REQ_MANAGE_GET_COMPANY = "/manage/company_get";
-export const REQ_MANAGE_UPDATE_COMPANY = "/manage/company_update";
-export const REQ_MANAGE_LOGO_UPDATE = "/manage/logo_update";
-export const REQ_MANAGE_LOGO = "/manage/logo";
+export const REQ_MANAGE_UNI_ALL = "/setting/uni_all";
+export const REQ_MANAGE_UNI_ADD = "/setting/uni_add";
+export const REQ_MANAGE_UNI_DEL = "/setting/uni_del";
+export const REQ_MANAGE_UNI_EDIT = "/setting/uni_edit";
+export const REQ_MANAGE_GET_COMPANY = "/setting/company_get";
+export const REQ_MANAGE_UPDATE_COMPANY = "/setting/company_update";
+export const REQ_MANAGE_LOGO_UPDATE = "/setting/logo_update";
+export const REQ_MANAGE_LOGO = "/setting/logo";

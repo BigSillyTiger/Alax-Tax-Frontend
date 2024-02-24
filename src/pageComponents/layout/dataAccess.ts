@@ -29,7 +29,7 @@ export const action = async ({
 
     if ("DELETE" === request.method) {
         const result = await API_ORDER.orderDel({
-            order_id: data.get("order_id"),
+            oid: data.get("oid"),
         });
         //console.log("-> client page receive delete order result: ", result);
         return result;

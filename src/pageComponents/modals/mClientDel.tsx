@@ -76,7 +76,7 @@ const MClientDel: FC = memo(() => {
 
             <DelBtn
                 onClick={() => {
-                    handleDeleteClient(client.client_id);
+                    handleDeleteClient(client.cid);
                     onClose();
                 }}
                 onClose={onClose}

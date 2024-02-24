@@ -54,7 +54,7 @@ export const settingAction = async ({
             acc: data.get("acc") as string,
             logoName: data.get("logoName") as string,
         };
-        console.log("-> action company: ", temp);
+        console.log("-> setting action update company info: ", temp);
         const result = await API_MANAGE.companyUpdate(temp);
         return result;
     } else {
