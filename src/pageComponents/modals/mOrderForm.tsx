@@ -28,6 +28,8 @@ import {
 import { mOpenOps } from "@/configs/utils";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/utils/utils";
+import ComboBox from "@/components/ComboBox";
+import { Tservice } from "@/configs/schema/settingSchema";
 
 const MOrderForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -140,7 +142,7 @@ const MOrderForm: FC = memo(() => {
                     method,
                     action:
                         currentRouter === "client"
-                            ? genAction(currentRouter, clientOrder.fk_client_id)
+                            ? genAction(currentRouter, clientOrder.fk_cid)
                             : genAction(currentRouter),
                 }
             );
@@ -165,13 +167,14 @@ const MOrderForm: FC = memo(() => {
     ) : null;
 
     const setDefaultService = (value: string) => {
+        //console.log("--> set advance: ", value);
         const service = uniData?.services.find(
-            (item: any) => item.service === value
+            (item: Tservice) => item.service === value
         );
         if (service) {
             setServiceDesc({
                 ranking: 0,
-                fk_order_id: clientOrder.oid,
+                fk_oid: clientOrder.oid,
                 title: service.service as string,
                 taxable: true,
                 description: "",
@@ -689,16 +692,12 @@ const MOrderForm: FC = memo(() => {
                 <label htmlFor="sTitle" className="text-indigo-500 text-bold">
                     {t("modal.tips.pickService")}:
                 </label>
-                <input
-                    id="sTitle"
-                    type="text"
-                    list="service_title"
-                    className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                    onChange={(e) => {
-                        setDefaultService(e.target.value);
-                    }}
+                <ComboBox
+                    setAdvanced={setDefaultService}
+                    optionsList={uniData?.services}
+                    opKey={"service"}
+                    directUp={true}
                 />
-                {serviceTitleList}
             </div>
             <div className="col-span-2 mt-6">
                 <button

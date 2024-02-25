@@ -3,7 +3,7 @@ import { clientSchema } from "./clientSchema";
 
 export const plainOrderSchema = z.object({
     oid: z.string(),
-    fk_client_id: z.string(),
+    fk_cid: z.string(),
     address: z.string().trim().nullable(),
     suburb: z.string().trim().nullable(),
     city: z.string().trim().nullable(),
@@ -23,11 +23,11 @@ export const plainOrderSchema = z.object({
     deposit: z.number(),
     created_date: z.string().datetime().nullable(),
     quotation_date: z.string().datetime().nullable(),
-    invoice_issue_date: z.string().datetime(),
+    invoice_date: z.string().datetime(),
 });
 
 export const oderServiceSchema = z.object({
-    fk_order_id: z.string(),
+    fk_oid: z.string(),
     ranking: z.number(),
     title: z.string().trim(),
     taxable: z.boolean(),
@@ -40,7 +40,7 @@ export const oderServiceSchema = z.object({
 });
 
 export const orderPaymentSchema = z.object({
-    fk_order_id: z.number(),
+    fk_oid: z.number(),
     paid: z.number(),
     paid_date: z.string().datetime(),
 });
@@ -52,18 +52,18 @@ export const orderPaymentSchema = z.object({
 export const orderFormSchema = plainOrderSchema
     .omit({
         oid: true,
-        fk_client_id: true,
+        fk_cid: true,
         //status: true,
         created_date: true,
         paid: true,
         quotation_date: true,
-        invoice_issue_date: true,
+        invoice_date: true,
         invoice_update_date: true,
     })
     .extend({
         order_services: oderServiceSchema
             .omit({
-                fk_order_id: true,
+                fk_oid: true,
             })
             .array(),
     });

@@ -126,10 +126,10 @@ const InvContent: FC = memo(() => {
     const [logo] = useAtom(atLogo);
 
     useEffect(() => {
-        if (clientOrder.invoice_issue_date) {
-            setDate(newDateFormat(new Date(clientOrder.invoice_issue_date)));
+        if (clientOrder.invoice_date) {
+            setDate(newDateFormat(new Date(clientOrder.invoice_date)));
         }
-    }, [clientOrder.invoice_issue_date]);
+    }, [clientOrder.invoice_date]);
 
     const detailContent = (
         <section className="h-[67vh] overflow-y-auto">
@@ -162,10 +162,10 @@ const InvContent: FC = memo(() => {
                 {detailContent}
                 <DatePicker
                     oid={clientOrder.oid}
-                    cid={clientOrder.fk_client_id}
+                    cid={clientOrder.fk_cid}
                     date={date}
                     setDate={setDate}
-                    defaultDate={clientOrder.invoice_issue_date}
+                    defaultDate={clientOrder.invoice_date}
                 />
             </section>
             <section className="col-span-1 md:col-span-5">

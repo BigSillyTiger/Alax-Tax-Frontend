@@ -72,7 +72,23 @@ export const adminStore = staffSchema.omit({
     postcode: true,
 });
 
+/**
+ * @description for staff list, only used like: assignment modal
+ */
+export const staffList = staffSchema
+    .omit({
+        password: true,
+        dashboard: true,
+        clients: true,
+        orders: true,
+        calendar: true,
+        staff: true,
+        setting: true,
+    })
+    .array();
+
 export type Tstaff = z.infer<typeof staffSchema>;
 export type TstaffForm = z.infer<typeof staffForm>;
 export type TstaffUpdate = z.infer<typeof staffUpdate>;
 export type TadminStore = z.infer<typeof adminStore>;
+export type TstaffList = z.infer<typeof staffList>;

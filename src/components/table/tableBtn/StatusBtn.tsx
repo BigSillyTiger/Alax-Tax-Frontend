@@ -40,7 +40,7 @@ const StatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     const handleClick = async (oid: string, status: string) => {
         submit(
             { req: "orderStatus", oid, status },
-            { method: "PUT", action: `/clients/${data.fk_client_id}` }
+            { method: "PUT", action: `/clients/${data.fk_cid}` }
         );
     };
 

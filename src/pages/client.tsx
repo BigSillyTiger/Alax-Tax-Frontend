@@ -69,7 +69,7 @@ const Client = () => {
     const initOrder: Torder = {
         oid: "",
         client_info: clientInfo.data[0],
-        fk_client_id: clientInfo.data[0].cid,
+        fk_cid: clientInfo.data[0].cid,
         address: clientInfo.data[0].address,
         suburb: clientInfo.data[0].suburb,
         city: clientInfo.data[0].city,
@@ -83,7 +83,7 @@ const Client = () => {
         deposit: 0,
         created_date: "",
         quotation_date: "",
-        invoice_issue_date: "",
+        invoice_date: "",
         order_services: [],
         payments: [],
     };
@@ -105,7 +105,7 @@ const Client = () => {
         setLogo(logo);
         setUniData(uniData);
         setServiceDesc({
-            fk_order_id: clientOrder.oid,
+            fk_oid: clientOrder.oid,
             ranking: 0,
             title: uniData?.services[0].service as string,
             taxable: true,

@@ -3,7 +3,7 @@ import { orderSchema } from "./orderSchema";
 
 export const workSchema = z.object({
     wid: z.string(),
-    fk_order_id: z.string(),
+    fk_oid: z.string(),
     fk_uid: z.string(),
     w_date: z.string().datetime(),
     s_time: z.string().datetime().nullable(),

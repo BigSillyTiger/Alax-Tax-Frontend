@@ -15,7 +15,7 @@ export const ordersAction = async ({
         const orData = JSON.parse(data.get("values") as string);
         const order = {
             order: {
-                fk_client_id: orData.cid,
+                fk_cid: orData.cid,
                 address: orData.address,
                 suburb: orData.suburb,
                 city: orData.city,
@@ -39,7 +39,7 @@ export const ordersAction = async ({
         const order = {
             order: {
                 oid: orData.oid,
-                fk_client_id: orData.cid,
+                fk_cid: orData.cid,
                 address: orData.address,
                 suburb: orData.suburb,
                 city: orData.city,

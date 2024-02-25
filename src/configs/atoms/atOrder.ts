@@ -4,7 +4,7 @@ import i18n from "@/utils/i18n";
 
 const atOrder = atom<Torder>({
     oid: "",
-    fk_client_id: "",
+    fk_cid: "",
     address: "",
     suburb: "",
     city: "Adelaide",
@@ -18,7 +18,7 @@ const atOrder = atom<Torder>({
     deposit: 0,
     created_date: "",
     quotation_date: "",
-    invoice_issue_date: "",
+    invoice_date: "",
     order_services: [],
     payments: [],
     client_info: {
@@ -37,7 +37,7 @@ const atOrder = atom<Torder>({
 });
 
 const atOrderService = atom<TorderService>({
-    fk_order_id: "",
+    fk_oid: "",
     ranking: 0,
     title: "",
     taxable: true,

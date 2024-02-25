@@ -110,10 +110,14 @@ const MJobAssign = () => {
                                 {t("label.service")}
                             </label>
                             <input
-                                {...register(`workUnion.${index}.fk_uid`, {
-                                    valueAsNumber: true,
-                                    min: 0,
-                                })}
+                                {...register(
+                                    `workUnion.work_logs.${index}.fk_uid`,
+                                    {
+                                        valueAsNumber: true,
+                                        min: 0,
+                                    }
+                                )}
+                                readOnly
                                 id="uid"
                                 name="uid"
                                 type="string"

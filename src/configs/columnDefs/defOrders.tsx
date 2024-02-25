@@ -38,7 +38,7 @@ const orderColumns: ColumnDef<Torder>[] = [
             },
             {
                 header: i18n.t("label.idClient"),
-                accessorKey: "fk_client_id",
+                accessorKey: "fk_cid",
                 cell: (info: CellContext<Torder, unknown>) => (
                     <span>{info.getValue<string>()}</span>
                 ),

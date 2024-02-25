@@ -34,7 +34,7 @@ const MOrderPay: FC = memo(() => {
     const [clientOrder] = useAtom(atOrder);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [payment, setPayment] = useState<TorderPayment>({
-        fk_order_id: 0,
+        fk_oid: 0,
         paid: 0,
         paid_date: newDateFormat(new Date()),
     });
@@ -56,7 +56,7 @@ const MOrderPay: FC = memo(() => {
         resolver: zodResolver(
             orderPaymentSchema
             /* orderPaymentSchema.omit({
-                fk_order_id: true,
+                fk_oid: true,
             }) */
         ),
         defaultValues: { payments: clientOrder.payments },
@@ -111,7 +111,7 @@ const MOrderPay: FC = memo(() => {
             const req = "paymentUpdate";
             const values = JSON.stringify({
                 ...getValues(),
-                fk_order_id: clientOrder.oid,
+                fk_oid: clientOrder.oid,
                 paid: totalPaid,
             });
             submit(
@@ -120,7 +120,7 @@ const MOrderPay: FC = memo(() => {
                     method: "PUT",
                     action:
                         currentRouter === "client"
-                            ? genAction(currentRouter, clientOrder.fk_client_id)
+                            ? genAction(currentRouter, clientOrder.fk_cid)
                             : genAction(currentRouter),
                 }
             );

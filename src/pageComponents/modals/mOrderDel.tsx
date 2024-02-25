@@ -27,7 +27,7 @@ const MOrderDel: FC = memo(() => {
                 method: "DELETE",
                 action:
                     currentRouter === "client"
-                        ? genAction(currentRouter, clientOrder.fk_client_id)
+                        ? genAction(currentRouter, clientOrder.fk_cid)
                         : genAction(currentRouter),
             }
         );
