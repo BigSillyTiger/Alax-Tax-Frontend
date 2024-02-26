@@ -11,15 +11,12 @@ import { useTranslation } from "react-i18next";
 import { useRouterStore } from "@/configs/zustore";
 import Fieldset from "@/components/form/fieldset";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
-    TorderWithWorklogs,
-    orderWithWorklogs,
-} from "@/configs/schema/workSchema";
 import "react-day-picker/dist/style.css";
 import ClientInfoFs from "../fieldset/ClientInfoFs";
 import OrderInfoFs from "../fieldset/OrderInfoFs";
 import Card from "@/components/card";
 import DatePicker from "@/components/DatePicker";
+import { Torder, orderSchema } from "@/configs/schema/orderSchema";
 
 const MJobAssign = () => {
     const navigation = useNavigation();
@@ -43,8 +40,8 @@ const MJobAssign = () => {
         setValue,
         trigger,
         watch,
-    } = useForm<TorderWithWorklogs>({
-        resolver: zodResolver(orderWithWorklogs),
+    } = useForm<Torder>({
+        resolver: zodResolver(orderSchema),
         defaultValues: clientOrder,
     });
 

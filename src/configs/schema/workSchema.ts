@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { orderSchema } from "./orderSchema";
 
 export const workSchema = z.object({
     wid: z.string(),
@@ -12,25 +11,31 @@ export const workSchema = z.object({
     work_note: z.string().trim().nullable(),
 });
 
-export const workUnionSchema = z
-    .object({
-        wuid: z.string(),
-        wu_date: z.date(),
-    })
-    .extend({ work_logs: workSchema.array() });
-
-export const orderWithWorklogs = orderSchema.extend({
-    workUnion: workUnionSchema,
-});
-
-/**
- * @description for modal to display work assignment, no need to include wid
- */
-export const workAssignmentSchema = orderSchema.extend({
-    work_logs: workSchema.omit({ wid: true }).array(),
+export const workLogsSchema = z.object({
+    fk_oid: z.string(),
+    wl_date: z.string().datetime(),
+    logs: workSchema
+        .extend({
+            first_name: z.string(),
+            last_name: z.string(),
+            phone: z
+                .string()
+                .trim()
+                .min(3, { message: "Phone number is too short" })
+                .transform((val) => {
+                    if (val.length > 6) {
+                        return `${val.slice(0, 3)}-${val.slice(3, 6)}-${val.slice(6)}`;
+                    } else if (val.length > 3) {
+                        return `${val.slice(0, 3)}-${val.slice(3)}`;
+                    } else {
+                        return val;
+                    }
+                }),
+            email: z.string().email().trim().toLowerCase(),
+            role: z.string().trim(),
+        })
+        .array(),
 });
 
 export type Twork = z.infer<typeof workSchema>;
-export type TworkUnion = z.infer<typeof workUnionSchema>;
-export type TworkAssignment = z.infer<typeof workAssignmentSchema>;
-export type TorderWithWorklogs = z.infer<typeof orderWithWorklogs>;
+export type TworkLogs = z.infer<typeof workLogsSchema>;

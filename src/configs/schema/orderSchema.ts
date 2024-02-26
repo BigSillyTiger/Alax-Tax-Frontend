@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { clientSchema } from "./clientSchema";
+import { workLogsSchema } from "./workSchema";
 
 export const plainOrderSchema = z.object({
     oid: z.string(),
@@ -26,7 +27,7 @@ export const plainOrderSchema = z.object({
     invoice_date: z.string().datetime(),
 });
 
-export const oderServiceSchema = z.object({
+export const orderServiceSchema = z.object({
     fk_oid: z.string(),
     ranking: z.number(),
     title: z.string().trim(),
@@ -61,7 +62,7 @@ export const orderFormSchema = plainOrderSchema
         invoice_update_date: true,
     })
     .extend({
-        order_services: oderServiceSchema
+        order_services: orderServiceSchema
             .omit({
                 fk_oid: true,
             })
@@ -70,12 +71,12 @@ export const orderFormSchema = plainOrderSchema
 
 export const orderSchema = plainOrderSchema.extend({
     client_info: clientSchema,
-    order_services: oderServiceSchema.array(),
+    order_services: orderServiceSchema.array(),
     payments: orderPaymentSchema.array(),
+    work_logs: workLogsSchema.array(),
 });
 
 export type Torder = z.infer<typeof orderSchema>;
 export type TorderForm = z.infer<typeof orderFormSchema>;
-export type TorderService = z.infer<typeof oderServiceSchema>;
+export type TorderService = z.infer<typeof orderServiceSchema>;
 export type TorderPayment = z.infer<typeof orderPaymentSchema>;
-//export type TtotalOrder = z.infer<typeof totalOrderSchema>;
