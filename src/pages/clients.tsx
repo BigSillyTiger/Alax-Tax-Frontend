@@ -8,7 +8,6 @@ import LoadingPage from "@/components/loadingEle";
 import clientColumns from "@/configs/columnDefs/defClients.tsx";
 import Card from "@/components/card";
 import { toastError, toastSuccess } from "@/utils/toaster";
-import { Tresponse, RES_STATUS } from "@/utils/types";
 import { Tclient } from "@/configs/schema/clientSchema.ts";
 import { PTable } from "@/components/table";
 import { MClientDel, MClientForm } from "@/pageComponents/modals";

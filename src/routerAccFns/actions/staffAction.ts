@@ -1,6 +1,5 @@
 import { API_STAFF } from "@/apis";
 import { ActionFunctionArgs } from "react-router-dom";
-import type { Tresponse } from "@/utils/types";
 import type { Tstaff } from "@/configs/schema/staffSchema";
 
 export const staffAction = async ({

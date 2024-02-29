@@ -3,7 +3,7 @@ import { Await, useLoaderData, useActionData } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
 import Card from "@/components/card";
 import { Torder } from "@/configs/schema/orderSchema";
-import { Tresponse, RES_STATUS, Tunivers } from "@/utils/types";
+import { Tunivers } from "@/utils/types";
 import { PTable } from "@/components/table";
 import orderColumns from "@/configs/columnDefs/defOrders";
 import {

@@ -8,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import Card from "@/components/card";
 import { NormalBtn } from "@/components/btns";
 import { API_MANAGE } from "@/apis";
-import { RES_STATUS } from "@/utils/types";
 import { toastSuccess } from "@/utils/toaster";
 
 type Tprops = {

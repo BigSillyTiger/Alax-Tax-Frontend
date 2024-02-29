@@ -16,7 +16,6 @@ import { MenuBtn, StatusBtn, DetailBtn, ExpandBtn } from "./tableBtn";
 import HeaderFilter from "./headerFilter";
 import { CTable, CTBody, CTHead, CTh } from ".";
 import ContentWithSwitch from "./SwitchWContent";
-import type { TmenuOptions } from "@/utils/types";
 
 type Tprops<T> = {
     data: T[];

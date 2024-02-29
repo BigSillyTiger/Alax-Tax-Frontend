@@ -8,7 +8,6 @@ import {
     REQ_STAFF_UPDATE_PW,
 } from "./req_list";
 import { Tstaff, TstaffForm } from "@/configs/schema/staffSchema";
-import { Tresponse } from "@/utils/types";
 
 export const staffAll = async (): Promise<Tresponse> => {
     try {

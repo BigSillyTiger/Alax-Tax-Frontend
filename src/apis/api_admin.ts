@@ -6,7 +6,6 @@ import {
     REQ_ADMIN_CHECK,
     REQ_ACCESS_CHECK,
 } from "./req_list";
-import { RES_STATUS, Tresponse } from "@/utils/types";
 import { TadminStore } from "@/configs/schema/staffSchema";
 
 export const adminLogin = async (

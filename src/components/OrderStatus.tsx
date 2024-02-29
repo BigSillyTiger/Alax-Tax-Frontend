@@ -1,6 +1,5 @@
 import { FC } from "react";
 import i18n from "@/utils/i18n";
-import { TorderStatus } from "@/utils/types";
 
 const setOrderStatusColor = (value: TorderStatus) => {
     switch (value) {

@@ -9,7 +9,6 @@ import { useNavigation, useSubmit, Form } from "react-router-dom";
 import type { Tclient } from "@/configs/schema/clientSchema";
 import { clientNoIDSchema } from "@/configs/schema/clientSchema";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
-import { RES_STATUS } from "@/utils/types";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";

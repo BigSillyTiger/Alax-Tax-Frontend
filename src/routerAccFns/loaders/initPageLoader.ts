@@ -1,6 +1,5 @@
 import { API_ADMIN } from "@/apis";
 import { routerStore } from "@/configs/zustore";
-import { RES_STATUS } from "@/utils/types";
 import { redirect } from "react-router-dom";
 
 export const initLoader = async () => {

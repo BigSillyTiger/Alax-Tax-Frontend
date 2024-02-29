@@ -3,8 +3,7 @@ import type { FC, ReactNode } from "react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
-import { Tmode } from "@/utils/types";
-import { CloseBtn, XBtn } from "../btns";
+import { CloseBtn } from "../btns";
 
 type Tprops = {
     open: boolean;

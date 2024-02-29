@@ -9,7 +9,6 @@ import {
     REQ_PAYMENT_UPDATE,
     REQ_INVOICE_ISSUE_UPDATE,
 } from "./req_list";
-import { Tresponse } from "@/utils/types";
 
 export const orderAll = async () => {
     try {

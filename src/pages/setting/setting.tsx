@@ -5,7 +5,7 @@ import { mTabList } from "@/configs/menuList";
 import Uni from "./uni";
 import LoadingPage from "@/components/loadingEle";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
-import { RES_STATUS, Tresponse, Tunivers } from "@/utils/types";
+import { Tunivers } from "@/utils/types";
 import Company from "./company";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { toastError, toastSuccess } from "@/utils/toaster";

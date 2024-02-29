@@ -7,7 +7,7 @@ import {
     UserPlusIcon,
 } from "@heroicons/react/24/outline";
 import i18n from "@/utils/i18n";
-import { TmodalOpenStates, TmenuOptions } from "@/utils/types";
+import { TmodalOpenStates } from "@/utils/types";
 import { mOpenOps } from "@/configs/utils";
 
 type Tprops<T> = TmenuOptions & {

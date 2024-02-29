@@ -1,6 +1,5 @@
 import { API_MANAGE } from "@/apis";
 import type { ActionFunctionArgs } from "react-router-dom";
-import type { Tresponse } from "@/utils/types";
 
 export const settingAction = async ({
     request,

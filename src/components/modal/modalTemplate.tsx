@@ -1,7 +1,6 @@
 import { useState, memo } from "react";
 import type { FC, ReactNode } from "react";
 import ModalFrame from "./modalFrame";
-import { Tmode } from "@/utils/types";
 import MQuit from "./mQuit";
 
 type Tprops = {

@@ -1,5 +1,4 @@
 import { API_ADMIN } from "@/apis";
-import { RES_STATUS } from "@/utils/types";
 import { ActionFunctionArgs, redirect } from "react-router-dom";
 
 export const loginAction = async ({ request }: ActionFunctionArgs) => {

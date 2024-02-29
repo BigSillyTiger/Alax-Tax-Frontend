@@ -27,7 +27,14 @@
             "@/*": ["src/*"]
         }
     },
-    "include": ["src/**/*.d.ts", "src/**/*", "vite.config.ts", "*.ts", "*.tsx"]
+    "include": [
+        "src/**/*.d.ts",
+        "src/**/*",
+        "vite.config.ts",
+        "*.ts",
+        "*.tsx",
+        "types/global.d.ts"
+    ]
     //"references": [{ "path": "./tsconfig.node.json" }],
     //"extends": "./tsconfig.paths.json"
 }

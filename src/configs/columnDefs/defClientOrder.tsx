@@ -4,7 +4,6 @@ import { Torder } from "@/configs/schema/orderSchema";
 import { dateFormat } from "@/utils/utils";
 import { minusAB } from "@/utils/calculations";
 import OrderStatus from "@/components/OrderStatus";
-import { TorderStatus } from "@/utils/types";
 
 const clientOrderColumns: ColumnDef<Torder>[] = [
     {
