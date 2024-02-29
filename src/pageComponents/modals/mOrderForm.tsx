@@ -6,7 +6,6 @@ import { useForm, useFieldArray, useWatch } from "react-hook-form";
 import { useAtom } from "jotai";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-    XMarkIcon,
     ChevronDoubleDownIcon,
     ChevronDoubleUpIcon,
 } from "@heroicons/react/24/outline";
@@ -30,6 +29,7 @@ import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/utils/utils";
 import ComboBox from "@/components/ComboBox";
 import { Tservice } from "@/configs/schema/settingSchema";
+import { XBtn } from "@/components/btns";
 
 const MOrderForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -425,19 +425,7 @@ const MOrderForm: FC = memo(() => {
                         >
                             {/* x btn */}
                             <div className="col-span-1 m-auto">
-                                <button
-                                    type="button"
-                                    className="inline-flex w-full justify-center rounded-md bg-red-300 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto"
-                                    onClick={() => remove(index)}
-                                >
-                                    <span className="sr-only">
-                                        {t("btn.close")}
-                                    </span>
-                                    <XMarkIcon
-                                        className="h-6 w-6"
-                                        aria-hidden="true"
-                                    />
-                                </button>
+                                <XBtn onClick={() => remove(index)} />
                             </div>
                             {/* content */}
                             <Card className="col-span-9 mt-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8 bg-indigo-50">

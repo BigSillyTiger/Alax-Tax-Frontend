@@ -4,6 +4,8 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
 import { TmenuList } from "./mainMenu";
+import { CloseBtn } from "@/components/btns";
+import { useTranslation } from "react-i18next";
 
 type Tprops = {
     menuList: TmenuList;
@@ -25,6 +27,7 @@ const navFocus = ({ isActive }: { isActive: boolean }) => {
 };
 
 const MobileMenu: FC<Tprops> = ({ menuList, open, setOpen }) => {
+    const { t } = useTranslation();
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog
@@ -66,6 +69,10 @@ const MobileMenu: FC<Tprops> = ({ menuList, open, setOpen }) => {
                                 leaveTo="opacity-0"
                             >
                                 <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
+                                    <CloseBtn
+                                        onClick={() => setOpen(false)}
+                                        srStr={t("sr.closeSideBar")}
+                                    />
                                     <button
                                         type="button"
                                         className="-m-2.5 p-2.5"

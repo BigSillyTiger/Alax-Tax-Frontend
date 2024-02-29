@@ -35,8 +35,6 @@ const MJobAssign = () => {
     const [selectedStaff, setSelectedStaff] = useState<Tstaff>();
     const [assignedWork, setAssignedWork] = useAtom(atAssignedWorks);
     const { workLogs, setWorkLogs } = useWorkLogs(clientOrder.work_logs);
-    console.log("-> test clientOrder: ", clientOrder);
-    console.log("-> test preset work_logs: ", workLogs);
 
     const {
         control,

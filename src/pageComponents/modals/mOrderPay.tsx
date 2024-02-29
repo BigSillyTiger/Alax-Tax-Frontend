@@ -5,7 +5,6 @@ import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useAtom } from "jotai";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
     TorderPayment,
     orderPaymentSchema,
@@ -24,6 +23,7 @@ import { genAction, newDateFormat } from "@/utils/utils";
 import { dateMax, dateMin, mOpenOps } from "@/configs/utils";
 import { atOrder, atModalOpen } from "@/configs/atoms";
 import { useRouterStore } from "@/configs/zustore";
+import { XBtn } from "@/components/btns";
 
 type Tpayment = {
     payments: TorderPayment[];
@@ -149,21 +149,9 @@ const MOrderPay: FC = memo(() => {
                         key={field.id}
                         className="col-span-6 row-span-2 grid grid-cols-10 gap-x-2 gap-y-2"
                     >
+                        {/* x btn */}
                         <div className="col-span-1 m-auto">
-                            {/* x btn */}
-                            <button
-                                type="button"
-                                className="inline-flex w-full justify-center rounded-md bg-red-300 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto"
-                                onClick={() => remove(index)}
-                            >
-                                <span className="sr-only">
-                                    {t("btn.close")}
-                                </span>
-                                <XMarkIcon
-                                    className="h-4 w-3"
-                                    aria-hidden="true"
-                                />
-                            </button>
+                            <XBtn onClick={() => remove(index)} />
                         </div>
                         {/* content */}
                         <Card className="col-span-9 mt-3 grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-8 bg-indigo-50 py-2">

@@ -50,8 +50,6 @@ const Orders: FC = () => {
     const [, setCompany] = useAtom(atCompany);
     const [, setLogo] = useAtom(atLogo);
 
-    console.log("-> orders page all orders: ", orders);
-
     useEffect(() => {
         setAllStaff(staff);
         setCompany(company);
@@ -118,9 +116,6 @@ const Orders: FC = () => {
                     }),
             };
         });
-
-    /* console.log("-> all order: ", orders);
-    console.log("-> all newClientOrders: ", newClientOrders); */
 
     const OrderTableContent: FC<Torders> = ({ orders }) => {
         return (

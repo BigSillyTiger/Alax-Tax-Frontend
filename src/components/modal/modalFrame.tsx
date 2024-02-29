@@ -1,12 +1,10 @@
 import { Fragment } from "react";
 import type { FC, ReactNode } from "react";
-import {
-    XMarkIcon,
-    ExclamationTriangleIcon,
-} from "@heroicons/react/24/outline";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
 import { Tmode } from "@/utils/types";
+import { CloseBtn, XBtn } from "../btns";
 
 type Tprops = {
     open: boolean;
@@ -89,22 +87,13 @@ const ModalFrame: FC<Tprops> = ({
                             >
                                 {/* right top close button */}
                                 <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
-                                    <button
-                                        type="button"
-                                        className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    <CloseBtn
                                         onClick={(e) => {
                                             e.preventDefault();
                                             onClose();
                                         }}
-                                    >
-                                        <span className="sr-only">
-                                            {t("btn.close")}
-                                        </span>
-                                        <XMarkIcon
-                                            className="h-6 w-6"
-                                            aria-hidden="true"
-                                        />
-                                    </button>
+                                        srStr={t("sr.closeModal")}
+                                    />
                                 </div>
                                 <div className="sm:flex sm:items-start">
                                     <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">

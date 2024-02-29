@@ -35,7 +35,7 @@ export const assignedWorkSchema = workLogSchema.extend({
 export const workLogsSchema = z.object({
     fk_oid: z.string(),
     wl_date: z.string().datetime(),
-    assigned_work: workLogSchema.array(),
+    assigned_work: assignedWorkSchema.array(),
 });
 
 /**

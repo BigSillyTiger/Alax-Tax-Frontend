@@ -1,17 +1,21 @@
-import type { FC, ComponentPropsWithoutRef } from "react";
+import type { FC, ComponentPropsWithoutRef, MouseEventHandler } from "react";
+import CloseBtn from "./CloseBtn";
 
 type Tprops = ComponentPropsWithoutRef<"button"> & {
     name: string;
+    onDelete: MouseEventHandler<HTMLButtonElement>;
 };
 
-const DateBtn: FC<Tprops> = ({ name, onClick, className }) => {
+const DateBtn: FC<Tprops> = ({ name, onClick, onDelete }) => {
     return (
-        <button
-            onClick={onClick}
-            className={`bg-blue-100 text-indigo-400 hover:bg-blue-500 hover:text-white font-semibold  py-2 px-4 hover:border-transparent rounded ${className}`}
+        <div
+            className={`bg-blue-100 text-indigo-400 hover:bg-blue-500 hover:text-white font-semibold  py-2 px-2 hover:border-transparent rounded flex items-center justify-around w-full cursor-pointer`}
         >
-            <span className="">{name}</span>
-        </button>
+            <button onClick={onClick} className="text-base grow">
+                {name}
+            </button>
+            <CloseBtn onClick={onDelete} xhoverStyle="hover:text-slate-100" />
+        </div>
     );
 };
 

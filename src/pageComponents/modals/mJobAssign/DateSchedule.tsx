@@ -1,35 +1,23 @@
-import { DateBtn } from "@/components/btns";
+import { DateBtn, XBtn } from "@/components/btns";
 import Card from "@/components/card";
 import Fieldset from "@/components/form/fieldset";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { ChevronDoubleRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 import DatePicker from "@/components/DatePicker";
 import "react-day-picker/dist/style.css";
-import { FieldArrayWithId, UseFieldArrayRemove } from "react-hook-form";
-import { TformWorkLogs, TworkLog } from "@/configs/schema/workSchema";
 import { atSelectedDate } from "@/configs/atoms/atScheduleDate";
 import { useAtom } from "jotai";
 import { atWorkLogs } from "@/configs/atoms";
 
-type Tprops = {
-    fields: FieldArrayWithId<
-        {
-            work_logs: TworkLog[];
-        },
-        "work_logs",
-        "id"
-    >[];
-    appendWorkLog: (data: TformWorkLogs) => void;
-    remove: UseFieldArrayRemove;
+type Tprop = {
+    appendSchedule: () => void;
 };
 
-const DateSchedule: FC<Tprops> = ({ fields, appendWorkLog, remove }) => {
+const DateSchedule: FC<Tprop> = ({ appendSchedule }) => {
     const { t } = useTranslation();
     const [selectedDate] = useAtom(atSelectedDate);
     const [workLogs, setWorkLogs] = useAtom(atWorkLogs);
-
-    console.log("--> test 2 worklogs: ", workLogs);
 
     return (
         <Fieldset
@@ -46,7 +34,7 @@ const DateSchedule: FC<Tprops> = ({ fields, appendWorkLog, remove }) => {
         >
             {/* date picker area */}
             <div className="col-span-full sm:col-span-4">
-                <div className="font-semibold text-indigo-500 text-bold mb-2">
+                <div className="font-semibold text-indigo-500 text-bold my-2 ml-2">
                     {selectedDate != undefined ? (
                         <>
                             {t("modal.tips.selectedDate")}
@@ -62,12 +50,12 @@ const DateSchedule: FC<Tprops> = ({ fields, appendWorkLog, remove }) => {
                     <DatePicker />
                 </Card>
             </div>
-            {/* add btn */}
+            {/* append btn */}
             <button
                 className="col-span-full sm:col-span-1 inline-flex w-full justify-center rounded-md bg-indigo-200 my-auto text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:w-auto"
                 onClick={(e) => {
                     e.preventDefault();
-                    console.log("--> click add date");
+                    appendSchedule();
                 }}
             >
                 <span className="sr-only">{t("btn.addDate")}</span>
@@ -79,29 +67,21 @@ const DateSchedule: FC<Tprops> = ({ fields, appendWorkLog, remove }) => {
                     {t("modal.tips.scheduledWork")}
                 </div>
                 <Card className="lg:h-[35vh] overflow-y-auto flex flex-col justify-stretch">
-                    {fields.map((field, index) => {
+                    {workLogs.map((item, index) => {
                         return (
-                            <div key={field.id} className="my-1">
+                            <div key={index} className="my-1 w-full flex">
                                 <DateBtn
-                                    name={field.wl_date}
+                                    name={item.wl_date}
                                     onClick={(e) => {
                                         e.preventDefault();
+                                        console.log("-> click date btn");
                                     }}
                                     className="grow"
+                                    onDelete={(e) => {
+                                        e.preventDefault();
+                                        console.log("-> click delete btn");
+                                    }}
                                 />
-                                <button
-                                    type="button"
-                                    className="inline-flex w-full justify-center rounded-md bg-red-300 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto mx-2"
-                                    onClick={() => remove(index)}
-                                >
-                                    <span className="sr-only">
-                                        {t("btn.close")}
-                                    </span>
-                                    <XMarkIcon
-                                        className="h-4 w-3"
-                                        aria-hidden="true"
-                                    />
-                                </button>
                             </div>
                         );
                     })}

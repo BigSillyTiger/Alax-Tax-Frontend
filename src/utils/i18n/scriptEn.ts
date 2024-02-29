@@ -112,6 +112,7 @@ const en = {
             billTo: "Bill To",
             bld: "BLD",
             bsb: "BSB",
+            break: "Break",
             bank: "Bank Account",
             city: "City",
             client: "Client",
@@ -199,6 +200,8 @@ const en = {
             tel: "Tel",
             templateInvoice: "Invoice-template",
             templateQuotation: "Quotation-template",
+            timeEnd: "End Time",
+            timeStart: "Start Time",
             total: "Total",
             totalDue: "Total Due",
             totalGst: "Total Gst",
@@ -212,6 +215,7 @@ const en = {
             serviceDesc: "Service Description",
             selectRole: "Select A Role",
             workAddr: "Work Address",
+            workNote: "Work Note",
         },
         tips: {
             noAssignedStaff: "No Assigned Staff",
@@ -248,6 +252,8 @@ const en = {
         },
         sr: {
             openHeadBarMenu: "Open head bar menu",
+            closeSideBar: "Close sidebar",
+            closeModal: "Close modal",
         },
     },
 };

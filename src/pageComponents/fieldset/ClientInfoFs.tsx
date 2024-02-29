@@ -1,3 +1,4 @@
+import { Amail, Atel } from "@/components/aLinks";
 import Fieldset from "@/components/form/fieldset";
 import { Tclient } from "@/configs/schema/clientSchema";
 import type { FC } from "react";
@@ -38,14 +39,14 @@ const ClientInfoFs: FC<Tprops> = ({
             <div className="col-span-6 sm:col-span-3">
                 <p>
                     <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
-                    {client?.phone}
+                    <Atel href={client?.phone} />
                 </p>
             </div>
 
             <div className="col-span-6 sm:col-span-3">
                 <p>
                     <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
-                    {client?.email}
+                    <Amail href={client?.email} />
                 </p>
             </div>
             <div className="col-span-6">
