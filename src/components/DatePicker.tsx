@@ -1,20 +1,19 @@
 import { FC } from "react";
-import { DayPicker, SelectSingleEventHandler } from "react-day-picker";
+import { DayPicker } from "react-day-picker";
 //import "react-day-picker/dist/style.css";
 import "./datepickerstyle.css";
+import { atSelectedDate } from "@/configs/atoms/atScheduleDate";
+import { useAtom } from "jotai";
 
-type Tprops = {
-    value: Date | undefined;
-    onChange: SelectSingleEventHandler;
-};
-
-const DatePicker: FC<Tprops> = ({ value, onChange }) => {
+const DatePicker: FC = () => {
+    const [selectedDate, setSelectedDate] = useAtom(atSelectedDate);
     return (
         <DayPicker
             showOutsideDays
+            fixedWeeks
             mode="single"
-            selected={value}
-            onSelect={onChange}
+            selected={selectedDate}
+            onSelect={(day) => setSelectedDate(day as Date)}
         />
     );
 };

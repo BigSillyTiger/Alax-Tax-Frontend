@@ -1,5 +1,3 @@
-import { date } from "zod";
-
 // the script for the English language
 const en = {
     translation: {
@@ -59,11 +57,17 @@ const en = {
                     "The email address and phone number must <b>NOT</b> be duplecated.",
                 addService: "description must NOT be duplecated",
                 pickService: "Pick a service to append",
+                pickStaff: "Pick a staff to assign",
                 quit: "Are you sure to quit?",
                 resetPW: "Please input new password.",
+                noDateSelected: "No date selected.",
+                selectedDate: "Selected Date: ",
+                assignedDates: "Assigned Dates",
+                scheduledWork: "Scheduled Work",
             },
         },
         btn: {
+            addDate: "Add Date",
             append: "Append",
             addClient: "Register New Client",
             addStuff: "Register New Staff",
@@ -102,6 +106,7 @@ const en = {
             address: "Address",
             addrJob: "Job Address",
             assignStaff: "Assign Staff",
+            assignedStaff: "Assigned Staff",
             aud: "AUD",
             balance: "Balance",
             billTo: "Bill To",
@@ -183,6 +188,7 @@ const en = {
             rank: "Rank",
             role: "Role",
             roleSelection: "Select A Role",
+            selectStaff: "Select Staff",
             service: "Service",
             services: "Services",
             staff: "Staff",

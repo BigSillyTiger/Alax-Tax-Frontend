@@ -3,7 +3,7 @@ import { FC } from "react";
 type TuserIcon = {
     fName: string;
     lName: string;
-    size?: "sm" | "md" | "lg";
+    size?: "sm" | "md" | "lg" | "xl";
 };
 
 const getRandomColor = () => {
@@ -29,6 +29,7 @@ const UserIcon: FC<TuserIcon> = ({ fName, lName, size = "md" }) => {
         sm: "w-6 h-6 text-base",
         md: "w-10 h-10 text-xl",
         lg: "w-14 h-14 text-2xl",
+        xl: "w-18 h-18 text-3xl",
     };
     return (
         <div

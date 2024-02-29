@@ -125,7 +125,7 @@ const Staff: FC = () => {
     };
 
     return (
-        <div className="container mx-auto border-0">
+        <div className="container border-0">
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={allStaff}>
                     {(staffList) => {

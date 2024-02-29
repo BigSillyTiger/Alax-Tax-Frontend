@@ -34,6 +34,7 @@ const atOrder = atom<Torder>({
         country: "",
         postcode: "",
     },
+    work_logs: [],
 });
 
 const atOrderService = atom<TorderService>({

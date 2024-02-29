@@ -25,7 +25,8 @@ const initStaff: Tstaff = {
 };
 
 const atStaff = atomWithReset<Tstaff>(initStaff);
+const atAllStaff = atomWithReset<Tstaff[]>([]);
 
 const atRoleSelected = atomWithReset<"employee" | "manager">("employee");
 
-export { initStaff, atStaff, atRoleSelected };
+export { initStaff, atStaff, atRoleSelected, atAllStaff };

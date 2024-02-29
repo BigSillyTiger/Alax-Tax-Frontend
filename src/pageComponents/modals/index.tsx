@@ -9,7 +9,7 @@ import MUniDel from "./mUniDel";
 import MStaffDel from "./mStaffDel";
 import MStaffForm from "./mStaffForm";
 import MStaffResetPW from "./mResetPW";
-import MJobAssign from "./mJob";
+import MJobAssign from "./mJobAssign/mJobAssign";
 
 export {
     MClientDel,

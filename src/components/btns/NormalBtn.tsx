@@ -1,9 +1,7 @@
-import type { FC } from "react";
+import type { FC, ComponentPropsWithoutRef } from "react";
 
-type Tprops = {
+type Tprops = ComponentPropsWithoutRef<"button"> & {
     name: string;
-    onClick: () => void;
-    className?: string;
 };
 
 const NormalBtn: FC<Tprops> = ({ name, onClick, className }) => {

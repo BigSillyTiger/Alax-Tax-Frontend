@@ -14,8 +14,6 @@ import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 import { ClientInfoCard } from "@/pageComponents/cards";
 import { PTable } from "@/components/table";
-import orderDescColumns from "../configs/columnDefs/defOrderDesc";
-import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { calGst } from "@/utils/calculations";
 import {
@@ -86,6 +84,7 @@ const Client = () => {
         invoice_date: "",
         order_services: [],
         payments: [],
+        work_logs: [],
     };
 
     const actionData = useActionData() as Tresponse;
@@ -226,7 +225,7 @@ const Client = () => {
 
     return (
         <>
-            <div className="container mx-auto border-0">
+            <div className="container border-0">
                 <Suspense fallback={<LoadingPage />}>
                     <Await resolve={clientInfo}>
                         {(clientInfo) => {

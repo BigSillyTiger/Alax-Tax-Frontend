@@ -13,7 +13,11 @@ const Fieldset: FC<Tprops> = ({ sFieldset, sLegend, title, children }) => {
             className={`py-2 border-2 border-indigo-100 flex justify-evenly rounded-lg ${sFieldset}`}
         >
             {title && (
-                <legend className={`ml-2 px-2 ${sLegend}`}>{title}</legend>
+                <legend
+                    className={`ml-2 px-2 text-indigo-500 text-bold ${sLegend}`}
+                >
+                    {title}
+                </legend>
             )}
             {children}
         </fieldset>

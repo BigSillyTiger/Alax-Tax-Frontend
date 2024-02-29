@@ -14,12 +14,20 @@ import {
     MpdfMaker,
 } from "@/pageComponents/modals";
 import { useAtom } from "jotai";
-import { atModalOpen, atOrder } from "@/configs/atoms";
+import {
+    atAllStaff,
+    atCompany,
+    atLogo,
+    atModalOpen,
+    atOrder,
+    atSUData,
+} from "@/configs/atoms";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { mOpenOps } from "@/configs/utils";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 import { orderSubTable } from "@/pageComponents/orderSubTables";
+import { Tstaff } from "@/configs/schema/staffSchema";
 
 type Torders = {
     orders: Torder[] | null;
@@ -27,21 +35,38 @@ type Torders = {
 
 const Orders: FC = () => {
     const { t } = useTranslation();
-    const { orders, uniData, company, logo } = useLoaderData() as {
+    const { orders, uniData, company, logo, staff } = useLoaderData() as {
         orders: Torder[];
         uniData: Tunivers;
         company: Tcompany;
         logo: string;
+        staff: Tstaff[];
     };
     const actionData = useActionData() as Tresponse;
     const [, setClientOrder] = useAtom(atOrder);
+    const [, setAllStaff] = useAtom(atAllStaff);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
+    const [, setUniData] = useAtom(atSUData);
+    const [, setCompany] = useAtom(atCompany);
+    const [, setLogo] = useAtom(atLogo);
+
+    console.log("-> orders page all orders: ", orders);
 
     useEffect(() => {
-        if (actionData?.status === RES_STATUS.SUCCESS) {
-            console.log("--> order page receiving success from server");
-        }
-    }, [actionData]);
+        setAllStaff(staff);
+        setCompany(company);
+        setLogo(logo);
+        setUniData(uniData);
+    }, [
+        setAllStaff,
+        staff,
+        setCompany,
+        company,
+        setLogo,
+        logo,
+        setUniData,
+        uniData,
+    ]);
 
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUCCESS) {
@@ -94,6 +119,9 @@ const Orders: FC = () => {
             };
         });
 
+    /* console.log("-> all order: ", orders);
+    console.log("-> all newClientOrders: ", newClientOrders); */
+
     const OrderTableContent: FC<Torders> = ({ orders }) => {
         return (
             <div className="px-4 sm:px-6 lg:px-8 top-0">
@@ -141,7 +169,7 @@ const Orders: FC = () => {
     };
 
     return (
-        <div className="container mx-auto border-0">
+        <div className="container border-0">
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={orders}>
                     {(ordersList) => {

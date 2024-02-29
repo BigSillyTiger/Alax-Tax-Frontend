@@ -33,7 +33,7 @@ const Setting: FC = () => {
 
     const UniversContent: FC<{ univers: Tunivers }> = ({ univers }) => {
         return (
-            <div className="container mx-auto">
+            <div className="container">
                 <Tab.Group defaultIndex={0}>
                     <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
                         {mTabList.map((item, index) => {
@@ -76,7 +76,7 @@ const Setting: FC = () => {
     };
 
     return (
-        <div className="container mx-auto border-0">
+        <div className="container border-0">
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={univers}>
                     {(univers) => {

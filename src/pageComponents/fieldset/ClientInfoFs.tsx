@@ -23,31 +23,26 @@ const ClientInfoFs: FC<Tprops> = ({
             sFieldset={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 my-2 mx-1 text-sm p-4 ${sFieldset}`}
             sLegend={`text-indigo-500 text-bold text-lg ${sLegend}`}
         >
-            <div className="col-span-4">
+            <div className="col-span-3">
                 <p>
                     <b className="text-indigo-600">{t("label.client")}: </b>{" "}
                     {client.first_name}&nbsp;{client.last_name}
                 </p>
             </div>
-            <div className="col-span-2">
+            <div className="col-span-3">
                 <p>
                     <b className="text-indigo-600">{t("label.clientID")}: </b>{" "}
                     {client.cid}
                 </p>
             </div>
-            <div className="col-span-6 sm:col-span-4">
+            <div className="col-span-6 sm:col-span-3">
                 <p>
                     <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
                     {client?.phone}
                 </p>
             </div>
-            <div className="col-span-6 sm:col-span-2">
-                <p>
-                    <b className="text-indigo-600">{t("label.pc")}: </b>
-                    {client?.postcode}
-                </p>
-            </div>
-            <div className="col-span-6">
+
+            <div className="col-span-6 sm:col-span-3">
                 <p>
                     <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
                     {client?.email}
@@ -57,7 +52,7 @@ const ClientInfoFs: FC<Tprops> = ({
                 <p>
                     <b className="text-indigo-600">{t("label.address")}: </b>{" "}
                     {client?.address}, {client?.suburb}, {client?.city},{" "}
-                    {client?.state}, {client?.country}
+                    {client?.state}, {client?.country}, {client?.postcode}
                 </p>
             </div>
         </Fieldset>

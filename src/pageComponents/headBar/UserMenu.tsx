@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { API_ADMIN } from "@/apis";
 import { useAdminStore } from "@/configs/zustore";
-import UserIcon from "./userIcon";
+import UserIcon from "../../components/UserIcon";
 
 const userNavigation = [
     { name: "Your profile", href: "#" },
