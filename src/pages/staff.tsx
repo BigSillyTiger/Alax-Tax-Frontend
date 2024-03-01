@@ -12,6 +12,8 @@ import { Tstaff } from "@/configs/schema/staffSchema.ts";
 import { MStaffDel, MStaffForm, MStaffResetPW } from "@/pageComponents/modals";
 import { PTable } from "@/components/table";
 import { atStaff, at2ndModalOpen, atModalOpen } from "@/configs/atoms";
+import type { TisConflict } from "@/utils/types";
+import { RES_STATUS } from "@/utils/types";
 
 type Tprops = {
     allStaff: Tstaff[] | null;

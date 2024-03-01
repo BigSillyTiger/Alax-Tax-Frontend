@@ -14,6 +14,7 @@ import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
 import { atClient, atInfoConflict, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
+import { RES_STATUS } from "@/utils/types";
 
 const MClientForm: FC = memo(() => {
     const navigation = useNavigation();

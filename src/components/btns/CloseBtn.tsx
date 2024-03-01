@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 type Tprop = ComponentPropsWithoutRef<"button"> & {
     srStr?: string;
-    xhoverStyle: string;
+    xhoverStyle?: string;
 };
 
 const CloseBtn: FC<Tprop> = (prop) => {

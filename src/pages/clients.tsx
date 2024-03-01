@@ -12,6 +12,7 @@ import { Tclient } from "@/configs/schema/clientSchema.ts";
 import { PTable } from "@/components/table";
 import { MClientDel, MClientForm } from "@/pageComponents/modals";
 import { atClient, atInfoConflict, atModalOpen } from "@/configs/atoms";
+import { RES_STATUS } from "@/utils/types";
 
 type Tprops = {
     clients: Tclient[] | null;

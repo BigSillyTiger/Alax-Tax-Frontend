@@ -1,7 +1,7 @@
 import { redirect, LoaderFunctionArgs } from "react-router-dom";
 import { API_ADMIN } from "@/apis";
-import { RES_STATUS } from "@/utils/types";
 import { routerStore } from "@/configs/zustore";
+import { RES_STATUS } from "@/utils/types";
 
 export const layoutLoader = async ({ request }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;

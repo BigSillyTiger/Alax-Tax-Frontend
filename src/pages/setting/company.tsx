@@ -9,6 +9,7 @@ import Card from "@/components/card";
 import { NormalBtn } from "@/components/btns";
 import { API_MANAGE } from "@/apis";
 import { toastSuccess } from "@/utils/toaster";
+import { RES_STATUS } from "@/utils/types";
 
 type Tprops = {
     company: Tcompany | null;

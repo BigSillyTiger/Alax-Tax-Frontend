@@ -7,6 +7,7 @@ import {
     REQ_ACCESS_CHECK,
 } from "./req_list";
 import { TadminStore } from "@/configs/schema/staffSchema";
+import { RES_STATUS } from "@/utils/types";
 
 export const adminLogin = async (
     email: string,

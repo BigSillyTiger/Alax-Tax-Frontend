@@ -1,5 +1,6 @@
 import { API_ADMIN } from "@/apis";
 import { ActionFunctionArgs, redirect } from "react-router-dom";
+import { RES_STATUS } from "@/utils/types";
 
 export const loginAction = async ({ request }: ActionFunctionArgs) => {
     const search = new URL(request.url).searchParams.get("redirect");

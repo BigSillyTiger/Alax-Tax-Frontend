@@ -1,6 +1,11 @@
 import { atom } from "jotai";
-import { Tmodal2ndOpenStates, Tunivers } from "@/utils/types";
-import { TmodalOpenStates } from "@/utils/types.ts";
+import {
+    TmodalOpenStates,
+    Tmodal2ndOpenStates,
+    Tunivers,
+    TisConflict,
+    RES_STATUS,
+} from "@/utils/types";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { Tstaff } from "@/configs/schema/staffSchema";
 import { initStaff } from "./atStaff.ts";

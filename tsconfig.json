@@ -33,7 +33,7 @@
         "vite.config.ts",
         "*.ts",
         "*.tsx",
-        "types/global.d.ts"
+        "src/types/global.d.ts"
     ]
     //"references": [{ "path": "./tsconfig.node.json" }],
     //"extends": "./tsconfig.paths.json"

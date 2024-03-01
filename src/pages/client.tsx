@@ -6,6 +6,7 @@ import LoadingPage from "@/components/loadingEle";
 import type { Tclient } from "@/configs/schema/clientSchema";
 import type { Torder } from "@/configs/schema/orderSchema";
 import type { Tunivers } from "@/utils/types";
+import { RES_STATUS } from "@/utils/types";
 import Card from "@/components/card";
 import { MOrderDel, MOrderForm, MOrderPay } from "@/pageComponents/modals";
 import clientOrderColumns from "../configs/columnDefs/defClientOrder";

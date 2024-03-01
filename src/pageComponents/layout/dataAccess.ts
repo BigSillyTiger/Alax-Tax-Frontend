@@ -4,6 +4,7 @@ import {
     ActionFunctionArgs,
 } from "react-router-dom";
 import { API_ADMIN, API_ORDER } from "@/apis";
+import { RES_STATUS } from "@/utils/types";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;
