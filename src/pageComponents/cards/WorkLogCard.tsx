@@ -1,6 +1,7 @@
 import UserIcon from "@/components/UserIcon";
 import { Amail, Atel } from "@/components/aLinks";
 import Card from "@/components/card";
+import Fieldset from "@/components/form/fieldset";
 import { TassignedWork } from "@/configs/schema/workSchema";
 import { useTranslation } from "react-i18next";
 
@@ -37,35 +38,52 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
             </div>
             {/* 5 col */}
             <div className="col-span-5">
-                <div className="col-span-2 row-span-1">
-                    <label htmlFor="s_time">{t("label.timeEnd")}</label>
-                    <input
-                        id="s_time"
-                        type="time"
-                        className="text-bold text-indigo-500"
-                    >
-                        {item.s_time}
-                    </input>
-                </div>
-                <div className="col-span-3 row-span-1">
-                    <label htmlFor="e_time">{t("label.timeStart")}</label>
-                    <input
-                        id="e_time"
-                        type="time"
-                        className="text-bold text-indigo-500"
-                    >
-                        {item.e_time}
-                    </input>
-                </div>
-                <div className="col-span-3 row-span-1">
-                    <label htmlFor="b_time">{t("label.break")}</label>
-                    <span className="text-bold text-indigo-500">
-                        {item.b_time}
-                    </span>
-                </div>
+                {/* time area */}
+                <Fieldset
+                    title={t("label.workTime")}
+                    sFieldset="p-2 justify-evenly"
+                >
+                    <div className="col-span-2 row-span-1">
+                        <label htmlFor="s_time" className="mx-2">
+                            {t("label.start")}
+                        </label>
+                        <input
+                            id="s_time"
+                            type="time"
+                            className="text-bold text-indigo-500"
+                        >
+                            {item.s_time}
+                        </input>
+                    </div>
+                    <div className="col-span-3 row-span-1">
+                        <label htmlFor="e_time" className="mx-2">
+                            {t("label.end")}
+                        </label>
+                        <input
+                            id="e_time"
+                            type="time"
+                            className="text-bold text-indigo-500"
+                        >
+                            {item.e_time}
+                        </input>
+                    </div>
+                    <div className="col-span-3 row-span-1">
+                        <label htmlFor="b_time" className="mx-2">
+                            {t("label.break")}
+                        </label>
+                        <input className="text-bold text-indigo-500">
+                            {item.b_time}
+                        </input>
+                    </div>
+                </Fieldset>
+                {/* note area */}
                 <div className="col-span-full">
-                    <label htmlFor="wl_note">{t("label.workNote")}</label>
-                    <textarea id="wl_note">{item.wl_note}</textarea>
+                    <label htmlFor="wl_note" className="mx-2">
+                        {t("label.workNote")}
+                    </label>
+                    <textarea id="wl_note" className="w-full">
+                        {item.wl_note}
+                    </textarea>
                 </div>
             </div>
         </Card>

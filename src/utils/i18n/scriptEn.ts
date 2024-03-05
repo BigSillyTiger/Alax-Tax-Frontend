@@ -135,6 +135,7 @@ const en = {
             email1: "Email",
             email2: "Email Address",
             employee: "Employee",
+            end: "End",
             feeStatus: "Fee Status",
             firstName: "First Name",
             from: "From",
@@ -186,6 +187,7 @@ const en = {
             servicesDetails: "Services Details",
             serviceList: "Services List",
             state: "State",
+            start: "Start",
             rank: "Rank",
             role: "Role",
             roleSelection: "Select A Role",
@@ -216,6 +218,7 @@ const en = {
             selectRole: "Select A Role",
             workAddr: "Work Address",
             workNote: "Work Note",
+            workTime: "Work Time",
         },
         tips: {
             noAssignedStaff: "No Assigned Staff",

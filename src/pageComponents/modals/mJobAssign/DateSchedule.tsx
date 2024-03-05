@@ -1,4 +1,4 @@
-import { DateBtn, XBtn } from "@/components/btns";
+import { DateBtn } from "@/components/btns";
 import Card from "@/components/card";
 import Fieldset from "@/components/form/fieldset";
 import { FC } from "react";
@@ -6,9 +6,7 @@ import { useTranslation } from "react-i18next";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 import DatePicker from "@/components/DatePicker";
 import "react-day-picker/dist/style.css";
-import { atSelectedDate } from "@/configs/atoms/atScheduleDate";
-import { useAtom } from "jotai";
-import { atWorkLogs } from "@/configs/atoms";
+import { useJobAssignStore } from "@/configs/zustore";
 
 type Tprop = {
     appendSchedule: () => void;
@@ -16,8 +14,10 @@ type Tprop = {
 
 const DateSchedule: FC<Tprop> = ({ appendSchedule }) => {
     const { t } = useTranslation();
-    const [selectedDate] = useAtom(atSelectedDate);
-    const [workLogs, setWorkLogs] = useAtom(atWorkLogs);
+    //const [selectedDate] = useAtom(atSelectedDate);
+    const selectedDate = useJobAssignStore((state) => state.selectedDate);
+    //const [workLogs, setWorkLogs] = useAtom(atWorkLogs);
+    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
 
     return (
         <Fieldset
@@ -29,7 +29,7 @@ const DateSchedule: FC<Tprop> = ({ appendSchedule }) => {
                     </span>
                 </>
             }
-            sFieldset={`m-3 grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-8 my-2 mx-1 text-sm p-4`}
+            sFieldset={`justify-evenly m-3 grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-8 my-2 mx-1 text-sm p-4`}
             sLegend={`text-lg`}
         >
             {/* date picker area */}
@@ -67,7 +67,7 @@ const DateSchedule: FC<Tprop> = ({ appendSchedule }) => {
                     {t("modal.tips.scheduledWork")}
                 </div>
                 <Card className="lg:h-[35vh] overflow-y-auto flex flex-col justify-stretch">
-                    {workLogs.map((item, index) => {
+                    {currentWorkLogs.map((item, index) => {
                         return (
                             <div key={index} className="my-1 w-full flex">
                                 <DateBtn

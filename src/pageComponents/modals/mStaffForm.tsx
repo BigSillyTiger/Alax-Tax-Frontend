@@ -104,7 +104,10 @@ const MStaffForm: FC = memo(() => {
     };
 
     const PWsection = () => (
-        <Fieldset title={t("label.password")} sFieldset="flex flex-col">
+        <Fieldset
+            title={t("label.password")}
+            sFieldset="justify-evenly flex-col"
+        >
             <div className="mx-3">
                 <label htmlFor="inputPW" className="text-sm pl-2">
                     {t("label.pwInput")}

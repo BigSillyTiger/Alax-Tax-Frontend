@@ -3,7 +3,7 @@ import { createStore } from "zustand/vanilla";
 import { TadminStore } from "../schema/staffSchema";
 
 type Tstate = {
-    user: TadminStore;
+    currentUser: TadminStore;
 };
 
 type Taction = {
@@ -11,7 +11,7 @@ type Taction = {
 };
 
 export const adminStore = createStore<Tstate & Taction>((set) => ({
-    user: {
+    currentUser: {
         uid: "",
         first_name: "",
         last_name: "",
@@ -23,7 +23,8 @@ export const adminStore = createStore<Tstate & Taction>((set) => ({
         staff: 0,
         setting: 0,
     },
-    initUser: (user: TadminStore) => set((state) => ({ ...state, ...user })),
+    initUser: (user: TadminStore) =>
+        set((state) => ({ ...state, currentUser: user })),
 }));
 
 export const useAdminStore = <T>(selector: (state: Tstate & Taction) => T) =>

@@ -21,7 +21,7 @@ const ClientInfoFs: FC<Tprops> = ({
     return (
         <Fieldset
             title={title}
-            sFieldset={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 my-2 mx-1 text-sm p-4 ${sFieldset}`}
+            sFieldset={`justify-evenly m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 my-2 mx-1 text-sm p-4 ${sFieldset}`}
             sLegend={`text-indigo-500 text-bold text-lg ${sLegend}`}
         >
             <div className="col-span-3">

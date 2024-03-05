@@ -2,18 +2,18 @@ import { FC } from "react";
 import { DayPicker } from "react-day-picker";
 //import "react-day-picker/dist/style.css";
 import "./datepickerstyle.css";
-import { atSelectedDate } from "@/configs/atoms/atScheduleDate";
-import { useAtom } from "jotai";
+import { useJobAssignStore } from "@/configs/zustore";
 
 const DatePicker: FC = () => {
-    const [selectedDate, setSelectedDate] = useAtom(atSelectedDate);
+    const selectedDate = useJobAssignStore((state) => state.selectedDate);
+    const setDate = useJobAssignStore((state) => state.setDate);
     return (
         <DayPicker
             showOutsideDays
             fixedWeeks
             mode="single"
             selected={selectedDate}
-            onSelect={(day) => setSelectedDate(day as Date)}
+            onSelect={(day) => setDate(day as Date)}
         />
     );
 };

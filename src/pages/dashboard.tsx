@@ -7,7 +7,7 @@ import { useAdminStore } from "@/configs/zustore";
 const Dashboard: FC = () => {
     const loaderData = useLoaderData() as { content: any };
 
-    const user = useAdminStore((state) => state.user);
+    const user = useAdminStore((state) => state.currentUser);
 
     const DashboardContent = () => {
         return (

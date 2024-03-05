@@ -19,7 +19,7 @@ export const adminLogin = async (
     };
     try {
         const response = await apis.post(REQ_LOGIN, newPost);
-        adminStore.setState({ user: response.data.data as TadminStore });
+        adminStore.setState({ currentUser: response.data.data as TadminStore });
         return response.data;
     } catch (err: any) {
         if (err.response) {
@@ -48,7 +48,7 @@ export const adminLogout = async () => {
 export const adminCheck = async (): Promise<Tresponse> => {
     try {
         const response = await apis.get(REQ_ADMIN_CHECK);
-        adminStore.setState({ user: response.data.data as TadminStore });
+        adminStore.setState({ currentUser: response.data.data as TadminStore });
         return response.data;
     } catch (err: any) {
         if (err.response) {

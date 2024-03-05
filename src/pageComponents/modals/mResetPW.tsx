@@ -58,7 +58,7 @@ const MStaffResetPW: FC = memo(() => {
     };
 
     const PWsection = () => (
-        <Fieldset sFieldset="flex flex-col">
+        <Fieldset sFieldset="flex-col justify-evenly">
             <div className="mx-3">
                 <label htmlFor="inputPW" className="text-sm pl-2">
                     {t("label.pwInput")}

@@ -1,28 +1,17 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect } from "react";
 import { MTemplate } from "@/components/modal";
-import {
-    atAllStaff,
-    atAssignedWorks,
-    atModalOpen,
-    atOrder,
-    atWorkLogs,
-} from "@/configs/atoms";
+import { atAllStaff, atModalOpen, atOrder } from "@/configs/atoms";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
-import { useForm, useFieldArray } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { mOpenOps } from "@/configs/utils";
 import { useAtom } from "jotai";
 import { SubmitBtn } from "@/components/form";
 import { useTranslation } from "react-i18next";
 import ClientInfoFs from "../../fieldset/ClientInfoFs";
 import OrderInfoFs from "../../fieldset/OrderInfoFs";
-import { Tstaff } from "@/configs/schema/staffSchema";
-import { TformWorkLogs, formWorkLogs } from "@/configs/schema/workSchema";
 import AssignedStaff from "./AssignedStaff";
 import SelectStaff from "./SelectAtaff";
-import { atSelectedDate } from "@/configs/atoms/atScheduleDate";
 import DateSchedule from "./DateSchedule";
-import useWorkLogs from "./hooks/useWorkLogs";
+import { jobAssignStore, useJobAssignStore } from "@/configs/zustore";
 
 const MJobAssign = () => {
     const navigation = useNavigation();
@@ -31,68 +20,34 @@ const MJobAssign = () => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [clientOrder] = useAtom(atOrder);
     const [allStaff] = useAtom(atAllStaff);
-    const [selectedDate] = useAtom(atSelectedDate);
-    const [selectedStaff, setSelectedStaff] = useState<Tstaff>();
-    const [assignedWork, setAssignedWork] = useAtom(atAssignedWorks);
-    const { workLogs, setWorkLogs } = useWorkLogs(clientOrder.work_logs);
+    const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
 
-    const {
-        control,
-        formState: { errors },
-        getValues,
-        setValue,
-        trigger,
-        watch,
-        reset,
-    } = useForm<TformWorkLogs>({
-        resolver: zodResolver(formWorkLogs),
-        defaultValues: {
-            work_logs: clientOrder.work_logs,
-        },
-    });
+    /* update client order */
+    useEffect(() => {
+        jobAssignStore.setState({
+            currentWorkLogs: clientOrder.work_logs,
+        });
+    }, [allStaff, clientOrder.work_logs]);
 
-    const { fields, append, remove } = useFieldArray({
-        name: "work_logs",
-        control,
-    });
+    /* update selected staff */
+    useEffect(() => {
+        const newAllStaff = allStaff.map((item) => {
+            return { ...item, ["selected"]: false };
+        });
+        jobAssignStore.setState({
+            allStaff: newAllStaff,
+        });
+    }, [allStaff]);
 
-    const setDefaultStaff = (value: string) => {
-        const staff = allStaff?.find(
-            (item: Tstaff) => item.first_name === value
-        );
-        if (staff) {
-            setSelectedStaff({
-                wlid: "",
-                fk_oid: clientOrder.oid,
-                fk_uid: staff.uid,
-                first_name: staff.first_name,
-                last_name: staff.last_name,
-                phone: staff.phone,
-                email: staff.email,
-                role: staff.role,
-                wl_date: selectedDate?.toISOString() || "",
-                s_time: "",
-                e_time: "",
-                b_time: "",
-                wl_status: "ongoing",
-                wl_note: "",
-            });
-        }
-    };
+    useEffect(() => {}, [allStaff]);
 
     const onClose = () => {
         setModalOpen(mOpenOps.default);
-        reset();
     };
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log("===> test all values: ", getValues());
         submit({}, { method: "POST", action: "/test" });
-    };
-
-    const handleAppendWork = () => {
-        append();
     };
 
     const mainContent = (
@@ -110,23 +65,19 @@ const MJobAssign = () => {
                     <OrderInfoFs info={clientOrder} />
 
                     {/* date picker area */}
-                    <DateSchedule
-                        fields={fields}
-                        appendWorkLog={handleAppendWork}
-                        remove={remove}
-                    />
+                    <DateSchedule appendSchedule={() => {}} />
                 </section>
                 {/* right area */}
                 <section className="col-span-1 lg:col-span-4 grid grid-cols-1">
                     {/* assigned staff area */}
-                    <AssignedStaff fields={fields} remove={remove} />
+                    <AssignedStaff />
                     {/* select staff area */}
                     <SelectStaff />
                     {/* submit btns */}
                     <section className="col-span-full row-span-2">
                         {/* btns */}
                         <SubmitBtn
-                            onClick={() => trigger()}
+                            onClick={() => {}}
                             onClose={onClose}
                             navState={navigation.state}
                         />

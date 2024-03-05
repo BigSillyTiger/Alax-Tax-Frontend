@@ -16,7 +16,7 @@ const UserMenu: FC = () => {
     const { t } = useTranslation();
     const nevigate = useNavigate();
 
-    const user = useAdminStore((state) => state.user);
+    const user = useAdminStore((state) => state.currentUser);
 
     const handleLogout = async (e: MouseEvent | TouchEvent) => {
         e.preventDefault();

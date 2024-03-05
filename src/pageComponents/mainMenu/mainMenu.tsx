@@ -32,7 +32,7 @@ type Tprops = {
 // create new menu list based on user permission
 
 const MainMenu: FC<Tprops> = ({ open, setOpen }) => {
-    const user = useAdminStore((state) => state.user);
+    const user = useAdminStore((state) => state.currentUser);
     const newMenuList = () => {
         const temp = Object.values({
             dashboard: user.dashboard,

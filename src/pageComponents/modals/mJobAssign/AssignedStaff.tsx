@@ -2,23 +2,33 @@ import Fieldset from "@/components/form/fieldset";
 import { useTranslation } from "react-i18next";
 import { FC } from "react";
 import { XBtn } from "@/components/btns";
-import { useAtom } from "jotai";
-import { atWorkLogs } from "@/configs/atoms";
 import WorkLogCard from "@/pageComponents/cards/WorkLogCard";
+import { useJobAssignStore } from "@/configs/zustore";
+import { isSameDay } from "date-fns";
 
 const AssignedStaff: FC = () => {
     const { t } = useTranslation();
-    //const { selectedDate } = useAtom(atSelectedDate);
-    const [workLogs, setWorkLogs] = useAtom(atWorkLogs);
-    const scheduledWork = workLogs[0].assigned_work;
-    console.log("-->test content assign: ", scheduledWork);
+    const selectedDate = useJobAssignStore((state) => state.selectedDate);
+    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
+    const filterWorkLogs = () => {
+        if (selectedDate) {
+            const workLog = currentWorkLogs.filter((work) => {
+                return isSameDay(new Date(work.wl_date), selectedDate);
+            });
+            return workLog.length ? workLog[0].assigned_work : [];
+        } else {
+            return [];
+        }
+    };
+
+    const scheduledWork = filterWorkLogs();
 
     return (
         <Fieldset
             title={t("label.assignedStaff")}
             sFieldset="col-span-full lg:col-span-5 my-2 mx-1 lg:h-[45vh] overflow-y-auto grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-8 p-4"
         >
-            {scheduledWork ? (
+            {scheduledWork.length > 0 ? (
                 scheduledWork.map((item, index) => {
                     return (
                         <section
