@@ -13,7 +13,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
     const { t } = useTranslation();
     return (
         /* self-11 content-8 */
-        <Card className="col-span-11 mt-3 grid grid-cols-1 gap-x-4 sm:grid-cols-8 bg-indigo-50 py-2">
+        <Card className="col-span-full mt-3 grid grid-cols-1 gap-x-4 sm:grid-cols-8 bg-indigo-50 py-2">
             {/* 3 col */}
             <div className="col-span-3">
                 <div className="col-span-full row-span-2">
@@ -51,9 +51,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                             id="s_time"
                             type="time"
                             className="text-bold text-indigo-500"
-                        >
-                            {item.s_time}
-                        </input>
+                        />
                     </div>
                     <div className="col-span-3 row-span-1">
                         <label htmlFor="e_time" className="mx-2">
@@ -63,17 +61,13 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                             id="e_time"
                             type="time"
                             className="text-bold text-indigo-500"
-                        >
-                            {item.e_time}
-                        </input>
+                        />
                     </div>
                     <div className="col-span-3 row-span-1">
                         <label htmlFor="b_time" className="mx-2">
                             {t("label.break")}
                         </label>
-                        <input className="text-bold text-indigo-500">
-                            {item.b_time}
-                        </input>
+                        <input className="text-bold text-indigo-500" />
                     </div>
                 </Fieldset>
                 {/* note area */}
@@ -81,9 +75,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                     <label htmlFor="wl_note" className="mx-2">
                         {t("label.workNote")}
                     </label>
-                    <textarea id="wl_note" className="w-full">
-                        {item.wl_note}
-                    </textarea>
+                    <textarea id="wl_note" className="w-full" />
                 </div>
             </div>
         </Card>

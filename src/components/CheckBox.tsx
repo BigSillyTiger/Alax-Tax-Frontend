@@ -6,7 +6,7 @@ type Tprops = ComponentPropsWithoutRef<"input"> & {
 };
 
 const CheckBox: FC<Tprops> = (props) => {
-    const { onChange, checked, name, uid, ...restProps } = props;
+    const { onChange, checked, onClick, name, uid, ...restProps } = props;
     return (
         <div
             className={`inline-flex items-center h-16 w-auto border-2 border-gray-200 rounded-lg ${checked && "border-indigo-500"}`}
@@ -15,6 +15,7 @@ const CheckBox: FC<Tprops> = (props) => {
                 id={`link-checkbox-${uid}`}
                 type="checkbox"
                 value=""
+                onClick={onClick}
                 checked={checked}
                 onChange={onChange}
                 className={`rounded-md size-6 p-2 text-blue-600 bg-gray-200 border-gray-300 ml-2 mr-3 checked:bg-indigo-500`}

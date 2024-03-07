@@ -9,37 +9,68 @@ import { useTranslation } from "react-i18next";
 import ClientInfoFs from "../../fieldset/ClientInfoFs";
 import OrderInfoFs from "../../fieldset/OrderInfoFs";
 import AssignedStaff from "./AssignedStaff";
-import SelectStaff from "./SelectAtaff";
+import SelectStaff from "./SelectStaff";
 import DateSchedule from "./DateSchedule";
-import { jobAssignStore, useJobAssignStore } from "@/configs/zustore";
+import { useJobAssignStore } from "@/configs/zustore";
+import { isSameDay } from "date-fns";
 
 const MJobAssign = () => {
     const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
+    // jotai atoms
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [clientOrder] = useAtom(atOrder);
-    const [allStaff] = useAtom(atAllStaff);
+    const [atomAllStaff] = useAtom(atAllStaff);
+    // zustand states and actions
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
+    const selectedDate = useJobAssignStore((state) => state.selectedDate);
+    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
+    const allStaff = useJobAssignStore((state) => state.allStaff);
+    const setAllStaff = useJobAssignStore((state) => state.setAllStaff);
 
     /* update client order */
     useEffect(() => {
-        jobAssignStore.setState({
-            currentWorkLogs: clientOrder.work_logs,
-        });
-    }, [allStaff, clientOrder.work_logs]);
+        setWorkLogs(clientOrder.work_logs);
+    }, [clientOrder.work_logs, setWorkLogs]);
 
-    /* update selected staff */
+    /* update all staff with unselected status as default*/
     useEffect(() => {
-        const newAllStaff = allStaff.map((item) => {
-            return { ...item, ["selected"]: false };
+        const newAllStaff = atomAllStaff.map((staff) => {
+            return { ...staff, ["selected"]: false };
         });
-        jobAssignStore.setState({
-            allStaff: newAllStaff,
-        });
-    }, [allStaff]);
+        setAllStaff(newAllStaff);
+    }, [atomAllStaff, setAllStaff]);
 
-    useEffect(() => {}, [allStaff]);
+    /* update work logs when all staff changed */
+    /* useEffect(() => {
+        const newWorkLogs = allStaff
+            .filter((staff) => staff.selected === true)
+            .map((staff) => ({
+                fk_oid: clientOrder.oid,
+                wl_date: selectedDate ? selectedDate.toISOString() : "",
+                assigned_work: [
+                    {
+                        wlid: "",
+                        fk_oid: clientOrder.oid,
+                        fk_uid: staff.uid,
+                        wl_date: selectedDate ? selectedDate.toISOString() : "",
+                        s_time: "",
+                        e_time: "",
+                        b_time: "",
+                        wl_status: "ongoing",
+                        wl_note: "",
+
+                        first_name: staff.first_name,
+                        last_name: staff.last_name,
+                        phone: staff.phone,
+                        email: staff.email,
+                        role: staff.role,
+                    },
+                ],
+            }));
+        setWorkLogs(newWorkLogs);
+    }, [allStaff, selectedDate, clientOrder.oid, setWorkLogs]); */
 
     const onClose = () => {
         setModalOpen(mOpenOps.default);
