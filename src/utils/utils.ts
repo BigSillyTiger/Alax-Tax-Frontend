@@ -1,6 +1,7 @@
 import { routerPaths } from "@/configs/utils";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
 import { format } from "date-fns";
+import { TworkLogs } from "@/configs/schema/workSchema";
 
 export const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
     return (obj as Tservice).service !== undefined;
@@ -61,4 +62,18 @@ export const genAction = (path: keyof typeof routerPaths, cid?: string) => {
         case "setting":
             return `/${path}`;
     }
+};
+
+/**
+ *
+ */
+export const sortWorkLogs = (sort: "dsc" | "asc", workLogs: TworkLogs[]) => {
+    return workLogs.sort((a, b) => {
+        const dateA = new Date(a.wl_date).getTime();
+        const dateB = new Date(b.wl_date).getTime();
+        if (sort === "asc") {
+            return dateA - dateB;
+        }
+        return dateB - dateA;
+    });
 };

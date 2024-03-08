@@ -6,13 +6,11 @@ import { useTranslation } from "react-i18next";
 import DatePicker from "@/components/DatePicker";
 import "react-day-picker/dist/style.css";
 import { useJobAssignStore } from "@/configs/zustore";
-import { dateFormatAU } from "@/utils/utils";
+import { dateFormatAU, sortWorkLogs } from "@/utils/utils";
 
 const DateSchedule: FC = () => {
     const { t } = useTranslation();
-    //const [selectedDate] = useAtom(atSelectedDate);
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
-    //const [workLogs, setWorkLogs] = useAtom(atWorkLogs);
     const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
 
     return (
@@ -46,24 +44,14 @@ const DateSchedule: FC = () => {
                     <DatePicker />
                 </Card>
             </div>
-            {/* append btn */}
-            {/* <button
-                className="col-span-full sm:col-span-1 inline-flex w-full justify-center rounded-md bg-indigo-200 my-auto text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:w-auto"
-                onClick={(e) => {
-                    e.preventDefault();
-                    appendSchedule();
-                }}
-            >
-                <span className="sr-only">{t("btn.addDate")}</span>
-                <ChevronDoubleRightIcon />
-            </button> */}
+
             {/* assigned dates area */}
             <div className="col-span-full sm:col-span-4 ">
                 <div className="font-semibold text-indigo-500 text-bold my-2 ml-2">
                     {t("modal.tips.scheduledWork")}
                 </div>
                 <Card className="lg:h-[35vh] overflow-y-auto flex flex-col justify-stretch">
-                    {currentWorkLogs.map((item, index) => {
+                    {sortWorkLogs("dsc", currentWorkLogs).map((item, index) => {
                         return (
                             <div key={index} className="my-1 w-full flex">
                                 <DateBtn

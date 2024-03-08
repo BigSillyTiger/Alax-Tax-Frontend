@@ -10,10 +10,17 @@ const DatePicker: FC = () => {
     return (
         <DayPicker
             showOutsideDays
+            showWeekNumber
             fixedWeeks
             mode="single"
             selected={selectedDate}
             onSelect={(day) => setDate(day as Date)}
+            formatters={
+                {
+                    // Add `W` prefix to week number
+                    //formatWeekNumber: (weekNumber) => `W${weekNumber}`
+                }
+            }
         />
     );
 };
