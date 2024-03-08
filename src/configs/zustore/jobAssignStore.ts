@@ -82,7 +82,18 @@ export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
                 (work) => work.fk_uid === assignedWork.fk_uid
             );
             filteredWorkLogs[0].assigned_work.splice(indexToRemove, 1);
-            return { ...state, currentWorkLogs: filteredWorkLogs };
+
+            return {
+                ...state,
+                currentWorkLogs: state.currentWorkLogs.map((work) =>
+                    isSameDay(new Date(work.wl_date), new Date(date))
+                        ? {
+                              ...work,
+                              assigned_work: filteredWorkLogs[0].assigned_work,
+                          }
+                        : { ...work }
+                ),
+            };
         }),
     setAllStaff: (staff: TallStaff[]) =>
         set((state) => ({ ...state, allStaff: staff })),

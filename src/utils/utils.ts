@@ -7,8 +7,8 @@ export const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
 };
 
 /**
- * @description the date stored in db is in ISO format: yyyy-MM-ddTHH:mm:ss.sssZ
- * @param dateString
+ * @description the date stored in db is in ISO format: yyyy-MM-dd
+ * @param dateString: yyyy-MM-dd
  * @returns return dd-MM-yyyy is used for displaying directly
  */
 export const dateFormatAU = (dateString: string) => {
@@ -16,8 +16,8 @@ export const dateFormatAU = (dateString: string) => {
 };
 
 /**
- *
- * @param date
+ * @description the date stored in db is in ISO format: yyyy-MM-dd
+ * @param date Date
  * @returns yyy-MM-dd is used for datepicker
  */
 export const dateFormatISO = (date: Date) => {

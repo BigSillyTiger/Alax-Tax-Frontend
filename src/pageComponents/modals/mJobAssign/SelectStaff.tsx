@@ -56,7 +56,6 @@ const SelectStaff: FC = () => {
 
     /* update staff selected status when selected date changed */
     useEffect(() => {
-        console.log("-> select staff useEffect: ", currentWorkLogs);
         let newAllStaff;
         const workLog =
             selectedDate &&
@@ -93,11 +92,12 @@ const SelectStaff: FC = () => {
                         <CheckBox
                             key={staff.uid}
                             onClick={(e) => {
+                                //e.preventDefault();
                                 if (!selectedDate) return;
-                                console.log(
+                                /* console.log(
                                     "--> check box onClick, date: ",
                                     selectedDate
-                                );
+                                ); */
                             }}
                             onChange={(e) => {
                                 if (!selectedDate) return;

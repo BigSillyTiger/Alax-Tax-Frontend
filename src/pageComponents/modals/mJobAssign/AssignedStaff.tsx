@@ -27,14 +27,14 @@ const AssignedStaff: FC = () => {
     return (
         <Fieldset
             title={t("label.assignedStaff")}
-            sFieldset="col-span-full lg:col-span-5 my-2 mx-1 lg:h-[45vh] overflow-y-auto grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-8 p-4"
+            sFieldset="col-span-full lg:col-span-5 my-2 mx-1 lg:h-[45vh] overflow-y-auto p-4"
         >
             {scheduledWork.length > 0 ? (
                 scheduledWork.map((item) => {
                     return (
                         <section
                             key={item.fk_uid}
-                            className="col-span-full grid grid-cols-12 gap-x-1"
+                            className="grid grid-cols-12 gap-x-1 flex-shrink-0"
                         >
                             {/* x btn */}
                             {/* <div className="col-span-1 m-auto">

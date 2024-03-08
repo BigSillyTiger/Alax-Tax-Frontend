@@ -18,7 +18,7 @@ const CheckBox: FC<Tprops> = (props) => {
                 onClick={onClick}
                 checked={checked}
                 onChange={onChange}
-                className={`rounded-md size-6 p-2 text-blue-600 bg-gray-200 border-gray-300 ml-2 mr-3 checked:bg-indigo-500`}
+                className={`rounded-md size-6 p-2 text-blue-600 bg-gray-200 border-gray-300 ml-2 mr-3 checked:bg-indigo-500 cursor-pointer`}
                 {...restProps}
             />
             <label
