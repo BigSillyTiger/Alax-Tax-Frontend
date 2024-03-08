@@ -3,7 +3,7 @@ import { Text, View, Image } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { useTranslation } from "react-i18next";
 import { Tcompany } from "@/configs/schema/settingSchema";
-import { dateFormat } from "@/utils/utils";
+import { dateFormatAU } from "@/utils/utils";
 
 type Tprops = {
     company: Tcompany;
@@ -44,7 +44,7 @@ const Title: FC<Tprops> = ({ company, orderID, issueDate, logo }) => {
                     {" " + "#" + orderID}
                 </Text>
                 <Text style={tw("text-xs text-gray-600")}>
-                    {t("label.issuedDate")}: {dateFormat(issueDate)}
+                    {t("label.issuedDate")}: {dateFormatAU(issueDate)}
                 </Text>
             </View>
         </View>

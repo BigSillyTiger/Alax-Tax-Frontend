@@ -12,7 +12,6 @@ import AssignedStaff from "./AssignedStaff";
 import SelectStaff from "./SelectStaff";
 import DateSchedule from "./DateSchedule";
 import { useJobAssignStore } from "@/configs/zustore";
-import { isSameDay } from "date-fns";
 
 const MJobAssign = () => {
     const navigation = useNavigation();
@@ -24,9 +23,6 @@ const MJobAssign = () => {
     const [atomAllStaff] = useAtom(atAllStaff);
     // zustand states and actions
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
-    const selectedDate = useJobAssignStore((state) => state.selectedDate);
-    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
-    const allStaff = useJobAssignStore((state) => state.allStaff);
     const setAllStaff = useJobAssignStore((state) => state.setAllStaff);
 
     /* update client order */
@@ -41,36 +37,6 @@ const MJobAssign = () => {
         });
         setAllStaff(newAllStaff);
     }, [atomAllStaff, setAllStaff]);
-
-    /* update work logs when all staff changed */
-    /* useEffect(() => {
-        const newWorkLogs = allStaff
-            .filter((staff) => staff.selected === true)
-            .map((staff) => ({
-                fk_oid: clientOrder.oid,
-                wl_date: selectedDate ? selectedDate.toISOString() : "",
-                assigned_work: [
-                    {
-                        wlid: "",
-                        fk_oid: clientOrder.oid,
-                        fk_uid: staff.uid,
-                        wl_date: selectedDate ? selectedDate.toISOString() : "",
-                        s_time: "",
-                        e_time: "",
-                        b_time: "",
-                        wl_status: "ongoing",
-                        wl_note: "",
-
-                        first_name: staff.first_name,
-                        last_name: staff.last_name,
-                        phone: staff.phone,
-                        email: staff.email,
-                        role: staff.role,
-                    },
-                ],
-            }));
-        setWorkLogs(newWorkLogs);
-    }, [allStaff, selectedDate, clientOrder.oid, setWorkLogs]); */
 
     const onClose = () => {
         setModalOpen(mOpenOps.default);
@@ -96,7 +62,7 @@ const MJobAssign = () => {
                     <OrderInfoFs info={clientOrder} />
 
                     {/* date picker area */}
-                    <DateSchedule appendSchedule={() => {}} />
+                    <DateSchedule />
                 </section>
                 {/* right area */}
                 <section className="col-span-1 lg:col-span-4 grid grid-cols-1">

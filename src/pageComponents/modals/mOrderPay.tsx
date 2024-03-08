@@ -19,7 +19,7 @@ import {
     OrderInfoCard,
     OrderDescCard,
 } from "@/pageComponents/cards";
-import { genAction, newDateFormat } from "@/utils/utils";
+import { genAction, dateFormatISO } from "@/utils/utils";
 import { dateMax, dateMin, mOpenOps } from "@/configs/utils";
 import { atOrder, atModalOpen } from "@/configs/atoms";
 import { useRouterStore } from "@/configs/zustore";
@@ -36,7 +36,7 @@ const MOrderPay: FC = memo(() => {
     const [payment, setPayment] = useState<TorderPayment>({
         fk_oid: 0,
         paid: 0,
-        paid_date: newDateFormat(new Date()),
+        paid_date: dateFormatISO(new Date()),
     });
     const [totalPaid, setTotalPaid] = useState(0);
     const currentRouter = useRouterStore((state) => state.currentRouter);
@@ -80,7 +80,7 @@ const MOrderPay: FC = memo(() => {
                     ? clientOrder.payments.map((item) => {
                           return {
                               ...item,
-                              paid_date: newDateFormat(
+                              paid_date: dateFormatISO(
                                   new Date(item.paid_date)
                               ),
                           };
@@ -243,7 +243,7 @@ const MOrderPay: FC = memo(() => {
                         type="date"
                         min={dateMin}
                         max={dateMax}
-                        defaultValue={newDateFormat(new Date())}
+                        defaultValue={dateFormatISO(new Date())}
                         onChange={(e) => {
                             setPayment({
                                 ...payment,

@@ -1,11 +1,11 @@
-import { newDateFormat } from "@/utils/utils";
+import { dateFormatISO } from "@/utils/utils";
 
 /**
  * dateMin and dateMax are for the date picker
  * to restrict the date range
  */
 export const dateMin = "2020-01-01";
-export const dateMax = newDateFormat(new Date());
+export const dateMax = dateFormatISO(new Date());
 
 export const roleOptions = {
     employee: {

@@ -2,7 +2,7 @@ import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/utils/i18n";
 import { Torder } from "../schema/orderSchema";
 import { minusAB } from "@/utils/calculations";
-import { dateFormat } from "@/utils/utils";
+import { dateFormatAU } from "@/utils/utils";
 import OrderStatus from "@/components/OrderStatus";
 
 const orderColumns: ColumnDef<Torder>[] = [
@@ -54,7 +54,7 @@ const orderColumns: ColumnDef<Torder>[] = [
                 header: i18n.t("label.orderDate"),
                 accessorKey: "created_date",
                 cell: (info: CellContext<Torder, unknown>) => (
-                    <span>{dateFormat(info.getValue<string>())}</span>
+                    <span>{dateFormatAU(info.getValue<string>())}</span>
                 ),
             },
             {

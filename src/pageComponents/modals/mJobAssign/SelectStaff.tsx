@@ -9,6 +9,7 @@ import { isSameDay } from "date-fns";
 import { atAllStaff, atOrder } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { TassignedWork } from "@/configs/schema/workSchema";
+import { dateFormatISO } from "@/utils/utils";
 
 const genWorkLogWithStaff = (
     staff: Tstaff,
@@ -100,11 +101,8 @@ const SelectStaff: FC = () => {
                             }}
                             onChange={(e) => {
                                 if (!selectedDate) return;
-                                console.log(
-                                    `-> check box onchange: selectedDate[${selectedDate}] checked[${e.target.checked}] uid[${staff.uid}] name[${staff.first_name} ${staff.last_name}]`
-                                );
                                 const date = selectedDate
-                                    ? selectedDate.toISOString()
+                                    ? dateFormatISO(selectedDate)
                                     : "";
                                 const newWork = genWorkLogWithStaff(
                                     staff,
@@ -113,7 +111,7 @@ const SelectStaff: FC = () => {
                                         : "",
                                     date
                                 );
-                                //selectStaff(index, e.target.checked);
+
                                 if (e.target.checked) {
                                     appendAssignedWork(newWork, date);
                                 } else {

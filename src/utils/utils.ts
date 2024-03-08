@@ -7,11 +7,11 @@ export const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
 };
 
 /**
- *
+ * @description the date stored in db is in ISO format: yyyy-MM-ddTHH:mm:ss.sssZ
  * @param dateString
  * @returns return dd-MM-yyyy is used for displaying directly
  */
-export const dateFormat = (dateString: string) => {
+export const dateFormatAU = (dateString: string) => {
     return format(Date.parse(dateString), "dd-MM-yyyy");
 };
 
@@ -20,7 +20,7 @@ export const dateFormat = (dateString: string) => {
  * @param date
  * @returns yyy-MM-dd is used for datepicker
  */
-export const newDateFormat = (date: Date) => {
+export const dateFormatISO = (date: Date) => {
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is 0-indexed
     const year = date.getFullYear().toString();

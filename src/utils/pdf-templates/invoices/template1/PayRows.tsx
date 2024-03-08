@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { TorderPayment } from "@/configs/schema/orderSchema";
-import { dateFormat } from "@/utils/utils";
+import { dateFormatAU } from "@/utils/utils";
 
 type Tprops = {
     data: TorderPayment[];
@@ -29,7 +29,7 @@ const PayRows: FC<Tprops> = memo(({ data, unit: u }) => {
                     {item.paid}
                 </Text>
                 <Text style={tw("text-sm w-[263pt] text-center my-auto")}>
-                    {dateFormat(item.paid_date)}
+                    {dateFormatAU(item.paid_date)}
                 </Text>
             </View>
         );
