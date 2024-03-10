@@ -18,7 +18,7 @@ type Taction = {
     appendAssignedWork: (assignedWork: TassignedWork, date: string) => void;
     removeAssignedWork: (assignedWork: TassignedWork, date: string) => void;
     selectStaff: (index: number, selected: boolean) => void;
-    setDate: (date: Date) => void;
+    setDate: (date: Date | undefined) => void;
 };
 
 export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
@@ -103,7 +103,8 @@ export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
                 i === index ? { ...staff, selected: selected } : staff
             ),
         })),
-    setDate: (date: Date) => set((state) => ({ ...state, selectedDate: date })),
+    setDate: (date: Date | undefined) =>
+        set((state) => ({ ...state, selectedDate: date })),
 }));
 
 export const useJobAssignStore = <T>(

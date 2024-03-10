@@ -12,6 +12,7 @@ const DateSchedule: FC = () => {
     const { t } = useTranslation();
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
     const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
+    const setDate = useJobAssignStore((state) => state.setDate);
 
     return (
         <Fieldset
@@ -59,6 +60,7 @@ const DateSchedule: FC = () => {
                                     onClick={(e) => {
                                         e.preventDefault();
                                         console.log("-> click date btn");
+                                        setDate(new Date(item.wl_date));
                                     }}
                                     className="grow"
                                     onDelete={(e) => {

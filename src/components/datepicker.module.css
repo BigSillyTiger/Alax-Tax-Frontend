@@ -1,0 +1,8 @@
+/* datepicker.module.css */
+.reactDatepicker :global(.rdp-day_selected),
+.reactDatepicker :global(.rdp-day_selected:focus-visible),
+.reactDatepicker :global(.rdp-day_selected:hover) {
+    color: white !important;
+    background-color: #4338ca !important;
+    opacity: 1 !important;
+}

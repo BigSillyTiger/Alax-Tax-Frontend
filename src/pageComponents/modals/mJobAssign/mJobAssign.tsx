@@ -24,6 +24,7 @@ const MJobAssign = () => {
     // zustand states and actions
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
     const setAllStaff = useJobAssignStore((state) => state.setAllStaff);
+    const setDate = useJobAssignStore((state) => state.setDate);
 
     /* update client order */
     useEffect(() => {
@@ -40,6 +41,7 @@ const MJobAssign = () => {
 
     const onClose = () => {
         setModalOpen(mOpenOps.default);
+        setDate(undefined);
     };
 
     const onSubmit = async (e: FormEvent) => {
