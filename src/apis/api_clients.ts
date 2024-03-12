@@ -36,7 +36,7 @@ export const clientInfo = async (cid: string): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_CLIENT_INFO, { cid });
         return response.data;
-    } catch (err: any) {
+    } catch (err: unknown) {
         console.log("-> retrieve client info error: ", err);
         return {
             status: 400,
@@ -64,7 +64,7 @@ export const clientSingleDel = async (cid: string): Promise<Tresponse> => {
     try {
         const response = await apis.post(REQ_CLIENT_SINGLE_DEL, { cid });
         return response.data;
-    } catch (err) {
+    } catch (err: unknown) {
         console.log("-> delete client failed: ", err);
         return {
             status: 400,
@@ -80,7 +80,7 @@ export const clientSingleUpdate = async (
     try {
         const response = await apis.put(REQ_CLIENT_SINGLE_UPDATE, [client]);
         return response.data;
-    } catch (err) {
+    } catch (err: unknown) {
         console.log("-> update client failed: ", err);
         return {
             status: 400,

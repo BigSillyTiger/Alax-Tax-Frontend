@@ -1,7 +1,7 @@
+import type { FC } from "react";
 import { DateBtn } from "@/components/btns";
 import Card from "@/components/card";
 import Fieldset from "@/components/form/fieldset";
-import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import DatePicker from "@/components/DatePicker";
 import "react-day-picker/dist/style.css";
@@ -13,15 +13,27 @@ const DateSchedule: FC = () => {
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
     const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
     const setDate = useJobAssignStore((state) => state.setDate);
+    const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
+
+    // remove work log from the current work log list
+    const handleDelete = (indexToRemove: number) => {
+        setWorkLogs(
+            currentWorkLogs.filter((_, index) => index !== indexToRemove)
+        );
+    };
 
     return (
         <Fieldset
             title={
                 <>
                     {t("label.date") + ": "}
-                    <span className="text-green-600">
+                    {/* click today to jump back to today */}
+                    <button
+                        className="text-green-600"
+                        onClick={() => setDate(new Date())}
+                    >
                         {new Date().toDateString()}
-                    </span>
+                    </button>
                 </>
             }
             sFieldset={`justify-evenly m-3 grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-8 my-2 mx-1 text-sm p-4`}
@@ -41,7 +53,7 @@ const DateSchedule: FC = () => {
                         t("modal.tips.noDateSelected")
                     )}
                 </div>
-                <Card className=" flex justify-center lg:h-[35vh]">
+                <Card className=" flex justify-center">
                     <DatePicker />
                 </Card>
             </div>
@@ -51,7 +63,7 @@ const DateSchedule: FC = () => {
                 <div className="font-semibold text-indigo-500 text-bold my-2 ml-2">
                     {t("modal.tips.scheduledWork")}
                 </div>
-                <Card className="lg:h-[35vh] overflow-y-auto flex flex-col justify-stretch">
+                <Card className="overflow-y-auto flex flex-col justify-stretch">
                     {sortWorkLogs("dsc", currentWorkLogs).map((item, index) => {
                         return (
                             <div key={index} className="my-1 w-full flex">
@@ -59,13 +71,11 @@ const DateSchedule: FC = () => {
                                     name={dateFormatAU(item.wl_date)}
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        console.log("-> click date btn");
                                         setDate(new Date(item.wl_date));
                                     }}
                                     className="grow"
-                                    onDelete={(e) => {
-                                        e.preventDefault();
-                                        console.log("-> click delete btn");
+                                    onDelete={() => {
+                                        handleDelete(index);
                                     }}
                                 />
                             </div>

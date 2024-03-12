@@ -11,7 +11,8 @@ import OrderInfoFs from "../../fieldset/OrderInfoFs";
 import AssignedStaff from "./AssignedStaff";
 import SelectStaff from "./SelectStaff";
 import DateSchedule from "./DateSchedule";
-import { useJobAssignStore } from "@/configs/zustore";
+import { useJobAssignStore, useRouterStore } from "@/configs/zustore";
+import { genAction } from "@/utils/utils";
 
 const MJobAssign = () => {
     const navigation = useNavigation();
@@ -22,9 +23,11 @@ const MJobAssign = () => {
     const [clientOrder] = useAtom(atOrder);
     const [atomAllStaff] = useAtom(atAllStaff);
     // zustand states and actions
+    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
     const setAllStaff = useJobAssignStore((state) => state.setAllStaff);
     const setDate = useJobAssignStore((state) => state.setDate);
+    const currentRouter = useRouterStore((state) => state.currentRouter);
 
     /* update client order */
     useEffect(() => {
@@ -46,7 +49,13 @@ const MJobAssign = () => {
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        submit({}, { method: "POST", action: "/test" });
+        submit(
+            { values: JSON.stringify(currentWorkLogs), req: "workAssign" },
+            {
+                method: "POST",
+                action: genAction(currentRouter),
+            }
+        );
     };
 
     const mainContent = (

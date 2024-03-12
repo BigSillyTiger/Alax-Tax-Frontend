@@ -10,6 +10,8 @@ const workLogSchema = z.object({
     b_time: z.string().datetime().nullable(),
     wl_status: z.string().trim().default("ongoing"),
     wl_note: z.string().trim().nullable(),
+    confirm_status: z.boolean().default(false),
+    archive: z.boolean().default(false),
 });
 
 export const assignedWorkSchema = workLogSchema.extend({

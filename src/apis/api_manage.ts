@@ -21,8 +21,8 @@ export const companyGet = async (): Promise<Tresponse> => {
     try {
         const response = await apis.get(REQ_MANAGE_GET_COMPANY);
         return response.data;
-    } catch (error) {
-        console.log("-> retrieve company error: ", error);
+    } catch (err: unknown) {
+        console.log("-> retrieve company error: ", err);
         return {
             status: 400,
             msg: "failed in retrieving company",
@@ -35,8 +35,8 @@ export const companyUpdate = async (company: Tcompany) => {
     try {
         const response = await apis.put(REQ_MANAGE_UPDATE_COMPANY, company);
         return response.data;
-    } catch (error) {
-        console.log("-> update company error: ", error);
+    } catch (err: unknown) {
+        console.log("-> update company error: ", err);
         return {
             status: 400,
             msg: "failed in updating company",
@@ -119,8 +119,8 @@ export const logoUpdate = async (logoData: File) => {
             }
         );
         return response.data;
-    } catch (error) {
-        console.log("-> update logo error: ", error);
+    } catch (err: unknown) {
+        console.log("-> update logo error: ", err);
         return {
             status: 400,
             msg: "failed in updating logo",
@@ -133,8 +133,8 @@ export const logo = async () => {
     try {
         const response = await apis.get(REQ_MANAGE_LOGO);
         return response.data;
-    } catch (error) {
-        console.log("-> retrieve logo error: ", error);
+    } catch (err: unknown) {
+        console.log("-> retrieve logo error: ", err);
         return {
             status: 400,
             msg: "failed in retrieving logo",

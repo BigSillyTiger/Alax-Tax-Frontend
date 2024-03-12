@@ -1,13 +1,19 @@
 import { API_ORDER } from "@/apis";
 import { TorderService } from "@/configs/schema/orderSchema";
+import { TworkLogs } from "@/configs/schema/workSchema";
 import { ActionFunctionArgs } from "react-router-dom";
 
+/**
+ * @description this action is shared by orders page and client page
+ * @param
+ * @returns
+ */
 export const ordersAction = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
     const data = await request.formData();
     data.get("req") &&
-        console.log("-> client action req data: ", data.get("req"));
+        console.log("-> order/client action req data: ", data.get("req"));
 
     // add a new order
     if ("POST" === request.method && data.get("req") === "orderCreate") {
@@ -30,6 +36,13 @@ export const ordersAction = async ({
         };
         const result = await API_ORDER.orderAdd(order);
         //console.log("-> fe receive add order result: ", result);
+        return result;
+    } else if ("POST" === request.method && data.get("req") === "workAssign") {
+        const assignedData = JSON.parse(data.get("values") as string);
+        //console.log("-> action work assign: ", assignedData);
+        const result = await API_ORDER.updateJobAssignment(
+            assignedData as TworkLogs[]
+        );
         return result;
     }
     // update an order

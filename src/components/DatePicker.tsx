@@ -37,10 +37,16 @@ const DatePicker: FC = () => {
                 showOutsideDays
                 showWeekNumber
                 fixedWeeks
+                /* captionLayout="dropdown-buttons"
+                fromYear={2010}
+                toYear={2100} */
                 mode="single"
+                required
                 selected={selectedDate}
                 onSelect={(day) => setDate(day as Date)}
+                // define custom modifiers - scheduled
                 modifiers={{ scheduled: scheduledDays }}
+                // assign custom class names to the modifiers
                 modifiersClassNames={{
                     //selected: "my-scheduled",
                     today: "my-today",

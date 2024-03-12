@@ -31,6 +31,8 @@ const genWorkLogWithStaff = (
         phone: staff.phone,
         email: staff.email,
         role: staff.role,
+        confirm_status: false,
+        archive: false,
     };
 };
 

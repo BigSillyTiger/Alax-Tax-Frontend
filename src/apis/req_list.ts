@@ -20,6 +20,8 @@ export const REQ_CLIENT_INFO = "/client/info";
 export const REQ_CLIENT_SINGLE_REGISTER = "/client/single-insert";
 export const REQ_CLIENT_SINGLE_UPDATE = "/client/single-update";
 export const REQ_CLIENT_SINGLE_DEL = "/client/single-del";
+// Job Assignment
+export const REQ_JOB_ASSIGN = "/work/update";
 // Staff
 export const REQ_STAFF_ALL = "/staff/all";
 export const REQ_STAFF_INFO = "/staff/info";

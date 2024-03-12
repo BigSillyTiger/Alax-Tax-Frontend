@@ -22,7 +22,7 @@ type Taction = {
 };
 
 export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
-    selectedDate: undefined,
+    selectedDate: new Date(),
     currentWorkLogs: [],
     allStaff: [],
     setWorkLogs: (workLogs: TworkLogs[]) =>
