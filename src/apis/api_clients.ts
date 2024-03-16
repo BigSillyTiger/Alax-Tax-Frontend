@@ -51,7 +51,7 @@ export const clientAdd = async (client: TclientUnreg): Promise<Tresponse> => {
         const response = await apis.post(REQ_CLIENT_SINGLE_REGISTER, [client]);
         return response.data;
     } catch (err) {
-        console.log("-> insert one client err: ", err);
+        console.log("-> insert1 one client err: ", err);
         return {
             status: 400,
             msg: "Failed: register client",

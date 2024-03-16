@@ -100,6 +100,12 @@ const Orders: FC = () => {
                 toastError(t("toastF.delOrder"));
                 actionData.status = RES_STATUS.DEFAULT;
             }
+        } else if (actionData?.status === RES_STATUS.SUC_UPDATE_WORKLOG) {
+            if (modalOpen === mOpenOps.workAssign) {
+                setModalOpen(mOpenOps.default);
+                toastSuccess(t("toastS.updateWorkLog"));
+                actionData.status = RES_STATUS.DEFAULT;
+            }
         }
     }, [actionData, modalOpen, setModalOpen, t]);
 

@@ -19,6 +19,7 @@ import {
     Staff,
     Setting,
     Calendar,
+    WorkLogs,
 } from "./pages";
 import {
     initLoader,
@@ -30,6 +31,7 @@ import {
     staffLoader,
     settingLoader,
     layoutLoader,
+    wlLoader,
 } from "./routerAccFns/loaders";
 import {
     ordersAction,
@@ -87,6 +89,12 @@ const App: FC = () => {
                         loader={ordersLoader}
                         // client and orders page are using one action fn
                         action={ordersAction}
+                    />
+                    <Route
+                        path={routerPaths.workLogs}
+                        element={<WorkLogs />}
+                        loader={wlLoader}
+                        //action={wlAction}
                     />
                     <Route path={routerPaths.calendar} element={<Calendar />} />
                     <Route

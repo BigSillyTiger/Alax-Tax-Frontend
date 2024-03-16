@@ -77,3 +77,16 @@ export const sortWorkLogs = (sort: "dsc" | "asc", workLogs: TworkLogs[]) => {
         return dateB - dateA;
     });
 };
+
+export const calWorkTime = (
+    sTime: string | null,
+    eTime: string | null,
+    bTime: string | null
+) => {
+    if(!sTime || !eTime ) return 0;
+    const start = new Date(`01/01/2021 ${sTime}`);
+    const end = new Date(`01/01/2021 ${eTime}`);
+    const breakTime = new Date(`01/01/2021 ${bTime}`);
+    const diff = end.getTime() - start.getTime() - breakTime.getTime();
+    return diff;
+};

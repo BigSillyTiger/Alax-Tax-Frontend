@@ -19,7 +19,7 @@ import {
     at2ndModalOpen,
 } from "@/configs/atoms";
 import { mOpenOps, roleOptions } from "@/configs/utils";
-import { menuList } from "@/configs/menuList";
+import { TadminAccess, TmenuID, menuList } from "@/configs/utils";
 import {
     staffForm,
     staffUpdate,
@@ -153,16 +153,7 @@ const MStaffForm: FC = memo(() => {
         </Fieldset>
     );
 
-    const setRadioDisable = (
-        page:
-            | "dashboard"
-            | "clients"
-            | "orders"
-            | "calendar"
-            | "staff"
-            | "setting",
-        adminNum: 0 | 1 | 2
-    ) => {
+    const setRadioDisable = (page: TmenuID, adminNum: TadminAccess) => {
         return !(watch(page) === adminNum);
     };
 

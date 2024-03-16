@@ -13,6 +13,19 @@ export const toastSuccess = (text: string) => {
     });
 };
 
+export const toastWarning = (text: string) => {
+    toast.error(text, {
+        style: {
+            border: "2px solid #d97706",
+            padding: "8px",
+            backgroundColor: "#fef3c7",
+            color: "black",
+            fontSize: "0.875rem",
+            lineHeight: "1.25rem",
+        },
+    });
+};
+
 export const toastError = (text: string) => {
     toast.error(text, {
         style: {

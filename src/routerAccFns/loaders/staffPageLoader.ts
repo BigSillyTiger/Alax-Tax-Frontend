@@ -1,5 +1,5 @@
 import { API_ADMIN, API_STAFF } from "@/apis";
-import { menuList } from "@/configs/menuList";
+import { menuList } from "@/configs/utils";
 import { routerStore } from "@/configs/zustore";
 import { defer, redirect } from "react-router-dom";
 

@@ -12,7 +12,7 @@ const clientOrderColumns: ColumnDef<Torder>[] = [
         columns: [
             {
                 id: "orderID",
-                header: i18n.t("label.orderId"),
+                header: i18n.t("label.idOrder"),
                 accessorKey: "oid",
                 cell: (info: CellContext<Torder, string>) => (
                     <span>{info.getValue()}</span>

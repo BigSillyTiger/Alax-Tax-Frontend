@@ -47,7 +47,17 @@ export const formWorkLogs = z.object({
     work_logs: workLogSchema.array(),
 });
 
+export const wlTableRowSchema = assignedWorkSchema.extend({
+    // work site address
+    address: z.string().trim().nullable(),
+    suburb: z.string().trim().nullable(),
+    city: z.string().trim().nullable(),
+    state: z.string().trim().nullable(),
+    postcode: z.string().trim().nullable(),
+});
+
 export type TworkLog = z.infer<typeof workLogSchema>;
 export type TassignedWork = z.infer<typeof assignedWorkSchema>;
 export type TworkLogs = z.infer<typeof workLogsSchema>;
 export type TformWorkLogs = z.infer<typeof formWorkLogs>;
+export type TwlTableRow = z.infer<typeof wlTableRowSchema>;

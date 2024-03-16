@@ -6,17 +6,14 @@ type Tprops = {
     menuList: TmenuList;
 };
 
-const classNames = (...classes: any) => {
-    return classes.filter(Boolean).join(" ");
-};
-
 const navFocus = ({ isActive }: { isActive: boolean }) => {
-    return classNames(
-        isActive
-            ? "bg-gray-800 text-white"
-            : "text-gray-400 hover:text-white hover:bg-gray-800",
-        "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
-    );
+    return `
+        ${
+            isActive
+                ? "bg-gray-800 text-white"
+                : "text-gray-400 hover:text-white hover:bg-gray-800"
+        }
+        group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold`;
 };
 
 const StaticMenu: FC<Tprops> = ({ menuList }) => {
@@ -26,7 +23,7 @@ const StaticMenu: FC<Tprops> = ({ menuList }) => {
                 <img
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
+                    alt="Company icon"
                 />
             </div>
             <nav className="mt-8">

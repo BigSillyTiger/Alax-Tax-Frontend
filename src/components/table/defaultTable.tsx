@@ -1,4 +1,4 @@
-import { useState, useDeferredValue, Fragment, useRef } from "react";
+import { useState, useDeferredValue, Fragment } from "react";
 import {
     useReactTable,
     flexRender,
@@ -40,6 +40,23 @@ type Tprops<T> = {
     cnTh?: string;
 };
 
+/**
+ *
+ * @param data - [T] contains the data to be displayed in the table
+ * @param columns -[T] columns definition
+ * @param search - [boolean] to show search bar
+ * @param hFilter - [boolean] to show header filter
+ * @param getRowCanExpand - [function] to check if the row can be expanded
+ * @param expandContent - [function] to get the content of the expanded row
+ * @param cnSearch - [string] className for search bar
+ * @param cnTable - [string] className for table
+ * @param cnHead - [string] className for table header
+ * @param cnBody - [string] className for table body
+ * @param cnTh - [string] className for table table header
+ * @param menuOptions - [TmenuOptions] for menu btn options
+ * @param setData - [function] to set the data for the modal opened by menu btn options
+ * @returns
+ */
 const PTable = <T extends object>({
     data,
     columns,

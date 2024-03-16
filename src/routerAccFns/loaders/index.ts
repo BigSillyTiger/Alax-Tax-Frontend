@@ -7,6 +7,7 @@ import { staffLoader } from "./staffPageLoader";
 import { dashboardLoader } from "./dashboardLoader";
 import { settingLoader } from "./settingPageLoader";
 import { layoutLoader } from "./layoutLoader";
+import { wlLoader } from "./worklogsLoader";
 
 export {
     initLoader,
@@ -18,4 +19,5 @@ export {
     staffLoader,
     settingLoader,
     layoutLoader,
+    wlLoader,
 };

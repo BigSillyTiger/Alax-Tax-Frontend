@@ -1,11 +1,11 @@
 import { Suspense, useEffect } from "react";
 import type { FC } from "react";
 import { Tab } from "@headlessui/react";
-import { mTabList } from "@/configs/menuList";
+import { mTabList } from "@/configs/utils";
 import Uni from "./uni";
 import LoadingPage from "@/components/loadingEle";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
-import { Tunivers } from "@/utils/utils";
+import { Tunivers } from "@/utils/types";
 import Company from "./company";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { toastError, toastSuccess } from "@/utils/toaster";

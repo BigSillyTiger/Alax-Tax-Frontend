@@ -6,7 +6,7 @@ import type {
 } from "react";
 import MobileMenu from "./mobileMenu";
 
-import { menuList } from "@/configs/menuList";
+import { menuList } from "@/configs/utils";
 import StaticMenu from "./staticMenu";
 import { Tpermission } from "@/configs/schema/universSchema";
 import { useAdminStore } from "@/configs/zustore";
@@ -33,16 +33,21 @@ type Tprops = {
 
 const MainMenu: FC<Tprops> = ({ open, setOpen }) => {
     const user = useAdminStore((state) => state.currentUser);
+    // generate new menu list based on current user permission
     const newMenuList = () => {
-        const temp = Object.values({
-            dashboard: user.dashboard,
-            clients: user.clients,
-            orders: user.orders,
-            calendar: user.calendar,
-            staff: user.staff,
-            setting: user.setting,
-        });
+        //
+        const temp = Object.values(
+            menuList.reduce(
+                (acc, item) => {
+                    acc[item.id] = user[item.id];
+                    return acc;
+                },
+                {} as Record<string, number>
+            )
+        );
         return menuList.filter((_, index) => {
+            // if temp[index] is > 0, then return the menu item => display it
+            // otehrwise, return undefined => hide it
             return temp[index];
         });
     };

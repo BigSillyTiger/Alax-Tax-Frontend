@@ -1,6 +1,7 @@
 import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
 import { TadminStore } from "../schema/staffSchema";
+import { genMenuIDObject } from "../utils";
 
 type Tstate = {
     currentUser: TadminStore;
@@ -16,12 +17,7 @@ export const adminStore = createStore<Tstate & Taction>((set) => ({
         first_name: "",
         last_name: "",
         role: "",
-        dashboard: 0,
-        clients: 0,
-        orders: 0,
-        calendar: 0,
-        staff: 0,
-        setting: 0,
+        ...genMenuIDObject(0),
     },
     initUser: (user: TadminStore) =>
         set((state) => ({ ...state, currentUser: user })),

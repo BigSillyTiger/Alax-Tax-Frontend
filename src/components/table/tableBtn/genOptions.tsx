@@ -7,7 +7,7 @@ import {
     UserPlusIcon,
 } from "@heroicons/react/24/outline";
 import i18n from "@/utils/i18n";
-import { TmodalOpenStates } from "@/utils/utils";
+import { TmodalOpenStates } from "@/utils/types";
 import { mOpenOps } from "@/configs/utils";
 
 type Tprops<T> = TmenuOptions & {
@@ -47,7 +47,7 @@ const genOptions = <T,>({
         });
     };
 
-    assign && createOption("btn.assign", <UserPlusIcon />, mOpenOps.workAdd);
+    assign && createOption("btn.assign", <UserPlusIcon />, mOpenOps.workAssign);
     pay && createOption("btn.pay", <CurrencyDollarIcon />, mOpenOps.pay);
     edit && createOption("btn.edit", <PencilIcon />, mOpenOps.edit);
     quotation &&

@@ -97,12 +97,7 @@ const MJobAssign = () => {
 
     return (
         <MTemplate
-            open={
-                !!(
-                    modalOpen === mOpenOps.workAdd ||
-                    modalOpen === mOpenOps.workEdit
-                )
-            }
+            open={!!(modalOpen === mOpenOps.workAssign)}
             onClose={onClose}
             title=""
             mode="full"

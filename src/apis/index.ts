@@ -3,5 +3,13 @@ import * as API_CLIENT from "./api_clients";
 import * as API_MANAGE from "./api_manage";
 import * as API_ORDER from "./api_orders";
 import * as API_STAFF from "./api_staff";
+import * as API_WORKLOGS from "./api_worklogs";
 
-export { API_ADMIN, API_CLIENT, API_MANAGE, API_ORDER, API_STAFF };
+export {
+    API_ADMIN,
+    API_CLIENT,
+    API_MANAGE,
+    API_ORDER,
+    API_STAFF,
+    API_WORKLOGS,
+};

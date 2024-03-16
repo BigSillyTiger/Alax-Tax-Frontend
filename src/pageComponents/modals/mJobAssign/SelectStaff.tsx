@@ -10,6 +10,7 @@ import { atAllStaff, atOrder } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { TassignedWork } from "@/configs/schema/workSchema";
 import { dateFormatISO } from "@/utils/utils";
+import { toastWarning } from "@/utils/toaster";
 
 const genWorkLogWithStaff = (
     staff: Tstaff,
@@ -93,13 +94,13 @@ const SelectStaff: FC = () => {
                     return (
                         <CheckBox
                             key={staff.uid}
-                            onClick={(e) => {
-                                //e.preventDefault();
-                                if (!selectedDate) return;
-                                /* console.log(
-                                    "--> check box onClick, date: ",
-                                    selectedDate
-                                ); */
+                            onClick={() => {
+                                // this if will not be triggered for now
+                                // the selectedDate defined in daypicker is required
+                                if (!selectedDate) {
+                                    toastWarning(t("toastW.selectDate"));
+                                    return;
+                                }
                             }}
                             onChange={(e) => {
                                 if (!selectedDate) return;

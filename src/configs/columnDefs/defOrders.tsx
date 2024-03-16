@@ -116,7 +116,7 @@ const orderColumns: ColumnDef<Torder>[] = [
                 header: i18n.t("label.balance"),
                 accessorKey: "balance",
                 cell: (info: CellContext<Torder, string>) => (
-                    <span>
+                    <span className="text-pink-500 text-base font-bold">
                         {minusAB(
                             info.row.original.total,
                             info.row.original.paid

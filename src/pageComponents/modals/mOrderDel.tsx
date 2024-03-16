@@ -39,7 +39,7 @@ const MOrderDel: FC = memo(() => {
                 <div className="col-span-3">
                     <p>
                         <b className="text-indigo-600">
-                            {t("label.orderId")}:{" "}
+                            {t("label.idOrder")}:{" "}
                         </b>{" "}
                         {clientOrder?.oid}
                     </p>

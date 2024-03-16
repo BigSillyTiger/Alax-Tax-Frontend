@@ -19,6 +19,7 @@ const initStaff: Tstaff = {
     dashboard: roleOptions.employee.dashboard,
     clients: roleOptions.employee.clients,
     orders: roleOptions.employee.orders,
+    worklogs: roleOptions.employee.worklogs,
     calendar: roleOptions.employee.calendar,
     staff: roleOptions.employee.staff,
     setting: roleOptions.employee.setting,
