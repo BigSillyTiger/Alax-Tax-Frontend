@@ -32,7 +32,7 @@ const MJobAssign = () => {
     /* update client order */
     useEffect(() => {
         setWorkLogs(clientOrder.work_logs);
-    }, [clientOrder.work_logs, setWorkLogs]);
+    }, [clientOrder.work_logs, setWorkLogs, modalOpen]);
 
     /* update all staff with unselected status as default*/
     useEffect(() => {
