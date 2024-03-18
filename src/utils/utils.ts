@@ -12,7 +12,8 @@ export const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
  * @param dateString: yyyy-MM-dd
  * @returns return dd-MM-yyyy is used for displaying directly
  */
-export const dateFormatAU = (dateString: string) => {
+export const dateFormatAU = (dateString: string | null) => {
+    if (!dateString) return "";
     return format(Date.parse(dateString), "dd-MM-yyyy");
 };
 
@@ -83,10 +84,17 @@ export const calWorkTime = (
     eTime: string | null,
     bTime: string | null
 ) => {
-    if(!sTime || !eTime ) return 0;
+    if (!sTime || !eTime) return 0;
     const start = new Date(`01/01/2021 ${sTime}`);
     const end = new Date(`01/01/2021 ${eTime}`);
     const breakTime = new Date(`01/01/2021 ${bTime}`);
-    const diff = end.getTime() - start.getTime() - breakTime.getTime();
+    //const diff = end.getTime() - start.getTime() - breakTime.getTime();
+    const diff = end.getTime() - start.getTime();
     return diff;
+};
+
+export const hmsTohm = (time: string) => {
+    //const [hour, minute] = time.split(":");
+    //return `${hour}:${minute}`;
+    return time.slice(0, 5);
 };

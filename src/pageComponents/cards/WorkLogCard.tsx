@@ -50,6 +50,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                         <input
                             id="s_time"
                             type="time"
+                            step="60"
                             className="text-bold text-indigo-500"
                         />
                     </div>
@@ -60,6 +61,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                         <input
                             id="e_time"
                             type="time"
+                            step="60"
                             className="text-bold text-indigo-500"
                         />
                     </div>

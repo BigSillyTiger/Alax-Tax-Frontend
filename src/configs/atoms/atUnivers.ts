@@ -6,9 +6,8 @@ import {
     TisConflict,
     RES_STATUS,
 } from "@/utils/types";
-import { Tcompany } from "@/configs/schema/settingSchema";
-import { Tstaff } from "@/configs/schema/staffSchema";
-import { initStaff } from "./atStaff.ts";
+import { Tcompany, companySchema } from "@/configs/schema/settingSchema";
+import { Tstaff, staffSchema } from "@/configs/schema/staffSchema";
 
 /**
  * @description info conflict state for data checking with backend
@@ -40,17 +39,7 @@ const atSUData = atom<Tunivers>({
 /**
  * @description state for company info
  */
-const atCompany = atom<Tcompany>({
-    id: -1,
-    name: "",
-    bld: "",
-    phone: "",
-    email: "",
-    address: "",
-    abn: "",
-    bsb: "",
-    acc: "",
-});
+const atCompany = atom<Tcompany>(companySchema.parse({}));
 
 /**
  * @description state for logo address
@@ -60,7 +49,7 @@ const atLogo = atom<string>("");
 /**
  * @description state for current admin user
  */
-const atAdminUser = atom<Tstaff>(initStaff);
+const atAdminUser = atom<Tstaff>(staffSchema.parse({}));
 
 export {
     atInfoConflict,

@@ -44,26 +44,6 @@ const Client = () => {
         logo: string;
     };
 
-    /**
-     * the boolean in mysql is stored as 1 and 0
-     * when working with values like these, need to convert them to boolean
-     */
-    const newClientOrders =
-        orders &&
-        orders.map((item) => {
-            return {
-                ...item,
-                order_services: item.order_services
-                    .sort((a, b) => a.ranking - b.ranking)
-                    .map((desc) => {
-                        return {
-                            ...desc,
-                            taxable: Boolean(desc.taxable),
-                        };
-                    }),
-            };
-        });
-
     const initOrder: Torder = {
         oid: "",
         client_info: clientInfo.data[0],
@@ -190,10 +170,10 @@ const Client = () => {
                 </div>
                 <Card className="col-span-6">
                     {/* order table */}
-                    {newClientOrders.length > 0 ? (
+                    {orders.length > 0 ? (
                         <PTable
                             search={true}
-                            data={newClientOrders}
+                            data={orders}
                             columns={clientOrderColumns}
                             setData={setClientOrder}
                             menuOptions={{

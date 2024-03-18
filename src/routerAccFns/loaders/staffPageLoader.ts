@@ -9,6 +9,6 @@ export const staffLoader = async () => {
     if (!accessResult.data) {
         return redirect("/login");
     }
-    const allStaff = API_STAFF.staffAll();
+    const allStaff = API_STAFF.staffAll().then((res) => res.data);
     return defer({ allStaff });
 };

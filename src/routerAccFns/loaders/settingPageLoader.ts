@@ -10,8 +10,9 @@ export const settingLoader = async () => {
         return redirect("/login");
     }
 
-    const univers = await API_MANAGE.uniAll();
-    const company = await API_MANAGE.companyGet();
-    const logo = await API_MANAGE.logo();
-    return defer({ univers, company: company.data, logo: logo.data });
+    const univers = await API_MANAGE.uniAll().then((res) => res.data);
+    const company = await API_MANAGE.companyGet().then((res) => res.data);
+    const logo = await API_MANAGE.logo().then((res) => res.data);
+    console.log("-> logo api: ", logo);
+    return defer({ univers, company, logo });
 };

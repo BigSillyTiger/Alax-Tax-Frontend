@@ -1,13 +1,13 @@
 import { z } from "zod";
 
 export const clientSchema = z.object({
-    cid: z.string(),
-    first_name: z.string().trim(),
-    last_name: z.string().trim(),
+    cid: z.string().default(""),
+    first_name: z.string().trim().default(""),
+    last_name: z.string().trim().default(""),
     phone: z
         .string()
         .trim()
-        .min(3, { message: "Phone number is too short" })
+        //.min(3, { message: "Phone number is too short" })
         .transform((val) => {
             if (val.length > 6) {
                 return `${val.slice(0, 3)}-${val.slice(3, 6)}-${val.slice(6)}`;
@@ -16,20 +16,23 @@ export const clientSchema = z.object({
             } else {
                 return val;
             }
-        }),
-    email: z.string().email().trim().toLowerCase(),
-    address: z.string().trim().nullable(),
-    suburb: z.string().trim().nullable(),
-    city: z.string().trim().nullable(),
-    state: z.string().trim().nullable(),
-    country: z.string().trim().nullable(),
+        })
+        .nullable()
+        .default(""),
+    email: z.string().email().trim().toLowerCase().nullable().default(null),
+    address: z.string().trim().nullable().default(""),
+    suburb: z.string().trim().nullable().default(""),
+    city: z.string().trim().nullable().default(""),
+    state: z.string().trim().nullable().default(""),
+    country: z.string().trim().nullable().default(""),
     postcode: z
         .string()
         //match 4 digits string which may start with 0
         .regex(/^[0-9]{4}$/, { message: "Must be numbers" })
         .min(4)
         .max(4)
-        .nullable(),
+        .nullable()
+        .default("5000"),
 });
 
 export const clientNoIDSchema = clientSchema.omit({ cid: true });

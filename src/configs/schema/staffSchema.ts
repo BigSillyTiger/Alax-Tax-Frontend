@@ -1,9 +1,10 @@
 import { z } from "zod";
+import { roleOptions } from "../utils";
 
 export const staffSchema = z.object({
-    uid: z.string(),
-    first_name: z.string().trim(),
-    last_name: z.string().trim(),
+    uid: z.string().default(""),
+    first_name: z.string().trim().default(""),
+    last_name: z.string().trim().default(""),
     phone: z
         .string()
         .trim()
@@ -16,29 +17,32 @@ export const staffSchema = z.object({
             } else {
                 return val;
             }
-        }),
-    email: z.string().email().trim().toLowerCase(),
-    password: z.string(),
-    address: z.string().trim().nullable(),
-    suburb: z.string().trim().nullable(),
-    city: z.string().trim().nullable(),
-    state: z.string().trim().nullable(),
-    country: z.string().trim().nullable(),
+        })
+        .nullable()
+        .default(null),
+    email: z.string().email().trim().toLowerCase().nullable().default(null),
+    password: z.string().default(""),
+    address: z.string().trim().nullable().default(""),
+    suburb: z.string().trim().nullable().default("Adelaide"),
+    city: z.string().trim().nullable().default("Adelaide"),
+    state: z.string().trim().nullable().default("SA"),
+    country: z.string().trim().nullable().default("Australia"),
     postcode: z
         .string()
         //match 4 digits string which may start with 0
         .regex(/^[0-9]{4}$/, { message: "Must be numbers" })
         .min(4)
         .max(4)
-        .nullable(),
-    role: z.string().trim(),
-    dashboard: z.number(),
-    clients: z.number(),
-    orders: z.number(),
-    worklogs: z.number(),
-    calendar: z.number(),
-    staff: z.number(),
-    setting: z.number(),
+        .nullable()
+        .default("5000"),
+    role: z.string().trim().default("employee"),
+    dashboard: z.number().default(roleOptions.employee.dashboard),
+    clients: z.number().default(roleOptions.employee.clients),
+    orders: z.number().default(roleOptions.employee.orders),
+    worklogs: z.number().default(roleOptions.employee.worklogs),
+    calendar: z.number().default(roleOptions.employee.calendar),
+    staff: z.number().default(roleOptions.employee.staff),
+    setting: z.number().default(roleOptions.employee.setting),
     //created_date: z.string().trim().nullable(),
 });
 

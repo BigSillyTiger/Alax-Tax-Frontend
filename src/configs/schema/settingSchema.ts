@@ -1,28 +1,27 @@
 import { z } from "zod";
 
 export const serviceSchema = z.object({
-    id: z.number(),
-    service: z.string().trim(),
-    unit: z.string().trim(),
-    unit_price: z.number().min(0),
-    //unit_price: z.string().trim(),
+    id: z.number().default(0),
+    service: z.string().trim().default(""),
+    unit: z.string().trim().default(""),
+    unit_price: z.number().min(0).default(0),
 });
 
 export const unitSchema = z.object({
-    id: z.number(),
-    unit_name: z.string().trim(),
+    id: z.number().default(0),
+    unit_name: z.string().trim().default(""),
 });
 
 export const companySchema = z.object({
-    id: z.number(),
-    name: z.string().trim(),
-    bld: z.string().trim(),
-    phone: z.string().trim(),
-    email: z.string().trim(),
-    address: z.string().trim(),
-    abn: z.string().trim(),
-    bsb: z.string().trim(),
-    acc: z.string().trim(),
+    id: z.number().default(-1),
+    name: z.string().trim().default(""),
+    bld: z.string().trim().default(""),
+    phone: z.string().trim().default(""),
+    email: z.string().trim().default(""),
+    address: z.string().trim().default(""),
+    abn: z.string().trim().default(""),
+    bsb: z.string().trim().default(""),
+    acc: z.string().trim().default(""),
 });
 
 export const newServiceSchema = serviceSchema.omit({ id: true });

@@ -11,18 +11,40 @@ export const ordersLoader = async () => {
         if (!accessResult.data) {
             return redirect("/login");
         }
-        const orders = await API_ORDER.orderAll();
-        const uniData = await API_MANAGE.uniAll();
-        const company = await API_MANAGE.companyGet();
-        const staff = await API_STAFF.staffAll();
-        const logo = await API_MANAGE.logo();
+        const orders = await API_ORDER.orderAll()
+            .then((res) => res.data as Torder[])
+            .then((res) =>
+                // desc sort order_services by ranking
+                // conver taxable from 0/1 to boolean
+                res.map((item) => {
+                    return {
+                        ...item,
+                        order_services: item.order_services
+                            .sort((a, b) => a.ranking - b.ranking)
+                            .map((desc) => {
+                                return {
+                                    ...desc,
+                                    taxable: Boolean(desc.taxable),
+                                };
+                            }),
+                    };
+                })
+            )
+            .catch((error) => {
+                console.log("-> error fetching orders: ", error);
+                return [];
+            });
+        const uniData = await API_MANAGE.uniAll().then((res) => res.data);
+        const company = await API_MANAGE.companyGet().then((res) => res.data);
+        const staff = await API_STAFF.staffAll().then((res) => res.data);
+        const logo = await API_MANAGE.logo().then((res) => res.data);
 
         return defer({
-            orders: orders.data as Torder[],
-            uniData: uniData.data,
-            company: company.data,
-            logo: logo.data,
-            staff: staff.data,
+            orders,
+            uniData,
+            company,
+            logo,
+            staff,
         });
     } catch (err) {
         console.log("-> order page loader error: ", err);

@@ -109,22 +109,6 @@ const Orders: FC = () => {
         }
     }, [actionData, modalOpen, setModalOpen, t]);
 
-    const newClientOrders =
-        orders &&
-        orders.map((item) => {
-            return {
-                ...item,
-                order_services: item.order_services
-                    .sort((a, b) => a.ranking - b.ranking)
-                    .map((desc) => {
-                        return {
-                            ...desc,
-                            taxable: Boolean(desc.taxable),
-                        };
-                    }),
-            };
-        });
-
     const OrderTableContent: FC<Torders> = ({ orders }) => {
         return (
             <div className="px-4 sm:px-6 lg:px-8 top-0">
@@ -136,7 +120,7 @@ const Orders: FC = () => {
                         <PTable
                             search={true}
                             hFilter={true}
-                            data={newClientOrders}
+                            data={orders}
                             columns={orderColumns}
                             menuOptions={{
                                 assign: true,
@@ -163,7 +147,7 @@ const Orders: FC = () => {
                 ) : (
                     <Card className="mt-8">
                         <span className="m-5 p-5  text-center h-15">
-                            No Order Content
+                            {t("label.noContent")}
                         </span>
                     </Card>
                 )}

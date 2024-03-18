@@ -81,7 +81,7 @@ const Setting: FC = () => {
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={univers}>
                     {(univers) => {
-                        return <UniversContent univers={univers.data} />;
+                        return <UniversContent univers={univers} />;
                     }}
                 </Await>
             </Suspense>

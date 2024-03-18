@@ -129,7 +129,7 @@ const Staff: FC = () => {
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={allStaff}>
                     {(staffList) => {
-                        return <StaffTableContent allStaff={staffList.data} />;
+                        return <StaffTableContent allStaff={staffList} />;
                     }}
                 </Await>
             </Suspense>

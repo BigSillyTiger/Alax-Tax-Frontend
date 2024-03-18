@@ -124,7 +124,7 @@ const MClientForm: FC = memo(() => {
                                 />
                             </div>
                             <input
-                                {...register("email")}
+                                {...register("email", { required: true })}
                                 type="email"
                                 id="email"
                                 required
@@ -163,9 +163,10 @@ const MClientForm: FC = memo(() => {
                                 />
                             </div>
                             <input
-                                {...register("phone")}
+                                {...register("phone", { required: true })}
                                 type="text"
                                 id="phone"
+                                required
                                 autoComplete="tel"
                                 placeholder="0-xxx-xxx-xxx"
                                 className={`

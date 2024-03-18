@@ -2,7 +2,7 @@ import { CellContext } from "@tanstack/react-table";
 import i18n from "@/utils/i18n";
 import { TwlTableRow } from "../schema/workSchema";
 //import { minusAB } from "@/utils/calculations";
-import { calWorkTime, dateFormatAU } from "@/utils/utils";
+import { calWorkTime } from "@/utils/utils";
 
 const wlColumns = [
     {
@@ -70,7 +70,7 @@ const wlColumns = [
                 header: i18n.t("label.workDate"),
                 accessorKey: "wl_date",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{dateFormatAU(info.getValue<string>())}</span>
+                    <span>{info.getValue<string>()}</span>
                 ),
             },
             {
@@ -108,7 +108,7 @@ const wlColumns = [
             },
             {
                 id: "wlStatus",
-                header: i18n.t("label.wlStatus"),
+                header: i18n.t("label.status"),
                 accessorKey: "wl_status",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
                     <span>{info.getValue<string>()}</span>

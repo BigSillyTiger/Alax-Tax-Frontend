@@ -158,6 +158,7 @@ const en = {
             netto: "Netto",
             newIssueDate: "New Issue Date",
             none: "None",
+            noContent: "No Content",
             orderDesc: "Order Description",
             orderInfo: "Order Info",
             orderDate: "Order Date",

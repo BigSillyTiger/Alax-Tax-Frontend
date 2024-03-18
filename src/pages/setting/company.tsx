@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FC, FormEvent, ChangeEvent } from "react";
 import { useSubmit, Form } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -47,6 +47,10 @@ const Company: FC<Tprops> = ({ company, logo }) => {
         resolver: zodResolver(companySchema),
         defaultValues: company ? company : initCompany,
     });
+
+    useEffect(() => {
+        if (typeof logo === "string") setLogoSrc(logo);
+    }, [logo]);
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;

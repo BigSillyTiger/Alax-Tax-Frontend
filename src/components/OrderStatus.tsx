@@ -19,8 +19,7 @@ const OrderStatus: FC<{ value: TorderStatus }> = ({ value }) => {
         <span
             className={`rounded-md ring-1 ring-inset font-bold py-1 px-2 ${setOrderStatusColor(
                 value
-            )}
-                            `}
+            )}`}
         >
             {value}
         </span>

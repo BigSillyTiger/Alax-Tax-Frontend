@@ -1,4 +1,4 @@
-import { initClient, atClient } from "./atClient";
+import { atClient } from "./atClient";
 import { atOrder, atOrderService } from "./atOrder";
 import { atSUInitData, initS, initU } from "./atSetting";
 import { initStaff, atStaff, atRoleSelected, atAllStaff } from "./atStaff";
@@ -14,7 +14,6 @@ import {
 import { atWorkLogs, atAssignedWorks } from "./atWorks";
 
 export {
-    initClient,
     initS,
     initStaff,
     initU,

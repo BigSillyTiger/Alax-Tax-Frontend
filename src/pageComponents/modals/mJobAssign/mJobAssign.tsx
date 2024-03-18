@@ -30,6 +30,9 @@ const MJobAssign = () => {
     const currentRouter = useRouterStore((state) => state.currentRouter);
 
     /* update client order */
+    // adding modalOpen to the dependency array
+    // for reset the workLogs when modalOpen changes
+    // especially when it's closed by cancling
     useEffect(() => {
         setWorkLogs(clientOrder.work_logs);
     }, [clientOrder.work_logs, setWorkLogs, modalOpen]);

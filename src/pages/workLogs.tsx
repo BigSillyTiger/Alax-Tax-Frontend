@@ -39,12 +39,8 @@ const WorkLogs: FC = () => {
                             data={workLogs}
                             columns={wlColumns}
                             menuOptions={{
-                                assign: true,
                                 edit: true,
                                 del: true,
-                                pay: true,
-                                quotation: true,
-                                invoice: true,
                             }}
                             //setData={setClientOrder}
                             getRowCanExpand={(row) => {
