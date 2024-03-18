@@ -87,7 +87,7 @@ export const calWorkTime = (
     if (!sTime || !eTime) return 0;
     const start = new Date(`01/01/2021 ${sTime}`);
     const end = new Date(`01/01/2021 ${eTime}`);
-    const breakTime = new Date(`01/01/2021 ${bTime}`);
+    new Date(`01/01/2021 ${bTime}`);
     //const diff = end.getTime() - start.getTime() - breakTime.getTime();
     const diff = end.getTime() - start.getTime();
     return diff;

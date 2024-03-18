@@ -165,7 +165,11 @@ const InvContent: FC = memo(() => {
                     cid={clientOrder.fk_cid}
                     date={date}
                     setDate={setDate}
-                    defaultDate={clientOrder.invoice_date}
+                    defaultDate={
+                        clientOrder.invoice_date
+                            ? clientOrder.invoice_date
+                            : new Date().toISOString()
+                    }
                 />
             </section>
             <section className="col-span-1 md:col-span-5">

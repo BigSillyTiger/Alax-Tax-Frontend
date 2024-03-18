@@ -7,7 +7,7 @@ export const clientSchema = z.object({
     phone: z
         .string()
         .trim()
-        //.min(3, { message: "Phone number is too short" })
+        .min(3, { message: "Phone number is too short" })
         .transform((val) => {
             if (val.length > 6) {
                 return `${val.slice(0, 3)}-${val.slice(3, 6)}-${val.slice(6)}`;
@@ -17,9 +17,13 @@ export const clientSchema = z.object({
                 return val;
             }
         })
-        .nullable()
-        .default(""),
-    email: z.string().email().trim().toLowerCase().nullable().default(null),
+        .default("123"),
+    email: z
+        .string()
+        .email()
+        .trim()
+        .toLowerCase()
+        .default("your_email@email.com"),
     address: z.string().trim().nullable().default(""),
     suburb: z.string().trim().nullable().default(""),
     city: z.string().trim().nullable().default(""),

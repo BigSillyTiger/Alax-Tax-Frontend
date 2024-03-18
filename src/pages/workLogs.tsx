@@ -59,7 +59,7 @@ const WorkLogs: FC = () => {
                 ) : (
                     <Card className="mt-8">
                         <span className="m-5 p-5  text-center h-15">
-                            No Order Content
+                            {t("label.noContent")}
                         </span>
                     </Card>
                 )}

@@ -78,7 +78,7 @@ export const orderFormSchema = plainOrderSchema
 export const orderSchema = plainOrderSchema.extend({
     client_info: clientSchema.default({
         email: "you_email@email.com",
-        phone: "",
+        phone: "123",
         postcode: "5000",
     }),
     order_services: orderServiceSchema.array().default([]),

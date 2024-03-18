@@ -18,9 +18,13 @@ export const staffSchema = z.object({
                 return val;
             }
         })
-        .nullable()
-        .default(null),
-    email: z.string().email().trim().toLowerCase().nullable().default(null),
+        .default("123"),
+    email: z
+        .string()
+        .email()
+        .trim()
+        .toLowerCase()
+        .default("your_email@email.com"),
     password: z.string().default(""),
     address: z.string().trim().nullable().default(""),
     suburb: z.string().trim().nullable().default("Adelaide"),
