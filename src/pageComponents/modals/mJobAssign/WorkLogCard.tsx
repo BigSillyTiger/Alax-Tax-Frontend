@@ -2,7 +2,9 @@ import UserIcon from "@/components/UserIcon";
 import { Amail, Atel } from "@/components/aLinks";
 import Card from "@/components/card";
 import Fieldset from "@/components/form/fieldset";
+import { Input } from "@/components/ui/input";
 import { TassignedWork } from "@/configs/schema/workSchema";
+import { calWorkTime } from "@/utils/utils";
 import { useTranslation } from "react-i18next";
 
 type Tprops<T extends TassignedWork> = {
@@ -11,6 +13,7 @@ type Tprops<T extends TassignedWork> = {
 
 const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
     const { t } = useTranslation();
+
     return (
         /* self-11 content-8 */
         <Card className="col-span-full mt-3 grid grid-cols-1 gap-x-4 sm:grid-cols-8 bg-indigo-50 py-2">
@@ -41,35 +44,63 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                 {/* time area */}
                 <Fieldset
                     title={t("label.workTime")}
-                    sFieldset="p-2 justify-evenly"
+                    sFieldset="p-2 justify-evenly grid grid-cols-4 gap-x-2 gap-y-2"
                 >
                     <div className="col-span-2 row-span-1">
                         <label htmlFor="s_time" className="mx-2">
                             {t("label.start")}
                         </label>
-                        <input
+                        <Input
                             id="s_time"
                             type="time"
                             step="60"
-                            className="text-bold text-indigo-500"
+                            onChange={() => {}}
+                            value={item.s_time ? item.s_time : "00:00"}
+                            className="text-bold text-indigo-500 text-2xl"
                         />
                     </div>
-                    <div className="col-span-3 row-span-1">
+                    <div className="col-span-2 row-span-1">
                         <label htmlFor="e_time" className="mx-2">
                             {t("label.end")}
                         </label>
-                        <input
+                        <Input
                             id="e_time"
                             type="time"
                             step="60"
-                            className="text-bold text-indigo-500"
+                            onChange={() => {}}
+                            value={item.e_time ? item.e_time : "00:00"}
+                            className="text-bold text-indigo-500 text-2xl"
                         />
                     </div>
-                    <div className="col-span-3 row-span-1">
+                    <div className="col-span-2 row-span-1">
                         <label htmlFor="b_time" className="mx-2">
                             {t("label.break")}
                         </label>
-                        <input className="text-bold text-indigo-500" />
+                        <Input
+                            id="b_time"
+                            type="time"
+                            step="60"
+                            value={item.b_time ? item.b_time : "00:00"}
+                            onChange={() => {}}
+                            className="text-bold text-amber-600 text-2xl"
+                        />
+                    </div>
+                    <div className="col-span-2 row-span-1">
+                        <label htmlFor="total_time" className="mx-2">
+                            {t("label.workTime")}
+                        </label>
+                        <Input
+                            id="total_time"
+                            type="time"
+                            step="60"
+                            readOnly
+                            value={calWorkTime(
+                                item.s_time,
+                                item.e_time,
+                                item.b_time
+                            )}
+                            className="text-bold text-lime-600 text-2xl"
+                        />
                     </div>
                 </Fieldset>
                 {/* note area */}

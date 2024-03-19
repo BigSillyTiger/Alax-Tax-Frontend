@@ -22,7 +22,7 @@ const TimeBtn = ({ data, type }: Tprops) => {
         setModalOpen(mOpenOps.edit);
     };
 
-    const time = () => {
+    const time = (() => {
         switch (type) {
             case "start":
                 return data.s_time;
@@ -35,14 +35,20 @@ const TimeBtn = ({ data, type }: Tprops) => {
             default:
                 return t("label.startTime");
         }
+    })();
+
+    const style = () => {
+        return time === "00:00"
+            ? timeBtnStyleMap.default
+            : timeBtnStyleMap[type];
     };
 
     return (
         <Button
             onClick={onClick}
-            className={`font-bold text-lg border-2 ${timeBtnStyleMap[type]}`}
+            className={`font-bold text-lg border-2 ${style()}`}
         >
-            {time()}
+            {time}
         </Button>
     );
 };

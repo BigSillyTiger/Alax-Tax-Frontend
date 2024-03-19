@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import Fieldset from "@/components/form/fieldset";
 import { useTranslation } from "react-i18next";
-import WorkLogCard from "@/pageComponents/cards/WorkLogCard";
+import WorkLogCard from "@/pageComponents/modals/mJobAssign/WorkLogCard";
 import { useJobAssignStore } from "@/configs/zustore";
 import { isSameDay } from "date-fns";
 
@@ -11,7 +11,7 @@ const AssignedStaff: FC = () => {
     const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
 
     /* update work logs when all staff changed */
-    const filterWorkLogs = () => {
+    const scheduledWork = (() => {
         if (selectedDate) {
             const workLog = currentWorkLogs.filter((work) => {
                 return isSameDay(new Date(work.wl_date), selectedDate);
@@ -20,9 +20,7 @@ const AssignedStaff: FC = () => {
         } else {
             return [];
         }
-    };
-
-    const scheduledWork = filterWorkLogs();
+    })();
 
     return (
         <Fieldset

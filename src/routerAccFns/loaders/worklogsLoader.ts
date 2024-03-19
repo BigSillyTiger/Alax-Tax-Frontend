@@ -21,9 +21,9 @@ export const wlLoader = async () => {
                         // convert the date format stored in mysql: yyyy-mm-dd to au: dd-mm-yyyy
                         // this format is related to date searching in the table
                         wl_date: dateFormatAU(wl.wl_date),
-                        s_time: hmsTohm(wl.s_time),
-                        e_time: hmsTohm(wl.e_time),
-                        b_time: hmsTohm(wl.b_time),
+                        s_time: hmsTohm(wl.s_time as string),
+                        e_time: hmsTohm(wl.e_time as string),
+                        b_time: hmsTohm(wl.b_time as string),
                     };
                 });
             })

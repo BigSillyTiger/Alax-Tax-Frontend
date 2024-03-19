@@ -140,5 +140,5 @@ export const timeBtnStyleMap = {
     break: "bg-amber-600 border-amber-600 text-slate-200 hover:bg-slate-100 hover:text-amber-600",
     total: "bg-lime-600 border-lime-600 text-slate-200 hover:bg-slate-100 hover:text-lime-600",
     default:
-        "bg-gray-500 border-gray-500 text-slate-200 hover:bg-slate-100 hover:text-gray-600",
+        "bg-slate-100 border-red-600 text-red-600 hover:bg-red-400 hover:text-slate-100",
 };

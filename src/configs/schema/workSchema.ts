@@ -4,10 +4,19 @@ const workLogSchema = z.object({
     wlid: z.string().default(""),
     fk_oid: z.string().default(""),
     fk_uid: z.string().default(""),
-    wl_date: z.string().datetime().nullable().default(null),
-    s_time: z.string().datetime().nullable().default(null),
-    e_time: z.string().datetime().nullable().default(null),
-    b_time: z.string().datetime().nullable().default(null),
+    wl_date: z.string().default(""),
+    s_time: z
+        .string()
+        .regex(/^\d{2}:\d{2}$/)
+        .default("00:00"),
+    e_time: z
+        .string()
+        .regex(/^\d{2}:\d{2}$/)
+        .default("00:00"),
+    b_time: z
+        .string()
+        .regex(/^\d{2}:\d{2}$/)
+        .default("00:00"),
     wl_status: z.string().trim().default("ongoing"),
     wl_note: z.string().trim().nullable().default(""),
     confirm_status: z.boolean().default(false),

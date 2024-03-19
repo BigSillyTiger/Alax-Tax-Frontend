@@ -8,43 +8,18 @@ import { Tstaff } from "@/configs/schema/staffSchema";
 import { isSameDay } from "date-fns";
 import { atAllStaff, atOrder } from "@/configs/atoms";
 import { useAtom } from "jotai";
-import { TassignedWork } from "@/configs/schema/workSchema";
+import { assignedWorkSchema } from "@/configs/schema/workSchema";
 import { dateFormatISO } from "@/utils/utils";
 import { toastWarning } from "@/utils/toaster";
-
-const genWorkLogWithStaff = (
-    staff: Tstaff,
-    oid: string,
-    date: string
-): TassignedWork => {
-    return {
-        wlid: "",
-        fk_oid: oid,
-        fk_uid: staff.uid,
-        wl_date: date,
-        s_time: "",
-        e_time: "",
-        b_time: "",
-        wl_status: "ongoing",
-        wl_note: "",
-        first_name: staff.first_name,
-        last_name: staff.last_name,
-        phone: staff.phone,
-        email: staff.email,
-        role: staff.role,
-        confirm_status: false,
-        archive: false,
-    };
-};
 
 const SelectStaff: FC = () => {
     const { t } = useTranslation();
     const allStaff: (Tstaff & { selected: boolean })[] = useJobAssignStore(
         (state) => state.allStaff
     );
-    const [atomAllStaff] = useAtom(atAllStaff);
     // jotai atoms
-    const clientOrder = useAtom(atOrder);
+    const [atomAllStaff] = useAtom(atAllStaff);
+    const [clientOrder] = useAtom(atOrder);
     // zustand states and actions
     //const selectStaff = useJobAssignStore((state) => state.selectStaff);
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
@@ -94,11 +69,12 @@ const SelectStaff: FC = () => {
                     return (
                         <CheckBox
                             key={staff.uid}
-                            onClick={() => {
+                            onClick={(e) => {
                                 // this if will not be triggered for now
                                 // the selectedDate defined in daypicker is required
                                 if (!selectedDate) {
                                     toastWarning(t("toastW.selectDate"));
+                                    e.preventDefault();
                                     return;
                                 }
                             }}
@@ -107,18 +83,33 @@ const SelectStaff: FC = () => {
                                 const date = selectedDate
                                     ? dateFormatISO(selectedDate)
                                     : "";
-                                const newWork = genWorkLogWithStaff(
-                                    staff,
-                                    clientOrder[0].oid
-                                        ? clientOrder[0].oid
+                                const newWork = assignedWorkSchema.parse({
+                                    fk_oid: clientOrder.oid
+                                        ? clientOrder.oid
                                         : "",
-                                    date
-                                );
+                                    fk_uid: staff.uid,
+                                    wl_date: selectedDate
+                                        ? dateFormatISO(selectedDate)
+                                        : "",
+                                    first_name: staff.first_name,
+                                    last_name: staff.last_name,
+                                    phone: staff.phone,
+                                    email: staff.email,
+                                    role: staff.role,
+                                });
 
                                 if (e.target.checked) {
                                     appendAssignedWork(newWork, date);
                                 } else {
+                                    console.log(
+                                        "-> test 1: ",
+                                        clientOrder.work_logs
+                                    );
                                     removeAssignedWork(newWork, date);
+                                    console.log(
+                                        "-> test 2: ",
+                                        clientOrder.work_logs
+                                    );
                                 }
                             }}
                             uid={staff.uid}

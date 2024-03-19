@@ -3,6 +3,7 @@ import { menuList } from "@/configs/utils";
 import { Torder } from "@/configs/schema/orderSchema";
 import { routerStore } from "@/configs/zustore";
 import { defer, redirect } from "react-router-dom";
+import { hmsTohm } from "@/utils/utils";
 
 export const ordersLoader = async () => {
     routerStore.setState({ currentRouter: "orders" });
@@ -27,6 +28,19 @@ export const ordersLoader = async () => {
                                     taxable: Boolean(desc.taxable),
                                 };
                             }),
+                        work_logs: item.work_logs.map((wl) => {
+                            return {
+                                ...wl,
+                                assigned_work: wl.assigned_work.map((aw) => {
+                                    return {
+                                        ...aw,
+                                        s_time: hmsTohm(aw.s_time as string),
+                                        e_time: hmsTohm(aw.e_time as string),
+                                        b_time: hmsTohm(aw.b_time as string),
+                                    };
+                                }),
+                            };
+                        }),
                     };
                 })
             )

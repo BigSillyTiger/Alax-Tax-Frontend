@@ -26,7 +26,8 @@ export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
     currentWorkLogs: [],
     allStaff: [],
     setWorkLogs: (workLogs: TworkLogs[]) =>
-        set((state) => ({ ...state, currentWorkLogs: workLogs })),
+        set((state) => ({ ...state, currentWorkLogs: [...workLogs] })),
+    // assignedWork - the work log to add
     appendAssignedWork: (assignedWork, date) =>
         set((state) => {
             // filter by wl_date of work_logs
@@ -53,7 +54,7 @@ export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
                 ];
                 return {
                     ...state,
-                    currentWorkLogs: newWorkLogs,
+                    currentWorkLogs: [...newWorkLogs],
                 };
             }
             // work_logs exists on the date, but the assigned_work of the staff with the uid not exists
@@ -69,30 +70,32 @@ export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
                           }
                         : { ...work }
                 );
-                return { ...state, currentWorkLogs: newWorkLogs };
+                return { ...state, currentWorkLogs: [...newWorkLogs] };
             }
             return { ...state };
         }),
+    // assignedWork - the work log to remove
     removeAssignedWork: (assignedWork, date) =>
         set((state) => {
             const filteredWorkLogs = state.currentWorkLogs.filter((work) => {
                 return isSameDay(new Date(work.wl_date), new Date(date));
             });
-            const indexToRemove = filteredWorkLogs[0].assigned_work.findIndex(
-                (work) => work.fk_uid === assignedWork.fk_uid
+
+            const newWorkLogs = state.currentWorkLogs.map((work) =>
+                isSameDay(new Date(work.wl_date), new Date(date))
+                    ? {
+                          ...work,
+                          assigned_work:
+                              filteredWorkLogs[0].assigned_work.filter(
+                                  (work) => work.fk_uid !== assignedWork.fk_uid
+                              ),
+                      }
+                    : work
             );
-            filteredWorkLogs[0].assigned_work.splice(indexToRemove, 1);
 
             return {
                 ...state,
-                currentWorkLogs: state.currentWorkLogs.map((work) =>
-                    isSameDay(new Date(work.wl_date), new Date(date))
-                        ? {
-                              ...work,
-                              assigned_work: filteredWorkLogs[0].assigned_work,
-                          }
-                        : { ...work }
-                ),
+                currentWorkLogs: newWorkLogs,
             };
         }),
     setAllStaff: (staff: TallStaff[]) =>
