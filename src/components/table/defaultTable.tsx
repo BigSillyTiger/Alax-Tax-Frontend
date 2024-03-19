@@ -16,6 +16,8 @@ import { MenuBtn, StatusBtn, DetailBtn, ExpandBtn } from "./tableBtn";
 import HeaderFilter from "./headerFilter";
 import { CTable, CTBody, CTHead, CTh } from ".";
 import ContentWithSwitch from "./SwitchWContent";
+import { TwlTableRow } from "@/configs/schema/workSchema";
+import TimeBtn from "@/pageComponents/TimeBtn";
 
 type Tprops<T> = {
     data: T[];
@@ -178,6 +180,54 @@ const PTable = <T extends object>({
                                               cell.getContext()
                                           )}
                                           data={row.original}
+                                      />
+                                  </td>
+                              );
+                          } else if (cell.column.id === "startTime") {
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
+                                  >
+                                      <TimeBtn
+                                          type="start"
+                                          data={row.original as TwlTableRow}
+                                      />
+                                  </td>
+                              );
+                          } else if (cell.column.id === "endTime") {
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
+                                  >
+                                      <TimeBtn
+                                          type="end"
+                                          data={row.original as TwlTableRow}
+                                      />
+                                  </td>
+                              );
+                          } else if (cell.column.id === "breakTime") {
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
+                                  >
+                                      <TimeBtn
+                                          type="break"
+                                          data={row.original as TwlTableRow}
+                                      />
+                                  </td>
+                              );
+                          } else if (cell.column.id === "workTime") {
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
+                                  >
+                                      <TimeBtn
+                                          type="total"
+                                          data={row.original as TwlTableRow}
                                       />
                                   </td>
                               );

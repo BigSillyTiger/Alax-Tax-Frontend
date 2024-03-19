@@ -1,5 +1,6 @@
 import { mOpenOps } from "@/configs/utils";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
+import { timeBtnStyleMap } from "@/configs/utils";
 
 export type Tunivers = {
     services: Tservice[];
@@ -12,6 +13,8 @@ export type Tunivers = {
 export type TmodalOpenStates = (typeof mOpenOps)[keyof typeof mOpenOps];
 
 export type Tmodal2ndOpenStates = "" | "ResetPW";
+
+export type TtimeBtnStyles = keyof typeof timeBtnStyleMap;
 
 export enum RES_STATUS {
     DEFAULT = 9900,

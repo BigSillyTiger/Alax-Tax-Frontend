@@ -107,11 +107,7 @@ const wlColumns = [
                 id: "workTime",
                 header: i18n.t("label.workTime"),
                 accessorFn: (data: TwlTableRow) =>
-                    calWorkTime(
-                        data.s_time ? data.s_time : "00:00",
-                        data.e_time ? data.e_time : "00:00",
-                        data.b_time ? data.b_time : "00:00"
-                    ),
+                    calWorkTime(data.s_time, data.e_time, data.b_time),
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
                     <span className="font-bold text-lg text-lime-700">
                         {info.getValue<string>()}

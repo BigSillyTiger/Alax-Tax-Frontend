@@ -130,3 +130,15 @@ export const roleOptions = {
         ...genMenuIDObject(2),
     },
 };
+
+/**
+ * @description for time btns style
+ */
+export const timeBtnStyleMap = {
+    start: "bg-indigo-600 border-indigo-600 text-slate-200 hover:bg-slate-100 hover:text-indigo-600",
+    end: "bg-indigo-600 border-indigo-600 text-slate-200 hover:bg-slate-100 hover:text-indigo-600",
+    break: "bg-amber-600 border-amber-600 text-slate-200 hover:bg-slate-100 hover:text-amber-600",
+    total: "bg-lime-600 border-lime-600 text-slate-200 hover:bg-slate-100 hover:text-lime-600",
+    default:
+        "bg-gray-500 border-gray-500 text-slate-200 hover:bg-slate-100 hover:text-gray-600",
+};

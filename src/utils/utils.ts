@@ -79,7 +79,14 @@ export const sortWorkLogs = (sort: "dsc" | "asc", workLogs: TworkLogs[]) => {
     });
 };
 
-export const calWorkTime = (sTime: string, eTime: string, bTime: string) => {
+export const calWorkTime = (
+    sTime: string | null,
+    eTime: string | null,
+    bTime: string | null
+) => {
+    sTime = sTime ?? "00:00";
+    eTime = eTime ?? "00:00";
+    bTime = bTime ?? "00:00";
     // Parse start time
     const [startHour, startMinute] = sTime.split(":").map(Number);
     // Parse end time
