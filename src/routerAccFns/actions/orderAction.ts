@@ -37,7 +37,7 @@ export const ordersAction = async ({
         const result = await API_ORDER.orderAdd(order);
         //console.log("-> fe receive add order result: ", result);
         return result;
-    } else if ("POST" === request.method && data.get("req") === "workAssign") {
+    } else if ("POST" === request.method && data.get("req") === "jobAssign") {
         const assignedData = JSON.parse(data.get("values") as string);
         //console.log("-> action work assign: ", assignedData);
         const result = await API_ORDER.updateJobAssignment(

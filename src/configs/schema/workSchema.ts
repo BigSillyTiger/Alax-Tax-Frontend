@@ -1,22 +1,22 @@
 import { z } from "zod";
 
 const workLogSchema = z.object({
-    wlid: z.string(),
-    fk_oid: z.string(),
-    fk_uid: z.string(),
-    wl_date: z.string().datetime(),
-    s_time: z.string().datetime(),
-    e_time: z.string().datetime(),
-    b_time: z.string().datetime(),
+    wlid: z.string().default(""),
+    fk_oid: z.string().default(""),
+    fk_uid: z.string().default(""),
+    wl_date: z.string().datetime().nullable().default(null),
+    s_time: z.string().datetime().nullable().default(null),
+    e_time: z.string().datetime().nullable().default(null),
+    b_time: z.string().datetime().nullable().default(null),
     wl_status: z.string().trim().default("ongoing"),
-    wl_note: z.string().trim().nullable(),
+    wl_note: z.string().trim().nullable().default(""),
     confirm_status: z.boolean().default(false),
     archive: z.boolean().default(false),
 });
 
 export const assignedWorkSchema = workLogSchema.extend({
-    first_name: z.string(),
-    last_name: z.string(),
+    first_name: z.string().default(""),
+    last_name: z.string().default(""),
     phone: z
         .string()
         .trim()
@@ -29,9 +29,15 @@ export const assignedWorkSchema = workLogSchema.extend({
             } else {
                 return val;
             }
-        }),
-    email: z.string().email().trim().toLowerCase(),
-    role: z.string().trim(),
+        })
+        .default("123"),
+    email: z
+        .string()
+        .email()
+        .trim()
+        .toLowerCase()
+        .default("your_email@email.com"),
+    role: z.string().trim().default("employee"),
 });
 
 export const workLogsSchema = z.object({
@@ -49,11 +55,11 @@ export const formWorkLogs = z.object({
 
 export const wlTableRowSchema = assignedWorkSchema.extend({
     // work site address
-    address: z.string().trim().nullable(),
-    suburb: z.string().trim().nullable(),
-    city: z.string().trim().nullable(),
-    state: z.string().trim().nullable(),
-    postcode: z.string().trim().nullable(),
+    address: z.string().trim().nullable().default(""),
+    suburb: z.string().trim().nullable().default(""),
+    city: z.string().trim().nullable().default(""),
+    state: z.string().trim().nullable().default(""),
+    postcode: z.string().trim().nullable().default(""),
 });
 
 export type TworkLog = z.infer<typeof workLogSchema>;

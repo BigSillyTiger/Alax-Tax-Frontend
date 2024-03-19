@@ -53,7 +53,7 @@ const MJobAssign = () => {
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         submit(
-            { values: JSON.stringify(currentWorkLogs), req: "workAssign" },
+            { values: JSON.stringify(currentWorkLogs), req: "jobAssign" },
             {
                 method: "POST",
                 action: genAction(currentRouter),
@@ -100,9 +100,9 @@ const MJobAssign = () => {
 
     return (
         <MTemplate
-            open={!!(modalOpen === mOpenOps.workAssign)}
+            open={!!(modalOpen === mOpenOps.jobAssign)}
             onClose={onClose}
-            title=""
+            title={t("modal.title.jobAssign")}
             mode="full"
             mQuit={true}
         >

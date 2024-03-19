@@ -8,18 +8,37 @@ import { PTable } from "@/components/table";
 import { useTranslation } from "react-i18next";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import wlColumns from "@/configs/columnDefs/defWorkLogs";
+import { atModalOpen, atWorkLogTableRow } from "@/configs/atoms";
+import { useAtom } from "jotai";
+import MJobEdit from "@/pageComponents/modals/mJobEdit/mJobEdit";
+import { RES_STATUS } from "@/utils/types";
+import { mOpenOps } from "@/configs/utils";
+import { toastError, toastSuccess } from "@/utils/toaster";
 
 const WorkLogs: FC = () => {
     const { t } = useTranslation();
     const { worklogs } = useLoaderData() as {
         worklogs: TwlTableRow[];
     };
-
     const actionData = useActionData() as Tresponse;
+    const [, setWorkLog] = useAtom(atWorkLogTableRow);
+    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
 
     useEffect(() => {
-        //console.log("-> test");
-    }, [actionData]);
+        if (actionData?.status === RES_STATUS.SUC_UPDATE_WORKLOG) {
+            if (modalOpen === mOpenOps.edit) {
+                setModalOpen("");
+                toastSuccess(t("toastS.updateWorkHours"));
+                actionData.status = RES_STATUS.DEFAULT;
+            }
+        } else if (actionData?.status === RES_STATUS.FAILED_UPDATE_WORKLOG) {
+            if (modalOpen === mOpenOps.edit) {
+                setModalOpen("");
+                toastError(t("toastF.updateWorkHours"));
+                actionData.status = RES_STATUS.DEFAULT;
+            }
+        }
+    }, [actionData, modalOpen, setModalOpen, t]);
 
     const WorkLogsTableContent = ({
         workLogs,
@@ -42,7 +61,7 @@ const WorkLogs: FC = () => {
                                 edit: true,
                                 del: true,
                             }}
-                            //setData={setClientOrder}
+                            setData={setWorkLog}
                             getRowCanExpand={(row) => {
                                 if (row.original.order_services.length > 0) {
                                     return true;
@@ -78,6 +97,7 @@ const WorkLogs: FC = () => {
             </Suspense>
 
             {/* modals */}
+            <MJobEdit />
         </div>
     );
 };

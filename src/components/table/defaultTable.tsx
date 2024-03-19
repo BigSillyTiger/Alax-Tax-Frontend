@@ -127,7 +127,7 @@ const PTable = <T extends object>({
         ? table.getRowModel().rows.map((row: Row<T>, i: number) => (
               <Fragment key={row.id}>
                   <tr className={i % 2 === 0 ? undefined : "bg-gray-100"}>
-                      {row.getVisibleCells().map((cell: any) => {
+                      {row.getVisibleCells().map((cell) => {
                           /* nevigate to client details page only*/
                           if (cell.column.id === "Details") {
                               return (

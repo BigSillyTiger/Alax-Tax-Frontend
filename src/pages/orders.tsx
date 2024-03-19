@@ -101,7 +101,7 @@ const Orders: FC = () => {
                 actionData.status = RES_STATUS.DEFAULT;
             }
         } else if (actionData?.status === RES_STATUS.SUC_UPDATE_WORKLOG) {
-            if (modalOpen === mOpenOps.workAssign) {
+            if (modalOpen === mOpenOps.jobAssign) {
                 setModalOpen(mOpenOps.default);
                 toastSuccess(t("toastS.updateWorkLog"));
                 actionData.status = RES_STATUS.DEFAULT;

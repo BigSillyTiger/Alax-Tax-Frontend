@@ -47,7 +47,7 @@ const genOptions = <T,>({
         });
     };
 
-    assign && createOption("btn.assign", <UserPlusIcon />, mOpenOps.workAssign);
+    assign && createOption("btn.assign", <UserPlusIcon />, mOpenOps.jobAssign);
     pay && createOption("btn.pay", <CurrencyDollarIcon />, mOpenOps.pay);
     edit && createOption("btn.edit", <PencilIcon />, mOpenOps.edit);
     quotation &&

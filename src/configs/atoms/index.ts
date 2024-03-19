@@ -11,7 +11,7 @@ import {
     atLogo,
     atAdminUser,
 } from "./atUnivers";
-import { atWorkLogs, atAssignedWorks } from "./atWorks";
+import { atWorkLogTableRow } from "./atWorks";
 
 export {
     initS,
@@ -31,6 +31,5 @@ export {
     atLogo,
     atAdminUser,
     atAllStaff,
-    atWorkLogs,
-    atAssignedWorks,
+    atWorkLogTableRow,
 };

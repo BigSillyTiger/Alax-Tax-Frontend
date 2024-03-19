@@ -24,6 +24,7 @@ export const REQ_CLIENT_SINGLE_DEL = "/client/single-del";
 export const REQ_JOB_ASSIGN = "/work/update";
 // Work log
 export const REQ_WL_ALL = "/work/all";
+export const REQ_WL_SIGNLE_UPDATE_H = "/work/single-update-hours";
 // Staff
 export const REQ_STAFF_ALL = "/staff/all";
 export const REQ_STAFF_INFO = "/staff/info";

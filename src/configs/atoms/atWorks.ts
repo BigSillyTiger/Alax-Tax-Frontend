@@ -1,7 +1,8 @@
 import { atomWithReset } from "jotai/utils";
-import { TassignedWork, TworkLogs } from "../schema/workSchema";
+import { TwlTableRow, wlTableRowSchema } from "../schema/workSchema";
 
-const atWorkLogs = atomWithReset<TworkLogs[]>([]);
-const atAssignedWorks = atomWithReset<TassignedWork[]>([]);
+const atWorkLogTableRow = atomWithReset<TwlTableRow>(
+    wlTableRowSchema.parse({})
+);
 
-export { atWorkLogs, atAssignedWorks };
+export { atWorkLogTableRow };

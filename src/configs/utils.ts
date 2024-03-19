@@ -34,7 +34,7 @@ export const mOpenOps = {
     pay: "Pay",
     invoice: "Invoice",
     quotation: "Quotation",
-    workAssign: "WorkAssign",
+    jobAssign: "JobAssign",
 };
 
 export const routerPaths = {
@@ -130,4 +130,3 @@ export const roleOptions = {
         ...genMenuIDObject(2),
     },
 };
-

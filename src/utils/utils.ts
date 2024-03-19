@@ -79,22 +79,59 @@ export const sortWorkLogs = (sort: "dsc" | "asc", workLogs: TworkLogs[]) => {
     });
 };
 
-export const calWorkTime = (
-    sTime: string | null,
-    eTime: string | null,
-    bTime: string | null
-) => {
-    if (!sTime || !eTime) return 0;
-    const start = new Date(`01/01/2021 ${sTime}`);
-    const end = new Date(`01/01/2021 ${eTime}`);
-    new Date(`01/01/2021 ${bTime}`);
-    //const diff = end.getTime() - start.getTime() - breakTime.getTime();
-    const diff = end.getTime() - start.getTime();
-    return diff;
+export const calWorkTime = (sTime: string, eTime: string, bTime: string) => {
+    // Parse start time
+    const [startHour, startMinute] = sTime.split(":").map(Number);
+    // Parse end time
+    const [endHour, endMinute] = eTime.split(":").map(Number);
+    // Parse break time
+    const [breakHour, breakMinute] = bTime.split(":").map(Number);
+
+    // Convert time strings to total minutes
+    const startTotalMinutes = startHour * 60 + startMinute;
+    const endTotalMinutes = endHour * 60 + endMinute;
+    const breakTotalMinutes = breakHour * 60 + breakMinute;
+
+    // Calculate total work time in minutes
+    let totalWorkMinutes =
+        endTotalMinutes - startTotalMinutes - breakTotalMinutes;
+
+    // Handle cases where the break time is longer than the work time
+    if (totalWorkMinutes < 0) {
+        totalWorkMinutes = 0;
+    }
+
+    // Convert total work time back to hh:mm format
+    const workHour = Math.floor(totalWorkMinutes / 60);
+    const workMinute = totalWorkMinutes % 60;
+    const workTime = `${workHour.toString().padStart(2, "0")}:${workMinute.toString().padStart(2, "0")}`;
+
+    return workTime;
 };
 
 export const hmsTohm = (time: string) => {
     //const [hour, minute] = time.split(":");
     //return `${hour}:${minute}`;
     return time.slice(0, 5);
+};
+
+export const isWorkHoursValid = (
+    s_time: string,
+    e_time: string,
+    b_time: string
+) => {
+    // Split the time strings into hours and minutes
+    const [startHour, startMinute] = s_time.split(":").map(Number);
+    const [endHour, endMinute] = e_time.split(":").map(Number);
+    const [breakHour, breakMinute] = b_time.split(":").map(Number);
+
+    // Calculate total duration in minutes between start time and end time
+    const totalDurationMinutes =
+        (endHour - startHour) * 60 + (endMinute - startMinute);
+
+    // Calculate break time in minutes
+    const breakTimeMinutes = breakHour * 60 + breakMinute;
+
+    // Check if break time is smaller than total duration
+    return breakTimeMinutes < totalDurationMinutes;
 };

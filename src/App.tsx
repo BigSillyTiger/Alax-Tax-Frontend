@@ -39,6 +39,7 @@ import {
     loginAction,
     staffAction,
     settingAction,
+    wlAction,
 } from "./routerAccFns/actions";
 
 import LoadingPage from "./components/loadingEle";
@@ -94,7 +95,7 @@ const App: FC = () => {
                         path={routerPaths.workLogs}
                         element={<WorkLogs />}
                         loader={wlLoader}
-                        //action={wlAction}
+                        action={wlAction}
                     />
                     <Route path={routerPaths.calendar} element={<Calendar />} />
                     <Route

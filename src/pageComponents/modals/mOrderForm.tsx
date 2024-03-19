@@ -744,6 +744,7 @@ const MOrderForm: FC = memo(() => {
                     onClick={() => trigger()}
                     onClose={onClose}
                     navState={navigation.state}
+                    className=""
                 />
             </section>
         </Form>

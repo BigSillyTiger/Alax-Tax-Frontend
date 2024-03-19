@@ -78,7 +78,9 @@ const wlColumns = [
                 header: i18n.t("label.timeStart"),
                 accessorKey: "s_time",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
+                    <span className="font-bold text-lg text-indigo-600">
+                        {info.getValue<string>()}
+                    </span>
                 ),
             },
             {
@@ -86,7 +88,9 @@ const wlColumns = [
                 header: i18n.t("label.timeEnd"),
                 accessorKey: "e_time",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
+                    <span className="font-bold text-lg text-indigo-600">
+                        {info.getValue<string>()}
+                    </span>
                 ),
             },
             {
@@ -94,16 +98,24 @@ const wlColumns = [
                 header: i18n.t("label.timeBreak"),
                 accessorKey: "b_time",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
+                    <span className="font-bold text-lg text-amber-600">
+                        {info.getValue<string>()}
+                    </span>
                 ),
             },
             {
                 id: "workTime",
                 header: i18n.t("label.workTime"),
                 accessorFn: (data: TwlTableRow) =>
-                    calWorkTime(data.s_time, data.e_time, data.b_time),
+                    calWorkTime(
+                        data.s_time ? data.s_time : "00:00",
+                        data.e_time ? data.e_time : "00:00",
+                        data.b_time ? data.b_time : "00:00"
+                    ),
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
+                    <span className="font-bold text-lg text-lime-700">
+                        {info.getValue<string>()}
+                    </span>
                 ),
             },
             {
