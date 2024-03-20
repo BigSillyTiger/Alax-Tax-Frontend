@@ -4,6 +4,7 @@ import { Torder } from "../schema/orderSchema";
 import { minusAB } from "@/utils/calculations";
 import { dateFormatAU } from "@/utils/utils";
 import OrderStatus from "@/components/OrderStatus";
+import { Atel } from "@/components/aLinks";
 
 const orderColumns: ColumnDef<Torder>[] = [
     {
@@ -47,7 +48,7 @@ const orderColumns: ColumnDef<Torder>[] = [
                 accessorFn: (data: Torder) => data.client_info.phone,
                 accessorKey: "phone",
                 cell: (info: CellContext<Torder, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
+                    <Atel href={info.getValue<string>()} />
                 ),
             },
             {

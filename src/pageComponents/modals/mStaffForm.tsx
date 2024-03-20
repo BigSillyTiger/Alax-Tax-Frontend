@@ -7,7 +7,6 @@ import { RadioGroup } from "@headlessui/react";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { useAtom } from "jotai";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
-import { CheckIcon } from "@heroicons/react/24/solid";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import StatesOptions from "@/components/stateOptions";
@@ -158,7 +157,7 @@ const MStaffForm: FC = memo(() => {
     };
 
     const AccessTable = () => (
-        <div className="mt-2 mb-1 pointer-events-none">
+        <div className="mt-2 mb-1 pointer-events-none mx-2">
             <table className="min-w-full">
                 <thead className="bg-indigo-200">
                     <tr>
@@ -243,36 +242,21 @@ const MStaffForm: FC = memo(() => {
                     name="role"
                     render={({ field: { onChange, value } }) => (
                         <RadioGroup value={value} onChange={onChange}>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 sm:gap-x-2">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-2 sm:gap-x-2 mx-2">
                                 {Object.keys(roleOptions).map((item) => (
                                     <RadioGroup.Option
                                         key={item}
                                         value={item}
                                         className={({ checked, active }) =>
-                                            `${active ? "border-indigo-600 ring-2 ring-indigo-600" : "border-gray-300"} ${checked ? "border-indigo-600 border-2" : "border-gray-200 border"} relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none`
+                                            `${active ? "border-indigo-600 ring-2 ring-indigo-600" : "border-gray-300"} ${checked ? "border-indigo-600 border bg-indigo-500 text-slate-100" : "border-gray-200 border text-indigo-500"} relative flex cursor-pointer rounded-lg border p-4 shadow-sm focus:outline-none`
                                         }
                                     >
-                                        {({ checked }) => (
-                                            <>
-                                                <span className="flex flex-1">
-                                                    <span className="flex">
-                                                        <RadioGroup.Label
-                                                            as="span"
-                                                            className={
-                                                                "block text-sm font-medium text-gray-900"
-                                                            }
-                                                        >
-                                                            {capFirstLetter(
-                                                                item
-                                                            )}
-                                                        </RadioGroup.Label>
-                                                    </span>
-                                                </span>
-                                                <CheckIcon
-                                                    className={`${!checked && "invisible"} h-5 w-5 text-indigo-600`}
-                                                />
-                                            </>
-                                        )}
+                                        <RadioGroup.Label
+                                            as="span"
+                                            className={`flex flex-1 justify-center font-bold`}
+                                        >
+                                            {capFirstLetter(item)}
+                                        </RadioGroup.Label>
                                     </RadioGroup.Option>
                                 ))}
                             </div>

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { roleOptions } from "../utils";
+import { defaultStaffRole, roleOptions } from "../utils";
 
 export const staffSchema = z.object({
     uid: z.string().default(""),
@@ -39,14 +39,14 @@ export const staffSchema = z.object({
         .max(4)
         .nullable()
         .default("5000"),
-    role: z.string().trim().default("employee"),
-    dashboard: z.number().default(roleOptions.employee.dashboard),
-    clients: z.number().default(roleOptions.employee.clients),
-    orders: z.number().default(roleOptions.employee.orders),
-    worklogs: z.number().default(roleOptions.employee.worklogs),
-    calendar: z.number().default(roleOptions.employee.calendar),
-    staff: z.number().default(roleOptions.employee.staff),
-    setting: z.number().default(roleOptions.employee.setting),
+    role: z.string().trim().default(defaultStaffRole),
+    dashboard: z.number().default(roleOptions[defaultStaffRole].dashboard),
+    clients: z.number().default(roleOptions[defaultStaffRole].clients),
+    orders: z.number().default(roleOptions[defaultStaffRole].orders),
+    worklogs: z.number().default(roleOptions[defaultStaffRole].worklogs),
+    calendar: z.number().default(roleOptions[defaultStaffRole].calendar),
+    staff: z.number().default(roleOptions[defaultStaffRole].staff),
+    setting: z.number().default(roleOptions[defaultStaffRole].setting),
     //created_date: z.string().trim().nullable(),
 });
 

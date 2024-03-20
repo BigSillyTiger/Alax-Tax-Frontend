@@ -17,7 +17,7 @@ const ClientInfoFs: FC<Tprops> = ({
     sFieldset = "",
     sLegend = "",
 }) => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     return (
         <Fieldset
             title={title}

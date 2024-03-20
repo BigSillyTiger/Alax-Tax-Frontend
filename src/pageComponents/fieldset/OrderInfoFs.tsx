@@ -10,7 +10,7 @@ type Tprops = {
 };
 
 const OrderInfoFs: FC<Tprops> = ({ info, sFieldset = "", sLegend = "" }) => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     return (
         <Fieldset
             title={t("label.orderInfo")}

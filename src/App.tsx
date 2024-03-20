@@ -34,6 +34,7 @@ import {
     wlLoader,
 } from "./routerAccFns/loaders";
 import {
+    dashboardAction,
     ordersAction,
     clientsAction,
     loginAction,
@@ -70,6 +71,7 @@ const App: FC = () => {
                         path={routerPaths.dashboard}
                         element={<Dashboard />}
                         loader={dashboardLoader}
+                        action={dashboardAction}
                     />
                     <Route
                         path={routerPaths.clients}

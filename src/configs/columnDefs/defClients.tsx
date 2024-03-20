@@ -1,6 +1,7 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/utils/i18n";
 import { Tclient } from "@/configs/schema/clientSchema";
+import { Atel, Amail } from "@/components/aLinks";
 
 /**
  * @description
@@ -32,14 +33,14 @@ const clientColumns: ColumnDef<Tclient>[] = [
         header: i18n.t("label.phone1"),
         accessorKey: "phone",
         cell: (info: CellContext<Tclient, unknown>) => (
-            <span>{info.getValue<string>()}</span>
+            <Atel href={info.getValue<string>()} />
         ),
     },
     {
         header: i18n.t("label.email1"),
         accessorKey: "email",
         cell: (info: CellContext<Tclient, unknown>) => (
-            <span>{info.getValue<string>()}</span>
+            <Amail href={info.getValue<string>()} />
         ),
     },
     {

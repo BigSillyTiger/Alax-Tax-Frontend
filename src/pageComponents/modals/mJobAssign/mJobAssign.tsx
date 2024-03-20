@@ -46,7 +46,6 @@ const MJobAssign = () => {
     }, [atomAllStaff, setAllStaff]);
 
     const onClose = () => {
-        console.log("-> reset while close: ", clientOrder.work_logs);
         setWorkLogs(clientOrder.work_logs);
         setDate(new Date());
         setModalOpen(mOpenOps.default);

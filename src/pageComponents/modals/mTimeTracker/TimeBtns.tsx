@@ -1,0 +1,70 @@
+import type { FC, ComponentPropsWithoutRef } from "react";
+import { Button } from "@/components/ui/button";
+import { useSubmit } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { genAction } from "@/utils/utils";
+import { useRouterStore } from "@/configs/zustore";
+import { TwlTableRow } from "@/configs/schema/workSchema";
+import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
+
+type Tprops = ComponentPropsWithoutRef<"div"> & {
+    setOpenReset: (val: boolean) => void;
+};
+
+const TimeBtnGroup: FC<Tprops> = ({ className, setOpenReset }) => {
+    const { t } = useTranslation();
+    //const [worklog] = useAtom(atWorkLogTableRow);
+    const currentRouter = useRouterStore((state) => state.currentRouter);
+    const submit = useSubmit();
+    const currentWlid = useTodayWLStore((state) => state.currentWlid);
+    const todayWorklogs = useTodayWLStore((state) => state.todayWorklogs);
+    const worklog =
+        todayWorklogs.find((wl) => wl.wlid === currentWlid) ??
+        ({} as TwlTableRow);
+
+    const handleStart = () => {
+        submit(
+            {
+                wlid: worklog.wlid,
+                req: "start_timer",
+            },
+            { method: "POST", action: genAction(currentRouter) }
+        );
+    };
+
+    return (
+        <div
+            className={`w-full grid grid-cols-5 gap-x-5 pt-3 border-t border-indigo-100 border-dashed ${className}`}
+        >
+            {worklog.wl_status === "pending" ? (
+                <Button
+                    className={`border-2 text-lg font-bold col-span-full border-lime-700 bg-lime-600 text-slate-100 hover:bg-slate-100 hover:text-lime-600`}
+                    onClick={handleStart}
+                >
+                    {t("btn.timeStart")}
+                </Button>
+            ) : (
+                <>
+                    <Button
+                        className={`border-2 col-span-1 rounded-full font-bold border-red-600 bg-red-500 text-slate-100 hover:bg-slate-100 hover:text-red-600`}
+                        onClick={() => setOpenReset(true)}
+                    >
+                        {t("btn.timeReset")}
+                    </Button>
+                    <Button
+                        className={`border-2 text-lg font-bold col-span-2 border-amber-700 bg-amber-600 text-slate-100 hover:bg-slate-100 hover:text-amber-600`}
+                    >
+                        {t("btn.timeBreak")}
+                    </Button>
+                    <Button
+                        className={`border-2 text-lg font-bold col-span-2 border-indigo-700 bg-indigo-600 text-slate-100 hover:bg-slate-100 hover:text-indigo-600`}
+                    >
+                        {t("btn.timeStop")}
+                    </Button>
+                </>
+            )}
+        </div>
+    );
+};
+
+export default TimeBtnGroup;

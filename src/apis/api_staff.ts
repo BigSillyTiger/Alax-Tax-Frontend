@@ -13,23 +13,13 @@ export const staffAll = async (): Promise<Tresponse> => {
     try {
         const response = await apis.get(REQ_STAFF_ALL);
         return response.data;
-    } catch (err: any) {
+    } catch (err: unknown) {
         console.log("-> retrieve all staff error: ", err);
-        if (
-            err.response as {
-                status: number;
-                msg: string;
-                data: unknown;
-            }
-        ) {
-            return err.response;
-        } else {
-            return {
-                status: 400,
-                msg: "failed in retrieving all staff",
-                data: "",
-            };
-        }
+        return {
+            status: 400,
+            msg: "failed in retrieving all staff",
+            data: "",
+        };
     }
 };
 

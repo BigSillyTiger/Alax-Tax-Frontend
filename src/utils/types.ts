@@ -1,4 +1,4 @@
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps, roleOptions } from "@/configs/utils";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
 import { timeBtnStyleMap } from "@/configs/utils";
 
@@ -45,3 +45,5 @@ export type TisConflict =
     | RES_STATUS.FAILED_DUP_PHONE
     | RES_STATUS.FAILED_DUP_EMAIL
     | RES_STATUS.FAILED_DUP_P_E;
+
+export type TstaffRole = keyof typeof roleOptions;

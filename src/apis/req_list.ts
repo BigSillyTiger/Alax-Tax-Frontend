@@ -26,6 +26,9 @@ export const REQ_JOB_ASSIGN = "/work/update";
 export const REQ_WL_ALL = "/work/all";
 export const REQ_WL_SIGNLE_UPDATE_H = "/work/single-update-hours";
 export const REQ_WL_SINGLE_DEL = "/work/single-del";
+export const REQ_WL_TODAY = "/work/today";
+export const REQ_WL_START_TIMER = "/work/start-timer";
+export const REQ_WL_RESET_TIMER = "/work/reset-timer";
 // Staff
 export const REQ_STAFF_ALL = "/staff/all";
 export const REQ_STAFF_INFO = "/staff/info";

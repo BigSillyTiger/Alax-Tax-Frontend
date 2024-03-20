@@ -13,6 +13,10 @@ const WorkInfoCard = ({ work, className }: Tprops) => {
             sFieldset={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 pl-3 pr-5 pb-3 ${className}`}
         >
             <div className="col-span-full">
+                <span>{t("label.wlID") + ": "}</span>
+                <span className="font-semibold">{work.wlid}</span>
+            </div>
+            <div className="col-span-full">
                 <span className="">{t("label.addr") + ": "}</span>
                 <span className="font-semibold">
                     {work.address +

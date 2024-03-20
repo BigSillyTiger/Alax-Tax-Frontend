@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { defaultStaffRole } from "../utils";
 
 const workLogSchema = z.object({
     wlid: z.string().default(""),
@@ -17,7 +18,13 @@ const workLogSchema = z.object({
         .string()
         .regex(/^\d{2}:\d{2}$/)
         .default("00:00"),
-    wl_status: z.string().trim().default("ongoing"),
+    wl_status: z
+        .literal("pending")
+        .or(z.literal("ongoing"))
+        .or(z.literal("canceled"))
+        .or(z.literal("unconfirmed"))
+        .or(z.literal("confirmed"))
+        .default("pending"),
     wl_note: z.string().trim().nullable().default(""),
     confirm_status: z.boolean().default(false),
     archive: z.boolean().default(false),
@@ -46,7 +53,7 @@ export const assignedWorkSchema = workLogSchema.extend({
         .trim()
         .toLowerCase()
         .default("your_email@email.com"),
-    role: z.string().trim().default("employee"),
+    role: z.string().trim().default(defaultStaffRole),
 });
 
 export const workLogsSchema = z.object({

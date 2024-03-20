@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import i18n from "@/utils/i18n";
 import type { ForwardRefExoticComponent, SVGProps, RefAttributes } from "react";
+import { TstaffRole } from "@/utils/types";
 
 export type TadminAccess = 0 | 1 | 2;
 
@@ -121,6 +122,9 @@ export const mTabList = [
 ];
 
 export const roleOptions = {
+    labor: {
+        ...genMenuIDObject(0),
+    },
     employee: {
         ...genMenuIDObject(0),
         dashboard: 2,
@@ -141,4 +145,31 @@ export const timeBtnStyleMap = {
     total: "bg-lime-600 border-lime-600 text-slate-200 hover:bg-slate-100 hover:text-lime-600",
     default:
         "bg-slate-100 border-red-600 text-red-600 hover:bg-red-400 hover:text-slate-100",
+};
+
+export const defaultStaffRole: TstaffRole = "employee";
+
+export const staffColorMap = {
+    labor: "text-amber-700",
+    employee: "text-lime-700",
+    manager: "text-indigo-700",
+};
+
+export const colorWithStaffUid = (uid: string) => {
+    const color = uid.charAt(0);
+    if (color === "L") {
+        return "text-amber-700";
+    } else if (color === "E") {
+        return "text-lime-700";
+    } else {
+        return "text-indigo-700";
+    }
+};
+
+export const wlStatusColorMap = {
+    pending: "text-slate-100 bg-amber-500 border-amber-600",
+    ongoing: "text-slate-100 bg-lime-500 border-lime-600",
+    canceled: "text-slate-100 bg-red-500 border-red-600",
+    unconfirmed: "text-slate-100 bg-amber-500 border-amber-600",
+    confirmed: "text-slate-100 bg-indigo-500 border-indigo-600",
 };

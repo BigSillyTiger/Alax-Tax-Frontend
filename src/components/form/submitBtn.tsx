@@ -1,9 +1,11 @@
-import type { FC, ComponentPropsWithoutRef } from "react";
+import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
-type Tprops = ComponentPropsWithoutRef<"div"> & {
+type Tprops = {
     onClose: () => void;
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     navState: string;
+    className?: string;
 };
 
 const SubmitBtn: FC<Tprops> = ({
