@@ -1,6 +1,10 @@
 import { TworkLog } from "@/configs/schema/workSchema";
 import apis from "./axios";
-import { REQ_WL_ALL, REQ_WL_SIGNLE_UPDATE_H } from "./req_list";
+import {
+    REQ_WL_ALL,
+    REQ_WL_SIGNLE_UPDATE_H,
+    REQ_WL_SINGLE_DEL,
+} from "./req_list";
 
 export const wlAll = async (): Promise<Tresponse> => {
     try {
@@ -25,6 +29,21 @@ export const wlSingleUpdateHours = async (
         return {
             status: 400,
             msg: "failed in retrieving all work logs",
+            data: "",
+        };
+    }
+};
+
+export const wlSingleDel = async (wlid: string): Promise<Tresponse> => {
+    try {
+        const response = await apis.delete(REQ_WL_SINGLE_DEL, {
+            data: { wlid },
+        });
+        return response.data;
+    } catch (error) {
+        return {
+            status: 400,
+            msg: `failed in deleting worklog [${wlid}]`,
             data: "",
         };
     }

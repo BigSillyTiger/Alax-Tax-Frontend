@@ -52,11 +52,6 @@ const Orders: FC = () => {
     const [, setCompany] = useAtom(atCompany);
     const [, setLogo] = useAtom(atLogo);
 
-    const setTest = (order: Torder) => {
-        console.log("-> reset order: ", order);
-        setClientOrder(order);
-    };
-
     useEffect(() => {
         setAllStaff(staff);
         setCompany(company);
@@ -135,8 +130,7 @@ const Orders: FC = () => {
                                 quotation: true,
                                 invoice: true,
                             }}
-                            setData={setTest}
-                            //setData={setClientOrder}
+                            setData={setClientOrder}
                             getRowCanExpand={(row) => {
                                 if (row.original.order_services.length > 0) {
                                     return true;

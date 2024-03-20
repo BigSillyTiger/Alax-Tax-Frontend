@@ -20,6 +20,14 @@ const OrderInfoFs: FC<Tprops> = ({ info, sFieldset = "", sLegend = "" }) => {
             <div className="col-span-full break-words">
                 <p>
                     <b className="text-indigo-600">
+                        {t("label.idOrder")}:&nbsp;
+                    </b>
+                    {info.oid}
+                </p>
+            </div>
+            <div className="col-span-full break-words">
+                <p>
+                    <b className="text-indigo-600">
                         {t("label.workAddr")}:&nbsp;
                     </b>
                     {info.address},&nbsp;

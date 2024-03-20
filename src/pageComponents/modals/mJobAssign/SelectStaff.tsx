@@ -101,15 +101,7 @@ const SelectStaff: FC = () => {
                                 if (e.target.checked) {
                                     appendAssignedWork(newWork, date);
                                 } else {
-                                    console.log(
-                                        "-> test 1: ",
-                                        clientOrder.work_logs
-                                    );
                                     removeAssignedWork(newWork, date);
-                                    console.log(
-                                        "-> test 2: ",
-                                        clientOrder.work_logs
-                                    );
                                 }
                             }}
                             uid={staff.uid}

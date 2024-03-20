@@ -4,6 +4,7 @@ import Card from "@/components/card";
 import Fieldset from "@/components/form/fieldset";
 import { Input } from "@/components/ui/input";
 import { TassignedWork } from "@/configs/schema/workSchema";
+import { useJobAssignStore } from "@/configs/zustore";
 import { calWorkTime } from "@/utils/utils";
 import { useTranslation } from "react-i18next";
 
@@ -13,6 +14,31 @@ type Tprops<T extends TassignedWork> = {
 
 const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
     const { t } = useTranslation();
+    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
+    const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
+
+    const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newWL = currentWorkLogs.map((wl) => {
+            if (wl.fk_oid === item.fk_oid) {
+                return {
+                    ...wl,
+                    assigned_work: wl.assigned_work.map((aw) => {
+                        if (aw.fk_uid === item.fk_uid) {
+                            return {
+                                ...aw,
+                                [e.target.id]: e.target.value,
+                            };
+                        } else {
+                            return aw;
+                        }
+                    }),
+                };
+            } else {
+                return wl;
+            }
+        });
+        setWorkLogs(newWL);
+    };
 
     return (
         /* self-11 content-8 */
@@ -54,7 +80,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                             id="s_time"
                             type="time"
                             step="60"
-                            onChange={() => {}}
+                            onChange={handleTimeChange}
                             value={item.s_time ? item.s_time : "00:00"}
                             className="text-bold text-indigo-500 text-2xl"
                         />
@@ -67,7 +93,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                             id="e_time"
                             type="time"
                             step="60"
-                            onChange={() => {}}
+                            onChange={handleTimeChange}
                             value={item.e_time ? item.e_time : "00:00"}
                             className="text-bold text-indigo-500 text-2xl"
                         />
@@ -81,7 +107,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                             type="time"
                             step="60"
                             value={item.b_time ? item.b_time : "00:00"}
-                            onChange={() => {}}
+                            onChange={handleTimeChange}
                             className="text-bold text-amber-600 text-2xl"
                         />
                     </div>

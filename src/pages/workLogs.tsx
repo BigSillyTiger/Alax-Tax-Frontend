@@ -14,6 +14,7 @@ import MJobEdit from "@/pageComponents/modals/mJobEdit/mJobEdit";
 import { RES_STATUS } from "@/utils/types";
 import { mOpenOps } from "@/configs/utils";
 import { toastError, toastSuccess } from "@/utils/toaster";
+import MWorkLogDel from "@/pageComponents/modals/mWorkLogDel";
 
 const WorkLogs: FC = () => {
     const { t } = useTranslation();
@@ -27,16 +28,24 @@ const WorkLogs: FC = () => {
     useEffect(() => {
         if (actionData?.status === RES_STATUS.SUC_UPDATE_WORKLOG) {
             if (modalOpen === mOpenOps.edit) {
-                setModalOpen("");
+                setModalOpen(mOpenOps.default);
                 toastSuccess(t("toastS.updateWorkHours"));
                 actionData.status = RES_STATUS.DEFAULT;
             }
         } else if (actionData?.status === RES_STATUS.FAILED_UPDATE_WORKLOG) {
             if (modalOpen === mOpenOps.edit) {
-                setModalOpen("");
+                setModalOpen(mOpenOps.default);
                 toastError(t("toastF.updateWorkHours"));
                 actionData.status = RES_STATUS.DEFAULT;
             }
+        } else if (actionData?.status === RES_STATUS.SUC_DELETE_WORKLOG) {
+            setModalOpen(mOpenOps.default);
+            toastSuccess(t("toastS.delWorkLog"));
+            actionData.status = RES_STATUS.DEFAULT;
+        } else if (actionData?.status === RES_STATUS.FAILED_DELETE_WORKLOG) {
+            setModalOpen(mOpenOps.default);
+            toastError(t("toastF.delWorkLog"));
+            actionData.status = RES_STATUS.DEFAULT;
         }
     }, [actionData, modalOpen, setModalOpen, t]);
 
@@ -98,6 +107,7 @@ const WorkLogs: FC = () => {
 
             {/* modals */}
             <MJobEdit />
+            <MWorkLogDel />
         </div>
     );
 };

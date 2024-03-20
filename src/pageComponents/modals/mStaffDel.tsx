@@ -62,7 +62,7 @@ const MStaffDel: FC = memo(() => {
     );
 
     const onClose = () => {
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
     };
 
     const mainContent = (
