@@ -82,17 +82,17 @@ export const sortWorkLogs = (sort: "dsc" | "asc", workLogs: TworkLogs[]) => {
 export const calWorkTime = (
     sTime: string | null,
     eTime: string | null,
-    bTime: string | null
+    bHour: string | null
 ) => {
     sTime = sTime ?? "00:00";
     eTime = eTime ?? "00:00";
-    bTime = bTime ?? "00:00";
+    bHour = bHour ?? "00:00";
     // Parse start time
     const [startHour, startMinute] = sTime.split(":").map(Number);
     // Parse end time
     const [endHour, endMinute] = eTime.split(":").map(Number);
     // Parse break time
-    const [breakHour, breakMinute] = bTime.split(":").map(Number);
+    const [breakHour, breakMinute] = bHour.split(":").map(Number);
 
     // Convert time strings to total minutes
     const startTotalMinutes = startHour * 60 + startMinute;
@@ -125,12 +125,12 @@ export const hmsTohm = (time: string) => {
 export const isWorkHoursValid = (
     s_time: string,
     e_time: string,
-    b_time: string
+    b_hour: string
 ) => {
     // Split the time strings into hours and minutes
     const [startHour, startMinute] = s_time.split(":").map(Number);
     const [endHour, endMinute] = e_time.split(":").map(Number);
-    const [breakHour, breakMinute] = b_time.split(":").map(Number);
+    const [breakHour, breakMinute] = b_hour.split(":").map(Number);
 
     // Calculate total duration in minutes between start time and end time
     const totalDurationMinutes =

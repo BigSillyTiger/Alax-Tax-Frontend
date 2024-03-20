@@ -99,14 +99,14 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                         />
                     </div>
                     <div className="col-span-2 row-span-1">
-                        <label htmlFor="b_time" className="mx-2">
+                        <label htmlFor="b_hour" className="mx-2">
                             {t("label.break")}
                         </label>
                         <Input
-                            id="b_time"
+                            id="b_hour"
                             type="time"
                             step="60"
-                            value={item.b_time ? item.b_time : "00:00"}
+                            value={item.b_hour ? item.b_hour : "00:00"}
                             onChange={handleTimeChange}
                             className="text-bold text-amber-600 text-2xl"
                         />
@@ -123,7 +123,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                             value={calWorkTime(
                                 item.s_time,
                                 item.e_time,
-                                item.b_time
+                                item.b_hour
                             )}
                             className="text-bold text-lime-600 text-2xl"
                         />

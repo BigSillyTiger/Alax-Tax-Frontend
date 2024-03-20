@@ -29,9 +29,9 @@ const TimeBtn = ({ data, type }: Tprops) => {
             case "end":
                 return data.e_time;
             case "break":
-                return data.b_time;
+                return data.b_hour;
             case "total":
-                return calWorkTime(data.s_time, data.e_time, data.b_time);
+                return calWorkTime(data.s_time, data.e_time, data.b_hour);
             default:
                 return t("label.startTime");
         }

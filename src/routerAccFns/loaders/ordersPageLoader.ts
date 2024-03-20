@@ -36,7 +36,7 @@ export const ordersLoader = async () => {
                                         ...aw,
                                         s_time: hmsTohm(aw.s_time as string),
                                         e_time: hmsTohm(aw.e_time as string),
-                                        b_time: hmsTohm(aw.b_time as string),
+                                        b_hour: hmsTohm(aw.b_hour as string),
                                     };
                                 }),
                             };

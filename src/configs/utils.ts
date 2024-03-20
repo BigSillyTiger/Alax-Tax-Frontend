@@ -139,10 +139,10 @@ export const roleOptions = {
  * @description for time btns style
  */
 export const timeBtnStyleMap = {
-    start: "bg-indigo-600 border-indigo-600 text-slate-200 hover:bg-slate-100 hover:text-indigo-600",
-    end: "bg-indigo-600 border-indigo-600 text-slate-200 hover:bg-slate-100 hover:text-indigo-600",
+    start: "bg-lime-600 border-lime-600 text-slate-200 hover:bg-slate-100 hover:text-lime-600",
+    end: "bg-lime-600 border-lime-600 text-slate-200 hover:bg-slate-100 hover:text-lime-600",
     break: "bg-amber-600 border-amber-600 text-slate-200 hover:bg-slate-100 hover:text-amber-600",
-    total: "bg-lime-600 border-lime-600 text-slate-200 hover:bg-slate-100 hover:text-lime-600",
+    total: "bg-indigo-600 border-indigo-600 text-slate-200 hover:bg-slate-100 hover:text-indigo-600",
     default:
         "bg-slate-100 border-red-600 text-red-600 hover:bg-red-400 hover:text-slate-100",
 };
@@ -172,4 +172,10 @@ export const wlStatusColorMap = {
     canceled: "text-slate-100 bg-red-500 border-red-600",
     unconfirmed: "text-slate-100 bg-amber-500 border-amber-600",
     confirmed: "text-slate-100 bg-indigo-500 border-indigo-600",
+};
+
+export const genHHMM = (date: Date) => {
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${hours}:${minutes}`;
 };

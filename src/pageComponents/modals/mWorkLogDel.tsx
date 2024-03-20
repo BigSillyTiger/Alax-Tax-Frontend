@@ -85,7 +85,7 @@ const MWorkLogDel: FC = memo(() => {
                             <b className="text-indigo-600">
                                 {t("label.timeBreak")}:{" "}
                             </b>{" "}
-                            {worklog.b_time}
+                            {worklog.b_hour}
                         </p>
                     </div>
                     <div className="col-span-1">
@@ -96,7 +96,7 @@ const MWorkLogDel: FC = memo(() => {
                             {calWorkTime(
                                 worklog.s_time,
                                 worklog.e_time,
-                                worklog.b_time
+                                worklog.b_hour
                             )}
                         </p>
                     </div>

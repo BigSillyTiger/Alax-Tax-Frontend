@@ -18,6 +18,10 @@ const workLogSchema = z.object({
         .string()
         .regex(/^\d{2}:\d{2}$/)
         .default("00:00"),
+    b_hour: z
+        .string()
+        .regex(/^\d{2}:\d{2}$/)
+        .default("00:00"),
     wl_status: z
         .literal("pending")
         .or(z.literal("ongoing"))

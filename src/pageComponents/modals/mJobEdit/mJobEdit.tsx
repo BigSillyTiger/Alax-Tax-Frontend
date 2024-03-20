@@ -23,16 +23,16 @@ const MJobEdit = () => {
     const currentRouter = useRouterStore((state) => state.currentRouter);
     const s_time = useWorkHoursStore((state) => state.s_time);
     const e_time = useWorkHoursStore((state) => state.e_time);
-    const b_time = useWorkHoursStore((state) => state.b_time);
+    const b_hour = useWorkHoursStore((state) => state.b_hour);
     const setSTime = useWorkHoursStore((state) => state.setSTime);
     const setETime = useWorkHoursStore((state) => state.setETime);
-    const setBTime = useWorkHoursStore((state) => state.setBTime);
+    const setBHour = useWorkHoursStore((state) => state.setBHour);
 
     useEffect(() => {
         setSTime(worklog.s_time ? worklog.s_time : "00:00");
         setETime(worklog.e_time ? worklog.e_time : "00:00");
-        setBTime(worklog.b_time ? worklog.b_time : "00:00");
-    }, [modalOpen, worklog, setSTime, setETime, setBTime]);
+        setBHour(worklog.b_hour ? worklog.b_hour : "00:00");
+    }, [modalOpen, worklog, setSTime, setETime, setBHour]);
 
     const onClose = () => {
         setModalOpen(mOpenOps.default);
@@ -40,7 +40,7 @@ const MJobEdit = () => {
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        if (!isWorkHoursValid(s_time, e_time, b_time)) {
+        if (!isWorkHoursValid(s_time, e_time, b_hour)) {
             toastError(t("toastF.invalidWorkHours"));
             return;
         }
@@ -50,7 +50,7 @@ const MJobEdit = () => {
                     wlid: worklog.wlid,
                     s_time,
                     e_time,
-                    b_time,
+                    b_hour,
                 }),
                 req: "jobEdit",
             },

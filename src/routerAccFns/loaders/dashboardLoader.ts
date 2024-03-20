@@ -24,7 +24,7 @@ export const dashboardLoader = async () => {
                         wl_date: dateFormatAU(wl.wl_date),
                         s_time: hmsTohm(wl.s_time as string),
                         e_time: hmsTohm(wl.e_time as string),
-                        b_time: hmsTohm(wl.b_time as string),
+                        b_hour: hmsTohm(wl.b_hour as string),
                     };
                 });
             })

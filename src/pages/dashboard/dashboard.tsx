@@ -12,11 +12,11 @@ const Dashboard: FC = () => {
     const { worklogs } = useLoaderData() as { worklogs: TwlTableRow[] };
     const setWorklogs = useTodayWLStore((state) => state.setWorklogs);
 
-    //const user = useAdminStore((state) => state.currentUser);
-    setWorklogs(worklogs);
-    /* useEffect(() => {
-        console.log("-> init worklogs");
-    }, [worklogs, setWorklogs]); */
+    useEffect(() => {
+        setWorklogs(worklogs);
+    }, [worklogs, setWorklogs]);
+
+    useEffect(() => {}, []);
 
     const DashboardContent = ({ workLogs }: { workLogs: TwlTableRow[] }) => {
         return (

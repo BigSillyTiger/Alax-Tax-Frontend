@@ -11,17 +11,17 @@ const WorkHoursCard = ({ className }: Tprops) => {
     const { t } = useTranslation();
     const s_time = useWorkHoursStore((state) => state.s_time);
     const e_time = useWorkHoursStore((state) => state.e_time);
-    const b_time = useWorkHoursStore((state) => state.b_time);
+    const b_hour = useWorkHoursStore((state) => state.b_hour);
     const setSTime = useWorkHoursStore((state) => state.setSTime);
     const setETime = useWorkHoursStore((state) => state.setETime);
-    const setBTime = useWorkHoursStore((state) => state.setBTime);
-    const [totalWH, setTotalWH] = useState(calWorkTime(s_time, e_time, b_time));
+    const setBHour = useWorkHoursStore((state) => state.setBHour);
+    const [totalWH, setTotalWH] = useState(calWorkTime(s_time, e_time, b_hour));
     const [isValid, setIsValid] = useState(true);
 
     useEffect(() => {
-        setIsValid(isWorkHoursValid(s_time, e_time, b_time));
-        setTotalWH(calWorkTime(s_time, e_time, b_time));
-    }, [s_time, e_time, b_time, totalWH]);
+        setIsValid(isWorkHoursValid(s_time, e_time, b_hour));
+        setTotalWH(calWorkTime(s_time, e_time, b_hour));
+    }, [s_time, e_time, b_hour, totalWH]);
 
     return (
         <Fieldset
@@ -62,17 +62,17 @@ const WorkHoursCard = ({ className }: Tprops) => {
             </div>
             <div className="col-span-3 row-span-1">
                 <label
-                    htmlFor="b_time"
+                    htmlFor="b_hour"
                     className={`mx-2 text-lg font-bold ${!isValid && "text-red-500"}`}
                 >
                     {t("label.break")}
                 </label>
                 <Input
-                    id="b_time"
+                    id="b_hour"
                     type="time"
                     step="60"
-                    value={b_time}
-                    onChange={(e) => setBTime(e.target.value)}
+                    value={b_hour}
+                    onChange={(e) => setBHour(e.target.value)}
                     className={`text-bold text-3xl text-center m-2 p-2 ${isValid ? "text-amber-500" : "border-red-500 focus-visible:ring-red-500 text-red-500"}`}
                 />
             </div>

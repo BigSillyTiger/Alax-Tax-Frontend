@@ -1,8 +1,8 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { MTemplate } from "@/components/modal";
 import { atModalOpen } from "@/configs/atoms";
 import { useSubmit } from "react-router-dom";
-import { mOpenOps } from "@/configs/utils";
+import { genHHMM, mOpenOps } from "@/configs/utils";
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import StaffCard from "@/pageComponents/cards/StaffCard";
@@ -19,6 +19,7 @@ import { TwlTableRow } from "@/configs/schema/workSchema";
 const MTimeTracker = () => {
     const submit = useSubmit();
     const { t } = useTranslation();
+    const [nowTime, setNowTime] = useState(genHHMM(new Date()));
     const [openReset, setOpenReset] = useState(false);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const currentRouter = useRouterStore((state) => state.currentRouter);
@@ -27,6 +28,15 @@ const MTimeTracker = () => {
     const worklog =
         todayWorklogs.find((wl) => wl.wlid === currentWlid) ??
         ({} as TwlTableRow);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setNowTime(genHHMM(new Date()));
+        }, 10000);
+
+        // Clean up the timer when the component unmounts
+        return () => clearInterval(timer);
+    }, []);
 
     const onClose = () => {
         if (openReset) {
@@ -97,16 +107,16 @@ const MTimeTracker = () => {
                     </div>
                     <div className="col-span-3 row-span-1">
                         <label
-                            htmlFor="b_time"
+                            htmlFor="b_hour"
                             className={`mx-2 text-lg font-bold`}
                         >
                             {t("label.break")}
                         </label>
                         <Input
-                            id="b_time"
+                            id="b_hour"
                             type="time"
                             step="60"
-                            value={worklog.b_time}
+                            value={worklog.b_hour}
                             readOnly
                             className={`text-bold text-3xl w-auto text-amber-500 text-center m-2 p-2`}
                         />
@@ -123,11 +133,19 @@ const MTimeTracker = () => {
                             type="time"
                             step="60"
                             readOnly
-                            value={calWorkTime(
-                                worklog.s_time,
-                                worklog.e_time,
-                                worklog.b_time
-                            )}
+                            value={
+                                worklog.wl_status === "ongoing"
+                                    ? calWorkTime(
+                                          worklog.s_time,
+                                          nowTime,
+                                          worklog.b_hour
+                                      )
+                                    : calWorkTime(
+                                          worklog.s_time,
+                                          worklog.e_time,
+                                          worklog.b_hour
+                                      )
+                            }
                             className="text-bold text-3xl w-auto text-center text-lime-600 m-2 p-2"
                         />
                     </div>

@@ -3,6 +3,8 @@ import i18n from "@/utils/i18n";
 import { TwlTableRow } from "../schema/workSchema";
 //import { minusAB } from "@/utils/calculations";
 import { calWorkTime } from "@/utils/utils";
+import { wlStatusColorMap } from "../utils";
+import { TwlStatus } from "@/utils/types";
 
 const wlColumns = [
     {
@@ -96,7 +98,7 @@ const wlColumns = [
             {
                 id: "breakTime",
                 header: i18n.t("label.timeBreak"),
-                accessorKey: "b_time",
+                accessorKey: "b_hour",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
                     <span className="font-bold text-lg text-amber-600">
                         {info.getValue<string>()}
@@ -107,7 +109,7 @@ const wlColumns = [
                 id: "workTime",
                 header: i18n.t("label.workTime"),
                 accessorFn: (data: TwlTableRow) =>
-                    calWorkTime(data.s_time, data.e_time, data.b_time),
+                    calWorkTime(data.s_time, data.e_time, data.b_hour),
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
                     <span className="font-bold text-lg text-lime-700">
                         {info.getValue<string>()}
@@ -119,7 +121,11 @@ const wlColumns = [
                 header: i18n.t("label.status"),
                 accessorKey: "wl_status",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
+                    <span
+                        className={`border-2 text-center px-2 py-1 rounded-full font-bold ${wlStatusColorMap[info.getValue<string>() as TwlStatus]}`}
+                    >
+                        {info.getValue<string>()}
+                    </span>
                 ),
             },
         ],

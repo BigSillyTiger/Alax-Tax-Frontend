@@ -1,11 +1,11 @@
 import { redirect, LoaderFunctionArgs } from "react-router-dom";
 import { API_ADMIN } from "@/apis";
-import { routerStore } from "@/configs/zustore";
+//import { routerStore } from "@/configs/zustore";
 import { RES_STATUS } from "@/utils/types";
 
 export const layoutLoader = async ({ request }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;
-    routerStore.setState({ currentRouter: "login" });
+    //routerStore.setState({ currentRouter: "login" });
 
     try {
         const result = await API_ADMIN.adminCheck();
