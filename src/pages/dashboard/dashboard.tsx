@@ -16,8 +16,6 @@ const Dashboard: FC = () => {
         setWorklogs(worklogs);
     }, [worklogs, setWorklogs]);
 
-    useEffect(() => {}, []);
-
     const DashboardContent = ({ workLogs }: { workLogs: TwlTableRow[] }) => {
         return (
             <div className="grid grid-cols-12 gap-x-2">

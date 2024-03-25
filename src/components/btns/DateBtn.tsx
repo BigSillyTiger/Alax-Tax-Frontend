@@ -14,7 +14,10 @@ const DateBtn: FC<Tprops> = ({ name, onClick, onDelete }) => {
             <button onClick={onClick} className="text-base grow">
                 {name}
             </button>
-            <CloseBtn onClick={onDelete} xhoverStyle="hover:text-slate-100" />
+            <CloseBtn
+                onClick={onDelete}
+                xStyle="size-6 text-gray-400 hover:text-slate-100"
+            />
         </div>
     );
 };

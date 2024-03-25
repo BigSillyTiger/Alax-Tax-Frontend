@@ -1,11 +1,6 @@
 import { adminStore } from "@/configs/zustore";
 import apis from "./axios";
-import {
-    REQ_LOGIN,
-    REQ_LOGOUT,
-    REQ_ADMIN_CHECK,
-    REQ_ACCESS_CHECK,
-} from "./req_list";
+import { LOGIN, LOGOUT, ADMIN_CHECK, ACCESS_CHECK } from "./req_list";
 import { TadminStore } from "@/configs/schema/staffSchema";
 import { RES_STATUS } from "@/utils/types";
 
@@ -18,44 +13,33 @@ export const adminLogin = async (
         password,
     };
     try {
-        const response = await apis.post(REQ_LOGIN, newPost);
+        const response = await apis.post(LOGIN, newPost);
         adminStore.setState({ currentUser: response.data.data as TadminStore });
         return response.data;
-    } catch (err: any) {
-        if (err.response) {
-            console.error("err.response: ", err.response.data.success);
-        } else {
-            console.error(`error msg: ${err}`);
-        }
+    } catch (err: unknown) {
+        console.error("err.adminLogin: ", err);
         return { status: RES_STATUS.FAILED, msg: "", data: {} };
     }
 };
 
 export const adminLogout = async () => {
     try {
-        const response = await apis.get(REQ_LOGOUT);
+        const response = await apis.get(LOGOUT);
         return response.data.msg;
-    } catch (err: any) {
-        if (err.response) {
-            console.log("=> logout err.response: ", err.response);
-        } else {
-            console.log(`error msg: ${err}`);
-        }
+    } catch (err: unknown) {
+        console.log("error adminLogout:", err);
+
         return false;
     }
 };
 
 export const adminCheck = async (): Promise<Tresponse> => {
     try {
-        const response = await apis.get(REQ_ADMIN_CHECK);
+        const response = await apis.get(ADMIN_CHECK);
         adminStore.setState({ currentUser: response.data.data as TadminStore });
         return response.data;
-    } catch (err: any) {
-        if (err.response) {
-            console.log("=> err.response: ", err.response);
-        } else {
-            console.log(`error msg: ${err}`);
-        }
+    } catch (err: unknown) {
+        console.error("err.adminCheck: ", err);
         return {
             status: RES_STATUS.FAILED,
             msg: "admin check error",
@@ -66,14 +50,10 @@ export const adminCheck = async (): Promise<Tresponse> => {
 
 export const accessCheck = async (page: string): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_ACCESS_CHECK, { page });
+        const response = await apis.post(ACCESS_CHECK, { page });
         return response.data;
-    } catch (err: any) {
-        if (err.response) {
-            console.log("=> err.response: ", err.response);
-        } else {
-            console.log(`error msg: ${err}`);
-        }
+    } catch (err: unknown) {
+        console.error("err.accessCheck: ", err);
         return {
             status: RES_STATUS.FAILED,
             msg: "access check error",

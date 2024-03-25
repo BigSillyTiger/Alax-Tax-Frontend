@@ -36,8 +36,10 @@ export type AreTypesEqual<T, U> = T extends U ? true : false;
  * @param str
  * @returns generate new string with 1st letter capitalized and rest lowercased
  */
-export const capFirstLetter = (str: string) =>
-    `${str.charAt(0).toUpperCase()}${str.slice(1).toLowerCase()}`;
+export const capFirstLetter = (str: string) => {
+    if (!str) return "";
+    return `${str.charAt(0).toUpperCase()}${str.slice(1).toLowerCase()}`;
+};
 
 /**
  * @description generate action for relative router path
@@ -111,9 +113,33 @@ export const calWorkTime = (
     // Convert total work time back to hh:mm format
     const workHour = Math.floor(totalWorkMinutes / 60);
     const workMinute = totalWorkMinutes % 60;
-    const workTime = `${workHour.toString().padStart(2, "0")}:${workMinute.toString().padStart(2, "0")}`;
+    return `${workHour.toString().padStart(2, "0")}:${workMinute.toString().padStart(2, "0")}`;
+};
 
-    return workTime;
+export const calBreakTime = (sTime: string, eTime: string, bHour: string) => {
+    sTime = sTime ?? "00:00";
+    eTime = eTime ?? "00:00";
+    bHour = bHour ?? "00:00";
+    // Parse start time
+    const [startHour, startMinute] = sTime.split(":").map(Number);
+    // Parse end time
+    const [endHour, endMinute] = eTime.split(":").map(Number);
+    // Parse break time
+    const [breakHour, breakMinute] = bHour.split(":").map(Number);
+
+    // Convert time strings to total minutes
+    const startTotalMinutes = startHour * 60 + startMinute;
+    const endTotalMinutes = endHour * 60 + endMinute;
+    const breakTotalMinutes = breakHour * 60 + breakMinute;
+
+    // Calculate total work time in minutes
+    const totalWorkMinutes =
+        endTotalMinutes - startTotalMinutes + breakTotalMinutes;
+
+    // Convert total work time back to hh:mm format
+    const workHour = Math.floor(totalWorkMinutes / 60);
+    const workMinute = totalWorkMinutes % 60;
+    return `${workHour.toString().padStart(2, "0")}:${workMinute.toString().padStart(2, "0")}`;
 };
 
 export const hmsTohm = (time: string) => {

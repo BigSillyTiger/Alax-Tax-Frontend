@@ -1,14 +1,14 @@
-import { FormEvent, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { MTemplate } from "@/components/modal";
 import { atModalOpen } from "@/configs/atoms";
-import { useSubmit } from "react-router-dom";
-import { genHHMM, mOpenOps } from "@/configs/utils";
+//import { useSubmit } from "react-router-dom";
+import { genHHMM, mOpenOps, wlStatusColorMap } from "@/configs/utils";
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import StaffCard from "@/pageComponents/cards/StaffCard";
 import WorkInfoCard from "@/pageComponents/cards/WorkInfoCard";
-import { calWorkTime, genAction } from "@/utils/utils";
-import { useRouterStore } from "@/configs/zustore";
+import { calBreakTime, calWorkTime, capFirstLetter } from "@/utils/utils";
+//import { useRouterStore } from "@/configs/zustore";
 import Fieldset from "@/components/form/fieldset";
 import { Input } from "@/components/ui/input";
 import TimeBtnGroup from "./TimeBtns";
@@ -17,12 +17,12 @@ import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 
 const MTimeTracker = () => {
-    const submit = useSubmit();
+    //const submit = useSubmit();
     const { t } = useTranslation();
     const [nowTime, setNowTime] = useState(genHHMM(new Date()));
     const [openReset, setOpenReset] = useState(false);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
-    const currentRouter = useRouterStore((state) => state.currentRouter);
+    //const currentRouter = useRouterStore((state) => state.currentRouter);
     const currentWlid = useTodayWLStore((state) => state.currentWlid);
     const todayWorklogs = useTodayWLStore((state) => state.todayWorklogs);
     const worklog =
@@ -46,19 +46,31 @@ const MTimeTracker = () => {
         }
     };
 
-    const onSubmit = async (e: FormEvent) => {
-        e.preventDefault();
+    const workTime = (() => {
+        if (worklog.wl_status === "ongoing" && worklog.b_time === "00:00") {
+            return calWorkTime(worklog.s_time, nowTime, worklog.b_hour);
+        } else if (
+            worklog.wl_status === "ongoing" &&
+            worklog.b_time !== "00:00"
+        ) {
+            return calWorkTime(worklog.s_time, worklog.b_time, "00:00");
+        } else {
+            return calWorkTime(worklog.s_time, worklog.e_time, worklog.b_hour);
+        }
+    })();
 
-        submit(
-            {
-                values: JSON.stringify({
-                    wlid: worklog.wlid,
-                }),
-                req: "timeTracker",
-            },
-            { method: "POST", action: genAction(currentRouter) }
-        );
-    };
+    const breakTime = (() => {
+        if (worklog.wl_status === "ongoing" && worklog.b_time === "00:00") {
+            return worklog.b_hour;
+        } else if (
+            worklog.wl_status === "ongoing" &&
+            worklog.b_time !== "00:00"
+        ) {
+            return calBreakTime(worklog.b_time, nowTime, worklog.b_hour);
+        } else {
+            return worklog.b_hour;
+        }
+    })();
 
     const mainContent = (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-2">
@@ -71,7 +83,7 @@ const MTimeTracker = () => {
             <div className="col-span-1">
                 <Fieldset
                     title={t("label.timeInfo")}
-                    sFieldset="grid grid-cols-6"
+                    sFieldset="m-3 grid grid-cols-6 pl-3 pr-5"
                 >
                     <div className="col-span-3 row-span-2">
                         <label
@@ -116,7 +128,7 @@ const MTimeTracker = () => {
                             id="b_hour"
                             type="time"
                             step="60"
-                            value={worklog.b_hour}
+                            value={breakTime}
                             readOnly
                             className={`text-bold text-3xl w-auto text-amber-500 text-center m-2 p-2`}
                         />
@@ -133,23 +145,21 @@ const MTimeTracker = () => {
                             type="time"
                             step="60"
                             readOnly
-                            value={
-                                worklog.wl_status === "ongoing"
-                                    ? calWorkTime(
-                                          worklog.s_time,
-                                          nowTime,
-                                          worklog.b_hour
-                                      )
-                                    : calWorkTime(
-                                          worklog.s_time,
-                                          worklog.e_time,
-                                          worklog.b_hour
-                                      )
-                            }
+                            value={workTime}
                             className="text-bold text-3xl w-auto text-center text-lime-600 m-2 p-2"
                         />
                     </div>
                 </Fieldset>
+                <div className="mt-10 pl-5">
+                    <span className="text-lg font-bold text-indigo-600">
+                        {t("label.workStatus") + ": "}
+                    </span>
+                    <span
+                        className={`text-3xl font-bold rounded-full px-4 ${wlStatusColorMap[worklog.wl_status]}`}
+                    >
+                        {capFirstLetter(worklog.wl_status)}
+                    </span>
+                </div>
             </div>
             <TimeBtnGroup
                 setOpenReset={setOpenReset}

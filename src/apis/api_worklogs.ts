@@ -1,17 +1,20 @@
 import { TworkLog } from "@/configs/schema/workSchema";
 import apis from "./axios";
 import {
-    REQ_WL_ALL,
-    REQ_WL_RESET_TIMER,
-    REQ_WL_SIGNLE_UPDATE_H,
-    REQ_WL_SINGLE_DEL,
-    REQ_WL_START_TIMER,
-    REQ_WL_TODAY,
+    WL_ALL,
+    WL_PAUSE_TIMER,
+    WL_RESET_TIMER,
+    WL_RESUME_TIMER,
+    WL_SIGNLE_UPDATE_H,
+    WL_SINGLE_DEL,
+    WL_START_TIMER,
+    WL_STOP_TIMER,
+    WL_TODAY,
 } from "./req_list";
 
 export const wlAll = async (): Promise<Tresponse> => {
     try {
-        const response = await apis.get(REQ_WL_ALL);
+        const response = await apis.get(WL_ALL);
         return response.data;
     } catch (error) {
         return {
@@ -26,7 +29,7 @@ export const wlSingleUpdateHours = async (
     data: Partial<TworkLog>
 ): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_WL_SIGNLE_UPDATE_H, data);
+        const response = await apis.post(WL_SIGNLE_UPDATE_H, data);
         return response.data;
     } catch (error) {
         return {
@@ -39,7 +42,7 @@ export const wlSingleUpdateHours = async (
 
 export const wlSingleDel = async (wlid: string): Promise<Tresponse> => {
     try {
-        const response = await apis.delete(REQ_WL_SINGLE_DEL, {
+        const response = await apis.delete(WL_SINGLE_DEL, {
             data: { wlid },
         });
         return response.data;
@@ -54,7 +57,7 @@ export const wlSingleDel = async (wlid: string): Promise<Tresponse> => {
 
 export const wlGetToday = async (): Promise<Tresponse> => {
     try {
-        const response = await apis.get(REQ_WL_TODAY);
+        const response = await apis.get(WL_TODAY);
         return response.data;
     } catch (error) {
         return {
@@ -67,7 +70,7 @@ export const wlGetToday = async (): Promise<Tresponse> => {
 
 export const wlStartTimer = async (wlid: string): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_WL_START_TIMER, { wlid });
+        const response = await apis.post(WL_START_TIMER, { wlid });
         return response.data;
     } catch (error) {
         return {
@@ -80,12 +83,51 @@ export const wlStartTimer = async (wlid: string): Promise<Tresponse> => {
 
 export const wlResetTimer = async (wlid: string): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_WL_RESET_TIMER, { wlid });
+        const response = await apis.post(WL_RESET_TIMER, { wlid });
         return response.data;
     } catch (error) {
         return {
             status: 400,
             msg: "failed in resetting work timer",
+            data: "",
+        };
+    }
+};
+
+export const wlPauseTimer = async (wlid: string): Promise<Tresponse> => {
+    try {
+        const response = await apis.post(WL_PAUSE_TIMER, { wlid });
+        return response.data;
+    } catch (error) {
+        return {
+            status: 400,
+            msg: "failed in pausing work timer",
+            data: "",
+        };
+    }
+};
+
+export const wlResumeTimer = async (wlid: string): Promise<Tresponse> => {
+    try {
+        const response = await apis.post(WL_RESUME_TIMER, { wlid });
+        return response.data;
+    } catch (error) {
+        return {
+            status: 400,
+            msg: "failed in pausing work timer",
+            data: "",
+        };
+    }
+};
+
+export const wlStopTimer = async (wlid: string): Promise<Tresponse> => {
+    try {
+        const response = await apis.post(WL_STOP_TIMER, { wlid });
+        return response.data;
+    } catch (error) {
+        return {
+            status: 400,
+            msg: "failed in pausing work timer",
             data: "",
         };
     }

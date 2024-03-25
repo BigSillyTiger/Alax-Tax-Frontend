@@ -1,13 +1,13 @@
 import apis from "./axios";
 import {
-    REQ_MANAGE_UNI_ALL,
-    REQ_MANAGE_UNI_ADD,
-    REQ_MANAGE_UNI_DEL,
-    REQ_MANAGE_UNI_EDIT,
-    REQ_MANAGE_GET_COMPANY,
-    REQ_MANAGE_UPDATE_COMPANY,
-    REQ_MANAGE_LOGO_UPDATE,
-    REQ_MANAGE_LOGO,
+    SETTING_UNI_ALL,
+    SETTING_UNI_ADD,
+    SETTING_UNI_DEL,
+    SETTING_UNI_EDIT,
+    SETTING_GET_COMPANY,
+    SETTING_UPDATE_COMPANY,
+    SETTING_LOGO_UPDATE,
+    SETTING_LOGO,
 } from "./req_list";
 import {
     Tcompany,
@@ -19,7 +19,7 @@ import {
 
 export const companyGet = async (): Promise<Tresponse> => {
     try {
-        const response = await apis.get(REQ_MANAGE_GET_COMPANY);
+        const response = await apis.get(SETTING_GET_COMPANY);
         return response.data;
     } catch (err: unknown) {
         console.log("-> retrieve company error: ", err);
@@ -33,7 +33,7 @@ export const companyGet = async (): Promise<Tresponse> => {
 
 export const companyUpdate = async (company: Tcompany) => {
     try {
-        const response = await apis.put(REQ_MANAGE_UPDATE_COMPANY, company);
+        const response = await apis.put(SETTING_UPDATE_COMPANY, company);
         return response.data;
     } catch (err: unknown) {
         console.log("-> update company error: ", err);
@@ -47,7 +47,7 @@ export const companyUpdate = async (company: Tcompany) => {
 
 export const uniAll = async () => {
     try {
-        const response = await apis.get(REQ_MANAGE_UNI_ALL);
+        const response = await apis.get(SETTING_UNI_ALL);
         return response.data;
     } catch (err) {
         console.log("-> retrieve all service error: ", err);
@@ -67,7 +67,7 @@ export const uniDel = async ({
     type: "service" | "unit";
 }) => {
     try {
-        const response = await apis.post(REQ_MANAGE_UNI_DEL, { id, type });
+        const response = await apis.post(SETTING_UNI_DEL, { id, type });
         return response.data;
     } catch (err) {
         console.log("-> delete client failed: ", err);
@@ -81,7 +81,7 @@ export const uniDel = async ({
 
 export const uniEdit = async (uni: Tservice | Tunit) => {
     try {
-        const response = await apis.put(REQ_MANAGE_UNI_EDIT, uni);
+        const response = await apis.put(SETTING_UNI_EDIT, uni);
         return response.data;
     } catch (err) {
         console.log("-> edit data failed: ", err);
@@ -95,7 +95,7 @@ export const uniEdit = async (uni: Tservice | Tunit) => {
 
 export const uniAdd = async (unit: TnewService | TnewUnit) => {
     try {
-        const response = await apis.post(REQ_MANAGE_UNI_ADD, unit);
+        const response = await apis.post(SETTING_UNI_ADD, unit);
         return response.data;
     } catch (err) {
         console.log("-> insert service / unit err: ", err);
@@ -110,7 +110,7 @@ export const uniAdd = async (unit: TnewService | TnewUnit) => {
 export const logoUpdate = async (logoData: File) => {
     try {
         const response = await apis.put(
-            REQ_MANAGE_LOGO_UPDATE,
+            SETTING_LOGO_UPDATE,
             { logo: logoData },
             {
                 headers: {
@@ -131,7 +131,7 @@ export const logoUpdate = async (logoData: File) => {
 
 export const logo = async () => {
     try {
-        const response = await apis.get(REQ_MANAGE_LOGO);
+        const response = await apis.get(SETTING_LOGO);
         return response.data;
     } catch (err: unknown) {
         console.log("-> retrieve logo error: ", err);

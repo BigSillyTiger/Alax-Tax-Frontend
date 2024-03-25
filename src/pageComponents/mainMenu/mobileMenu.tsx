@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import type { FC } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
 import { TmenuList } from "./mainMenu";
@@ -13,17 +12,15 @@ type Tprops = {
     setOpen: (value: boolean) => void;
 };
 
-const classNames = (...classes: any) => {
-    return classes.filter(Boolean).join(" ");
-};
-
 const navFocus = ({ isActive }: { isActive: boolean }) => {
-    return classNames(
-        isActive
-            ? "bg-gray-800 text-white"
-            : "text-gray-400 hover:text-white hover:bg-gray-800",
-        "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
-    );
+    return `
+        ${
+            isActive
+                ? "bg-gray-800 text-white"
+                : "text-gray-400 hover:text-white hover:bg-gray-800"
+        } 
+        group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold
+    `;
 };
 
 const MobileMenu: FC<Tprops> = ({ menuList, open, setOpen }) => {
@@ -72,20 +69,8 @@ const MobileMenu: FC<Tprops> = ({ menuList, open, setOpen }) => {
                                     <CloseBtn
                                         onClick={() => setOpen(false)}
                                         srStr={t("sr.closeSideBar")}
+                                        xStyle="size-6 text-slate-100 hover:text-gray-900"
                                     />
-                                    <button
-                                        type="button"
-                                        className="-m-2.5 p-2.5"
-                                        onClick={() => setOpen(false)}
-                                    >
-                                        <span className="sr-only">
-                                            Close sidebar
-                                        </span>
-                                        <XMarkIcon
-                                            className="h-6 w-6 text-white"
-                                            aria-hidden="true"
-                                        />
-                                    </button>
                                 </div>
                             </Transition.Child>
 
@@ -108,6 +93,9 @@ const MobileMenu: FC<Tprops> = ({ menuList, open, setOpen }) => {
                                                     key={item.name}
                                                     to={item.href}
                                                     className={navFocus}
+                                                    onClick={() =>
+                                                        setOpen(false)
+                                                    }
                                                 >
                                                     <item.icon
                                                         className="h-6 w-6 shrink-0"

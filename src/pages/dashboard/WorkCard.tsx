@@ -21,7 +21,7 @@ const WorkCard: FC<Tprops> = ({ data }) => {
 
     return (
         <Card
-            className="cursor-pointer h-auto grid grid-cols-4 gap-y-2 border-2 border-indigo-300"
+            className="cursor-pointer h-auto grid grid-cols-5 gap-y-2 border-2 border-indigo-300"
             onClick={onClick}
         >
             <div className="col-span-3">
@@ -32,7 +32,7 @@ const WorkCard: FC<Tprops> = ({ data }) => {
                     {" - " + data.fk_uid}
                 </p>
             </div>
-            <div className="col-span-1 italic">
+            <div className="col-span-2 italic">
                 <p
                     className={`border-2 text-center rounded-lg font-bold ${wlStatusColorMap[data.wl_status]}`}
                 >

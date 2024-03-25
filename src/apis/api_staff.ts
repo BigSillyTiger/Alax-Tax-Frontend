@@ -1,17 +1,17 @@
 import apis from "./axios";
 import {
-    REQ_STAFF_ALL,
-    REQ_STAFF_INFO,
-    REQ_STAFF_SINGLE_DEL,
-    REQ_STAFF_SINGLE_REGISTER,
-    REQ_STAFF_SINGLE_UPDATE,
-    REQ_STAFF_UPDATE_PW,
+    STAFF_ALL,
+    STAFF_INFO,
+    STAFF_SINGLE_DEL,
+    STAFF_SINGLE_REGISTER,
+    STAFF_SINGLE_UPDATE,
+    STAFF_UPDATE_PW,
 } from "./req_list";
 import { Tstaff, TstaffForm } from "@/configs/schema/staffSchema";
 
 export const staffAll = async (): Promise<Tresponse> => {
     try {
-        const response = await apis.get(REQ_STAFF_ALL);
+        const response = await apis.get(STAFF_ALL);
         return response.data;
     } catch (err: unknown) {
         console.log("-> retrieve all staff error: ", err);
@@ -25,7 +25,7 @@ export const staffAll = async (): Promise<Tresponse> => {
 
 export const staffInfo = async (uid: string): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_STAFF_INFO, { uid });
+        const response = await apis.post(STAFF_INFO, { uid });
         return response.data;
     } catch (err: unknown) {
         console.log("-> retrieve staff info error: ", err);
@@ -39,7 +39,7 @@ export const staffInfo = async (uid: string): Promise<Tresponse> => {
 
 export const staffAdd = async (staff: TstaffForm): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_STAFF_SINGLE_REGISTER, [staff]);
+        const response = await apis.post(STAFF_SINGLE_REGISTER, [staff]);
         return response.data;
     } catch (err: unknown) {
         console.log("-> insert one staff err: ", err);
@@ -53,7 +53,7 @@ export const staffAdd = async (staff: TstaffForm): Promise<Tresponse> => {
 
 export const staffSingleDel = async (uid: string): Promise<Tresponse> => {
     try {
-        const response = await apis.put(REQ_STAFF_SINGLE_DEL, { uid });
+        const response = await apis.put(STAFF_SINGLE_DEL, { uid });
         return response.data;
     } catch (err: unknown) {
         console.log("-> delete staff failed: ", err);
@@ -67,7 +67,7 @@ export const staffSingleDel = async (uid: string): Promise<Tresponse> => {
 
 export const staffSingleUpdate = async (staff: Tstaff): Promise<Tresponse> => {
     try {
-        const response = await apis.put(REQ_STAFF_SINGLE_UPDATE, staff);
+        const response = await apis.put(STAFF_SINGLE_UPDATE, staff);
         return response.data;
     } catch (err: unknown) {
         console.log("-> update staff failed: ", err);
@@ -84,7 +84,7 @@ export const staffUpdatePW = async (
     pw: string
 ): Promise<Tresponse> => {
     try {
-        const response = await apis.put(REQ_STAFF_UPDATE_PW, { uid, pw });
+        const response = await apis.put(STAFF_UPDATE_PW, { uid, pw });
         return response.data;
     } catch (err: unknown) {
         console.log("-> update staff pw failed: ", err);

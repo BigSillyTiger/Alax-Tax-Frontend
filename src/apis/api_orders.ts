@@ -1,20 +1,20 @@
 import { TworkLogs } from "@/configs/schema/workSchema";
 import apis from "./axios";
 import {
-    REQ_ORDER_ALL,
-    REQ_ORDER_ADD,
-    REQ_ORDER_UPDATE,
-    REQ_ORDER_DEL,
-    REQ_ORDER_W_CLIENT,
-    REQ_ORDER_STATUS,
-    REQ_PAYMENT_UPDATE,
-    REQ_INVOICE_ISSUE_UPDATE,
-    REQ_JOB_ASSIGN,
+    ORDER_ALL,
+    ORDER_ADD,
+    ORDER_UPDATE,
+    ORDER_DEL,
+    ORDER_W_CLIENT,
+    ORDER_STATUS,
+    PAYMENT_UPDATE,
+    INVOICE_ISSUE_UPDATE,
+    JOB_ASSIGN,
 } from "./req_list";
 
 export const orderAll = async () => {
     try {
-        const response = await apis.get(REQ_ORDER_ALL);
+        const response = await apis.get(ORDER_ALL);
         return response.data;
     } catch (err: unknown) {
         console.log("-> retrieve all order error: ", err);
@@ -28,7 +28,7 @@ export const orderAll = async () => {
 
 export const orderAdd = async (data: unknown) => {
     try {
-        const response = await apis.post(REQ_ORDER_ADD, data);
+        const response = await apis.post(ORDER_ADD, data);
         return response.data;
     } catch (err: unknown) {
         console.log("-> error: add new order: ", err);
@@ -42,7 +42,7 @@ export const orderAdd = async (data: unknown) => {
 
 export const orderUpdate = async (data: unknown) => {
     try {
-        const response = await apis.put(REQ_ORDER_UPDATE, data);
+        const response = await apis.put(ORDER_UPDATE, data);
         return response.data;
     } catch (err: unknown) {
         console.log("-> error: update order: ", err);
@@ -56,7 +56,7 @@ export const orderUpdate = async (data: unknown) => {
 
 export const orderWClient = async (cid: string): Promise<Tresponse> => {
     try {
-        const response = await apis.post(REQ_ORDER_W_CLIENT, { cid });
+        const response = await apis.post(ORDER_W_CLIENT, { cid });
         return response.data;
     } catch (err: unknown) {
         console.log("-> retrieve client info error: ", err);
@@ -70,7 +70,7 @@ export const orderWClient = async (cid: string): Promise<Tresponse> => {
 
 export const orderDel = async (data: unknown): Promise<Tresponse> => {
     try {
-        const response = await apis.delete(REQ_ORDER_DEL, { data });
+        const response = await apis.delete(ORDER_DEL, { data });
         return response.data;
     } catch (err: unknown) {
         return {
@@ -83,7 +83,7 @@ export const orderDel = async (data: unknown): Promise<Tresponse> => {
 
 export const orderChangeStatus = async (data: unknown): Promise<Tresponse> => {
     try {
-        const response = await apis.put(REQ_ORDER_STATUS, data);
+        const response = await apis.put(ORDER_STATUS, data);
         return response.data;
     } catch (err: unknown) {
         return {
@@ -96,7 +96,7 @@ export const orderChangeStatus = async (data: unknown): Promise<Tresponse> => {
 
 export const paymentUpdate = async (data: unknown): Promise<Tresponse> => {
     try {
-        const response = await apis.put(REQ_PAYMENT_UPDATE, data);
+        const response = await apis.put(PAYMENT_UPDATE, data);
         return response.data;
     } catch (err: unknown) {
         return {
@@ -112,7 +112,7 @@ export const updateInvoiceIssue = async (
     oid: string
 ): Promise<Tresponse> => {
     try {
-        const response = await apis.put(REQ_INVOICE_ISSUE_UPDATE, {
+        const response = await apis.put(INVOICE_ISSUE_UPDATE, {
             date,
             oid,
         });
@@ -131,7 +131,7 @@ export const updateJobAssignment = async (
 ): Promise<Tresponse> => {
     console.log("-> sending update job assignment req: ", data);
     try {
-        const response = await apis.post(REQ_JOB_ASSIGN, { workLogs: data });
+        const response = await apis.post(JOB_ASSIGN, { workLogs: data });
         return response.data;
     } catch (err: unknown) {
         return {

@@ -121,6 +121,14 @@ export const mTabList = [
     /* { name: "Unit List" }, */
 ];
 
+export const actionReqList = {
+    startTimer: "startTimer",
+    stopTimer: "stopTimer",
+    pauseTimer: "pauseTimer",
+    resumeTimer: "resumeTimer",
+    resetTimer: "resetTimer",
+} as const;
+
 export const roleOptions = {
     labor: {
         ...genMenuIDObject(0),
@@ -172,6 +180,7 @@ export const wlStatusColorMap = {
     canceled: "text-slate-100 bg-red-500 border-red-600",
     unconfirmed: "text-slate-100 bg-amber-500 border-amber-600",
     confirmed: "text-slate-100 bg-indigo-500 border-indigo-600",
+    resting: "text-slate-100 bg-pink-500 border-pink-600",
 };
 
 export const genHHMM = (date: Date) => {

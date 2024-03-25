@@ -6,6 +6,8 @@ import { ConfirmBtn } from "@/components/form";
 import ModalFrame from "@/components/modal/modalFrame";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/utils/utils";
+import { TactionReqList } from "@/utils/types";
+import { actionReqList } from "@/configs/utils";
 
 type Tprops = {
     open: boolean;
@@ -23,11 +25,11 @@ const MResetTimer: FC<Tprops> = memo(({ open, setOpen, wlid }) => {
         setOpen(false);
     };
 
-    const handleConfirm = () => {
+    const handleConfirm = (req: TactionReqList) => {
         submit(
             {
                 wlid,
-                req: "reset_timer",
+                req,
             },
             { method: "POST", action: genAction(currentRouter) }
         );
@@ -41,7 +43,7 @@ const MResetTimer: FC<Tprops> = memo(({ open, setOpen, wlid }) => {
             </div>
             <ConfirmBtn
                 onClick={() => {
-                    handleConfirm();
+                    handleConfirm(actionReqList.resetTimer);
                     onClose();
                 }}
                 onClose={onClose}

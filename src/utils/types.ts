@@ -1,4 +1,9 @@
-import { mOpenOps, roleOptions, wlStatusColorMap } from "@/configs/utils";
+import {
+    actionReqList,
+    mOpenOps,
+    roleOptions,
+    wlStatusColorMap,
+} from "@/configs/utils";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
 import { timeBtnStyleMap } from "@/configs/utils";
 
@@ -49,3 +54,5 @@ export type TisConflict =
 export type TstaffRole = keyof typeof roleOptions;
 
 export type TwlStatus = keyof typeof wlStatusColorMap;
+
+export type TactionReqList = (typeof actionReqList)[keyof typeof actionReqList];
