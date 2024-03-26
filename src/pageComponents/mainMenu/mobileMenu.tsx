@@ -16,7 +16,7 @@ const navFocus = ({ isActive }: { isActive: boolean }) => {
     return `
         ${
             isActive
-                ? "bg-gray-800 text-white"
+                ? "bg-slate-50 text-indigo-600 rounded-full"
                 : "text-gray-400 hover:text-white hover:bg-gray-800"
         } 
         group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold

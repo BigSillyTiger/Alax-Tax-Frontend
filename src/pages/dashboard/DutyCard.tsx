@@ -14,7 +14,7 @@ const DutyCard: FC<Tprops> = ({ worklogs }) => {
     return (
         <Fieldset
             title={t("label.todayDuty")}
-            sFieldset="grid grid-cols-1 w-[28vw] h-[50vh] gap-y-2 px-2 overflow-y-auto overflow-x-hidden"
+            sFieldset="p-3 grid grid-cols-1 gap-y-2"
         >
             {worklogs.map((wl) => {
                 return <WorkCard key={wl.wlid} data={wl} />;
