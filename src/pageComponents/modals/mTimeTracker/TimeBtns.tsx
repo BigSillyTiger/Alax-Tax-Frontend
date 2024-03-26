@@ -48,7 +48,7 @@ const TimeBtnGroup: FC<Tprops> = ({ className, setOpenReset }) => {
             ) : (
                 <>
                     <Button
-                        className={`border-2 col-span-1 rounded-full font-bold border-red-600 bg-red-500 text-slate-100 hover:bg-slate-100 hover:text-red-600`}
+                        className={`border-2 col-span-1 rounded-full font-bold border-red-600 bg-red-500 text-slate-100 hover:bg-slate-100 hover:text-red-600 text-wrap`}
                         onClick={() => setOpenReset(true)}
                     >
                         {t("btn.timeReset")}

@@ -268,7 +268,7 @@ const MOrderPay: FC = memo(() => {
 
     const mainContent = (
         <Form onSubmit={onSubmit}>
-            <section className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[74vh] sm:h-[77vh] lg:h-auto">
+            <section className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[77vh] lg:h-auto">
                 <section className="col-span-1 lg:col-span-3 grid grid-cols-1">
                     {/* client info */}
                     <fieldset className="col-span-full">

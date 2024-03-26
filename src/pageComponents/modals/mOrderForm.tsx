@@ -700,8 +700,8 @@ const MOrderForm: FC = memo(() => {
     );
 
     const mainContent = (
-        <Form onSubmit={onSubmit} className="grid grid-cols-1 gap-y-3 gap-x-4">
-            <div className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[74dvh] sm:h-[77dvh] lg:h-auto">
+        <Form onSubmit={onSubmit}>
+            <section className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[77vh] lg:h-auto">
                 <section className="col-span-1 lg:col-span-3 grid grid-cols-1">
                     {/* client info */}
                     <fieldset className="">
@@ -729,23 +729,24 @@ const MOrderForm: FC = memo(() => {
                     </fieldset>
                 </section>
                 {/* order services list */}
-                <fieldset className="col-span-full lg:col-span-5">
-                    <legend className="text-indigo-500 text-bold">
-                        {t("label.serviceList")}:
-                    </legend>
-                    {descContent}
-                    {/* append btn - adding a new service */}
-                    {appendNewService}
-                </fieldset>
-            </div>
-            <section className="col-span-full row-span-2">
-                {/* btns */}
-                <SubmitBtn
-                    onClick={() => trigger()}
-                    onClose={onClose}
-                    navState={navigation.state}
-                    className=""
-                />
+                <section className="col-span-1 lg:col-span-5 grid grid-cols-1">
+                    <fieldset className="col-span-full">
+                        <legend className="text-indigo-500 text-bold">
+                            {t("label.serviceList")}:
+                        </legend>
+                        {descContent}
+                        {/* append btn - adding a new service */}
+                        {appendNewService}
+                        <section className="col-span-full row-span-2">
+                            {/* btns */}
+                            <SubmitBtn
+                                onClick={() => trigger()}
+                                onClose={onClose}
+                                navState={navigation.state}
+                            />
+                        </section>
+                    </fieldset>
+                </section>
             </section>
         </Form>
     );

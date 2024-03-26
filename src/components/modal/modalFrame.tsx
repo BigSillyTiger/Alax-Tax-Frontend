@@ -85,7 +85,7 @@ const ModalFrame: FC<Tprops> = ({
                                 )} ${className}`}
                             >
                                 {/* right top close button */}
-                                <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
+                                <div className="absolute right-0 top-0 pr-4 pt-4 block">
                                     <CloseBtn
                                         onClick={(e) => {
                                             e.preventDefault();
@@ -99,7 +99,7 @@ const ModalFrame: FC<Tprops> = ({
                                         {/* title */}
                                         <Dialog.Title
                                             as="h3"
-                                            className={`text-base font-semibold leading-6 mb-4  ${
+                                            className={`text-base flex items-center font-semibold leading-6 mb-4 h-[5vh] ${
                                                 isMajor
                                                     ? "text-red-600 flex items-center justify-center"
                                                     : "text-gray-900"

@@ -64,7 +64,7 @@ const MJobAssign = () => {
 
     const mainContent = (
         <Form onSubmit={onSubmit} className="grid grid-cols-1 gap-y-3 gap-x-4">
-            <section className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[74dvh] sm:h-[77dvh] lg:h-auto">
+            <section className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[77vh] lg:h-auto">
                 {/* left area */}
                 <section className="col-span-1 lg:col-span-4 grid grid-cols-1">
                     {/* client fieldset */}
@@ -106,6 +106,7 @@ const MJobAssign = () => {
             title={t("modal.title.jobAssign")}
             mode="full"
             mQuit={true}
+            className={"overflow-y-auto"}
         >
             {mainContent}
         </MTemplate>
