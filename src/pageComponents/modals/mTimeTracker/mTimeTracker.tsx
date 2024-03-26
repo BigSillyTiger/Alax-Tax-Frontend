@@ -74,97 +74,99 @@ const MTimeTracker = () => {
 
     const mainContent = (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-2">
-            {/* info */}
-            <div className="col-span-1">
-                <StaffCard staff={worklog} className="col-span-full" />
-                <WorkInfoCard work={worklog} className="col-span-full" />
-            </div>
-            {/* time */}
-            <div className="col-span-1">
-                <Fieldset
-                    title={t("label.timeInfo")}
-                    sFieldset="m-3 grid grid-cols-6 pl-3 pr-5"
-                >
-                    <div className="col-span-3 row-span-2">
-                        <label
-                            htmlFor="s_time"
-                            className={`mx-2 text-lg font-bold`}
-                        >
-                            {t("label.start")}
-                        </label>
-                        <Input
-                            id="s_time"
-                            type="time"
-                            step="60"
-                            value={worklog.s_time}
-                            readOnly
-                            className={`text-bold text-3xl w-auto text-center text-indigo-500 m-2 p-2`}
-                        />
-                    </div>
-                    <div className="col-span-3 row-span-2">
-                        <label
-                            htmlFor="e_time"
-                            className={`mx-2 text-lg font-bold`}
-                        >
-                            {t("label.end")}
-                        </label>
-                        <Input
-                            id="e_time"
-                            type="time"
-                            step="60"
-                            value={worklog.e_time}
-                            readOnly
-                            className={`text-bold text-3xl text-center w-auto text-indigo-500 m-2 p-2`}
-                        />
-                    </div>
-                    <div className="col-span-3 row-span-1">
-                        <label
-                            htmlFor="b_hour"
-                            className={`mx-2 text-lg font-bold`}
-                        >
-                            {t("label.break")}
-                        </label>
-                        <Input
-                            id="b_hour"
-                            type="time"
-                            step="60"
-                            value={breakTime}
-                            readOnly
-                            className={`text-bold text-3xl w-auto text-amber-500 text-center m-2 p-2`}
-                        />
-                    </div>
-                    <div className="col-span-3 row-span-1">
-                        <label
-                            htmlFor="w_time"
-                            className="mx-2 text-lg font-bold"
-                        >
-                            {t("label.workTime")}
-                        </label>
-                        <Input
-                            id="w_time"
-                            type="time"
-                            step="60"
-                            readOnly
-                            value={workTime}
-                            className="text-bold text-3xl w-auto text-center text-lime-600 m-2 p-2"
-                        />
-                    </div>
-                </Fieldset>
-                <div className="mt-10 pl-5">
-                    <span className="text-lg font-bold text-indigo-600">
-                        {t("label.workStatus") + ": "}
-                    </span>
-                    <span
-                        className={`text-3xl font-bold rounded-full px-4 ${wlStatusColorMap[worklog.wl_status]}`}
-                    >
-                        {capFirstLetter(worklog.wl_status)}
-                    </span>
+            <section className="overflow-y-auto max-h-[60vh]">
+                {/* info */}
+                <div className="col-span-1">
+                    <StaffCard staff={worklog} className="col-span-full" />
+                    <WorkInfoCard work={worklog} className="col-span-full" />
                 </div>
-            </div>
-            <TimeBtnGroup
-                setOpenReset={setOpenReset}
-                className="col-span-full"
-            />
+                {/* time */}
+                <div className="col-span-1">
+                    <Fieldset
+                        title={t("label.timeInfo")}
+                        sFieldset="m-3 grid grid-cols-6 pl-3 pr-5"
+                    >
+                        <div className="col-span-3 row-span-2">
+                            <label
+                                htmlFor="s_time"
+                                className={`mx-2 text-lg font-bold`}
+                            >
+                                {t("label.start")}
+                            </label>
+                            <Input
+                                id="s_time"
+                                type="time"
+                                step="60"
+                                value={worklog.s_time}
+                                readOnly
+                                className={`text-bold text-3xl w-auto text-center text-indigo-500 m-2 p-2`}
+                            />
+                        </div>
+                        <div className="col-span-3 row-span-2">
+                            <label
+                                htmlFor="e_time"
+                                className={`mx-2 text-lg font-bold`}
+                            >
+                                {t("label.end")}
+                            </label>
+                            <Input
+                                id="e_time"
+                                type="time"
+                                step="60"
+                                value={worklog.e_time}
+                                readOnly
+                                className={`text-bold text-3xl text-center w-auto text-indigo-500 m-2 p-2`}
+                            />
+                        </div>
+                        <div className="col-span-3 row-span-1">
+                            <label
+                                htmlFor="b_hour"
+                                className={`mx-2 text-lg font-bold`}
+                            >
+                                {t("label.break")}
+                            </label>
+                            <Input
+                                id="b_hour"
+                                type="time"
+                                step="60"
+                                value={breakTime}
+                                readOnly
+                                className={`text-bold text-3xl w-auto text-amber-500 text-center m-2 p-2`}
+                            />
+                        </div>
+                        <div className="col-span-3 row-span-1">
+                            <label
+                                htmlFor="w_time"
+                                className="mx-2 text-lg font-bold"
+                            >
+                                {t("label.workTime")}
+                            </label>
+                            <Input
+                                id="w_time"
+                                type="time"
+                                step="60"
+                                readOnly
+                                value={workTime}
+                                className="text-bold text-3xl w-auto text-center text-lime-600 m-2 p-2"
+                            />
+                        </div>
+                    </Fieldset>
+                    <div className="mt-10 pl-5">
+                        <span className="text-lg font-bold text-indigo-600">
+                            {t("label.workStatus") + ": "}
+                        </span>
+                        <span
+                            className={`text-3xl font-bold rounded-full px-4 ${wlStatusColorMap[worklog.wl_status]}`}
+                        >
+                            {capFirstLetter(worklog.wl_status)}
+                        </span>
+                    </div>
+                </div>
+                <TimeBtnGroup
+                    setOpenReset={setOpenReset}
+                    className="col-span-full"
+                />
+            </section>
         </div>
     );
 

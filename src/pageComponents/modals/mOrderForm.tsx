@@ -526,14 +526,6 @@ const MOrderForm: FC = memo(() => {
                                                     e.target.checked
                                                 );
                                                 calSNettoGst(index);
-                                                console.log(
-                                                    "-> taxable type: ",
-                                                    typeof e.target.checked
-                                                );
-                                                console.log(
-                                                    "-> value: ",
-                                                    e.target.value
-                                                );
                                             }}
                                         />
                                     </div>
