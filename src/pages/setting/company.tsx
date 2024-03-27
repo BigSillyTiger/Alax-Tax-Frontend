@@ -7,7 +7,7 @@ import { Tcompany, companySchema } from "@/configs/schema/settingSchema";
 import { useTranslation } from "react-i18next";
 import Card from "@/components/card";
 import { NormalBtn } from "@/components/btns";
-import { API_MANAGE } from "@/apis";
+import { API_SETTING } from "@/apis";
 import { toastSuccess } from "@/utils/toaster";
 import { RES_STATUS } from "@/utils/types";
 
@@ -311,7 +311,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                     onClick={async () => {
                         if (uploadFile) {
                             const result =
-                                await API_MANAGE.logoUpdate(uploadFile);
+                                await API_SETTING.logoUpdate(uploadFile);
                             if (result.status === RES_STATUS.SUC_UPDATE_LOGO) {
                                 toastSuccess(t("toastS.updateLogo"));
                                 setLogoSrc(result.data);

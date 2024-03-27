@@ -7,10 +7,10 @@ export const clientsLoader = async () => {
     console.log("-> clients loader running...");
     routerStore.setState({ currentRouter: "clients" });
     try {
-        const accessResult = await API_ADMIN.accessCheck(menuList[1].id);
-        if (!accessResult.data) {
-            return redirect("/login");
-        }
+        await API_ADMIN.accessCheck(menuList[1].id).then((res) => {
+            return !res.data && redirect("/login");
+        });
+
         const clients = API_CLIENT.clientAll();
         return defer({ clients });
     } catch (err) {

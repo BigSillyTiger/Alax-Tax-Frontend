@@ -1,7 +1,7 @@
 import { routerPaths } from "@/configs/utils";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
 import { format } from "date-fns";
-import { TworkLogs } from "@/configs/schema/workSchema";
+import { TwlTableRow, TworkLogs } from "@/configs/schema/workSchema";
 
 export const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
     return (obj as Tservice).service !== undefined;

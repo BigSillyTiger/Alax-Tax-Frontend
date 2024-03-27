@@ -1,4 +1,4 @@
-import { API_ADMIN, API_CLIENT, API_MANAGE, API_ORDER } from "@/apis";
+import { API_ADMIN, API_CLIENT, API_SETTING, API_ORDER } from "@/apis";
 import { menuList } from "@/configs/utils";
 import { Torder } from "@/configs/schema/orderSchema";
 import { routerStore } from "@/configs/zustore";
@@ -13,38 +13,39 @@ import { dateFormatAU } from "@/utils/utils";
 export const clientLoader = async ({ params }: LoaderFunctionArgs) => {
     routerStore.setState({ currentRouter: "client" });
     try {
-        const accessResult = await API_ADMIN.accessCheck(menuList[1].id);
-        if (!accessResult.data) {
-            return redirect("/login");
-        }
+        await API_ADMIN.accessCheck(menuList[1].id).then((res) => {
+            return !res.data && redirect("/login");
+        });
 
         const cid = params.cid as string;
-        const clientInfo = await API_CLIENT.clientInfo(cid);
-        const orders = await API_ORDER.orderWClient(cid)
-            .then((res) => res.data as Torder[])
+        const [clientInfo, orders, uniData, company, logo] = await Promise.all([
+            API_CLIENT.clientInfo(cid),
+            API_ORDER.orderWClient(cid)
+                .then((res) => res.data as Torder[])
 
-            .then((res) =>
-                res.map((item) => {
-                    return {
-                        ...item,
-                        // convert date format from yyyy-mm-dd to dd-mm-yyyy
-                        created_date: dateFormatAU(item.created_date),
-                        // desc sort order_services by ranking
-                        // conver taxable from 0/1 to boolean
-                        order_services: item.order_services
-                            .sort((a, b) => a.ranking - b.ranking)
-                            .map((desc) => {
-                                return {
-                                    ...desc,
-                                    taxable: Boolean(desc.taxable),
-                                };
-                            }),
-                    };
-                })
-            );
-        const uniData = await API_MANAGE.uniAll().then((res) => res.data);
-        const company = await API_MANAGE.companyGet().then((res) => res.data);
-        const logo = await API_MANAGE.logo().then((res) => res.data);
+                .then((res) =>
+                    res.map((item) => {
+                        return {
+                            ...item,
+                            // convert date format from yyyy-mm-dd to dd-mm-yyyy
+                            created_date: dateFormatAU(item.created_date),
+                            // desc sort order_services by ranking
+                            // conver taxable from 0/1 to boolean
+                            order_services: item.order_services
+                                .sort((a, b) => a.ranking - b.ranking)
+                                .map((desc) => {
+                                    return {
+                                        ...desc,
+                                        taxable: Boolean(desc.taxable),
+                                    };
+                                }),
+                        };
+                    })
+                ),
+            API_SETTING.uniAll().then((res) => res.data),
+            API_SETTING.companyGet().then((res) => res.data),
+            API_SETTING.logo().then((res) => res.data),
+        ]);
 
         return defer({
             clientInfo,

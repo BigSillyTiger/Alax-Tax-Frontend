@@ -4,11 +4,14 @@ import { redirect } from "react-router-dom";
 import { RES_STATUS } from "@/utils/types";
 
 export const initLoader = async () => {
-    console.log("====> init page loader running...");
+    //console.log("====> init page loader running...");
     routerStore.setState({ currentRouter: "init" });
-    const result = await API_ADMIN.adminCheck();
-    if (result.status === RES_STATUS.SUCCESS) {
-        return redirect("/dashboard");
-    }
-    return redirect("/login");
+    return await API_ADMIN.adminCheck()
+        .then((res) => {
+            return res.status === RES_STATUS.SUCCESS && redirect("/dashboard");
+        })
+        .catch((error) => {
+            console.log("-> Error: init page admin check: ", error);
+            return redirect("/login");
+        });
 };

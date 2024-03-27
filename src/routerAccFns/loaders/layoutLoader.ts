@@ -8,13 +8,14 @@ export const layoutLoader = async ({ request }: LoaderFunctionArgs) => {
     //routerStore.setState({ currentRouter: "login" });
 
     try {
-        const result = await API_ADMIN.adminCheck();
-        if (result.status === RES_STATUS.SUCCESS) {
-            return result.data;
-        }
-        return pname
-            ? redirect(`/login?redirect=${pname}`)
-            : redirect("/login");
+        return await API_ADMIN.adminCheck().then((res) => {
+            if (res.status === RES_STATUS.SUCCESS) {
+                return res.data;
+            }
+            return pname
+                ? redirect(`/login?redirect=${pname}`)
+                : redirect("/login");
+        });
     } catch (err) {
         return redirect("/login");
     }

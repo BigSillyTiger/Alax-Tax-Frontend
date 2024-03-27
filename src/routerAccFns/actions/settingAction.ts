@@ -1,4 +1,4 @@
-import { API_MANAGE } from "@/apis";
+import { API_SETTING } from "@/apis";
 import type { ActionFunctionArgs } from "react-router-dom";
 
 export const settingAction = async ({
@@ -16,11 +16,11 @@ export const settingAction = async ({
                   unit_price: Number(data.get("unit_price")),
               }
             : { unit_name: data.get("unit_name") as string }; // unit
-        const result = await API_MANAGE.uniAdd(temp);
+        const result = await API_SETTING.uniAdd(temp);
         return result;
     } else if ("DELETE" === request.method) {
         /* delete service / unit action */
-        const result = await API_MANAGE.uniDel({
+        const result = await API_SETTING.uniDel({
             id: Number(data.get("id")),
             type: data.get("type") as "service" | "unit",
         });
@@ -38,7 +38,7 @@ export const settingAction = async ({
                   id: Number(data.get("id")),
                   unit_name: data.get("unit_name") as string,
               };
-        const result = await API_MANAGE.uniEdit(temp);
+        const result = await API_SETTING.uniEdit(temp);
         return result;
     } else if ("PUT" === request.method && data.get("req") === "company") {
         const temp = {
@@ -54,7 +54,7 @@ export const settingAction = async ({
             logoName: data.get("logoName") as string,
         };
         console.log("-> setting action update company info: ", temp);
-        const result = await API_MANAGE.companyUpdate(temp);
+        const result = await API_SETTING.companyUpdate(temp);
         return result;
     } else {
         return {

@@ -1,4 +1,4 @@
-import { API_ADMIN, API_MANAGE, API_ORDER, API_STAFF } from "@/apis";
+import { API_ADMIN, API_SETTING, API_ORDER, API_STAFF } from "@/apis";
 import { menuList } from "@/configs/utils";
 import { Torder } from "@/configs/schema/orderSchema";
 import { routerStore } from "@/configs/zustore";
@@ -8,50 +8,65 @@ import { hmsTohm } from "@/utils/utils";
 export const ordersLoader = async () => {
     routerStore.setState({ currentRouter: "orders" });
     try {
-        const accessResult = await API_ADMIN.accessCheck(menuList[2].id);
-        if (!accessResult.data) {
-            return redirect("/login");
-        }
-        const orders = await API_ORDER.orderAll()
-            .then((res) => res.data as Torder[])
-            .then((res) =>
-                // desc sort order_services by ranking
-                // conver taxable from 0/1 to boolean
-                res.map((item) => {
-                    return {
-                        ...item,
-                        order_services: item.order_services
-                            .sort((a, b) => a.ranking - b.ranking)
-                            .map((desc) => {
-                                return {
-                                    ...desc,
-                                    taxable: Boolean(desc.taxable),
-                                };
-                            }),
-                        work_logs: item.work_logs.map((wl) => {
-                            return {
-                                ...wl,
-                                assigned_work: wl.assigned_work.map((aw) => {
+        await API_ADMIN.accessCheck(menuList[2].id)
+            .then((res) => {
+                return !res.data && redirect("/login");
+            })
+            .catch((error) => {
+                console.log("-> Error: orders page admin check: ", error);
+                return redirect("/login");
+            });
+
+        const [orders, uniData, company, staff, logo] = await Promise.all([
+            API_ORDER.orderAll()
+                .then((res) => res.data as Torder[])
+                .then((res) =>
+                    // desc sort order_services by ranking
+                    // conver taxable from 0/1 to boolean
+                    res.map((item) => {
+                        return {
+                            ...item,
+                            order_services: item.order_services
+                                .sort((a, b) => a.ranking - b.ranking)
+                                .map((desc) => {
                                     return {
-                                        ...aw,
-                                        s_time: hmsTohm(aw.s_time as string),
-                                        e_time: hmsTohm(aw.e_time as string),
-                                        b_hour: hmsTohm(aw.b_hour as string),
+                                        ...desc,
+                                        taxable: Boolean(desc.taxable),
                                     };
                                 }),
-                            };
-                        }),
-                    };
-                })
-            )
-            .catch((error) => {
-                console.log("-> error fetching orders: ", error);
-                return [];
-            });
-        const uniData = await API_MANAGE.uniAll().then((res) => res.data);
-        const company = await API_MANAGE.companyGet().then((res) => res.data);
-        const staff = await API_STAFF.staffAll().then((res) => res.data);
-        const logo = await API_MANAGE.logo().then((res) => res.data);
+                            work_logs: item.work_logs.map((wl) => {
+                                return {
+                                    ...wl,
+                                    assigned_work: wl.assigned_work.map(
+                                        (aw) => {
+                                            return {
+                                                ...aw,
+                                                s_time: hmsTohm(
+                                                    aw.s_time as string
+                                                ),
+                                                e_time: hmsTohm(
+                                                    aw.e_time as string
+                                                ),
+                                                b_hour: hmsTohm(
+                                                    aw.b_hour as string
+                                                ),
+                                            };
+                                        }
+                                    ),
+                                };
+                            }),
+                        };
+                    })
+                )
+                .catch((error) => {
+                    console.log("-> error fetching orders: ", error);
+                    return [];
+                }),
+            API_SETTING.uniAll().then((res) => res.data),
+            API_SETTING.companyGet().then((res) => res.data),
+            API_STAFF.staffAll().then((res) => res.data),
+            API_SETTING.logo().then((res) => res.data),
+        ]);
 
         return defer({
             orders,
