@@ -1,6 +1,8 @@
 import React from "react";
 import type { FC } from "react";
 import { Switch } from "@headlessui/react";
+import { switchW, switchH } from "@/configs/ui";
+import { useTranslation } from "react-i18next";
 
 type Tprops = {
     direct: "v" | "h";
@@ -9,9 +11,13 @@ type Tprops = {
 };
 
 const VHSwitch: FC<Tprops> = ({ direct = "h", isChecked, setIsChecked }) => {
+    const [t] = useTranslation();
     const transS = direct === "h" ? "translate-x-6" : "translate-y-6";
     const transE = direct === "h" ? "translate-x-0" : "translate-y-0";
-    const size = direct === "h" ? "h-[29px] w-[53px]" : "h-[53px] w-[29px]";
+    const size =
+        direct === "h"
+            ? `h-[${switchW}] w-[${switchH}]`
+            : `h-[${switchH}] w-[${switchW}]`;
     return (
         <div className="py-2">
             <Switch
@@ -20,7 +26,7 @@ const VHSwitch: FC<Tprops> = ({ direct = "h", isChecked, setIsChecked }) => {
                 className={`${isChecked ? "bg-amber-500" : "bg-cyan-500"}
               relative inline-flex  shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white/75 ${size}`}
             >
-                <span className="sr-only">Switch</span>
+                <span className="sr-only">{t("label.switch")}</span>
                 <span
                     aria-hidden="true"
                     className={`${isChecked ? transS : transE}

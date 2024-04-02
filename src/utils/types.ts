@@ -1,5 +1,6 @@
 import {
     actionReqList,
+    defaultMenuOptions,
     mOpenOps,
     roleOptions,
     wlStatusColorMap,
@@ -56,3 +57,5 @@ export type TstaffRole = keyof typeof roleOptions;
 export type TwlStatus = keyof typeof wlStatusColorMap;
 
 export type TactionReqList = (typeof actionReqList)[keyof typeof actionReqList];
+
+export type TmenuOptions = Partial<typeof defaultMenuOptions>;

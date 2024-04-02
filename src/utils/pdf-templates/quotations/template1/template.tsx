@@ -11,6 +11,7 @@ import TableFooter from "./TableFooter";
 import PageFooter from "./PageFooter";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { useTranslation } from "react-i18next";
+import { pdfH } from "@/configs/ui";
 
 const tw = createTw({});
 
@@ -65,7 +66,7 @@ const QuoTemplate: FC<Tprops> = ({
     );
 
     return (
-        <PDFViewer style={tw("h-[85vh] w-full")}>
+        <PDFViewer style={tw(`h-[${pdfH}] w-full`)}>
             <Document
                 creator={"SRC"}
                 producer={"SRC"}

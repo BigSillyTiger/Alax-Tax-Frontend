@@ -2,6 +2,8 @@ import { FC } from "react";
 import { Bars3Icon, BellIcon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "./breadcrumbs";
 import UserMenu from "./UserMenu";
+import { headbarH } from "@/configs/ui";
+import { useTranslation } from "react-i18next";
 
 type Tprops = {
     open: boolean;
@@ -9,15 +11,18 @@ type Tprops = {
 };
 
 const HeadBar: FC<Tprops> = ({ setOpen }) => {
+    const [t] = useTranslation();
     return (
         <header className="lg:pl-[5vw]">
-            <div className="sticky top-0 z-40 flex h-[7vh] shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+            <div
+                className={`sticky top-0 z-40 flex h-[${headbarH}] shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8`}
+            >
                 <button
                     type="button"
                     className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
                     onClick={() => setOpen(true)}
                 >
-                    <span className="sr-only">Open sidebar</span>
+                    <span className="sr-only">{t("label.openMenu")}</span>
                     <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                 </button>
                 <div className="">

@@ -8,6 +8,7 @@ import DatePicker from "@/components/DatePicker";
 import "react-day-picker/dist/style.css";
 import { useJobAssignStore } from "@/configs/zustore";
 import { dateFormatAU, sortWorkLogs } from "@/utils/utils";
+import { dsH } from "@/configs/ui";
 
 const DateSchedule: FC = () => {
     const { t } = useTranslation();
@@ -91,7 +92,9 @@ const DateSchedule: FC = () => {
                 <div className="font-semibold text-indigo-500 text-bold my-2 ml-2">
                     {t("modal.tips.scheduledWork")}
                 </div>
-                <Card className="overflow-y-auto flex flex-col justify-stretch max-h-[40vh]">
+                <Card
+                    className={`overflow-y-auto flex flex-col justify-stretch max-h-[${dsH}]`}
+                >
                     {sortWorkLogs("dsc", currentWorkLogs).map((item, index) => {
                         return (
                             <div key={index} className="my-1 w-full flex">

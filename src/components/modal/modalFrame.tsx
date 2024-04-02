@@ -4,6 +4,7 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
 import { CloseBtn } from "../btns";
+import { mainViewFullW, mainViewH, mainViewW, menuLgW } from "@/configs/ui";
 
 type Tprops = {
     open: boolean;
@@ -38,9 +39,9 @@ const ModalFrame: FC<Tprops> = ({
             case "xl":
                 return "max-w-3xl rounded-lg";
             case "full":
-                return "w-[100vw] h-[93vh] lg:w-[95vw] lg:ml-[5vw]";
+                return `w-[${mainViewFullW}] h-[${mainViewH}] lg:w-[${mainViewW}] lg:ml-[${menuLgW}]`;
             case "md-full":
-                return "w-[100vw] h-[93vh] sm:max-w-xl sm:rounded-lg";
+                return `w-[${mainViewFullW}] h-[${mainViewH}] sm:max-w-xl sm:rounded-lg`;
         }
     };
 

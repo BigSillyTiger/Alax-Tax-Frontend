@@ -15,6 +15,7 @@ import { RES_STATUS } from "@/utils/types";
 import { mOpenOps } from "@/configs/utils";
 import { toastError, toastSuccess } from "@/utils/toaster";
 import MWorkLogDel from "@/pageComponents/modals/mWorkLogDel";
+import { pageTableH } from "@/configs/ui";
 
 const WorkLogs: FC = () => {
     const { t } = useTranslation();
@@ -79,7 +80,7 @@ const WorkLogs: FC = () => {
                             }}
                             //expandContent={orderSubTable}
                             cnSearch="my-3"
-                            cnTable="h-[65vh]"
+                            cnTable={`h-[${pageTableH}]`}
                             cnHead="sticky z-10 bg-indigo-300"
                             cnTh="py-3"
                         />

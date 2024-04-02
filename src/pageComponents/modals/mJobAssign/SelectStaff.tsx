@@ -11,6 +11,7 @@ import { useAtom } from "jotai";
 import { assignedWorkSchema } from "@/configs/schema/workSchema";
 import { dateFormatISO } from "@/utils/utils";
 import { toastWarning } from "@/utils/toaster";
+import { fieldsetH } from "@/configs/ui";
 
 const SelectStaff: FC = () => {
     const { t } = useTranslation();
@@ -62,7 +63,7 @@ const SelectStaff: FC = () => {
     return (
         <Fieldset
             title={t("label.selectStaff")}
-            sFieldset="col-span-full my-2 mx-1 h-[28vh] px-2 gap-x-2 gap-y-3 flex flex-wrap justify-start content-start overflow-y-auto"
+            sFieldset={`col-span-full my-2 mx-1 h-[${fieldsetH}] px-2 gap-x-2 gap-y-3 flex flex-wrap justify-start content-start overflow-y-auto`}
         >
             {allStaff.length ? (
                 allStaff.map((staff) => {

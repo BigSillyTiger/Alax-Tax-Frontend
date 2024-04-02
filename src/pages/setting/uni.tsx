@@ -12,6 +12,7 @@ import { PTable } from "@/components/table";
 import { useTranslation } from "react-i18next";
 import { atSUInitData, initS, initU, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils.ts";
+import { uniTableH } from "@/configs/ui.ts";
 
 type Tprops = Tunivers;
 
@@ -54,7 +55,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                             setData={setSUinitData}
                             menuOptions={{ edit: true, del: true }}
                             cnSearch="my-3"
-                            cnTable="h-[55vh]"
+                            cnTable={`h-[${uniTableH}]`}
                             cnHead="sticky z-10 bg-indigo-300"
                             cnTh="py-3"
                         />
@@ -101,7 +102,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                             setData={setSUinitData}
                             menuOptions={{ edit: true, del: true }}
                             cnSearch="my-3"
-                            cnTable="h-[55vh]"
+                            cnTable={`h-[${uniTableH}]`}
                             cnHead="sticky z-10 bg-indigo-300"
                             cnTh="py-3"
                         />

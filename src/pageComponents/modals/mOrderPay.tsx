@@ -24,6 +24,11 @@ import { dateMax, dateMin, mOpenOps } from "@/configs/utils";
 import { atOrder, atModalOpen } from "@/configs/atoms";
 import { useRouterStore } from "@/configs/zustore";
 import { XBtn } from "@/components/btns";
+import {
+    orderPayModalH,
+    orderPayModalMainH,
+    orderPayModalServicesH,
+} from "@/configs/ui";
 
 type Tpayment = {
     payments: TorderPayment[];
@@ -142,7 +147,9 @@ const MOrderPay: FC = memo(() => {
     };
 
     const paymentsContent = fields.length ? (
-        <Card className=" my-2 mx-1 text-sm lg:h-[45vh] overflow-y-auto">
+        <Card
+            className={`my-2 mx-1 text-sm lg:h-[${orderPayModalH}] overflow-y-auto`}
+        >
             {fields.map((field, index) => {
                 return (
                     <section
@@ -199,7 +206,9 @@ const MOrderPay: FC = memo(() => {
             })}
         </Card>
     ) : (
-        <Card className="my-2 mx-1 text-indigo-300 text-bold lg:h-[45vh]">
+        <Card
+            className={`my-2 mx-1 text-indigo-300 text-bold lg:h-[${orderPayModalH}]`}
+        >
             {t("tips.noPayments")}
         </Card>
     );
@@ -268,7 +277,9 @@ const MOrderPay: FC = memo(() => {
 
     const mainContent = (
         <Form onSubmit={onSubmit}>
-            <section className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[77vh] lg:h-auto">
+            <section
+                className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[${orderPayModalMainH}] lg:h-auto`}
+            >
                 <section className="col-span-1 lg:col-span-3 grid grid-cols-1">
                     {/* client info */}
                     <fieldset className="col-span-full">
@@ -303,7 +314,9 @@ const MOrderPay: FC = memo(() => {
                         <legend className="text-indigo-500 text-bold">
                             <b>{t("label.serviceList")}:</b>
                         </legend>
-                        <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[60vh] overflow-y-auto">
+                        <Card
+                            className={`my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[${orderPayModalServicesH}] overflow-y-auto`}
+                        >
                             <section className="col-span-full">
                                 <OrderDescCard
                                     data={clientOrder.order_services}

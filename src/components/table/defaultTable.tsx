@@ -18,6 +18,8 @@ import { CTable, CTBody, CTHead, CTh } from ".";
 import ContentWithSwitch from "./SwitchWContent";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import TimeBtn from "@/pageComponents/TimeBtn";
+import { TmenuOptions } from "@/utils/types";
+import { defaultMenuOptions } from "@/configs/utils";
 
 type Tprops<T> = {
     data: T[];
@@ -62,14 +64,7 @@ type Tprops<T> = {
 const PTable = <T extends object>({
     data,
     columns,
-    menuOptions = {
-        assign: false,
-        edit: false,
-        del: false,
-        pay: false,
-        invoice: false,
-        quotation: false,
-    },
+    menuOptions = defaultMenuOptions,
     setData,
     search,
     hFilter,

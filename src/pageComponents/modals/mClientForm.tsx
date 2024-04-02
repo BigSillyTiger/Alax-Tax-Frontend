@@ -15,6 +15,7 @@ import StatesOptions from "@/components/stateOptions";
 import { atClient, atInfoConflict, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
 import { RES_STATUS } from "@/utils/types";
+import { clientModalH } from "@/configs/ui";
 
 const MClientForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -70,7 +71,9 @@ const MClientForm: FC = memo(() => {
                 />
             </p>
             <Form onSubmit={onSubmit} className="">
-                <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 overflow-y-auto h-[70vh] sm:h-auto">
+                <div
+                    className={`mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 overflow-y-auto h-[${clientModalH}] sm:h-auto`}
+                >
                     <div className="sm:col-span-3">
                         <label
                             htmlFor="first_name"

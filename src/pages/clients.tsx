@@ -13,6 +13,7 @@ import { PTable } from "@/components/table";
 import { MClientDel, MClientForm } from "@/pageComponents/modals";
 import { atClient, atInfoConflict, atModalOpen } from "@/configs/atoms";
 import { RES_STATUS } from "@/utils/types";
+import { pageTableH } from "@/configs/ui";
 
 type Tprops = {
     clients: Tclient[] | null;
@@ -92,7 +93,7 @@ const Clients: FC = () => {
                                 menuOptions={{ edit: true, del: true }}
                                 setData={setClient}
                                 cnSearch="my-3"
-                                cnTable="h-[65vh]"
+                                cnTable={`h-[${pageTableH}]`}
                                 cnHead="sticky z-10 bg-indigo-300"
                                 cnTh="py-3"
                             />

@@ -1,14 +1,21 @@
 import { API_ADMIN } from "@/apis";
 import { routerStore } from "@/configs/zustore";
-import { redirect } from "react-router-dom";
+import { LoaderFunctionArgs, redirect } from "react-router-dom";
 import { RES_STATUS } from "@/utils/types";
 
-export const initLoader = async () => {
+export const initLoader = async ({ request }: LoaderFunctionArgs) => {
     //console.log("====> init page loader running...");
+    const pname = new URL(request.url).pathname;
     routerStore.setState({ currentRouter: "init" });
     return await API_ADMIN.adminCheck()
         .then((res) => {
-            return res.status === RES_STATUS.SUCCESS && redirect("/dashboard");
+            //return res.status === RES_STATUS.SUCCESS && redirect("/dashboard");
+            if (res.status === RES_STATUS.SUCCESS) {
+                return redirect("/dashboard");
+            }
+            return pname
+                ? redirect(`/login?redirect=${pname}`)
+                : redirect("/login");
         })
         .catch((error) => {
             console.log("-> Error: init page admin check: ", error);

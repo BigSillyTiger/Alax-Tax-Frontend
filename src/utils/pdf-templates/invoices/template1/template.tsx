@@ -17,6 +17,7 @@ import PayHeader from "./PayHeader";
 import PayRows from "./PayRows";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { useTranslation } from "react-i18next";
+import { pdfH } from "@/configs/ui";
 
 const tw = createTw({});
 
@@ -85,7 +86,7 @@ const InvTemplate: FC<Tprops> = ({
     );
 
     return (
-        <PDFViewer style={tw("h-[85vh] w-full")}>
+        <PDFViewer style={tw(`h-[${pdfH}] w-full`)}>
             <Document
                 creator={"SRC"}
                 producer={"SRC"}

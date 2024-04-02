@@ -7,6 +7,14 @@ import { TwlTableRow } from "@/configs/schema/workSchema";
 import DutyCard from "./DutyCard";
 import MTimeTracker from "@/pageComponents/modals/mTimeTracker";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
+import {
+    dutyCardH,
+    dutyCardLgH,
+    dutyCardLgW,
+    dutyCardSmH,
+    dutyCardSmW,
+    fullW,
+} from "@/configs/ui";
 
 const Dashboard: FC = () => {
     const { worklogs } = useLoaderData() as { worklogs: TwlTableRow[] };
@@ -19,7 +27,9 @@ const Dashboard: FC = () => {
     const DashboardContent = ({ workLogs }: { workLogs: TwlTableRow[] }) => {
         return (
             <div className="grid grid-cols-12 gap-x-2">
-                <div className="grid grid-cols-1 w-[100vw] h-[40vh] sm:w-[50vw] sm:h-[50vh] lg:w-[30vw] lg:h-[50vh] gap-y-2 px-2 overflow-y-auto overflow-x-hidden">
+                <div
+                    className={`grid grid-cols-1 w-[${fullW}] h-[${dutyCardH}] sm:w-[${dutyCardSmW}] sm:h-[${dutyCardSmH}] lg:w-[${dutyCardLgW}] lg:h-[${dutyCardLgH}] gap-y-2 px-2 overflow-y-auto overflow-x-hidden`}
+                >
                     <DutyCard worklogs={workLogs} />
                 </div>
             </div>

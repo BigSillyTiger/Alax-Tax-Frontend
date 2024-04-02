@@ -14,6 +14,7 @@ import { PTable } from "@/components/table";
 import { atStaff, at2ndModalOpen, atModalOpen } from "@/configs/atoms";
 import type { TisConflict } from "@/utils/types";
 import { RES_STATUS } from "@/utils/types";
+import { pageTableH } from "@/configs/ui";
 
 type Tprops = {
     allStaff: Tstaff[] | null;
@@ -104,10 +105,14 @@ const Staff: FC = () => {
                                 hFilter={false}
                                 data={allStaff}
                                 columns={staffColumns}
-                                menuOptions={{ edit: true, del: true }}
+                                menuOptions={{
+                                    edit: true,
+                                    payslip: true,
+                                    del: true,
+                                }}
                                 setData={setStaff}
                                 cnSearch="my-3"
-                                cnTable="h-[65vh]"
+                                cnTable={`h-[${pageTableH}]`}
                                 cnHead="sticky z-10 bg-indigo-300"
                                 cnTh="py-3"
                             />

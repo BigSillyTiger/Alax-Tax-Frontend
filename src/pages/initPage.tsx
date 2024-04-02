@@ -1,10 +1,13 @@
 import type { FC } from "react";
 import SpinningEle from "@/components/loadingEle/SpinningEle";
+import { fullH, fullW } from "@/configs/ui";
 
 const InitPage: FC = () => {
     return (
         <>
-            <div className="h-[100dvh] w-[100dvw] flex justify-center content-center">
+            <div
+                className={`h-[${fullH}] w-[${fullW}] flex justify-center content-center`}
+            >
                 <SpinningEle />
             </div>
         </>

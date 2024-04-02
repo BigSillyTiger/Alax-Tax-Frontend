@@ -28,6 +28,7 @@ import Fieldset from "@/components/form/fieldset";
 import { NormalBtn } from "@/components/btns";
 import { capFirstLetter } from "@/utils/utils";
 import { RES_STATUS } from "@/utils/types";
+import { staffModalH } from "@/configs/ui";
 
 const MStaffForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -282,7 +283,9 @@ const MStaffForm: FC = memo(() => {
             <Form onSubmit={onSubmit} className="mt-4">
                 <div className="grid sm:grid-cols-6 grid-cols-1 gap-3">
                     {/* left input area */}
-                    <div className="sm:col-span-3 col-span-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 overflow-y-auto h-[70vh] sm:h-auto">
+                    <div
+                        className={`sm:col-span-3 col-span-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 overflow-y-auto h-[${staffModalH}] sm:h-auto`}
+                    >
                         <div className="sm:col-span-3">
                             <label
                                 htmlFor="first_name"

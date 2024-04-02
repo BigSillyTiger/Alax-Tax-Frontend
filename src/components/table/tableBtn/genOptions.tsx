@@ -5,9 +5,10 @@ import {
     DocumentIcon,
     ClipboardIcon,
     UserPlusIcon,
+    WalletIcon,
 } from "@heroicons/react/24/outline";
 import i18n from "@/utils/i18n";
-import { TmodalOpenStates } from "@/utils/types";
+import { TmenuOptions, TmodalOpenStates } from "@/utils/types";
 import { mOpenOps } from "@/configs/utils";
 
 type Tprops<T> = TmenuOptions & {
@@ -27,6 +28,7 @@ const genOptions = <T,>({
     invoice = false,
     quotation = false,
     assign = false,
+    payslip = false,
     setModalOpen,
     setData,
 }: Tprops<T>): Tresult<T>[] => {
@@ -47,8 +49,12 @@ const genOptions = <T,>({
         });
     };
 
+    /**
+     * @description pay and payslip share the same mOpenOps.pay, case these 2 options are will not be shown together on the same page/table
+     */
     assign && createOption("btn.assign", <UserPlusIcon />, mOpenOps.jobAssign);
     pay && createOption("btn.pay", <CurrencyDollarIcon />, mOpenOps.pay);
+    payslip && createOption("btn.payslip", <WalletIcon />, mOpenOps.pay);
     edit && createOption("btn.edit", <PencilIcon />, mOpenOps.edit);
     quotation &&
         createOption("btn.quotation", <ClipboardIcon />, mOpenOps.quotation);

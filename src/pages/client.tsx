@@ -28,6 +28,7 @@ import {
 import { mOpenOps } from "@/configs/utils";
 import { MpdfMaker } from "@/pageComponents/modals";
 import { orderSubTable } from "@/pageComponents/orderSubTables";
+import { clientPageCardH } from "@/configs/ui";
 
 const Client = () => {
     const { t } = useTranslation();
@@ -191,7 +192,7 @@ const Client = () => {
                             }}
                             expandContent={orderSubTable}
                             cnSearch="my-3"
-                            cnTable="h-[55vh]"
+                            cnTable={`h-[${clientPageCardH}]`}
                             cnHead="sticky z-10 bg-indigo-300"
                             cnTh="py-3"
                         />

@@ -51,6 +51,16 @@ export const routerPaths = {
     setting: "/setting",
 };
 
+export const defaultMenuOptions = {
+    edit: false,
+    del: false,
+    pay: false,
+    invoice: false,
+    quotation: false,
+    assign: false,
+    payslip: false,
+};
+
 export const menuList = [
     {
         id: "dashboard",

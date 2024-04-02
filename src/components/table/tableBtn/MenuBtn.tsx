@@ -4,6 +4,7 @@ import { Menu, Transition } from "@headlessui/react";
 import genOptions from "./genOptions";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { atModalOpen } from "@/configs/atoms";
+import { TmenuOptions } from "@/utils/types";
 
 type Tprops<T> = TmenuOptions & {
     mItem: T;
@@ -19,6 +20,7 @@ const MenuBtn = <T,>({
     invoice = false,
     quotation = false,
     assign = false,
+    payslip = false,
     setData,
 }: Tprops<T>) => {
     const [, setModalOpen] = useAtom(atModalOpen);
@@ -30,6 +32,7 @@ const MenuBtn = <T,>({
         invoice,
         quotation,
         assign,
+        payslip,
         setModalOpen,
         setData,
     });
