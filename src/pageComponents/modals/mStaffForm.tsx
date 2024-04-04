@@ -286,6 +286,7 @@ const MStaffForm: FC = memo(() => {
                     <div
                         className={`sm:col-span-3 col-span-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 overflow-y-auto h-[${staffModalH}] sm:h-auto`}
                     >
+                        {/* first name */}
                         <div className="sm:col-span-3">
                             <label
                                 htmlFor="first_name"
@@ -304,7 +305,7 @@ const MStaffForm: FC = memo(() => {
                                 />
                             </div>
                         </div>
-
+                        {/* last name */}
                         <div className="sm:col-span-3">
                             <label
                                 htmlFor="last_name"
@@ -323,7 +324,7 @@ const MStaffForm: FC = memo(() => {
                                 />
                             </div>
                         </div>
-
+                        {/* email */}
                         <div className="sm:col-span-4">
                             <label
                                 htmlFor="email"
@@ -362,7 +363,7 @@ const MStaffForm: FC = memo(() => {
                                 />
                             </div>
                         </div>
-
+                        {/* phone */}
                         <div className="sm:col-span-4">
                             <label
                                 htmlFor="phone"
@@ -402,7 +403,7 @@ const MStaffForm: FC = memo(() => {
                                 />
                             </div>
                         </div>
-
+                        {/* address */}
                         <div className="col-span-full">
                             <label
                                 htmlFor="address"
@@ -420,7 +421,7 @@ const MStaffForm: FC = memo(() => {
                                 />
                             </div>
                         </div>
-
+                        {/* suburb */}
                         <div className="sm:col-span-2">
                             <label
                                 htmlFor="suburb"
@@ -438,7 +439,7 @@ const MStaffForm: FC = memo(() => {
                                 />
                             </div>
                         </div>
-
+                        {/* city */}
                         <div className="sm:col-span-2">
                             <label
                                 htmlFor="city"
@@ -456,7 +457,7 @@ const MStaffForm: FC = memo(() => {
                                 />
                             </div>
                         </div>
-
+                        {/* state */}
                         <div className="sm:col-span-2">
                             <label
                                 htmlFor="state"
@@ -475,7 +476,7 @@ const MStaffForm: FC = memo(() => {
                                 </select>
                             </div>
                         </div>
-
+                        {/* country */}
                         <div className="sm:col-span-2">
                             <label
                                 htmlFor="country"
@@ -494,7 +495,7 @@ const MStaffForm: FC = memo(() => {
                                 />
                             </div>
                         </div>
-
+                        {/* postcode */}
                         <div className="sm:col-span-2">
                             <label
                                 htmlFor="postcode"
@@ -509,6 +510,36 @@ const MStaffForm: FC = memo(() => {
                                     type="text"
                                     id="postcode"
                                     autoComplete="postal-code"
+                                    className={`
+                                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
+                                    ${
+                                        errors.postcode
+                                            ? " ring-2 ring-red-600 focus:ring-red-400 "
+                                            : " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                                    }
+                                `}
+                                />
+                            </div>
+                        </div>
+                        {/* hour rate */}
+                        <div className="sm:col-span-2">
+                            <label
+                                htmlFor="hr"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                            >
+                                {t("label.hr")}
+                            </label>
+
+                            <div className="mt-1">
+                                <input
+                                    {...register("hr", {
+                                        valueAsNumber: true,
+                                        min: 0,
+                                    })}
+                                    type="number"
+                                    id="hr"
+                                    min={0}
+                                    step="0.01"
                                     className={`
                                     outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
                                     ${

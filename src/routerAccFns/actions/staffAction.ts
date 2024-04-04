@@ -29,6 +29,7 @@ export const staffAction = async ({
             calendar: Number(data.get("calendar")),
             staff: Number(data.get("staff")),
             setting: Number(data.get("setting")),
+            hr: Number(data.get("hr")),
         });
         return result;
     } else if ("DELETE" === request.method) {
@@ -59,6 +60,7 @@ export const staffAction = async ({
             calendar: Number(data.get("calendar")),
             staff: Number(data.get("staff")),
             setting: Number(data.get("setting")),
+            hr: Number(data.get("hr")),
         } as Tstaff);
         return result;
     } else if ("PUT" === request.method && data.get("req") === "resetPW") {

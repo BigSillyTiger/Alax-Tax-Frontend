@@ -1,15 +1,14 @@
-import type { FC, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 import { Disclosure } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import Animate from "../transitions/Animate";
 
-type Tprops = {
+type Tprops = ComponentPropsWithoutRef<"div"> & {
     defaultOpen?: boolean;
     title: string;
-    content: ReactNode;
 };
 
-const Toggle: FC<Tprops> = ({ defaultOpen = false, title, content }) => {
+const Toggle: FC<Tprops> = ({ defaultOpen = false, title, children }) => {
     return (
         <section className="my-2">
             <Disclosure defaultOpen={defaultOpen}>
@@ -29,8 +28,8 @@ const Toggle: FC<Tprops> = ({ defaultOpen = false, title, content }) => {
                             />
                         </Disclosure.Button>
                         <Animate>
-                            <Disclosure.Panel className="px-2 pt-2 pb-2">
-                                {content}
+                            <Disclosure.Panel static className="px-2 pt-2 pb-2">
+                                {children}
                             </Disclosure.Panel>
                         </Animate>
                     </>

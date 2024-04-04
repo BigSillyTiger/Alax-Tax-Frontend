@@ -48,6 +48,8 @@ export const routerPaths = {
     workLogs: "/worklogs",
     calendar: "/calendar",
     staff: "/staff",
+    makePayslip: "/makePayslip/:uid",
+    payslip: "/payslip/:uid",
     setting: "/setting",
 };
 
@@ -191,6 +193,7 @@ export const wlStatusColorMap = {
     unconfirmed: "text-slate-100 bg-amber-500 border-amber-600",
     confirmed: "text-slate-100 bg-indigo-500 border-indigo-600",
     resting: "text-slate-100 bg-pink-500 border-pink-600",
+    paid: "text-slate-100 bg-teal-500 border-teal-600",
 };
 
 export const genHHMM = (date: Date) => {

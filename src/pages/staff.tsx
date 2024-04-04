@@ -15,6 +15,9 @@ import { atStaff, at2ndModalOpen, atModalOpen } from "@/configs/atoms";
 import type { TisConflict } from "@/utils/types";
 import { RES_STATUS } from "@/utils/types";
 import { pageTableH } from "@/configs/ui";
+import MPayslip from "@/pageComponents/modals/mPayslip";
+import { TwlTableRow } from "@/configs/schema/workSchema";
+import { useStaffWLStore } from "@/configs/zustore/staffWLStore";
 
 type Tprops = {
     allStaff: Tstaff[] | null;
@@ -26,11 +29,17 @@ const Staff: FC = () => {
     const [, setModalOpen] = useAtom(atModalOpen);
     const [secModalOpen, setSecModalOpen] = useAtom(at2ndModalOpen);
     const { t } = useTranslation();
-    const { allStaff } = useLoaderData() as {
+    const { allStaff, worklogs } = useLoaderData() as {
         allStaff: Tstaff[] | null;
+        worklogs: TwlTableRow[];
     };
-
+    const setStaffWL = useStaffWLStore((state) => state.setStaffWL);
     const actionData = useActionData() as Tresponse;
+
+    useEffect(() => {
+        setStaffWL(worklogs);
+    }, [worklogs, setStaffWL]);
+
     useEffect(() => {
         /* close modals if RES_STATUS.SUCCESS  */
 
@@ -144,6 +153,7 @@ const Staff: FC = () => {
             <MStaffForm />
             <MStaffDel />
             <MStaffResetPW />
+            <MPayslip />
         </div>
     );
 };

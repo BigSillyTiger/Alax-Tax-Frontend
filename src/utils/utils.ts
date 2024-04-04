@@ -18,6 +18,19 @@ export const dateFormatAU = (dateString: string | null) => {
 };
 
 /**
+ * @description convert au date string to ISO format
+ * @param date
+ * @returns
+ */
+export const auToISO = (date: string) => {
+    const parts = date.split("-");
+    const y = parts[2];
+    const m = parts[1];
+    const d = parts[0];
+    return `${y}-${m}-${d}`;
+};
+
+/**
  * @description the date stored in db is in ISO format: yyyy-MM-dd
  * @param date Date
  * @returns yyy-MM-dd is used for datepicker

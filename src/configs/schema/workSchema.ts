@@ -1,5 +1,25 @@
 import { z } from "zod";
-import { defaultStaffRole } from "../utils";
+import { defaultStaffRole, wlStatusColorMap } from "../utils";
+
+const statusLiterals = Object.keys(wlStatusColorMap).map((status) =>
+    z.literal(status)
+);
+
+export function isValidZodLiteralUnion<T extends z.ZodLiteral<unknown>>(
+    literals: T[]
+): literals is [T, T, ...T[]] {
+    return literals.length >= 2;
+}
+export function constructZodLiteralUnionType<T extends z.ZodLiteral<unknown>>(
+    literals: T[]
+) {
+    if (!isValidZodLiteralUnion(literals)) {
+        throw new Error(
+            "Literals passed do not meet the criteria for constructing a union schema, the minimum length is 2"
+        );
+    }
+    return z.union(literals);
+}
 
 const workLogSchema = z.object({
     wlid: z.string().default(""),
@@ -22,13 +42,18 @@ const workLogSchema = z.object({
         .string()
         .regex(/^\d{2}:\d{2}$/)
         .default("00:00"),
-    wl_status: z
-        .literal("pending")
-        .or(z.literal("ongoing"))
-        .or(z.literal("canceled"))
-        .or(z.literal("unconfirmed"))
-        .or(z.literal("confirmed"))
-        .default("pending"),
+    /* wl_status: z
+        .union([
+            z.literal("pending"),
+            z.literal("ongoing"),
+            z.literal("canceled"),
+            z.literal("unconfirmed"),
+            z.literal("confirmed"),
+            z.literal("resting"),
+            z.literal("paid"),
+        ])
+        .default("pending"), */
+    wl_status: constructZodLiteralUnionType(statusLiterals).default("pending"),
     wl_note: z.string().trim().nullable().default(""),
     confirm_status: z.boolean().default(false),
     archive: z.boolean().default(false),

@@ -4,7 +4,7 @@ import { DateBtn } from "@/components/btns";
 import Card from "@/components/card";
 import Fieldset from "@/components/form/fieldset";
 import { useTranslation } from "react-i18next";
-import DatePicker from "@/components/DatePicker";
+import { JADayPicker } from "@/pageComponents/DayPicker";
 import "react-day-picker/dist/style.css";
 import { useJobAssignStore } from "@/configs/zustore";
 import { dateFormatAU, sortWorkLogs } from "@/utils/utils";
@@ -83,7 +83,7 @@ const DateSchedule: FC = () => {
                     )}
                 </div>
                 <Card className="flex justify-center h-auto w-auto">
-                    {isTooSmallScreen ? <InputDatePicker /> : <DatePicker />}
+                    {isTooSmallScreen ? <InputDatePicker /> : <JADayPicker />}
                 </Card>
             </div>
 

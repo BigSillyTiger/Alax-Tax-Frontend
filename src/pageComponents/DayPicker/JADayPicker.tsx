@@ -5,7 +5,11 @@ import "./datepickerstyle.css";
 import styles from "./datepicker.module.css";
 import { useJobAssignStore } from "@/configs/zustore";
 
-const DatePicker: FC = () => {
+/**
+ * @description job assignment day picker
+ * @returns
+ */
+const JADayPicker: FC = () => {
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
     const setDate = useJobAssignStore((state) => state.setDate);
     const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
@@ -63,4 +67,4 @@ const DatePicker: FC = () => {
     );
 };
 
-export default DatePicker;
+export default JADayPicker;

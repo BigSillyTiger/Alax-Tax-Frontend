@@ -15,7 +15,7 @@ import CompanyInfoCard from "@/pageComponents/cards/CompanyInfoCard";
 import { dateFormatISO } from "@/utils/utils";
 import { dateMax, dateMin } from "@/configs/utils";
 import { atCompany, atLogo, atOrder, atClient } from "@/configs/atoms";
-import { invoiceBtnH, invoiceDetailH, invoiceH, mainViewH } from "@/configs/ui";
+import { invoiceBtnH, invoiceDetailH, invoiceH, pdfH } from "@/configs/ui";
 
 const DatePicker = ({
     oid,
@@ -123,7 +123,7 @@ const DatePicker = ({
 const InvContent: FC = memo(() => {
     const [date, setDate] = useState(dateFormatISO(new Date()));
     const { t } = useTranslation();
-    const [client] = useAtom(atClient);
+    const [client, setClient] = useAtom(atClient);
     const [clientOrder] = useAtom(atOrder);
     const [company] = useAtom(atCompany);
     const [logo] = useAtom(atLogo);
@@ -134,34 +134,32 @@ const InvContent: FC = memo(() => {
         }
     }, [clientOrder.invoice_date]);
 
+    useEffect(() => {
+        if (clientOrder.client_info) {
+            setClient(clientOrder.client_info);
+        }
+    }, [setClient, clientOrder.client_info]);
+
     const detailContent = (
         <section className={`h-[${invoiceDetailH}] overflow-y-auto`}>
-            <Toggle
-                defaultOpen={true}
-                title={t("label.companyInfo")}
-                content={<CompanyInfoCard company={company} className="" />}
-            />
-            <Toggle
-                defaultOpen={true}
-                title={t("label.clientInfo")}
-                content={<ClientInfoCard client={client} className="" />}
-            />
-            <Toggle
-                defaultOpen={true}
-                title={t("label.orderInfo")}
-                content={<OrderDetailsCard order={clientOrder} className="" />}
-            />
-            <Toggle
-                defaultOpen={true}
-                title={t("label.orderServices")}
-                content={<OrderDescCard data={clientOrder.order_services} />}
-            />
+            <Toggle defaultOpen={true} title={t("label.companyInfo")}>
+                <CompanyInfoCard company={company} className="" />
+            </Toggle>
+            <Toggle defaultOpen={true} title={t("label.clientInfo")}>
+                <ClientInfoCard client={client} className="" />
+            </Toggle>
+            <Toggle defaultOpen={true} title={t("label.orderInfo")}>
+                <OrderDetailsCard order={clientOrder} className="" />
+            </Toggle>
+            <Toggle defaultOpen={true} title={t("label.orderServices")}>
+                <OrderDescCard data={clientOrder.order_services} />
+            </Toggle>
         </section>
     );
 
     return (
         <main
-            className={`grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[${mainViewH}]`}
+            className={`grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[${pdfH}]`}
         >
             <section className="col-span-1 md:col-span-3 ">
                 {detailContent}

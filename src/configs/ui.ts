@@ -34,10 +34,12 @@ export const timerModalH = "60vh";
 
 export const invoiceH = "18vh";
 export const invoiceBtnH = "4vh";
-export const invoiceDetailH = "67vh";
+export const invoiceDetailH = "60vh";
 
 export const clientPageCardH = "55vh";
 export const pageTableH = "65vh";
+export const staffTableH = "40vh";
+
 export const dutyCardH = "40vh";
 export const dutyCardSmW = "50vw";
 export const dutyCardSmH = "50vh";
@@ -49,4 +51,4 @@ export const companyLogoH = "100px";
 
 export const uniTableH = "55vh";
 
-export const pdfH = "85vh";
+export const pdfH = "83vh";

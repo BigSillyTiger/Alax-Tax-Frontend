@@ -48,6 +48,7 @@ export const staffSchema = z.object({
     staff: z.number().default(roleOptions[defaultStaffRole].staff),
     setting: z.number().default(roleOptions[defaultStaffRole].setting),
     //created_date: z.string().trim().nullable(),
+    hr: z.number().default(25),
 });
 
 export const staffForm = staffSchema
