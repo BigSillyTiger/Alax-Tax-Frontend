@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import { useState } from "react";
 import Card from "@/components/card";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
@@ -13,8 +12,6 @@ const Bonus: FC = () => {
     const appendBonus = usePayslipStore((state) => state.appendBonus);
     const setBonusAmount = usePayslipStore((state) => state.setBonusAmount);
     const setBonusNote = usePayslipStore((state) => state.setBonusNote);
-    const [amount, setAmount] = useState<number>(0);
-    const [note, setNote] = useState("");
     let timeoutID: NodeJS.Timeout | null = null;
 
     const handleAddBonus = () => {
@@ -63,17 +60,10 @@ const Bonus: FC = () => {
                             min={0}
                             defaultValue={b.amount}
                             onChange={(e) => {
-                                setAmount(parseInt(e.target.value));
                                 timeoutID && clearTimeout(timeoutID);
                                 timeoutID = setTimeout(() => {
                                     setBonusAmount(i, parseInt(e.target.value));
                                 }, 1500);
-                            }}
-                            onBlur={() => {
-                                if (timeoutID) {
-                                    clearTimeout(timeoutID);
-                                    setBonusAmount(i, amount);
-                                }
                             }}
                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                         />
@@ -90,17 +80,10 @@ const Bonus: FC = () => {
                             rows={1}
                             defaultValue={b?.note ? b.note : ""}
                             onChange={(e) => {
-                                setNote(e.target.value);
                                 timeoutID && clearTimeout(timeoutID);
                                 timeoutID = setTimeout(() => {
                                     setBonusNote(i, e.target.value);
                                 }, 1500);
-                            }}
-                            onBlur={() => {
-                                if (timeoutID) {
-                                    clearTimeout(timeoutID);
-                                    setBonusNote(i, note);
-                                }
                             }}
                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                         />

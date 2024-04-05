@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import { useState } from "react";
 import Card from "@/components/card";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
@@ -15,8 +14,6 @@ const Deduction: FC = () => {
         (state) => state.setDeductionAmount
     );
     const setDeductionNote = usePayslipStore((state) => state.setDeductionNote);
-    const [amount, setAmount] = useState<number>(0);
-    const [note, setNote] = useState("");
     let timeoutID: NodeJS.Timeout | null = null;
 
     const handleAddDeduction = () => {
@@ -65,7 +62,6 @@ const Deduction: FC = () => {
                             min={0}
                             defaultValue={d.amount}
                             onChange={(e) => {
-                                setAmount(parseInt(e.target.value));
                                 timeoutID && clearTimeout(timeoutID);
                                 timeoutID = setTimeout(() => {
                                     setDeductionAmount(
@@ -73,12 +69,6 @@ const Deduction: FC = () => {
                                         parseInt(e.target.value)
                                     );
                                 }, 1500);
-                            }}
-                            onBlur={() => {
-                                if (timeoutID) {
-                                    clearTimeout(timeoutID);
-                                    setDeductionAmount(i, amount);
-                                }
                             }}
                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                         />
@@ -95,17 +85,10 @@ const Deduction: FC = () => {
                             rows={1}
                             defaultValue={d?.note ? d.note : ""}
                             onChange={(e) => {
-                                setNote(e.target.value);
                                 timeoutID && clearTimeout(timeoutID);
                                 timeoutID = setTimeout(() => {
                                     setDeductionNote(i, e.target.value);
                                 }, 1500);
-                            }}
-                            onBlur={() => {
-                                if (timeoutID) {
-                                    clearTimeout(timeoutID);
-                                    setDeductionNote(i, note);
-                                }
                             }}
                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                         />
