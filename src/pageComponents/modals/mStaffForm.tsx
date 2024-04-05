@@ -105,7 +105,7 @@ const MStaffForm: FC = memo(() => {
     const PWsection = () => (
         <Fieldset
             title={t("label.password")}
-            sFieldset="justify-evenly flex-col"
+            sFieldset="flex justify-evenly flex-col grow"
         >
             <div className="mx-3">
                 <label htmlFor="inputPW" className="text-sm pl-2">
@@ -157,11 +157,15 @@ const MStaffForm: FC = memo(() => {
     };
 
     const AccessTable = () => (
-        <div className="mt-2 mb-1 pointer-events-none mx-2">
+        <div className={`pointer-events-none mx-2`}>
             <table className="min-w-full">
                 <thead className="bg-indigo-200">
                     <tr>
-                        <th className="text-base">{t("label.page")}</th>
+                        <th
+                            className={`text-base  ${modalOpen === mOpenOps.edit && "py-2"}`}
+                        >
+                            {t("label.page")}
+                        </th>
                         <th className="text-base text-center">
                             {t("label.readOnly")}
                         </th>
@@ -177,7 +181,11 @@ const MStaffForm: FC = memo(() => {
                     {menuList.map((item) => {
                         return (
                             <tr key={item.id}>
-                                <td>{item.name}</td>
+                                <td
+                                    className={`${modalOpen === mOpenOps.edit && "py-2"}`}
+                                >
+                                    {item.name}
+                                </td>
                                 <td className="bg-yellow-50">
                                     <input
                                         {...register(item.id, {
@@ -224,7 +232,7 @@ const MStaffForm: FC = memo(() => {
 
     const RoleSelection = () => (
         <Fieldset
-            sFieldset="mt-2 justify-normal"
+            sFieldset={`mt-2 justify-normal grow flex flex-col justify-around`}
             title={
                 <p className="mb-1">
                     <Trans
@@ -236,36 +244,34 @@ const MStaffForm: FC = memo(() => {
                 </p>
             }
         >
-            <div className={"min-w-[90%]"}>
-                <Controller
-                    control={control}
-                    name="role"
-                    render={({ field: { onChange, value } }) => (
-                        <RadioGroup value={value} onChange={onChange}>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-2 sm:gap-x-2 mx-2">
-                                {Object.keys(roleOptions).map((item) => (
-                                    <RadioGroup.Option
-                                        key={item}
-                                        value={item}
-                                        className={({ checked, active }) =>
-                                            `${active ? "border-indigo-600 ring-2 ring-indigo-600" : "border-gray-300"} ${checked ? "border-indigo-600 border bg-indigo-500 text-slate-100" : "border-gray-200 border text-indigo-500"} relative flex cursor-pointer rounded-lg border p-4 shadow-sm focus:outline-none`
-                                        }
+            <Controller
+                control={control}
+                name="role"
+                render={({ field: { onChange, value } }) => (
+                    <RadioGroup value={value} onChange={onChange}>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-2 sm:gap-x-2 mx-2">
+                            {Object.keys(roleOptions).map((item) => (
+                                <RadioGroup.Option
+                                    key={item}
+                                    value={item}
+                                    className={({ checked, active }) =>
+                                        `${active ? "border-indigo-600 ring-2 ring-indigo-600" : "border-gray-300"} ${checked ? "border-indigo-600 border bg-indigo-500 text-slate-100" : "border-gray-200 border text-indigo-500"} relative flex cursor-pointer rounded-lg border p-4 shadow-sm focus:outline-none`
+                                    }
+                                >
+                                    <RadioGroup.Label
+                                        as="span"
+                                        className={`flex flex-1 justify-center font-bold`}
                                     >
-                                        <RadioGroup.Label
-                                            as="span"
-                                            className={`flex flex-1 justify-center font-bold`}
-                                        >
-                                            {capFirstLetter(item)}
-                                        </RadioGroup.Label>
-                                    </RadioGroup.Option>
-                                ))}
-                            </div>
-                        </RadioGroup>
-                    )}
-                />
+                                        {capFirstLetter(item)}
+                                    </RadioGroup.Label>
+                                </RadioGroup.Option>
+                            ))}
+                        </div>
+                    </RadioGroup>
+                )}
+            />
 
-                <AccessTable />
-            </div>
+            <AccessTable />
         </Fieldset>
     );
 
@@ -550,15 +556,65 @@ const MStaffForm: FC = memo(() => {
                                 />
                             </div>
                         </div>
+                        {/* bsb */}
+                        <div className="sm:col-span-3">
+                            <label
+                                htmlFor="bsb"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                            >
+                                {t("label.bsb")}
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    {...register("bsb")}
+                                    type="text"
+                                    id="bsb"
+                                    autoComplete="bsb"
+                                    className={`
+                                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
+                                    ${
+                                        errors.postcode
+                                            ? " ring-2 ring-red-600 focus:ring-red-400 "
+                                            : " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                                    }
+                                `}
+                                />
+                            </div>
+                        </div>
+                        {/* account */}
+                        <div className="sm:col-span-3">
+                            <label
+                                htmlFor="account"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                            >
+                                {t("label.acc")}
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    {...register("account")}
+                                    type="text"
+                                    id="account"
+                                    autoComplete="account"
+                                    className={`
+                                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
+                                    ${
+                                        errors.postcode
+                                            ? " ring-2 ring-red-600 focus:ring-red-400 "
+                                            : " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                                    }
+                                `}
+                                />
+                            </div>
+                        </div>
                     </div>
                     {/* right input area */}
-                    <div className="sm:col-span-3 col-span-1">
+                    <div className="sm:col-span-3 col-span-1 flex flex-col justify-between">
                         {modalOpen === mOpenOps.add && <PWsection />}
                         {modalOpen === mOpenOps.edit && (
                             <NormalBtn
                                 name={t("btn.resetPW")}
                                 onClick={handleClickPWReset}
-                                className="w-full mt-4"
+                                className="w-full mt-4 grow-0 py-4 text-xl"
                             />
                         )}
 

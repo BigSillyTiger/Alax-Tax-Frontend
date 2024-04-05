@@ -1,15 +1,10 @@
 import type { ComponentPropsWithoutRef, FC, FormEvent } from "react";
-import { useCallback, useEffect, useMemo, memo } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigation, useSubmit, Form } from "react-router-dom";
-import { useForm, useFieldArray, useWatch } from "react-hook-form";
+import { useSubmit } from "react-router-dom";
 import { useAtom } from "jotai";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitBtn } from "@/components/form";
 import { genAction } from "@/lib/literals";
 import { usePayslipStore, useRouterStore } from "@/configs/zustore";
 import { atStaff } from "@/configs/atoms";
-import { useStaffWLStore } from "@/configs/zustore/staffWLStore";
 import { Toggle } from "@/components/disclosure";
 import StaffDetailCard from "@/pageComponents/cards/StaffDetailCard";
 import { RangedDayPicker } from "@/pageComponents/DayPicker";
@@ -22,12 +17,11 @@ type Tprops = ComponentPropsWithoutRef<"main"> & {
 };
 
 const FormContent: FC<Tprops> = () => {
-    const navigation = useNavigation();
     const submit = useSubmit();
     const { t } = useTranslation();
     const [staff] = useAtom(atStaff);
     //const allStaffWL = useStaffWLStore((state) => state.allStaffWL);
-    const staffWL = useStaffWLStore((state) => state.staffWL);
+    const staffWL = usePayslipStore((state) => state.staffWL);
     const currentRouter = useRouterStore((state) => state.currentRouter);
     const dayRange = usePayslipStore((state) => state.dayRange);
 
@@ -101,8 +95,8 @@ const FormContent: FC<Tprops> = () => {
     );
 
     return (
-        <Form
-            onSubmit={onSubmit}
+        <div
+            //onSubmit={onSubmit}
             className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[64dvh] border-2 border-red-400`}
         >
             <section className="col-span-full">
@@ -120,7 +114,7 @@ const FormContent: FC<Tprops> = () => {
                     <></>
                 </Toggle> */}
             </section>
-        </Form>
+        </div>
     );
 };
 

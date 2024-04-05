@@ -16,7 +16,7 @@ const RangedDayPicker: FC = () => {
     const dayRange = usePayslipStore((state) => state.dayRange);
     const setDayRange = usePayslipStore((state) => state.setDayRange);
     const allStaffWL = useStaffWLStore((state) => state.allStaffWL);
-    const setStaffWL = useStaffWLStore((state) => state.setStaffWL);
+    const setStaffWL = usePayslipStore((state) => state.setStaffWL);
     const [staff] = useAtom(atStaff);
 
     const [startD, endD, defaultD] = (() => {

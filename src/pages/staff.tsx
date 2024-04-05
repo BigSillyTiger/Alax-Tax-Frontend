@@ -11,12 +11,19 @@ import { toastError, toastSuccess } from "@/lib/toaster";
 import { Tstaff } from "@/configs/schema/staffSchema.ts";
 import { MStaffDel, MStaffForm, MStaffResetPW } from "@/pageComponents/modals";
 import { PTable } from "@/components/table";
-import { atStaff, at2ndModalOpen, atModalOpen } from "@/configs/atoms";
+import {
+    atStaff,
+    at2ndModalOpen,
+    atModalOpen,
+    atCompany,
+    atLogo,
+} from "@/configs/atoms";
 import type { TisConflict } from "@/configs/types";
 import { RES_STATUS } from "@/configs/types";
 import MPayslip from "@/pageComponents/modals/mPayslip";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useStaffWLStore } from "@/configs/zustore/staffWLStore";
+import { Tcompany } from "@/configs/schema/settingSchema";
 
 type Tprops = {
     allStaff: Tstaff[] | null;
@@ -24,20 +31,26 @@ type Tprops = {
 
 const Staff: FC = () => {
     const [, setInfoConflict] = useState<TisConflict>(RES_STATUS.SUCCESS);
+    const [secModalOpen, setSecModalOpen] = useAtom(at2ndModalOpen);
     const [staff, setStaff] = useAtom(atStaff);
     const [, setModalOpen] = useAtom(atModalOpen);
-    const [secModalOpen, setSecModalOpen] = useAtom(at2ndModalOpen);
+    const [, setCompany] = useAtom(atCompany);
+    const [, setLogo] = useAtom(atLogo);
     const { t } = useTranslation();
-    const { allStaff, worklogs } = useLoaderData() as {
+    const { allStaff, worklogs, company, logo } = useLoaderData() as {
         allStaff: Tstaff[] | null;
         worklogs: TwlTableRow[];
+        company: Tcompany;
+        logo: string;
     };
     const setAllStaffWL = useStaffWLStore((state) => state.setAllStaffWL);
     const actionData = useActionData() as Tresponse;
 
     useEffect(() => {
         setAllStaffWL(worklogs);
-    }, [worklogs, setAllStaffWL]);
+        setCompany(company);
+        setLogo(logo);
+    }, [worklogs, setAllStaffWL, company, logo, setCompany, setLogo]);
 
     useEffect(() => {
         /* close modals if RES_STATUS.SUCCESS  */

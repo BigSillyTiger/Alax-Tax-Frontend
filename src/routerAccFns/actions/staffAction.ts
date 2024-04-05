@@ -30,6 +30,8 @@ export const staffAction = async ({
             staff: Number(data.get("staff")),
             setting: Number(data.get("setting")),
             hr: Number(data.get("hr")),
+            bsb: data.get("bsb") as string,
+            account: data.get("account") as string,
         });
         return result;
     } else if ("DELETE" === request.method) {
@@ -61,6 +63,8 @@ export const staffAction = async ({
             staff: Number(data.get("staff")),
             setting: Number(data.get("setting")),
             hr: Number(data.get("hr")),
+            bsb: data.get("bsb") as string,
+            account: data.get("account") as string,
         } as Tstaff);
         return result;
     } else if ("PUT" === request.method && data.get("req") === "resetPW") {

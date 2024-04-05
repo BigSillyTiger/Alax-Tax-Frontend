@@ -5,6 +5,7 @@ import { atModalOpen } from "@/configs/atoms";
 import { useTranslation } from "react-i18next";
 import { mOpenOps } from "@/configs/utils";
 import FormContent from "./FormContent";
+import PdfContent from "./PdfContent";
 
 const MPayslip: FC = () => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
@@ -16,13 +17,13 @@ const MPayslip: FC = () => {
 
     const MainContent = () => (
         <main
-            className={`grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[83dvh]`}
+            className={`grid grid-cols-1 md:grid-cols-8 gap-x-4 overflow-y-auto h-[83dvh]`}
         >
             <section className="col-span-1 md:col-span-4">
                 <FormContent title="" />
             </section>
             <section className="col-span-1 md:col-span-4">
-                placeholder for payslip pdf template
+                <PdfContent />
             </section>
         </main>
     );
