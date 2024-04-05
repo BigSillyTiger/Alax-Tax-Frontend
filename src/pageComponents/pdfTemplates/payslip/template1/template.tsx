@@ -4,7 +4,6 @@ import { createTw } from "react-pdf-tailwind";
 import { TorderService, TorderPayment } from "@/configs/schema/orderSchema";
 import TableHeader from "./TableHeader";
 import TableRows from "./TableRows";
-import BillTitle from "./BillTitle";
 import Title from "./Title";
 import TableFooter from "./TableFooter";
 import PageFooter from "./PageFooter";
@@ -14,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
 import { atCompany, atLogo, atStaff } from "@/configs/atoms";
 import { usePayslipStore, useStaffWLStore } from "@/configs/zustore";
+import PayTitle from "./BillTitle";
 
 const tw = createTw({});
 
@@ -37,8 +37,7 @@ const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
                 </Text>
                 <TableHeader />
                 <TableRows data={staffWL} unit={unit} />
-
-                {/* <TableFooter data={staffWL} unit={unit} /> */}
+                <TableFooter data={staffWL} unit={unit} rate={staff.hr} />
             </View>
         );
     };
@@ -60,20 +59,15 @@ const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
         <View style={tw("flex flex-col")}>
             <Title
                 company={company}
-                invoiceID={"---"}
+                payslipID={"---"}
                 issueDate={date}
                 logo={logo}
             />
-            <BillTitle company={company} staff={staff} />
+            <PayTitle company={company} staff={staff} />
 
             <Services />
             {/* <Payments payments={order.payments} /> */}
-            {/* <TableFooter
-                company={company}
-                order={order.order_services}
-                paid={order.paid}
-                unit={unit}
-            /> */}
+            {/* <TableFooter data={staffWL} unit={unit} /> */}
         </View>
     );
 

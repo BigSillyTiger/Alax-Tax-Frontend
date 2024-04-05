@@ -20,7 +20,7 @@ const PayRows: FC<Tprops> = memo(({ data, unit: u }) => {
             <View
                 style={tw(
                     `flex flex-row gap-x-1 w-[523pt] justify-center py-1 ${
-                        i % 2 ? "bg-orange-100" : "bg-slate-50"
+                        i % 2 ? "bg-teal-100" : "bg-slate-50"
                     }`
                 )}
             >

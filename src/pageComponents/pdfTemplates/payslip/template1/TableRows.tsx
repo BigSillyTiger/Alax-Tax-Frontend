@@ -2,7 +2,7 @@ import { memo } from "react";
 import type { FC } from "react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
-import { convertWorkHour, plusAB, timesAB } from "@/lib/calculations";
+import { convertWorkHour, timesAB } from "@/lib/calculations";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { calWorkTime } from "@/lib/time";
 
@@ -21,7 +21,7 @@ const TableRows: FC<Tprops> = memo(({ data, unit: u }) => {
             <View
                 style={tw(
                     `flex flex-row gap-x-1 w-[523pt] justify-center py-1 ${
-                        i % 2 ? "bg-orange-100" : "bg-slate-50"
+                        i % 2 ? "bg-teal-100" : "bg-slate-50"
                     }`
                 )}
             >

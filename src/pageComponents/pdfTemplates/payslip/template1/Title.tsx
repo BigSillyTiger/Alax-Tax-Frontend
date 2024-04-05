@@ -7,20 +7,20 @@ import { dateFormat } from "@/lib/time";
 
 type Tprops = {
     company: Tcompany;
-    invoiceID: string;
+    payslipID: string;
     issueDate: string;
     logo: string;
 };
 
 const tw = createTw({});
 
-const Title: FC<Tprops> = ({ company, invoiceID, issueDate, logo }) => {
+const Title: FC<Tprops> = ({ company, payslipID, issueDate, logo }) => {
     const { t } = useTranslation();
 
     return (
         <View
             style={tw(
-                "flex flex-row gap-2 w-[523pt] border-b-4 border-orange-200 pb-3"
+                "flex flex-row gap-2 w-[523pt] border-b-4 border-teal-200 pb-3"
             )}
             fixed
         >
@@ -40,8 +40,8 @@ const Title: FC<Tprops> = ({ company, invoiceID, issueDate, logo }) => {
             {/* invoice */}
             <View style={tw("ml-auto flex justify-center items-end")}>
                 <Text style={tw("font-bold text-base")}>
-                    {t("label.invoice")}
-                    {" " + "#" + invoiceID}
+                    {t("label.payslip")}
+                    {" " + "#" + payslipID}
                 </Text>
                 <Text style={tw("text-xs text-gray-600")}>
                     {t("label.issuedDate")}: {dateFormat(issueDate, "au")}

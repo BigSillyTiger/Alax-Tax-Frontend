@@ -9,7 +9,7 @@ const PayHeader: FC = () => {
     const { t } = useTranslation();
 
     return (
-        <View style={tw("flex flex-row gap-x-1 w-[523pt] bg-orange-200")}>
+        <View style={tw("flex flex-row gap-x-1 w-[523pt] bg-teal-200")}>
             <Text style={tw("text-base w-[260pt] text-center mt-2")}>
                 {t("label.paidAmount")}
             </Text>

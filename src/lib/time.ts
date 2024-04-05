@@ -18,7 +18,10 @@ export const auToISO = (date: string) => {
  * @param date Date
  * @returns yyy-MM-dd is used for datepicker
  */
-export const dateFormat = (date: Date | string | null, form: "au" | "iso" = 'iso') => {
+export const dateFormat = (
+    date: Date | string | null,
+    form: "au" | "iso" = "iso"
+) => {
     if (date instanceof Date) {
         const day = date.getDate().toString().padStart(2, "0");
         const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is 0-indexed
@@ -138,5 +141,17 @@ export const checkDateRange = (
     if (!start || !end) {
         return false;
     }
-    return start <= day && day <= end;
+    // Set time component of day to 00:00:00
+    const dayWithoutTime = new Date(day);
+    dayWithoutTime.setHours(0, 0, 0, 0);
+
+    // Set time component of start and end to 00:00:00
+    const startWithoutTime = new Date(start);
+    startWithoutTime.setHours(0, 0, 0, 0);
+    const endWithoutTime = new Date(end);
+    endWithoutTime.setHours(0, 0, 0, 0);
+
+    return (
+        startWithoutTime <= dayWithoutTime && dayWithoutTime <= endWithoutTime
+    );
 };
