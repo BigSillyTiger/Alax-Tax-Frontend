@@ -3,8 +3,8 @@ import { Await, useLoaderData, useActionData } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
 import Card from "@/components/card";
 import { Torder } from "@/configs/schema/orderSchema";
-import type { Tunivers } from "@/utils/types";
-import { RES_STATUS } from "@/utils/types";
+import type { Tunivers } from "@/configs/types";
+import { RES_STATUS } from "@/configs/types";
 import { PTable } from "@/components/table";
 import orderColumns from "@/configs/columnDefs/defOrders";
 import {
@@ -25,7 +25,7 @@ import {
 } from "@/configs/atoms";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { mOpenOps } from "@/configs/utils";
-import { toastError, toastSuccess } from "@/utils/toaster";
+import { toastError, toastSuccess } from "@/lib/toaster";
 import { useTranslation } from "react-i18next";
 import { orderSubTable } from "@/pageComponents/orderSubTables";
 import { Tstaff } from "@/configs/schema/staffSchema";

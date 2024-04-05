@@ -7,8 +7,8 @@ import {
     UserPlusIcon,
     WalletIcon,
 } from "@heroicons/react/24/outline";
-import i18n from "@/utils/i18n";
-import { TmenuOptions, TmodalOpenStates } from "@/utils/types";
+import i18n from "@/configs/i18n";
+import { TmenuOptions, TmodalOpenStates } from "@/configs/types";
 import { mOpenOps } from "@/configs/utils";
 
 type Tprops<T> = TmenuOptions & {

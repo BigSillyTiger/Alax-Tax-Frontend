@@ -1,28 +1,50 @@
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import { DayPicker } from "react-day-picker";
 //import "react-day-picker/dist/style.css";
 import "./datepickerstyle.css";
 import styles from "./datepicker.module.css";
-import { useDayRangeStore, useStaffWLStore } from "@/configs/zustore";
+import { usePayslipStore, useStaffWLStore } from "@/configs/zustore";
 import { atStaff } from "@/configs/atoms";
 import { useAtom } from "jotai";
-import { auToISO } from "@/utils/utils";
+import { auToISO, checkDateRange } from "@/lib/time";
 
 /**
  * @description job assignment day picker
  * @returns
  */
 const RangedDayPicker: FC = () => {
-    const dayRange = useDayRangeStore((state) => state.dayRange);
-    const setDayRange = useDayRangeStore((state) => state.setDayRange);
-    const staffWL = useStaffWLStore((state) => state.staffWL);
+    const dayRange = usePayslipStore((state) => state.dayRange);
+    const setDayRange = usePayslipStore((state) => state.setDayRange);
+    const allStaffWL = useStaffWLStore((state) => state.allStaffWL);
+    const setStaffWL = useStaffWLStore((state) => state.setStaffWL);
     const [staff] = useAtom(atStaff);
-    const swl = staffWL.filter(
-        (log) => log.fk_uid === staff.uid && log.wl_status === "confirmed"
-    );
 
-    // convert date string to yyyy-mm-dd format
-    const dates = swl.map((item) => auToISO(item.wl_date));
+    const [startD, endD, defaultD] = (() => {
+        const swl = allStaffWL.filter(
+            (log) => log.fk_uid === staff.uid && log.wl_status === "confirmed"
+        );
+        const dates = swl.map((item) => auToISO(item.wl_date));
+        return [
+            new Date(dates[dates.length - 1]),
+            new Date(dates[0]),
+            new Date(dates[dates.length - 1]),
+        ];
+    })();
+
+    useEffect(() => {
+        setStaffWL(
+            allStaffWL.filter(
+                (s) =>
+                    s.fk_uid === staff.uid &&
+                    s.wl_status === "confirmed" &&
+                    checkDateRange(
+                        dayRange?.from,
+                        dayRange?.to,
+                        new Date(auToISO(s.wl_date))
+                    )
+            )
+        );
+    }, [dayRange, setStaffWL, staff.uid, allStaffWL]);
 
     const css = `
         .my-selected:not([disabled]) { 
@@ -55,10 +77,10 @@ const RangedDayPicker: FC = () => {
                 fromYear={2010}
                 toYear={2100} */
 
-                fromDate={new Date(dates[dates.length - 1])}
-                toDate={new Date(dates[0])}
+                fromDate={startD}
+                toDate={endD}
                 mode="range"
-                defaultMonth={new Date(dates[dates.length - 1])}
+                defaultMonth={defaultD}
                 selected={dayRange}
                 onSelect={setDayRange}
                 // define custom modifiers - scheduled

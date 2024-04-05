@@ -1,6 +1,6 @@
 import { atomWithReset } from "jotai/utils";
 import { Tstaff, staffSchema } from "@/configs/schema/staffSchema";
-import { TstaffRole } from "@/utils/types";
+import { TstaffRole } from "@/configs/types";
 import { defaultStaffRole } from "../utils";
 
 const initStaff: Tstaff = staffSchema.parse({});

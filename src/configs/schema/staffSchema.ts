@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { defaultStaffRole, roleOptions } from "../utils";
+import { defaultStaffRole, roleOptions, staffStandardHR } from "../utils";
 
 export const staffSchema = z.object({
     uid: z.string().default(""),
@@ -48,7 +48,7 @@ export const staffSchema = z.object({
     staff: z.number().default(roleOptions[defaultStaffRole].staff),
     setting: z.number().default(roleOptions[defaultStaffRole].setting),
     //created_date: z.string().trim().nullable(),
-    hr: z.number().default(25),
+    hr: z.number().default(staffStandardHR),
 });
 
 export const staffForm = staffSchema

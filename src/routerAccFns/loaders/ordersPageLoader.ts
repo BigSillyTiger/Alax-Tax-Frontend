@@ -3,7 +3,7 @@ import { menuList } from "@/configs/utils";
 import { Torder } from "@/configs/schema/orderSchema";
 import { routerStore } from "@/configs/zustore";
 import { defer, redirect } from "react-router-dom";
-import { hmsTohm } from "@/utils/utils";
+import { hmsTohm } from "@/lib/time";
 
 export const ordersLoader = async () => {
     routerStore.setState({ currentRouter: "orders" });

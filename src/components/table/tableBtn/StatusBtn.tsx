@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import { useSubmit } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
-import i18n from "@/utils/i18n";
+import i18n from "@/configs/i18n";
 import { Torder } from "@/configs/schema/orderSchema";
 
 const slist = [

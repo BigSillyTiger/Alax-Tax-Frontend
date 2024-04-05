@@ -7,7 +7,8 @@ import { useTranslation } from "react-i18next";
 import { JADayPicker } from "@/pageComponents/DayPicker";
 import "react-day-picker/dist/style.css";
 import { useJobAssignStore } from "@/configs/zustore";
-import { dateFormatAU, sortWorkLogs } from "@/utils/utils";
+import { dateFormat } from "@/lib/time";
+import { sortWorkLogs } from "@/lib/literals";
 
 const DateSchedule: FC = () => {
     const { t } = useTranslation();
@@ -98,7 +99,7 @@ const DateSchedule: FC = () => {
                         return (
                             <div key={index} className="my-1 w-full flex">
                                 <DateBtn
-                                    name={dateFormatAU(item.wl_date)}
+                                    name={dateFormat(item.wl_date, "au")}
                                     onClick={(e) => {
                                         e.preventDefault();
                                         setDate(new Date(item.wl_date));

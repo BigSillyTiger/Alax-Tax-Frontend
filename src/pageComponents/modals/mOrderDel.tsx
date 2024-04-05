@@ -9,7 +9,7 @@ import { DelBtn } from "@/components/form";
 import { atOrder, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils";
 import { useRouterStore } from "@/configs/zustore";
-import { genAction } from "@/utils/utils";
+import { genAction } from "@/lib/literals";
 
 // this component is about building a modal with transition to delete a client
 const MOrderDel: FC = memo(() => {

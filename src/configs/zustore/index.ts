@@ -1,7 +1,7 @@
 import { adminStore, useAdminStore } from "./adminStore";
 import { routerStore, useRouterStore } from "./routerStore";
 import { jobAssignStore, useJobAssignStore } from "./jobAssignStore";
-import { dayRangeStore, useDayRangeStore } from "./dayRangeStore";
+import { payslipStore, usePayslipStore } from "./payslipStore";
 import { staffWLStore, useStaffWLStore } from "./staffWLStore";
 
 export {
@@ -11,8 +11,8 @@ export {
     useRouterStore,
     jobAssignStore,
     useJobAssignStore,
-    dayRangeStore,
-    useDayRangeStore,
+    payslipStore,
+    usePayslipStore,
     staffWLStore,
     useStaffWLStore,
 };

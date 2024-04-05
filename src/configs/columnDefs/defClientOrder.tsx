@@ -1,7 +1,7 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
-import i18n from "@/utils/i18n";
+import i18n from "@/configs/i18n";
 import { Torder } from "@/configs/schema/orderSchema";
-import { minusAB } from "@/utils/calculations";
+import { minusAB } from "@/lib/calculations";
 import OrderStatus from "@/components/OrderStatus";
 
 const clientOrderColumns: ColumnDef<Torder>[] = [

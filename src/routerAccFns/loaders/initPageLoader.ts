@@ -1,7 +1,7 @@
 import { API_ADMIN } from "@/apis";
 import { routerStore } from "@/configs/zustore";
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
-import { RES_STATUS } from "@/utils/types";
+import { RES_STATUS } from "@/configs/types";
 
 export const initLoader = async ({ request }: LoaderFunctionArgs) => {
     //console.log("====> init page loader running...");

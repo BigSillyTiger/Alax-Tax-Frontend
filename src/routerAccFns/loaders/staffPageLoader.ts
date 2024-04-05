@@ -2,7 +2,7 @@ import { API_ADMIN, API_STAFF, API_WORKLOGS } from "@/apis";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { menuList } from "@/configs/utils";
 import { routerStore } from "@/configs/zustore";
-import { dateFormatAU, hmsTohm } from "@/utils/utils";
+import { dateFormat, hmsTohm } from "@/lib/time";
 import { defer, redirect } from "react-router-dom";
 
 export const staffLoader = async () => {
@@ -35,7 +35,7 @@ export const staffLoader = async () => {
                             ...wl,
                             // convert the date format stored in mysql: yyyy-mm-dd to au: dd-mm-yyyy
                             // this format is related to date searching in the table
-                            wl_date: dateFormatAU(wl.wl_date),
+                            wl_date: dateFormat(wl.wl_date, "au"),
                             s_time: hmsTohm(wl.s_time as string),
                             e_time: hmsTohm(wl.e_time as string),
                             b_time: hmsTohm(wl.b_time as string),

@@ -1,4 +1,4 @@
-import { dateFormatISO } from "@/utils/utils";
+import { dateFormat } from "@/lib/time";
 import {
     CalendarIcon,
     HomeIcon,
@@ -8,9 +8,9 @@ import {
     ClipboardDocumentListIcon,
     WrenchScrewdriverIcon,
 } from "@heroicons/react/24/outline";
-import i18n from "@/utils/i18n";
+import i18n from "@/configs/i18n";
 import type { ForwardRefExoticComponent, SVGProps, RefAttributes } from "react";
-import { TstaffRole } from "@/utils/types";
+import { TstaffRole } from "@/configs/types";
 
 export type TadminAccess = 0 | 1 | 2;
 
@@ -25,7 +25,9 @@ export type Ticon = ForwardRefExoticComponent<
  * to restrict the date range
  */
 export const dateMin = "2020-01-01";
-export const dateMax = dateFormatISO(new Date());
+export const dateMax = dateFormat(new Date());
+export const staffStandardHR = 25;
+export const gstRate = 0.1;
 
 export const mOpenOps = {
     default: "",

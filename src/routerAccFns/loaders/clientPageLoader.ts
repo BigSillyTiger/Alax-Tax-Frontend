@@ -3,7 +3,7 @@ import { menuList } from "@/configs/utils";
 import { Torder } from "@/configs/schema/orderSchema";
 import { routerStore } from "@/configs/zustore";
 import { LoaderFunctionArgs, defer, redirect } from "react-router-dom";
-import { dateFormatAU } from "@/utils/utils";
+import { dateFormat } from "@/lib/time";
 
 /**
  * @description client page loader
@@ -28,7 +28,7 @@ export const clientLoader = async ({ params }: LoaderFunctionArgs) => {
                         return {
                             ...item,
                             // convert date format from yyyy-mm-dd to dd-mm-yyyy
-                            created_date: dateFormatAU(item.created_date),
+                            created_date: dateFormat(item.created_date, "au"),
                             // desc sort order_services by ranking
                             // conver taxable from 0/1 to boolean
                             order_services: item.order_services

@@ -1,10 +1,10 @@
 import { CellContext } from "@tanstack/react-table";
-import i18n from "@/utils/i18n";
+import i18n from "@/configs/i18n";
 import { TwlTableRow } from "../schema/workSchema";
 //import { minusAB } from "@/utils/calculations";
-import { calWorkTime } from "@/utils/utils";
+import { calWorkTime, dateFormat } from "@/lib/time";
 import { wlStatusColorMap } from "../utils";
-import { TwlStatus } from "@/utils/types";
+import { TwlStatus } from "@/configs/types";
 
 const wlColumns = [
     {
@@ -72,7 +72,7 @@ const wlColumns = [
                 header: i18n.t("label.workDate"),
                 accessorKey: "wl_date",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
+                    <span>{dateFormat(info.getValue<string>(), "au")}</span>
                 ),
             },
             {

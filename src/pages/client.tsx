@@ -5,17 +5,17 @@ import { useAtom } from "jotai";
 import LoadingPage from "@/components/loadingEle";
 import type { Tclient } from "@/configs/schema/clientSchema";
 import type { Torder } from "@/configs/schema/orderSchema";
-import type { Tunivers } from "@/utils/types";
-import { RES_STATUS } from "@/utils/types";
+import type { Tunivers } from "@/configs/types";
+import { RES_STATUS } from "@/configs/types";
 import Card from "@/components/card";
 import { MOrderDel, MOrderForm, MOrderPay } from "@/pageComponents/modals";
 import clientOrderColumns from "../configs/columnDefs/defClientOrder";
-import { toastError, toastSuccess } from "@/utils/toaster";
+import { toastError, toastSuccess } from "@/lib/toaster";
 import { useTranslation } from "react-i18next";
 import { ClientInfoCard } from "@/pageComponents/cards";
 import { PTable } from "@/components/table";
 import { Tcompany } from "@/configs/schema/settingSchema";
-import { calGst } from "@/utils/calculations";
+import { calGst } from "@/lib/calculations";
 import {
     atClient,
     atOrder,

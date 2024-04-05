@@ -2,7 +2,7 @@ import { adminStore } from "@/configs/zustore";
 import apis from "./axios";
 import { LOGIN, LOGOUT, ADMIN_CHECK, ACCESS_CHECK } from "./req_list";
 import { TadminStore } from "@/configs/schema/staffSchema";
-import { RES_STATUS } from "@/utils/types";
+import { RES_STATUS } from "@/configs/types";
 
 export const adminLogin = async (
     email: string,

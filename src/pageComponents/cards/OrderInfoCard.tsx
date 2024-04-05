@@ -2,7 +2,7 @@ import type { FC } from "react";
 import Card from "@/components/card";
 import { useTranslation } from "react-i18next";
 import { Torder } from "@/configs/schema/orderSchema";
-import { minusAB } from "@/utils/calculations";
+import { minusAB } from "@/lib/calculations";
 
 type TorderInfo = {
     order: Torder;

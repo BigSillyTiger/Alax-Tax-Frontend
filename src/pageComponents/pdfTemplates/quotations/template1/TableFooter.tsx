@@ -4,7 +4,7 @@ import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { TorderService } from "@/configs/schema/orderSchema";
 import { useTranslation } from "react-i18next";
-import { plusAB } from "@/utils/calculations";
+import { plusAB } from "@/lib/calculations";
 import { Tcompany } from "@/configs/schema/settingSchema";
 
 type Tprops = {

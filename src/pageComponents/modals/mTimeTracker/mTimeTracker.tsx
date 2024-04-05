@@ -7,7 +7,8 @@ import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import StaffCard from "@/pageComponents/cards/StaffCard";
 import WorkInfoCard from "@/pageComponents/cards/WorkInfoCard";
-import { calBreakTime, calWorkTime, capFirstLetter } from "@/utils/utils";
+import { calBreakTime, calWorkTime } from "@/lib/time";
+import { capFirstLetter } from "@/lib/literals";
 //import { useRouterStore } from "@/configs/zustore";
 import Fieldset from "@/components/form/fieldset";
 import { Input } from "@/components/ui/input";
@@ -158,7 +159,7 @@ const MTimeTracker = () => {
                             {t("label.workStatus") + ": "}
                         </span>
                         <span
-                            className={`text-3xl font-bold rounded-full px-4 ${wlStatusColorMap[worklog.wl_status]}`}
+                            className={`text-3xl font-bold rounded-full px-4 ${wlStatusColorMap[worklog.wl_status as keyof typeof wlStatusColorMap]}`}
                         >
                             {capFirstLetter(worklog.wl_status)}
                         </span>

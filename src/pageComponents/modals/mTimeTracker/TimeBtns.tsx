@@ -2,11 +2,11 @@ import { type FC, type ComponentPropsWithoutRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useSubmit } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { genAction } from "@/utils/utils";
+import { genAction } from "@/lib/literals";
 import { useRouterStore } from "@/configs/zustore";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
-import { TactionReqList } from "@/utils/types";
+import { TactionReqList } from "@/configs/types";
 import { actionReqList } from "@/configs/utils";
 
 type Tprops = ComponentPropsWithoutRef<"div"> & {

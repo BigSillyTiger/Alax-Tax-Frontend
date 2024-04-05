@@ -2,7 +2,7 @@ import { useEffect, useState, type ComponentPropsWithoutRef } from "react";
 import { useTranslation } from "react-i18next";
 import Fieldset from "@/components/form/fieldset";
 import { Input } from "@/components/ui/input";
-import { calWorkTime, isWorkHoursValid } from "@/utils/utils";
+import { calWorkTime, isWorkHoursValid } from "@/lib/time";
 import { useWorkHoursStore } from "@/configs/zustore/workHoursStore";
 
 type Tprops = ComponentPropsWithoutRef<"div">;

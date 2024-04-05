@@ -5,7 +5,7 @@ import Fieldset from "@/components/form/fieldset";
 import { Input } from "@/components/ui/input";
 import { TassignedWork } from "@/configs/schema/workSchema";
 import { useJobAssignStore } from "@/configs/zustore";
-import { calWorkTime } from "@/utils/utils";
+import { calWorkTime } from "@/lib/time";
 import { useTranslation } from "react-i18next";
 
 type Tprops<T extends TassignedWork> = {

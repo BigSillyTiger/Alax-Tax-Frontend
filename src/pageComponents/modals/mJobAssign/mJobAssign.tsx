@@ -12,7 +12,7 @@ import AssignedStaff from "./AssignedStaff";
 import SelectStaff from "./SelectStaff";
 import DateSchedule from "./DateSchedule";
 import { useJobAssignStore, useRouterStore } from "@/configs/zustore";
-import { genAction } from "@/utils/utils";
+import { genAction } from "@/lib/literals";
 
 const MJobAssign = () => {
     const navigation = useNavigation();

@@ -9,10 +9,11 @@ import { useTranslation } from "react-i18next";
 import StaffCard from "@/pageComponents/cards/StaffCard";
 import WorkHoursCard from "@/pageComponents/cards/WorkHoursCard";
 import WorkInfoCard from "@/pageComponents/cards/WorkInfoCard";
-import { genAction, isWorkHoursValid } from "@/utils/utils";
+import { isWorkHoursValid } from "@/lib/time";
+import { genAction } from "@/lib/literals";
+import { toastError } from "@/lib/toaster";
 import { useRouterStore } from "@/configs/zustore";
 import { useWorkHoursStore } from "@/configs/zustore/workHoursStore";
-import { toastError } from "@/utils/toaster";
 
 const MJobEdit = () => {
     const navigation = useNavigation();

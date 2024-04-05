@@ -5,12 +5,12 @@ import { mTabList } from "@/configs/utils";
 import Uni from "./uni";
 import LoadingPage from "@/components/loadingEle";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
-import { Tunivers } from "@/utils/types";
+import { Tunivers } from "@/configs/types";
 import Company from "./company";
 import { Tcompany } from "@/configs/schema/settingSchema";
-import { toastError, toastSuccess } from "@/utils/toaster";
+import { toastError, toastSuccess } from "@/lib/toaster";
 import { useTranslation } from "react-i18next";
-import { RES_STATUS } from "@/utils/types";
+import { RES_STATUS } from "@/configs/types";
 
 const Setting: FC = () => {
     const { univers, company, logo } = useLoaderData() as {

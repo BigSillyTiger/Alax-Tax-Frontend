@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from "react";
 import type { FC } from "react";
 import { useAtom } from "jotai";
 import { useSubmit } from "react-router-dom";
-import { QuoTemplate } from "@/utils/pdf-templates/quotations";
+import { QuoTemplate } from "@/pageComponents/pdfTemplates/quotations";
 import { useTranslation } from "react-i18next";
 import { Toggle } from "@/components/disclosure";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@/pageComponents/cards";
 import { NormalBtn } from "@/components/btns";
 import CompanyInfoCard from "@/pageComponents/cards/CompanyInfoCard";
-import { dateFormatISO } from "@/utils/utils";
+import { dateFormat } from "@/lib/time";
 import { dateMax, dateMin } from "@/configs/utils";
 import { atCompany, atLogo, atOrder, atClient } from "@/configs/atoms";
 
@@ -64,7 +64,7 @@ const DatePicker = ({
                             type="date"
                             min={dateMin}
                             max={dateMax}
-                            defaultValue={dateFormatISO(new Date())}
+                            defaultValue={dateFormat(new Date())}
                             onChange={(e) => {
                                 setNewDate(e.target.value);
                             }}
@@ -99,7 +99,7 @@ const DatePicker = ({
                             type="date"
                             min={dateMin}
                             max={dateMax}
-                            defaultValue={dateFormatISO(new Date(defaultDate))}
+                            defaultValue={dateFormat(new Date(defaultDate))}
                             disabled
                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                         />
@@ -121,7 +121,7 @@ const DatePicker = ({
 };
 
 const QuoContent: FC = memo(() => {
-    const [date, setDate] = useState(dateFormatISO(new Date()));
+    const [date, setDate] = useState(dateFormat(new Date()));
     const { t } = useTranslation();
     const [client] = useAtom(atClient);
     const [clientOrder] = useAtom(atOrder);
@@ -130,12 +130,12 @@ const QuoContent: FC = memo(() => {
 
     useEffect(() => {
         if (clientOrder.invoice_date) {
-            setDate(dateFormatISO(new Date(clientOrder.invoice_date)));
+            setDate(dateFormat(new Date(clientOrder.invoice_date)));
         }
     }, [clientOrder.invoice_date]);
 
     const detailContent = (
-        <section className={`h-[60dvh] overflow-y-auto`}>
+        <section className={`h-[64dvh] overflow-y-auto`}>
             <Toggle defaultOpen={true} title={t("label.companyInfo")}>
                 <CompanyInfoCard company={company} className="" />
             </Toggle>

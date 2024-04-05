@@ -34,7 +34,7 @@ const WorkCard: FC<Tprops> = ({ data }) => {
             </div>
             <div className="col-span-2 italic">
                 <p
-                    className={`border-2 text-center rounded-lg font-bold ${wlStatusColorMap[data.wl_status]}`}
+                    className={`border-2 text-center rounded-lg font-bold ${wlStatusColorMap[data.wl_status as keyof typeof wlStatusColorMap]}`}
                 >
                     {data.wl_status}
                 </p>

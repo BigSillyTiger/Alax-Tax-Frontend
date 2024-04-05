@@ -1,9 +1,9 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
-import i18n from "@/utils/i18n";
+import i18n from "@/configs/i18n";
 import { Tstaff } from "../schema/staffSchema";
 import { colorWithStaffUid, staffColorMap } from "../utils";
-import { TstaffRole } from "@/utils/types";
-import { capFirstLetter } from "@/utils/utils";
+import { TstaffRole } from "@/configs/types";
+import { capFirstLetter } from "@/lib/literals";
 import { Atel, Amail } from "@/components/aLinks";
 
 /**

@@ -1,123 +1,86 @@
 import { CellContext } from "@tanstack/react-table";
-import i18n from "@/utils/i18n";
+import i18n from "@/configs/i18n";
 import { TwlTableRow } from "../schema/workSchema";
 //import { minusAB } from "@/utils/calculations";
-import { calWorkTime } from "@/utils/utils";
+import { calWorkTime } from "@/lib/time";
+import { convertWorkHour, timesAB } from "@/lib/calculations";
 /* import { wlStatusColorMap } from "../utils";
 import { TwlStatus } from "@/utils/types"; */
 
 const staffWLColumns = [
     {
-        id: "details",
-        header: i18n.t("label.details"), // Details
-        columns: [
-            {
-                id: "wlID",
-                header: i18n.t("label.wlID"),
-                accessorKey: "wlid",
-                cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
-                ),
-            },
-            /* {
-                id: "oid",
-                header: i18n.t("label.idOrder"),
-                accessorKey: "fk_oid",
-                cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
-                ),
-            },
-            {
-                id: "orderAddress",
-                header: i18n.t("label.addrJob"),
-                accessorFn: (data: TwlTableRow) =>
-                    data.address +
-                    ", " +
-                    data.suburb +
-                    ", " +
-                    data.city +
-                    ", " +
-                    data.state +
-                    ", " +
-                    data.postcode,
-                cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
-                ),
-            }, */
-        ],
+        id: "wlID",
+        header: i18n.t("label.wlID"),
+        accessorKey: "wlid",
+        cell: (info: CellContext<TwlTableRow, unknown>) => (
+            <span>{info.getValue<string>()}</span>
+        ),
     },
     {
-        id: "workStatus",
-        header: i18n.t("label.workDetail"),
-        columns: [
-            {
-                id: "workDate",
-                header: i18n.t("label.workDate"),
-                accessorKey: "wl_date",
-                cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
-                ),
-            },
-            {
-                id: "startTimeSR",
-                header: i18n.t("label.timeStart"),
-                accessorKey: "s_time",
-                cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span className="font-bold text-lg text-indigo-600">
-                        {info.getValue<string>()}
-                    </span>
-                ),
-            },
-            {
-                id: "endTimeSR",
-                header: i18n.t("label.timeEnd"),
-                accessorKey: "e_time",
-                cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span className="font-bold text-lg text-indigo-600">
-                        {info.getValue<string>()}
-                    </span>
-                ),
-            },
-            {
-                id: "breakTimeSR",
-                header: i18n.t("label.timeBreak"),
-                accessorKey: "b_hour",
-                cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span className="font-bold text-lg text-amber-600">
-                        {info.getValue<string>()}
-                    </span>
-                ),
-            },
-            {
-                id: "workTimeSR",
-                header: i18n.t("label.workTime"),
-                accessorFn: (data: TwlTableRow) =>
-                    calWorkTime(data.s_time, data.e_time, data.b_hour),
-                cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span className="font-bold text-lg text-lime-700">
-                        {info.getValue<string>()}
-                    </span>
-                ),
-            },
-            /* {
-                id: "wlStatus",
-                header: i18n.t("label.status"),
-                accessorKey: "wl_status",
-                cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span
-                        className={`border-2 text-center px-2 py-1 rounded-full font-bold ${wlStatusColorMap[info.getValue<string>() as TwlStatus]}`}
-                    >
-                        {info.getValue<string>()}
-                    </span>
-                ),
-            }, */
-        ],
+        id: "workDate",
+        header: i18n.t("label.workDate"),
+        accessorKey: "wl_date",
+        cell: (info: CellContext<TwlTableRow, unknown>) => (
+            <span>{info.getValue<string>()}</span>
+        ),
     },
-    /* {
-        id: "Menu",
-        header: i18n.t("label.menu"),
-        //cell: (info: CellContext<TwlTableRow, string>) => <></>,
-    }, */
+    {
+        id: "startTimeSR",
+        header: i18n.t("label.timeStart"),
+        accessorKey: "s_time",
+        cell: (info: CellContext<TwlTableRow, unknown>) => (
+            <span className="font-bold text-lg text-indigo-600">
+                {info.getValue<string>()}
+            </span>
+        ),
+    },
+    {
+        id: "endTimeSR",
+        header: i18n.t("label.timeEnd"),
+        accessorKey: "e_time",
+        cell: (info: CellContext<TwlTableRow, unknown>) => (
+            <span className="font-bold text-lg text-indigo-600">
+                {info.getValue<string>()}
+            </span>
+        ),
+    },
+    {
+        id: "breakTimeSR",
+        header: i18n.t("label.timeBreak"),
+        accessorKey: "b_hour",
+        cell: (info: CellContext<TwlTableRow, unknown>) => (
+            <span className="font-bold text-lg text-amber-600">
+                {info.getValue<string>()}
+            </span>
+        ),
+    },
+    {
+        id: "workTimeSR",
+        header: i18n.t("label.workTime"),
+        accessorFn: (data: TwlTableRow) =>
+            calWorkTime(data.s_time, data.e_time, data.b_hour),
+        cell: (info: CellContext<TwlTableRow, unknown>) => (
+            <span className="font-bold text-lg text-lime-700">
+                {info.getValue<string>()}
+            </span>
+        ),
+    },
+    {
+        id: "salary",
+        header: i18n.t("label.salary"),
+        accessorFn: (data: TwlTableRow) =>
+            timesAB(
+                convertWorkHour(
+                    calWorkTime(data.s_time, data.e_time, data.b_hour)
+                ),
+                data.hr
+            ),
+        cell: (info: CellContext<TwlTableRow, unknown>) => (
+            <span className="font-bold text-lg text-slate-50 bg-teal-500 border-2 border-teal-600 rounded-lg px-2 py-1">
+                ${info.getValue<string>()}
+            </span>
+        ),
+    },
 ];
 
 export default staffWLColumns;

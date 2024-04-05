@@ -26,8 +26,8 @@ import {
 } from "@/configs/schema/staffSchema";
 import Fieldset from "@/components/form/fieldset";
 import { NormalBtn } from "@/components/btns";
-import { capFirstLetter } from "@/utils/utils";
-import { RES_STATUS } from "@/utils/types";
+import { capFirstLetter } from "@/lib/literals";
+import { RES_STATUS } from "@/configs/types";
 
 const MStaffForm: FC = memo(() => {
     const navigation = useNavigation();

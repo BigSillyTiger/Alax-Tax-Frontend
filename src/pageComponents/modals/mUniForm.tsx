@@ -10,7 +10,7 @@ import {
     newServiceSchema,
     newUnitSchema,
 } from "@/configs/schema/settingSchema";
-import { isServiceType } from "@/utils/utils";
+import { isServiceType } from "@/lib/literals";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { atModalOpen, atSUInitData } from "@/configs/atoms";

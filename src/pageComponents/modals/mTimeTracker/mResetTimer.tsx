@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import { ConfirmBtn } from "@/components/form";
 import ModalFrame from "@/components/modal/modalFrame";
 import { useRouterStore } from "@/configs/zustore";
-import { genAction } from "@/utils/utils";
-import { TactionReqList } from "@/utils/types";
+import { genAction } from "@/lib/literals";
+import { TactionReqList } from "@/configs/types";
 import { actionReqList } from "@/configs/utils";
 
 type Tprops = {

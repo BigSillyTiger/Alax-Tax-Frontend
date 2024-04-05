@@ -1,5 +1,5 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
-import i18n from "@/utils/i18n";
+import i18n from "@/configs/i18n";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { Atel, Amail } from "@/components/aLinks";
 

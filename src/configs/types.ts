@@ -5,7 +5,7 @@ import {
     roleOptions,
     wlStatusColorMap,
 } from "@/configs/utils";
-import { Tservice, Tunit } from "../configs/schema/settingSchema";
+import { Tservice, Tunit } from "./schema/settingSchema";
 import { timeBtnStyleMap } from "@/configs/utils";
 
 export type Tunivers = {

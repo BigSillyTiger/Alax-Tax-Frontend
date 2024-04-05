@@ -1,6 +1,6 @@
 import { redirect, LoaderFunctionArgs } from "react-router-dom";
 import { API_ADMIN } from "@/apis";
-import { RES_STATUS } from "@/utils/types";
+import { RES_STATUS } from "@/configs/types";
 
 export const loginLoader = async ({ request }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;

@@ -7,13 +7,13 @@ import { RESET } from "jotai/utils";
 import LoadingPage from "@/components/loadingEle";
 import staffColumns from "@/configs/columnDefs/defStaff.tsx";
 import Card from "@/components/card";
-import { toastError, toastSuccess } from "@/utils/toaster";
+import { toastError, toastSuccess } from "@/lib/toaster";
 import { Tstaff } from "@/configs/schema/staffSchema.ts";
 import { MStaffDel, MStaffForm, MStaffResetPW } from "@/pageComponents/modals";
 import { PTable } from "@/components/table";
 import { atStaff, at2ndModalOpen, atModalOpen } from "@/configs/atoms";
-import type { TisConflict } from "@/utils/types";
-import { RES_STATUS } from "@/utils/types";
+import type { TisConflict } from "@/configs/types";
+import { RES_STATUS } from "@/configs/types";
 import MPayslip from "@/pageComponents/modals/mPayslip";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useStaffWLStore } from "@/configs/zustore/staffWLStore";
@@ -32,12 +32,12 @@ const Staff: FC = () => {
         allStaff: Tstaff[] | null;
         worklogs: TwlTableRow[];
     };
-    const setStaffWL = useStaffWLStore((state) => state.setStaffWL);
+    const setAllStaffWL = useStaffWLStore((state) => state.setAllStaffWL);
     const actionData = useActionData() as Tresponse;
 
     useEffect(() => {
-        setStaffWL(worklogs);
-    }, [worklogs, setStaffWL]);
+        setAllStaffWL(worklogs);
+    }, [worklogs, setAllStaffWL]);
 
     useEffect(() => {
         /* close modals if RES_STATUS.SUCCESS  */

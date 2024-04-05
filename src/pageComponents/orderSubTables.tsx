@@ -2,7 +2,7 @@ import { PTable } from "@/components/table";
 import orderDescColumns from "@/configs/columnDefs/defOrderDesc";
 import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
 import { Torder } from "@/configs/schema/orderSchema";
-import i18n from "@/utils/i18n";
+import i18n from "@/configs/i18n";
 
 export const orderSubTable = (data: Torder) => {
     const items = [];

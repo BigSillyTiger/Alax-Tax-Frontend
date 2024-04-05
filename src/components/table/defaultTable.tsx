@@ -18,7 +18,7 @@ import { CTable, CTBody, CTHead, CTh } from ".";
 import ContentWithSwitch from "./SwitchWContent";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import TimeBtn from "@/pageComponents/TimeBtn";
-import { TmenuOptions } from "@/utils/types";
+import { TmenuOptions } from "@/configs/types";
 import { defaultMenuOptions } from "@/configs/utils";
 
 type Tprops<T> = {

@@ -8,8 +8,8 @@ import { useTranslation } from "react-i18next";
 import Card from "@/components/card";
 import { NormalBtn } from "@/components/btns";
 import { API_SETTING } from "@/apis";
-import { toastSuccess } from "@/utils/toaster";
-import { RES_STATUS } from "@/utils/types";
+import { toastSuccess } from "@/lib/toaster";
+import { RES_STATUS } from "@/configs/types";
 
 type Tprops = {
     company: Tcompany | null;

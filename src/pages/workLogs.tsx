@@ -11,9 +11,9 @@ import wlColumns from "@/configs/columnDefs/defWorkLogs";
 import { atModalOpen, atWorkLogTableRow } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import MJobEdit from "@/pageComponents/modals/mJobEdit/mJobEdit";
-import { RES_STATUS } from "@/utils/types";
+import { RES_STATUS } from "@/configs/types";
 import { mOpenOps } from "@/configs/utils";
-import { toastError, toastSuccess } from "@/utils/toaster";
+import { toastError, toastSuccess } from "@/lib/toaster";
 import MWorkLogDel from "@/pageComponents/modals/mWorkLogDel";
 
 const WorkLogs: FC = () => {

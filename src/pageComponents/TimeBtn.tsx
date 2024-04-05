@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { atModalOpen, atWorkLogTableRow } from "@/configs/atoms";
 import { mOpenOps, timeBtnStyleMap } from "@/configs/utils";
-import { TtimeBtnStyles } from "@/utils/types";
+import { TtimeBtnStyles } from "@/configs/types";
 import { t } from "i18next";
-import { calWorkTime } from "@/utils/utils";
+import { calWorkTime } from "@/lib/time";
 
 type Tprops = ComponentPropsWithoutRef<"div"> & {
     data: TwlTableRow;

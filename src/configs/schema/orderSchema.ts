@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { clientSchema } from "./clientSchema";
 import { workLogsSchema } from "./workSchema";
-import i18n from "@/utils/i18n";
+import i18n from "@/configs/i18n";
 
 export const plainOrderSchema = z.object({
     oid: z.string().default(""),

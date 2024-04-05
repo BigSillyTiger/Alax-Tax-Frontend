@@ -1,5 +1,4 @@
 import type { ComponentPropsWithoutRef } from "react";
-import UserIcon from "@/components/UserIcon";
 import { Amail, Atel } from "@/components/aLinks";
 import { useTranslation } from "react-i18next";
 import { Tstaff } from "@/configs/schema/staffSchema";

@@ -6,7 +6,7 @@ import {
     serviceListColDefs,
     unitListColDefs,
 } from "../../configs/columnDefs/defUniList.tsx";
-import { Tunivers } from "@/utils/types";
+import { Tunivers } from "@/configs/types.ts";
 import { MUniDel, MUniForm } from "@/pageComponents/modals";
 import { PTable } from "@/components/table";
 import { useTranslation } from "react-i18next";

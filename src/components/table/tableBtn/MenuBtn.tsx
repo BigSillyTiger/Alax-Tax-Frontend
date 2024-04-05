@@ -4,7 +4,7 @@ import { Menu, Transition } from "@headlessui/react";
 import genOptions from "./genOptions";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { atModalOpen } from "@/configs/atoms";
-import { TmenuOptions } from "@/utils/types";
+import { TmenuOptions } from "@/configs/types";
 
 type Tprops<T> = TmenuOptions & {
     mItem: T;

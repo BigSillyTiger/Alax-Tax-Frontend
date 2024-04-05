@@ -9,7 +9,7 @@ import { DelBtn } from "@/components/form";
 import { atModalOpen, atWorkLogTableRow } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils.ts";
 import Fieldset from "@/components/form/fieldset";
-import { calWorkTime } from "@/utils/utils";
+import { calWorkTime } from "@/lib/time";
 
 const MWorkLogDel: FC = memo(() => {
     const submit = useSubmit();

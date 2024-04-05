@@ -7,12 +7,12 @@ import { RESET } from "jotai/utils";
 import LoadingPage from "@/components/loadingEle";
 import clientColumns from "@/configs/columnDefs/defClients.tsx";
 import Card from "@/components/card";
-import { toastError, toastSuccess } from "@/utils/toaster";
+import { toastError, toastSuccess } from "@/lib/toaster";
 import { Tclient } from "@/configs/schema/clientSchema.ts";
 import { PTable } from "@/components/table";
 import { MClientDel, MClientForm } from "@/pageComponents/modals";
 import { atClient, atInfoConflict, atModalOpen } from "@/configs/atoms";
-import { RES_STATUS } from "@/utils/types";
+import { RES_STATUS } from "@/configs/types";
 
 type Tprops = {
     clients: Tclient[] | null;

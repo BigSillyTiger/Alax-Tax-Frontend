@@ -3,18 +3,18 @@ import { Text, View, Image } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { useTranslation } from "react-i18next";
 import { Tcompany } from "@/configs/schema/settingSchema";
-import { dateFormatAU } from "@/utils/utils";
+import { dateFormat } from "@/lib/time";
 
 type Tprops = {
     company: Tcompany;
-    orderID: string;
+    invoiceID: string;
     issueDate: string;
     logo: string;
 };
 
 const tw = createTw({});
 
-const Title: FC<Tprops> = ({ company, orderID, issueDate, logo }) => {
+const Title: FC<Tprops> = ({ company, invoiceID, issueDate, logo }) => {
     const { t } = useTranslation();
 
     return (
@@ -40,11 +40,11 @@ const Title: FC<Tprops> = ({ company, orderID, issueDate, logo }) => {
             {/* invoice */}
             <View style={tw("ml-auto flex justify-center items-end")}>
                 <Text style={tw("font-bold text-base")}>
-                    {t("label.quotation")}
-                    {" " + "#" + orderID}
+                    {t("label.invoice")}
+                    {" " + "#" + invoiceID}
                 </Text>
                 <Text style={tw("text-xs text-gray-600")}>
-                    {t("label.issuedDate")}: {dateFormatAU(issueDate)}
+                    {t("label.issuedDate")}: {dateFormat(issueDate, "au")}
                 </Text>
             </View>
         </View>

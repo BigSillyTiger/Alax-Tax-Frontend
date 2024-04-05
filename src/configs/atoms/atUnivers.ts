@@ -5,7 +5,7 @@ import {
     Tunivers,
     TisConflict,
     RES_STATUS,
-} from "@/utils/types";
+} from "@/configs/types";
 import { Tcompany, companySchema } from "@/configs/schema/settingSchema";
 import { Tstaff, staffSchema } from "@/configs/schema/staffSchema";
 

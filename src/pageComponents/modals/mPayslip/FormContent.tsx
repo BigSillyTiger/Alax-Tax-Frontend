@@ -6,8 +6,8 @@ import { useForm, useFieldArray, useWatch } from "react-hook-form";
 import { useAtom } from "jotai";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitBtn } from "@/components/form";
-import { genAction } from "@/utils/utils";
-import { useDayRangeStore, useRouterStore } from "@/configs/zustore";
+import { genAction } from "@/lib/literals";
+import { usePayslipStore, useRouterStore } from "@/configs/zustore";
 import { atStaff } from "@/configs/atoms";
 import { useStaffWLStore } from "@/configs/zustore/staffWLStore";
 import { Toggle } from "@/components/disclosure";
@@ -26,12 +26,10 @@ const FormContent: FC<Tprops> = () => {
     const submit = useSubmit();
     const { t } = useTranslation();
     const [staff] = useAtom(atStaff);
+    //const allStaffWL = useStaffWLStore((state) => state.allStaffWL);
     const staffWL = useStaffWLStore((state) => state.staffWL);
     const currentRouter = useRouterStore((state) => state.currentRouter);
-    const dayRange = useDayRangeStore((state) => state.dayRange);
-    const swl = staffWL.filter(
-        (s) => s.fk_uid === staff.uid && s.wl_status === "confirmed"
-    );
+    const dayRange = usePayslipStore((state) => state.dayRange);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -69,17 +67,17 @@ const FormContent: FC<Tprops> = () => {
         </Card>
     );
 
-    const wlTableContent = swl.length ? (
-        <Card className="mt-8">
+    const wlTableContent = staffWL.length ? (
+        <Card className="mt-2">
             <PTable
-                search={true}
-                hFilter={true}
-                data={swl}
+                search={false}
+                hFilter={false}
+                data={staffWL}
                 columns={staffWLColumns}
-                menuOptions={{
+                /* menuOptions={{
                     edit: true,
                     del: true,
-                }}
+                }} */
                 //setData={setWorkLog}
                 /* getRowCanExpand={(row) => {
                     if (row.original.order_services.length > 0) {
@@ -95,7 +93,7 @@ const FormContent: FC<Tprops> = () => {
             />
         </Card>
     ) : (
-        <Card className="mt-8">
+        <Card className="mt-2">
             <span className="m-5 p-5  text-center h-15">
                 {t("label.noContent")}
             </span>
@@ -105,7 +103,7 @@ const FormContent: FC<Tprops> = () => {
     return (
         <Form
             onSubmit={onSubmit}
-            className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[60dvh] border-2 border-red-400`}
+            className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[64dvh] border-2 border-red-400`}
         >
             <section className="col-span-full">
                 <Toggle defaultOpen={true} title={t("label.staffInfo")}>

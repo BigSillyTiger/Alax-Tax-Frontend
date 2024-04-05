@@ -3,7 +3,7 @@ import { menuList } from "@/configs/utils";
 import { routerStore } from "@/configs/zustore";
 import { defer, redirect } from "react-router-dom";
 import { TwlTableRow } from "@/configs/schema/workSchema";
-import { dateFormatAU, hmsTohm } from "@/utils/utils";
+import { dateFormat, hmsTohm } from "@/lib/time";
 
 export const wlLoader = async () => {
     routerStore.setState({ currentRouter: "workLogs" });
@@ -32,7 +32,7 @@ export const wlLoader = async () => {
                                 ...wl,
                                 // convert the date format stored in mysql: yyyy-mm-dd to au: dd-mm-yyyy
                                 // this format is related to date searching in the table
-                                wl_date: dateFormatAU(wl.wl_date),
+                                wl_date: dateFormat(wl.wl_date),
                                 s_time: hmsTohm(wl.s_time as string),
                                 e_time: hmsTohm(wl.e_time as string),
                                 b_time: hmsTohm(wl.b_time as string),

@@ -10,10 +10,10 @@ type Taction = {
     setDayRange: (range: DateRange | undefined) => void;
 };
 
-export const dayRangeStore = createStore<Tstate & Taction>((set) => ({
+export const payslipStore = createStore<Tstate & Taction>((set) => ({
     dayRange: { from: undefined, to: undefined },
     setDayRange: (range: DateRange | undefined) => set({ dayRange: range }),
 }));
 
-export const useDayRangeStore = <T>(selector: (state: Tstate & Taction) => T) =>
-    useStore(dayRangeStore, selector);
+export const usePayslipStore = <T>(selector: (state: Tstate & Taction) => T) =>
+    useStore(payslipStore, selector);

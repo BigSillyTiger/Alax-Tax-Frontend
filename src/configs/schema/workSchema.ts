@@ -83,6 +83,7 @@ export const assignedWorkSchema = workLogSchema.extend({
         .toLowerCase()
         .default("your_email@email.com"),
     role: z.string().trim().default(defaultStaffRole),
+    hr: z.number().default(25),
 });
 
 export const workLogsSchema = z.object({

@@ -1,11 +1,17 @@
 import Big from "big.js";
-
-const gstPercent = 0.1;
+import { gstRate } from "@/configs/utils";
 
 export const timesAB = (x: number, y: number): number => {
     const a = new Big(x);
     const b = new Big(y);
     return a.times(b).toNumber();
+};
+
+export const divAB = (x: number, y: number): number => {
+    const a = new Big(x);
+    const b = new Big(y);
+    Big.DP = 2;
+    return a.div(b).toNumber();
 };
 
 export const calNetto = (qty: number, price: number): number => {
@@ -28,6 +34,11 @@ export const plusAB = (x: number, y: number): number => {
 
 export const calGst = (netto: number): number => {
     const n = new Big(netto);
-    const g = new Big(gstPercent);
+    const g = new Big(gstRate);
     return n.times(g).toNumber();
+};
+
+export const convertWorkHour = (wh: string): number => {
+    const [hours, minutes] = wh.split(":").map(Number);
+    return plusAB(hours, divAB(minutes, 60));
 };

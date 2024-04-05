@@ -1,7 +1,7 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
-import i18n from "@/utils/i18n";
+import i18n from "@/configs/i18n";
 import { Torder } from "@/configs/schema/orderSchema";
-import { dateFormatAU } from "@/utils/utils";
+import { dateFormat } from "@/lib/time";
 
 const orderPaymentsColumns: ColumnDef<Torder>[] = [
     {
@@ -21,7 +21,7 @@ const orderPaymentsColumns: ColumnDef<Torder>[] = [
         header: i18n.t("label.payDate"),
         accessorKey: "paid_date",
         cell: (info: CellContext<Torder, unknown>) => {
-            return <span>{dateFormatAU(info.getValue() as string)}</span>;
+            return <span>{dateFormat(info.getValue() as string, "au")}</span>;
         },
     },
 ];

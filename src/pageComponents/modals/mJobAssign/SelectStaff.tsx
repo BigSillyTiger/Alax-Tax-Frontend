@@ -9,8 +9,8 @@ import { isSameDay } from "date-fns";
 import { atAllStaff, atOrder } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { assignedWorkSchema } from "@/configs/schema/workSchema";
-import { dateFormatISO } from "@/utils/utils";
-import { toastWarning } from "@/utils/toaster";
+import { dateFormat } from "@/lib/time";
+import { toastWarning } from "@/lib/toaster";
 
 const SelectStaff: FC = () => {
     const { t } = useTranslation();
@@ -81,7 +81,7 @@ const SelectStaff: FC = () => {
                             onChange={(e) => {
                                 if (!selectedDate) return;
                                 const date = selectedDate
-                                    ? dateFormatISO(selectedDate)
+                                    ? dateFormat(selectedDate)
                                     : "";
                                 const newWork = assignedWorkSchema.parse({
                                     fk_oid: clientOrder.oid
@@ -89,7 +89,7 @@ const SelectStaff: FC = () => {
                                         : "",
                                     fk_uid: staff.uid,
                                     wl_date: selectedDate
-                                        ? dateFormatISO(selectedDate)
+                                        ? dateFormat(selectedDate)
                                         : "",
                                     first_name: staff.first_name,
                                     last_name: staff.last_name,
