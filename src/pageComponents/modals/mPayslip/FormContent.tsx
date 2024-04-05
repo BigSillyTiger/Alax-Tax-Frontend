@@ -10,6 +10,8 @@ import StaffDetailCard from "@/pageComponents/cards/StaffDetailCard";
 import DayPickerContent from "./DayPickerContent";
 import StaffWLTable from "./StaffWLTable";
 import Card from "@/components/card";
+import Bonus from "./Bonus";
+import Deduction from "./Deduction";
 
 type Tprops = ComponentPropsWithoutRef<"main"> & {
     title: string;
@@ -46,12 +48,15 @@ const FormContent: FC<Tprops> = () => {
                     <DayPickerContent />
                 </Toggle>
 
-                <Toggle defaultOpen={true} title={t("label.staffWL")}>
+                <Toggle defaultOpen={false} title={t("label.confirmedWL")}>
                     <StaffWLTable />
                 </Toggle>
-                {/* <Toggle defaultOpen={true} title={t("label.worklogs")}>
-                    <></>
-                </Toggle> */}
+                <Toggle defaultOpen={false} title={t("label.bonus")}>
+                    <Bonus />
+                </Toggle>
+                <Toggle defaultOpen={false} title={t("label.deduction")}>
+                    <Deduction />
+                </Toggle>
             </section>
         </Card>
     );

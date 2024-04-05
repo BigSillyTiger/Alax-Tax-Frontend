@@ -7,7 +7,7 @@ import {
     CurrencyDollarIcon,
     NewspaperIcon,
 } from "@heroicons/react/24/outline";
-import { convertWorkHour, timesAB } from "@/lib/calculations";
+import { convertWorkHour, plusAB, timesAB } from "@/lib/calculations";
 import { calWorkTime } from "@/lib/time";
 import { useAtom } from "jotai";
 import { atStaff } from "@/configs/atoms";
@@ -19,8 +19,10 @@ const WorkCard: FC = () => {
     const dayRange = usePayslipStore((state) => state.dayRange);
     const totalWH = staffWL.reduce(
         (acc, cur) =>
-            acc +
-            convertWorkHour(calWorkTime(cur.s_time, cur.e_time, cur.b_hour)),
+            plusAB(
+                acc,
+                convertWorkHour(calWorkTime(cur.s_time, cur.e_time, cur.b_hour))
+            ),
         0
     );
     const pay = timesAB(totalWH, staff.hr);

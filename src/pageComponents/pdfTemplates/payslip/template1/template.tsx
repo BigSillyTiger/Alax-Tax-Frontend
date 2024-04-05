@@ -1,19 +1,20 @@
 import type { FC } from "react";
 import { PDFViewer, Page, View, Document, Text } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
-import { TorderService, TorderPayment } from "@/configs/schema/orderSchema";
-import TableHeader from "./TableHeader";
-import TableRows from "./TableRows";
 import Title from "./Title";
-import TableFooter from "./TableFooter";
-import PageFooter from "./PageFooter";
+import PayTitle from "./BillTitle";
 import PayHeader from "./PayHeader";
 import PayRows from "./PayRows";
+import PageFooter from "./PageFooter";
+import PayFooter from "./PayFooter";
 import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
 import { atCompany, atLogo, atStaff } from "@/configs/atoms";
-import { usePayslipStore, useStaffWLStore } from "@/configs/zustore";
-import PayTitle from "./BillTitle";
+import { usePayslipStore } from "@/configs/zustore";
+import { dateFormat } from "@/lib/time";
+import BDRows from "./BDRows";
+import BDHeader from "./BDHeader";
+import BDFooter from "./BDFooter";
 
 const tw = createTw({});
 
@@ -28,32 +29,44 @@ const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
     const [logo] = useAtom(atLogo);
     const [staff] = useAtom(atStaff);
     const staffWL = usePayslipStore((state) => state.staffWL);
+    const dayRange = usePayslipStore((state) => state.dayRange);
+    const bonus = usePayslipStore((state) => state.bonus);
+    const deduction = usePayslipStore((state) => state.dedcution);
 
-    const Services = () => {
+    const Pay = () => {
         return (
             <View style={tw("flex w-[523pt] py-3")}>
                 <Text style={tw("text-lg")}>
                     {t("label.servicesDetails")}:{" "}
                 </Text>
-                <TableHeader />
-                <TableRows data={staffWL} unit={unit} />
-                <TableFooter data={staffWL} unit={unit} rate={staff.hr} />
+                <PayHeader />
+                <PayRows data={staffWL} unit={unit} />
+                <PayFooter data={staffWL} unit={unit} rate={staff.hr} />
             </View>
         );
     };
 
-    /* const Payments = ({ payments }: { payments: TorderPayment[] }) => {
-        if (!payments) {
-            return null;
-        }
+    const Bonus = () => {
         return (
             <View style={tw("flex w-[523pt] py-3")}>
-                <Text style={tw("text-lg")}>{t("label.payments")}: </Text>
-                <PayHeader />
-                <PayRows data={payments} unit={unit} />
+                <Text style={tw("text-lg")}>{t("label.bonus")}: </Text>
+                <BDHeader />
+                <BDRows data={bonus} unit={unit} />
+                <BDFooter data={bonus} unit={unit} />
             </View>
         );
-    }; */
+    };
+
+    const Deduction = () => {
+        return (
+            <View style={tw("flex w-[523pt] py-3")}>
+                <Text style={tw("text-lg")}>{t("label.deduction")}: </Text>
+                <BDHeader />
+                <BDRows data={deduction} unit={unit} bd="d" />
+                <BDFooter data={deduction} unit={unit} bd="d" />
+            </View>
+        );
+    };
 
     const mainContent = (
         <View style={tw("flex flex-col")}>
@@ -63,11 +76,15 @@ const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
                 issueDate={date}
                 logo={logo}
             />
-            <PayTitle company={company} staff={staff} />
+            <PayTitle
+                staff={staff}
+                startP={dateFormat(dayRange?.from?.toISOString(), "au")}
+                endP={dateFormat(dayRange?.to?.toISOString(), "au")}
+            />
 
-            <Services />
-            {/* <Payments payments={order.payments} /> */}
-            {/* <TableFooter data={staffWL} unit={unit} /> */}
+            <Pay />
+            {bonus.length ? <Bonus /> : null}
+            {deduction.length ? <Deduction /> : null}
         </View>
     );
 

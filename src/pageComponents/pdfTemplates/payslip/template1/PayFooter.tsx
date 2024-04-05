@@ -15,7 +15,7 @@ type Tprops = {
 
 const tw = createTw({});
 
-const TableFooter: FC<Tprops> = memo(({ data, unit: u, rate }) => {
+const PayFooter: FC<Tprops> = memo(({ data, unit: u, rate }) => {
     const { t } = useTranslation();
 
     const total = data.reduce((accumulator, currentItem) => {
@@ -73,4 +73,4 @@ const TableFooter: FC<Tprops> = memo(({ data, unit: u, rate }) => {
     );
 });
 
-export default TableFooter;
+export default PayFooter;

@@ -19,7 +19,7 @@ export const auToISO = (date: string) => {
  * @returns yyy-MM-dd is used for datepicker
  */
 export const dateFormat = (
-    date: Date | string | null,
+    date: Date | string | null | undefined,
     form: "au" | "iso" = "iso"
 ) => {
     if (date instanceof Date) {

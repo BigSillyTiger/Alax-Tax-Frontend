@@ -13,18 +13,16 @@ const payslipSchema = z.object({
 });
 
 const bonusSchema = z.object({
-    bsid: z.string().default(""),
     fk_psid: z.string().default(""),
     fk_uid: z.string().default(""),
-    bs_note: z.string().trim().nullable().default(""),
+    note: z.string().trim().nullable().default(""),
     amount: z.number().default(0),
 });
 
 const deductionSchema = z.object({
-    did: z.string().default(""),
     fk_psid: z.string().default(""),
     fk_uid: z.string().default(""),
-    bs_note: z.string().trim().nullable().default(""),
+    note: z.string().trim().nullable().default(""),
     amount: z.number().default(0),
 });
 
@@ -34,3 +32,5 @@ const payslipsSchema = payslipSchema.extend({
 });
 
 export type Tpayslips = z.infer<typeof payslipsSchema>;
+export type Tbonus = z.infer<typeof bonusSchema>;
+export type Tdedcution = z.infer<typeof deductionSchema>;
