@@ -29,7 +29,6 @@ import { toastError, toastSuccess } from "@/utils/toaster";
 import { useTranslation } from "react-i18next";
 import { orderSubTable } from "@/pageComponents/orderSubTables";
 import { Tstaff } from "@/configs/schema/staffSchema";
-import { pageTableH } from "@/configs/ui";
 
 type Torders = {
     orders: Torder[] | null;
@@ -140,7 +139,7 @@ const Orders: FC = () => {
                             }}
                             expandContent={orderSubTable}
                             cnSearch="my-3"
-                            cnTable={`h-[${pageTableH}]`}
+                            cnTable={`h-[65dvh]`}
                             cnHead="sticky z-10 bg-indigo-300"
                             cnTh="py-3"
                         />

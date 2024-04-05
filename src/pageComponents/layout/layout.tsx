@@ -4,7 +4,6 @@ import MainMenu from "@/pageComponents/mainMenu";
 import HeadBar from "@/pageComponents/headBar";
 import { Toaster } from "react-hot-toast";
 import { Tpermission } from "@/configs/schema/universSchema";
-import { mainViewH, mainViewW, menuLgW } from "@/configs/ui";
 
 const Layout: FC = () => {
     const loaderData = useLoaderData() as Tpermission; // permission data
@@ -22,7 +21,7 @@ const Layout: FC = () => {
 
             {/* view area */}
             <main
-                className={`relative py-5 w-screen left-0 lg:left-[${menuLgW}] lg:w-[${mainViewW}] h-[${mainViewH}] overflow-y-auto`}
+                className={`relative py-5 w-screen left-0 lg:left-[5vw] lg:w-[95vw] h-[93vh] overflow-y-auto`}
             >
                 <Outlet />
             </main>

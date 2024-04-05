@@ -15,7 +15,6 @@ import CompanyInfoCard from "@/pageComponents/cards/CompanyInfoCard";
 import { dateFormatISO } from "@/utils/utils";
 import { dateMax, dateMin } from "@/configs/utils";
 import { atCompany, atLogo, atOrder, atClient } from "@/configs/atoms";
-import { invoiceBtnH, invoiceDetailH, invoiceH, pdfH } from "@/configs/ui";
 
 const DatePicker = ({
     oid,
@@ -48,7 +47,7 @@ const DatePicker = ({
     return (
         /* current date */
         <div
-            className={`flex flex-col h-[${invoiceH}] border-t-2 border-dotted border-indigo-400 my-3 py-2`}
+            className={`flex flex-col h-[18dvh] border-t-2 border-dotted border-indigo-400 my-3 py-2`}
         >
             <div className="grid grid-cols-2 gap-2 my-2">
                 <div className="col-span-1">
@@ -80,7 +79,7 @@ const DatePicker = ({
                             setDate(newDate);
                             onSubmit(newDate);
                         }}
-                        className={`h-[${invoiceBtnH}] mt-[1vh]`}
+                        className={`h-[4dvh] mt-[1vh]`}
                     />
                 </div>
             </div>
@@ -113,7 +112,7 @@ const DatePicker = ({
                             setDate(defaultDate);
                             onSubmit(defaultDate);
                         }}
-                        className={`h-[${invoiceBtnH}] mt-[1vh]`}
+                        className={`h-[4dvh] mt-[1vh]`}
                     />
                 </div>
             </div>
@@ -136,7 +135,7 @@ const QuoContent: FC = memo(() => {
     }, [clientOrder.invoice_date]);
 
     const detailContent = (
-        <section className={`h-[${invoiceDetailH}] overflow-y-auto`}>
+        <section className={`h-[60dvh] overflow-y-auto`}>
             <Toggle defaultOpen={true} title={t("label.companyInfo")}>
                 <CompanyInfoCard company={company} className="" />
             </Toggle>
@@ -154,7 +153,7 @@ const QuoContent: FC = memo(() => {
 
     return (
         <main
-            className={`grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[${pdfH}]`}
+            className={`grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[83dvh]`}
         >
             <section className="col-span-1 md:col-span-3 ">
                 {detailContent}

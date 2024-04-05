@@ -16,6 +16,7 @@ export const dashboardLoader = async () => {
             API_WORKLOGS.wlGetToday()
                 .then((res) => res.data as TwlTableRow[])
                 .then((res) => {
+                    if (!res) return [];
                     return res.map((wl: TwlTableRow) => {
                         return {
                             ...wl,

@@ -4,7 +4,6 @@ import { useAtom } from "jotai";
 import { atModalOpen } from "@/configs/atoms";
 import { useTranslation } from "react-i18next";
 import { mOpenOps } from "@/configs/utils";
-import { pdfH } from "@/configs/ui";
 import FormContent from "./FormContent";
 
 const MPayslip: FC = () => {
@@ -17,7 +16,7 @@ const MPayslip: FC = () => {
 
     const MainContent = () => (
         <main
-            className={`grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[${pdfH}]`}
+            className={`grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[83dvh]`}
         >
             <section className="col-span-1 md:col-span-4">
                 <FormContent title="" />

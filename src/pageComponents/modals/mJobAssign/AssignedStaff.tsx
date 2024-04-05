@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import WorkLogCard from "@/pageComponents/modals/mJobAssign/WorkLogCard";
 import { useJobAssignStore } from "@/configs/zustore";
 import { isSameDay } from "date-fns";
-import { fieldsetH, fieldsetLgH, fieldsetMdH } from "@/configs/ui";
 
 const AssignedStaff: FC = () => {
     const { t } = useTranslation();
@@ -26,7 +25,7 @@ const AssignedStaff: FC = () => {
     return (
         <Fieldset
             title={t("label.assignedStaff")}
-            sFieldset={`col-span-full lg:col-span-5 my-2 mx-1 h-[${fieldsetH}] md:h-[${fieldsetMdH}] lg:h-[${fieldsetLgH}] overflow-y-auto p-4`}
+            sFieldset={`col-span-full lg:col-span-5 my-2 mx-1 h-[28dvh] md:h-[38dvh] lg:h-[45dvh] overflow-y-auto p-4`}
         >
             {scheduledWork.length > 0 ? (
                 scheduledWork.map((item) => {

@@ -6,7 +6,6 @@ import { useForm, useFieldArray, useWatch } from "react-hook-form";
 import { useAtom } from "jotai";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitBtn } from "@/components/form";
-import { invoiceDetailH, staffTableH, pdfH } from "@/configs/ui";
 import { genAction } from "@/utils/utils";
 import { useDayRangeStore, useRouterStore } from "@/configs/zustore";
 import { atStaff } from "@/configs/atoms";
@@ -90,7 +89,7 @@ const FormContent: FC<Tprops> = () => {
                 }} */
                 //expandContent={orderSubTable}
                 cnSearch="my-3"
-                cnTable={`h-[${staffTableH}]`}
+                cnTable={`h-[40dvh]`}
                 cnHead="sticky z-10 bg-indigo-300"
                 cnTh="py-3"
             />
@@ -106,7 +105,7 @@ const FormContent: FC<Tprops> = () => {
     return (
         <Form
             onSubmit={onSubmit}
-            className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[${invoiceDetailH}] border-2 border-red-400`}
+            className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[60dvh] border-2 border-red-400`}
         >
             <section className="col-span-full">
                 <Toggle defaultOpen={true} title={t("label.staffInfo")}>

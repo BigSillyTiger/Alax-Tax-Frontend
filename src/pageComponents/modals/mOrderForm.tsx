@@ -30,7 +30,6 @@ import { genAction } from "@/utils/utils";
 import ComboBox from "@/components/ComboBox";
 import { Tservice } from "@/configs/schema/settingSchema";
 import { XBtn } from "@/components/btns";
-import { orderModalH, orderModalDescH } from "@/configs/ui";
 
 const MOrderForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -416,7 +415,7 @@ const MOrderForm: FC = memo(() => {
     );
 
     const descContent = (
-        <Card className={`my-2 mx-1 lg:h-[${orderModalDescH}] overflow-y-auto`}>
+        <Card className="my-2 mx-1 lg:h-[65dvh] overflow-y-auto">
             {fields.length ? (
                 fields.map((field, index) => {
                     return (
@@ -694,9 +693,7 @@ const MOrderForm: FC = memo(() => {
 
     const mainContent = (
         <Form onSubmit={onSubmit}>
-            <section
-                className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[${orderModalH}] lg:h-auto`}
-            >
+            <section className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[77dvh] lg:h-auto">
                 <section className="col-span-1 lg:col-span-3 grid grid-cols-1">
                     {/* client info */}
                     <fieldset className="">

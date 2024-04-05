@@ -14,7 +14,6 @@ import { PTable } from "@/components/table";
 import { atStaff, at2ndModalOpen, atModalOpen } from "@/configs/atoms";
 import type { TisConflict } from "@/utils/types";
 import { RES_STATUS } from "@/utils/types";
-import { pageTableH } from "@/configs/ui";
 import MPayslip from "@/pageComponents/modals/mPayslip";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useStaffWLStore } from "@/configs/zustore/staffWLStore";
@@ -121,7 +120,7 @@ const Staff: FC = () => {
                                 }}
                                 setData={setStaff}
                                 cnSearch="my-3"
-                                cnTable={`h-[${pageTableH}]`}
+                                cnTable={`h-[65dvh]`}
                                 cnHead="sticky z-10 bg-indigo-300"
                                 cnTh="py-3"
                             />

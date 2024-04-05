@@ -15,7 +15,6 @@ import TimeBtnGroup from "./TimeBtns";
 import MResetTimer from "./mResetTimer";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
 import { TwlTableRow } from "@/configs/schema/workSchema";
-import { timerModalH } from "@/configs/ui";
 
 const MTimeTracker = () => {
     //const submit = useSubmit();
@@ -76,7 +75,7 @@ const MTimeTracker = () => {
     const mainContent = (
         <div className="">
             <section
-                className={`grid grid-cols-1 sm:grid-cols-2 gap-x-2 overflow-y-auto max-h-[${timerModalH}]`}
+                className={`grid grid-cols-1 sm:grid-cols-2 gap-x-2 overflow-y-auto max-h-[60dvh]`}
             >
                 {/* info */}
                 <div className="col-span-1">

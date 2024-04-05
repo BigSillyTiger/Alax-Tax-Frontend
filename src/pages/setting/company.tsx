@@ -10,7 +10,6 @@ import { NormalBtn } from "@/components/btns";
 import { API_SETTING } from "@/apis";
 import { toastSuccess } from "@/utils/toaster";
 import { RES_STATUS } from "@/utils/types";
-import { companyLogoH, companyLogoW, invoiceBtnH } from "@/configs/ui";
 
 type Tprops = {
     company: Tcompany | null;
@@ -288,7 +287,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                         <img
                             id="logo"
                             src={logoSrc}
-                            className={`max-w-[${companyLogoW}] max-h-[${companyLogoH}] m-auto`}
+                            className={`max-w-[100px] max-h-[100px] m-auto`}
                         />
                     </Card>
                     {imagePreview && (
@@ -300,7 +299,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                                 id="imagePreview"
                                 src={imagePreview}
                                 alt="Image preview"
-                                className={`max-w-[${companyLogoW}] max-h-[${companyLogoH}] m-auto`}
+                                className={`max-w-[100px] max-h-[100px] m-auto`}
                             />
                         </Card>
                     )}
@@ -319,7 +318,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                             }
                         }
                     }}
-                    className={`h-[${invoiceBtnH}] mt-[1vh]`}
+                    className={`h-[4dvh] mt-[1vh]`}
                 />
             </div>
         </>

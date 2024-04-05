@@ -22,7 +22,7 @@ const StaticMenu: FC<Tprops> = ({ menuList }) => {
 
     return (
         <div
-            className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-[5vw] lg:overflow-y-auto lg:bg-gray-900 lg:pb-4 hover:w-[12vw] hover:transistion-width duration-200"
+            className={`hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-[5vw] lg:overflow-y-auto lg:bg-gray-900 lg:pb-4 hover:w-[12vw] hover:transistion-width duration-200`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
