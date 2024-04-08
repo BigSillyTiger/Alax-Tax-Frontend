@@ -5,7 +5,7 @@ import { Torder } from "@/configs/schema/orderSchema";
 import i18n from "@/configs/i18n";
 
 export const orderSubTable = (data: Torder) => {
-    const items = [];
+    const items = [] as { title: string; content: JSX.Element }[];
     /* order services table */
     items.push({
         title: i18n.t("label.services"),

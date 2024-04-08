@@ -27,7 +27,9 @@ const BDFooter: FC<Tprops> = memo(({ data, unit: u, bd = "b" }) => {
             wrap={false}
         >
             <View
-                style={tw("flex flex-col bg-teal-50 w-[220pt] px-2 leading-6")}
+                style={tw(
+                    `flex flex-col w-[220pt] px-2 leading-6 ${bd === "b" ? "bg-teal-100" : "bg-red-100 "}`
+                )}
             >
                 <View style={tw("flex flex-row h-7 justify-between")}>
                     <Text style={tw("text-base my-auto")}>

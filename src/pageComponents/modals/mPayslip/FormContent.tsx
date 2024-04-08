@@ -54,7 +54,13 @@ const FormContent: FC<Tprops> = () => {
                 <Toggle defaultOpen={false} title={t("label.bonus")}>
                     <Bonus />
                 </Toggle>
-                <Toggle defaultOpen={false} title={t("label.deduction")}>
+                <Toggle
+                    defaultOpen={false}
+                    title={t("label.deduction")}
+                    bColor={"bg-red-100"}
+                    hColor={"hover:bg-red-200"}
+                    tColor={"text-red-800"}
+                >
                     <Deduction />
                 </Toggle>
             </section>

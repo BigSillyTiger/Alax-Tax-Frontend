@@ -5,11 +5,19 @@ import { useTranslation } from "react-i18next";
 
 const tw = createTw({});
 
-const BDHeader: FC = () => {
+type Tprops = {
+    bd?: "b" | "d";
+};
+
+const BDHeader: FC<Tprops> = ({ bd = "b" }) => {
     const { t } = useTranslation();
 
     return (
-        <View style={tw("flex flex-row gap-x-1 w-[523pt] bg-teal-200")}>
+        <View
+            style={tw(
+                `flex flex-row gap-x-1 w-[523pt] ${bd === "b" ? "bg-teal-200" : "bg-red-200"}`
+            )}
+        >
             <Text style={tw("text-base w-[200pt] pl-5 mt-2")}>
                 {t("label.amount")}
             </Text>

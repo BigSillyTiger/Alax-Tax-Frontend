@@ -36,9 +36,7 @@ const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
     const Pay = () => {
         return (
             <View style={tw("flex w-[523pt] py-3")}>
-                <Text style={tw("text-lg")}>
-                    {t("label.servicesDetails")}:{" "}
-                </Text>
+                <Text style={tw("text-lg")}>{t("label.thisPay")}: </Text>
                 <PayHeader />
                 <PayRows data={staffWL} unit={unit} />
                 <PayFooter data={staffWL} unit={unit} rate={staff.hr} />
@@ -61,7 +59,7 @@ const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
         return (
             <View style={tw("flex w-[523pt] py-3")}>
                 <Text style={tw("text-lg")}>{t("label.deduction")}: </Text>
-                <BDHeader />
+                <BDHeader bd="d" />
                 <BDRows data={deduction} unit={unit} bd="d" />
                 <BDFooter data={deduction} unit={unit} bd="d" />
             </View>

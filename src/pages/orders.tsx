@@ -29,6 +29,7 @@ import { toastError, toastSuccess } from "@/lib/toaster";
 import { useTranslation } from "react-i18next";
 import { orderSubTable } from "@/pageComponents/orderSubTables";
 import { Tstaff } from "@/configs/schema/staffSchema";
+import ContentWithSwitch from "@/components/table/SwitchWContent";
 
 type Torders = {
     orders: Torder[] | null;
@@ -109,6 +110,10 @@ const Orders: FC = () => {
         }
     }, [actionData, modalOpen, setModalOpen, t]);
 
+    const SubTable = ({ data }: { data: Torder }) => {
+        return <ContentWithSwitch items={orderSubTable(data)} />;
+    };
+
     const OrderTableContent: FC<Torders> = ({ orders }) => {
         return (
             <div className="px-4 sm:px-6 lg:px-8 top-0">
@@ -137,9 +142,9 @@ const Orders: FC = () => {
                                 }
                                 return false;
                             }}
-                            expandContent={orderSubTable}
+                            expandContent={SubTable}
                             cnSearch="my-3"
-                            cnTable={`h-[65dvh]`}
+                            cnTable={`h-[70dvh]`}
                             cnHead="sticky z-10 bg-indigo-300"
                             cnTh="py-3"
                         />

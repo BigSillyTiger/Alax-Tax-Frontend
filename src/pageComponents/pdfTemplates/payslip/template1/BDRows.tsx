@@ -22,7 +22,9 @@ const BDRows: FC<Tprops> = memo(({ data, unit: u, bd = "b" }) => {
             <View
                 style={tw(
                     `flex flex-row gap-x-1 w-[523pt] justify-center py-1 ${
-                        i % 2 ? "bg-teal-100" : "bg-slate-50"
+                        i % 2
+                            ? `${bd === "b" ? "bg-teal-100" : "bg-red-100"}`
+                            : "bg-slate-50"
                     }`
                 )}
             >

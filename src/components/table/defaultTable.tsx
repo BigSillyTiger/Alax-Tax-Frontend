@@ -1,4 +1,4 @@
-import { useState, useDeferredValue, Fragment } from "react";
+import { useState, useDeferredValue, Fragment, ComponentType } from "react";
 import {
     useReactTable,
     flexRender,
@@ -15,7 +15,6 @@ import { sortingIcon } from "./config";
 import { MenuBtn, StatusBtn, DetailBtn, ExpandBtn } from "./tableBtn";
 import HeaderFilter from "./headerFilter";
 import { CTable, CTBody, CTHead, CTh } from ".";
-import ContentWithSwitch from "./SwitchWContent";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import TimeBtn from "@/pageComponents/TimeBtn";
 import { TmenuOptions } from "@/configs/types";
@@ -33,8 +32,8 @@ type Tprops<T> = {
     // for header filter:
     hFilter?: boolean;
     // for sub table
-    getRowCanExpand?: (row: any) => boolean;
-    expandContent?: (row: any) => { title: string; content: JSX.Element }[];
+    getRowCanExpand?: (row: Row<T>) => boolean;
+    expandContent?: ComponentType<{ data: T }>;
 
     // for each components className
     cnSearch?: string;
@@ -69,7 +68,7 @@ const PTable = <T extends object>({
     search,
     hFilter,
     getRowCanExpand,
-    expandContent,
+    expandContent: SubTable,
     cnSearch,
     cnTable,
     cnHead,
@@ -240,13 +239,11 @@ const PTable = <T extends object>({
                           );
                       })}
                   </tr>
-                  {getRowCanExpand && expandContent && row.getIsExpanded() && (
+                  {getRowCanExpand && SubTable && row.getIsExpanded() && (
                       <tr>
                           <td colSpan={row.getVisibleCells().length}>
                               {/* 2nd row is a custom 1 cell row */}
-                              <ContentWithSwitch
-                                  items={expandContent(row.original)}
-                              />
+                              <SubTable data={row.original} />
                           </td>
                       </tr>
                   )}

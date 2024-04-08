@@ -14,7 +14,8 @@ const Deduction: FC = () => {
         (state) => state.setDeductionAmount
     );
     const setDeductionNote = usePayslipStore((state) => state.setDeductionNote);
-    let timeoutID: NodeJS.Timeout | null = null;
+    let timeoutAID: NodeJS.Timeout | null = null;
+    let timeoutNID: NodeJS.Timeout | null = null;
 
     const handleAddDeduction = () => {
         appendDeduction({ amount: 0, note: "" });
@@ -24,7 +25,7 @@ const Deduction: FC = () => {
         return (
             <section className="w-full flex justify-center mt-2">
                 <Button
-                    className="bg-indigo-600 text-slate-50 text-xl hover:bg-slate-50 hover:text-indigo-600 border-2 border-indigo-700"
+                    className="bg-red-400 text-slate-50 text-xl hover:bg-slate-50 hover:text-red-500 border-2 border-red-600"
                     onClick={handleAddDeduction}
                 >
                     {t("btn.addNewDeduction")}
@@ -62,8 +63,8 @@ const Deduction: FC = () => {
                             min={0}
                             defaultValue={d.amount}
                             onChange={(e) => {
-                                timeoutID && clearTimeout(timeoutID);
-                                timeoutID = setTimeout(() => {
+                                timeoutAID && clearTimeout(timeoutAID);
+                                timeoutAID = setTimeout(() => {
                                     setDeductionAmount(
                                         i,
                                         parseInt(e.target.value)
@@ -85,8 +86,8 @@ const Deduction: FC = () => {
                             rows={1}
                             defaultValue={d?.note ? d.note : ""}
                             onChange={(e) => {
-                                timeoutID && clearTimeout(timeoutID);
-                                timeoutID = setTimeout(() => {
+                                timeoutNID && clearTimeout(timeoutNID);
+                                timeoutNID = setTimeout(() => {
                                     setDeductionNote(i, e.target.value);
                                 }, 1500);
                             }}

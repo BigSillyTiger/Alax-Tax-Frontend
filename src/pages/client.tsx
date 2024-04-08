@@ -28,6 +28,7 @@ import {
 import { mOpenOps } from "@/configs/utils";
 import { MpdfMaker } from "@/pageComponents/modals";
 import { orderSubTable } from "@/pageComponents/orderSubTables";
+import ContentWithSwitch from "@/components/table/SwitchWContent";
 
 const Client = () => {
     const { t } = useTranslation();
@@ -143,6 +144,10 @@ const Client = () => {
         }
     }, [actionData, modalOpen, setModalOpen, t]);
 
+    const SubTable = ({ data }: { data: Torder }) => {
+        return <ContentWithSwitch items={orderSubTable(data)} />;
+    };
+
     const ClientInfoContent: FC<{ client: Tclient }> = ({ client }) => {
         return (
             <div className="px-4 sm:px-6 lg:px-8 top-0 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 ">
@@ -189,7 +194,7 @@ const Client = () => {
                                 }
                                 return false;
                             }}
-                            expandContent={orderSubTable}
+                            expandContent={SubTable}
                             cnSearch="my-3"
                             cnTable={`h-[55dvh]`}
                             cnHead="sticky z-10 bg-indigo-300"

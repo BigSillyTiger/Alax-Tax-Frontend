@@ -57,6 +57,10 @@ const PayTitle: FC<Tprops> = ({ staff, startP, endP }) => {
                             {startP} ~ {endP}
                         </Text>
                     </Text>
+                    <Text style={tw("text-base leading-5 text-teal-700")}>
+                        {t("label.payDate")}:{" "}
+                        <Text style={tw("text-zinc-700")}>{"placeholder"}</Text>
+                    </Text>
                 </View>
             </View>
         </View>

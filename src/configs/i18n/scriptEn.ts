@@ -199,7 +199,7 @@ const en = {
             payAmount: "Payment Amount",
             payments: "Payments",
             paymentTo: "Payment To",
-            payDate: "Paid Date",
+            payDate: "Pay Date",
             payslip: "Payslip",
             payPeriod: "Pay Period",
             payTo: "Pay To",

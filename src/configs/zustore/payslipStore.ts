@@ -2,13 +2,14 @@ import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
 import { DateRange } from "react-day-picker";
 import { TwlTableRow } from "../schema/workSchema";
-import { Tbonus, Tdedcution } from "../schema/payslipSchema";
+import { Tbonus, Tdedcution, Tpayslips } from "../schema/payslipSchema";
 
 type Tstate = {
     dayRange: DateRange;
     staffWL: TwlTableRow[];
     bonus: Partial<Tbonus>[];
     dedcution: Partial<Tdedcution>[];
+    payslip: Partial<Tpayslips>;
 };
 
 type Taction = {
@@ -27,6 +28,7 @@ type Taction = {
 };
 
 export const payslipStore = createStore<Tstate & Taction>((set) => ({
+    payslip: {},
     dayRange: { from: undefined, to: undefined },
     staffWL: [],
     bonus: [],

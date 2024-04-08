@@ -12,7 +12,8 @@ const Bonus: FC = () => {
     const appendBonus = usePayslipStore((state) => state.appendBonus);
     const setBonusAmount = usePayslipStore((state) => state.setBonusAmount);
     const setBonusNote = usePayslipStore((state) => state.setBonusNote);
-    let timeoutID: NodeJS.Timeout | null = null;
+    let timeoutAID: NodeJS.Timeout | null = null;
+    let timeoutNID: NodeJS.Timeout | null = null;
 
     const handleAddBonus = () => {
         appendBonus({ amount: 0, note: "" });
@@ -60,8 +61,8 @@ const Bonus: FC = () => {
                             min={0}
                             defaultValue={b.amount}
                             onChange={(e) => {
-                                timeoutID && clearTimeout(timeoutID);
-                                timeoutID = setTimeout(() => {
+                                timeoutAID && clearTimeout(timeoutAID);
+                                timeoutAID = setTimeout(() => {
                                     setBonusAmount(i, parseInt(e.target.value));
                                 }, 1500);
                             }}
@@ -80,8 +81,8 @@ const Bonus: FC = () => {
                             rows={1}
                             defaultValue={b?.note ? b.note : ""}
                             onChange={(e) => {
-                                timeoutID && clearTimeout(timeoutID);
-                                timeoutID = setTimeout(() => {
+                                timeoutNID && clearTimeout(timeoutNID);
+                                timeoutNID = setTimeout(() => {
                                     setBonusNote(i, e.target.value);
                                 }, 1500);
                             }}

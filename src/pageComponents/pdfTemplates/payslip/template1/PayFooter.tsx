@@ -57,7 +57,7 @@ const PayFooter: FC<Tprops> = memo(({ data, unit: u, rate }) => {
                 </Text>
             </View> */}
             <View
-                style={tw("flex flex-col bg-teal-50 w-[220pt] px-2 leading-6")}
+                style={tw("flex flex-col bg-teal-100 w-[220pt] px-2 leading-6")}
             >
                 <View style={tw("flex flex-row h-7 justify-between")}>
                     <Text style={tw("text-base my-auto")}>
