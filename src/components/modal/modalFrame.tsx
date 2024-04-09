@@ -94,30 +94,29 @@ const ModalFrame: FC<Tprops> = ({
                                         srStr={t("sr.closeModal")}
                                     />
                                 </div>
-                                <div className="sm:flex sm:items-start">
-                                    <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                                        {/* title */}
-                                        <Dialog.Title
-                                            as="h3"
-                                            className={`text-base flex items-center font-semibold leading-6 mb-4 h-[5vh] ${
-                                                isMajor
-                                                    ? "text-red-600 flex items-center justify-center"
-                                                    : "text-gray-900"
-                                            }`}
-                                        >
-                                            {isMajor && (
-                                                <ExclamationTriangleIcon
-                                                    className="h-5 w-5 inline"
-                                                    aria-hidden="true"
-                                                />
-                                            )}
-                                            &nbsp;
-                                            {title}
-                                        </Dialog.Title>
 
-                                        {/* main content */}
-                                        {children}
-                                    </div>
+                                <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                                    {/* title */}
+                                    <Dialog.Title
+                                        as="h3"
+                                        className={`text-base flex items-center font-semibold leading-6 h-[5vh] ${
+                                            isMajor
+                                                ? "text-red-600 flex items-center justify-center"
+                                                : "text-gray-900"
+                                        }`}
+                                    >
+                                        {isMajor && (
+                                            <ExclamationTriangleIcon
+                                                className="h-5 w-5 inline"
+                                                aria-hidden="true"
+                                            />
+                                        )}
+                                        &nbsp;
+                                        {title}
+                                    </Dialog.Title>
+
+                                    {/* main content */}
+                                    {children}
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>

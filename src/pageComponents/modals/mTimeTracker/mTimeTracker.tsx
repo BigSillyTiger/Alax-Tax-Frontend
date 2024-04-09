@@ -76,7 +76,7 @@ const MTimeTracker = () => {
     const mainContent = (
         <div className="">
             <section
-                className={`grid grid-cols-1 sm:grid-cols-2 gap-x-2 overflow-y-auto max-h-[60dvh]`}
+                className={`grid grid-cols-1 sm:grid-cols-2 gap-x-2 overflow-y-auto h-[45dvh]`}
             >
                 {/* info */}
                 <div className="col-span-1">
