@@ -31,15 +31,18 @@ const MJobEdit = () => {
     const setETime = useWorklogStore((state) => state.setETime);
     const setBHour = useWorklogStore((state) => state.setBHour);
     const deduction = useWorklogStore((state) => state.deduction);
+    const setDeduction = useWorklogStore((state) => state.setDeduction);
 
     useEffect(() => {
         setSTime(worklog.s_time ? worklog.s_time : "00:00");
         setETime(worklog.e_time ? worklog.e_time : "00:00");
         setBHour(worklog.b_hour ? worklog.b_hour : "00:00");
-    }, [modalOpen, worklog, setSTime, setETime, setBHour]);
+        setDeduction(worklog.deduction ? worklog.deduction : []);
+    }, [modalOpen, worklog, setSTime, setETime, setBHour, setDeduction]);
 
     const onClose = () => {
         setModalOpen(mOpenOps.default);
+        setDeduction([]);
     };
 
     const onSubmit = async (e: FormEvent) => {

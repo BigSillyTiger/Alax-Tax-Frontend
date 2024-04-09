@@ -29,13 +29,13 @@ const WorkLogs: FC = () => {
         if (actionData?.status === RES_STATUS.SUC_UPDATE_WORKLOG) {
             if (modalOpen === mOpenOps.edit) {
                 setModalOpen(mOpenOps.default);
-                toastSuccess(t("toastS.updateWorkHours"));
+                toastSuccess(t("toastS.updateWL"));
                 actionData.status = RES_STATUS.DEFAULT;
             }
         } else if (actionData?.status === RES_STATUS.FAILED_UPDATE_WORKLOG) {
             if (modalOpen === mOpenOps.edit) {
                 setModalOpen(mOpenOps.default);
-                toastError(t("toastF.updateWorkHours"));
+                toastError(t("toastF.updateWL"));
                 actionData.status = RES_STATUS.DEFAULT;
             }
         } else if (actionData?.status === RES_STATUS.SUC_DELETE_WORKLOG) {

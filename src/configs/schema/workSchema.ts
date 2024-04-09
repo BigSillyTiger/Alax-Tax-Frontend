@@ -59,6 +59,13 @@ const workLogSchema = z.object({
     archive: z.boolean().default(false),
 });
 
+export const deductionSchema = z.object({
+    did: z.string().default(""),
+    fk_wlid: z.string().default(""),
+    note: z.string().trim().nullable().default(""),
+    amount: z.number().default(0),
+});
+
 export const assignedWorkSchema = workLogSchema.extend({
     first_name: z.string().default(""),
     last_name: z.string().default(""),
@@ -84,6 +91,7 @@ export const assignedWorkSchema = workLogSchema.extend({
         .default("your_email@email.com"),
     role: z.string().trim().default(defaultStaffRole),
     hr: z.number().default(25),
+    deduction: deductionSchema.array().default([]),
 });
 
 export const workLogsSchema = z.object({
@@ -106,13 +114,6 @@ export const wlTableRowSchema = assignedWorkSchema.extend({
     city: z.string().trim().nullable().default(""),
     state: z.string().trim().nullable().default(""),
     postcode: z.string().trim().nullable().default(""),
-});
-
-export const deductionSchema = z.object({
-    did: z.string().default(""),
-    fk_wlid: z.string().default(""),
-    note: z.string().trim().nullable().default(""),
-    amount: z.number().default(0),
 });
 
 export type TworkLog = z.infer<typeof workLogSchema>;

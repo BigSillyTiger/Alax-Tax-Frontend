@@ -18,6 +18,7 @@ type Taction = {
     setDeductionNote: (index: number, note: string) => void;
     appendDeduction: (deduction: Partial<Tdeduction>) => void;
     removeDeduction: (index: number) => void;
+    setDeduction: (deduction: Partial<Tdeduction>[]) => void;
 };
 
 export const worklogStore = createStore<Tstate & Taction>((set) => ({
@@ -53,6 +54,8 @@ export const worklogStore = createStore<Tstate & Taction>((set) => ({
             console.log("-> new deduction: ", newDeduction);
             return { ...state, deduction: newDeduction };
         }),
+    setDeduction: (deduction: Partial<Tdeduction>[]) =>
+        set((state) => ({ ...state, deduction })),
 }));
 
 export const useWorklogStore = <T>(selector: (state: Tstate & Taction) => T) =>

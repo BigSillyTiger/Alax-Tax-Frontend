@@ -293,6 +293,7 @@ const en = {
             updateLogo: "Updated Logo.",
             updateWorkLog: "Updated Work Assignment.",
             updateWorkHours: "Updated Work Hours.",
+            updateWL: "Updated Work Log.",
         },
         toastF: {
             addOrder: "Error: Adding New Order Failed",
@@ -307,6 +308,7 @@ const en = {
             overPaid: "Error: Over Paid Amount",
             unMatchPW: "Error: Passwords do not match",
             updateWorkHours: "Error: Updating Work Hours Failed",
+            updateWL: "Error: Updating Work Log.",
         },
         toastW: {
             selectDate: "Please select a date first.",
