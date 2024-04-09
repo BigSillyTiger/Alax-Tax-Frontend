@@ -3,9 +3,10 @@ import orderDescColumns from "@/configs/columnDefs/defOrderDesc";
 import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
 import { Torder } from "@/configs/schema/orderSchema";
 import i18n from "@/configs/i18n";
+import { TitemContent } from "@/configs/types";
 
 export const orderSubTable = (data: Torder) => {
-    const items = [] as { title: string; content: JSX.Element }[];
+    const items = [] as TitemContent[];
     /* order services table */
     items.push({
         title: i18n.t("label.services"),

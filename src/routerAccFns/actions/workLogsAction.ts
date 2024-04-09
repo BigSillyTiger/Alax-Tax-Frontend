@@ -9,7 +9,8 @@ export const wlAction = async ({
 
     if ("POST" === request.method && data.get("req") === "jobEdit") {
         const wlData = JSON.parse(data.get("values") as string);
-        const result = await API_WORKLOGS.wlSingleUpdateHours(wlData);
+        const deduction = JSON.parse(data.get("deduction") as string);
+        const result = await API_WORKLOGS.wlSigleUpdate(wlData, deduction);
         return result;
     } else if ("DELETE" === request.method) {
         const wlid = data.get("wlid") as string;

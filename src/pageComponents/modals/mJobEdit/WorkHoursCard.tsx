@@ -1,20 +1,20 @@
 import { useEffect, useState, type ComponentPropsWithoutRef } from "react";
 import { useTranslation } from "react-i18next";
-import Fieldset from "@/components/form/fieldset";
 import { Input } from "@/components/ui/input";
 import { calWorkTime, isWorkHoursValid } from "@/lib/time";
-import { useWorkHoursStore } from "@/configs/zustore/workHoursStore";
+import { useWorklogStore } from "@/configs/zustore/worklogStore";
+import Card from "@/components/card";
 
 type Tprops = ComponentPropsWithoutRef<"div">;
 
 const WorkHoursCard = ({ className }: Tprops) => {
     const { t } = useTranslation();
-    const s_time = useWorkHoursStore((state) => state.s_time);
-    const e_time = useWorkHoursStore((state) => state.e_time);
-    const b_hour = useWorkHoursStore((state) => state.b_hour);
-    const setSTime = useWorkHoursStore((state) => state.setSTime);
-    const setETime = useWorkHoursStore((state) => state.setETime);
-    const setBHour = useWorkHoursStore((state) => state.setBHour);
+    const s_time = useWorklogStore((state) => state.s_time);
+    const e_time = useWorklogStore((state) => state.e_time);
+    const b_hour = useWorklogStore((state) => state.b_hour);
+    const setSTime = useWorklogStore((state) => state.setSTime);
+    const setETime = useWorklogStore((state) => state.setETime);
+    const setBHour = useWorklogStore((state) => state.setBHour);
     const [totalWH, setTotalWH] = useState(calWorkTime(s_time, e_time, b_hour));
     const [isValid, setIsValid] = useState(true);
 
@@ -24,9 +24,8 @@ const WorkHoursCard = ({ className }: Tprops) => {
     }, [s_time, e_time, b_hour, totalWH]);
 
     return (
-        <Fieldset
-            title={t("label.workHours")}
-            sFieldset={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 pl-3 pr-5 pb-3 ${className}`}
+        <Card
+            className={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 pl-3 pr-5 pb-3 overflow-y-auto ${className}`}
         >
             <div className="col-span-3 row-span-2">
                 <label
@@ -89,7 +88,7 @@ const WorkHoursCard = ({ className }: Tprops) => {
                     className="text-bold text-3xl text-center text-lime-600 m-2 p-2"
                 />
             </div>
-        </Fieldset>
+        </Card>
     );
 };
 

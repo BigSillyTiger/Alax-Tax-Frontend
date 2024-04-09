@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { deductionSchema } from "./workSchema";
 
 const payslipSchema = z.object({
     psid: z.string().default(""),
@@ -19,13 +20,6 @@ const bonusSchema = z.object({
     amount: z.number().default(0),
 });
 
-const deductionSchema = z.object({
-    fk_psid: z.string().default(""),
-    fk_uid: z.string().default(""),
-    note: z.string().trim().nullable().default(""),
-    amount: z.number().default(0),
-});
-
 const payslipsSchema = payslipSchema.extend({
     bonus: bonusSchema.array().default([]),
     deduction: deductionSchema.array().default([]),
@@ -33,4 +27,3 @@ const payslipsSchema = payslipSchema.extend({
 
 export type Tpayslips = z.infer<typeof payslipsSchema>;
 export type Tbonus = z.infer<typeof bonusSchema>;
-export type Tdedcution = z.infer<typeof deductionSchema>;

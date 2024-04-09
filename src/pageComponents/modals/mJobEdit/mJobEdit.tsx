@@ -1,4 +1,5 @@
-import { FormEvent, useEffect } from "react";
+import type { FormEvent } from "react";
+import { useEffect } from "react";
 import { MTemplate } from "@/components/modal";
 import { atModalOpen, atWorkLogTableRow } from "@/configs/atoms";
 import { useNavigation, Form, useSubmit } from "react-router-dom";
@@ -7,13 +8,14 @@ import { useAtom } from "jotai";
 import { SubmitBtn } from "@/components/form";
 import { useTranslation } from "react-i18next";
 import StaffCard from "@/pageComponents/cards/StaffCard";
-import WorkHoursCard from "@/pageComponents/cards/WorkHoursCard";
 import WorkInfoCard from "@/pageComponents/cards/WorkInfoCard";
 import { isWorkHoursValid } from "@/lib/time";
 import { genAction } from "@/lib/literals";
 import { toastError } from "@/lib/toaster";
 import { useRouterStore } from "@/configs/zustore";
-import { useWorkHoursStore } from "@/configs/zustore/workHoursStore";
+import { useWorklogStore } from "@/configs/zustore/worklogStore";
+import { SdTabs } from "@/components/tabs";
+import { tabsContent } from "./tabsContent";
 
 const MJobEdit = () => {
     const navigation = useNavigation();
@@ -22,12 +24,13 @@ const MJobEdit = () => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [worklog] = useAtom(atWorkLogTableRow);
     const currentRouter = useRouterStore((state) => state.currentRouter);
-    const s_time = useWorkHoursStore((state) => state.s_time);
-    const e_time = useWorkHoursStore((state) => state.e_time);
-    const b_hour = useWorkHoursStore((state) => state.b_hour);
-    const setSTime = useWorkHoursStore((state) => state.setSTime);
-    const setETime = useWorkHoursStore((state) => state.setETime);
-    const setBHour = useWorkHoursStore((state) => state.setBHour);
+    const s_time = useWorklogStore((state) => state.s_time);
+    const e_time = useWorklogStore((state) => state.e_time);
+    const b_hour = useWorklogStore((state) => state.b_hour);
+    const setSTime = useWorklogStore((state) => state.setSTime);
+    const setETime = useWorklogStore((state) => state.setETime);
+    const setBHour = useWorklogStore((state) => state.setBHour);
+    const deduction = useWorklogStore((state) => state.deduction);
 
     useEffect(() => {
         setSTime(worklog.s_time ? worklog.s_time : "00:00");
@@ -53,6 +56,7 @@ const MJobEdit = () => {
                     e_time,
                     b_hour,
                 }),
+                deduction: JSON.stringify(deduction),
                 req: "jobEdit",
             },
             { method: "POST", action: genAction(currentRouter) }
@@ -63,7 +67,7 @@ const MJobEdit = () => {
         <Form onSubmit={onSubmit} className="grid grid-cols-1">
             <StaffCard staff={worklog} className="col-span-full" />
             <WorkInfoCard work={worklog} className="col-span-full" />
-            <WorkHoursCard className="col-span-full" />
+            <SdTabs items={tabsContent()} className="col-span-full" />
             <section className="col-span-full">
                 {/* btns */}
                 <SubmitBtn

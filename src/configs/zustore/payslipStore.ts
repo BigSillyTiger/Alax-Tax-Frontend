@@ -2,13 +2,14 @@ import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
 import { DateRange } from "react-day-picker";
 import { TwlTableRow } from "../schema/workSchema";
-import { Tbonus, Tdedcution, Tpayslips } from "../schema/payslipSchema";
+import { Tbonus, Tpayslips } from "../schema/payslipSchema";
+import { Tdeduction } from "../schema/workSchema";
 
 type Tstate = {
     dayRange: DateRange;
     staffWL: TwlTableRow[];
     bonus: Partial<Tbonus>[];
-    dedcution: Partial<Tdedcution>[];
+    deduction: Partial<Tdeduction>[];
     payslip: Partial<Tpayslips>;
 };
 
@@ -23,7 +24,7 @@ type Taction = {
     /* deduction */
     setDeductionAmount: (index: number, amount: number) => void;
     setDeductionNote: (index: number, note: string) => void;
-    appendDeduction: (dedcution: Partial<Tdedcution>) => void;
+    appendDeduction: (deduction: Partial<Tdeduction>) => void;
     removeDeduction: (index: number) => void;
 };
 
@@ -32,7 +33,7 @@ export const payslipStore = createStore<Tstate & Taction>((set) => ({
     dayRange: { from: undefined, to: undefined },
     staffWL: [],
     bonus: [],
-    dedcution: [],
+    deduction: [],
     setDayRange: (range: DateRange | undefined) => set({ dayRange: range }),
     setStaffWL: (worklogs: TwlTableRow[]) =>
         set((state) => ({
@@ -62,25 +63,25 @@ export const payslipStore = createStore<Tstate & Taction>((set) => ({
     /* deduction */
     setDeductionAmount: (index: number, amount: number) =>
         set((state) => {
-            const newDeduction = [...state.dedcution];
+            const newDeduction = [...state.deduction];
             newDeduction[index] = { ...newDeduction[index], amount };
-            return { ...state, dedcution: newDeduction };
+            return { ...state, deduction: newDeduction };
         }),
     setDeductionNote: (index: number, note: string) =>
         set((state) => {
-            const newDeduction = [...state.dedcution];
+            const newDeduction = [...state.deduction];
             newDeduction[index] = { ...newDeduction[index], note };
-            return { ...state, dedcution: newDeduction };
+            return { ...state, deduction: newDeduction };
         }),
-    appendDeduction: (dedcution: Partial<Tdedcution>) =>
+    appendDeduction: (deduction: Partial<Tdeduction>) =>
         set((state) => ({
             ...state,
-            dedcution: [...state.dedcution, dedcution],
+            deduction: [...state.deduction, deduction],
         })),
     removeDeduction: (index: number) =>
         set((state) => {
-            const newDeduction = state.dedcution.filter((_, i) => i !== index);
-            return { ...state, dedcution: newDeduction };
+            const newDeduction = state.deduction.filter((_, i) => i !== index);
+            return { ...state, deduction: newDeduction };
         }),
 }));
 

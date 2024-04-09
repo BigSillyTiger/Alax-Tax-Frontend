@@ -31,7 +31,7 @@ const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
     const staffWL = usePayslipStore((state) => state.staffWL);
     const dayRange = usePayslipStore((state) => state.dayRange);
     const bonus = usePayslipStore((state) => state.bonus);
-    const deduction = usePayslipStore((state) => state.dedcution);
+    const deduction = usePayslipStore((state) => state.deduction);
 
     const Pay = () => {
         return (

@@ -29,7 +29,7 @@ import { toastError, toastSuccess } from "@/lib/toaster";
 import { useTranslation } from "react-i18next";
 import { orderSubTable } from "@/pageComponents/orderSubTables";
 import { Tstaff } from "@/configs/schema/staffSchema";
-import ContentWithSwitch from "@/components/table/SwitchWContent";
+import SubTableSwitch from "@/components/table/SubTableSwitch";
 
 type Torders = {
     orders: Torder[] | null;
@@ -111,7 +111,7 @@ const Orders: FC = () => {
     }, [actionData, modalOpen, setModalOpen, t]);
 
     const SubTable = ({ data }: { data: Torder }) => {
-        return <ContentWithSwitch items={orderSubTable(data)} />;
+        return <SubTableSwitch items={orderSubTable(data)} />;
     };
 
     const OrderTableContent: FC<Torders> = ({ orders }) => {

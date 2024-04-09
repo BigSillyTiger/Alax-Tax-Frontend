@@ -71,12 +71,12 @@ const WorkLogs: FC = () => {
                                 del: true,
                             }}
                             setData={setWorkLog}
-                            getRowCanExpand={(row) => {
-                                if (row.original.order_services.length > 0) {
+                            /* getRowCanExpand={(row) => {
+                                if (row.original. > 0) {
                                     return true;
                                 }
                                 return false;
-                            }}
+                            }} */
                             //expandContent={orderSubTable}
                             cnSearch="my-3"
                             cnTable={`h-[65dvh]`}

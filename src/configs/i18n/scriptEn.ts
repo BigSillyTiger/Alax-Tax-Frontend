@@ -275,6 +275,7 @@ const en = {
             npPreUnit: "No Pre-set Unit",
             noSelectedDayRange: "No Selected Day Range",
             noDutyToday: "No Work Assignment Today",
+            noDeduction: "No Deduction",
         },
         toastS: {
             addOrder: "Added A New Order.",

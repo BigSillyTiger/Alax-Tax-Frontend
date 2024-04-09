@@ -108,8 +108,16 @@ export const wlTableRowSchema = assignedWorkSchema.extend({
     postcode: z.string().trim().nullable().default(""),
 });
 
+export const deductionSchema = z.object({
+    did: z.string().default(""),
+    fk_wlid: z.string().default(""),
+    note: z.string().trim().nullable().default(""),
+    amount: z.number().default(0),
+});
+
 export type TworkLog = z.infer<typeof workLogSchema>;
 export type TassignedWork = z.infer<typeof assignedWorkSchema>;
 export type TworkLogs = z.infer<typeof workLogsSchema>;
 export type TformWorkLogs = z.infer<typeof formWorkLogs>;
 export type TwlTableRow = z.infer<typeof wlTableRowSchema>;
+export type Tdeduction = z.infer<typeof deductionSchema>;

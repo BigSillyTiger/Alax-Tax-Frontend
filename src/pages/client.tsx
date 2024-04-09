@@ -28,7 +28,7 @@ import {
 import { mOpenOps } from "@/configs/utils";
 import { MpdfMaker } from "@/pageComponents/modals";
 import { orderSubTable } from "@/pageComponents/orderSubTables";
-import ContentWithSwitch from "@/components/table/SwitchWContent";
+import SubTableSwitch from "@/components/table/SubTableSwitch";
 
 const Client = () => {
     const { t } = useTranslation();
@@ -145,7 +145,7 @@ const Client = () => {
     }, [actionData, modalOpen, setModalOpen, t]);
 
     const SubTable = ({ data }: { data: Torder }) => {
-        return <ContentWithSwitch items={orderSubTable(data)} />;
+        return <SubTableSwitch items={orderSubTable(data)} />;
     };
 
     const ClientInfoContent: FC<{ client: Tclient }> = ({ client }) => {

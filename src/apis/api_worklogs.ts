@@ -1,7 +1,8 @@
-import { TworkLog } from "@/configs/schema/workSchema";
+import { Tdeduction, TworkLog } from "@/configs/schema/workSchema";
 import apis from "./axios";
 import {
     WL_ALL,
+    WL_SINGLE_UPDATE,
     WL_PAUSE_TIMER,
     WL_RESET_TIMER,
     WL_RESUME_TIMER,
@@ -35,6 +36,31 @@ export const wlSingleUpdateHours = async (
         return {
             status: 400,
             msg: "failed in retrieving all work logs",
+            data: "",
+        };
+    }
+};
+
+/**
+ * @description update work log working hours and deduction
+ * @param data
+ * @param deduction
+ * @returns
+ */
+export const wlSigleUpdate = async (
+    data: Partial<TworkLog>,
+    deduction: Partial<Tdeduction>
+): Promise<Tresponse> => {
+    try {
+        const response = await apis.post(WL_SINGLE_UPDATE, {
+            hourData: data,
+            deduction,
+        });
+        return response.data;
+    } catch (error) {
+        return {
+            status: 400,
+            msg: "failed in updating work log",
             data: "",
         };
     }
@@ -128,6 +154,28 @@ export const wlStopTimer = async (wlid: string): Promise<Tresponse> => {
         return {
             status: 400,
             msg: "failed in pausing work timer",
+            data: "",
+        };
+    }
+};
+
+/**
+ * @description not used
+ * @param wlid
+ * @param dedunction
+ * @returns
+ */
+export const wlDeductionUpdate = async (
+    wlid: string,
+    dedunction: Partial<Tdeduction>
+): Promise<Tresponse> => {
+    try {
+        const response = await apis.post(WL_SINGLE_UPDATE, dedunction);
+        return response.data;
+    } catch (error) {
+        return {
+            status: 400,
+            msg: "failed in appending deduction",
             data: "",
         };
     }

@@ -7,7 +7,7 @@ type Tprops = {
     items: { title: string; content: JSX.Element }[];
 };
 
-const ContentWithSwitch: FC<Tprops> = ({ items }) => {
+const SubTableSwitch: FC<Tprops> = ({ items }) => {
     const [isChecked, setIsChecked] = useState(false);
     return (
         <div className="grid grid-cols-8 my-2">
@@ -31,4 +31,4 @@ const ContentWithSwitch: FC<Tprops> = ({ items }) => {
     );
 };
 
-export default ContentWithSwitch;
+export default SubTableSwitch;
