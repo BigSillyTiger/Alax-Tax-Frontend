@@ -71,7 +71,7 @@ const MJobEdit = () => {
             <StaffCard staff={worklog} className="col-span-full" />
             <WorkInfoCard work={worklog} className="col-span-full" />
             <SdTabs items={tabsContent()} className="col-span-full" />
-            <section className="col-span-full">
+            <div className="col-span-full">
                 {/* btns */}
                 <SubmitBtn
                     onClick={() => {}}
@@ -79,7 +79,7 @@ const MJobEdit = () => {
                     navState={navigation.state}
                     className=""
                 />
-            </section>
+            </div>
         </Form>
     );
 

@@ -21,33 +21,33 @@ const Bonus: FC = () => {
 
     const AddBtn = () => {
         return (
-            <section className="w-full flex justify-center mt-2">
+            <div className="w-full flex justify-center mt-2">
                 <Button
                     className="bg-indigo-600 text-slate-50 text-xl hover:bg-slate-50 hover:text-indigo-600 border-2 border-indigo-700"
                     onClick={handleAddBonus}
                 >
                     {t("btn.addNewBonus")}
                 </Button>
-            </section>
+            </div>
         );
     };
 
     const bonusList = bonus.map((b, i) => {
         return (
-            <section
+            <div
                 key={i}
                 className="col-span-full grid grid-cols-10 gap-x-2 gap-y-2 "
             >
                 {/* x btn */}
-                <section className="col-span-1 m-auto">
+                <div className="col-span-1 m-auto">
                     <XBtn
                         onClick={() => {
                             removeBonus(i);
                         }}
                     />
-                </section>
+                </div>
                 <Card className="col-span-9 grid grid-cols-6 gap-x-4">
-                    <section className="col-span-2">
+                    <div className="col-span-2">
                         <label
                             htmlFor="amount"
                             className="block text-sm font-medium leading-6 text-gray-900"
@@ -68,8 +68,8 @@ const Bonus: FC = () => {
                             }}
                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                         />
-                    </section>
-                    <section className="col-span-4">
+                    </div>
+                    <div className="col-span-4">
                         <label
                             htmlFor="note"
                             className="block text-sm font-medium leading-6 text-gray-900"
@@ -88,9 +88,9 @@ const Bonus: FC = () => {
                             }}
                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                         />
-                    </section>
+                    </div>
                 </Card>
-            </section>
+            </div>
         );
     });
 

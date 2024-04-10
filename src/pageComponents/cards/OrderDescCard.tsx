@@ -14,10 +14,7 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
         data.map((item, index) => {
             return (
                 // total col: 6
-                <section
-                    key={index}
-                    className="col-span-full grid grid-cols-12"
-                >
+                <div key={index} className="col-span-full grid grid-cols-12">
                     {/* index */}
                     <p className="m-auto text-bold text-indigo-400">
                         {index + 1}
@@ -105,7 +102,7 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
                             </div>
                         )}
                     </Card>
-                </section>
+                </div>
             );
         })
     ) : (
@@ -115,9 +112,9 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
     );
 
     return (
-        <section className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8">
+        <div className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8">
             {mainContent}
-        </section>
+        </div>
     );
 };
 

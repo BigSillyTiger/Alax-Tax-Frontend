@@ -30,7 +30,7 @@ const AssignedStaff: FC = () => {
             {scheduledWork.length > 0 ? (
                 scheduledWork.map((item) => {
                     return (
-                        <section
+                        <div
                             key={item.fk_uid}
                             className="grid grid-cols-12 gap-x-1 flex-shrink-0"
                         >
@@ -40,7 +40,7 @@ const AssignedStaff: FC = () => {
                             </div> */}
                             {/* content */}
                             <WorkLogCard item={item} />
-                        </section>
+                        </div>
                     );
                 })
             ) : (

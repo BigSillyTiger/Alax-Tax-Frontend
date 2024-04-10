@@ -144,7 +144,7 @@ const MOrderPay: FC = memo(() => {
         <Card className={`my-2 mx-1 text-sm lg:h-[45dvh] overflow-y-auto`}>
             {fields.map((field, index) => {
                 return (
-                    <section
+                    <div
                         key={field.id}
                         className="col-span-6 row-span-2 grid grid-cols-10 gap-x-2 gap-y-2"
                     >
@@ -193,7 +193,7 @@ const MOrderPay: FC = memo(() => {
                                 />
                             </div>
                         </Card>
-                    </section>
+                    </div>
                 );
             })}
         </Card>
@@ -267,10 +267,10 @@ const MOrderPay: FC = memo(() => {
 
     const mainContent = (
         <Form onSubmit={onSubmit}>
-            <section
+            <div
                 className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[77dvh] lg:h-auto`}
             >
-                <section className="col-span-1 lg:col-span-3 grid grid-cols-1">
+                <div className="col-span-1 lg:col-span-3 grid grid-cols-1">
                     {/* client info */}
                     <fieldset className="col-span-full">
                         <legend className="text-indigo-500 text-bold">
@@ -298,8 +298,8 @@ const MOrderPay: FC = memo(() => {
                         </legend>
                         {paymentsContent}
                     </fieldset>
-                </section>
-                <section className="col-span-1 lg:col-span-5 grid grid-cols-1">
+                </div>
+                <div className="col-span-1 lg:col-span-5 grid grid-cols-1">
                     <fieldset className="col-span-full">
                         <legend className="text-indigo-500 text-bold">
                             <b>{t("label.serviceList")}:</b>
@@ -307,26 +307,26 @@ const MOrderPay: FC = memo(() => {
                         <Card
                             className={`my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[60dvh] overflow-y-auto`}
                         >
-                            <section className="col-span-full">
+                            <div className="col-span-full">
                                 <OrderDescCard
                                     data={clientOrder.order_services}
                                 />
-                            </section>
+                            </div>
                         </Card>
                     </fieldset>
                     {/* payment section */}
                     {payOperation}
                     {/* submit btns */}
-                    <section className="col-span-full row-span-2">
+                    <div className="col-span-full row-span-2">
                         {/* btns */}
                         <SubmitBtn
                             onClick={() => trigger()}
                             onClose={onClose}
                             navState={navigation.state}
                         />
-                    </section>
-                </section>
-            </section>
+                    </div>
+                </div>
+            </div>
         </Form>
     );
 

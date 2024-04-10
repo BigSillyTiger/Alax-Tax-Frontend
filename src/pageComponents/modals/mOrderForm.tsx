@@ -419,7 +419,7 @@ const MOrderForm: FC = memo(() => {
             {fields.length ? (
                 fields.map((field, index) => {
                     return (
-                        <section
+                        <div
                             key={field.id}
                             className="col-span-full grid grid-cols-10 gap-x-1"
                         >
@@ -429,7 +429,7 @@ const MOrderForm: FC = memo(() => {
                             </div>
                             {/* content */}
                             <Card className="col-span-9 mt-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8 bg-indigo-50">
-                                <section
+                                <div
                                     className={`${
                                         fields.length === 1
                                             ? "col-span-8"
@@ -620,10 +620,10 @@ const MOrderForm: FC = memo(() => {
                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                         />
                                     </div>
-                                </section>
+                                </div>
                                 {/* adjust arrows btns */}
                                 {fields.length > 1 && (
-                                    <section className="col-span-1 flex flex-col justify-around">
+                                    <div className="col-span-1 flex flex-col justify-around">
                                         {index != 0 && (
                                             <button
                                                 type="button"
@@ -652,10 +652,10 @@ const MOrderForm: FC = memo(() => {
                                                 />
                                             </button>
                                         )}
-                                    </section>
+                                    </div>
                                 )}
                             </Card>
-                        </section>
+                        </div>
                     );
                 })
             ) : (
@@ -667,7 +667,7 @@ const MOrderForm: FC = memo(() => {
     );
 
     const appendNewService = (
-        <section className="col-span-full grid grid-cols-6 mt-4 pt-2 gap-x-3 border-t-2 border-indigo-300 border-dashed">
+        <div className="col-span-full grid grid-cols-6 mt-4 pt-2 gap-x-3 border-t-2 border-indigo-300 border-dashed">
             <div className="col-span-4 ">
                 <label htmlFor="sTitle" className="text-indigo-500 text-bold">
                     {t("modal.tips.pickService")}:
@@ -688,13 +688,13 @@ const MOrderForm: FC = memo(() => {
                     {t("btn.append")}
                 </button>
             </div>
-        </section>
+        </div>
     );
 
     const mainContent = (
         <Form onSubmit={onSubmit}>
-            <section className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[77dvh] lg:h-auto">
-                <section className="col-span-1 lg:col-span-3 grid grid-cols-1">
+            <div className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[77dvh] lg:h-auto">
+                <div className="col-span-1 lg:col-span-3 grid grid-cols-1">
                     {/* client info */}
                     <fieldset className="">
                         <legend className="text-indigo-500 text-bold">
@@ -719,9 +719,9 @@ const MOrderForm: FC = memo(() => {
                         </legend>
                         {detailsContent}
                     </fieldset>
-                </section>
+                </div>
                 {/* order services list */}
-                <section className="col-span-1 lg:col-span-5 grid grid-cols-1">
+                <div className="col-span-1 lg:col-span-5 grid grid-cols-1">
                     <fieldset className="col-span-full">
                         <legend className="text-indigo-500 text-bold">
                             {t("label.serviceList")}:
@@ -729,17 +729,17 @@ const MOrderForm: FC = memo(() => {
                         {descContent}
                         {/* append btn - adding a new service */}
                         {appendNewService}
-                        <section className="col-span-full row-span-2">
+                        <div className="col-span-full row-span-2">
                             {/* btns */}
                             <SubmitBtn
                                 onClick={() => trigger()}
                                 onClose={onClose}
                                 navState={navigation.state}
                             />
-                        </section>
+                        </div>
                     </fieldset>
-                </section>
-            </section>
+                </div>
+            </div>
         </Form>
     );
 

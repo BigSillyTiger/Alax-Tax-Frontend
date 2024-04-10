@@ -20,7 +20,7 @@ const Toggle: FC<Tprops> = ({
     hColor = "hover:bg-indigo-200",
 }) => {
     return (
-        <section className="my-2">
+        <div className="my-2">
             <Disclosure defaultOpen={defaultOpen}>
                 {({ open }) => (
                     /* Use the `open` state to conditionally change the direction of an icon. */
@@ -43,7 +43,7 @@ const Toggle: FC<Tprops> = ({
                     </>
                 )}
             </Disclosure>
-        </section>
+        </div>
     );
 };
 

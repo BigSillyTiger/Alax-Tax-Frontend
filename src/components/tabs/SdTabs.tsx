@@ -13,7 +13,7 @@ const SdTabs: FC<Tprops> = ({ defaultV = "", items, className }) => {
     return (
         <Tabs defaultValue={value} className={`${className}`}>
             <TabsList className="">
-                <section className="rounded-md bg-indigo-100 text-gray-600">
+                <div className="rounded-md bg-indigo-100 text-gray-600">
                     {items.map((item) => {
                         return (
                             <TabsTrigger value={item.title} className="">
@@ -21,7 +21,7 @@ const SdTabs: FC<Tprops> = ({ defaultV = "", items, className }) => {
                             </TabsTrigger>
                         );
                     })}
-                </section>
+                </div>
             </TabsList>
             {items.map((item) => {
                 return (

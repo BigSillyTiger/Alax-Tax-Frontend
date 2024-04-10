@@ -58,7 +58,8 @@ const TimeBtnGroup: FC<Tprops> = ({ className, setOpenReset }) => {
                             className={`border-2 text-lg font-bold col-span-2 border-amber-700 bg-amber-600 text-slate-100 hover:bg-slate-100 hover:text-amber-600`}
                             disabled={
                                 worklog.wl_status === "confirmed" ||
-                                worklog.wl_status === "unconfirmed"
+                                worklog.wl_status === "unconfirmed" ||
+                                worklog.wl_status === "cancelled"
                             }
                             onClick={() =>
                                 handleClick(actionReqList.pauseTimer)

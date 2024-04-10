@@ -23,30 +23,30 @@ const DeductionCard: FC<Tprops> = ({ className }) => {
 
     const AddBtn = () => {
         return (
-            <section className="w-full flex justify-center mt-2">
+            <div className="w-full flex justify-center mt-2">
                 <Button
                     className="bg-indigo-400 text-slate-50 text-xl hover:bg-slate-50 hover:text-indigo-500 border-2 border-indigo-600"
                     onClick={handleAddDeduction}
                 >
                     {t("btn.addNewDeduction")}
                 </Button>
-            </section>
+            </div>
         );
     };
 
     const deductionList = deduction.map((d, i) => {
         return (
-            <section key={i} className="flex  justify-start gap-x-2 gap-y-2 ">
+            <div key={i} className="flex  justify-start gap-x-2 gap-y-2 ">
                 {/* x btn */}
-                <section className="col-span-1 m-auto grow-0">
+                <div className="col-span-1 m-auto grow-0">
                     <XBtn
                         onClick={() => {
                             removeDeduction(i);
                         }}
                     />
-                </section>
+                </div>
                 <Card className="grid grid-cols-6 gap-x-4 grow-1">
-                    <section className="col-span-2">
+                    <div className="col-span-2">
                         <label
                             htmlFor="amount"
                             className="block text-sm font-medium leading-6 text-gray-900"
@@ -64,8 +64,8 @@ const DeductionCard: FC<Tprops> = ({ className }) => {
                             }
                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                         />
-                    </section>
-                    <section className="col-span-4">
+                    </div>
+                    <div className="col-span-4">
                         <label
                             htmlFor="note"
                             className="block text-sm font-medium leading-6 text-gray-900"
@@ -81,9 +81,9 @@ const DeductionCard: FC<Tprops> = ({ className }) => {
                             }
                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                         />
-                    </section>
+                    </div>
                 </Card>
-            </section>
+            </div>
         );
     });
 

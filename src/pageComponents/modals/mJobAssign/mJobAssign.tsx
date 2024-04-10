@@ -64,11 +64,11 @@ const MJobAssign = () => {
 
     const mainContent = (
         <Form onSubmit={onSubmit} className="grid grid-cols-1 gap-y-3 gap-x-4">
-            <section
+            <div
                 className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[77dvh] lg:h-auto`}
             >
                 {/* left area */}
-                <section className="col-span-1 lg:col-span-4 grid grid-cols-1">
+                <div className="col-span-1 lg:col-span-4 grid grid-cols-1">
                     {/* client fieldset */}
                     <ClientInfoFs
                         client={clientOrder.client_info}
@@ -80,24 +80,24 @@ const MJobAssign = () => {
 
                     {/* date picker area */}
                     <DateSchedule />
-                </section>
+                </div>
                 {/* right area */}
-                <section className="col-span-1 lg:col-span-4 grid grid-cols-1">
+                <div className="col-span-1 lg:col-span-4 grid grid-cols-1">
                     {/* assigned staff area */}
                     <AssignedStaff />
                     {/* select staff area */}
                     <SelectStaff />
                     {/* submit btns */}
-                    <section className="col-span-full row-span-2">
+                    <div className="col-span-full row-span-2">
                         {/* btns */}
                         <SubmitBtn
                             onClick={() => {}}
                             onClose={onClose}
                             navState={navigation.state}
                         />
-                    </section>
-                </section>
-            </section>
+                    </div>
+                </div>
+            </div>
         </Form>
     );
 

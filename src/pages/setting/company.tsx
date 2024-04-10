@@ -248,7 +248,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                 </div>
                 {/* submit btn */}
             </Card>
-            <section className="col-span-full flex items-center mt-1">
+            <div className="col-span-full flex items-center mt-1">
                 <button
                     name="intent"
                     value="add"
@@ -258,7 +258,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                 >
                     {t("btn.updateCompany")}
                 </button>
-            </section>
+            </div>
         </Form>
     );
 
@@ -279,7 +279,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                     onChange={handleImageChange}
                     className="outline-none h-full block w-full rounded-md border-0 py-1.5 text-indigo-500 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                 />
-                <section className="grid grid-cols-2 gap-x-3 mt-2">
+                <div className="grid grid-cols-2 gap-x-3 mt-2">
                     <Card className="col-span-1">
                         <p className="text-indigo-500 text-xs mb-2">
                             {t("label.logoCurrent")}
@@ -303,7 +303,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                             />
                         </Card>
                     )}
-                </section>
+                </div>
             </Card>
             <div className="mt-1">
                 <NormalBtn
@@ -325,23 +325,23 @@ const Company: FC<Tprops> = ({ company, logo }) => {
     );
 
     const mainContent = (
-        <section className="grid grid-cols-1 md:grid-cols-6 gap-x-8">
-            <section className="col-span-1 md:col-span-4">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-x-8">
+            <div className="col-span-1 md:col-span-4">
                 <p className="text-lg text-indigo-600 text-bold mb-4">
                     {t("label.companyInfo")}
                 </p>
                 {formContent}
-            </section>
-            <section className="col-span-1 md:col-span-2">
+            </div>
+            <div className="col-span-1 md:col-span-2">
                 <p className="text-lg text-indigo-600 text-bold mb-4">
                     {t("label.logo")}
                 </p>
                 {logoContent}
-            </section>
-        </section>
+            </div>
+        </div>
     );
 
-    return <section className="mx-auto mt-10">{mainContent}</section>;
+    return <div className="mx-auto mt-10">{mainContent}</div>;
 };
 
 export default Company;

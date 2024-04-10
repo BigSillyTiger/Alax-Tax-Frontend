@@ -40,7 +40,7 @@ const FormContent: FC<Tprops> = () => {
             //onSubmit={onSubmit}
             className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[64dvh] p-2 m-2`}
         >
-            <section className="col-span-full">
+            <div className="col-span-full">
                 <Toggle defaultOpen={true} title={t("label.staffInfo")}>
                     <StaffDetailCard staff={staff} className="" />
                 </Toggle>
@@ -63,7 +63,7 @@ const FormContent: FC<Tprops> = () => {
                 >
                     <Deduction />
                 </Toggle>
-            </section>
+            </div>
         </Card>
     );
 };

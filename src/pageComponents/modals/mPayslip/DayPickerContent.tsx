@@ -9,9 +9,9 @@ const DayPickerContent: FC = () => {
             <Card className="col-span-full lg:col-span-5 flex justify-center h-auto w-auto">
                 <RangedDayPicker />
             </Card>
-            <section className="col-span-full lg:col-span-3 flex justify-center h-auto w-auto flex-col gap-y-5 text-indigo-600 font-bold">
+            <div className="col-span-full lg:col-span-3 flex justify-center h-auto w-auto flex-col gap-y-5 text-indigo-600 font-bold">
                 <WorkCard />
-            </section>
+            </div>
         </div>
     );
 };

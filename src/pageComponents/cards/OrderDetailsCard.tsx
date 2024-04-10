@@ -16,15 +16,15 @@ const OrderDetailsCard: FC<TorderInfo> = ({ order, className }) => {
             className={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 ${className}`}
         >
             {/* address */}
-            <section className="col-span-full pb-3 break-words border-b-2 border-dotted border-indigo-300">
+            <div className="col-span-full pb-3 break-words border-b-2 border-dotted border-indigo-300">
                 <p>
                     <b className="text-indigo-600">{t("label.workAddr")}: </b>{" "}
                     {order?.address}, {order?.suburb}, {order?.city},{" "}
                     {order?.state}, {order?.country}, {order?.postcode}
                 </p>
-            </section>
+            </div>
 
-            <section className="col-span-full grid grid-cols-2 gap-2">
+            <div className="col-span-full grid grid-cols-2 gap-2">
                 <div className="col-span-1">
                     <p>
                         <b className="text-indigo-600">{t("label.due")}: </b>{" "}
@@ -51,7 +51,7 @@ const OrderDetailsCard: FC<TorderInfo> = ({ order, className }) => {
                         {minusAB(order?.total, order?.paid)}
                     </p>
                 </div>
-            </section>
+            </div>
         </Card>
     );
 };

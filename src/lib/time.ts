@@ -45,27 +45,31 @@ export const hmsTohm = (time: string) => {
     return time.slice(0, 5);
 };
 
-export const calBreakTime = (sTime: string, eTime: string, bHour: string) => {
-    sTime = sTime ?? "00:00";
-    eTime = eTime ?? "00:00";
+export const calBreakTime = (
+    restTime: string,
+    nowTime: string,
+    bHour: string
+) => {
+    restTime = restTime ?? "00:00";
+    nowTime = nowTime ?? "00:00";
     bHour = bHour ?? "00:00";
-    // Parse start time
-    const [startHour, startMinute] = sTime.split(":").map(Number);
-    // Parse end time
-    const [endHour, endMinute] = eTime.split(":").map(Number);
-    // Parse break time
+    // Parse rest time
+    const [restHour, restMinute] = restTime.split(":").map(Number);
+    // Parse now time
+    const [nowHour, nowMinute] = nowTime.split(":").map(Number);
+    // Parse break hour
     const [breakHour, breakMinute] = bHour.split(":").map(Number);
 
     // Convert time strings to total minutes
-    const startTotalMinutes = startHour * 60 + startMinute;
-    const endTotalMinutes = endHour * 60 + endMinute;
+    const restTotalMinutes = restHour * 60 + restMinute;
+    const nowTotalMinutes = nowHour * 60 + nowMinute;
     const breakTotalMinutes = breakHour * 60 + breakMinute;
 
     // Calculate total work time in minutes
     const totalWorkMinutes =
-        endTotalMinutes - startTotalMinutes + breakTotalMinutes;
+        nowTotalMinutes - restTotalMinutes + breakTotalMinutes;
 
-    // Convert total work time back to hh:mm format
+    // Convert total break time back to hh:mm format
     const workHour = Math.floor(totalWorkMinutes / 60);
     const workMinute = totalWorkMinutes % 60;
     return `${workHour.toString().padStart(2, "0")}:${workMinute.toString().padStart(2, "0")}`;

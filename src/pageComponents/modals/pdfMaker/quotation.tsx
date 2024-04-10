@@ -51,7 +51,7 @@ const DatePicker = ({
         >
             <div className="grid grid-cols-2 gap-2 my-2">
                 <div className="col-span-1">
-                    <section className="col-span-1">
+                    <div className="col-span-1">
                         <label
                             htmlFor="issuedDate"
                             className="text-indigo-500 text-bold"
@@ -70,7 +70,7 @@ const DatePicker = ({
                             }}
                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 "
                         />
-                    </section>
+                    </div>
                 </div>
                 <div className="col-span-1 mt-3.5">
                     <NormalBtn
@@ -86,7 +86,7 @@ const DatePicker = ({
             {/* default issued date */}
             <div className="grid grid-cols-2 gap-2 my-2 ">
                 <div className="col-span-1">
-                    <section>
+                    <div>
                         <label
                             htmlFor="issuedDate"
                             className="text-indigo-500 text-bold"
@@ -103,7 +103,7 @@ const DatePicker = ({
                             disabled
                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                         />
-                    </section>
+                    </div>
                 </div>
                 <div className="col-span-1 mt-3.5">
                     <NormalBtn
@@ -135,7 +135,7 @@ const QuoContent: FC = memo(() => {
     }, [clientOrder.invoice_date]);
 
     const detailContent = (
-        <section className={`h-[64dvh] overflow-y-auto`}>
+        <div className={`h-[64dvh] overflow-y-auto`}>
             <Toggle defaultOpen={true} title={t("label.companyInfo")}>
                 <CompanyInfoCard company={company} className="" />
             </Toggle>
@@ -148,14 +148,14 @@ const QuoContent: FC = memo(() => {
             <Toggle defaultOpen={true} title={t("label.orderServices")}>
                 <OrderDescCard data={clientOrder.order_services} />
             </Toggle>
-        </section>
+        </div>
     );
 
     return (
         <main
             className={`grid grid-cols-1 md:grid-cols-8 gap-x-2 overflow-y-auto h-[83dvh]`}
         >
-            <section className="col-span-1 md:col-span-3 ">
+            <div className="col-span-1 md:col-span-3 ">
                 {detailContent}
                 <DatePicker
                     oid={clientOrder.oid}
@@ -168,8 +168,8 @@ const QuoContent: FC = memo(() => {
                             : new Date().toISOString()
                     }
                 />
-            </section>
-            <section className="col-span-1 md:col-span-5">
+            </div>
+            <div className="col-span-1 md:col-span-5">
                 <QuoTemplate
                     client={client}
                     order={clientOrder}
@@ -178,7 +178,7 @@ const QuoContent: FC = memo(() => {
                     date={date}
                     logo={logo}
                 />
-            </section>
+            </div>
         </main>
     );
 });
