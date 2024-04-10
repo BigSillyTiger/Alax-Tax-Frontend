@@ -41,6 +41,11 @@ export const dashboardAction = async ({
         const wlid = data.get("wlid") as string;
         const result = await API_WORKLOGS.wlStopTimer(wlid);
         return result;
+    } else if ("POST" === request.method && data.get("req") === "wlDeduct") {
+        const wlid = data.get("wlid") as string;
+        const deduction = JSON.parse(data.get("deduction") as string);
+        const result = await API_WORKLOGS.wlDeductionUpdate(wlid, deduction);
+        return result;
     } else {
         return {
             status: 400,

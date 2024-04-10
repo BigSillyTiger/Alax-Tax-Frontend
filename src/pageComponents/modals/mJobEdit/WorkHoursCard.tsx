@@ -2,19 +2,19 @@ import { useEffect, useState, type ComponentPropsWithoutRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { calWorkTime, isWorkHoursValid } from "@/lib/time";
-import { useWorklogStore } from "@/configs/zustore/worklogStore";
+import { useWLHoursStore } from "@/configs/zustore/wlHoursStore";
 import Card from "@/components/card";
 
 type Tprops = ComponentPropsWithoutRef<"div">;
 
 const WorkHoursCard = ({ className }: Tprops) => {
     const { t } = useTranslation();
-    const s_time = useWorklogStore((state) => state.s_time);
-    const e_time = useWorklogStore((state) => state.e_time);
-    const b_hour = useWorklogStore((state) => state.b_hour);
-    const setSTime = useWorklogStore((state) => state.setSTime);
-    const setETime = useWorklogStore((state) => state.setETime);
-    const setBHour = useWorklogStore((state) => state.setBHour);
+    const s_time = useWLHoursStore((state) => state.s_time);
+    const e_time = useWLHoursStore((state) => state.e_time);
+    const b_hour = useWLHoursStore((state) => state.b_hour);
+    const setSTime = useWLHoursStore((state) => state.setSTime);
+    const setETime = useWLHoursStore((state) => state.setETime);
+    const setBHour = useWLHoursStore((state) => state.setBHour);
     const [totalWH, setTotalWH] = useState(calWorkTime(s_time, e_time, b_hour));
     const [isValid, setIsValid] = useState(true);
 

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { MTemplate } from "@/components/modal";
 import { atModalOpen } from "@/configs/atoms";
 //import { useSubmit } from "react-router-dom";
@@ -7,24 +6,30 @@ import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import StaffCard from "@/pageComponents/cards/StaffCard";
 import WorkInfoCard from "@/pageComponents/cards/WorkInfoCard";
-
-import TimeBtnGroup from "./TimeBtns";
 import MResetTimer from "./mResetTimer";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
-import { TwlTableRow } from "@/configs/schema/workSchema";
+import { SdTabs } from "@/components/tabs";
+import { useDeductStore } from "@/configs/zustore";
+import { TitemContent } from "@/configs/types";
+import DeductionCard from "@/pageComponents/cards/DeductionCard";
 import TimeCard from "./TimeCard";
+import atResetModal from "@/configs/atoms/atResetModal";
+import { TwlTableRow } from "@/configs/schema/workSchema";
 
 const MTimeTracker = () => {
     //const submit = useSubmit();
     const { t } = useTranslation();
-    const [openReset, setOpenReset] = useState(false);
+    const [openReset, setOpenReset] = useAtom(atResetModal);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     //const currentRouter = useRouterStore((state) => state.currentRouter);
+    const setDeduction = useDeductStore((state) => state.setDeduction);
     const currentWlid = useTodayWLStore((state) => state.currentWlid);
     const todayWorklogs = useTodayWLStore((state) => state.todayWorklogs);
     const worklog =
         todayWorklogs.find((wl) => wl.wlid === currentWlid) ??
         ({} as TwlTableRow);
+
+    setDeduction(worklog.deduction ? worklog.deduction : []);
 
     const onClose = () => {
         if (openReset) {
@@ -34,21 +39,33 @@ const MTimeTracker = () => {
         }
     };
 
+    const tabsContent = () => {
+        const items = [] as TitemContent[];
+
+        items.push({
+            title: t("label.workHours"),
+            content: <TimeCard />,
+        });
+
+        items.push({
+            title: t("label.deduction"),
+            content: (
+                <DeductionCard className="col-span-full" withSubmitBtn={true} />
+            ),
+        });
+
+        return items;
+    };
+
     const mainContent = (
-        <div
-            className={`grid grid-cols-1 sm:grid-cols-2 gap-x-2 overflow-y-auto h-[47dvh]`}
-        >
+        <div className={`grid grid-cols-1 gap-x-2 overflow-y-auto h-[55dvh]`}>
             {/* info */}
-            <div className="col-span-1">
-                <StaffCard staff={worklog} className="col-span-full" />
-                <WorkInfoCard work={worklog} className="col-span-full" />
+            <div className="col-span-1 flex flex-col sm:flex-row">
+                <StaffCard staff={worklog} className="grow-1" />
+                <WorkInfoCard work={worklog} className="grow-1" />
             </div>
             {/* time */}
-            <TimeCard />
-            <TimeBtnGroup
-                setOpenReset={setOpenReset}
-                className="col-span-full"
-            />
+            <SdTabs items={tabsContent()} className="col-span-1" />
         </div>
     );
 
@@ -67,7 +84,7 @@ const MTimeTracker = () => {
             <MResetTimer
                 open={openReset}
                 setOpen={setOpenReset}
-                wlid={worklog.wlid}
+                wlid={currentWlid}
             />
         </>
     );

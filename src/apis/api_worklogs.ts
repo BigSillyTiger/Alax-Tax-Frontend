@@ -11,6 +11,7 @@ import {
     WL_START_TIMER,
     WL_STOP_TIMER,
     WL_TODAY,
+    WL_SIGNLE_UPDATE_D,
 } from "./req_list";
 
 export const wlAll = async (): Promise<Tresponse> => {
@@ -49,7 +50,7 @@ export const wlSingleUpdateHours = async (
  */
 export const wlSigleUpdate = async (
     data: Partial<TworkLog>,
-    deduction: Partial<Tdeduction>
+    deduction: Partial<Tdeduction>[]
 ): Promise<Tresponse> => {
     try {
         const response = await apis.post(WL_SINGLE_UPDATE, {
@@ -160,17 +161,20 @@ export const wlStopTimer = async (wlid: string): Promise<Tresponse> => {
 };
 
 /**
- * @description not used
+ * @description
  * @param wlid
- * @param dedunction
+ * @param deduction
  * @returns
  */
 export const wlDeductionUpdate = async (
     wlid: string,
-    dedunction: Partial<Tdeduction>
+    deduction: Partial<Tdeduction>[]
 ): Promise<Tresponse> => {
     try {
-        const response = await apis.post(WL_SINGLE_UPDATE, dedunction);
+        const response = await apis.post(WL_SIGNLE_UPDATE_D, {
+            wlid,
+            deduction,
+        });
         return response.data;
     } catch (error) {
         return {

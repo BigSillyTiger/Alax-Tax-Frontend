@@ -12,10 +12,12 @@ import WorkInfoCard from "@/pageComponents/cards/WorkInfoCard";
 import { isWorkHoursValid } from "@/lib/time";
 import { genAction } from "@/lib/literals";
 import { toastError } from "@/lib/toaster";
-import { useRouterStore } from "@/configs/zustore";
-import { useWorklogStore } from "@/configs/zustore/worklogStore";
+import { useDeductStore, useRouterStore } from "@/configs/zustore";
+import { useWLHoursStore } from "@/configs/zustore/wlHoursStore";
 import { SdTabs } from "@/components/tabs";
-import { tabsContent } from "./tabsContent";
+import { TitemContent } from "@/configs/types";
+import WorkHoursCard from "./WorkHoursCard";
+import DeductionCard from "@/pageComponents/cards/DeductionCard";
 
 const MJobEdit = () => {
     const navigation = useNavigation();
@@ -24,14 +26,14 @@ const MJobEdit = () => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [worklog] = useAtom(atWorkLogTableRow);
     const currentRouter = useRouterStore((state) => state.currentRouter);
-    const s_time = useWorklogStore((state) => state.s_time);
-    const e_time = useWorklogStore((state) => state.e_time);
-    const b_hour = useWorklogStore((state) => state.b_hour);
-    const setSTime = useWorklogStore((state) => state.setSTime);
-    const setETime = useWorklogStore((state) => state.setETime);
-    const setBHour = useWorklogStore((state) => state.setBHour);
-    const deduction = useWorklogStore((state) => state.deduction);
-    const setDeduction = useWorklogStore((state) => state.setDeduction);
+    const s_time = useWLHoursStore((state) => state.s_time);
+    const e_time = useWLHoursStore((state) => state.e_time);
+    const b_hour = useWLHoursStore((state) => state.b_hour);
+    const setSTime = useWLHoursStore((state) => state.setSTime);
+    const setETime = useWLHoursStore((state) => state.setETime);
+    const setBHour = useWLHoursStore((state) => state.setBHour);
+    const deduction = useDeductStore((state) => state.deduction);
+    const setDeduction = useDeductStore((state) => state.setDeduction);
 
     useEffect(() => {
         setSTime(worklog.s_time ? worklog.s_time : "00:00");
@@ -64,6 +66,22 @@ const MJobEdit = () => {
             },
             { method: "POST", action: genAction(currentRouter) }
         );
+    };
+
+    const tabsContent = () => {
+        const items = [] as TitemContent[];
+
+        items.push({
+            title: t("label.workHours"),
+            content: <WorkHoursCard className="col-span-full h-[25dvh]" />,
+        });
+
+        items.push({
+            title: t("label.deduction"),
+            content: <DeductionCard className="col-span-full" />,
+        });
+
+        return items;
     };
 
     const mainContent = (

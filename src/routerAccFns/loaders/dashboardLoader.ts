@@ -6,7 +6,7 @@ import { dateFormat, hmsTohm } from "@/lib/time";
 import { defer, redirect } from "react-router-dom";
 
 export const dashboardLoader = async () => {
-    routerStore.setState({ currentRouter: "workLogs" });
+    routerStore.setState({ currentRouter: "dashboard" });
     try {
         await API_ADMIN.accessCheck(menuList[0].id).then((res) => {
             return !res.data && redirect("/login");

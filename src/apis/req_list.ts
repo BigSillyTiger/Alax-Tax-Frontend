@@ -24,6 +24,7 @@ export const CLIENT_SINGLE_DEL = "/client/single-del";
 export const JOB_ASSIGN = "/work/update";
 // Work log
 export const WL_ALL = "/work/all";
+export const WL_SIGNLE_UPDATE_D = "/work/single-update-deduction";
 export const WL_SIGNLE_UPDATE_H = "/work/single-update-hours";
 export const WL_SINGLE_DEL = "/work/single-del";
 export const WL_TODAY = "/work/today";

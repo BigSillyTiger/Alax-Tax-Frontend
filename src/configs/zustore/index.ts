@@ -3,6 +3,7 @@ import { routerStore, useRouterStore } from "./routerStore";
 import { jobAssignStore, useJobAssignStore } from "./jobAssignStore";
 import { payslipStore, usePayslipStore } from "./payslipStore";
 import { staffWLStore, useStaffWLStore } from "./staffWLStore";
+import { deductStore, useDeductStore } from "./deductStore";
 
 export {
     adminStore,
@@ -15,4 +16,6 @@ export {
     usePayslipStore,
     staffWLStore,
     useStaffWLStore,
+    deductStore,
+    useDeductStore,
 };

@@ -77,7 +77,7 @@ const en = {
         btn: {
             addDate: "Add Date",
             addNewBonus: "Add New Bonus",
-            addNewDeduction: "Add New Deduction",
+            addNewDeduction: "Add Deduction",
             append: "Append",
             addClient: "Register New Client",
             addStuff: "Register New Staff",

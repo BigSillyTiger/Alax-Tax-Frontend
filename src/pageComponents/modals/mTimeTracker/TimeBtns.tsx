@@ -4,18 +4,18 @@ import { useSubmit } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { genAction } from "@/lib/literals";
 import { useRouterStore } from "@/configs/zustore";
-import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
 import { TactionReqList } from "@/configs/types";
 import { actionReqList } from "@/configs/utils";
+import { useAtom } from "jotai";
+import atResetModal from "@/configs/atoms/atResetModal";
+import { TwlTableRow } from "@/configs/schema/workSchema";
 
-type Tprops = ComponentPropsWithoutRef<"div"> & {
-    setOpenReset: (val: boolean) => void;
-};
+type Tprops = ComponentPropsWithoutRef<"div">;
 
-const TimeBtnGroup: FC<Tprops> = ({ className, setOpenReset }) => {
+const TimeBtnGroup: FC<Tprops> = ({ className }) => {
     const { t } = useTranslation();
-    //const [worklog] = useAtom(atWorkLogTableRow);
+    const [, setOpenReset] = useAtom(atResetModal);
     const currentRouter = useRouterStore((state) => state.currentRouter);
     const submit = useSubmit();
     const currentWlid = useTodayWLStore((state) => state.currentWlid);
@@ -27,7 +27,7 @@ const TimeBtnGroup: FC<Tprops> = ({ className, setOpenReset }) => {
     const handleClick = (req: TactionReqList) => {
         submit(
             {
-                wlid: worklog.wlid,
+                wlid: currentWlid,
                 req,
             },
             { method: "POST", action: genAction(currentRouter) }

@@ -17,6 +17,8 @@ export const adminStore = createStore<Tstate & Taction>((set) => ({
         first_name: "",
         last_name: "",
         role: "",
+        bsb: "",
+        account: "",
         hr: staffStandardHR,
         ...genMenuIDObject(0),
     },

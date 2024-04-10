@@ -3,17 +3,10 @@ import { createStore } from "zustand/vanilla";
 import { Tdeduction } from "../schema/workSchema";
 
 type Tstate = {
-    s_time: string;
-    e_time: string;
-    b_hour: string;
     deduction: Partial<Tdeduction>[];
 };
 
 type Taction = {
-    setSTime: (sTime: string) => void;
-    setETime: (eTime: string) => void;
-    setBHour: (bHour: string) => void;
-    /* deduction */
     setDeductionAmount: (index: number, amount: number) => void;
     setDeductionNote: (index: number, note: string) => void;
     appendDeduction: (deduction: Partial<Tdeduction>) => void;
@@ -21,15 +14,9 @@ type Taction = {
     setDeduction: (deduction: Partial<Tdeduction>[]) => void;
 };
 
-export const worklogStore = createStore<Tstate & Taction>((set) => ({
-    s_time: "00:00",
-    e_time: "00:00",
-    b_hour: "00:00",
+export const deductStore = createStore<Tstate & Taction>((set) => ({
     deduction: [],
-    setSTime: (sTime: string) => set((state) => ({ ...state, s_time: sTime })),
-    setETime: (eTime: string) => set((state) => ({ ...state, e_time: eTime })),
-    setBHour: (bHour: string) => set((state) => ({ ...state, b_hour: bHour })),
-    /* deduction */
+
     setDeductionAmount: (index: number, amount: number) =>
         set((state) => {
             const newDeduction = [...state.deduction];
@@ -58,5 +45,5 @@ export const worklogStore = createStore<Tstate & Taction>((set) => ({
         set((state) => ({ ...state, deduction })),
 }));
 
-export const useWorklogStore = <T>(selector: (state: Tstate & Taction) => T) =>
-    useStore(worklogStore, selector);
+export const useDeductStore = <T>(selector: (state: Tstate & Taction) => T) =>
+    useStore(deductStore, selector);
