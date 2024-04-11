@@ -9,8 +9,8 @@ import { TwlStatus } from "@/utils/types"; */
 
 const staffWLColumns = [
     {
-        id: "wlID",
-        header: i18n.t("label.wlID"),
+        id: "wlid",
+        header: i18n.t("label.wlid"),
         accessorKey: "wlid",
         cell: (info: CellContext<TwlTableRow, unknown>) => (
             <span>{info.getValue<string>()}</span>

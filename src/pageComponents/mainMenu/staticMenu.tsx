@@ -12,7 +12,7 @@ const StaticMenu: FC<Tprops> = ({ menuList }) => {
 
     const navFocus = ({ isActive }: { isActive: boolean }) => {
         return `
-            group flex ${!isHovered && "justify-center"} gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-center 
+            group flex ${!isHovered && "justify-center"} gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-center ml-2
             ${
                 isActive
                     ? `text-indigo-500 rounded-l-full bg-slate-50 w-full animate-menu-slide`

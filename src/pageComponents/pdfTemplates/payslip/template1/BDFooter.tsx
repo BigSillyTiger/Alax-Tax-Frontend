@@ -16,7 +16,7 @@ const tw = createTw({});
 
 const BDFooter: FC<Tprops> = memo(({ data, unit: u, bd = "b" }) => {
     const { t } = useTranslation();
-
+    if (!data || data.length === 0) return null;
     const total = data.reduce((accumulator, currentItem) => {
         return plusAB(currentItem.amount ? currentItem.amount : 0, accumulator);
     }, 0);

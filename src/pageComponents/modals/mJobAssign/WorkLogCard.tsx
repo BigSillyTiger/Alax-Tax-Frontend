@@ -1,3 +1,4 @@
+import SingleField from "@/components/SingleField";
 import UserIcon from "@/components/UserIcon";
 import { Amail, Atel } from "@/components/aLinks";
 import Card from "@/components/card";
@@ -6,6 +7,12 @@ import { Input } from "@/components/ui/input";
 import { TassignedWork } from "@/configs/schema/workSchema";
 import { useJobAssignStore } from "@/configs/zustore";
 import { calWorkTime } from "@/lib/time";
+import {
+    CalendarDaysIcon,
+    EnvelopeIcon,
+    IdentificationIcon,
+    PhoneIcon,
+} from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 
 type Tprops<T extends TassignedWork> = {
@@ -16,6 +23,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
     const { t } = useTranslation();
     const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
+    const selectedDate = useJobAssignStore((state) => state.selectedDate);
 
     const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newWL = currentWorkLogs.map((wl) => {
@@ -55,15 +63,30 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                 <p className="col-span-full row-span-1 text-bold text-indigo-500">
                     {item.first_name + " " + item.last_name}
                 </p>
-                <p className="col-span-full row-span-1 text-bold text-indigo-500">
-                    {item.fk_uid}
-                </p>
-                <p className="col-span-3 row-span-1 text-bold text-indigo-500">
-                    <Atel href={item.phone} />
-                </p>
-                <p className="col-span-3 row-span-1 text-bold text-indigo-500">
-                    <Amail href={item.email} />
-                </p>
+                <SingleField
+                    label={<IdentificationIcon />}
+                    content={item.fk_uid}
+                    outClass=""
+                    spanClass="text-bold text-indigo-500"
+                />
+                <SingleField
+                    label={<PhoneIcon />}
+                    content={<Atel href={item.phone} />}
+                    outClass=""
+                    spanClass="font-semibold"
+                />
+                <SingleField
+                    label={<EnvelopeIcon />}
+                    content={<Amail href={item.email} />}
+                    outClass=""
+                    spanClass="font-semibold"
+                />
+                <SingleField
+                    label={<CalendarDaysIcon />}
+                    content={selectedDate ? selectedDate.toDateString() : ""}
+                    outClass=""
+                    spanClass="text-bold text-indigo-500"
+                />
             </div>
             {/* 5 col */}
             <div className="col-span-5">

@@ -1,6 +1,5 @@
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import Fieldset from "@/components/form/fieldset";
 import { Input } from "@/components/ui/input";
 import { genHHMM, wlStatusColorMap } from "@/configs/utils";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
@@ -9,6 +8,7 @@ import { calBreakTime, calWorkTime } from "@/lib/time";
 import { useTranslation } from "react-i18next";
 import TimeBtnGroup from "./TimeBtns";
 import { TwlTableRow } from "@/configs/schema/workSchema";
+import Card from "@/components/card";
 
 const TimeCard: FC = () => {
     const [t] = useTranslation();
@@ -49,12 +49,9 @@ const TimeCard: FC = () => {
     return (
         <>
             <div className="flex flex-col">
-                <Fieldset
-                    title={t("label.timeInfo")}
-                    sFieldset="m-3 flex justify-around"
-                >
+                <Card className="m-3 flex justify-around flex-wrap">
                     {/* start */}
-                    <div className="col-span-3 row-span-2">
+                    <div className="flex flex-col items-center">
                         <label
                             htmlFor="s_time"
                             className={`mx-2 text-lg font-bold`}
@@ -71,7 +68,7 @@ const TimeCard: FC = () => {
                         />
                     </div>
                     {/* end */}
-                    <div className="col-span-3 row-span-2">
+                    <div className="flex flex-col items-center">
                         <label
                             htmlFor="e_time"
                             className={`mx-2 text-lg font-bold`}
@@ -88,7 +85,7 @@ const TimeCard: FC = () => {
                         />
                     </div>
                     {/* break hour */}
-                    <div className="col-span-3 row-span-1">
+                    <div className="flex flex-col items-center">
                         <label
                             htmlFor="b_hour"
                             className={`mx-2 text-lg font-bold`}
@@ -105,7 +102,7 @@ const TimeCard: FC = () => {
                         />
                     </div>
                     {/* work hour */}
-                    <div className="col-span-3 row-span-1">
+                    <div className="flex flex-col items-center">
                         <label
                             htmlFor="w_time"
                             className="mx-2 text-lg font-bold"
@@ -121,7 +118,7 @@ const TimeCard: FC = () => {
                             className="text-bold text-3xl w-auto text-center text-lime-600 m-2 p-2"
                         />
                     </div>
-                </Fieldset>
+                </Card>
                 <div className="mt-2 flex justify-evenly items-center">
                     <span className="text-lg font-bold text-indigo-600">
                         {t("label.workStatus") + ": "}

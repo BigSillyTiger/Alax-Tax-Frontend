@@ -22,10 +22,7 @@ type Taction = {
     appendBonus: (bonus: Partial<Tbonus>) => void;
     removeBonus: (index: number) => void;
     /* deduction */
-    setDeductionAmount: (index: number, amount: number) => void;
-    setDeductionNote: (index: number, note: string) => void;
-    appendDeduction: (deduction: Partial<Tdeduction>) => void;
-    removeDeduction: (index: number) => void;
+    setDeduction: (deductions: Partial<Tdeduction>[]) => void;
 };
 
 export const payslipStore = createStore<Tstate & Taction>((set) => ({
@@ -61,28 +58,8 @@ export const payslipStore = createStore<Tstate & Taction>((set) => ({
             return { ...state, bonus: newBonus };
         }),
     /* deduction */
-    setDeductionAmount: (index: number, amount: number) =>
-        set((state) => {
-            const newDeduction = [...state.deduction];
-            newDeduction[index] = { ...newDeduction[index], amount };
-            return { ...state, deduction: newDeduction };
-        }),
-    setDeductionNote: (index: number, note: string) =>
-        set((state) => {
-            const newDeduction = [...state.deduction];
-            newDeduction[index] = { ...newDeduction[index], note };
-            return { ...state, deduction: newDeduction };
-        }),
-    appendDeduction: (deduction: Partial<Tdeduction>) =>
-        set((state) => ({
-            ...state,
-            deduction: [...state.deduction, deduction],
-        })),
-    removeDeduction: (index: number) =>
-        set((state) => {
-            const newDeduction = state.deduction.filter((_, i) => i !== index);
-            return { ...state, deduction: newDeduction };
-        }),
+    setDeduction: (deductions: Partial<Tdeduction>[]) =>
+        set((state) => ({ ...state, deduction: deductions })),
 }));
 
 export const usePayslipStore = <T>(selector: (state: Tstate & Taction) => T) =>

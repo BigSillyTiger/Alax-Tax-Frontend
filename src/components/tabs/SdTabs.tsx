@@ -16,7 +16,11 @@ const SdTabs: FC<Tprops> = ({ defaultV = "", items, className }) => {
                 <div className="rounded-md bg-indigo-100 text-gray-600">
                     {items.map((item) => {
                         return (
-                            <TabsTrigger value={item.title} className="">
+                            <TabsTrigger
+                                key={item.title}
+                                value={item.title}
+                                className=""
+                            >
                                 {item.title}
                             </TabsTrigger>
                         );
@@ -25,7 +29,11 @@ const SdTabs: FC<Tprops> = ({ defaultV = "", items, className }) => {
             </TabsList>
             {items.map((item) => {
                 return (
-                    <TabsContent value={item.title} className="">
+                    <TabsContent
+                        key={item.title}
+                        value={item.title}
+                        className=""
+                    >
                         {item.content}
                     </TabsContent>
                 );

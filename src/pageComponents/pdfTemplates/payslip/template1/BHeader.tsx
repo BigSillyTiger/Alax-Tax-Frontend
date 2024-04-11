@@ -4,20 +4,11 @@ import { createTw } from "react-pdf-tailwind";
 import { useTranslation } from "react-i18next";
 
 const tw = createTw({});
-
-type Tprops = {
-    bd?: "b" | "d";
-};
-
-const BDHeader: FC<Tprops> = ({ bd = "b" }) => {
+const BDHeader: FC = () => {
     const { t } = useTranslation();
 
     return (
-        <View
-            style={tw(
-                `flex flex-row gap-x-1 w-[523pt] ${bd === "b" ? "bg-teal-200" : "bg-red-200"}`
-            )}
-        >
+        <View style={tw("flex flex-row gap-x-1 w-[523pt] bg-teal-200")}>
             <Text style={tw("text-base w-[200pt] pl-5 mt-2")}>
                 {t("label.amount")}
             </Text>

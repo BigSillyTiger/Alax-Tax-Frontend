@@ -12,9 +12,11 @@ import { useAtom } from "jotai";
 import { atCompany, atLogo, atStaff } from "@/configs/atoms";
 import { usePayslipStore } from "@/configs/zustore";
 import { dateFormat } from "@/lib/time";
-import BDRows from "./BDRows";
-import BDHeader from "./BDHeader";
+import BDRows from "./BRows";
+import BDHeader from "./BHeader";
 import BDFooter from "./BDFooter";
+import DHeader from "./DHeader";
+import DRows from "./DRows";
 
 const tw = createTw({});
 
@@ -59,8 +61,8 @@ const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
         return (
             <View style={tw("flex w-[523pt] py-3")}>
                 <Text style={tw("text-lg")}>{t("label.deduction")}: </Text>
-                <BDHeader bd="d" />
-                <BDRows data={deduction} unit={unit} bd="d" />
+                <DHeader />
+                <DRows data={deduction} unit={unit} />
                 <BDFooter data={deduction} unit={unit} bd="d" />
             </View>
         );
@@ -82,7 +84,7 @@ const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
 
             <Pay />
             {bonus.length ? <Bonus /> : null}
-            {deduction.length ? <Deduction /> : null}
+            {deduction && deduction.length ? <Deduction /> : null}
         </View>
     );
 

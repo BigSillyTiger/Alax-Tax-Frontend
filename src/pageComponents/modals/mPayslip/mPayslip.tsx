@@ -5,7 +5,7 @@ import { atModalOpen } from "@/configs/atoms";
 import { useTranslation } from "react-i18next";
 import { mOpenOps } from "@/configs/utils";
 import FormContent from "./FormContent";
-import PdfContent from "./PdfContent";
+import { PayslipTemplate } from "@/pageComponents/pdfTemplates/payslip";
 
 const MPayslip: FC = () => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
@@ -23,7 +23,7 @@ const MPayslip: FC = () => {
                 <FormContent title="" />
             </div>
             <div className="col-span-1 md:col-span-4">
-                <PdfContent />
+                <PayslipTemplate date={new Date().toISOString()} />;
             </div>
         </main>
     );

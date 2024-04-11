@@ -86,8 +86,10 @@ const MJobEdit = () => {
 
     const mainContent = (
         <Form onSubmit={onSubmit} className="grid grid-cols-1">
-            <StaffCard staff={worklog} className="col-span-full" />
-            <WorkInfoCard work={worklog} className="col-span-full" />
+            <div className="col-span-1 flex flex-col sm:flex-row">
+                <StaffCard staff={worklog} className="grow-1" />
+                <WorkInfoCard work={worklog} className="grow-1" />
+            </div>
             <SdTabs items={tabsContent()} className="col-span-full" />
             <div className="col-span-full">
                 {/* btns */}

@@ -242,6 +242,7 @@ const en = {
             timeStart: "Start",
             timeBreak: "Break",
             todayDuty: "Today Duty",
+            today: "Today",
             total: "Total",
             totalDue: "Total Due",
             totalGst: "Total Gst",
@@ -264,7 +265,7 @@ const en = {
             workTime: "Work Time",
             workStatus: "Work Status",
             workDetail: "Work Details",
-            wlID: "Worklog ID",
+            wlid: "Worklog ID",
         },
         tips: {
             noAssignedStaff: "No Assigned Staff",

@@ -25,9 +25,9 @@ const WorkHoursCard = ({ className }: Tprops) => {
 
     return (
         <Card
-            className={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 pl-3 pr-5 pb-3 overflow-y-auto ${className}`}
+            className={`m-4 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 pl-3 pr-6 pb-3 overflow-y-auto ${className}`}
         >
-            <div className="col-span-3 row-span-2">
+            <div className="col-span-3 row-span-2 flex flex-col items-center">
                 <label
                     htmlFor="s_time"
                     className={`mx-2 text-lg font-bold ${!isValid && "text-red-500"}`}
@@ -43,7 +43,7 @@ const WorkHoursCard = ({ className }: Tprops) => {
                     className={`text-bold text-3xl text-center text-indigo-500 m-2 p-2 ${isValid ? "text-indigo-500" : "border-red-500 focus-visible:ring-red-500 text-red-500"}`}
                 />
             </div>
-            <div className="col-span-3 row-span-2">
+            <div className="col-span-3 row-span-2 flex flex-col items-center">
                 <label
                     htmlFor="e_time"
                     className={`mx-2 text-lg font-bold ${!isValid && "text-red-500"}`}
@@ -59,7 +59,7 @@ const WorkHoursCard = ({ className }: Tprops) => {
                     className={`text-bold text-3xl text-center text-indigo-500 m-2 p-2 ${isValid ? "text-indigo-500" : "border-red-500 focus-visible:ring-red-500 text-red-500"}`}
                 />
             </div>
-            <div className="col-span-3 row-span-1">
+            <div className="col-span-3 row-span-1 flex flex-col items-center">
                 <label
                     htmlFor="b_hour"
                     className={`mx-2 text-lg font-bold ${!isValid && "text-red-500"}`}
@@ -75,7 +75,7 @@ const WorkHoursCard = ({ className }: Tprops) => {
                     className={`text-bold text-3xl text-center m-2 p-2 ${isValid ? "text-amber-500" : "border-red-500 focus-visible:ring-red-500 text-red-500"}`}
                 />
             </div>
-            <div className="col-span-3 row-span-1">
+            <div className="col-span-3 row-span-1 flex flex-col items-center">
                 <label htmlFor="w_time" className="mx-2 text-lg font-bold">
                     {t("label.workTime")}
                 </label>

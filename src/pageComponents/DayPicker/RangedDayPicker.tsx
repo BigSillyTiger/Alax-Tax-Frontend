@@ -16,7 +16,9 @@ const RangedDayPicker: FC = () => {
     const dayRange = usePayslipStore((state) => state.dayRange);
     const setDayRange = usePayslipStore((state) => state.setDayRange);
     const allStaffWL = useStaffWLStore((state) => state.allStaffWL);
+    const staffWL = usePayslipStore((state) => state.staffWL);
     const setStaffWL = usePayslipStore((state) => state.setStaffWL);
+    const setDeduction = usePayslipStore((state) => state.setDeduction);
     const [staff] = useAtom(atStaff);
 
     const [startD, endD, defaultD] = (() => {
@@ -45,6 +47,18 @@ const RangedDayPicker: FC = () => {
             )
         );
     }, [dayRange, setStaffWL, staff.uid, allStaffWL]);
+
+    useEffect(() => {
+        setDeduction(
+            staffWL
+                .map((wl) => {
+                    if (wl.deduction) {
+                        return wl.deduction;
+                    }
+                })
+                .filter((wl) => wl !== undefined)[0]
+        );
+    }, [staffWL, setDeduction]);
 
     const css = `
         .my-selected:not([disabled]) { 

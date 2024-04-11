@@ -17,7 +17,7 @@ import { toastError, toastSuccess } from "@/lib/toaster";
 import MWorkLogDel from "@/pageComponents/modals/mWorkLogDel";
 
 const WorkLogs: FC = () => {
-    const { t } = useTranslation();
+    const [t] = useTranslation();
     const { worklogs } = useLoaderData() as {
         worklogs: TwlTableRow[];
     };

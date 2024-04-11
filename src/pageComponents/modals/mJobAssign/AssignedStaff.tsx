@@ -34,10 +34,6 @@ const AssignedStaff: FC = () => {
                             key={item.fk_uid}
                             className="grid grid-cols-12 gap-x-1 flex-shrink-0"
                         >
-                            {/* x btn */}
-                            {/* <div className="col-span-1 m-auto">
-                                <XBtn onClick={() => {}} />
-                            </div> */}
                             {/* content */}
                             <WorkLogCard item={item} />
                         </div>

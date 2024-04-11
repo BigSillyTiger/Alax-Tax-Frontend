@@ -55,7 +55,7 @@ const DateSchedule: FC = () => {
         <Fieldset
             title={
                 <>
-                    {t("label.date") + ": "}
+                    {t("label.today") + ": "}
                     {/* click today to jump back to today */}
                     <button
                         className="text-green-600"
