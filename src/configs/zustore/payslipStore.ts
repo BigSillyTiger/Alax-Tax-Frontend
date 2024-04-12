@@ -14,6 +14,7 @@ type Tstate = {
 };
 
 type Taction = {
+    resetAll: () => void;
     setDayRange: (range: DateRange | undefined) => void;
     setStaffWL: (worklogs: TwlTableRow[]) => void;
     /* bonus */
@@ -31,6 +32,15 @@ export const payslipStore = createStore<Tstate & Taction>((set) => ({
     staffWL: [],
     bonus: [],
     deduction: [],
+    resetAll: () =>
+        set((state) => ({
+            ...state,
+            dayRange: { from: undefined, to: undefined },
+            staffWL: [],
+            bonus: [],
+            deduction: [],
+            payslip: {},
+        })),
     setDayRange: (range: DateRange | undefined) => set({ dayRange: range }),
     setStaffWL: (worklogs: TwlTableRow[]) =>
         set((state) => ({

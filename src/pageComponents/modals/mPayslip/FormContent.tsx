@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useSubmit } from "react-router-dom";
+import { Form, useSubmit, useNavigation } from "react-router-dom";
 import { useAtom } from "jotai";
 import { genAction } from "@/lib/literals";
 import { useRouterStore } from "@/configs/zustore";
@@ -12,13 +12,16 @@ import StaffWLTable from "./StaffWLTable";
 import Card from "@/components/card";
 import Bonus from "./Bonus";
 import Deduction from "./Deduction";
+import { SubmitBtn } from "@/components/form";
 
 type Tprops = ComponentPropsWithoutRef<"main"> & {
     title: string;
+    onClose: () => void;
 };
 
-const FormContent: FC<Tprops> = () => {
+const FormContent: FC<Tprops> = ({ onClose }) => {
     const submit = useSubmit();
+    const navigation = useNavigation();
     const { t } = useTranslation();
     const [staff] = useAtom(atStaff);
     const currentRouter = useRouterStore((state) => state.currentRouter);
@@ -35,10 +38,10 @@ const FormContent: FC<Tprops> = () => {
         );
     };
 
-    return (
+    const Content = () => (
         <Card
             //onSubmit={onSubmit}
-            className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[64dvh] p-2 m-2`}
+            className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[74dvh] p-2 m-2`}
         >
             <div className="col-span-full">
                 <Toggle defaultOpen={true} title={t("label.staffInfo")}>
@@ -65,6 +68,17 @@ const FormContent: FC<Tprops> = () => {
                 </Toggle>
             </div>
         </Card>
+    );
+
+    return (
+        <Form onSubmit={onSubmit}>
+            <Content />
+            <SubmitBtn
+                onClick={() => {}}
+                onClose={onClose}
+                navState={navigation.state}
+            />
+        </Form>
     );
 };
 

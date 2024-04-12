@@ -12,22 +12,22 @@ const staffDeductColumns = [
         ),
     },
     {
-        id: "deductAmount",
-        header: i18n.t("label.amount"),
-        accessorKey: "amount",
-        cell: (info: CellContext<Tdeduction, unknown>) => (
-            <span className="font-bold text-lg text-slate-50 bg-red-400 border-2 border-red-600 rounded-lg px-2 py-1">
-                ${info.getValue<number>()}
-            </span>
-        ),
-    },
-    {
         id: "deductNote",
         header: i18n.t("label.note"),
         accessorKey: "note",
         cell: (info: CellContext<Tdeduction, unknown>) => (
             <span className="max-w-15dvw text-wrap">
                 {info.getValue<string>()}
+            </span>
+        ),
+    },
+    {
+        id: "deductAmount",
+        header: i18n.t("label.amount"),
+        accessorKey: "amount",
+        cell: (info: CellContext<Tdeduction, unknown>) => (
+            <span className="font-bold text-lg text-slate-50 bg-red-400 border-2 border-red-600 rounded-lg px-2 py-1">
+                ${info.getValue<number>()}
             </span>
         ),
     },

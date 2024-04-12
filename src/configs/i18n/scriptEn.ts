@@ -248,6 +248,7 @@ const en = {
             totalGst: "Total Gst",
             totalLine: "Line Total",
             totalNetto: "Total Netto",
+            totalPay: "Total Pay",
             totalPaid: "Total Paid",
             totalWH: "Total Work Hours",
             uid: "UID",

@@ -63,7 +63,7 @@ export const deductionSchema = z.object({
     did: z.string().default(""),
     fk_wlid: z.string().default(""),
     note: z.string().trim().nullable().default(""),
-    amount: z.number().default(0),
+    amount: z.number().multipleOf(0.01).default(0),
 });
 
 export const assignedWorkSchema = workLogSchema.extend({

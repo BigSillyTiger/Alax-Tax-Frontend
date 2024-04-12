@@ -17,6 +17,7 @@ import BDHeader from "./BHeader";
 import BDFooter from "./BDFooter";
 import DHeader from "./DHeader";
 import DRows from "./DRows";
+import Footer from "./Footer";
 
 const tw = createTw({});
 
@@ -85,6 +86,13 @@ const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
             <Pay />
             {bonus.length ? <Bonus /> : null}
             {deduction && deduction.length ? <Deduction /> : null}
+
+            <Footer
+                unit={"$"}
+                staffWL={staffWL}
+                bonus={bonus}
+                deduction={deduction}
+            />
         </View>
     );
 

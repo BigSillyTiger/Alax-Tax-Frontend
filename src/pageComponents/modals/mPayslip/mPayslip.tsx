@@ -6,12 +6,15 @@ import { useTranslation } from "react-i18next";
 import { mOpenOps } from "@/configs/utils";
 import FormContent from "./FormContent";
 import { PayslipTemplate } from "@/pageComponents/pdfTemplates/payslip";
+import { usePayslipStore } from "@/configs/zustore";
 
 const MPayslip: FC = () => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const { t } = useTranslation();
+    const resetAll = usePayslipStore((state) => state.resetAll);
 
     const onClose = () => {
+        resetAll();
         setModalOpen("");
     };
 
@@ -20,10 +23,10 @@ const MPayslip: FC = () => {
             className={`grid grid-cols-1 md:grid-cols-8 gap-x-4 overflow-y-auto h-[83dvh]`}
         >
             <div className="col-span-1 md:col-span-4">
-                <FormContent title="" />
+                <FormContent title="" onClose={onClose} />
             </div>
             <div className="col-span-1 md:col-span-4">
-                <PayslipTemplate date={new Date().toISOString()} />;
+                <PayslipTemplate date={new Date().toISOString()} />
             </div>
         </main>
     );

@@ -7,7 +7,7 @@ import { plusAB } from "@/lib/calculations";
 import { Tbonus } from "@/configs/schema/payslipSchema";
 
 type Tprops = {
-    data: Partial<Tbonus>[];
+    data: Partial<Tbonus>[]; // just need amount / note
     unit: "AUD" | "$";
     bd?: "b" | "d";
 };
