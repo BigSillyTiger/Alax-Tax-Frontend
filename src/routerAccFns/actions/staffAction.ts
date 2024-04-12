@@ -7,7 +7,7 @@ export const staffAction = async ({
 }: ActionFunctionArgs): Promise<Tresponse> => {
     console.log("-> staff action request: ", request);
     const data = await request.formData();
-    if ("POST" === request.method) {
+    if ("POST" === request.method && data.get("req") === "addStaff") {
         const result = await API_STAFF.staffAdd({
             first_name: data.get("first_name") as string,
             last_name: data.get("last_name") as string,

@@ -86,6 +86,7 @@ const en = {
             close: "Close",
             cancel: "Cancel",
             del: "Delete",
+            dlPayslip: "Download Payslip",
             edit: "Edit",
             invoice: "Invoice",
             newOrder: "New Order",

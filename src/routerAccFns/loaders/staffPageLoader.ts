@@ -8,7 +8,7 @@ import { defer, redirect } from "react-router-dom";
 export const staffLoader = async () => {
     routerStore.setState({ currentRouter: "staff" });
     try {
-        await API_ADMIN.accessCheck(menuList[4].id)
+        await API_ADMIN.accessCheck(menuList[5].id)
             .then((res) => {
                 return !res.data && redirect("/login");
             })

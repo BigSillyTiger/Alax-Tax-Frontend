@@ -1,5 +1,12 @@
 import type { FC } from "react";
-import { PDFViewer, Page, View, Document, Text } from "@react-pdf/renderer";
+import {
+    PDFViewer,
+    Page,
+    View,
+    Document,
+    Text,
+    PDFDownloadLink,
+} from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import Title from "./Title";
 import PayTitle from "./BillTitle";
@@ -24,9 +31,22 @@ const tw = createTw({});
 type Tprops = {
     unit?: "$" | "AUD";
     date: string;
+    isDlLink?: {
+        isLink: boolean;
+        pdfTitle: string;
+        btnTitle: string;
+    };
 };
 
-const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
+const PayslipTemplate: FC<Tprops> = ({
+    unit = "$",
+    date,
+    isDlLink = {
+        isLink: false,
+        pdfTitle: "",
+        btnTitle: "",
+    },
+}) => {
     const { t } = useTranslation();
     const [company] = useAtom(atCompany);
     const [logo] = useAtom(atLogo);
@@ -96,23 +116,53 @@ const PayslipTemplate: FC<Tprops> = ({ unit = "$", date }) => {
         </View>
     );
 
+    const DocumentContent = () => (
+        <Document
+            creator={"SRC"}
+            producer={"SRC"}
+            title={t("label.templateInvoice")}
+            author={"Areos"}
+        >
+            <Page
+                size="A4"
+                style={tw("px-12 py-8 flex flex-row flex-wrap")}
+                wrap
+            >
+                {mainContent}
+                <PageFooter />
+            </Page>
+        </Document>
+    );
+
+    if (isDlLink.isLink) {
+        return (
+            <PDFDownloadLink
+                document={
+                    <Document
+                        creator={"SRC"}
+                        producer={"SRC"}
+                        title={t("label.templateInvoice")}
+                        author={"Areos"}
+                    >
+                        <Page
+                            size="A4"
+                            style={tw("px-12 py-8 flex flex-row flex-wrap")}
+                            wrap
+                        >
+                            {mainContent}
+                            <PageFooter />
+                        </Page>
+                    </Document>
+                }
+                fileName={`${isDlLink.pdfTitle}.pdf`}
+            >
+                {isDlLink.btnTitle}
+            </PDFDownloadLink>
+        );
+    }
     return (
         <PDFViewer style={tw(`h-[83dvh] w-full`)}>
-            <Document
-                creator={"SRC"}
-                producer={"SRC"}
-                title={t("label.templateInvoice")}
-                author={"Areos"}
-            >
-                <Page
-                    size="A4"
-                    style={tw("px-12 py-8 flex flex-row flex-wrap")}
-                    wrap
-                >
-                    {mainContent}
-                    <PageFooter />
-                </Page>
-            </Document>
+            <DocumentContent />
         </PDFViewer>
     );
 };

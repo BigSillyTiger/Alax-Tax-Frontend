@@ -39,7 +39,10 @@ export const staffInfo = async (uid: string): Promise<Tresponse> => {
 
 export const staffAdd = async (staff: TstaffForm): Promise<Tresponse> => {
     try {
-        const response = await apis.post(STAFF_SINGLE_REGISTER, [staff]);
+        //console.log("-> add ne wstaff: ", staff);
+        const response = await apis.post(STAFF_SINGLE_REGISTER, {
+            staff: [staff],
+        });
         return response.data;
     } catch (err: unknown) {
         console.log("-> insert one staff err: ", err);

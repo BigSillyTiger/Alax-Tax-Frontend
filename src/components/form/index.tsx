@@ -1,4 +1,5 @@
-import SubmitBtn from "./submitBtn";
+import SubmitBtn from "./SubmitBtn";
 import DelBtn from "./delBtn";
 import ConfirmBtn from "./confirmBtn";
-export { DelBtn, SubmitBtn, ConfirmBtn };
+import SubmitWdlBtn from "./SubmitWdlBtn";
+export { DelBtn, SubmitBtn, ConfirmBtn, SubmitWdlBtn };

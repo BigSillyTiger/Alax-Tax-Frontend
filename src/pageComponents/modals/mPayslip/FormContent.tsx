@@ -30,7 +30,10 @@ const FormContent: FC<Tprops> = ({ onClose }) => {
         e.preventDefault();
         //const result = await API_ORDER.updateInvoiceIssue(date, oid);
         submit(
-            { req: "payslip" },
+            {
+                req: "payslip",
+                
+            },
             {
                 method: "POST",
                 action: genAction(currentRouter),
@@ -73,11 +76,28 @@ const FormContent: FC<Tprops> = ({ onClose }) => {
     return (
         <Form onSubmit={onSubmit}>
             <Content />
+
             <SubmitBtn
                 onClick={() => {}}
                 onClose={onClose}
                 navState={navigation.state}
             />
+
+            {/* <SubmitWdlBtn
+                onClick={() => {}}
+                onClose={onClose}
+                navState={navigation.state}
+                dlCMP={
+                    <PayslipTemplate
+                        date={new Date().toISOString()}
+                        isDlLink={{
+                            isLink: true,
+                            pdfTitle: "Payslip-12931239",
+                            btnTitle: t("btn.dlPayslip"),
+                        }}
+                    />
+                }
+            /> */}
         </Form>
     );
 };

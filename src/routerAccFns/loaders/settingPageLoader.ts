@@ -5,7 +5,7 @@ import { defer, redirect } from "react-router-dom";
 
 export const settingLoader = async () => {
     routerStore.setState({ currentRouter: "setting" });
-    await API_ADMIN.accessCheck(menuList[5].id)
+    await API_ADMIN.accessCheck(menuList[6].id)
         .then((res) => {
             return !res.data && redirect("/login");
         })

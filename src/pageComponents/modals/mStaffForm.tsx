@@ -80,12 +80,14 @@ const MStaffForm: FC = memo(() => {
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const isValid = await trigger();
+        console.log("-> isvalid: ", isValid);
         errors && console.log("-> staff add err: ", errors);
         if (isValid) {
             const values = getValues();
             const method = !staff.uid ? "POST" : "PUT";
+            const req = !staff.uid ? "addStaff" : "updateStaff";
             submit(
-                { ...values, id: staff.uid, req: "updateStaff" },
+                { ...values, id: staff.uid, req },
                 { method, action: "/staff" }
             );
         }

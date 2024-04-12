@@ -66,6 +66,7 @@ export const defaultMenuOptions = {
 };
 
 export const menuList = [
+    /* 0 */
     {
         id: "dashboard",
         name: i18n.t("menu.dashboard"),
@@ -73,6 +74,7 @@ export const menuList = [
         icon: HomeIcon,
         current: true,
     },
+    /* 1 */
     {
         id: "clients",
         name: i18n.t("menu.clients"),
@@ -80,6 +82,7 @@ export const menuList = [
         icon: UserGroupIcon,
         current: false,
     },
+    /* 2 */
     {
         id: "orders",
         name: i18n.t("menu.orders"),
@@ -87,6 +90,7 @@ export const menuList = [
         icon: ClipboardDocumentIcon,
         current: false,
     },
+    /* 3 */
     {
         id: "worklogs",
         name: i18n.t("menu.worklogs"),
@@ -94,6 +98,7 @@ export const menuList = [
         icon: ClipboardDocumentListIcon,
         current: false,
     },
+    /* 4 */
     {
         id: "calendar",
         name: i18n.t("menu.calendar"),
@@ -101,6 +106,7 @@ export const menuList = [
         icon: CalendarIcon,
         current: false,
     },
+    /* 5 */
     {
         id: "staff",
         name: i18n.t("menu.staff"),
@@ -108,6 +114,7 @@ export const menuList = [
         icon: IdentificationIcon,
         current: false,
     },
+    /* 6 */
     {
         id: "setting",
         name: i18n.t("menu.setting"),

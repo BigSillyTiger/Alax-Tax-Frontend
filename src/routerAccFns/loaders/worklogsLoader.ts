@@ -8,7 +8,7 @@ import { dateFormat, hmsTohm } from "@/lib/time";
 export const wlLoader = async () => {
     routerStore.setState({ currentRouter: "workLogs" });
     try {
-        await API_ADMIN.accessCheck(menuList[2].id).then((res) => {
+        await API_ADMIN.accessCheck(menuList[3].id).then((res) => {
             return !res.data && redirect("/login");
         });
 
