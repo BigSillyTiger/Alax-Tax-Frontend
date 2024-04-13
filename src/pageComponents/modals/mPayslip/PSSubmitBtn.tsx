@@ -1,4 +1,9 @@
-import type { FC, ComponentPropsWithoutRef, FormEvent } from "react";
+import {
+    type FC,
+    type ComponentPropsWithoutRef,
+    type FormEvent,
+    useMemo,
+} from "react";
 import { genAction } from "@/lib/literals";
 import { usePayslipStore, useRouterStore } from "@/configs/zustore";
 import { useTranslation } from "react-i18next";
@@ -7,6 +12,8 @@ import { toastWarning } from "@/lib/toaster";
 import { SubmitBtn } from "@/components/form";
 import { atStaff } from "@/configs/atoms";
 import { useAtom } from "jotai";
+import { calWorkTime, dateFormat } from "@/lib/time";
+import { convertWorkHour, minusAB, plusAB, timesAB } from "@/lib/calculations";
 
 type Tprops = ComponentPropsWithoutRef<"form"> & {
     onClose: () => void;
@@ -29,7 +36,51 @@ const PSSubmitBtn: FC<Tprops> = ({ onClose }) => {
     const [staff] = useAtom(atStaff);
     const currentRouter = useRouterStore((state) => state.currentRouter);
     const bonus = usePayslipStore((state) => state.bonus);
+    const staffWL = usePayslipStore((state) => state.staffWL);
     const dayRange = usePayslipStore((state) => state.dayRange);
+    const deduction = usePayslipStore((state) => state.deduction);
+
+    const totalPay = useMemo(
+        () =>
+            staffWL.reduce((accumulator, currentItem) => {
+                const workTime = convertWorkHour(
+                    calWorkTime(
+                        currentItem.s_time,
+                        currentItem.e_time,
+                        currentItem.b_hour
+                    )
+                );
+                return plusAB(timesAB(workTime, staff.hr), accumulator);
+            }, 0),
+        [staff.hr, staffWL]
+    );
+
+    const totalBonus = useMemo(
+        () =>
+            bonus && bonus.length
+                ? bonus.reduce((accumulator, currentItem) => {
+                      return plusAB(
+                          currentItem.amount ? currentItem.amount : 0,
+                          accumulator
+                      );
+                  }, 0)
+                : 0,
+        [bonus]
+    );
+    const totalDeduct = useMemo(
+        () =>
+            deduction && deduction.length
+                ? deduction.reduce((accumulator, currentItem) => {
+                      return plusAB(
+                          currentItem.amount ? currentItem.amount : 0,
+                          accumulator
+                      );
+                  }, 0)
+                : 0,
+        [deduction]
+    );
+
+    const paid = plusAB(minusAB(totalPay, totalDeduct), totalBonus);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -46,8 +97,9 @@ const PSSubmitBtn: FC<Tprops> = ({ onClose }) => {
                     fk_uid: staff.uid,
                     status: "pending",
                     hr: staff.hr,
-                    s_date: dayRange.from.toISOString(),
-                    e_date: dayRange.to.toISOString(),
+                    s_date: dateFormat(dayRange.from),
+                    e_date: dateFormat(dayRange.to),
+                    paid,
                 }),
             },
             {

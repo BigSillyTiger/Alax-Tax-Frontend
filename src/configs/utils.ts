@@ -202,6 +202,7 @@ export const wlStatusColorMap = {
     unconfirmed: "text-slate-100 bg-amber-500 border-amber-600",
     confirmed: "text-slate-100 bg-indigo-500 border-indigo-600",
     resting: "text-slate-100 bg-pink-500 border-pink-600",
+    unpaid: "text-slate-100 bg-fuchsia-500 border-fuchsia-600",
     paid: "text-slate-100 bg-teal-500 border-teal-600",
 };
 

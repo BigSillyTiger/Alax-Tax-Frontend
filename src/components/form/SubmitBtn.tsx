@@ -18,7 +18,7 @@ const SubmitBtn: FC<Tprops> = ({
     const { t } = useTranslation();
     return (
         <div
-            className={`border-t border-gray-900/10 pt-3 flex gap-3 ${className}`}
+            className={`border-t border-gray-900/10 pt-3 grid grid-flow-row-dense grid-cols-2 gap-3 ${className}`}
         >
             <Button
                 type="button"

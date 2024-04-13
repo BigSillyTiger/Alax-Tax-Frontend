@@ -74,6 +74,14 @@ const Staff: FC = () => {
                 toastSuccess(t("toastS.delStaff"));
                 setModalOpen(mOpenOps.default);
                 break;
+            case RES_STATUS.SUC_INSERT_PAYSLIP:
+                toastSuccess(t("toastS.addedPayslip"));
+                setModalOpen(mOpenOps.default);
+                break;
+            case RES_STATUS.FAILED_INSERT_PAYSLIP:
+                toastError(t("toastS.addPayslip"));
+                setModalOpen(mOpenOps.default);
+                break;
             case RES_STATUS.FAILED_DUP_PHONE:
             case RES_STATUS.FAILED_DUP_EMAIL:
             case RES_STATUS.FAILED_DUP_P_E:

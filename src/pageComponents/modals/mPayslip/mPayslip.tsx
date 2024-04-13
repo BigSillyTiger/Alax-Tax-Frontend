@@ -15,7 +15,7 @@ const MPayslip: FC = () => {
 
     const onClose = () => {
         resetAll();
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
     };
 
     const MainContent = () => (

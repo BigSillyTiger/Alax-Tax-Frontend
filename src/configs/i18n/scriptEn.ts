@@ -62,6 +62,8 @@ const en = {
                 noDupAddr:
                     "The email address and phone number must <b>NOT</b> be duplecated.",
                 addService: "description must NOT be duplecated",
+                noAvailableWL:
+                    "No available work log for generating new payslip.",
                 pickService: "Pick a service to append",
                 pickStaff: "Pick a staff to assign",
                 quit: "Are you sure to quit?",
@@ -285,6 +287,7 @@ const en = {
             addedClient: "Registered a new client.",
             addedStaff: "Registered a new staff.",
             addedNewSU: "Added A New Service/Unit.",
+            addedPayslip: "Added A New Payslip.",
             delOrder: "Deleted An Order.",
             delStaff: "Deleted A Staff.",
             delWorkLog: "Deleted Work Log.",
@@ -301,6 +304,7 @@ const en = {
         },
         toastF: {
             addOrder: "Error: Adding New Order Failed",
+            addPayslip: "Error: Adding A New Payslip.",
             addedNewSU: "Error: Adding A New Service/Unit.",
             delOrder: "Error: Deleting Order Failed",
             delWorkLog: "Error: Deleted Work Log.",

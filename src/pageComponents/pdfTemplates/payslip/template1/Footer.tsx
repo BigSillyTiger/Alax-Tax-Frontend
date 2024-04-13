@@ -63,8 +63,7 @@ const Footer: FC<Tprops> = memo(
                     </Text>
 
                     <Text style={tw("text-sm my-auto text-right")}>
-                        {u + " "}
-                        {totalPay}
+                        {u + " " + totalPay}
                     </Text>
                 </View>
                 {/* bonus */}
@@ -74,8 +73,7 @@ const Footer: FC<Tprops> = memo(
                             {t("label.bonus")}:
                         </Text>
                         <Text style={tw("text-sm my-auto text-right")}>
-                            {u + " "}
-                            {totalBonus}
+                            {u + " " + totalBonus}
                         </Text>
                     </View>
                 )}
@@ -86,8 +84,7 @@ const Footer: FC<Tprops> = memo(
                             {t("label.deduction")}:
                         </Text>
                         <Text style={tw("text-sm my-auto text-right")}>
-                            {"- " + u + " "}
-                            {totalDeduct}
+                            {"- " + u + " " + totalDeduct}
                         </Text>
                     </View>
                 )}
