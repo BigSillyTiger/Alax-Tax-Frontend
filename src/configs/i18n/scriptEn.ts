@@ -288,6 +288,7 @@ const en = {
             delOrder: "Deleted An Order.",
             delStaff: "Deleted A Staff.",
             delWorkLog: "Deleted Work Log.",
+            updateClient: "Updated Client Information.",
             updateCompany: "Updated Company Information.",
             updateOrder: "Updated Order Details.",
             updateOrderStatus: "Updated Order Status.",
@@ -315,6 +316,7 @@ const en = {
         },
         toastW: {
             selectDate: "Please select a date first.",
+            selectDayRange: "Please select the day range first.",
         },
         sr: {
             openHeadBarMenu: "Open head bar menu",

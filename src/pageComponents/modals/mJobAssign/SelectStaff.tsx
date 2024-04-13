@@ -34,28 +34,30 @@ const SelectStaff: FC = () => {
 
     /* update staff selected status when selected date changed */
     useEffect(() => {
-        let newAllStaff;
-        const workLog =
-            selectedDate &&
-            currentWorkLogs.filter((work) => {
-                return isSameDay(new Date(work.wl_date), selectedDate);
-            });
-        if (selectedDate && workLog && workLog.length > 0) {
-            newAllStaff = atomAllStaff.map((staff) => {
-                return {
-                    ...staff,
-                    ["selected"]: workLog.some((work) => {
-                        return work.assigned_work.some(
-                            (log) => log.fk_uid === staff.uid
-                        );
-                    }),
-                };
-            });
-        } else {
-            newAllStaff = atomAllStaff.map((staff) => {
-                return { ...staff, ["selected"]: false };
-            });
+        if (!selectedDate || !currentWorkLogs) return;
+
+        const workLog = currentWorkLogs.filter((work) => {
+            return isSameDay(new Date(work.wl_date), selectedDate);
+        });
+
+        if (!workLog || workLog.length === 0) {
+            setAllStaff(
+                atomAllStaff.map((staff) => ({ ...staff, selected: false }))
+            );
+            return;
         }
+
+        const newAllStaff = atomAllStaff.map((staff) => {
+            return {
+                ...staff,
+                selected: workLog.some((work) => {
+                    return work.assigned_work.some(
+                        (log) => log.fk_uid === staff.uid
+                    );
+                }),
+            };
+        });
+
         setAllStaff(newAllStaff);
     }, [selectedDate, currentWorkLogs, atomAllStaff, setAllStaff]);
 

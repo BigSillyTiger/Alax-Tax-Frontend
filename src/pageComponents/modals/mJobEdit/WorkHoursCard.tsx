@@ -21,7 +21,7 @@ const WorkHoursCard = ({ className }: Tprops) => {
     useEffect(() => {
         setIsValid(isWorkHoursValid(s_time, e_time, b_hour));
         setTotalWH(calWorkTime(s_time, e_time, b_hour));
-    }, [s_time, e_time, b_hour, totalWH]);
+    }, [s_time, e_time, b_hour]);
 
     return (
         <Card

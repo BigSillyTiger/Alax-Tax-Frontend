@@ -1,4 +1,4 @@
-import { FormEvent, useEffect } from "react";
+import { FormEvent, useEffect, useMemo } from "react";
 import { MTemplate } from "@/components/modal";
 import { atAllStaff, atModalOpen, atOrder } from "@/configs/atoms";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
@@ -29,6 +29,12 @@ const MJobAssign = () => {
     const setDate = useJobAssignStore((state) => state.setDate);
     const currentRouter = useRouterStore((state) => state.currentRouter);
 
+    const newAllStaff = useMemo(() => {
+        return atomAllStaff.map((staff) => {
+            return { ...staff, ["selected"]: false };
+        });
+    }, [atomAllStaff]);
+
     /* update client order */
     // adding modalOpen to the dependency array
     // for reset the workLogs when modalOpen changes
@@ -39,11 +45,9 @@ const MJobAssign = () => {
 
     /* update all staff with unselected status as default*/
     useEffect(() => {
-        const newAllStaff = atomAllStaff.map((staff) => {
-            return { ...staff, ["selected"]: false };
-        });
         setAllStaff(newAllStaff);
-    }, [atomAllStaff, setAllStaff]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [newAllStaff]);
 
     const onClose = () => {
         setWorkLogs(clientOrder.work_logs);

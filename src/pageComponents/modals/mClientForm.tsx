@@ -37,7 +37,7 @@ const MClientForm: FC = memo(() => {
 
     useEffect(() => {
         reset(client);
-    }, [client, reset, modalOpen]);
+    }, [client, modalOpen, reset]);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();

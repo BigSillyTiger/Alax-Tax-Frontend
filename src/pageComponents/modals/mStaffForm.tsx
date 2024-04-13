@@ -1,4 +1,4 @@
-import { useEffect, memo } from "react";
+import { useEffect, memo, useMemo } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation, Trans } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
@@ -56,15 +56,19 @@ const MStaffForm: FC = memo(() => {
         reValidateMode: "onSubmit",
     });
 
-    useEffect(() => {
-        reset(staff);
-    }, [staff, reset, modalOpen]);
+    const selectedRole = useMemo(() => {
+        return watch("role") as keyof typeof roleOptions;
+    }, [watch("role"), watch]);
+
+    const roleData = useMemo(() => roleOptions[selectedRole], [selectedRole]);
 
     useEffect(() => {
-        const selectedRole = watch("role") as keyof typeof roleOptions;
-        const roleData = roleOptions[selectedRole];
+        modalOpen && reset(staff);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [staff, modalOpen]);
 
-        if (roleOptions[selectedRole]) {
+    useEffect(() => {
+        if (roleData) {
             Object.keys(roleData).forEach((field) => {
                 setValue(
                     field as keyof TstaffForm,
@@ -75,12 +79,12 @@ const MStaffForm: FC = memo(() => {
                 );
             });
         }
-    }, [watch("role"), watch, setValue]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [roleData]);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const isValid = await trigger();
-        console.log("-> isvalid: ", isValid);
         errors && console.log("-> staff add err: ", errors);
         if (isValid) {
             const values = getValues();

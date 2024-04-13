@@ -19,17 +19,27 @@ const Setting: FC = () => {
         logo: string;
     };
     const { t } = useTranslation();
-
     const actionData = useActionData() as Tresponse;
+
     useEffect(() => {
-        if (actionData?.status === RES_STATUS.SUC_UPDATE_COMPANY) {
-            toastSuccess(t("toastS.updateCompany"));
-        } else if (actionData?.status === RES_STATUS.SUC_ADD_NEW_SU) {
-            toastSuccess(t("toastS.addedNewSU"));
-        } else if (actionData?.status === RES_STATUS.FAILED_ADD_NEW_SU) {
-            toastError(t("toastE.addedNewSU"));
+        if (!actionData) return;
+
+        const { status } = actionData;
+
+        switch (status) {
+            case RES_STATUS.SUC_UPDATE_COMPANY:
+                toastSuccess(t("toastS.updateCompany"));
+                break;
+            case RES_STATUS.SUC_ADD_NEW_SU:
+                toastSuccess(t("toastS.addedNewSU"));
+                break;
+            case RES_STATUS.FAILED_ADD_NEW_SU:
+                toastError(t("toastE.addedNewSU"));
+                break;
+            default:
+                break;
         }
-        actionData?.status && (actionData.status = RES_STATUS.DEFAULT);
+        actionData.status = RES_STATUS.DEFAULT;
     }, [actionData, t]);
 
     const UniversContent: FC<{ univers: Tunivers }> = ({ univers }) => {

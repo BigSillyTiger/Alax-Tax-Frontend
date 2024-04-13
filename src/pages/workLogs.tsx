@@ -26,27 +26,33 @@ const WorkLogs: FC = () => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
 
     useEffect(() => {
-        if (actionData?.status === RES_STATUS.SUC_UPDATE_WORKLOG) {
-            if (modalOpen === mOpenOps.edit) {
+        if (!actionData) return;
+        const { status } = actionData;
+        switch (status) {
+            case RES_STATUS.SUC_UPDATE_WORKLOG:
+                if (modalOpen === mOpenOps.edit) {
+                    setModalOpen(mOpenOps.default);
+                    toastSuccess(t("toastS.updateWL"));
+                }
+                break;
+            case RES_STATUS.FAILED_UPDATE_WORKLOG:
+                if (modalOpen === mOpenOps.edit) {
+                    setModalOpen(mOpenOps.default);
+                    toastError(t("toastF.updateWL"));
+                }
+                break;
+            case RES_STATUS.SUC_DELETE_WORKLOG:
                 setModalOpen(mOpenOps.default);
-                toastSuccess(t("toastS.updateWL"));
-                actionData.status = RES_STATUS.DEFAULT;
-            }
-        } else if (actionData?.status === RES_STATUS.FAILED_UPDATE_WORKLOG) {
-            if (modalOpen === mOpenOps.edit) {
+                toastSuccess(t("toastS.delWorkLog"));
+                break;
+            case RES_STATUS.FAILED_DELETE_WORKLOG:
                 setModalOpen(mOpenOps.default);
-                toastError(t("toastF.updateWL"));
-                actionData.status = RES_STATUS.DEFAULT;
-            }
-        } else if (actionData?.status === RES_STATUS.SUC_DELETE_WORKLOG) {
-            setModalOpen(mOpenOps.default);
-            toastSuccess(t("toastS.delWorkLog"));
-            actionData.status = RES_STATUS.DEFAULT;
-        } else if (actionData?.status === RES_STATUS.FAILED_DELETE_WORKLOG) {
-            setModalOpen(mOpenOps.default);
-            toastError(t("toastF.delWorkLog"));
-            actionData.status = RES_STATUS.DEFAULT;
+                toastError(t("toastF.delWorkLog"));
+                break;
+            default:
+                break;
         }
+        actionData.status = RES_STATUS.DEFAULT;
     }, [actionData, modalOpen, setModalOpen, t]);
 
     const WorkLogsTableContent = ({

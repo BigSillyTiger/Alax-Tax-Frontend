@@ -93,23 +93,34 @@ const MOrderForm: FC = memo(() => {
             }
             setValue(`order_services.${index}.netto`, total);
         },
-        [values]
+        [watch, setValue]
     );
 
     useEffect(() => {
         if (clientOrder && uniData?.services) {
+            const {
+                address,
+                suburb,
+                city,
+                state,
+                country,
+                postcode,
+                status,
+                deposit,
+                order_services,
+            } = clientOrder;
             reset({
-                address: clientOrder.address ?? undefined,
-                suburb: clientOrder.suburb ?? undefined,
-                city: clientOrder.city ?? undefined,
-                state: clientOrder.state ?? undefined,
-                country: clientOrder.country ?? undefined,
-                postcode: clientOrder.postcode ?? undefined,
-                status: clientOrder.status ?? t("label.pending"),
-                deposit: clientOrder.deposit ?? 0,
+                address: address ?? undefined,
+                suburb: suburb ?? undefined,
+                city: city ?? undefined,
+                state: state ?? undefined,
+                country: country ?? undefined,
+                postcode: postcode ?? undefined,
+                status: status ?? t("label.pending"),
+                deposit: deposit ?? 0,
                 // notice this is the major operation for fields to read data
                 // from the order_services field
-                order_services: clientOrder.order_services ?? undefined,
+                order_services: order_services ?? undefined,
             });
         }
     }, [clientOrder, reset, uniData, t]);

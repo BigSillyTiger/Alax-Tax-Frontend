@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useMemo } from "react";
 import type { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
@@ -68,35 +68,35 @@ const MOrderPay: FC = memo(() => {
         control,
     });
 
+    const newPayments = useMemo(() => {
+        if (clientOrder && clientOrder.payments) {
+            return clientOrder.payments.map((item) => ({
+                ...item,
+                paid_date: dateFormat(new Date(item.paid_date)),
+            }));
+        }
+        return [];
+    }, [clientOrder]);
+
+    const newTotalPaid = useMemo(() => {
+        return fields.reduce(
+            (accumulator, item) => plusAB(accumulator, item.paid),
+            0
+        );
+    }, [fields]);
+
     /**
      * this is essential for reseting data while opening the modal
      * if this operation is missing, the data that useForm read will
      * always be the initial one, which is empty
      */
     useEffect(() => {
-        if (clientOrder) {
-            reset({
-                // this is the essential part of reading data from payments fields
-                payments: clientOrder.payments
-                    ? clientOrder.payments.map((item) => {
-                          return {
-                              ...item,
-                              paid_date: dateFormat(new Date(item.paid_date)),
-                          };
-                      })
-                    : [],
-            });
-        }
-    }, [clientOrder, reset]);
+        reset({ payments: newPayments });
+    }, [reset, newPayments]);
 
     useEffect(() => {
-        setTotalPaid(
-            fields.reduce(
-                (accumulator, item) => plusAB(accumulator, item.paid),
-                0
-            )
-        );
-    }, [fields]);
+        setTotalPaid(newTotalPaid);
+    }, [newTotalPaid]);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();

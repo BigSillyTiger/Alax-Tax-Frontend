@@ -70,44 +70,52 @@ const Orders: FC = () => {
     ]);
 
     useEffect(() => {
-        if (actionData?.status === RES_STATUS.SUCCESS) {
-            if (modalOpen === mOpenOps.add) {
-                setModalOpen("");
-                toastSuccess(t("toastS.addOrder"));
-                actionData.status = RES_STATUS.DEFAULT;
-            }
-        } else if (actionData?.status === RES_STATUS.SUC_DEL) {
-            toastSuccess(t("toastS.delOrder"));
-            actionData.status = RES_STATUS.DEFAULT;
-        } else if (actionData?.status === RES_STATUS.SUC_UPDATE_STATUS) {
-            toastSuccess(t("toastS.updateOrderStatus"));
-            actionData.status = RES_STATUS.DEFAULT;
-        } else if (actionData?.status === RES_STATUS.SUC_UPDATE) {
-            setModalOpen("");
-            toastSuccess(t("toastS.updateOrder"));
-            actionData.status = RES_STATUS.DEFAULT;
-        } else if (actionData?.status === RES_STATUS.SUC_UPDATE_PAYMENTS) {
-            setModalOpen("");
-            toastSuccess(t("toastS.updatePayment"));
-            actionData.status = RES_STATUS.DEFAULT;
-        } else if (actionData?.status === RES_STATUS.FAILED) {
-            if (modalOpen === mOpenOps.add) {
-                toastError(t("toastF.addOrder"));
-                actionData.status = RES_STATUS.DEFAULT;
-            } else if (modalOpen === mOpenOps.edit) {
-                toastError(t("toastF.updateOrder"));
-                actionData.status = RES_STATUS.DEFAULT;
-            } else if (modalOpen === mOpenOps.del) {
-                toastError(t("toastF.delOrder"));
-                actionData.status = RES_STATUS.DEFAULT;
-            }
-        } else if (actionData?.status === RES_STATUS.SUC_UPDATE_WORKLOG) {
-            if (modalOpen === mOpenOps.jobAssign) {
+        if (!actionData) return;
+        const { status } = actionData;
+        switch (status) {
+            case RES_STATUS.SUCCESS:
+                if (modalOpen === mOpenOps.add) {
+                    setModalOpen(mOpenOps.default);
+                    toastSuccess(t("toastS.addOrder"));
+                }
+                break;
+            case RES_STATUS.SUC_DEL:
                 setModalOpen(mOpenOps.default);
-                toastSuccess(t("toastS.updateWorkLog"));
-                actionData.status = RES_STATUS.DEFAULT;
-            }
+                toastSuccess(t("toastS.delOrder"));
+                break;
+            case RES_STATUS.SUC_UPDATE_STATUS:
+                setModalOpen(mOpenOps.default);
+                toastSuccess(t("toastS.updateOrderStatus"));
+                break;
+            case RES_STATUS.SUC_UPDATE:
+                setModalOpen(mOpenOps.default);
+                toastSuccess(t("toastS.updateOrder"));
+                break;
+            case RES_STATUS.SUC_UPDATE_PAYMENTS:
+                setModalOpen(mOpenOps.default);
+                toastSuccess(t("toastS.updatePayment"));
+                break;
+            case RES_STATUS.SUC_UPDATE_WORKLOG:
+                if (modalOpen === mOpenOps.jobAssign) {
+                    setModalOpen(mOpenOps.default);
+                    toastSuccess(t("toastS.updateWorkLog"));
+                }
+                break;
+            case RES_STATUS.FAILED:
+                if (modalOpen === mOpenOps.add) {
+                    toastError(t("toastF.addOrder"));
+                    actionData.status = RES_STATUS.DEFAULT;
+                } else if (modalOpen === mOpenOps.edit) {
+                    toastError(t("toastF.updateOrder"));
+                    actionData.status = RES_STATUS.DEFAULT;
+                } else if (modalOpen === mOpenOps.del) {
+                    toastError(t("toastF.delOrder"));
+                }
+                break;
+            default:
+                break;
         }
+        actionData.status = RES_STATUS.DEFAULT;
     }, [actionData, modalOpen, setModalOpen, t]);
 
     const SubTable = ({ data }: { data: Torder }) => {

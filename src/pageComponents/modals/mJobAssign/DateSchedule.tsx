@@ -18,11 +18,10 @@ const DateSchedule: FC = () => {
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
     const [isTooSmallScreen, setIsTooSmallScreen] = useState(false);
 
-    const checkScreenWidth = () => {
-        setIsTooSmallScreen(window.innerWidth < 420);
-    };
-
     useEffect(() => {
+        const checkScreenWidth = () => {
+            setIsTooSmallScreen(window.innerWidth < 420);
+        };
         checkScreenWidth();
         // Add event listener for window resize
         window.addEventListener("resize", checkScreenWidth);
@@ -31,7 +30,7 @@ const DateSchedule: FC = () => {
         return () => {
             window.removeEventListener("resize", checkScreenWidth);
         };
-    });
+    }, []);
 
     // remove work log from the current work log list
     const handleDelete = (indexToRemove: number) => {

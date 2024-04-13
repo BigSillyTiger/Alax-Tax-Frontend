@@ -1,32 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import type { FC } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { debounce } from "lodash";
 
 type Tprops = {
     value: string;
     onChange: (value: string) => void;
-    debounce?: number;
+    debounceTime?: number;
     className?: string;
 };
 
 const SearchBar: FC<Tprops> = ({
     value: initValue,
     onChange,
-    debounce = 500,
+    debounceTime = 500,
     className = "",
 }) => {
     const [value, setValue] = useState(initValue);
 
-    useEffect(() => {
-        setValue(initValue);
-    }, [initValue]);
+    const deboucedOnChange = useMemo(
+        () => debounce((value) => onChange(value), debounceTime),
+        [onChange, debounceTime]
+    );
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            onChange(value);
-        }, debounce);
-        return () => clearTimeout(timeout);
-    }, [value]);
+        deboucedOnChange(value);
+    }, [value, deboucedOnChange]);
 
     return (
         <div className={`flex flex-auto ${className}`}>

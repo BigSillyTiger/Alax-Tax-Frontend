@@ -1,4 +1,4 @@
-import { API_STAFF } from "@/apis";
+import { API_PAYSLIP, API_STAFF } from "@/apis";
 import { ActionFunctionArgs } from "react-router-dom";
 import type { Tstaff } from "@/configs/schema/staffSchema";
 
@@ -33,6 +33,12 @@ export const staffAction = async ({
             bsb: data.get("bsb") as string,
             account: data.get("account") as string,
         });
+        return result;
+    } else if ("POST" === request.method && data.get("req") === "newPayslip") {
+        console.log("-> action gen new payslip");
+        const bonus = JSON.parse(data.get("bonus") as string);
+        const payslip = JSON.parse(data.get("payslip") as string);
+        const result = await API_PAYSLIP.psSingleInsert(bonus, payslip);
         return result;
     } else if ("DELETE" === request.method) {
         const result = await API_STAFF.staffSingleDel(

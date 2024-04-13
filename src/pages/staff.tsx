@@ -24,6 +24,7 @@ import MPayslip from "@/pageComponents/modals/mPayslip";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useStaffWLStore } from "@/configs/zustore/staffWLStore";
 import { Tcompany } from "@/configs/schema/settingSchema";
+import { mOpenOps } from "@/configs/utils";
 
 type Tprops = {
     allStaff: Tstaff[] | null;
@@ -53,37 +54,37 @@ const Staff: FC = () => {
     }, [worklogs, setAllStaffWL, company, logo, setCompany, setLogo]);
 
     useEffect(() => {
-        /* close modals if RES_STATUS.SUCCESS  */
-
-        if (actionData?.status === RES_STATUS.SUCCESS) {
-            setInfoConflict(actionData?.status);
-            if (!staff.uid) {
-                setModalOpen("");
+        if (!actionData) return;
+        const { status } = actionData;
+        switch (status) {
+            // close modals if RES_STATUS.SUCCESS
+            case RES_STATUS.SUCCESS:
+                setInfoConflict(actionData?.status);
+                if (!staff.uid) {
+                    toastSuccess(t("toastS.addedStaff"));
+                } else {
+                    // close the password reset modal
+                    secModalOpen === "ResetPW" && setSecModalOpen("");
+                    toastSuccess(t("toastS.updateStaff"));
+                }
                 setStaff(RESET);
-                toastSuccess(t("toastS.addedStaff"));
-            } else if (staff.uid) {
-                // close the password reset modal
-                secModalOpen === "ResetPW" && setSecModalOpen("");
-                setModalOpen("");
-                setStaff(RESET);
-                toastSuccess(t("toastS.updateStaff"));
-            }
-        } else if (
-            //actionData?.status &&
-            actionData?.status === RES_STATUS.SUC_DEL
-        ) {
-            // delete a client
-            toastSuccess(t("toastS.delStaff"));
-        } else if (
-            actionData?.status === RES_STATUS.FAILED_DUP_PHONE ||
-            actionData?.status === RES_STATUS.FAILED_DUP_EMAIL ||
-            actionData?.status === RES_STATUS.FAILED_DUP_P_E
-        ) {
-            setInfoConflict(actionData?.status);
-            toastError(t("toastF.existedPE"));
+                setModalOpen(mOpenOps.default);
+                break;
+            case RES_STATUS.SUC_DEL:
+                toastSuccess(t("toastS.delStaff"));
+                setModalOpen(mOpenOps.default);
+                break;
+            case RES_STATUS.FAILED_DUP_PHONE:
+            case RES_STATUS.FAILED_DUP_EMAIL:
+            case RES_STATUS.FAILED_DUP_P_E:
+                setInfoConflict(actionData?.status);
+                toastError(t("toastF.existedPE"));
+                break;
+            default:
+                break;
         }
         // set status to default, in case the stale value interfere the next action
-        actionData?.status && (actionData.status = RES_STATUS.DEFAULT);
+        actionData.status = RES_STATUS.DEFAULT;
     }, [
         actionData,
         staff.uid,

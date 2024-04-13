@@ -135,7 +135,10 @@ const InvContent: FC = memo(() => {
 
     useEffect(() => {
         if (clientOrder.client_info) {
-            setClient(clientOrder.client_info);
+            setClient((prevClient) => ({
+                ...prevClient,
+                ...clientOrder.client_info,
+            }));
         }
     }, [setClient, clientOrder.client_info]);
 

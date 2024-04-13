@@ -29,34 +29,40 @@ const Clients: FC = () => {
     const actionData = useActionData() as Tresponse;
 
     useEffect(() => {
-        /* close modals if RES_STATUS.SUCCESS  */
-        if (actionData?.status === RES_STATUS.SUCCESS) {
-            // update or add a client
-            setInfoConflict(actionData?.status);
-            if (!client.cid) {
+        if (!actionData) return;
+        const { status } = actionData;
+
+        switch (status) {
+            case RES_STATUS.SUCCESS: {
+                // Update or add a client
+                const successMessage = client.cid
+                    ? t("toastS.updateClient")
+                    : t("toastS.addClient");
+                setInfoConflict(status);
                 setModalOpen("");
                 setClient(RESET);
-                toastSuccess("Registered a new client");
-            } else if (client.cid) {
-                setModalOpen("");
-                setClient(RESET);
-                toastSuccess("Updated client informaton");
+                toastSuccess(successMessage);
+                break;
             }
-        } else if (actionData?.status === RES_STATUS.SUC_DEL) {
-            // delete a client
-            toastSuccess("Deleted a client");
-        } else if (
-            actionData?.status === RES_STATUS.FAILED_DUP_PHONE ||
-            actionData?.status === RES_STATUS.FAILED_DUP_EMAIL ||
-            actionData?.status === RES_STATUS.FAILED_DUP_P_E
-        ) {
-            // duplicated register info
-            setInfoConflict(actionData?.status);
-            toastError("Email or Phone already existed");
+            case RES_STATUS.SUC_DEL:
+                // Delete a client
+                setModalOpen("");
+                toastSuccess(t("toastS.deleteClient"));
+                break;
+            case RES_STATUS.FAILED_DUP_PHONE:
+            case RES_STATUS.FAILED_DUP_EMAIL:
+            case RES_STATUS.FAILED_DUP_P_E:
+                // Duplicated register info
+                setInfoConflict(status);
+                toastError(t("toastS.duplicateRegistration"));
+                break;
+            default:
+                break;
         }
+
         // set status to default, in case the stale value interfere the next action
-        actionData?.status && (actionData.status = RES_STATUS.DEFAULT);
-    }, [actionData, client.cid, setClient, setInfoConflict, setModalOpen]);
+        actionData.status = RES_STATUS.DEFAULT;
+    }, [actionData, client.cid, setClient, setInfoConflict, setModalOpen, t]);
 
     const handleAddNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();

@@ -11,12 +11,12 @@ import { Atel, Amail } from "@/components/aLinks";
  * @param header - id
  */
 const staffColumns: ColumnDef<Tstaff>[] = [
-    {
+    /* {
         header: i18n.t("label.details"), // Details
         cell: () => {
             <></>;
         },
-    },
+    }, */
     {
         header: i18n.t("label.uid"),
         accessorFn: (data: Tstaff) => data.uid,

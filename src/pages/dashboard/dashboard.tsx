@@ -25,19 +25,27 @@ const Dashboard: FC = () => {
     }, [worklogs, setWorklogs]);
 
     useEffect(() => {
-        if (actionData?.status === RES_STATUS.SUC_UPDATE_WORKLOG) {
-            if (modalOpen === mOpenOps.edit) {
-                setModalOpen(mOpenOps.default);
-                toastSuccess(t("toastS.updateWL"));
-                actionData.status = RES_STATUS.DEFAULT;
-            }
-        } else if (actionData?.status === RES_STATUS.FAILED_UPDATE_WORKLOG) {
-            if (modalOpen === mOpenOps.edit) {
-                setModalOpen(mOpenOps.default);
-                toastError(t("toastF.updateWL"));
-                actionData.status = RES_STATUS.DEFAULT;
-            }
+        if (!actionData) return;
+
+        const { status } = actionData;
+        switch (status) {
+            case RES_STATUS.SUC_UPDATE_WORKLOG:
+                if (modalOpen === mOpenOps.edit) {
+                    setModalOpen(mOpenOps.default);
+                    toastSuccess(t("toastS.updateWL"));
+                }
+                break;
+            case RES_STATUS.FAILED_UPDATE_WORKLOG:
+                if (modalOpen === mOpenOps.edit) {
+                    setModalOpen(mOpenOps.default);
+                    toastError(t("toastF.updateWL"));
+                }
+                break;
+            default:
+                break;
         }
+
+        actionData.status = RES_STATUS.DEFAULT;
     }, [actionData, modalOpen, setModalOpen, t]);
 
     const DashboardContent = ({ workLogs }: { workLogs: TwlTableRow[] }) => {

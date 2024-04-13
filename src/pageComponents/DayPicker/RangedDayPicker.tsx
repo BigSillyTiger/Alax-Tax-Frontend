@@ -1,4 +1,4 @@
-import { useEffect, type FC } from "react";
+import { useEffect, useMemo, type FC } from "react";
 import { DayPicker } from "react-day-picker";
 //import "react-day-picker/dist/style.css";
 import "./datepickerstyle.css";
@@ -33,32 +33,36 @@ const RangedDayPicker: FC = () => {
         ];
     })();
 
-    useEffect(() => {
-        setStaffWL(
-            allStaffWL.filter(
-                (s) =>
-                    s.fk_uid === staff.uid &&
-                    s.wl_status === "confirmed" &&
-                    checkDateRange(
-                        dayRange?.from,
-                        dayRange?.to,
-                        new Date(auToISO(s.wl_date))
-                    )
-            )
+    const newDeduct = useMemo(() => {
+        return staffWL
+            .map((wl) => {
+                if (wl.deduction) {
+                    return wl.deduction;
+                }
+            })
+            .filter((wl) => wl !== undefined)[0];
+    }, [staffWL]);
+
+    const newStaffWL = useMemo(() => {
+        return allStaffWL.filter(
+            (s) =>
+                s.fk_uid === staff.uid &&
+                s.wl_status === "confirmed" &&
+                checkDateRange(
+                    dayRange?.from,
+                    dayRange?.to,
+                    new Date(auToISO(s.wl_date))
+                )
         );
-    }, [dayRange, setStaffWL, staff.uid, allStaffWL]);
+    }, [staff.uid, dayRange, allStaffWL]);
 
     useEffect(() => {
-        setDeduction(
-            staffWL
-                .map((wl) => {
-                    if (wl.deduction) {
-                        return wl.deduction;
-                    }
-                })
-                .filter((wl) => wl !== undefined)[0]
-        );
-    }, [staffWL, setDeduction]);
+        setStaffWL(newStaffWL);
+    }, [newStaffWL, setStaffWL]);
+
+    useEffect(() => {
+        setDeduction(newDeduct);
+    }, [newDeduct, setDeduction]);
 
     const css = `
         .my-selected:not([disabled]) { 

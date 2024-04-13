@@ -40,7 +40,8 @@ const MJobEdit = () => {
         setETime(worklog.e_time ? worklog.e_time : "00:00");
         setBHour(worklog.b_hour ? worklog.b_hour : "00:00");
         setDeduction(worklog.deduction ? worklog.deduction : []);
-    }, [modalOpen, worklog, setSTime, setETime, setBHour, setDeduction]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [modalOpen, worklog]);
 
     const onClose = () => {
         setModalOpen(mOpenOps.default);

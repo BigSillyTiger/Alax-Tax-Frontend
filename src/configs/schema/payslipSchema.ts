@@ -25,5 +25,6 @@ const payslipsSchema = payslipSchema.extend({
     deduction: deductionSchema.array().default([]),
 });
 
+export type Tpayslip = z.infer<typeof payslipSchema>;
 export type Tpayslips = z.infer<typeof payslipsSchema>;
 export type Tbonus = z.infer<typeof bonusSchema>;

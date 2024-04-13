@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Form, useSubmit, useNavigation } from "react-router-dom";
 import { useAtom } from "jotai";
 import { genAction } from "@/lib/literals";
-import { useRouterStore } from "@/configs/zustore";
+import { usePayslipStore, useRouterStore } from "@/configs/zustore";
 import { atStaff } from "@/configs/atoms";
 import { Toggle } from "@/components/disclosure";
 import StaffDetailCard from "@/pageComponents/cards/StaffDetailCard";
@@ -13,6 +13,7 @@ import Card from "@/components/card";
 import Bonus from "./Bonus";
 import Deduction from "./Deduction";
 import { SubmitBtn } from "@/components/form";
+import { toastWarning } from "@/lib/toaster";
 
 type Tprops = ComponentPropsWithoutRef<"main"> & {
     title: string;
@@ -25,14 +26,27 @@ const FormContent: FC<Tprops> = ({ onClose }) => {
     const { t } = useTranslation();
     const [staff] = useAtom(atStaff);
     const currentRouter = useRouterStore((state) => state.currentRouter);
+    const bonus = usePayslipStore((state) => state.bonus);
+    const dayRange = usePayslipStore((state) => state.dayRange);
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        if (!dayRange.from || !dayRange.to) {
+            toastWarning(t("toastW.selectDayRange"));
+            return;
+        }
         //const result = await API_ORDER.updateInvoiceIssue(date, oid);
         submit(
             {
-                req: "payslip",
-                
+                req: "newPayslip",
+                bonus: JSON.stringify(bonus),
+                payslip: JSON.stringify({
+                    fk_uid: staff.uid,
+                    status: "pending",
+                    hr: staff.hr,
+                    s_date: dayRange.from.toISOString(),
+                    e_date: dayRange.to.toISOString(),
+                }),
             },
             {
                 method: "POST",
@@ -43,7 +57,6 @@ const FormContent: FC<Tprops> = ({ onClose }) => {
 
     const Content = () => (
         <Card
-            //onSubmit={onSubmit}
             className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[74dvh] p-2 m-2`}
         >
             <div className="col-span-full">
