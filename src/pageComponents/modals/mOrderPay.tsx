@@ -35,7 +35,8 @@ const MOrderPay: FC = memo(() => {
     const [clientOrder] = useAtom(atOrder);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [payment, setPayment] = useState<TorderPayment>({
-        fk_oid: 0,
+        pid: "",
+        fk_oid: "",
         paid: 0,
         paid_date: dateFormat(new Date()),
     });

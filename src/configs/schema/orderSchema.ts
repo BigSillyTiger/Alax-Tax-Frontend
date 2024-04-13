@@ -47,7 +47,8 @@ export const orderServiceSchema = z.object({
 });
 
 export const orderPaymentSchema = z.object({
-    fk_oid: z.number(),
+    pid: z.string(),
+    fk_oid: z.string(),
     paid: z.number(),
     paid_date: z.string().datetime(),
 });

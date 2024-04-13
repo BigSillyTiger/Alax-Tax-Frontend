@@ -119,9 +119,11 @@ const Client = () => {
         switch (status) {
             case RES_STATUS.SUCCESS:
                 if (modalOpen === mOpenOps.add) {
-                    setModalOpen("");
                     toastSuccess(t("toastS.addOrder"));
+                } else if (modalOpen === mOpenOps.edit) {
+                    toastSuccess(t("toastS.updateOrder"));
                 }
+                setModalOpen("");
                 break;
             case RES_STATUS.SUC_DEL:
                 setModalOpen("");

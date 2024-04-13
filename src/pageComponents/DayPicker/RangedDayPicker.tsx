@@ -61,7 +61,7 @@ const RangedDayPicker: FC = () => {
     }, [newStaffWL, setStaffWL]);
 
     useEffect(() => {
-        setDeduction(newDeduct);
+        newDeduct && setDeduction(newDeduct);
     }, [newDeduct, setDeduction]);
 
     const css = `
