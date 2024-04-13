@@ -1,9 +1,6 @@
-import type { ComponentPropsWithoutRef, FC, FormEvent } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, useSubmit, useNavigation } from "react-router-dom";
 import { useAtom } from "jotai";
-import { genAction } from "@/lib/literals";
-import { usePayslipStore, useRouterStore } from "@/configs/zustore";
 import { atStaff } from "@/configs/atoms";
 import { Toggle } from "@/components/disclosure";
 import StaffDetailCard from "@/pageComponents/cards/StaffDetailCard";
@@ -12,8 +9,7 @@ import StaffWLTable from "./StaffWLTable";
 import Card from "@/components/card";
 import Bonus from "./Bonus";
 import Deduction from "./Deduction";
-import { SubmitBtn } from "@/components/form";
-import { toastWarning } from "@/lib/toaster";
+import PSSubmitBtn from "./SubmitBtn";
 
 type Tprops = ComponentPropsWithoutRef<"main"> & {
     title: string;
@@ -21,39 +17,8 @@ type Tprops = ComponentPropsWithoutRef<"main"> & {
 };
 
 const FormContent: FC<Tprops> = ({ onClose }) => {
-    const submit = useSubmit();
-    const navigation = useNavigation();
     const { t } = useTranslation();
     const [staff] = useAtom(atStaff);
-    const currentRouter = useRouterStore((state) => state.currentRouter);
-    const bonus = usePayslipStore((state) => state.bonus);
-    const dayRange = usePayslipStore((state) => state.dayRange);
-
-    const onSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        if (!dayRange.from || !dayRange.to) {
-            toastWarning(t("toastW.selectDayRange"));
-            return;
-        }
-        //const result = await API_ORDER.updateInvoiceIssue(date, oid);
-        submit(
-            {
-                req: "newPayslip",
-                bonus: JSON.stringify(bonus),
-                payslip: JSON.stringify({
-                    fk_uid: staff.uid,
-                    status: "pending",
-                    hr: staff.hr,
-                    s_date: dayRange.from.toISOString(),
-                    e_date: dayRange.to.toISOString(),
-                }),
-            },
-            {
-                method: "POST",
-                action: genAction(currentRouter),
-            }
-        );
-    };
 
     const Content = () => (
         <Card
@@ -87,14 +52,10 @@ const FormContent: FC<Tprops> = ({ onClose }) => {
     );
 
     return (
-        <Form onSubmit={onSubmit}>
+        <div>
             <Content />
 
-            <SubmitBtn
-                onClick={() => {}}
-                onClose={onClose}
-                navState={navigation.state}
-            />
+            <PSSubmitBtn onClose={onClose} />
 
             {/* <SubmitWdlBtn
                 onClick={() => {}}
@@ -111,7 +72,7 @@ const FormContent: FC<Tprops> = ({ onClose }) => {
                     />
                 }
             /> */}
-        </Form>
+        </div>
     );
 };
 
