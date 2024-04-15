@@ -3,8 +3,8 @@ import i18n from "@/configs/i18n";
 import { TwlTableRow } from "../schema/workSchema";
 //import { minusAB } from "@/utils/calculations";
 import { calWorkTime, dateFormat } from "@/lib/time";
-import { wlStatusColorMap } from "../utils";
-import { TwlStatus } from "@/configs/types";
+import { TstatusColor } from "@/configs/types";
+import Badge from "@/components/Badge";
 
 const wlColumns = [
     {
@@ -120,13 +120,9 @@ const wlColumns = [
                 id: "wlStatus",
                 header: i18n.t("label.status"),
                 accessorKey: "wl_status",
-                cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span
-                        className={`border-2 text-center px-2 py-1 rounded-full font-bold ${wlStatusColorMap[info.getValue<string>() as TwlStatus]}`}
-                    >
-                        {info.getValue<string>()}
-                    </span>
-                ),
+                cell: (info: CellContext<TwlTableRow, unknown>) => {
+                    return <Badge value={info.getValue() as TstatusColor} />;
+                },
             },
         ],
     },

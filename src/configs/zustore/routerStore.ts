@@ -1,6 +1,6 @@
 import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
-import { routerPaths } from "../utils";
+import { routerPaths } from "../utils/router";
 
 type Tstate = {
     currentRouter: keyof typeof routerPaths;

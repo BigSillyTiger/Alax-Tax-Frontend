@@ -21,7 +21,7 @@ const ExpandBtn = <T,>({ row }: Tprops<T>) => {
             )}
         </button>
     ) : (
-        <>"🔵"</>
+        <></>
     );
 };
 

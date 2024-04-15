@@ -24,7 +24,7 @@ import {
     atSUData,
 } from "@/configs/atoms";
 import { Tcompany } from "@/configs/schema/settingSchema";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 import { toastError, toastSuccess } from "@/lib/toaster";
 import { useTranslation } from "react-i18next";
 import { orderSubTable } from "@/pageComponents/orderSubTables";

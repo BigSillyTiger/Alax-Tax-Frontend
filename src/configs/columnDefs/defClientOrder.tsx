@@ -2,7 +2,8 @@ import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { Torder } from "@/configs/schema/orderSchema";
 import { minusAB } from "@/lib/calculations";
-import OrderStatus from "@/components/OrderStatus";
+import Badge from "@/components/Badge";
+import { TstatusColor } from "../types";
 
 const clientOrderColumns: ColumnDef<Torder>[] = [
     {
@@ -35,13 +36,11 @@ const clientOrderColumns: ColumnDef<Torder>[] = [
                 ),
             },
             {
-                id: "status",
+                id: "orderStatus",
                 header: i18n.t("label.status"),
                 accessorKey: "status",
                 cell: (info: CellContext<Torder, string>) => {
-                    return (
-                        <OrderStatus value={info.getValue() as TorderStatus} />
-                    );
+                    return <Badge value={info.getValue() as TstatusColor} />;
                 },
             },
             {

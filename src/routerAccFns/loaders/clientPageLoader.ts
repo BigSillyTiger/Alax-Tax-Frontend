@@ -1,5 +1,5 @@
 import { API_ADMIN, API_CLIENT, API_SETTING, API_ORDER } from "@/apis";
-import { menuList } from "@/configs/utils";
+import { menuList } from "@/configs/utils/router";
 import { Torder } from "@/configs/schema/orderSchema";
 import { routerStore } from "@/configs/zustore";
 import { LoaderFunctionArgs, defer, redirect } from "react-router-dom";

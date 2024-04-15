@@ -25,7 +25,7 @@ import {
     atModalOpen,
     atSUData,
 } from "@/configs/atoms";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 import { MpdfMaker } from "@/pageComponents/modals";
 import { orderSubTable } from "@/pageComponents/orderSubTables";
 import SubTableSwitch from "@/components/table/SubTableSwitch";

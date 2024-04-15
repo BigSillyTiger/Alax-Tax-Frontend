@@ -1,8 +1,11 @@
 import Card from "@/components/card";
 import { atModalOpen } from "@/configs/atoms";
 import { TwlTableRow } from "@/configs/schema/workSchema";
-import { mOpenOps, wlStatusColorMap } from "@/configs/utils";
+import { TstatusColor } from "@/configs/types";
+import { mOpenOps } from "@/configs/utils/modal";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
+import { statusColor } from "@/configs/utils/color";
+import { joinAllValues } from "@/lib/utils";
 import { useAtom } from "jotai";
 import type { FC } from "react";
 
@@ -34,7 +37,7 @@ const WorkCard: FC<Tprops> = ({ data }) => {
             </div>
             <div className="col-span-2 italic">
                 <p
-                    className={`border-2 text-center rounded-lg font-bold ${wlStatusColorMap[data.wl_status as keyof typeof wlStatusColorMap]}`}
+                    className={`border-2 text-center rounded-lg font-bold ${joinAllValues(statusColor[data.wl_status as TstatusColor])}`}
                 >
                     {data.wl_status}
                 </p>

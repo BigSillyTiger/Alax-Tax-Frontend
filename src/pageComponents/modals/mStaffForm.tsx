@@ -17,17 +17,18 @@ import {
     atInfoConflict,
     at2ndModalOpen,
 } from "@/configs/atoms";
-import { mOpenOps, roleOptions } from "@/configs/utils";
-import { TadminAccess, TmenuID, menuList } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
+import { TadminAccess, roleOptions } from "@/configs/utils/staff";
 import {
-    staffForm,
+    staffFormSchema,
     staffUpdate,
     TstaffForm,
 } from "@/configs/schema/staffSchema";
 import Fieldset from "@/components/form/fieldset";
 import { NormalBtn } from "@/components/btns";
 import { capFirstLetter } from "@/lib/literals";
-import { RES_STATUS } from "@/configs/types";
+import { RES_STATUS, TmenuID } from "@/configs/types";
+import { menuList } from "@/configs/utils/router";
 
 const MStaffForm: FC = memo(() => {
     const navigation = useNavigation();
@@ -49,7 +50,7 @@ const MStaffForm: FC = memo(() => {
         watch,
     } = useForm<TstaffForm>({
         resolver: zodResolver(
-            modalOpen === mOpenOps.add ? staffForm : staffUpdate
+            modalOpen === mOpenOps.add ? staffFormSchema : staffUpdate
         ),
         defaultValues: staff,
         mode: "onSubmit",

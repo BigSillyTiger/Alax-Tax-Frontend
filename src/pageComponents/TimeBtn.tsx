@@ -3,10 +3,11 @@ import { useAtom } from "jotai";
 import { Button } from "@/components/ui/button";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { atModalOpen, atWorkLogTableRow } from "@/configs/atoms";
-import { mOpenOps, timeBtnStyleMap } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 import { TtimeBtnStyles } from "@/configs/types";
 import { t } from "i18next";
 import { calWorkTime } from "@/lib/time";
+import { timeBtnStyleMap } from "@/configs/utils/color";
 
 type Tprops = ComponentPropsWithoutRef<"div"> & {
     data: TwlTableRow;

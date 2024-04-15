@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import i18n from "@/configs/i18n";
 import { TmenuOptions, TmodalOpenStates } from "@/configs/types";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 
 type Tprops<T> = TmenuOptions & {
     setModalOpen: (open: TmodalOpenStates) => void;

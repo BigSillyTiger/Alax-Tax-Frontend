@@ -3,7 +3,7 @@ import MTemplate from "@/components/modal/modalTemplate";
 import { useAtom } from "jotai";
 import { atModalOpen } from "@/configs/atoms";
 import { useTranslation } from "react-i18next";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 import FormContent from "./FormContent";
 import { PayslipTemplate } from "@/pageComponents/pdfTemplates/payslip";
 import { usePayslipStore } from "@/configs/zustore";

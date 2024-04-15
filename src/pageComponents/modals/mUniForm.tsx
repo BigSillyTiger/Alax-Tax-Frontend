@@ -14,7 +14,7 @@ import { isServiceType } from "@/lib/literals";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { atModalOpen, atSUInitData } from "@/configs/atoms";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 
 type Tprops = {
     serviceList: Tservice[] | null; // duplication check

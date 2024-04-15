@@ -7,7 +7,7 @@ import { useAtom } from "jotai";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
 import { atModalOpen, atWorkLogTableRow } from "@/configs/atoms";
-import { mOpenOps } from "@/configs/utils.ts";
+import { mOpenOps } from "@/configs/utils/modal";
 import Fieldset from "@/components/form/fieldset";
 import { calWorkTime } from "@/lib/time";
 

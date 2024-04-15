@@ -2,50 +2,39 @@ import { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import { useSubmit } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
-import i18n from "@/configs/i18n";
 import { Torder } from "@/configs/schema/orderSchema";
-
-const slist = [
-    {
-        label: i18n.t("label.pending"),
-        activeCss: "bg-yellow-200 text-yellow-700",
-        inactiveCss: "bg-slate-50 text-yellow-700",
-    },
-    {
-        label: i18n.t("label.processing"),
-        activeCss: "bg-cyan-200 text-cyan-700",
-        inactiveCss: "bg-slate-50 text-cyan-700",
-    },
-    {
-        label: i18n.t("label.closed"),
-        activeCss: "bg-red-200 text-red-700",
-        inactiveCss: "bg-slate-50 text-red-700",
-    },
-    {
-        label: i18n.t("label.completed"),
-        activeCss: "bg-green-200 text-green-700",
-        inactiveCss: "bg-slate-50 text-green-700",
-    },
-];
+import { useRouterStore } from "@/configs/zustore";
+import { capFirstLetter, genAction } from "@/lib/literals";
+import { BG_SLATE, statusColor } from "@/configs/utils/color";
+import { ORDER_STATUS } from "@/configs/utils/setting";
 
 type Tprops = {
     mLabel: ReactNode | string;
-    data: Torder | any;
+    data: Torder;
 };
 
 // this menu btn group component is highly designed for order status change usage
-const StatusBtn: FC<Tprops> = ({ mLabel, data }) => {
+const OrderStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     const submit = useSubmit();
+    const currentRouter = useRouterStore((state) => state.currentRouter);
 
     const handleClick = async (oid: string, status: string) => {
         submit(
             { req: "orderStatus", oid, status },
-            { method: "PUT", action: `/clients/${data.fk_cid}` }
+            {
+                method: "PUT",
+                action:
+                    currentRouter === "client"
+                        ? genAction(currentRouter, data.fk_cid)
+                        : genAction(currentRouter),
+            }
         );
     };
 
-    const menuContent = slist.map((item, index) => {
-        if (item.label === data.status) return;
+    const menuContent = ORDER_STATUS.map((item, index) => {
+        if (item.toLocaleLowerCase() === data.status.toLocaleLowerCase())
+            return;
+
         return (
             <div className="p-1" key={index}>
                 <Menu.Item as={Fragment}>
@@ -53,19 +42,19 @@ const StatusBtn: FC<Tprops> = ({ mLabel, data }) => {
                         <button
                             onClick={(e) => {
                                 e.preventDefault();
-                                handleClick(data.oid, item.label);
+                                handleClick(data.oid, item);
                             }}
-                            className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-bold ${
-                                active ? item.activeCss : item.inactiveCss
+                            className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-bold ${statusColor[item].text} ${
+                                active ? statusColor[item].bg : BG_SLATE
                             }`}
                         >
-                            {item.label}
+                            {capFirstLetter(item)}
                         </button>
                     )}
                 </Menu.Item>
             </div>
         );
-    });
+    }).filter((item) => item !== null && item !== undefined);
 
     return (
         <Menu as="div" className="relative">
@@ -88,4 +77,4 @@ const StatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     );
 };
 
-export default StatusBtn;
+export default OrderStatusBtn;

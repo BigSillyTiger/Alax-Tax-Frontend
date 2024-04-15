@@ -1,7 +1,7 @@
 import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
 import { TadminStore } from "../schema/staffSchema";
-import { genMenuIDObject, staffStandardHR } from "../utils";
+import { genMenuIDObject, staffStandardHR } from "../utils/staff";
 
 type Tstate = {
     currentUser: TadminStore;

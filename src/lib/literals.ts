@@ -1,5 +1,5 @@
 import { TworkLogs } from "@/configs/schema/workSchema";
-import { routerPaths } from "@/configs/utils";
+import { routerPaths } from "@/configs/utils/router";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
 
 export type AreTypesEqual<T, U> = T extends U ? true : false;

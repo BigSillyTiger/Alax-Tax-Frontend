@@ -3,8 +3,9 @@ import i18n from "@/configs/i18n";
 import { Torder } from "../schema/orderSchema";
 import { minusAB } from "@/lib/calculations";
 import { dateFormat } from "@/lib/time";
-import OrderStatus from "@/components/OrderStatus";
 import { Atel } from "@/components/aLinks";
+import Badge from "@/components/Badge";
+import { TstatusColor } from "../types";
 
 const orderColumns: ColumnDef<Torder>[] = [
     {
@@ -76,12 +77,11 @@ const orderColumns: ColumnDef<Torder>[] = [
                 ),
             },
             {
+                id: "orderStatus",
                 header: i18n.t("label.status"),
                 accessorKey: "status",
                 cell: (info: CellContext<Torder, unknown>) => {
-                    return (
-                        <OrderStatus value={info.getValue() as TorderStatus} />
-                    );
+                    return <Badge value={info.getValue() as TstatusColor} />;
                 },
             },
         ],

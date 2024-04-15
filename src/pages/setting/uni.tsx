@@ -11,7 +11,7 @@ import { MUniDel, MUniForm } from "@/pageComponents/modals";
 import { PTable } from "@/components/table";
 import { useTranslation } from "react-i18next";
 import { atSUInitData, initS, initU, atModalOpen } from "@/configs/atoms";
-import { mOpenOps } from "@/configs/utils.ts";
+import { mOpenOps } from "@/configs/utils/modal";
 
 type Tprops = Tunivers;
 

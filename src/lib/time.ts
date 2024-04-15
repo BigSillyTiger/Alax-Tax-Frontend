@@ -1,5 +1,11 @@
 import { format } from "date-fns";
 
+export const genHHMM = (date: Date) => {
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${hours}:${minutes}`;
+};
+
 /**
  * @description convert au date string to ISO format
  * @param date

@@ -1,14 +1,16 @@
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { genHHMM, wlStatusColorMap } from "@/configs/utils";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
 import { capFirstLetter } from "@/lib/literals";
-import { calBreakTime, calWorkTime } from "@/lib/time";
+import { calBreakTime, calWorkTime, genHHMM } from "@/lib/time";
 import { useTranslation } from "react-i18next";
 import TimeBtnGroup from "./TimeBtns";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import Card from "@/components/card";
+import { statusColor } from "@/configs/utils/color";
+import { joinAllValues } from "@/lib/utils";
+import { TstatusColor } from "@/configs/types";
 
 const TimeCard: FC = () => {
     const [t] = useTranslation();
@@ -124,7 +126,7 @@ const TimeCard: FC = () => {
                         {t("label.workStatus") + ": "}
                     </span>
                     <span
-                        className={`text-3xl font-bold rounded-full px-4 ${wlStatusColorMap[worklog.wl_status as keyof typeof wlStatusColorMap]}`}
+                        className={`text-3xl font-bold rounded-full px-4 ${joinAllValues(statusColor[worklog.wl_status as TstatusColor])}`}
                     >
                         {capFirstLetter(worklog.wl_status)}
                     </span>

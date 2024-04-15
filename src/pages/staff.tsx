@@ -8,7 +8,7 @@ import LoadingPage from "@/components/loadingEle";
 import staffColumns from "@/configs/columnDefs/defStaff.tsx";
 import Card from "@/components/card";
 import { toastError, toastSuccess } from "@/lib/toaster";
-import { Tstaff } from "@/configs/schema/staffSchema.ts";
+import { TstaffWPayslip } from "@/configs/schema/staffSchema.ts";
 import { MStaffDel, MStaffForm, MStaffResetPW } from "@/pageComponents/modals";
 import { PTable } from "@/components/table";
 import {
@@ -24,10 +24,12 @@ import MPayslip from "@/pageComponents/modals/mPayslip";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useStaffWLStore } from "@/configs/zustore/staffWLStore";
 import { Tcompany } from "@/configs/schema/settingSchema";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
+import payslipColumns from "@/configs/columnDefs/defPayslip";
 
 type Tprops = {
-    allStaff: Tstaff[] | null;
+    //allStaff: Tstaff[] | null;
+    allStaff: TstaffWPayslip[] | null;
 };
 
 const Staff: FC = () => {
@@ -39,7 +41,8 @@ const Staff: FC = () => {
     const [, setLogo] = useAtom(atLogo);
     const { t } = useTranslation();
     const { allStaff, worklogs, company, logo } = useLoaderData() as {
-        allStaff: Tstaff[] | null;
+        //allStaff: Tstaff[] | null;
+        allStaff: TstaffWPayslip[] | null;
         worklogs: TwlTableRow[];
         company: Tcompany;
         logo: string;
@@ -110,6 +113,21 @@ const Staff: FC = () => {
         setModalOpen("Add");
     };
 
+    const SubTable = ({ data }: { data: TstaffWPayslip }) => {
+        return data?.payslips?.length ? (
+            <PTable
+                data={data.payslips}
+                columns={payslipColumns}
+                menuOptions={{
+                    del: true,
+                }}
+                cnHead="bg-indigo-50"
+            />
+        ) : (
+            <div className="my-2 px-1">{t("tips.noPayslips")}</div>
+        );
+    };
+
     const StaffTableContent: FC<Tprops> = ({ allStaff }) => {
         return (
             <>
@@ -141,6 +159,16 @@ const Staff: FC = () => {
                                     del: true,
                                 }}
                                 setData={setStaff}
+                                getRowCanExpand={(row) => {
+                                    if (
+                                        row.original.payslips &&
+                                        row.original.payslips.length > 0
+                                    ) {
+                                        return true;
+                                    }
+                                    return false;
+                                }}
+                                expandContent={SubTable}
                                 cnSearch="my-3"
                                 cnTable={`h-[65dvh]`}
                                 cnHead="sticky z-10 bg-indigo-300"

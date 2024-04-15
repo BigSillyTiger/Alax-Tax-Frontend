@@ -24,7 +24,7 @@ import {
     atOrderService,
     atSUData,
 } from "@/configs/atoms";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
 import ComboBox from "@/components/ComboBox";
@@ -345,14 +345,14 @@ const MOrderForm: FC = memo(() => {
                         <option value={t("label.pending")}>
                             {t("label.pending")}
                         </option>
-                        <option value={t("label.processing")}>
-                            {t("label.processing")}
+                        <option value={t("label.ongoing")}>
+                            {t("label.ongoing")}
                         </option>
                         <option value={t("label.completed")}>
                             {t("label.completed")}
                         </option>
-                        <option value={t("label.closed")}>
-                            {t("label.closed")}
+                        <option value={t("label.cancelled")}>
+                            {t("label.cancelled")}
                         </option>
                     </select>
                 </div>

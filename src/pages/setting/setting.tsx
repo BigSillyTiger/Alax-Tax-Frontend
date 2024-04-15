@@ -1,7 +1,7 @@
 import { Suspense, useEffect } from "react";
 import type { FC } from "react";
 import { Tab } from "@headlessui/react";
-import { mTabList } from "@/configs/utils";
+import { mTabList } from "@/configs/utils/setting";
 import Uni from "./uni";
 import LoadingPage from "@/components/loadingEle";
 import { Await, useLoaderData, useActionData } from "react-router-dom";

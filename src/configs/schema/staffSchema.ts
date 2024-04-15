@@ -1,5 +1,7 @@
 import { z } from "zod";
-import { defaultStaffRole, roleOptions, staffStandardHR } from "../utils";
+import { defaultStaffRole } from "../utils/staff";
+import { payslipSchema } from "./payslipSchema";
+import { roleOptions, staffStandardHR } from "../utils/staff";
 
 export const staffSchema = z.object({
     uid: z.string().default(""),
@@ -53,7 +55,11 @@ export const staffSchema = z.object({
     account: z.string().default(""),
 });
 
-export const staffForm = staffSchema
+export const staffWPayslipSchema = staffSchema.extend({
+    payslips: payslipSchema.partial().array().default([]),
+});
+
+export const staffFormSchema = staffSchema
     .omit({
         uid: true,
     })
@@ -101,7 +107,8 @@ export const staffList = staffSchema
     .array();
 
 export type Tstaff = z.infer<typeof staffSchema>;
-export type TstaffForm = z.infer<typeof staffForm>;
+export type TstaffForm = z.infer<typeof staffFormSchema>;
 export type TstaffUpdate = z.infer<typeof staffUpdate>;
 export type TadminStore = z.infer<typeof adminStore>;
 export type TstaffList = z.infer<typeof staffList>;
+export type TstaffWPayslip = z.infer<typeof staffWPayslipSchema>;

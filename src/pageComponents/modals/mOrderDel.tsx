@@ -7,7 +7,7 @@ import { useSubmit } from "react-router-dom";
 import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
 import { atOrder, atModalOpen } from "@/configs/atoms";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
 

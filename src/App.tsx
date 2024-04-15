@@ -44,7 +44,7 @@ import {
 } from "./routerAccFns/actions";
 
 import LoadingPage from "./components/loadingEle";
-import { routerPaths } from "./configs/utils";
+import { routerPaths } from "./configs/utils/router";
 
 const App: FC = () => {
     const router = createBrowserRouter(

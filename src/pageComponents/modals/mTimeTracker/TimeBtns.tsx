@@ -6,7 +6,7 @@ import { genAction } from "@/lib/literals";
 import { useRouterStore } from "@/configs/zustore";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
 import { TactionReqList } from "@/configs/types";
-import { actionReqList } from "@/configs/utils";
+import { actionReqList } from "@/configs/utils/router";
 import { useAtom } from "jotai";
 import atResetModal from "@/configs/atoms/atResetModal";
 import { TwlTableRow } from "@/configs/schema/workSchema";

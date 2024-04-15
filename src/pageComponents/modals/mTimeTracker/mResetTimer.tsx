@@ -7,7 +7,7 @@ import ModalFrame from "@/components/modal/modalFrame";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
 import { TactionReqList } from "@/configs/types";
-import { actionReqList } from "@/configs/utils";
+import { actionReqList } from "@/configs/utils/router";
 
 type Tprops = {
     open: boolean;

@@ -6,7 +6,7 @@ import type {
 } from "react";
 import MobileMenu from "./mobileMenu";
 
-import { menuList } from "@/configs/utils";
+import { menuList } from "@/configs/utils/router";
 import StaticMenu from "./staticMenu";
 import { Tpermission } from "@/configs/schema/universSchema";
 import { useAdminStore } from "@/configs/zustore";

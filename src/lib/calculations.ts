@@ -1,5 +1,5 @@
 import Big from "big.js";
-import { gstRate } from "@/configs/utils";
+import { gstRate } from "@/configs/utils/setting";
 
 export const timesAB = (x: number, y: number): number => {
     const a = new Big(x);

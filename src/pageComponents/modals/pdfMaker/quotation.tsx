@@ -13,7 +13,7 @@ import {
 import { NormalBtn } from "@/components/btns";
 import CompanyInfoCard from "@/pageComponents/cards/CompanyInfoCard";
 import { dateFormat } from "@/lib/time";
-import { dateMax, dateMin } from "@/configs/utils";
+import { dateMax, dateMin } from "@/configs/utils/date";
 import { atCompany, atLogo, atOrder, atClient } from "@/configs/atoms";
 
 const DatePicker = ({

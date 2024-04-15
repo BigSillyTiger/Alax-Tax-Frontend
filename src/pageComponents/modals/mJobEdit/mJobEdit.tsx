@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { MTemplate } from "@/components/modal";
 import { atModalOpen, atWorkLogTableRow } from "@/configs/atoms";
 import { useNavigation, Form, useSubmit } from "react-router-dom";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 import { useAtom } from "jotai";
 import { SubmitBtn } from "@/components/form";
 import { useTranslation } from "react-i18next";

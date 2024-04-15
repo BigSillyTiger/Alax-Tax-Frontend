@@ -9,7 +9,7 @@ import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
 import { RES_STATUS } from "@/configs/types";
 import { atModalOpen } from "@/configs/atoms";
 import { useAtom } from "jotai";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 import { toastError, toastSuccess } from "@/lib/toaster";
 import { useTranslation } from "react-i18next";
 

@@ -26,6 +26,16 @@ const en = {
             staff: "Staff",
             setting: "Setting",
         },
+        status: {
+            pending: "Pending",
+            ongoing: "Ongoing",
+            cancelled: "Cancelled",
+            unconfirmed: "Unconfirmed",
+            confirmed: "Confirmed",
+            resting: "Resting",
+            unpaid: "Unpaid",
+            completed: "Completed",
+        },
         modal: {
             title: {
                 delete: "DELETE WARNING",
@@ -73,7 +83,7 @@ const en = {
                 assignedDates: "Assigned Dates",
                 scheduledWork: "Scheduled Work",
                 resetTimer: "Are you sure to reset the timer?",
-                timerLost: "Current working time data will be lost.",
+                timerLost: "Current working time record will be lost.",
             },
         },
         btn: {
@@ -135,6 +145,7 @@ const en = {
             bsb: "BSB",
             break: "Break",
             bank: "Bank Account",
+            cancelled: "Cancelled",
             city: "City",
             client: "Client",
             clientID: "Client ID",
@@ -276,6 +287,7 @@ const en = {
             noOrder: "No Order",
             noServices: "No Service",
             noPayments: "No Payment",
+            noPayslips: "No Payslip",
             npPreService: "No Pre-set Service",
             npPreUnit: "No Pre-set Unit",
             noSelectedDayRange: "No Selected Day Range",

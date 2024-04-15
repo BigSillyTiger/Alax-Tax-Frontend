@@ -1,6 +1,6 @@
 import { API_ADMIN, API_WORKLOGS } from "@/apis";
 import { TwlTableRow } from "@/configs/schema/workSchema";
-import { menuList } from "@/configs/utils";
+import { menuList } from "@/configs/utils/router";
 import { routerStore } from "@/configs/zustore";
 import { dateFormat, hmsTohm } from "@/lib/time";
 import { defer, redirect } from "react-router-dom";

@@ -1,9 +1,8 @@
 import { z } from "zod";
-import { defaultStaffRole, wlStatusColorMap } from "../utils";
+import { WL_STATUS } from "../utils/setting";
+import { defaultStaffRole } from "../utils/staff";
 
-const statusLiterals = Object.keys(wlStatusColorMap).map((status) =>
-    z.literal(status)
-);
+const statusLiterals = WL_STATUS.map((status) => z.literal(status));
 
 export function isValidZodLiteralUnion<T extends z.ZodLiteral<unknown>>(
     literals: T[]
@@ -25,6 +24,7 @@ const workLogSchema = z.object({
     wlid: z.string().default(""),
     fk_oid: z.string().default(""),
     fk_uid: z.string().default(""),
+    fk_psid: z.string().nullable().default(""),
     wl_date: z.string().default(""),
     s_time: z
         .string()

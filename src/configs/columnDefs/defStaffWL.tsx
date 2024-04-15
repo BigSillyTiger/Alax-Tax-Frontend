@@ -1,12 +1,12 @@
 import { CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { TwlTableRow } from "../schema/workSchema";
-//import { minusAB } from "@/utils/calculations";
 import { calWorkTime } from "@/lib/time";
 import { convertWorkHour, timesAB } from "@/lib/calculations";
-/* import { wlStatusColorMap } from "../utils";
-import { TwlStatus } from "@/utils/types"; */
 
+/**
+ * @description this column definition is for the staff work log table in payslip modal
+ */
 const staffWLColumns = [
     {
         id: "wlid",

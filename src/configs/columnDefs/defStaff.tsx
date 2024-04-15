@@ -1,10 +1,11 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { Tstaff } from "../schema/staffSchema";
-import { colorWithStaffUid, staffColorMap } from "../utils";
+import { colorWithStaffUid } from "../utils/color";
 import { TstaffRole } from "@/configs/types";
 import { capFirstLetter } from "@/lib/literals";
 import { Atel, Amail } from "@/components/aLinks";
+import { staffColorMap } from "../utils/color";
 
 /**
  * @description
@@ -18,6 +19,7 @@ const staffColumns: ColumnDef<Tstaff>[] = [
         },
     }, */
     {
+        id: "UID",
         header: i18n.t("label.uid"),
         accessorFn: (data: Tstaff) => data.uid,
         cell: (info: CellContext<Tstaff, unknown>) => {
@@ -78,6 +80,7 @@ const staffColumns: ColumnDef<Tstaff>[] = [
         },
     },
     {
+        id: "Menu",
         header: i18n.t("label.menu"),
         cell: () => <></>,
     },

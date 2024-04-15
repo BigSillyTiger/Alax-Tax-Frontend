@@ -8,7 +8,7 @@ import { isServiceType } from "@/lib/literals";
 import { MTemplate } from "@/components/modal";
 import { DelBtn } from "@/components/form";
 import { atModalOpen, atSUInitData } from "@/configs/atoms";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 
 // this component is about building a modal with transition to delete a client
 const MUniDel: FC = memo(() => {

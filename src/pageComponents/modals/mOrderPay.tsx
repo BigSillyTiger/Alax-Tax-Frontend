@@ -21,7 +21,8 @@ import {
 } from "@/pageComponents/cards";
 import { genAction } from "@/lib/literals";
 import { dateFormat } from "@/lib/time";
-import { dateMax, dateMin, mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
+import { dateMax, dateMin } from "@/configs/utils/date";
 import { atOrder, atModalOpen } from "@/configs/atoms";
 import { useRouterStore } from "@/configs/zustore";
 import { XBtn } from "@/components/btns";

@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { atModalOpen } from "@/configs/atoms";
 import { useTranslation } from "react-i18next";
 import InvContent from "./invoice";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 import QuoContent from "./quotation";
 
 const MpdfMaker: FC = () => {

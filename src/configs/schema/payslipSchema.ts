@@ -1,15 +1,15 @@
 import { z } from "zod";
 import { deductionSchema } from "./workSchema";
 
-const payslipSchema = z.object({
+export const payslipSchema = z.object({
     psid: z.string().default(""),
     fk_uid: z.string().default(""),
     created_date: z.string().default(""),
-    ps_status: z.literal("pending").or(z.literal("paid")).default("pending"),
+    status: z.literal("pending").or(z.literal("paid")).default("pending"),
     hr: z.number().default(0),
-    ps_note: z.string().trim().nullable().default(""),
-    s_period: z.string().default(""),
-    e_period: z.string().default(""),
+    paid: z.number().default(0),
+    s_date: z.string().default(""),
+    e_date: z.string().default(""),
     archive: z.boolean().default(false),
 });
 

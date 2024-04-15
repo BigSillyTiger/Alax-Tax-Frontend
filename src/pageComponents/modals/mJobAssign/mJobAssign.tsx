@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useMemo } from "react";
 import { MTemplate } from "@/components/modal";
 import { atAllStaff, atModalOpen, atOrder } from "@/configs/atoms";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 import { useAtom } from "jotai";
 import { SubmitBtn } from "@/components/form";
 import { useTranslation } from "react-i18next";

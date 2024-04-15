@@ -12,13 +12,15 @@ import type { OnChangeFn, SortingState, Row } from "@tanstack/react-table";
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
-import { MenuBtn, StatusBtn, DetailBtn, ExpandBtn } from "./tableBtn";
+import { MenuBtn, OrderStatusBtn, DetailBtn, ExpandBtn } from "./tableBtn";
 import HeaderFilter from "./headerFilter";
 import { CTable, CTBody, CTHead, CTh } from ".";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import TimeBtn from "@/pageComponents/TimeBtn";
 import { TmenuOptions } from "@/configs/types";
-import { defaultMenuOptions } from "@/configs/utils";
+import { defaultMenuOptions } from "@/configs/utils/modal";
+import { Torder } from "@/configs/schema/orderSchema";
+import WLStatusBtn from "./tableBtn/WLStatusBtn";
 
 type Tprops<T> = {
     data: T[];
@@ -149,6 +151,21 @@ const PTable = <T extends object>({
                                       <ExpandBtn row={row} />
                                   </td>
                               );
+                          } else if (cell.column.id === "UID") {
+                              /* expand btn is with this */
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex items-center justify-center"
+                                  >
+                                      {flexRender(
+                                          cell.column.columnDef.cell,
+                                          cell.getContext()
+                                      )}
+                                      &nbsp;
+                                      <ExpandBtn row={row} />
+                                  </td>
+                              );
                           } else if (cell.column.id === "Menu" && setData) {
                               return (
                                   <td
@@ -162,18 +179,33 @@ const PTable = <T extends object>({
                                       />
                                   </td>
                               );
-                          } else if (cell.column.id === "status") {
+                          } else if (cell.column.id === "orderStatus") {
                               return (
                                   <td
                                       key={cell.id}
                                       className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
                                   >
-                                      <StatusBtn
+                                      <OrderStatusBtn
                                           mLabel={flexRender(
                                               cell.column.columnDef.cell,
                                               cell.getContext()
                                           )}
-                                          data={row.original}
+                                          data={row.original as Torder}
+                                      />
+                                  </td>
+                              );
+                          } else if (cell.column.id === "wlStatus") {
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
+                                  >
+                                      <WLStatusBtn
+                                          mLabel={flexRender(
+                                              cell.column.columnDef.cell,
+                                              cell.getContext()
+                                          )}
+                                          data={row.original as TwlTableRow}
                                       />
                                   </td>
                               );

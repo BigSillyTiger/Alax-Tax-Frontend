@@ -1,17 +1,16 @@
-import {
-    actionReqList,
-    defaultMenuOptions,
-    mOpenOps,
-    roleOptions,
-    wlStatusColorMap,
-} from "@/configs/utils";
+import { ORDER_STATUS, WL_STATUS } from "@/configs/utils/setting";
 import { Tservice, Tunit } from "./schema/settingSchema";
-import { timeBtnStyleMap } from "@/configs/utils";
+import { statusColor, timeBtnStyleMap } from "./utils/color";
+import { actionReqList, menuList } from "./utils/router";
+import { roleOptions } from "./utils/staff";
+import { defaultMenuOptions, mOpenOps } from "./utils/modal";
 
 export type Tunivers = {
     services: Tservice[];
     units: Tunit[];
 };
+
+export type TmenuID = (typeof menuList)[number]["id"];
 
 /**
  * @description  modal open option types for all modals
@@ -56,7 +55,10 @@ export type TisConflict =
 
 export type TstaffRole = keyof typeof roleOptions;
 
-export type TwlStatus = keyof typeof wlStatusColorMap;
+export type TstatusColor = keyof typeof statusColor;
+
+export type TorderStatus = (typeof ORDER_STATUS)[number];
+export type TwlStatus = (typeof WL_STATUS)[number];
 
 export type TactionReqList = (typeof actionReqList)[keyof typeof actionReqList];
 

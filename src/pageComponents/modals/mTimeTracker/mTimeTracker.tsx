@@ -1,7 +1,7 @@
 import { MTemplate } from "@/components/modal";
 import { atModalOpen } from "@/configs/atoms";
 //import { useSubmit } from "react-router-dom";
-import { mOpenOps } from "@/configs/utils";
+import { mOpenOps } from "@/configs/utils/modal";
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import StaffCard from "@/pageComponents/cards/StaffCard";
