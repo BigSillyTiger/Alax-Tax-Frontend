@@ -45,6 +45,7 @@ const MTemplate: FC<Tprops> = memo(
                 <ModalFrame
                     open={open}
                     onClose={handleCloseMain}
+                    onCloseForce={onClose}
                     title={title}
                     mode={mode}
                     isMajor={isMajor}

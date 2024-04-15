@@ -6,7 +6,7 @@ import { useRouterStore } from "@/configs/zustore";
 import { capFirstLetter, genAction } from "@/lib/literals";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { BG_SLATE, statusColor } from "@/configs/utils/color";
-import { WL_STATUS } from "@/configs/utils/setting";
+import { WL_STATUS_TABLE } from "@/configs/utils/setting";
 
 type Tprops = {
     mLabel: ReactNode | string;
@@ -32,32 +32,41 @@ const WLStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
         );
     };
 
-    const menuContent = WL_STATUS.map((item, index) => {
-        if (item.toLocaleLowerCase() === data.wl_status.toLocaleLowerCase())
-            return;
-        return (
-            <div className="p-1" key={index}>
-                <Menu.Item as={Fragment}>
-                    {({ active }) => (
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                handleClick(data.wlid, item);
-                            }}
-                            className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-bold ${statusColor[item].text} ${
-                                active ? statusColor[item].bg : BG_SLATE
-                            }`}
-                        >
-                            {capFirstLetter(item)}
-                        </button>
-                    )}
-                </Menu.Item>
-            </div>
-        );
-    }).filter((item) => item !== null && item !== undefined);
+    const menuContent = (() => {
+        if (data.wl_status === "unpaid" || data.wl_status === "completed") {
+            return null;
+        }
+        return WL_STATUS_TABLE.map((item, index) => {
+            if (item.toLocaleLowerCase() === data.wl_status.toLocaleLowerCase())
+                return;
+            return (
+                <div className="p-1" key={index}>
+                    <Menu.Item as={Fragment}>
+                        {({ active }) => (
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleClick(data.wlid, item);
+                                }}
+                                className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-bold ${statusColor[item].text} ${
+                                    active ? statusColor[item].bg : BG_SLATE
+                                }`}
+                            >
+                                {capFirstLetter(item)}
+                            </button>
+                        )}
+                    </Menu.Item>
+                </div>
+            );
+        }).filter((item) => item !== null && item !== undefined);
+    })();
+
+    const onclick = () => {
+        console.log("_> onclick: ", mLabel);
+    };
 
     return (
-        <Menu as="div" className="relative">
+        <Menu as="div" className="relative" onClick={onclick}>
             {/* <Menu as="div" className="relative"> */}
             <Menu.Button>{mLabel}</Menu.Button>
             <Transition

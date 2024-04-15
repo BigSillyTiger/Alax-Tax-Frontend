@@ -12,7 +12,11 @@ import { statusColor } from "@/configs/utils/color";
 import { joinAllValues } from "@/lib/utils";
 import { TstatusColor } from "@/configs/types";
 
-const TimeCard: FC = () => {
+type Tprops = {
+    isDisabled?: boolean;
+};
+
+const TimeCard: FC<Tprops> = ({ isDisabled }) => {
     const [t] = useTranslation();
     const [nowTime, setNowTime] = useState(genHHMM(new Date()));
     const currentWlid = useTodayWLStore((state) => state.currentWlid);
@@ -132,7 +136,7 @@ const TimeCard: FC = () => {
                     </span>
                 </div>
             </div>
-            <TimeBtnGroup className="mt-2" />
+            {isDisabled ? null : <TimeBtnGroup className="mt-2" />}
         </>
     );
 };

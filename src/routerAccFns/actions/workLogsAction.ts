@@ -10,12 +10,16 @@ export const wlAction = async ({
     if ("POST" === request.method && data.get("req") === "jobEdit") {
         const wlData = JSON.parse(data.get("values") as string);
         const deduction = JSON.parse(data.get("deduction") as string);
-        const result = await API_WORKLOGS.wlSigleUpdate(wlData, deduction);
+        const result = await API_WORKLOGS.wlSigleUpdateHD(wlData, deduction);
         return result;
     } else if ("DELETE" === request.method) {
         const wlid = data.get("wlid") as string;
         const result = await API_WORKLOGS.wlSingleDel(wlid);
         return result;
+    } else if ("PUT" === request.method && data.get("req") === "wlStatus") {
+        const wlid = data.get("wlid") as string;
+        const status = data.get("status") as string;
+        return await API_WORKLOGS.wlSingleUpdateStatus(wlid, status);
     } else {
         return {
             status: 400,

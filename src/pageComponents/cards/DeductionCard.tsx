@@ -10,6 +10,7 @@ import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
 
 type Tprops = ComponentPropsWithoutRef<"div"> & {
     withSubmitBtn?: boolean;
+    isDisabled?: boolean;
 };
 
 /**
@@ -22,7 +23,11 @@ type Tprops = ComponentPropsWithoutRef<"div"> & {
  * @param param0
  * @returns
  */
-const DeductionCard: FC<Tprops> = ({ withSubmitBtn = false, className }) => {
+const DeductionCard: FC<Tprops> = ({
+    withSubmitBtn = false,
+    className,
+    isDisabled = false,
+}) => {
     const [t] = useTranslation();
     const navigation = useNavigation();
     const submit = useSubmit();
@@ -94,15 +99,17 @@ const DeductionCard: FC<Tprops> = ({ withSubmitBtn = false, className }) => {
 
     const deductionList = deduction.map((d, i) => {
         return (
-            <div key={i} className="flex  justify-start gap-x-2 gap-y-2 ">
+            <div key={i} className="flex  justify-around gap-x-2 gap-y-2 ">
                 {/* x btn */}
-                <div className="col-span-1 m-auto grow-0">
-                    <XBtn
-                        onClick={() => {
-                            removeDeduction(i);
-                        }}
-                    />
-                </div>
+                {isDisabled ? null : (
+                    <div className="col-span-1 m-auto grow-0">
+                        <XBtn
+                            onClick={() => {
+                                removeDeduction(i);
+                            }}
+                        />
+                    </div>
+                )}
                 <Card className="grid grid-cols-6 gap-x-4 grow-1">
                     <div className="col-span-2">
                         <label
@@ -164,7 +171,7 @@ const DeductionCard: FC<Tprops> = ({ withSubmitBtn = false, className }) => {
                 </Card>
             )}
 
-            {withSubmitBtn ? <SubmitBtn /> : <AddBtn />}
+            {isDisabled ? null : withSubmitBtn ? <SubmitBtn /> : <AddBtn />}
         </>
     );
 };

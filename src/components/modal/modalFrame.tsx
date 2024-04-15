@@ -4,10 +4,12 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
 import { CloseBtn } from "../btns";
+import { on } from "events";
 
 type Tprops = {
     open: boolean;
     onClose: () => void;
+    onCloseForce?: () => void;
     // using red color for major warning
     isMajor?: boolean;
     title: string;
@@ -19,6 +21,7 @@ type Tprops = {
 const ModalFrame: FC<Tprops> = ({
     open,
     onClose,
+    onCloseForce,
     isMajor = false,
     title,
     children,
@@ -89,7 +92,11 @@ const ModalFrame: FC<Tprops> = ({
                                     <CloseBtn
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            onClose();
+                                            if (onCloseForce) {
+                                                onCloseForce();
+                                            } else {
+                                                onClose();
+                                            }
                                         }}
                                         srStr={t("sr.closeModal")}
                                     />

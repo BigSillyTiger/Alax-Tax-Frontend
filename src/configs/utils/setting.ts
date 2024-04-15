@@ -25,3 +25,14 @@ export const WL_STATUS = [
     "unpaid",
     "completed",
 ] as const;
+
+export const WL_STATUS_TABLE = [
+    "pending",
+    //"ongoing",
+    "cancelled",
+    "unconfirmed",
+    "confirmed",
+    //"resting",
+    //"unpaid",
+    //"completed",
+] as const;

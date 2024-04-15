@@ -2,7 +2,7 @@ import { Tdeduction, TworkLog } from "@/configs/schema/workSchema";
 import apis from "./axios";
 import {
     WL_ALL,
-    WL_SINGLE_UPDATE,
+    WL_SINGLE_UPDATE_H_D,
     WL_PAUSE_TIMER,
     WL_RESET_TIMER,
     WL_RESUME_TIMER,
@@ -12,6 +12,7 @@ import {
     WL_STOP_TIMER,
     WL_TODAY,
     WL_SIGNLE_UPDATE_D,
+    WL_STATUS,
 } from "./req_list";
 
 export const wlAll = async (): Promise<Tresponse> => {
@@ -48,12 +49,12 @@ export const wlSingleUpdateHours = async (
  * @param deduction
  * @returns
  */
-export const wlSigleUpdate = async (
+export const wlSigleUpdateHD = async (
     data: Partial<TworkLog>,
     deduction: Partial<Tdeduction>[]
 ): Promise<Tresponse> => {
     try {
-        const response = await apis.post(WL_SINGLE_UPDATE, {
+        const response = await apis.post(WL_SINGLE_UPDATE_H_D, {
             hourData: data,
             deduction,
         });
@@ -180,6 +181,25 @@ export const wlDeductionUpdate = async (
         return {
             status: 400,
             msg: "failed in appending deduction",
+            data: "",
+        };
+    }
+};
+
+export const wlSingleUpdateStatus = async (
+    wlid: string,
+    status: string
+): Promise<Tresponse> => {
+    try {
+        const response = await apis.put(WL_STATUS, {
+            wlid,
+            status,
+        });
+        return response.data;
+    } catch (error) {
+        return {
+            status: 400,
+            msg: "failed in updating work log status",
             data: "",
         };
     }

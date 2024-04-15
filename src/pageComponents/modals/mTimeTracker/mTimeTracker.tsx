@@ -28,6 +28,10 @@ const MTimeTracker = () => {
     const worklog =
         todayWorklogs.find((wl) => wl.wlid === currentWlid) ??
         ({} as TwlTableRow);
+    const isDisabled =
+        worklog.wl_status === "completed" || worklog.wl_status === "unpaid"
+            ? true
+            : false;
 
     setDeduction(worklog.deduction ? worklog.deduction : []);
 
@@ -44,13 +48,17 @@ const MTimeTracker = () => {
 
         items.push({
             title: t("label.workHours"),
-            content: <TimeCard />,
+            content: <TimeCard isDisabled={isDisabled} />,
         });
 
         items.push({
             title: t("label.deduction"),
             content: (
-                <DeductionCard className="col-span-full" withSubmitBtn={true} />
+                <DeductionCard
+                    className="col-span-full"
+                    withSubmitBtn={true}
+                    isDisabled={isDisabled}
+                />
             ),
         });
 

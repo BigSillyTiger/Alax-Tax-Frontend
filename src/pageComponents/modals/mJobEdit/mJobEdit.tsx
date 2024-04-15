@@ -34,6 +34,10 @@ const MJobEdit = () => {
     const setBHour = useWLHoursStore((state) => state.setBHour);
     const deduction = useDeductStore((state) => state.deduction);
     const setDeduction = useDeductStore((state) => state.setDeduction);
+    const isDisable =
+        worklog.wl_status === "completed" || worklog.wl_status === "unpaid"
+            ? true
+            : false;
 
     useEffect(() => {
         setSTime(worklog.s_time ? worklog.s_time : "00:00");
@@ -79,7 +83,12 @@ const MJobEdit = () => {
 
         items.push({
             title: t("label.deduction"),
-            content: <DeductionCard className="col-span-full" />,
+            content: (
+                <DeductionCard
+                    className="col-span-full"
+                    isDisabled={isDisable}
+                />
+            ),
         });
 
         return items;
@@ -92,15 +101,17 @@ const MJobEdit = () => {
                 <WorkInfoCard work={worklog} className="grow-1" />
             </div>
             <SdTabs items={tabsContent()} className="col-span-full" />
-            <div className="col-span-full">
-                {/* btns */}
-                <SubmitBtn
-                    onClick={() => {}}
-                    onClose={onClose}
-                    navState={navigation.state}
-                    className=""
-                />
-            </div>
+            {isDisable ? null : (
+                <div className="col-span-full">
+                    {/* btns */}
+                    <SubmitBtn
+                        onClick={() => {}}
+                        onClose={onClose}
+                        navState={navigation.state}
+                        className=""
+                    />
+                </div>
+            )}
         </Form>
     );
 
