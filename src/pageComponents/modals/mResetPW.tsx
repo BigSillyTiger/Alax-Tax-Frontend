@@ -7,7 +7,7 @@ import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { useAtom } from "jotai";
 import { SubmitBtn } from "@/components/form";
 import { atStaff, at2ndModalOpen } from "@/configs/atoms";
-import Fieldset from "@/components/form/fieldset.tsx";
+import Fieldset from "@/components/form/Fieldset";
 
 // this component is about building a modal with transition to delete a staff
 const MStaffResetPW: FC = memo(() => {

@@ -1,5 +1,5 @@
 import { Amail, Atel } from "@/components/aLinks";
-import Fieldset from "@/components/form/fieldset";
+import Fieldset from "@/components/form/Fieldset";
 import { Tclient } from "@/configs/schema/clientSchema";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";

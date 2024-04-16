@@ -24,7 +24,7 @@ import {
     staffUpdate,
     TstaffForm,
 } from "@/configs/schema/staffSchema";
-import Fieldset from "@/components/form/fieldset";
+import Fieldset from "@/components/form/Fieldset";
 import { NormalBtn } from "@/components/btns";
 import { capFirstLetter } from "@/lib/literals";
 import { RES_STATUS, TmenuID } from "@/configs/types";
@@ -619,10 +619,11 @@ const MStaffForm: FC = memo(() => {
                         {modalOpen === mOpenOps.add && <PWsection />}
                         {modalOpen === mOpenOps.edit && (
                             <NormalBtn
-                                name={t("btn.resetPW")}
                                 onClick={handleClickPWReset}
                                 className="w-full mt-4 grow-0 py-4 text-xl"
-                            />
+                            >
+                                {t("btn.resetPW")}
+                            </NormalBtn>
                         )}
 
                         <RoleSelection />

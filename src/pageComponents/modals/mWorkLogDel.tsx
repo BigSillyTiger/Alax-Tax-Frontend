@@ -8,7 +8,7 @@ import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
 import { atModalOpen, atWorkLogTableRow } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
-import Fieldset from "@/components/form/fieldset";
+import Fieldset from "@/components/form/Fieldset";
 import { calWorkTime } from "@/lib/time";
 
 const MWorkLogDel: FC = memo(() => {

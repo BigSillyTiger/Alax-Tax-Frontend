@@ -13,9 +13,9 @@ import { auToISO, checkDateRange } from "@/lib/time";
  * @returns
  */
 const RangedDayPicker: FC = () => {
+    const allStaffWL = useStaffWLStore((state) => state.allStaffWL);
     const dayRange = usePayslipStore((state) => state.dayRange);
     const setDayRange = usePayslipStore((state) => state.setDayRange);
-    const allStaffWL = useStaffWLStore((state) => state.allStaffWL);
     const staffWL = usePayslipStore((state) => state.staffWL);
     const setStaffWL = usePayslipStore((state) => state.setStaffWL);
     const setDeduction = usePayslipStore((state) => state.setDeduction);

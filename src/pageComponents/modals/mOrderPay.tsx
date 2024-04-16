@@ -257,7 +257,7 @@ const MOrderPay: FC = memo(() => {
                 <div className="col-span-1 mt-6">
                     <button
                         type="button"
-                        className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+                        className="w-full rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-600"
                         onClick={handlePayment}
                     >
                         {t("btn.pay")}

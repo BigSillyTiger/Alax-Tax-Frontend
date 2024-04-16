@@ -6,6 +6,12 @@ import { TstatusColor } from "../types";
 
 const payslipColumns: ColumnDef<Tpayslip>[] = [
     {
+        id: "psDisplay",
+        header: i18n.t("label.checkPDF"),
+        accessorKey: "psid",
+        cell: () => <></>,
+    },
+    {
         header: i18n.t("label.id"),
         accessorKey: "psid",
         cell: (info: CellContext<Tpayslip, unknown>) => {

@@ -74,13 +74,14 @@ const DatePicker = ({
                 </div>
                 <div className="col-span-1 mt-3.5">
                     <NormalBtn
-                        name={t("btn.updateIssueDate")}
                         onClick={() => {
                             setDate(newDate);
                             onSubmit(newDate);
                         }}
                         className={`h-[4dvh] mt-[1vh]`}
-                    />
+                    >
+                        {t("btn.updateIssueDate")}
+                    </NormalBtn>
                 </div>
             </div>
             {/* default issued date */}
@@ -107,13 +108,14 @@ const DatePicker = ({
                 </div>
                 <div className="col-span-1 mt-3.5">
                     <NormalBtn
-                        name={t("btn.resetIssue")}
                         onClick={() => {
                             setDate(defaultDate);
                             onSubmit(defaultDate);
                         }}
                         className={`h-[4dvh] mt-[1vh]`}
-                    />
+                    >
+                        {t("btn.resetIssue")}
+                    </NormalBtn>
                 </div>
             </div>
         </div>

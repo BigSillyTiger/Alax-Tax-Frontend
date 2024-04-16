@@ -27,9 +27,11 @@ import { Tcompany } from "@/configs/schema/settingSchema";
 import { mOpenOps } from "@/configs/utils/modal";
 import SubTable from "./SubTable";
 import MPayslipDel from "@/pageComponents/modals/mPayslipDel";
+import { usePayslipStore, useStaffStore } from "@/configs/zustore";
+import { Tbonus } from "@/configs/schema/payslipSchema";
+import MPSDisplay from "@/pageComponents/modals/mPSDisplay";
 
 type Tprops = {
-    //allStaff: Tstaff[] | null;
     allStaff: TstaffWPayslip[] | null;
 };
 
@@ -41,17 +43,21 @@ const Staff: FC = () => {
     const [, setCompany] = useAtom(atCompany);
     const [, setLogo] = useAtom(atLogo);
     const { t } = useTranslation();
-    const { allStaff, worklogs, company, logo } = useLoaderData() as {
-        //allStaff: Tstaff[] | null;
+    const setAllStaff = useStaffStore((state) => state.setAllStaff);
+    const { allStaff, worklogs, allBonus, company, logo } = useLoaderData() as {
         allStaff: TstaffWPayslip[] | null;
         worklogs: TwlTableRow[];
+        allBonus: Tbonus[];
         company: Tcompany;
         logo: string;
     };
     const setAllStaffWL = useStaffWLStore((state) => state.setAllStaffWL);
+    const setAllBonus = usePayslipStore((state) => state.setAllBonus);
     const actionData = useActionData() as Tresponse;
 
     setAllStaffWL(worklogs);
+    setAllStaff(allStaff || []);
+    setAllBonus(allBonus || []);
     setCompany(company);
     setLogo(logo);
     /* useEffect(() => {
@@ -190,6 +196,7 @@ const Staff: FC = () => {
             <MStaffResetPW />
             <MPayslip />
             <MPayslipDel />
+            <MPSDisplay />
         </div>
     );
 };

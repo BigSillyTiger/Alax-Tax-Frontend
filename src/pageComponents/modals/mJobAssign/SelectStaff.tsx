@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import type { FC } from "react";
 import CheckBox from "@/components/CheckBox";
-import Fieldset from "@/components/form/fieldset";
+import Fieldset from "@/components/form/Fieldset";
 import { useTranslation } from "react-i18next";
 import { useJobAssignStore } from "@/configs/zustore";
 import { Tstaff } from "@/configs/schema/staffSchema";

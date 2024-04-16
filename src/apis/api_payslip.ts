@@ -4,6 +4,7 @@ import {
     PAYSLIP_SINGLE_INSERT,
     PAYSLIP_SINGLE_DEL,
     PAYSLIP_STATUS_UPDATE,
+    PAYSLIP_BONUS_ALL,
 } from "./req_list";
 
 export const psSingleInsert = async (
@@ -54,6 +55,20 @@ export const psStatusUpdate = async (psid: string, status: string) => {
         return {
             status: 400,
             msg: "failed in ps status update",
+            data: "",
+        };
+    }
+};
+
+export const psBonusAll = async () => {
+    try {
+        const response = await apis.get(PAYSLIP_BONUS_ALL);
+        return response.data;
+    } catch (error) {
+        console.log("-> ps bonus all error: ", error);
+        return {
+            status: 400,
+            msg: "failed in ps bonus all",
             data: "",
         };
     }

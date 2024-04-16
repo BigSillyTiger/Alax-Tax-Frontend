@@ -13,7 +13,16 @@ import type { OnChangeFn, SortingState, Row } from "@tanstack/react-table";
 import Pagination from "./pagination";
 import SearchBar from "./searchBar";
 import { sortingIcon } from "./config";
-import { MenuBtn, OrderStatusBtn, DetailBtn, ExpandBtn } from "./tableBtn";
+import {
+    MenuBtn,
+    OrderStatusBtn,
+    DetailBtn,
+    ExpandBtn,
+    PSDelBtn,
+    PSDisplayBtn,
+    WLStatusBtn,
+    PSStatusBtn,
+} from "./tableBtn";
 import HeaderFilter from "./headerFilter";
 import { CTable, CTBody, CTHead, CTh } from ".";
 import { TwlTableRow } from "@/configs/schema/workSchema";
@@ -21,11 +30,8 @@ import TimeBtn from "@/pageComponents/TimeBtn";
 import { TmenuOptions } from "@/configs/types";
 import { defaultMenuOptions } from "@/configs/utils/modal";
 import { Torder } from "@/configs/schema/orderSchema";
-import WLStatusBtn from "./tableBtn/WLStatusBtn";
 import { Tclient } from "@/configs/schema/clientSchema";
-import PSDelBtn from "./tableBtn/PSDelBtn";
 import { Tpayslip } from "@/configs/schema/payslipSchema";
-import PSStatusBtn from "./tableBtn/PSStatusBtn";
 
 type Tprops<T> = {
     data: T[];
@@ -205,6 +211,17 @@ const PTable = <T extends object>({
                                       />
                                   </td>
                               );
+                          } else if (cell.column.id === "psDisplay") {
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
+                                  >
+                                      <PSDisplayBtn
+                                          payslip={row.original as Tpayslip}
+                                      />
+                                  </td>
+                              );
                           } else if (cell.column.id === "orderStatus") {
                               return (
                                   <td
@@ -250,50 +267,19 @@ const PTable = <T extends object>({
                                       />
                                   </td>
                               );
-                          } else if (cell.column.id === "startTime") {
+                          } else if (
+                              cell.column.id === "startTime" ||
+                              cell.column.id === "endTime" ||
+                              cell.column.id === "breakTime" ||
+                              cell.column.id === "workTime"
+                          ) {
                               return (
                                   <td
                                       key={cell.id}
                                       className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
                                   >
                                       <TimeBtn
-                                          type="start"
-                                          data={row.original as TwlTableRow}
-                                      />
-                                  </td>
-                              );
-                          } else if (cell.column.id === "endTime") {
-                              return (
-                                  <td
-                                      key={cell.id}
-                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
-                                  >
-                                      <TimeBtn
-                                          type="end"
-                                          data={row.original as TwlTableRow}
-                                      />
-                                  </td>
-                              );
-                          } else if (cell.column.id === "breakTime") {
-                              return (
-                                  <td
-                                      key={cell.id}
-                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
-                                  >
-                                      <TimeBtn
-                                          type="break"
-                                          data={row.original as TwlTableRow}
-                                      />
-                                  </td>
-                              );
-                          } else if (cell.column.id === "workTime") {
-                              return (
-                                  <td
-                                      key={cell.id}
-                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
-                                  >
-                                      <TimeBtn
-                                          type="total"
+                                          type={cell.column.id}
                                           data={row.original as TwlTableRow}
                                       />
                                   </td>
@@ -335,14 +321,6 @@ const PTable = <T extends object>({
                 />
             )}
 
-            {/* <div className="overflow-auto w-full">
-                <table className="table-fixed min-w-full divide-y divide-gray-300">
-                    <thead className="w-full">{tableHeader}</thead>
-                    <tbody className="divide-y divide-gray-200 bg-white">
-                        {tableBody}
-                    </tbody>
-                </table>
-            </div> */}
             <CTable className={`${cnTable}`}>
                 <CTHead className={`${cnHead}`}>{tableHeader}</CTHead>
                 <CTBody className={`${cnBody}`}>{tableBody}</CTBody>

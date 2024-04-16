@@ -307,7 +307,6 @@ const Company: FC<Tprops> = ({ company, logo }) => {
             </Card>
             <div className="mt-1">
                 <NormalBtn
-                    name={t("btn.updateLogo")}
                     onClick={async () => {
                         if (uploadFile) {
                             const result =
@@ -319,7 +318,9 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                         }
                     }}
                     className={`h-[4dvh] mt-[1vh]`}
-                />
+                >
+                    {t("btn.updateLogo")}
+                </NormalBtn>
             </div>
         </>
     );

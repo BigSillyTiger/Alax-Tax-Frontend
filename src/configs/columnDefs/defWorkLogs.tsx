@@ -107,7 +107,7 @@ const wlColumns = [
             },
             {
                 id: "workTime",
-                header: i18n.t("label.workTime"),
+                header: i18n.t("label.workHours"),
                 accessorFn: (data: TwlTableRow) =>
                     calWorkTime(data.s_time, data.e_time, data.b_hour),
                 cell: (info: CellContext<TwlTableRow, unknown>) => (

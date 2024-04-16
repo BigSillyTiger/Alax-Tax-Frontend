@@ -8,6 +8,7 @@ export const mOpenOps = {
     // for 2nd delete confirmation,
     // e.g.delete staff and delete payslip from staff page
     del_2: "Del_2",
+    display: "Display",
     edit: "Edit",
     pay: "Pay",
     invoice: "Invoice",

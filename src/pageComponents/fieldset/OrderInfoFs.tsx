@@ -1,4 +1,4 @@
-import Fieldset from "@/components/form/fieldset";
+import Fieldset from "@/components/form/Fieldset";
 import { Torder } from "@/configs/schema/orderSchema";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";

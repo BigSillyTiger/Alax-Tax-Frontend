@@ -4,6 +4,7 @@ import { jobAssignStore, useJobAssignStore } from "./jobAssignStore";
 import { payslipStore, usePayslipStore } from "./payslipStore";
 import { staffWLStore, useStaffWLStore } from "./staffWLStore";
 import { deductStore, useDeductStore } from "./deductStore";
+import { staffStore, useStaffStore } from "./staffStore";
 
 export {
     adminStore,
@@ -18,4 +19,6 @@ export {
     useStaffWLStore,
     deductStore,
     useDeductStore,
+    staffStore,
+    useStaffStore,
 };

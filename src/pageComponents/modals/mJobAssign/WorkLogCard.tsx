@@ -2,7 +2,7 @@ import SingleField from "@/components/SingleField";
 import UserIcon from "@/components/UserIcon";
 import { Amail, Atel } from "@/components/aLinks";
 import Card from "@/components/card";
-import Fieldset from "@/components/form/fieldset";
+import Fieldset from "@/components/form/Fieldset";
 import { Input } from "@/components/ui/input";
 import { TassignedWork } from "@/configs/schema/workSchema";
 import { useJobAssignStore } from "@/configs/zustore";

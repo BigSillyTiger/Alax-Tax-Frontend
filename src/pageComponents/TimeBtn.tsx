@@ -25,13 +25,13 @@ const TimeBtn = ({ data, type }: Tprops) => {
 
     const time = (() => {
         switch (type) {
-            case "start":
+            case "startTime":
                 return data.s_time;
-            case "end":
+            case "endTime":
                 return data.e_time;
-            case "break":
+            case "breakTime":
                 return data.b_hour;
-            case "total":
+            case "workTime":
                 return calWorkTime(data.s_time, data.e_time, data.b_hour);
             default:
                 return t("label.startTime");

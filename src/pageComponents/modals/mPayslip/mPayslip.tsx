@@ -15,7 +15,8 @@ const MPayslip: FC = () => {
 
     // this is used to make sure the reset fn is called when the modal is closed/open
     useEffect(() => {
-        resetAll();
+        modalOpen === mOpenOps.default && resetAll();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modalOpen]);
 
     const onClose = () => {

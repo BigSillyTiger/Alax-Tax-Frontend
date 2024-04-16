@@ -8,9 +8,12 @@ import { Tdeduction } from "../schema/workSchema";
 type Tstate = {
     dayRange: DateRange;
     staffWL: TwlTableRow[];
+    // this bonus is for current payslip
     bonus: Partial<Tbonus>[];
     deduction: Partial<Tdeduction>[];
     payslip: Partial<Tpayslips>;
+    // this bonus is for all bonus from bonus table
+    allBonus: Tbonus[];
 };
 
 type Taction = {
@@ -19,6 +22,7 @@ type Taction = {
     setDayRange: (range: DateRange | undefined) => void;
     setStaffWL: (worklogs: TwlTableRow[]) => void;
     /* bonus */
+    setAllBonus: (bonus: Partial<Tbonus>[]) => void;
     setBonusAmount: (index: number, amount: number) => void;
     setBonusNote: (index: number, note: string) => void;
     appendBonus: (bonus: Partial<Tbonus>) => void;
@@ -33,14 +37,17 @@ export const payslipStore = createStore<Tstate & Taction>((set) => ({
     staffWL: [],
     bonus: [],
     deduction: [],
-    resetAll: () =>
+    allBonus: [],
+    resetAll: () => {
+        console.log("--> reset all called");
         set((state) => ({
             ...state,
             dayRange: { from: undefined, to: undefined },
             staffWL: [],
             bonus: [],
             deduction: [],
-        })),
+        }));
+    },
     setPayslip: (payslip: Partial<Tpayslips>) =>
         set((state) => ({ ...state, payslip: payslip })),
     setDayRange: (range: DateRange | undefined) =>
@@ -51,6 +58,8 @@ export const payslipStore = createStore<Tstate & Taction>((set) => ({
             staffWL: worklogs,
         })),
     /* bonus */
+    setAllBonus: (bonus: Partial<Tbonus>[]) =>
+        set((state) => ({ ...state, bonus })),
     setBonusAmount: (index: number, amount: number) =>
         set((state) => {
             const newBonus = [...state.bonus];
