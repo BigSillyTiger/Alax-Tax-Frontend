@@ -1,6 +1,10 @@
 import { Tbonus, Tpayslip } from "@/configs/schema/payslipSchema";
 import apis from "./axios";
-import { PAYSLIP_SINGLE_INSERT, PAYSLIP_SINGLE_DEL } from "./req_list";
+import {
+    PAYSLIP_SINGLE_INSERT,
+    PAYSLIP_SINGLE_DEL,
+    PAYSLIP_STATUS_UPDATE,
+} from "./req_list";
 
 export const psSingleInsert = async (
     bonus: Partial<Tbonus>,
@@ -24,7 +28,6 @@ export const psSingleInsert = async (
 
 export const psSingleDel = async (psid: string) => {
     try {
-        console.log("-> del payslip: ", psid);
         const response = await apis.post(PAYSLIP_SINGLE_DEL, {
             psid,
         });
@@ -34,6 +37,23 @@ export const psSingleDel = async (psid: string) => {
         return {
             status: 400,
             msg: "failed in del payslip",
+            data: "",
+        };
+    }
+};
+
+export const psStatusUpdate = async (psid: string, status: string) => {
+    try {
+        const response = await apis.put(PAYSLIP_STATUS_UPDATE, {
+            psid,
+            status,
+        });
+        return response.data;
+    } catch (error) {
+        console.log("-> ps status update error: ", error);
+        return {
+            status: 400,
+            msg: "failed in ps status update",
             data: "",
         };
     }

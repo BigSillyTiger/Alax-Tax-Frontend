@@ -1,6 +1,8 @@
 import i18n from "@/configs/i18n";
 import { ColumnDef, CellContext } from "@tanstack/react-table";
 import { Tpayslip } from "../schema/payslipSchema";
+import Badge from "@/components/Badge";
+import { TstatusColor } from "../types";
 
 const payslipColumns: ColumnDef<Tpayslip>[] = [
     {
@@ -32,10 +34,11 @@ const payslipColumns: ColumnDef<Tpayslip>[] = [
         },
     },
     {
+        id: "psStatus",
         header: i18n.t("label.status"),
         accessorKey: "status",
         cell: (info: CellContext<Tpayslip, unknown>) => {
-            return <span>{info.getValue<string>()}</span>;
+            return <Badge value={info.getValue() as TstatusColor} />;
         },
     },
     {

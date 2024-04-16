@@ -80,6 +80,11 @@ export const staffAction = async ({
             data.get("uid") as string,
             data.get("password") as string
         );
+    } else if ("PUT" === request.method && data.get("req") === "psStatus") {
+        return await API_PAYSLIP.psStatusUpdate(
+            data.get("psid") as string,
+            data.get("status") as string
+        );
     } else {
         return {
             status: 400,

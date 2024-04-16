@@ -4,13 +4,13 @@ import { useSubmit } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { useRouterStore } from "@/configs/zustore";
 import { capFirstLetter, genAction } from "@/lib/literals";
-import { TwlTableRow } from "@/configs/schema/workSchema";
 import { BG_SLATE, statusColor } from "@/configs/utils/color";
-import { WL_STATUS_TABLE } from "@/configs/utils/setting";
+import { PS_STATUS_TABLE } from "@/configs/utils/setting";
+import { Tpayslip } from "@/configs/schema/payslipSchema";
 
 type Tprops = {
     mLabel: ReactNode | string;
-    data: TwlTableRow;
+    data: Tpayslip;
 };
 
 /**
@@ -18,13 +18,13 @@ type Tprops = {
  * @param param0
  * @returns
  */
-const WLStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
+const PSStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     const submit = useSubmit();
     const currentRouter = useRouterStore((state) => state.currentRouter);
 
-    const handleClick = async (wlid: string, status: string) => {
+    const handleClick = async (psid: string, status: string) => {
         submit(
-            { req: "wlStatus", wlid, status },
+            { req: "psStatus", psid, status },
             {
                 method: "PUT",
                 action: genAction(currentRouter),
@@ -33,11 +33,8 @@ const WLStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     };
 
     const menuContent = (() => {
-        if (data.wl_status === "unpaid" || data.wl_status === "completed") {
-            return null;
-        }
-        return WL_STATUS_TABLE.map((item, index) => {
-            if (item.toLocaleLowerCase() === data.wl_status.toLocaleLowerCase())
+        return PS_STATUS_TABLE.map((item, index) => {
+            if (item.toLocaleLowerCase() === data.status.toLocaleLowerCase())
                 return;
             return (
                 <div className="p-1" key={index}>
@@ -46,7 +43,7 @@ const WLStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
                             <button
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    handleClick(data.wlid, item);
+                                    handleClick(data.psid, item);
                                 }}
                                 className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-bold ${statusColor[item].text} ${
                                     active ? statusColor[item].bg : BG_SLATE
@@ -82,4 +79,4 @@ const WLStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     );
 };
 
-export default WLStatusBtn;
+export default PSStatusBtn;

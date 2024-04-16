@@ -25,6 +25,7 @@ import WLStatusBtn from "./tableBtn/WLStatusBtn";
 import { Tclient } from "@/configs/schema/clientSchema";
 import PSDelBtn from "./tableBtn/PSDelBtn";
 import { Tpayslip } from "@/configs/schema/payslipSchema";
+import PSStatusBtn from "./tableBtn/PSStatusBtn";
 
 type Tprops<T> = {
     data: T[];
@@ -231,6 +232,21 @@ const PTable = <T extends object>({
                                               cell.getContext()
                                           )}
                                           data={row.original as TwlTableRow}
+                                      />
+                                  </td>
+                              );
+                          } else if (cell.column.id === "psStatus") {
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
+                                  >
+                                      <PSStatusBtn
+                                          mLabel={flexRender(
+                                              cell.column.columnDef.cell,
+                                              cell.getContext()
+                                          )}
+                                          data={row.original as Tpayslip}
                                       />
                                   </td>
                               );

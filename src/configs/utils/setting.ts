@@ -36,3 +36,5 @@ export const WL_STATUS_TABLE = [
     //"unpaid",
     //"completed",
 ] as const;
+
+export const PS_STATUS_TABLE = ["pending", "completed"] as const;
