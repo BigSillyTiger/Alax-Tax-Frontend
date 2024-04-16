@@ -25,7 +25,8 @@ import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useStaffWLStore } from "@/configs/zustore/staffWLStore";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { mOpenOps } from "@/configs/utils/modal";
-import payslipColumns from "@/configs/columnDefs/defPayslip";
+import SubTable from "./SubTable";
+import MPayslipDel from "@/pageComponents/modals/mPayslipDel";
 
 type Tprops = {
     //allStaff: Tstaff[] | null;
@@ -50,11 +51,11 @@ const Staff: FC = () => {
     const setAllStaffWL = useStaffWLStore((state) => state.setAllStaffWL);
     const actionData = useActionData() as Tresponse;
 
-    useEffect(() => {
-        setAllStaffWL(worklogs);
-        setCompany(company);
-        setLogo(logo);
-    }, [worklogs, setAllStaffWL, company, logo, setCompany, setLogo]);
+    setAllStaffWL(worklogs);
+    setCompany(company);
+    setLogo(logo);
+    /* useEffect(() => {
+    }, [worklogs, setAllStaffWL, company, logo, setCompany, setLogo]); */
 
     useEffect(() => {
         if (!actionData) return;
@@ -113,22 +114,7 @@ const Staff: FC = () => {
         setModalOpen("Add");
     };
 
-    const SubTable = ({ data }: { data: TstaffWPayslip }) => {
-        return data?.payslips?.length ? (
-            <PTable
-                data={data.payslips}
-                columns={payslipColumns}
-                menuOptions={{
-                    del: true,
-                }}
-                cnHead="bg-indigo-50"
-            />
-        ) : (
-            <div className="my-2 px-1">{t("tips.noPayslips")}</div>
-        );
-    };
-
-    const StaffTableContent: FC<Tprops> = ({ allStaff }) => {
+    const MainContent: FC<Tprops> = ({ allStaff }) => {
         return (
             <>
                 <div className="px-4 sm:px-6 lg:px-8 top-0">
@@ -150,7 +136,7 @@ const Staff: FC = () => {
                         <Card className="mt-8">
                             <PTable
                                 search={true}
-                                hFilter={false}
+                                hFilter={true}
                                 data={allStaff}
                                 columns={staffColumns}
                                 menuOptions={{
@@ -192,7 +178,7 @@ const Staff: FC = () => {
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={allStaff}>
                     {(staffList) => {
-                        return <StaffTableContent allStaff={staffList} />;
+                        return <MainContent allStaff={staffList} />;
                     }}
                 </Await>
             </Suspense>
@@ -203,6 +189,7 @@ const Staff: FC = () => {
             <MStaffDel />
             <MStaffResetPW />
             <MPayslip />
+            <MPayslipDel />
         </div>
     );
 };

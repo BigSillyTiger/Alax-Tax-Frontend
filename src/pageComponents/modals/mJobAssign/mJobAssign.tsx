@@ -107,7 +107,7 @@ const MJobAssign = () => {
 
     return (
         <MTemplate
-            open={!!(modalOpen === mOpenOps.jobAssign)}
+            open={!!(modalOpen === mOpenOps.assign)}
             onClose={onClose}
             title={t("modal.title.jobAssign")}
             mode="full"

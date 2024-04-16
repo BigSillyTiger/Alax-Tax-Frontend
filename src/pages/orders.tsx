@@ -96,7 +96,7 @@ const Orders: FC = () => {
                 toastSuccess(t("toastS.updatePayment"));
                 break;
             case RES_STATUS.SUC_UPDATE_WORKLOG:
-                if (modalOpen === mOpenOps.jobAssign) {
+                if (modalOpen === mOpenOps.assign) {
                     setModalOpen(mOpenOps.default);
                     toastSuccess(t("toastS.updateWorkLog"));
                 }

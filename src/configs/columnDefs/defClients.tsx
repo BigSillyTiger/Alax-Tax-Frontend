@@ -9,6 +9,7 @@ import { Atel, Amail } from "@/components/aLinks";
  */
 const clientColumns: ColumnDef<Tclient>[] = [
     {
+        id: "ClientDetails",
         header: i18n.t("label.details"), // Details
         cell: () => {
             <></>;

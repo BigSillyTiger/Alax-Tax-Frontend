@@ -5,7 +5,7 @@ export const payslipSchema = z.object({
     psid: z.string().default(""),
     fk_uid: z.string().default(""),
     created_date: z.string().default(""),
-    status: z.literal("pending").or(z.literal("paid")).default("pending"),
+    status: z.literal("pending").or(z.literal("completed")).default("pending"),
     hr: z.number().default(0),
     paid: z.number().default(0),
     s_date: z.string().default(""),

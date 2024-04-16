@@ -52,7 +52,7 @@ const genOptions = <T,>({
     /**
      * @description pay and payslip share the same mOpenOps.pay, case these 2 options are will not be shown together on the same page/table
      */
-    assign && createOption("btn.assign", <UserPlusIcon />, mOpenOps.jobAssign);
+    assign && createOption("btn.assign", <UserPlusIcon />, mOpenOps.assign);
     pay && createOption("btn.pay", <CurrencyDollarIcon />, mOpenOps.pay);
     payslip && createOption("btn.payslip", <WalletIcon />, mOpenOps.pay);
     edit && createOption("btn.edit", <PencilIcon />, mOpenOps.edit);

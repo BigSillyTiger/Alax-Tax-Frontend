@@ -8,6 +8,8 @@ import Card from "@/components/card";
 import { DelBtn } from "@/components/form";
 import { atStaff, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
+import { useRouterStore } from "@/configs/zustore";
+import { genAction } from "@/lib/literals";
 
 // this component is about building a modal with transition to delete a staff
 const MStaffDel: FC = memo(() => {
@@ -16,9 +18,13 @@ const MStaffDel: FC = memo(() => {
 
     const [staff] = useAtom(atStaff);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
+    const currentRouter = useRouterStore((state) => state.currentRouter);
 
     const handleDeleteStaff = async (uid: string) => {
-        submit({ uid }, { method: "DELETE", action: "/staff" });
+        submit(
+            { uid, req: "delStaff" },
+            { method: "DELETE", action: genAction(currentRouter) }
+        );
     };
 
     const clientDisplay = (

@@ -223,6 +223,7 @@ const en = {
             phone1: "Phone",
             phone2: "Phone Number",
             processing: "Processing",
+            psid: "Payslip ID",
             qty: "Qty",
             quotation: "Quotation",
             readOnly: "Read",

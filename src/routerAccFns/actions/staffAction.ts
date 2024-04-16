@@ -40,11 +40,13 @@ export const staffAction = async ({
         const payslip = JSON.parse(data.get("payslip") as string);
         const result = await API_PAYSLIP.psSingleInsert(bonus, payslip);
         return result;
-    } else if ("DELETE" === request.method) {
-        const result = await API_STAFF.staffSingleDel(
-            data.get("uid") as string
-        );
-        return result;
+    } else if ("DELETE" === request.method && data.get("req") === "delStaff") {
+        return await API_STAFF.staffSingleDel(data.get("uid") as string);
+    } else if (
+        "DELETE" === request.method &&
+        data.get("req") === "delPayslip"
+    ) {
+        return await API_PAYSLIP.psSingleDel(data.get("psid") as string);
     } else if ("PUT" === request.method && data.get("req") === "updateStaff") {
         const result = await API_STAFF.staffSingleUpdate({
             uid: data.get("uid"),
@@ -74,11 +76,10 @@ export const staffAction = async ({
         } as Tstaff);
         return result;
     } else if ("PUT" === request.method && data.get("req") === "resetPW") {
-        const result = await API_STAFF.staffUpdatePW(
+        return await API_STAFF.staffUpdatePW(
             data.get("uid") as string,
             data.get("password") as string
         );
-        return result;
     } else {
         return {
             status: 400,

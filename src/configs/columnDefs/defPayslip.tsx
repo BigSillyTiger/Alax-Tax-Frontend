@@ -45,7 +45,7 @@ const payslipColumns: ColumnDef<Tpayslip>[] = [
             return <span>{info.getValue<number>()}</span>;
         },
     },
-    { id: "Menu", header: i18n.t("label.menu"), cell: () => <></> },
+    { id: "PayslipDel", header: i18n.t("btn.del"), cell: () => <></> },
 ];
 
 export default payslipColumns;

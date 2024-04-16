@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import MTemplate from "@/components/modal/modalTemplate";
 import { useAtom } from "jotai";
 import { atModalOpen } from "@/configs/atoms";
@@ -13,8 +13,12 @@ const MPayslip: FC = () => {
     const { t } = useTranslation();
     const resetAll = usePayslipStore((state) => state.resetAll);
 
-    const onClose = () => {
+    // this is used to make sure the reset fn is called when the modal is closed/open
+    useEffect(() => {
         resetAll();
+    }, [modalOpen]);
+
+    const onClose = () => {
         setModalOpen(mOpenOps.default);
     };
 

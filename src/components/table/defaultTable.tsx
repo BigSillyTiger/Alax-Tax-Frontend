@@ -1,4 +1,5 @@
-import { useState, useDeferredValue, Fragment, ComponentType } from "react";
+import type { ComponentType } from "react";
+import { useState, useDeferredValue, Fragment } from "react";
 import {
     useReactTable,
     flexRender,
@@ -21,6 +22,9 @@ import { TmenuOptions } from "@/configs/types";
 import { defaultMenuOptions } from "@/configs/utils/modal";
 import { Torder } from "@/configs/schema/orderSchema";
 import WLStatusBtn from "./tableBtn/WLStatusBtn";
+import { Tclient } from "@/configs/schema/clientSchema";
+import PSDelBtn from "./tableBtn/PSDelBtn";
+import { Tpayslip } from "@/configs/schema/payslipSchema";
 
 type Tprops<T> = {
     data: T[];
@@ -127,13 +131,15 @@ const PTable = <T extends object>({
                   <tr className={i % 2 === 0 ? undefined : "bg-gray-100"}>
                       {row.getVisibleCells().map((cell) => {
                           /* nevigate to client details page only*/
-                          if (cell.column.id === "Details") {
+                          if (cell.column.id === "ClientDetails") {
                               return (
                                   <td
                                       key={cell.id}
                                       className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
                                   >
-                                      <DetailBtn data={row.original} />
+                                      <DetailBtn
+                                          data={row.original as Tclient}
+                                      />
                                   </td>
                               );
                           } else if (cell.column.id === "orderID") {
@@ -176,6 +182,25 @@ const PTable = <T extends object>({
                                           {...menuOptions}
                                           setData={setData}
                                           mItem={row.original}
+                                      />
+                                  </td>
+                              );
+                          } else if (
+                              cell.column.id === "PayslipDel" &&
+                              setData
+                          ) {
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
+                                  >
+                                      <PSDelBtn
+                                          data={row.original as Tpayslip}
+                                          setData={
+                                              setData as (
+                                                  data: Tpayslip
+                                              ) => void
+                                          }
                                       />
                                   </td>
                               );

@@ -7,7 +7,7 @@ import { TstatusColor } from "../types";
 
 const clientOrderColumns: ColumnDef<Torder>[] = [
     {
-        id: "details",
+        id: "Details",
         header: i18n.t("label.details"), // Details
         columns: [
             {

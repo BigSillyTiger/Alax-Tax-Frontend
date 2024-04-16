@@ -4,7 +4,6 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
 import { CloseBtn } from "../btns";
-import { on } from "events";
 
 type Tprops = {
     open: boolean;

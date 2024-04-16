@@ -15,10 +15,13 @@ import type { FC } from "react";
  * @returns
  */
 type Tprops = {
-    value: TstatusColor;
+    value: TstatusColor | undefined;
 };
 
 const Badge: FC<Tprops> = ({ value }) => {
+    if (!value) {
+        return <></>;
+    }
     return (
         <span
             className={`rounded-full border-2 font-bold py-1 px-2 

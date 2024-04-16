@@ -15,6 +15,7 @@ type Tstate = {
 
 type Taction = {
     resetAll: () => void;
+    setPayslip: (payslip: Partial<Tpayslips>) => void;
     setDayRange: (range: DateRange | undefined) => void;
     setStaffWL: (worklogs: TwlTableRow[]) => void;
     /* bonus */
@@ -39,9 +40,11 @@ export const payslipStore = createStore<Tstate & Taction>((set) => ({
             staffWL: [],
             bonus: [],
             deduction: [],
-            payslip: {},
         })),
-    setDayRange: (range: DateRange | undefined) => set({ dayRange: range }),
+    setPayslip: (payslip: Partial<Tpayslips>) =>
+        set((state) => ({ ...state, payslip: payslip })),
+    setDayRange: (range: DateRange | undefined) =>
+        set((state) => ({ ...state, dayRange: range })),
     setStaffWL: (worklogs: TwlTableRow[]) =>
         set((state) => ({
             ...state,
