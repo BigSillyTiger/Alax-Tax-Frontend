@@ -11,7 +11,7 @@ import ErrBoundary from "@/pages/errBoundary";
 import Layout from "@/pageComponents/layout";
 import {
     InitPage,
-    LoginPage,
+    Login,
     Dashboard,
     Clients,
     Client,
@@ -57,7 +57,7 @@ const App: FC = () => {
                 />
                 <Route
                     path={routerPaths.login}
-                    element={<LoginPage />}
+                    element={<Login />}
                     loader={loginLoader}
                     action={loginAction}
                 />

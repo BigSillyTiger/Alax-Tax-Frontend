@@ -1,5 +1,5 @@
 import InitPage from "./initPage";
-import LoginPage from "./loginPage";
+import Login from "./login";
 import Dashboard from "./dashboard";
 import Clients from "./clients";
 import Client from "./client";
@@ -7,11 +7,11 @@ import Orders from "./orders";
 import Staff from "./staff";
 import Setting from "./setting";
 import Calendar from "./calendar";
-import WorkLogs from "./workLogs";
+import WorkLogs from "./worklogs";
 
 export {
     InitPage,
-    LoginPage,
+    Login,
     Dashboard,
     Clients,
     Client,

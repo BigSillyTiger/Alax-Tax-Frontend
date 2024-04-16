@@ -1,9 +1,11 @@
 import { API_ADMIN, API_CLIENT, API_SETTING, API_ORDER } from "@/apis";
-import { menuList } from "@/configs/utils/router";
+import { Tclient } from "@/configs/schema/clientSchema";
 import { Torder } from "@/configs/schema/orderSchema";
+import { Tcompany } from "@/configs/schema/settingSchema";
+import { Tunivers } from "@/configs/types";
+import { menuList } from "@/configs/utils/router";
 import { routerStore } from "@/configs/zustore";
 import { LoaderFunctionArgs, defer, redirect } from "react-router-dom";
-import { dateFormat } from "@/lib/time";
 
 /**
  * @description client page loader
@@ -18,7 +20,8 @@ export const clientLoader = async ({ params }: LoaderFunctionArgs) => {
         });
 
         const cid = params.cid as string;
-        const [clientInfo, orders, uniData, company, logo] = await Promise.all([
+        //const [clientInfo, orders, uniData, company, logo] = await Promise.all([
+        /* const allPromise = Promise.all([
             API_CLIENT.clientInfo(cid),
             API_ORDER.orderWClient(cid)
                 .then((res) => res.data as Torder[])
@@ -45,15 +48,22 @@ export const clientLoader = async ({ params }: LoaderFunctionArgs) => {
             API_SETTING.uniAll().then((res) => res.data),
             API_SETTING.companyGet().then((res) => res.data),
             API_SETTING.logo().then((res) => res.data),
+        ]); */
+        const allPromise = Promise.all([
+            API_CLIENT.clientInfo(cid).then((res) => res.data) as Promise<
+                Tclient[]
+            >,
+            API_ORDER.orderWClient(cid).then((res) => res.data) as Promise<
+                Torder[]
+            >,
+            API_SETTING.uniAll().then((res) => res.data) as Promise<Tunivers>,
+            API_SETTING.companyGet().then(
+                (res) => res.data
+            ) as Promise<Tcompany>,
+            API_SETTING.logo().then((res) => res.data) as Promise<string>,
         ]);
 
-        return defer({
-            clientInfo,
-            orders,
-            uniData,
-            company,
-            logo,
-        });
+        return defer({ allPromise });
     } catch (err) {
         console.log("-> client page loader error: ", err);
         return redirect("/login");

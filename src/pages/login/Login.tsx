@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 
-const LoginPage: FC = () => {
+const Login: FC = () => {
     const navigation = useNavigation();
     const loaderData = useLoaderData();
     const { t } = useTranslation();
@@ -155,4 +155,4 @@ const LoginPage: FC = () => {
 };
 
 //export default connect(null, null)(LoginPage);
-export default LoginPage;
+export default Login;

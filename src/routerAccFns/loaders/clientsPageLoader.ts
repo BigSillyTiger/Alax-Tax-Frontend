@@ -11,8 +11,11 @@ export const clientsLoader = async () => {
             return !res.data && redirect("/login");
         });
 
-        const clients = API_CLIENT.clientAll();
-        return defer({ clients });
+        const allPromise: Promise<[Tresponse]> = Promise.all([
+            API_CLIENT.clientAll(),
+        ]);
+
+        return defer({ allPromise });
     } catch (err) {
         console.log("-> client loader err: ", err);
         return redirect("/login");

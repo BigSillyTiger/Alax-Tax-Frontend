@@ -27,7 +27,7 @@ const MPayslip: FC = () => {
         <main
             className={`grid grid-cols-1 md:grid-cols-8 gap-x-4 overflow-y-auto h-[83dvh]`}
         >
-            <div className="col-span-1 md:col-span-4">
+            <div className="col-span-1 md:col-span-4 flex flex-col justify-center gap-y-4">
                 <FormContent title="" onClose={onClose} />
             </div>
             <div className="col-span-1 md:col-span-4">

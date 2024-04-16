@@ -1,10 +1,11 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
+// for shadcn/ui
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+    return twMerge(clsx(inputs));
 }
 
 export const joinAllValues = (obj: { [key: string]: string }) => {
-  return Object.values(obj).join(" ");
+    return Object.values(obj).join(" ");
 };

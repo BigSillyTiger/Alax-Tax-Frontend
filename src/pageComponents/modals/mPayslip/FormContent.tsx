@@ -65,7 +65,7 @@ const FormContent: FC<Tprops> = ({ onClose }) => {
                     <PSSubmitBtn onClose={onClose} />
                 </>
             ) : (
-                <>
+                <div className="flex flex-col justify-center">
                     <Card className="m-2">{t("modal.tips.noAvailableWL")}</Card>
                     <Button
                         name="cancel"
@@ -75,7 +75,7 @@ const FormContent: FC<Tprops> = ({ onClose }) => {
                     >
                         {t("btn.cancel")}
                     </Button>
-                </>
+                </div>
             )}
 
             {/* <SubmitWdlBtn

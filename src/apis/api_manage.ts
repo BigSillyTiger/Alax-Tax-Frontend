@@ -31,7 +31,7 @@ export const companyGet = async (): Promise<Tresponse> => {
     }
 };
 
-export const companyUpdate = async (company: Tcompany) => {
+export const companyUpdate = async (company: Tcompany): Promise<Tresponse> => {
     try {
         const response = await apis.put(SETTING_UPDATE_COMPANY, company);
         return response.data;
@@ -45,7 +45,7 @@ export const companyUpdate = async (company: Tcompany) => {
     }
 };
 
-export const uniAll = async () => {
+export const uniAll = async (): Promise<Tresponse> => {
     try {
         const response = await apis.get(SETTING_UNI_ALL);
         return response.data;
@@ -129,7 +129,7 @@ export const logoUpdate = async (logoData: File) => {
     }
 };
 
-export const logo = async () => {
+export const logo = async (): Promise<Tresponse> => {
     try {
         const response = await apis.get(SETTING_LOGO);
         return response.data;

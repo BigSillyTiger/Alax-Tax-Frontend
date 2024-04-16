@@ -296,6 +296,7 @@ const en = {
             noSelectedDayRange: "No Selected Day Range",
             noDutyToday: "No Work Assignment Today",
             noDeduction: "No Deduction",
+            errorTips: "Something went wrong.",
         },
         toastS: {
             addOrder: "Added A New Order.",
