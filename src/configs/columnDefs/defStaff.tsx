@@ -2,7 +2,7 @@ import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { TstaffWPayslip } from "../schema/staffSchema";
 import { colorWithStaffUid } from "../utils/color";
-import { BellAlertIcon } from "@heroicons/react/24/outline";
+import { BellAlertIcon } from "@heroicons/react/24/solid";
 //import { TstaffRole } from "@/configs/types";
 //import { capFirstLetter } from "@/lib/literals";
 //import { staffColorMap } from "../utils/color";

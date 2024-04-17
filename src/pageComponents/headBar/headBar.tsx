@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Bars3Icon, BellIcon } from "@heroicons/react/24/outline";
-import Breadcrumbs from "./breadcrumbs";
+import Breadcrumbs from "./Breadcrumbs";
 import UserMenu from "./UserMenu";
 import { useTranslation } from "react-i18next";
 

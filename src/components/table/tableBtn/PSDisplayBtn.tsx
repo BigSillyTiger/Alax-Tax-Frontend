@@ -13,9 +13,10 @@ import { DocumentIcon } from "@heroicons/react/24/outline";
 
 type Tprops = {
     payslip: Tpayslip;
+    name: string;
 };
 
-const PSDisplayBtn: FC<Tprops> = ({ payslip }) => {
+const PSDisplayBtn: FC<Tprops> = ({ payslip, name }) => {
     const [, setModalOpen] = useAtom(atModalOpen);
     const allStaff = useStaffStore((state) => state.allStaff);
     const [, setStaff] = useAtom(atStaff); // single staff
@@ -87,7 +88,11 @@ const PSDisplayBtn: FC<Tprops> = ({ payslip }) => {
     };
 
     return (
-        <button onClick={handleClick}>
+        <button
+            onClick={handleClick}
+            className="flex flex-row justify-center items-center w-full"
+        >
+            {name}
             <DocumentIcon
                 className="h-6 w-6 text-indigo-500"
                 aria-hidden="true"

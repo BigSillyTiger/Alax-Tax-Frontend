@@ -7,18 +7,15 @@ import { PSDisplayBtn, PSStatusBtn } from "@/components/table/tableBtn";
 
 const payslipColumns: ColumnDef<Tpayslip>[] = [
     {
-        id: "psDisplay",
-        header: i18n.t("label.checkPDF"),
-        accessorKey: "psid",
-        cell: (info: CellContext<Tpayslip, unknown>) => {
-            return <PSDisplayBtn payslip={info.row.original as Tpayslip} />;
-        },
-    },
-    {
         header: i18n.t("label.id"),
         accessorKey: "psid",
         cell: (info: CellContext<Tpayslip, unknown>) => {
-            return <span>{info.getValue<string>()}</span>;
+            return (
+                <PSDisplayBtn
+                    payslip={info.row.original as Tpayslip}
+                    name={info.getValue<string>()}
+                />
+            );
         },
     },
     {
@@ -39,7 +36,7 @@ const payslipColumns: ColumnDef<Tpayslip>[] = [
         header: i18n.t("label.hr"),
         accessorKey: "hr",
         cell: (info: CellContext<Tpayslip, unknown>) => {
-            return <span>{info.getValue<number>()}</span>;
+            return <span>${info.getValue<number>()}/H</span>;
         },
     },
     {
@@ -57,7 +54,7 @@ const payslipColumns: ColumnDef<Tpayslip>[] = [
         header: i18n.t("label.thisPay"),
         accessorKey: "paid",
         cell: (info: CellContext<Tpayslip, unknown>) => {
-            return <span>{info.getValue<number>()}</span>;
+            return <span>${info.getValue<number>()}</span>;
         },
     },
     { id: "PayslipDel", header: i18n.t("btn.del"), cell: () => <></> },
