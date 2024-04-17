@@ -11,12 +11,13 @@ import { toastError, toastSuccess } from "@/lib/toaster";
 import { useTranslation } from "react-i18next";
 import ErrorTips from "@/components/ErrorTips";
 import MainContent from "./MainContent";
+import { TwlTableRow } from "@/configs/schema/workSchema";
 
 const Dashboard: FC = () => {
     const [t] = useTranslation();
     const actionData = useActionData() as Tresponse;
     const { allPromise } = useLoaderData() as {
-        allPromise: Promise<[Tresponse]>;
+        allPromise: Promise<[TwlTableRow[], TwlTableRow[]]>;
     };
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
 

@@ -12,6 +12,7 @@ export const dashboardLoader = async () => {
 
         const allPromise = Promise.all([
             API_WORKLOGS.wlGetToday().then((res) => res.data),
+            API_WORKLOGS.wlGetTomorrow().then((res) => res.data),
         ]);
 
         return defer({ allPromise });

@@ -13,6 +13,7 @@ import {
     WL_TODAY,
     WL_SIGNLE_UPDATE_D,
     WL_STATUS,
+    WL_TOMORROW,
 } from "./req_list";
 
 export const wlAll = async (): Promise<Tresponse> => {
@@ -86,6 +87,19 @@ export const wlSingleDel = async (wlid: string): Promise<Tresponse> => {
 export const wlGetToday = async (): Promise<Tresponse> => {
     try {
         const response = await apis.get(WL_TODAY);
+        return response.data;
+    } catch (error) {
+        return {
+            status: 400,
+            msg: "failed in retrieving today's work logs",
+            data: "",
+        };
+    }
+};
+
+export const wlGetTomorrow = async (): Promise<Tresponse> => {
+    try {
+        const response = await apis.get(WL_TOMORROW);
         return response.data;
     } catch (error) {
         return {

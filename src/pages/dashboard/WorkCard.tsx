@@ -11,13 +11,15 @@ import type { FC } from "react";
 
 type Tprops = {
     data: TwlTableRow;
+    clickAble?: boolean;
 };
 
-const WorkCard: FC<Tprops> = ({ data }) => {
+const WorkCard: FC<Tprops> = ({ data, clickAble = true }) => {
     const [, setModalOpen] = useAtom(atModalOpen);
     const setWlid = useTodayWLStore((state) => state.setWlid);
 
     const onClick = () => {
+        if (!clickAble) return;
         setWlid(data.wlid);
         setModalOpen(mOpenOps.edit);
     };
