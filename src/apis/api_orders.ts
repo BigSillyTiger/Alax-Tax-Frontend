@@ -1,4 +1,4 @@
-import { TworkLogs } from "@/configs/schema/workSchema";
+import { TwlUnion } from "@/configs/schema/workSchema";
 import apis from "./axios";
 import {
     ORDER_ALL,
@@ -127,7 +127,7 @@ export const updateInvoiceIssue = async (
 };
 
 export const updateJobAssignment = async (
-    data: TworkLogs[]
+    data: TwlUnion[]
 ): Promise<Tresponse> => {
     console.log("-> sending update job assignment req: ", data);
     try {

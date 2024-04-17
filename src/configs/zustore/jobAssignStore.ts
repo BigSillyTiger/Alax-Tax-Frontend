@@ -1,6 +1,6 @@
 import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
-import { TassignedWork, TworkLogs } from "../schema/workSchema";
+import { TassignedWork, TwlUnion } from "../schema/workSchema";
 import { Tstaff } from "../schema/staffSchema";
 import { isSameDay } from "date-fns";
 
@@ -8,12 +8,12 @@ type TallStaff = Tstaff & { selected: boolean };
 
 type Tstate = {
     selectedDate: Date | undefined;
-    currentWorkLogs: TworkLogs[];
+    currentWorkLogs: TwlUnion[];
     allStaff: TallStaff[];
 };
 
 type Taction = {
-    setWorkLogs: (workLogs: TworkLogs[]) => void;
+    setWorkLogs: (workLogs: TwlUnion[]) => void;
     setAllStaff: (staff: TallStaff[]) => void;
     appendAssignedWork: (assignedWork: TassignedWork, date: string) => void;
     removeAssignedWork: (assignedWork: TassignedWork, date: string) => void;
@@ -25,7 +25,7 @@ export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
     selectedDate: new Date(),
     currentWorkLogs: [],
     allStaff: [],
-    setWorkLogs: (workLogs: TworkLogs[]) =>
+    setWorkLogs: (workLogs: TwlUnion[]) =>
         set((state) => ({ ...state, currentWorkLogs: [...workLogs] })),
     // assignedWork - the work log to add
     appendAssignedWork: (assignedWork, date) =>

@@ -298,14 +298,17 @@ const PTable = <T extends object>({
                           );
                       })}
                   </tr>
-                  {getRowCanExpand && SubTable && row.getIsExpanded() && (
-                      <tr>
-                          <td colSpan={row.getVisibleCells().length}>
-                              {/* 2nd row is a custom 1 cell row */}
-                              <SubTable data={row.original} />
-                          </td>
-                      </tr>
-                  )}
+                  {getRowCanExpand &&
+                      getRowCanExpand(row) &&
+                      SubTable &&
+                      row.getIsExpanded() && (
+                          <tr>
+                              <td colSpan={row.getVisibleCells().length}>
+                                  {/* 2nd row is a custom 1 cell row */}
+                                  <SubTable data={row.original} />
+                              </td>
+                          </tr>
+                      )}
               </Fragment>
           ))
         : null;

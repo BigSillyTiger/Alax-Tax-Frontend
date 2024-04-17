@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { clientSchema } from "./clientSchema";
-import { workLogsSchema } from "./workSchema";
+import { wlUnionSchema } from "./workSchema";
 import i18n from "@/configs/i18n";
 
 export const plainOrderSchema = z.object({
@@ -84,7 +84,7 @@ export const orderSchema = plainOrderSchema.extend({
     }),
     order_services: orderServiceSchema.array().default([]),
     payments: orderPaymentSchema.array().default([]),
-    work_logs: workLogsSchema.array().default([]),
+    work_logs: wlUnionSchema.array().default([]),
 });
 
 export type Torder = z.infer<typeof orderSchema>;

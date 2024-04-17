@@ -4,14 +4,13 @@ import {
     useStaffStore,
     useStaffWLStore,
 } from "@/configs/zustore";
-import { Tpayslip } from "@/configs/schema/payslipSchema";
+import { Tbonus, Tpayslip } from "@/configs/schema/payslipSchema";
 import { useAtom } from "jotai";
 import { atModalOpen, atStaff } from "@/configs/atoms";
 import { TstaffWPayslip } from "@/configs/schema/staffSchema";
 import { auToISO, checkDateRange } from "@/lib/time";
 import { mOpenOps } from "@/configs/utils/modal";
 import { DocumentIcon } from "@heroicons/react/24/outline";
-//import { Button } from "@/components/ui/button";
 
 type Tprops = {
     payslip: Tpayslip;
@@ -64,8 +63,9 @@ const PSDisplayBtn: FC<Tprops> = ({ payslip }) => {
                 if (bonus.fk_psid === payslip.psid) {
                     return bonus;
                 }
+                return null;
             })
-            .filter((wl) => wl !== undefined);
+            .filter((wl) => wl !== null) as Tbonus[];
     }, [allBonus, payslip.psid]);
 
     /* setting the data fro pdf template */
@@ -78,8 +78,8 @@ const PSDisplayBtn: FC<Tprops> = ({ payslip }) => {
         setStaff(staff);
         setStaffWL(newStaffWL);
         // deduction could be undefined
-        newDeduct && setDeduction(newDeduct);
-        newBonus && setAllBonus(newBonus);
+        newDeduct && newDeduct.length && setDeduction(newDeduct);
+        newBonus && newBonus.length && setAllBonus(newBonus);
         setDayRange({
             from: new Date(payslip.s_date),
             to: new Date(payslip.e_date),

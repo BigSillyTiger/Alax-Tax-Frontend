@@ -1,4 +1,4 @@
-import { TworkLogs } from "@/configs/schema/workSchema";
+import { TwlUnion } from "@/configs/schema/workSchema";
 import { routerPaths } from "@/configs/utils/router";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
 
@@ -20,7 +20,7 @@ export const capFirstLetter = (str: string) => {
 /**
  * @description sort work logs by date
  */
-export const sortWorkLogs = (sort: "dsc" | "asc", workLogs: TworkLogs[]) => {
+export const sortWorkLogs = (sort: "dsc" | "asc", workLogs: TwlUnion[]) => {
     return workLogs.sort((a, b) => {
         const dateA = new Date(a.wl_date).getTime();
         const dateB = new Date(b.wl_date).getTime();

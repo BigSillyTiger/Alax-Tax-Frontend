@@ -94,14 +94,14 @@ export const assignedWorkSchema = workLogSchema.extend({
     deduction: deductionSchema.array().default([]),
 });
 
-export const workLogsSchema = z.object({
+export const wlUnionSchema = z.object({
     fk_oid: z.string(),
     wl_date: z.string().datetime(),
     assigned_work: assignedWorkSchema.array(),
 });
 
 /**
- * @description this is only for the form from mJobAssign modal
+ * @description this is only for the form from mJobAssign modal / not used
  */
 export const formWorkLogs = z.object({
     work_logs: workLogSchema.array(),
@@ -118,7 +118,7 @@ export const wlTableRowSchema = assignedWorkSchema.extend({
 
 export type TworkLog = z.infer<typeof workLogSchema>;
 export type TassignedWork = z.infer<typeof assignedWorkSchema>;
-export type TworkLogs = z.infer<typeof workLogsSchema>;
+export type TwlUnion = z.infer<typeof wlUnionSchema>;
 export type TformWorkLogs = z.infer<typeof formWorkLogs>;
 export type TwlTableRow = z.infer<typeof wlTableRowSchema>;
 export type Tdeduction = z.infer<typeof deductionSchema>;

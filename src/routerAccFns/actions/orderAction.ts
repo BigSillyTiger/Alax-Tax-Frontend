@@ -1,6 +1,6 @@
 import { API_ORDER } from "@/apis";
 import { TorderService } from "@/configs/schema/orderSchema";
-import { TworkLogs } from "@/configs/schema/workSchema";
+import { TwlUnion } from "@/configs/schema/workSchema";
 import { ActionFunctionArgs } from "react-router-dom";
 
 /**
@@ -41,7 +41,7 @@ export const ordersAction = async ({
         const assignedData = JSON.parse(data.get("values") as string);
         //console.log("-> action work assign: ", assignedData);
         const result = await API_ORDER.updateJobAssignment(
-            assignedData as TworkLogs[]
+            assignedData as TwlUnion[]
         );
         return result;
     }
