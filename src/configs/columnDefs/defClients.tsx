@@ -2,6 +2,7 @@ import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { Atel, Amail } from "@/components/aLinks";
+import { DetailBtn } from "@/components/table/tableBtn";
 
 /**
  * @description
@@ -11,8 +12,8 @@ const clientColumns: ColumnDef<Tclient>[] = [
     {
         id: "ClientDetails",
         header: i18n.t("label.details"), // Details
-        cell: () => {
-            <></>;
+        cell: (info: CellContext<Tclient, unknown>) => {
+            return <DetailBtn data={info.row.original as Tclient} />;
         },
     },
     {

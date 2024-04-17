@@ -6,6 +6,7 @@ import { dateFormat } from "@/lib/time";
 import { Atel } from "@/components/aLinks";
 import Badge from "@/components/Badge";
 import { TstatusColor } from "../types";
+import { ExpandBtn, OrderStatusBtn } from "@/components/table/tableBtn";
 
 const orderColumns: ColumnDef<Torder>[] = [
     {
@@ -23,7 +24,13 @@ const orderColumns: ColumnDef<Torder>[] = [
                 header: i18n.t("label.idOrder"),
                 accessorKey: "oid",
                 cell: (info: CellContext<Torder, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
+                    <>
+                        <span className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex items-center justify-center">
+                            {info.getValue<string>()}
+                        </span>
+                        &nbsp;
+                        <ExpandBtn row={info.row} />
+                    </>
                 ),
             },
             {
@@ -81,7 +88,16 @@ const orderColumns: ColumnDef<Torder>[] = [
                 header: i18n.t("label.status"),
                 accessorKey: "status",
                 cell: (info: CellContext<Torder, unknown>) => {
-                    return <Badge value={info.getValue() as TstatusColor} />;
+                    return (
+                        <OrderStatusBtn
+                            mLabel={
+                                <Badge
+                                    value={info.getValue() as TstatusColor}
+                                />
+                            }
+                            data={info.row.original as Torder}
+                        />
+                    );
                 },
             },
         ],

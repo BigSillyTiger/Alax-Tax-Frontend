@@ -1,10 +1,11 @@
 import { CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { TwlTableRow } from "../schema/workSchema";
-//import { minusAB } from "@/utils/calculations";
 import { calWorkTime, dateFormat } from "@/lib/time";
-import { TstatusColor } from "@/configs/types";
+import { TstatusColor, TtimeBtnStyles } from "@/configs/types";
 import Badge from "@/components/Badge";
+import TimeBtn from "@/pageComponents/TimeBtn";
+import { WLStatusBtn } from "@/components/table/tableBtn";
 
 const wlColumns = [
     {
@@ -13,7 +14,7 @@ const wlColumns = [
         columns: [
             {
                 id: "wlID",
-                header: i18n.t("label.wlID"),
+                header: i18n.t("label.wlid"),
                 accessorKey: "wlid",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
                     <span>{info.getValue<string>()}</span>
@@ -80,9 +81,10 @@ const wlColumns = [
                 header: i18n.t("label.timeStart"),
                 accessorKey: "s_time",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span className="font-bold text-lg text-indigo-600">
-                        {info.getValue<string>()}
-                    </span>
+                    <TimeBtn
+                        type={info.cell.column.id as TtimeBtnStyles}
+                        data={info.row.original as TwlTableRow}
+                    />
                 ),
             },
             {
@@ -90,9 +92,10 @@ const wlColumns = [
                 header: i18n.t("label.timeEnd"),
                 accessorKey: "e_time",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span className="font-bold text-lg text-indigo-600">
-                        {info.getValue<string>()}
-                    </span>
+                    <TimeBtn
+                        type={info.cell.column.id as TtimeBtnStyles}
+                        data={info.row.original as TwlTableRow}
+                    />
                 ),
             },
             {
@@ -100,9 +103,10 @@ const wlColumns = [
                 header: i18n.t("label.timeBreak"),
                 accessorKey: "b_hour",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span className="font-bold text-lg text-amber-600">
-                        {info.getValue<string>()}
-                    </span>
+                    <TimeBtn
+                        type={info.cell.column.id as TtimeBtnStyles}
+                        data={info.row.original as TwlTableRow}
+                    />
                 ),
             },
             {
@@ -111,18 +115,24 @@ const wlColumns = [
                 accessorFn: (data: TwlTableRow) =>
                     calWorkTime(data.s_time, data.e_time, data.b_hour),
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span className="font-bold text-lg text-lime-700">
-                        {info.getValue<string>()}
-                    </span>
+                    <TimeBtn
+                        type={info.cell.column.id as TtimeBtnStyles}
+                        data={info.row.original as TwlTableRow}
+                    />
                 ),
             },
             {
                 id: "wlStatus",
                 header: i18n.t("label.status"),
                 accessorKey: "wl_status",
-                cell: (info: CellContext<TwlTableRow, unknown>) => {
-                    return <Badge value={info.getValue() as TstatusColor} />;
-                },
+                cell: (info: CellContext<TwlTableRow, unknown>) => (
+                    <WLStatusBtn
+                        mLabel={
+                            <Badge value={info.getValue() as TstatusColor} />
+                        }
+                        data={info.row.original as TwlTableRow}
+                    />
+                ),
             },
         ],
     },

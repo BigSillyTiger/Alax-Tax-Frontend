@@ -3,13 +3,16 @@ import { ColumnDef, CellContext } from "@tanstack/react-table";
 import { Tpayslip } from "../schema/payslipSchema";
 import Badge from "@/components/Badge";
 import { TstatusColor } from "../types";
+import { PSDisplayBtn, PSStatusBtn } from "@/components/table/tableBtn";
 
 const payslipColumns: ColumnDef<Tpayslip>[] = [
     {
         id: "psDisplay",
         header: i18n.t("label.checkPDF"),
         accessorKey: "psid",
-        cell: () => <></>,
+        cell: (info: CellContext<Tpayslip, unknown>) => {
+            return <PSDisplayBtn payslip={info.row.original as Tpayslip} />;
+        },
     },
     {
         header: i18n.t("label.id"),
@@ -43,9 +46,12 @@ const payslipColumns: ColumnDef<Tpayslip>[] = [
         id: "psStatus",
         header: i18n.t("label.status"),
         accessorKey: "status",
-        cell: (info: CellContext<Tpayslip, unknown>) => {
-            return <Badge value={info.getValue() as TstatusColor} />;
-        },
+        cell: (info: CellContext<Tpayslip, unknown>) => (
+            <PSStatusBtn
+                mLabel={<Badge value={info.getValue() as TstatusColor} />}
+                data={info.row.original as Tpayslip}
+            />
+        ),
     },
     {
         header: i18n.t("label.thisPay"),
