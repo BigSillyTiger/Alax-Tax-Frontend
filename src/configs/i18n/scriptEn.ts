@@ -299,6 +299,7 @@ const en = {
             noDutyTomorrow: "No Work Assignment Tomorrow",
             noDeduction: "No Deduction",
             errorTips: "Something went wrong.",
+            unfinishedPS: "Unfinished Payslip",
         },
         toastS: {
             addOrder: "Added A New Order.",

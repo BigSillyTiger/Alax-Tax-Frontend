@@ -118,12 +118,12 @@ const MainContent: FC = () => {
                     </div>
                 </div>
                 {/* table */}
-                {allStaff ? (
+                {newAllStaff ? (
                     <Card className="mt-8">
                         <PTable
                             search={true}
                             hFilter={true}
-                            data={allStaff}
+                            data={newAllStaff}
                             columns={staffColumns}
                             menuOptions={{
                                 edit: true,

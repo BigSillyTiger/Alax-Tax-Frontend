@@ -7,7 +7,6 @@ import {
 import { Tbonus, Tpayslip } from "@/configs/schema/payslipSchema";
 import { useAtom } from "jotai";
 import { atModalOpen, atStaff } from "@/configs/atoms";
-import { TstaffWPayslip } from "@/configs/schema/staffSchema";
 import { auToISO, checkDateRange } from "@/lib/time";
 import { mOpenOps } from "@/configs/utils/modal";
 import { DocumentIcon } from "@heroicons/react/24/outline";
