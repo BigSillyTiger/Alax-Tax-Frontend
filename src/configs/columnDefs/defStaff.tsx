@@ -2,10 +2,10 @@ import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { TstaffWPayslip } from "../schema/staffSchema";
 import { colorWithStaffUid } from "../utils/color";
-import { TstaffRole } from "@/configs/types";
-import { capFirstLetter } from "@/lib/literals";
+//import { TstaffRole } from "@/configs/types";
+//import { capFirstLetter } from "@/lib/literals";
+//import { staffColorMap } from "../utils/color";
 import { Atel, Amail } from "@/components/aLinks";
-import { staffColorMap } from "../utils/color";
 import { ExpandBtn } from "@/components/table/tableBtn";
 
 /**
@@ -13,27 +13,22 @@ import { ExpandBtn } from "@/components/table/tableBtn";
  * @param header - id
  */
 const staffColumns: ColumnDef<TstaffWPayslip>[] = [
-    /* {
-        header: i18n.t("label.details"), // Details
-        cell: () => {
-            <></>;
-        },
-    }, */
     {
         id: "UID",
         header: i18n.t("label.uid"),
         accessorFn: (data: TstaffWPayslip) => data.uid,
         cell: (info: CellContext<TstaffWPayslip, unknown>) => {
             return (
-                <>
-                    <span
-                        className={`${colorWithStaffUid(info.getValue<string>())}`}
-                    >
-                        {info.getValue<string>()}
-                    </span>
-                    &nbsp;
-                    <ExpandBtn row={info.row} />
-                </>
+                <ExpandBtn
+                    row={info.row}
+                    name={
+                        <span
+                            className={`${colorWithStaffUid(info.getValue<string>())}`}
+                        >
+                            {info.getValue<string>()}
+                        </span>
+                    }
+                />
             );
         },
     },
@@ -73,7 +68,7 @@ const staffColumns: ColumnDef<TstaffWPayslip>[] = [
             <span>{info.getValue<string>()}</span>
         ),
     },
-    {
+    /* {
         header: i18n.t("label.role"),
         accessorKey: "role",
         cell: (info: CellContext<TstaffWPayslip, unknown>) => {
@@ -84,7 +79,7 @@ const staffColumns: ColumnDef<TstaffWPayslip>[] = [
                 </span>
             );
         },
-    },
+    }, */
     {
         id: "Menu",
         header: i18n.t("label.menu"),

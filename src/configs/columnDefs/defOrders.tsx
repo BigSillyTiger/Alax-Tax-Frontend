@@ -13,24 +13,12 @@ const orderColumns: ColumnDef<Torder>[] = [
         id: "details",
         header: i18n.t("label.details"), // Details
         columns: [
-            /* {
-                header: "Details",
-                cell: () => {
-                    return <></>;
-                },
-            }, */
             {
                 id: "orderID",
                 header: i18n.t("label.idOrder"),
                 accessorKey: "oid",
                 cell: (info: CellContext<Torder, unknown>) => (
-                    <>
-                        <span className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex items-center justify-center">
-                            {info.getValue<string>()}
-                        </span>
-                        &nbsp;
-                        <ExpandBtn row={info.row} />
-                    </>
+                    <ExpandBtn row={info.row} name={info.getValue<string>()} />
                 ),
             },
             {

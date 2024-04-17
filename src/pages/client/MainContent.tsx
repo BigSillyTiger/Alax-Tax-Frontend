@@ -63,12 +63,11 @@ const MainContent: FC = () => {
         wlUnion: [],
     };
 
-    setClient(client[0]);
-    setCompany(company);
-    setLogo(logo);
-
     // condition setState should be in useEffect
     useEffect(() => {
+        setClient(client[0]);
+        setCompany(company);
+        setLogo(logo);
         if (uniData) {
             setUniData(uniData);
             setServiceDesc({
@@ -85,7 +84,7 @@ const MainContent: FC = () => {
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [clientOrder, uniData]);
+    }, [client[0], clientOrder, uniData, company, logo]);
 
     return (
         <div className="px-4 sm:px-6 lg:px-8 top-0 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 ">

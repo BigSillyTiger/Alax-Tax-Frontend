@@ -30,9 +30,7 @@ const PSDisplayBtn: FC<Tprops> = ({ payslip }) => {
 
     /* preparing the data */
     // find the staff that has the specific payslip
-    const staff = allStaff.find((staff) =>
-        staff.payslips.some((staffPS) => staffPS.psid === payslip.psid)
-    ) as TstaffWPayslip;
+    const staff = allStaff.find((staff) => staff.uid === payslip.fk_uid)!;
 
     const newStaffWL = useMemo(() => {
         return allStaffWL.filter(

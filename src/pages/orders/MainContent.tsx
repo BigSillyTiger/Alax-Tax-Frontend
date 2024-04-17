@@ -65,14 +65,13 @@ const MainContent: FC = () => {
         });
     }, [orders]);
 
-    setCompany(company);
-    setLogo(logo);
-
     useEffect(() => {
+        setCompany(company);
+        setLogo(logo);
         setAllStaff(staff);
         setUniData(uniData);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [staff, uniData]);
+    }, [staff, uniData, company, logo]);
 
     return (
         <div className="px-4 sm:px-6 lg:px-8 top-0">

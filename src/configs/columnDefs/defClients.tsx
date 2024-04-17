@@ -10,17 +10,14 @@ import { DetailBtn } from "@/components/table/tableBtn";
  */
 const clientColumns: ColumnDef<Tclient>[] = [
     {
-        id: "ClientDetails",
-        header: i18n.t("label.details"), // Details
-        cell: (info: CellContext<Tclient, unknown>) => {
-            return <DetailBtn data={info.row.original as Tclient} />;
-        },
-    },
-    {
         header: i18n.t("label.idClient"),
         accessorFn: (data: Tclient) => data.cid,
         cell: (info: CellContext<Tclient, unknown>) => (
-            <span>{info.getValue<string>()}</span>
+            //<span>{info.getValue<string>()}</span>
+            <DetailBtn
+                data={info.row.original as Tclient}
+                name={info.getValue<string>()}
+            />
         ),
     },
 

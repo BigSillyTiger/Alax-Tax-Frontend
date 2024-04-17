@@ -1,5 +1,5 @@
 import type { FC, TouchEvent, MouseEvent } from "react";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Card from "@/components/card";
 import { PTable } from "@/components/table";
 import staffColumns from "@/configs/columnDefs/defStaff";
@@ -64,12 +64,36 @@ const MainContent: FC = () => {
                 }),
         [worklogs]
     );
+    const newAllStaff = useMemo(() => {
+        if (!allStaff) return [];
+        return allStaff.map((staff) => {
+            if (staff.payslips === null) {
+                return {
+                    ...staff,
+                    payslips: [],
+                };
+            }
+            return {
+                ...staff,
+                payslips: staff.payslips.map((ps) => {
+                    return {
+                        ...ps,
+                        s_date: dateFormat(ps.s_date, "au"),
+                        e_date: dateFormat(ps.e_date, "au"),
+                    };
+                }),
+            };
+        });
+    }, [allStaff]);
 
-    setAllStaffWL(newWorklogs);
-    setAllStaff(allStaff || []);
-    setAllBonus(allBonus || []);
-    setCompany(company);
-    setLogo(logo);
+    useEffect(() => {
+        setAllStaff(newAllStaff);
+        setAllStaffWL(newWorklogs);
+        setAllBonus(allBonus || []);
+        setCompany(company);
+        setLogo(logo);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [allBonus, newWorklogs, company, logo, newAllStaff]);
 
     const handleAddNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
