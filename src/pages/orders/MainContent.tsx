@@ -48,7 +48,7 @@ const MainContent: FC = () => {
                             taxable: Boolean(desc.taxable),
                         };
                     }),
-                work_logs: item.work_logs.map((wl) => {
+                wlUnion: item.wlUnion.map((wl) => {
                     return {
                         ...wl,
                         assigned_work: wl.assigned_work.map((aw) => {

@@ -84,7 +84,7 @@ export const orderSchema = plainOrderSchema.extend({
     }),
     order_services: orderServiceSchema.array().default([]),
     payments: orderPaymentSchema.array().default([]),
-    work_logs: wlUnionSchema.array().default([]),
+    wlUnion: wlUnionSchema.array().default([]),
 });
 
 export type Torder = z.infer<typeof orderSchema>;

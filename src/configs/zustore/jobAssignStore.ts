@@ -30,7 +30,7 @@ export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
     // assignedWork - the work log to add
     appendAssignedWork: (assignedWork, date) =>
         set((state) => {
-            // filter by wl_date of work_logs
+            // filter by wl_date of wlUnion
             const filteredWorkLogs = state.currentWLUnion.filter((work) => {
                 return isSameDay(new Date(work.wl_date), new Date(date));
             });
@@ -42,7 +42,7 @@ export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
                       )
                     : false;
 
-            // work_logs not exists on the date
+            // wlUnion not exists on the date
             if (!filteredWorkLogs.length) {
                 const newWorkLogs = [
                     ...state.currentWLUnion,
@@ -57,7 +57,7 @@ export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
                     currentWLUnion: [...newWorkLogs],
                 };
             }
-            // work_logs exists on the date, but the assigned_work of the staff with the uid not exists
+            // wlUnion exists on the date, but the assigned_work of the staff with the uid not exists
             else if (filteredWorkLogs.length && !workExists) {
                 const newWorkLogs = state.currentWLUnion.map((work) =>
                     isSameDay(new Date(work.wl_date), new Date(date))

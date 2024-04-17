@@ -60,7 +60,7 @@ const MainContent: FC = () => {
         invoice_date: "",
         order_services: [],
         payments: [],
-        work_logs: [],
+        wlUnion: [],
     };
 
     setClient(client[0]);

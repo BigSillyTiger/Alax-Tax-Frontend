@@ -104,7 +104,7 @@ export const wlUnionSchema = z.object({
  * @description this is only for the form from mJobAssign modal / not used
  */
 export const formWorkLogs = z.object({
-    work_logs: workLogSchema.array(),
+    wlUnion: workLogSchema.array(),
 });
 
 export const wlTableRowSchema = assignedWorkSchema.extend({
