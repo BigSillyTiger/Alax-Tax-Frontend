@@ -4,6 +4,7 @@ import { Torder } from "@/configs/schema/orderSchema";
 import { minusAB } from "@/lib/calculations";
 import Badge from "@/components/Badge";
 import { TstatusColor } from "../types";
+import { dateFormat } from "@/lib/time";
 
 const clientOrderColumns: ColumnDef<Torder>[] = [
     {
@@ -47,7 +48,7 @@ const clientOrderColumns: ColumnDef<Torder>[] = [
                 header: "Order Date",
                 accessorKey: "created_date",
                 cell: (info: CellContext<Torder, string>) => {
-                    return <span>{info.getValue()}</span>;
+                    return <span>{dateFormat(info.getValue(), "au")}</span>;
                 },
             },
         ],
