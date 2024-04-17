@@ -1,10 +1,15 @@
+import type { FC } from "react";
 import { PTable } from "@/components/table";
 import payslipColumns from "@/configs/columnDefs/defPayslip";
 import { TstaffWPayslip } from "@/configs/schema/staffSchema";
 import { usePayslipStore } from "@/configs/zustore";
 import { useTranslation } from "react-i18next";
 
-const SubTable = ({ data }: { data: TstaffWPayslip }) => {
+type Tprops = {
+    data: TstaffWPayslip;
+};
+
+const SubTable: FC<Tprops> = ({ data }) => {
     const { t } = useTranslation();
     const setPayslip = usePayslipStore((state) => state.setPayslip);
 

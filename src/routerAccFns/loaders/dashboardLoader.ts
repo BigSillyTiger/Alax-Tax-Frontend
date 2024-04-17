@@ -10,8 +10,8 @@ export const dashboardLoader = async () => {
             return !res.data && redirect("/login");
         });
 
-        const allPromise: Promise<[Tresponse]> = Promise.all([
-            API_WORKLOGS.wlGetToday(),
+        const allPromise = Promise.all([
+            API_WORKLOGS.wlGetToday().then((res) => res.data),
         ]);
 
         return defer({ allPromise });

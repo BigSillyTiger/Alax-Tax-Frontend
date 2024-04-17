@@ -11,8 +11,7 @@ import { Tstaff, TstaffForm } from "@/configs/schema/staffSchema";
 
 export const staffAll = async (): Promise<Tresponse> => {
     try {
-        const response = await apis.get(STAFF_ALL);
-        return response.data;
+        return await apis.get(STAFF_ALL).then((res) => res.data);
     } catch (err: unknown) {
         console.log("-> retrieve all staff error: ", err);
         return {

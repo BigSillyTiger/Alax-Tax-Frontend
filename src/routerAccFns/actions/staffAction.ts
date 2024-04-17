@@ -5,8 +5,11 @@ import type { Tstaff } from "@/configs/schema/staffSchema";
 export const staffAction = async ({
     request,
 }: ActionFunctionArgs): Promise<Tresponse> => {
-    console.log("-> staff action request: ", request);
     const data = await request.formData();
+    data.get("req") &&
+        console.log("-> staff action req data: ", data.get("req"));
+
+    /* add a new staff */
     if ("POST" === request.method && data.get("req") === "addStaff") {
         const result = await API_STAFF.staffAdd({
             first_name: data.get("first_name") as string,
@@ -35,11 +38,9 @@ export const staffAction = async ({
         });
         return result;
     } else if ("POST" === request.method && data.get("req") === "newPayslip") {
-        console.log("-> action gen new payslip");
         const bonus = JSON.parse(data.get("bonus") as string);
         const payslip = JSON.parse(data.get("payslip") as string);
-        const result = await API_PAYSLIP.psSingleInsert(bonus, payslip);
-        return result;
+        return await API_PAYSLIP.psSingleInsert(bonus, payslip);
     } else if ("DELETE" === request.method && data.get("req") === "delStaff") {
         return await API_STAFF.staffSingleDel(data.get("uid") as string);
     } else if (
@@ -48,7 +49,7 @@ export const staffAction = async ({
     ) {
         return await API_PAYSLIP.psSingleDel(data.get("psid") as string);
     } else if ("PUT" === request.method && data.get("req") === "updateStaff") {
-        const result = await API_STAFF.staffSingleUpdate({
+        return await API_STAFF.staffSingleUpdate({
             uid: data.get("uid"),
             first_name: data.get("first_name") as string,
             last_name: data.get("last_name") as string,
@@ -74,7 +75,6 @@ export const staffAction = async ({
             bsb: data.get("bsb") as string,
             account: data.get("account") as string,
         } as Tstaff);
-        return result;
     } else if ("PUT" === request.method && data.get("req") === "resetPW") {
         return await API_STAFF.staffUpdatePW(
             data.get("uid") as string,

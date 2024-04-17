@@ -20,7 +20,7 @@ type Tprops = {
 const PSDisplayBtn: FC<Tprops> = ({ payslip }) => {
     const [, setModalOpen] = useAtom(atModalOpen);
     const allStaff = useStaffStore((state) => state.allStaff);
-    const [, setStaff] = useAtom(atStaff);
+    const [, setStaff] = useAtom(atStaff); // single staff
     const allStaffWL = useStaffWLStore((state) => state.allStaffWL);
     const setPayslip = usePayslipStore((state) => state.setPayslip);
     const allBonus = usePayslipStore((state) => state.allBonus);

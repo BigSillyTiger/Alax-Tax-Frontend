@@ -39,7 +39,6 @@ export const payslipStore = createStore<Tstate & Taction>((set) => ({
     deduction: [],
     allBonus: [],
     resetAll: () => {
-        console.log("--> reset all called");
         set((state) => ({
             ...state,
             dayRange: { from: undefined, to: undefined },

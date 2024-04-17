@@ -1,67 +1,40 @@
+import type { FC } from "react";
 import { Suspense, useState, useEffect } from "react";
-import type { FC, TouchEvent, MouseEvent } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
 import LoadingPage from "@/components/loadingEle";
-import staffColumns from "@/configs/columnDefs/defStaff.tsx";
-import Card from "@/components/card";
 import { toastError, toastSuccess } from "@/lib/toaster";
 import { TstaffWPayslip } from "@/configs/schema/staffSchema.ts";
 import { MStaffDel, MStaffForm, MStaffResetPW } from "@/pageComponents/modals";
-import { PTable } from "@/components/table";
-import {
-    atStaff,
-    at2ndModalOpen,
-    atModalOpen,
-    atCompany,
-    atLogo,
-} from "@/configs/atoms";
+import { atStaff, at2ndModalOpen, atModalOpen } from "@/configs/atoms";
 import type { TisConflict } from "@/configs/types";
 import { RES_STATUS } from "@/configs/types";
 import MPayslip from "@/pageComponents/modals/mPayslip";
 import { TwlTableRow } from "@/configs/schema/workSchema";
-import { useStaffWLStore } from "@/configs/zustore/staffWLStore";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { mOpenOps } from "@/configs/utils/modal";
-import SubTable from "./SubTable";
 import MPayslipDel from "@/pageComponents/modals/mPayslipDel";
-import { usePayslipStore, useStaffStore } from "@/configs/zustore";
 import { Tbonus } from "@/configs/schema/payslipSchema";
 import MPSDisplay from "@/pageComponents/modals/mPSDisplay";
-
-type Tprops = {
-    allStaff: TstaffWPayslip[] | null;
-};
+import MainContent from "./MainContent";
+import ErrorTips from "@/components/ErrorTips";
 
 const Staff: FC = () => {
-    const [, setInfoConflict] = useState<TisConflict>(RES_STATUS.SUCCESS);
-    const [secModalOpen, setSecModalOpen] = useAtom(at2ndModalOpen);
-    const [staff, setStaff] = useAtom(atStaff);
-    const [, setModalOpen] = useAtom(atModalOpen);
-    const [, setCompany] = useAtom(atCompany);
-    const [, setLogo] = useAtom(atLogo);
     const { t } = useTranslation();
-    const setAllStaff = useStaffStore((state) => state.setAllStaff);
-    const { allStaff, worklogs, allBonus, company, logo } = useLoaderData() as {
-        allStaff: TstaffWPayslip[] | null;
-        worklogs: TwlTableRow[];
-        allBonus: Tbonus[];
-        company: Tcompany;
-        logo: string;
+    const { allPromise } = useLoaderData() as {
+        allPromise: Promise<
+            [TwlTableRow[], TstaffWPayslip[], Tbonus[], Tcompany, string]
+        >;
     };
-    const setAllStaffWL = useStaffWLStore((state) => state.setAllStaffWL);
-    const setAllBonus = usePayslipStore((state) => state.setAllBonus);
-    const actionData = useActionData() as Tresponse;
 
-    setAllStaffWL(worklogs);
-    setAllStaff(allStaff || []);
-    setAllBonus(allBonus || []);
-    setCompany(company);
-    setLogo(logo);
-    /* useEffect(() => {
-    }, [worklogs, setAllStaffWL, company, logo, setCompany, setLogo]); */
+    const [modalOpen, setModalOpen] = useAtom(atModalOpen);
+    const [secModalOpen, setSecModalOpen] = useAtom(at2ndModalOpen);
+    const [, setInfoConflict] = useState<TisConflict>(RES_STATUS.SUCCESS);
+    const [staff, setStaff] = useAtom(atStaff);
+
+    const actionData = useActionData() as Tresponse;
 
     useEffect(() => {
         if (!actionData) return;
@@ -103,91 +76,30 @@ const Staff: FC = () => {
         }
         // set status to default, in case the stale value interfere the next action
         actionData.status = RES_STATUS.DEFAULT;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         actionData,
         staff.uid,
+        secModalOpen,
+        modalOpen,
+        /* 
         setStaff,
         setInfoConflict,
         setModalOpen,
         t,
-        secModalOpen,
-        setSecModalOpen,
+        setSecModalOpen, 
+        */
     ]);
 
-    const handleAddNew = (e: MouseEvent | TouchEvent) => {
-        e.preventDefault();
-        setStaff(RESET);
-        setModalOpen("Add");
-    };
-
-    const MainContent: FC<Tprops> = ({ allStaff }) => {
-        return (
-            <>
-                <div className="px-4 sm:px-6 lg:px-8 top-0">
-                    {/* header area */}
-                    <div className="sm:flex sm:items-center">
-                        <div className="sm:flex-auto sm:flex"></div>
-                        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                            <button
-                                type="button"
-                                className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                onClick={handleAddNew}
-                            >
-                                {t("btn.addStuff")}
-                            </button>
-                        </div>
-                    </div>
-                    {/* table */}
-                    {allStaff ? (
-                        <Card className="mt-8">
-                            <PTable
-                                search={true}
-                                hFilter={true}
-                                data={allStaff}
-                                columns={staffColumns}
-                                menuOptions={{
-                                    edit: true,
-                                    payslip: true,
-                                    del: true,
-                                }}
-                                setData={setStaff}
-                                getRowCanExpand={(row) => {
-                                    if (
-                                        row.original.payslips &&
-                                        row.original.payslips.length > 0
-                                    ) {
-                                        return true;
-                                    }
-                                    return false;
-                                }}
-                                expandContent={SubTable}
-                                cnSearch="my-3"
-                                cnTable={`h-[65dvh]`}
-                                cnHead="sticky z-10 bg-indigo-300"
-                                cnTh="py-3"
-                            />
-                        </Card>
-                    ) : (
-                        <Card className="mt-8">
-                            <span className="m-5 p-5  text-center h-15">
-                                {t("pageText.noClient")}
-                            </span>
-                        </Card>
-                    )}
-                </div>
-            </>
-        );
-    };
-
     return (
-        <div className="container border-0">
-            <Suspense fallback={<LoadingPage />}>
-                <Await resolve={allStaff}>
-                    {(staffList) => {
-                        return <MainContent allStaff={staffList} />;
-                    }}
-                </Await>
-            </Suspense>
+        <>
+            <div className="container border-0">
+                <Suspense fallback={<LoadingPage />}>
+                    <Await resolve={allPromise} errorElement={<ErrorTips />}>
+                        <MainContent />
+                    </Await>
+                </Suspense>
+            </div>
 
             {/* Modal for add new staff, and this modal can not be insert into Await*/}
             {/* otherwise, the animation would get lost*/}
@@ -197,7 +109,7 @@ const Staff: FC = () => {
             <MPayslip />
             <MPayslipDel />
             <MPSDisplay />
-        </div>
+        </>
     );
 };
 

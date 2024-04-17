@@ -63,10 +63,12 @@ const MainContent: FC = () => {
         work_logs: [],
     };
 
+    setClient(client[0]);
+    setCompany(company);
+    setLogo(logo);
+
+    // condition setState should be in useEffect
     useEffect(() => {
-        setClient(client[0]);
-        setCompany(company);
-        setLogo(logo);
         if (uniData) {
             setUniData(uniData);
             setServiceDesc({
@@ -82,18 +84,8 @@ const MainContent: FC = () => {
                 netto: uniData?.services[0].unit_price as number,
             });
         }
-    }, [
-        setClient,
-        setCompany,
-        setLogo,
-        client,
-        company,
-        logo,
-        setUniData,
-        uniData,
-        setServiceDesc,
-        clientOrder,
-    ]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [clientOrder, uniData]);
 
     return (
         <div className="px-4 sm:px-6 lg:px-8 top-0 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 ">
