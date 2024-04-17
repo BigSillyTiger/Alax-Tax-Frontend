@@ -12,8 +12,8 @@ import { useJobAssignStore } from "@/configs/zustore";
 const JADayPicker: FC = () => {
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
     const setDate = useJobAssignStore((state) => state.setDate);
-    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
-    const scheduledDays = currentWorkLogs.map((wl) => new Date(wl.wl_date));
+    const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
+    const scheduledDays = currentWLUnion.map((wl) => new Date(wl.wl_date));
     const css = `
         .my-selected:not([disabled]) { 
             font-weight: bold; 

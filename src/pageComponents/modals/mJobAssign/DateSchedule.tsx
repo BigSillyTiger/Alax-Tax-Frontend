@@ -14,7 +14,7 @@ const DateSchedule: FC = () => {
     const { t } = useTranslation();
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
     const setDate = useJobAssignStore((state) => state.setDate);
-    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
+    const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
     const [isTooSmallScreen, setIsTooSmallScreen] = useState(false);
 
@@ -33,9 +33,10 @@ const DateSchedule: FC = () => {
     }, []);
 
     // remove work log from the current work log list
+    // should only be deletable when all the work log status is pending or cancelled
     const handleDelete = (indexToRemove: number) => {
         setWorkLogs(
-            currentWorkLogs.filter((_, index) => index !== indexToRemove)
+            currentWLUnion.filter((_, index) => index !== indexToRemove)
         );
     };
 
@@ -94,7 +95,7 @@ const DateSchedule: FC = () => {
                 <Card
                     className={`overflow-y-auto flex flex-col justify-stretch max-h-[40dvh]`}
                 >
-                    {sortWorkLogs("dsc", currentWorkLogs).map((item, index) => {
+                    {sortWorkLogs("dsc", currentWLUnion).map((item, index) => {
                         return (
                             <div key={index} className="my-1 w-full flex">
                                 <DateBtn

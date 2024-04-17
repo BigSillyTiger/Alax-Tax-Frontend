@@ -23,7 +23,7 @@ const MJobAssign = () => {
     const [clientOrder] = useAtom(atOrder);
     const [atomAllStaff] = useAtom(atAllStaff);
     // zustand states and actions
-    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
+    const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
     const setAllStaff = useJobAssignStore((state) => state.setAllStaff);
     const setDate = useJobAssignStore((state) => state.setDate);
@@ -58,7 +58,7 @@ const MJobAssign = () => {
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         submit(
-            { values: JSON.stringify(currentWorkLogs), req: "jobAssign" },
+            { values: JSON.stringify(currentWLUnion), req: "jobAssign" },
             {
                 method: "POST",
                 action: genAction(currentRouter),

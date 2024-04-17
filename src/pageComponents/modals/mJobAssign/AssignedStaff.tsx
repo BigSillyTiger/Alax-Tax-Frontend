@@ -8,12 +8,12 @@ import { isSameDay } from "date-fns";
 const AssignedStaff: FC = () => {
     const { t } = useTranslation();
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
-    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
+    const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
 
     /* update work logs when all staff changed */
     const scheduledWork = (() => {
         if (selectedDate) {
-            const workLog = currentWorkLogs.filter((work) => {
+            const workLog = currentWLUnion.filter((work) => {
                 return isSameDay(new Date(work.wl_date), selectedDate);
             });
             return workLog.length ? workLog[0].assigned_work : [];

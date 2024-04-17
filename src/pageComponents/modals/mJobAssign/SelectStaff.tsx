@@ -23,7 +23,7 @@ const SelectStaff: FC = () => {
     // zustand states and actions
     //const selectStaff = useJobAssignStore((state) => state.selectStaff);
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
-    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
+    const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
     const setAllStaff = useJobAssignStore((state) => state.setAllStaff);
     const appendAssignedWork = useJobAssignStore(
         (state) => state.appendAssignedWork
@@ -34,9 +34,9 @@ const SelectStaff: FC = () => {
 
     /* update staff selected status when selected date changed */
     useEffect(() => {
-        if (!selectedDate || !currentWorkLogs) return;
+        if (!selectedDate || !currentWLUnion) return;
 
-        const workLog = currentWorkLogs.filter((work) => {
+        const workLog = currentWLUnion.filter((work) => {
             return isSameDay(new Date(work.wl_date), selectedDate);
         });
 
@@ -59,7 +59,7 @@ const SelectStaff: FC = () => {
         });
 
         setAllStaff(newAllStaff);
-    }, [selectedDate, currentWorkLogs, atomAllStaff, setAllStaff]);
+    }, [selectedDate, currentWLUnion, atomAllStaff, setAllStaff]);
 
     return (
         <Fieldset

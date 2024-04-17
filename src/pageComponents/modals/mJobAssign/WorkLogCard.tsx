@@ -21,12 +21,12 @@ type Tprops<T extends TassignedWork> = {
 
 const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
     const { t } = useTranslation();
-    const currentWorkLogs = useJobAssignStore((state) => state.currentWorkLogs);
+    const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
 
     const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newWL = currentWorkLogs.map((wl) => {
+        const newWL = currentWLUnion.map((wl) => {
             if (wl.fk_oid === item.fk_oid) {
                 return {
                     ...wl,
