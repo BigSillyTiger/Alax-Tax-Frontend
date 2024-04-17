@@ -38,3 +38,8 @@ export const WL_STATUS_TABLE = [
 ] as const;
 
 export const PS_STATUS_TABLE = ["pending", "completed"] as const;
+
+/**
+ * @description work log status that can be deleted
+ */
+export const WL_DELETABLE_STATUS = ["pending", "cancelled"];

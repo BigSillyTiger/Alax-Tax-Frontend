@@ -9,6 +9,8 @@ import "react-day-picker/dist/style.css";
 import { useJobAssignStore } from "@/configs/zustore";
 import { dateFormat } from "@/lib/time";
 import { sortWorkLogs } from "@/lib/literals";
+import { toastWarning } from "@/lib/toaster";
+import { WL_DELETABLE_STATUS } from "@/configs/utils/setting";
 
 const DateSchedule: FC = () => {
     const { t } = useTranslation();
@@ -35,6 +37,14 @@ const DateSchedule: FC = () => {
     // remove work log from the current work log list
     // should only be deletable when all the work log status is pending or cancelled
     const handleDelete = (indexToRemove: number) => {
+        if (
+            currentWLUnion[indexToRemove].assigned_work.some(
+                (item) => !WL_DELETABLE_STATUS.includes(item.wl_status)
+            )
+        ) {
+            toastWarning(t("toastW.cantDelWLUnion"));
+            return;
+        }
         setWorkLogs(
             currentWLUnion.filter((_, index) => index !== indexToRemove)
         );

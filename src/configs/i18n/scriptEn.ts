@@ -337,6 +337,7 @@ const en = {
         toastW: {
             selectDate: "Please select a date first.",
             selectDayRange: "Please select the day range first.",
+            cantDelWLUnion: "Cannot delete this work log.",
         },
         sr: {
             openHeadBarMenu: "Open head bar menu",

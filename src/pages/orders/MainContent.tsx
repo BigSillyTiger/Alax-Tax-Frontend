@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Card from "@/components/card";
 import { PTable } from "@/components/table";
 import SubTable from "./SubTable";
@@ -65,10 +65,14 @@ const MainContent: FC = () => {
         });
     }, [orders]);
 
-    setAllStaff(staff);
     setCompany(company);
     setLogo(logo);
-    setUniData(uniData);
+
+    useEffect(() => {
+        setAllStaff(staff);
+        setUniData(uniData);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [staff, uniData]);
 
     return (
         <div className="px-4 sm:px-6 lg:px-8 top-0">

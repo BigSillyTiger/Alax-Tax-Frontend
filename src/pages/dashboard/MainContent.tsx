@@ -1,5 +1,5 @@
 import { TwlTableRow } from "@/configs/schema/workSchema";
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import DutyCard from "./DutyCard";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
 import { useAsyncValue } from "react-router-dom";
@@ -23,7 +23,10 @@ const MainContent: FC = () => {
         };
     });
 
-    setTodayWorklogs(newTodayWLs);
+    useEffect(() => {
+        setTodayWorklogs(newTodayWLs);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [newTodayWLs]);
 
     return (
         <div className="grid grid-cols-12 gap-x-2">

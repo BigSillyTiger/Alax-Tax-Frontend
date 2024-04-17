@@ -13,6 +13,7 @@ import {
     IdentificationIcon,
     PhoneIcon,
 } from "@heroicons/react/24/outline";
+import Badge from "@/components/Badge";
 import { useTranslation } from "react-i18next";
 
 type Tprops<T extends TassignedWork> = {
@@ -87,6 +88,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                     outClass=""
                     spanClass="text-bold text-indigo-500"
                 />
+                <Badge value={item.wl_status} />
             </div>
             {/* 5 col */}
             <div className="col-span-5">

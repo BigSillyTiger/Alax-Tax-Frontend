@@ -11,6 +11,7 @@ import { useAtom } from "jotai";
 import { assignedWorkSchema } from "@/configs/schema/workSchema";
 import { dateFormat } from "@/lib/time";
 import { toastWarning } from "@/lib/toaster";
+import { WL_DELETABLE_STATUS } from "@/configs/utils/setting";
 
 const SelectStaff: FC = () => {
     const { t } = useTranslation();
@@ -81,7 +82,34 @@ const SelectStaff: FC = () => {
                                 }
                             }}
                             onChange={(e) => {
-                                if (!selectedDate) return;
+                                /* react nothing if no date selected */
+                                if (!selectedDate) {
+                                    e.preventDefault();
+                                    return;
+                                }
+                                /* toast warning if wl_status of selected staff is un-deletable */
+                                // find the work log of selected staff
+                                const wl = currentWLUnion
+                                    .filter((work) => {
+                                        return isSameDay(
+                                            new Date(work.wl_date),
+                                            selectedDate
+                                        );
+                                    })
+                                    .flatMap((work) => work.assigned_work)
+                                    .find((item) => item.fk_uid === staff.uid);
+                                // if the work log is un-deletable, prevent the checkbox from being checked
+                                if (
+                                    wl &&
+                                    wl.wl_status &&
+                                    !WL_DELETABLE_STATUS.includes(wl.wl_status)
+                                ) {
+                                    toastWarning(t("toastW.cantDelWLUnion"));
+                                    e.preventDefault();
+                                    return;
+                                }
+
+                                /* normal selecting logic*/
                                 const date = selectedDate
                                     ? dateFormat(selectedDate)
                                     : "";
