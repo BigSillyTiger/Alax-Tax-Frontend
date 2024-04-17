@@ -32,31 +32,29 @@ const PSStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
         );
     };
 
-    const menuContent = (() => {
-        return PS_STATUS_TABLE.map((item, index) => {
-            if (item.toLocaleLowerCase() === data.status.toLocaleLowerCase())
-                return;
-            return (
-                <div className="p-1" key={index}>
-                    <Menu.Item as={Fragment}>
-                        {({ active }) => (
-                            <button
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    handleClick(data.psid, item);
-                                }}
-                                className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-bold ${statusColor[item].text} ${
-                                    active ? statusColor[item].bg : BG_SLATE
-                                }`}
-                            >
-                                {capFirstLetter(item)}
-                            </button>
-                        )}
-                    </Menu.Item>
-                </div>
-            );
-        }).filter((item) => item !== null && item !== undefined);
-    })();
+    const menuContent = PS_STATUS_TABLE.map((item, index) => {
+        if (item.toLocaleLowerCase() === data.status.toLocaleLowerCase())
+            return;
+        return (
+            <div className="p-1" key={index}>
+                <Menu.Item as={Fragment}>
+                    {({ active }) => (
+                        <button
+                            onClick={() => {
+                                //e.preventDefault();
+                                handleClick(data.psid, item);
+                            }}
+                            className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-bold ${statusColor[item].text} ${
+                                active ? statusColor[item].bg : BG_SLATE
+                            }`}
+                        >
+                            {capFirstLetter(item)}
+                        </button>
+                    )}
+                </Menu.Item>
+            </div>
+        );
+    }).filter((item) => item !== null && item !== undefined);
 
     return (
         <Menu as="div" className="relative">

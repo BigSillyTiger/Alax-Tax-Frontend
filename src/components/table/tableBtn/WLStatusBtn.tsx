@@ -44,8 +44,8 @@ const WLStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
                     <Menu.Item as={Fragment}>
                         {({ active }) => (
                             <button
-                                onClick={(e) => {
-                                    e.preventDefault();
+                                onClick={() => {
+                                    //e.preventDefault();
                                     handleClick(data.wlid, item);
                                 }}
                                 className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-bold ${statusColor[item].text} ${
