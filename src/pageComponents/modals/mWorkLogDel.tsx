@@ -10,19 +10,31 @@ import { atModalOpen, atWorkLogTableRow } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
 import Fieldset from "@/components/form/Fieldset";
 import { calWorkTime } from "@/lib/time";
+import { useRouterStore } from "@/configs/zustore";
+import { genAction } from "@/lib/literals";
+import { WL_DELETABLE_STATUS } from "@/configs/utils/setting";
+import { toastWarning } from "@/lib/toaster";
 
 const MWorkLogDel: FC = memo(() => {
     const submit = useSubmit();
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [worklog] = useAtom(atWorkLogTableRow);
+    const currentRouter = useRouterStore((state) => state.currentRouter);
 
     const onClose = () => {
         setModalOpen(mOpenOps.default);
     };
 
     const handleDelWorkLog = async (wlid: string) => {
-        submit({ wlid }, { method: "DELETE", action: "/worklogs" });
+        if (!WL_DELETABLE_STATUS.includes(worklog.wl_status)) {
+            toastWarning(t("toastW.cantDelWLUnion"));
+            return;
+        }
+        submit(
+            { wlid },
+            { method: "DELETE", action: genAction(currentRouter) }
+        );
     };
 
     const worklogContent = (

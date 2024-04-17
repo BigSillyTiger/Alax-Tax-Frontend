@@ -339,7 +339,8 @@ const en = {
         toastW: {
             selectDate: "Please select a date first.",
             selectDayRange: "Please select the day range first.",
-            cantDelWLUnion: "Cannot delete this work log.",
+            cantDelWLUnion:
+                "Cannot delete this work log. \n Only 'Pending' or 'Cancelled' work log can be deleted.",
         },
         sr: {
             openHeadBarMenu: "Open head bar menu",
