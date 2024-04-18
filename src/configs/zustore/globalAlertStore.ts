@@ -1,17 +1,25 @@
 import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
+import { Tpayslip } from "../schema/payslipSchema";
+import { TwlTableRow } from "../schema/workSchema";
 
 type Tstate = {
-    currentUser: string;
+    unPayslip: Tpayslip[];
+    unWorklog: TwlTableRow[];
 };
 
 type Taction = {
-    initUser: (str: string) => void;
+    setUnPayslip: (ps: Tpayslip[]) => void;
+    setUnWorklog: (wl: TwlTableRow[]) => void;
 };
 
 export const globalAlertStore = createStore<Tstate & Taction>((set) => ({
-    currentUser: "",
-    initUser: (str: string) => set((state) => ({ ...state, currentUser: str })),
+    unPayslip: [],
+    unWorklog: [],
+    setUnPayslip: (ps: Tpayslip[]) =>
+        set((state) => ({ ...state, unPayslip: ps })),
+    setUnWorklog: (wl: TwlTableRow[]) =>
+        set((state) => ({ ...state, unWorklog: wl })),
 }));
 
 export const useGlobalAlertStore = <T>(

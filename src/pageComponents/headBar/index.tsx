@@ -1,2 +1,2 @@
-import HeadBar from "./headBar";
+import HeadBar from "./HeadBar";
 export default HeadBar;

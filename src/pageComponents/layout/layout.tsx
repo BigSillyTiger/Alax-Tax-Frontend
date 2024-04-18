@@ -1,32 +1,23 @@
-import { FC, useState } from "react";
-import { Outlet, useLoaderData } from "react-router-dom";
-import MainMenu from "@/pageComponents/mainMenu";
-import HeadBar from "@/pageComponents/headBar";
-import { Toaster } from "react-hot-toast";
+import { FC, Suspense } from "react";
+import { Await, useLoaderData } from "react-router-dom";
 import { Tpermission } from "@/configs/schema/universSchema";
+import LoadingPage from "@/components/loadingEle";
+import ErrorTips from "@/components/ErrorTips";
+import MainLayout from "./MainLayout";
+import { Tpayslip } from "@/configs/schema/payslipSchema";
+import { TwlTableRow } from "@/configs/schema/workSchema";
 
 const Layout: FC = () => {
-    const loaderData = useLoaderData() as Tpermission; // permission data
-
-    const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+    const { allPromise } = useLoaderData() as {
+        allPromise: Promise<[Tpermission, TwlTableRow[], Tpayslip[]]>;
+    };
 
     return (
-        <>
-            <MainMenu
-                permissionData={loaderData}
-                open={sidebarOpen}
-                setOpen={setSidebarOpen}
-            />
-            <HeadBar open={sidebarOpen} setOpen={setSidebarOpen} />
-
-            {/* view area */}
-            <main
-                className={`relative py-5 w-screen left-0 lg:left-[5vw] lg:w-[95vw] h-[93vh] overflow-y-auto`}
-            >
-                <Outlet />
-            </main>
-            <Toaster position="top-center" reverseOrder={true} />
-        </>
+        <Suspense fallback={<LoadingPage />}>
+            <Await resolve={allPromise} errorElement={<ErrorTips />}>
+                <MainLayout />
+            </Await>
+        </Suspense>
     );
 };
 

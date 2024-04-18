@@ -46,7 +46,7 @@ const staffColumns: ColumnDef<TstaffWPayslip>[] = [
                             <span>{info.getValue<string>()}</span>
                             <HoverTips
                                 content={
-                                    <BellAlertIcon className="h-5 w-5 text-red-500" />
+                                    <BellAlertIcon className="pl-2 size-7 animate-bell-swing text-red-500" />
                                 }
                                 tipsContent={i18n.t("tips.unfinishedPS")}
                             />

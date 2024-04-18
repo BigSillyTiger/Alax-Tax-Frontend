@@ -1,8 +1,9 @@
 import { FC } from "react";
-import { Bars3Icon, BellIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "./Breadcrumbs";
 import UserMenu from "./UserMenu";
 import { useTranslation } from "react-i18next";
+import AlertBell from "./AlertBell";
 
 type Tprops = {
     open: boolean;
@@ -11,6 +12,7 @@ type Tprops = {
 
 const HeadBar: FC<Tprops> = ({ setOpen }) => {
     const [t] = useTranslation();
+
     return (
         <header className="lg:pl-[5vw]">
             <div className="sticky top-0 z-40 flex h-[7vh] shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
@@ -34,15 +36,7 @@ const HeadBar: FC<Tprops> = ({ setOpen }) => {
 
                 <div className="flex flex-1 flex-row-reverse gap-x-4 self-stretch lg:gap-x-6">
                     <div className="flex items-center gap-x-4 lg:gap-x-6">
-                        <button
-                            type="button"
-                            className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
-                        >
-                            <span className="sr-only">
-                                {t("sr.viewNotifications")}
-                            </span>
-                            <BellIcon className="h-6 w-6" aria-hidden="true" />
-                        </button>
+                        <AlertBell />
 
                         {/* Separator */}
                         <div

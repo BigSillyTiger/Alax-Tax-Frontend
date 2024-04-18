@@ -8,6 +8,7 @@ import { statusColor } from "@/configs/utils/color";
 import { joinAllValues } from "@/lib/utils";
 import { useAtom } from "jotai";
 import type { FC } from "react";
+import { capFirstLetter } from "@/lib/literals";
 
 type Tprops = {
     data: TwlTableRow;
@@ -41,7 +42,7 @@ const WorkCard: FC<Tprops> = ({ data, clickAble = true }) => {
                 <p
                     className={`border-2 text-center rounded-lg font-bold ${joinAllValues(statusColor[data.wl_status as TstatusColor])}`}
                 >
-                    {data.wl_status}
+                    {capFirstLetter(data.wl_status)}
                 </p>
             </div>
             <div className="col-span-full">

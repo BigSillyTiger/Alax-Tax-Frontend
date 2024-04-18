@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Card from "@/components/card";
 import { PTable } from "@/components/table";
 import { atWorkLogTableRow } from "@/configs/atoms";
@@ -9,6 +9,7 @@ import { dateFormat, hmsTohm } from "@/lib/time";
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import { useAsyncValue } from "react-router-dom";
+import { updateBellAlert } from "@/lib/utils";
 
 const MainContent: FC = () => {
     const [t] = useTranslation();
@@ -43,6 +44,11 @@ const MainContent: FC = () => {
 
         [worklogs]
     );
+
+    useEffect(() => {
+        // update bell alert
+        updateBellAlert({ unWorklog: worklogs });
+    }, [worklogs]);
 
     return (
         <div className="px-4 sm:px-6 lg:px-8 top-0">

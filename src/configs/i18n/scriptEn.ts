@@ -280,6 +280,7 @@ const en = {
             workDate: "Work Date",
             workHours: "Work Hours",
             workInfo: "Work Info",
+            workLogs: "Work Logs",
             workNote: "Work Note",
             workTime: "Work Time",
             workStatus: "Work Status",
@@ -300,6 +301,7 @@ const en = {
             noDeduction: "No Deduction",
             errorTips: "Something went wrong.",
             unfinishedPS: "Unfinished Payslip",
+            unconfirmedWL: "Unconfirmed Worklogs",
         },
         toastS: {
             addOrder: "Added A New Order.",
@@ -347,7 +349,7 @@ const en = {
             openHeadBarMenu: "Open head bar menu",
             closeSideBar: "Close sidebar",
             closeModal: "Close modal",
-            viewNotifications: "View notifications",
+            notificationBell: "Notification Bell",
         },
     },
 };

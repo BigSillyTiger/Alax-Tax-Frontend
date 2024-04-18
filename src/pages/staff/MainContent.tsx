@@ -8,7 +8,7 @@ import SubTable from "./SubTable";
 import { useAsyncValue } from "react-router-dom";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { TstaffWPayslip } from "@/configs/schema/staffSchema";
-import { Tbonus } from "@/configs/schema/payslipSchema";
+import { Tbonus, Tpayslip } from "@/configs/schema/payslipSchema";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { atCompany, atLogo, atModalOpen, atStaff } from "@/configs/atoms";
 import { useAtom } from "jotai";
@@ -19,6 +19,7 @@ import {
     useStaffWLStore,
 } from "@/configs/zustore";
 import { dateFormat, hmsTohm } from "@/lib/time";
+import { updateBellAlert } from "@/lib/utils";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
@@ -30,13 +31,15 @@ const MainContent: FC = () => {
     const setAllStaffWL = useStaffWLStore((state) => state.setAllStaffWL);
     const setAllBonus = usePayslipStore((state) => state.setAllBonus);
 
-    const [worklogs, allStaff, allBonus, company, logo] = useAsyncValue() as [
-        TwlTableRow[],
-        TstaffWPayslip[],
-        Tbonus[],
-        Tcompany,
-        string,
-    ];
+    const [worklogs, allStaff, allPayslips, allBonus, company, logo] =
+        useAsyncValue() as [
+            TwlTableRow[],
+            TstaffWPayslip[],
+            Tpayslip[],
+            Tbonus[],
+            Tcompany,
+            string,
+        ];
 
     const newWorklogs = useMemo(
         () =>
@@ -92,6 +95,8 @@ const MainContent: FC = () => {
         setAllBonus(allBonus || []);
         setCompany(company);
         setLogo(logo);
+        // update bell alert
+        updateBellAlert({ unPayslip: allPayslips });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allBonus, newWorklogs, company, logo, newAllStaff]);
 

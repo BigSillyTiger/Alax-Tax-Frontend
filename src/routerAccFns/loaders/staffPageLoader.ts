@@ -25,6 +25,7 @@ export const staffLoader = async () => {
             API_WORKLOGS.wlAll().then((res) => res.data),
             API_STAFF.staffAll().then((res) => res.data),
             API_PAYSLIP.psBonusAll().then((res) => res.data),
+            API_PAYSLIP.psAll().then((res) => res.data),
             API_SETTING.companyGet().then((res) => res.data),
             API_SETTING.logo().then((res) => res.data),
         ]);
