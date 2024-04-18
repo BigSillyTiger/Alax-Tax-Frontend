@@ -12,6 +12,7 @@ import {
     // DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { statusColor } from "@/configs/utils/color";
 
 type Tprops = {
     mLabel: ReactNode | string;
@@ -41,7 +42,10 @@ const OrderStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
             return;
 
         return (
-            <DropdownMenuItem key={index}>
+            <DropdownMenuItem
+                key={index}
+                className={`${statusColor[item].text} ${statusColor[item].fbg} ${statusColor[item].ftext}`}
+            >
                 <div
                     onClick={() => {
                         //e.preventDefault();

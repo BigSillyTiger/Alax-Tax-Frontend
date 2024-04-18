@@ -25,42 +25,58 @@ export const staffColorMap = {
 export const statusColor = {
     pending: {
         bg: "bg-yellow-200",
+        fbg: "focus:bg-yellow-200",
         text: "text-yellow-700",
+        ftext: "focus:text-yellow-700",
         border: "border-yellow-600",
     },
     ongoing: {
         bg: "bg-lime-200",
+        fbg: "focus:bg-lime-200",
         text: "text-lime-700",
+        ftext: "focus:text-lime-700",
         border: "border-lime-600",
     },
     cancelled: {
         bg: "bg-red-200",
+        fbg: "focus:bg-red-200",
         text: "text-red-700",
+        ftext: "focus:text-red-700",
         border: "border-red-600",
     },
     unconfirmed: {
         bg: "bg-amber-200",
+        fbg: "focus:bg-amber-200",
         text: "text-amber-700",
+        ftext: "focus:text-amber-700",
         border: "border-amber-600",
     },
     confirmed: {
         bg: "bg-indigo-200",
+        fbg: "focus:bg-indigo-200",
         text: "text-indigo-700",
+        ftext: "focus:text-indigo-700",
         border: "border-indigo-600",
     },
     resting: {
         bg: "bg-pink-200",
+        fbg: "focus:bg-pink-200",
         text: "text-pink-700",
+        ftext: "focus:text-pink-700",
         border: "border-pink-600",
     },
     unpaid: {
         bg: "bg-fuchsia-200",
+        fbg: "focus:bg-fuchsia-200",
         text: "text-yellow-700",
+        ftext: "focus:text-yellow-700",
         border: "border-fuchsia-600",
     },
     completed: {
         bg: "bg-teal-200",
+        fbg: "focus:bg-teal-200",
         text: "text-teal-700",
+        ftext: "focus:text-teal-700",
         border: "border-teal-600",
     },
 };
@@ -68,10 +84,10 @@ export const statusColor = {
 export const colorWithStaffUid = (uid: string) => {
     const color = uid.charAt(0);
     if (color === "L") {
-        return "text-amber-700";
+        return staffColorMap.labor;
     } else if (color === "E") {
-        return "text-lime-700";
+        return staffColorMap.employee;
     } else {
-        return "text-indigo-700";
+        return staffColorMap.manager;
     }
 };

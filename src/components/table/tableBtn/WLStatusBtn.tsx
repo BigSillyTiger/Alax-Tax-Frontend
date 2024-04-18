@@ -12,6 +12,7 @@ import {
     // DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { statusColor } from "@/configs/utils/color";
 
 type Tprops = {
     mLabel: ReactNode | string;
@@ -44,8 +45,12 @@ const WLStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
         return WL_STATUS_TABLE.map((item, index) => {
             if (item.toLocaleLowerCase() === data.wl_status.toLocaleLowerCase())
                 return;
+
             return (
-                <DropdownMenuItem key={index}>
+                <DropdownMenuItem
+                    key={index}
+                    className={`${statusColor[item].text} ${statusColor[item].fbg} ${statusColor[item].ftext}`}
+                >
                     <div
                         onClick={() => {
                             handleClick(data.wlid, item);
