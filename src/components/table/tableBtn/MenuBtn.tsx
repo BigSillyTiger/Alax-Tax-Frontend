@@ -1,17 +1,22 @@
-import { Fragment } from "react";
 import { useAtom } from "jotai";
-import { Menu, Transition } from "@headlessui/react";
 import genOptions from "./genOptions";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { atModalOpen } from "@/configs/atoms";
 import { TmenuOptions } from "@/configs/types";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    // DropdownMenuLabel,
+    // DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type Tprops<T> = TmenuOptions & {
     mItem: T;
     setData: (data: T) => void;
 };
 
-// this component is about building a menu button template with headlessui Menu
 const MenuBtn = <T,>({
     mItem,
     edit = false,
@@ -39,59 +44,32 @@ const MenuBtn = <T,>({
 
     const menuContent = mList.map((item, index) => {
         return (
-            <div className="p-1" key={index}>
-                <Menu.Item as={Fragment}>
-                    {({ active }) => (
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                item.clickFn(mItem);
-                            }}
-                            className={`group flex w-full items-center rounded-md px-2 py-2 text-sm ${
-                                active
-                                    ? "bg-indigo-400 text-slate-50"
-                                    : "text-gray-900"
-                            }`}
-                        >
-                            <div
-                                className={`
-                                    mr-2 h-5 w-5 
-                                    ${active && " text-slate-50 "}
-                                    ${!active && " text-gray-400 "}
-                                `}
-                            >
-                                {item.icon}
-                            </div>
-                            {item.label}
-                        </button>
-                    )}
-                </Menu.Item>
-            </div>
+            <DropdownMenuItem key={index}>
+                {
+                    <div
+                        onClick={() => {
+                            item.clickFn(mItem);
+                        }}
+                        className="flex w-full items-center rounded-md px-2 text-sm font-bold"
+                    >
+                        <div className="mr-2 size-5">{item.icon}</div>
+                        {item.label}
+                    </div>
+                }
+            </DropdownMenuItem>
         );
     });
 
     return (
-        <Menu as="div" className="relative">
-            <Menu.Button>
+        <DropdownMenu>
+            <DropdownMenuTrigger className="outline-none ring-0 cursor-pointer">
                 <EllipsisVerticalIcon
-                    className="h-6 w-6 text-indigo-500"
+                    className="size-7 text-indigo-500"
                     aria-hidden="true"
                 />
-            </Menu.Button>
-            <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-            >
-                <Menu.Items className="absolute right-0 z-10 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                    {menuContent}
-                </Menu.Items>
-            </Transition>
-        </Menu>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>{menuContent}</DropdownMenuContent>
+        </DropdownMenu>
     );
 };
 

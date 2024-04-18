@@ -1,12 +1,17 @@
-import { Fragment } from "react";
 import type { FC, ReactNode } from "react";
 import { useSubmit } from "react-router-dom";
-import { Menu, Transition } from "@headlessui/react";
 import { useRouterStore } from "@/configs/zustore";
 import { capFirstLetter, genAction } from "@/lib/literals";
 import { TwlTableRow } from "@/configs/schema/workSchema";
-import { BG_SLATE, statusColor } from "@/configs/utils/color";
 import { WL_STATUS_TABLE } from "@/configs/utils/setting";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    // DropdownMenuLabel,
+    // DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type Tprops = {
     mLabel: ReactNode | string;
@@ -40,45 +45,29 @@ const WLStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
             if (item.toLocaleLowerCase() === data.wl_status.toLocaleLowerCase())
                 return;
             return (
-                <div className="p-1" key={index}>
-                    <Menu.Item as={Fragment}>
-                        {({ active }) => (
-                            <button
-                                onClick={() => {
-                                    //e.preventDefault();
-                                    handleClick(data.wlid, item);
-                                }}
-                                className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-bold ${statusColor[item].text} ${
-                                    active ? statusColor[item].bg : BG_SLATE
-                                }`}
-                            >
-                                {capFirstLetter(item)}
-                            </button>
-                        )}
-                    </Menu.Item>
-                </div>
+                <DropdownMenuItem key={index}>
+                    <div
+                        onClick={() => {
+                            handleClick(data.wlid, item);
+                        }}
+                        className="flex w-full items-center rounded-md px-2 text-md font-bold"
+                    >
+                        {capFirstLetter(item)}
+                    </div>
+                </DropdownMenuItem>
             );
         }).filter((item) => item !== null && item !== undefined);
     })();
 
     return (
-        <Menu as="div" className="relative">
-            {/* <Menu as="div" className="relative"> */}
-            <Menu.Button>{mLabel}</Menu.Button>
-            <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-            >
-                <Menu.Items className="absolute right-0 z-10 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                    {menuContent}
-                </Menu.Items>
-            </Transition>
-        </Menu>
+        <DropdownMenu>
+            <DropdownMenuTrigger className="outline-none ring-0 cursor-pointer">
+                {mLabel}
+            </DropdownMenuTrigger>
+            {menuContent ? (
+                <DropdownMenuContent>{menuContent}</DropdownMenuContent>
+            ) : null}
+        </DropdownMenu>
     );
 };
 

@@ -15,7 +15,7 @@ const HoverTips: FC<Tprops> = ({ content, tipsContent }) => {
     return (
         <TooltipProvider>
             <Tooltip>
-                <TooltipTrigger asChild>
+                <TooltipTrigger>
                     {/* <Button variant="outline">Hover</Button> */}
                     {content}
                 </TooltipTrigger>

@@ -95,7 +95,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                 {/* time area */}
                 <Fieldset
                     title={t("label.workTime")}
-                    sFieldset="p-2 justify-evenly grid grid-cols-4 gap-x-2 gap-y-2"
+                    sFieldset="p-2 justify-evenly grid grid-cols-4 gap-x-2 gap-y-2 h-full"
                 >
                     <div className="col-span-2 row-span-1">
                         <label htmlFor="s_time" className="mx-2">
