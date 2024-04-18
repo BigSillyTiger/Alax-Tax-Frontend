@@ -38,7 +38,9 @@ const HeadBar: FC<Tprops> = ({ setOpen }) => {
                             type="button"
                             className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
                         >
-                            <span className="sr-only">View notifications</span>
+                            <span className="sr-only">
+                                {t("sr.viewNotifications")}
+                            </span>
                             <BellIcon className="h-6 w-6" aria-hidden="true" />
                         </button>
 

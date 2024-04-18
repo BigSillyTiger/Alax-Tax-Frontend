@@ -7,7 +7,7 @@ import {
 import { Tbonus, Tpayslip } from "@/configs/schema/payslipSchema";
 import { useAtom } from "jotai";
 import { atModalOpen, atStaff } from "@/configs/atoms";
-import { auToISO, checkDateRange } from "@/lib/time";
+import { auToISO } from "@/lib/time";
 import { mOpenOps } from "@/configs/utils/modal";
 import { DocumentIcon } from "@heroicons/react/24/outline";
 
@@ -33,17 +33,8 @@ const PSDisplayBtn: FC<Tprops> = ({ payslip, name }) => {
     const staff = allStaff.find((staff) => staff.uid === payslip.fk_uid)!;
 
     const newStaffWL = useMemo(() => {
-        return allStaffWL.filter(
-            (s) =>
-                s.fk_uid === staff.uid &&
-                (s.wl_status === "unpaid" || s.wl_status === "completed") &&
-                checkDateRange(
-                    new Date(payslip.s_date),
-                    new Date(payslip.e_date),
-                    new Date(auToISO(s.wl_date))
-                )
-        );
-    }, [staff.uid, payslip.s_date, payslip.e_date, allStaffWL]);
+        return allStaffWL.filter((wl) => wl.fk_psid === payslip.psid);
+    }, [allStaffWL, payslip.psid]);
 
     const newDeduct = useMemo(() => {
         return newStaffWL
@@ -79,8 +70,8 @@ const PSDisplayBtn: FC<Tprops> = ({ payslip, name }) => {
         newDeduct && newDeduct.length && setDeduction(newDeduct);
         newBonus && newBonus.length && setAllBonus(newBonus);
         setDayRange({
-            from: new Date(payslip.s_date),
-            to: new Date(payslip.e_date),
+            from: new Date(auToISO(payslip.s_date)),
+            to: new Date(auToISO(payslip.e_date)),
         });
         //
         setModalOpen(mOpenOps.display);

@@ -347,6 +347,7 @@ const en = {
             openHeadBarMenu: "Open head bar menu",
             closeSideBar: "Close sidebar",
             closeModal: "Close modal",
+            viewNotifications: "View notifications",
         },
     },
 };
