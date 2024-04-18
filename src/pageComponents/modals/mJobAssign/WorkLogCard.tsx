@@ -155,12 +155,12 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                     </div>
                 </Fieldset>
                 {/* note area */}
-                <div className="col-span-full">
+                {/* <div className="col-span-full">
                     <label htmlFor="wl_note" className="mx-2">
                         {t("label.workNote")}
                     </label>
                     <textarea id="wl_note" className="w-full" />
-                </div>
+                </div> */}
             </div>
         </Card>
     );

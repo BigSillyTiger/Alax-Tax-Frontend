@@ -34,7 +34,7 @@ const PayRows: FC<Tprops> = memo(({ data, unit: u }) => {
                     <Text style={tw("text-sm w-[120pt] my-auto pl-3")}>
                         {item.wl_date}
                     </Text>
-                    {item.wl_note && (
+                    {/* {item.wl_note && (
                         <Text
                             style={tw(
                                 "text-sm w-[120pt] my-auto pl-5 text-gray-500"
@@ -42,7 +42,7 @@ const PayRows: FC<Tprops> = memo(({ data, unit: u }) => {
                         >
                             {item.wl_note}
                         </Text>
-                    )}
+                    )} */}
                 </View>
                 {/* work hours / units */}
                 <Text style={tw("text-sm w-[90pt] text-center my-auto")}>
