@@ -17,7 +17,7 @@ type Tprops = {
 };
 
 const TimeCard: FC<Tprops> = ({ isDisabled }) => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const [nowTime, setNowTime] = useState(genHHMM(new Date()));
     const currentWlid = useTodayWLStore((state) => state.currentWlid);
     const todayWorklogs = useTodayWLStore((state) => state.todayWorklogs);

@@ -26,6 +26,7 @@ const RangedDayPicker: FC = () => {
             (log) => log.fk_uid === staff.uid && log.wl_status === "confirmed"
         );
         const dates = swl.map((item) => auToISO(item.wl_date));
+        console.log("->  all date: ", dates);
         return [
             new Date(dates[dates.length - 1]),
             new Date(dates[0]),

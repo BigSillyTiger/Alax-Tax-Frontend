@@ -25,7 +25,7 @@ import { routerPaths } from "@/configs/utils/router";
  * @returns
  */
 const AlertBell: FC = () => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const unPayslip = useGlobalAlertStore((state) => state.unPayslip).filter(

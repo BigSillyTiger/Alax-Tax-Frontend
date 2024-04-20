@@ -10,6 +10,7 @@ import { atStaff, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
+import { toastWarning } from "@/lib/toaster";
 
 // this component is about building a modal with transition to delete a staff
 const MStaffDel: FC = memo(() => {
@@ -21,6 +22,10 @@ const MStaffDel: FC = memo(() => {
     const currentRouter = useRouterStore((state) => state.currentRouter);
 
     const handleDeleteStaff = async (uid: string) => {
+        if (uid === "M001" || uid === "M002") {
+            toastWarning(t("toastW.cantDelManager"));
+            return;
+        }
         submit(
             { uid, req: "delStaff" },
             { method: "DELETE", action: genAction(currentRouter) }

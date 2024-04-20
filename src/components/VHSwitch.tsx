@@ -11,7 +11,7 @@ type Tprops = {
 };
 
 const VHSwitch: FC<Tprops> = ({ direct = "h", isChecked, setIsChecked }) => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const transS = direct === "h" ? "translate-x-6" : "translate-y-6";
     const transE = direct === "h" ? "translate-x-0" : "translate-y-0";
     const size = direct === "h" ? `h-[29px] w-[53px]` : `h-[53px] w-[29px]`;

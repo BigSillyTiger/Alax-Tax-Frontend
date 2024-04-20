@@ -13,7 +13,7 @@ type Tprops = {
 };
 
 const MainContent: FC<Tprops> = ({ clients }) => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const [, setClient] = useAtom(atClient);
     const [, setModalOpen] = useAtom(atModalOpen);
 
@@ -40,7 +40,7 @@ const MainContent: FC<Tprops> = ({ clients }) => {
                     </div>
                 </div>
                 {/* table */}
-                {clients ? (
+                {clients && clients.length ? (
                     <Card className="mt-8">
                         <PTable
                             search={true}
@@ -58,7 +58,7 @@ const MainContent: FC<Tprops> = ({ clients }) => {
                 ) : (
                     <Card className="mt-8">
                         <span className="m-5 p-5  text-center h-15">
-                            {t("pageText.noClient")}
+                            {t("tips.noClient")}
                         </span>
                     </Card>
                 )}

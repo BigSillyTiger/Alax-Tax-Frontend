@@ -4,6 +4,7 @@ import payslipColumns from "@/configs/columnDefs/defPayslip";
 import { TstaffWPayslip } from "@/configs/schema/staffSchema";
 import { usePayslipStore } from "@/configs/zustore";
 import { useTranslation } from "react-i18next";
+import Card from "@/components/card";
 
 type Tprops = {
     data: TstaffWPayslip;
@@ -13,18 +14,22 @@ const SubTable: FC<Tprops> = ({ data }) => {
     const { t } = useTranslation();
     const setPayslip = usePayslipStore((state) => state.setPayslip);
 
-    return data?.payslips?.length ? (
-        <PTable
-            data={data.payslips}
-            setData={setPayslip}
-            columns={payslipColumns}
-            menuOptions={{
-                del: true,
-            }}
-            cnHead="bg-indigo-50"
-        />
-    ) : (
-        <div className="my-2 px-1">{t("tips.noPayslips")}</div>
+    return (
+        <Card className="m-2">
+            {data?.payslips?.length ? (
+                <PTable
+                    data={data.payslips}
+                    setData={setPayslip}
+                    columns={payslipColumns}
+                    menuOptions={{
+                        del: true,
+                    }}
+                    cnHead="bg-indigo-50"
+                />
+            ) : (
+                <div className="my-2 px-1">{t("tips.noPayslips")}</div>
+            )}
+        </Card>
     );
 };
 export default SubTable;

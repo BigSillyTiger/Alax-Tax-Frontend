@@ -28,7 +28,7 @@ const DeductionCard: FC<Tprops> = ({
     className,
     isDisabled = false,
 }) => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const navigation = useNavigation();
     const submit = useSubmit();
     const currentWlid = useTodayWLStore((state) => state.currentWlid);

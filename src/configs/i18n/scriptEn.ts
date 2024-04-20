@@ -14,9 +14,6 @@ const en = {
             },
             btn: { signIn: "Sign In", logining: "Logging..." },
         },
-        pageText: {
-            noClient: "No client found.",
-        },
         menu: {
             dashboard: "Dashboard",
             calendar: "Calendar",
@@ -122,6 +119,7 @@ const en = {
             updateLogo: "Update Logo",
             updateCompany: "Update Company Info",
             yes: "Yes",
+            signOut: "Sign Out",
         },
         placeholder: {
             emailPH: "you@example.com",
@@ -302,6 +300,8 @@ const en = {
             errorTips: "Something went wrong.",
             unfinishedPS: "Unfinished Payslip",
             unconfirmedWL: "Unconfirmed Worklogs",
+            noClient: "No client",
+            noWorklog: "No worklog",
         },
         toastS: {
             addOrder: "Added A New Order.",
@@ -344,6 +344,7 @@ const en = {
             selectDayRange: "Please select the day range first.",
             cantDelWLUnion:
                 "Cannot delete this work log. \n Only 'Pending' or 'Cancelled' work log can be deleted.",
+            cantDelManager: "Cannot Delete Admin Manager Account.",
         },
         sr: {
             openHeadBarMenu: "Open head bar menu",

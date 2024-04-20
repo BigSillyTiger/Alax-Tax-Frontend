@@ -4,6 +4,7 @@ import Breadcrumbs from "./Breadcrumbs";
 import UserMenu from "./UserMenu";
 import { useTranslation } from "react-i18next";
 import AlertBell from "./AlertBell";
+import LangBtn from "./LangBtn";
 
 type Tprops = {
     open: boolean;
@@ -11,7 +12,7 @@ type Tprops = {
 };
 
 const HeadBar: FC<Tprops> = ({ setOpen }) => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <header className="lg:pl-[5vw]">
@@ -36,6 +37,12 @@ const HeadBar: FC<Tprops> = ({ setOpen }) => {
 
                 <div className="flex flex-1 flex-row-reverse gap-x-4 self-stretch lg:gap-x-6">
                     <div className="flex items-center gap-x-4 lg:gap-x-6">
+                        <LangBtn />
+                        {/* Separator */}
+                        <div
+                            className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10"
+                            aria-hidden="true"
+                        />
                         <AlertBell />
 
                         {/* Separator */}

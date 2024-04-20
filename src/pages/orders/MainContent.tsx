@@ -51,6 +51,7 @@ const MainContent: FC = () => {
                 wlUnion: item.wlUnion.map((wl) => {
                     return {
                         ...wl,
+
                         assigned_work: wl.assigned_work.map((aw) => {
                             return {
                                 ...aw,
@@ -78,7 +79,7 @@ const MainContent: FC = () => {
             {/* header area */}
 
             {/* table */}
-            {newOrders ? (
+            {newOrders && newOrders.length ? (
                 <Card className="mt-8">
                     <PTable
                         search={true}
@@ -110,7 +111,7 @@ const MainContent: FC = () => {
             ) : (
                 <Card className="mt-8">
                     <span className="m-5 p-5  text-center h-15">
-                        {t("label.noContent")}
+                        {t("tips.noOrder")}
                     </span>
                 </Card>
             )}

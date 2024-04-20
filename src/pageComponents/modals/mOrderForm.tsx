@@ -178,24 +178,34 @@ const MOrderForm: FC = memo(() => {
     ) : null;
 
     const setDefaultService = (value: string) => {
-        //console.log("--> set advance: ", value);
-        const service = uniData?.services.find(
-            (item: Tservice) => item.service === value
-        );
-        if (service) {
-            setServiceDesc({
-                ranking: 0,
-                fk_oid: clientOrder.oid,
-                title: service.service as string,
-                taxable: true,
-                description: "",
-                qty: 1,
-                unit: service.unit as string,
-                unit_price: service.unit_price as number,
-                gst: calGst(Number(service.unit_price)),
-                netto: service.unit_price as number,
-            });
+        let service = uniData?.services
+            ? uniData.services.find((item: Tservice) => item.service === value)
+            : ({
+                  service: value,
+                  unit: "",
+                  unit_price: 0,
+              } as Partial<Tservice>);
+
+        if (service === undefined) {
+            service = {
+                service: value,
+                unit: "",
+                unit_price: 0,
+            } as Partial<Tservice>;
         }
+
+        setServiceDesc({
+            ranking: 0,
+            fk_oid: clientOrder.oid,
+            title: service.service as string,
+            taxable: true,
+            description: "",
+            qty: 1,
+            unit: service.unit as string,
+            unit_price: service.unit_price as number,
+            gst: calGst(Number(service.unit_price)),
+            netto: service.unit_price as number,
+        });
     };
 
     const addressContent = (
@@ -342,17 +352,17 @@ const MOrderForm: FC = memo(() => {
                         //autoComplete="status"
                         className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                     >
-                        <option value={t("label.pending")}>
-                            {t("label.pending")}
+                        <option value={t("status.pending")}>
+                            {t("status.pending")}
                         </option>
-                        <option value={t("label.ongoing")}>
-                            {t("label.ongoing")}
+                        <option value={t("status.ongoing")}>
+                            {t("status.ongoing")}
                         </option>
-                        <option value={t("label.completed")}>
-                            {t("label.completed")}
+                        <option value={t("status.completed")}>
+                            {t("status.completed")}
                         </option>
-                        <option value={t("label.cancelled")}>
-                            {t("label.cancelled")}
+                        <option value={t("status.cancelled")}>
+                            {t("status.cancelled")}
                         </option>
                     </select>
                 </div>

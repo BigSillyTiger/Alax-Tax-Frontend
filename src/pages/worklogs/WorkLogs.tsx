@@ -15,7 +15,7 @@ import ErrorTips from "@/components/ErrorTips";
 import MainContent from "./MainContent";
 
 const WorkLogs: FC = () => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const { allPromise } = useLoaderData() as {
         allPromise: Promise<[TwlTableRow[]]>;
     };

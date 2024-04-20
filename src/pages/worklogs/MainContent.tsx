@@ -12,7 +12,7 @@ import { useAsyncValue } from "react-router-dom";
 import { updateBellAlert } from "@/lib/utils";
 
 const MainContent: FC = () => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const [, setWorkLog] = useAtom(atWorkLogTableRow);
 
     const [worklogs] = useAsyncValue() as [TwlTableRow[]];
@@ -55,7 +55,7 @@ const MainContent: FC = () => {
             {/* header area */}
 
             {/* table */}
-            {newWorklogs ? (
+            {newWorklogs && newWorklogs.length ? (
                 <Card className="mt-8">
                     <PTable
                         search={true}
@@ -83,7 +83,7 @@ const MainContent: FC = () => {
             ) : (
                 <Card className="mt-8">
                     <span className="m-5 p-5  text-center h-15">
-                        {t("label.noContent")}
+                        {t("tips.noWorklog")}
                     </span>
                 </Card>
             )}

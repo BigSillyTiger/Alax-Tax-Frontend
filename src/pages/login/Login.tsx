@@ -106,7 +106,7 @@ const Login: FC = () => {
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between">
+                        {/* <div className="flex items-center justify-between">
                             <div className="flex items-center">
                                 <input
                                     id="remember-me"
@@ -130,7 +130,7 @@ const Login: FC = () => {
                                     {t("login.text.forgotPW")}
                                 </a>
                             </div>
-                        </div>
+                        </div> */}
 
                         <div>
                             <button

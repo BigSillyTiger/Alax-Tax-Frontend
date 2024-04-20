@@ -13,15 +13,14 @@ import {
     // DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import i18n from "@/configs/i18n";
 
-const userNavigation = [
-    { name: "Your profile", href: "#" },
-    { name: "Sign out", href: "#" },
-];
+const userNavigation = [{ name: i18n.t("btn.signOut"), href: "#" }];
 
 const UserMenu: FC = () => {
     const { t } = useTranslation();
     const nevigate = useNavigate();
+    //const userNavigation = [{ name: t("btn.signOut"), href: "#" }];
 
     const user = useAdminStore((state) => state.currentUser);
 

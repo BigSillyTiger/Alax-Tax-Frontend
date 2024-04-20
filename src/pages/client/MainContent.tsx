@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { ClientInfoCard } from "@/pageComponents/cards";
 import { useTranslation } from "react-i18next";
 import { useAsyncValue } from "react-router-dom";
@@ -40,6 +40,36 @@ const MainContent: FC = () => {
         string,
     ];
 
+    const newOrders = useMemo(() => {
+        return orders.map((item) => {
+            return {
+                ...item,
+                order_services: item.order_services
+                    .sort((a, b) => a.ranking - b.ranking)
+                    .map((desc) => {
+                        return {
+                            ...desc,
+                            taxable: Boolean(desc.taxable),
+                        };
+                    }),
+                /* wlUnion: item.wlUnion.map((wl) => {
+                    return {
+                        ...wl,
+
+                        assigned_work: wl.assigned_work.map((aw) => {
+                            return {
+                                ...aw,
+                                s_time: hmsTohm(aw.s_time as string),
+                                e_time: hmsTohm(aw.e_time as string),
+                                b_hour: hmsTohm(aw.b_hour as string),
+                            };
+                        }),
+                    };
+                }), */
+            };
+        });
+    }, [orders]);
+
     const initOrder: Torder = {
         oid: "",
         client_info: client[0],
@@ -73,14 +103,26 @@ const MainContent: FC = () => {
             setServiceDesc({
                 fk_oid: clientOrder.oid,
                 ranking: 0,
-                title: uniData?.services[0].service as string,
+                title: uniData?.services?.length
+                    ? (uniData.services[0].service as string)
+                    : "",
                 taxable: true,
                 description: "",
                 qty: 1,
-                unit: uniData?.services[0].unit as string,
-                unit_price: uniData?.services[0].unit_price as number,
-                gst: calGst(Number(uniData?.services[0].unit_price)),
-                netto: uniData?.services[0].unit_price as number,
+                unit: uniData?.services.length
+                    ? (uniData.services[0].unit as string)
+                    : "",
+                unit_price: uniData?.services.length
+                    ? (uniData.services[0].unit_price as number)
+                    : 0,
+                gst: calGst(
+                    uniData?.services.length
+                        ? Number(uniData.services[0].unit_price)
+                        : 0
+                ),
+                netto: uniData?.services.length
+                    ? (uniData.services[0].unit_price as number)
+                    : 0,
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,10 +154,10 @@ const MainContent: FC = () => {
             </div>
             <Card className="col-span-6">
                 {/* order table */}
-                {orders.length > 0 ? (
+                {newOrders.length > 0 ? (
                     <PTable
                         search={true}
-                        data={orders}
+                        data={newOrders}
                         columns={clientOrderColumns}
                         setData={setClientOrder}
                         menuOptions={{

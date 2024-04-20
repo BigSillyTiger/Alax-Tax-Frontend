@@ -6,6 +6,7 @@ import { TstatusColor, TtimeBtnStyles } from "@/configs/types";
 import Badge from "@/components/Badge";
 import TimeBtn from "@/pageComponents/TimeBtn";
 import { WLStatusBtn } from "@/components/table/tableBtn";
+import { colorWithStaffUid } from "../utils/color";
 
 const wlColumns = [
     {
@@ -25,7 +26,11 @@ const wlColumns = [
                 header: i18n.t("label.uid"),
                 accessorKey: "fk_uid",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
-                    <span>{info.getValue<string>()}</span>
+                    <span
+                        className={`${colorWithStaffUid(info.getValue<string>())}`}
+                    >
+                        {info.getValue<string>()}
+                    </span>
                 ),
             },
             {

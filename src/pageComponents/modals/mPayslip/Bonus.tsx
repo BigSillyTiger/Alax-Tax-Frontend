@@ -6,7 +6,7 @@ import { usePayslipStore } from "@/configs/zustore";
 import { XBtn } from "@/components/btns";
 
 const Bonus: FC = () => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const bonus = usePayslipStore((state) => state.bonus);
     const removeBonus = usePayslipStore((state) => state.removeBonus);
     const appendBonus = usePayslipStore((state) => state.appendBonus);

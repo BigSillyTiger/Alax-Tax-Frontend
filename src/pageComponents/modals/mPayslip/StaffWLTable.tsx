@@ -6,7 +6,7 @@ import { usePayslipStore } from "@/configs/zustore";
 import { useTranslation } from "react-i18next";
 
 const StaffWLTable: FC = () => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const staffWL = usePayslipStore((state) => state.staffWL);
 
     return staffWL.length ? (

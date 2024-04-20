@@ -4,7 +4,7 @@ import { TwlTableRow } from "@/configs/schema/workSchema";
 import { TstatusColor } from "@/configs/types";
 import { mOpenOps } from "@/configs/utils/modal";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
-import { statusColor } from "@/configs/utils/color";
+import { colorWithStaffUid, statusColor } from "@/configs/utils/color";
 import { joinAllValues } from "@/lib/utils";
 import { useAtom } from "jotai";
 import type { FC } from "react";
@@ -35,7 +35,10 @@ const WorkCard: FC<Tprops> = ({ data, clickAble = true }) => {
                     <b className="text-indigo-600">
                         {data.first_name + " " + data.last_name}
                     </b>
-                    {" - " + data.fk_uid}
+                    {" - "}{" "}
+                    <span className={`${colorWithStaffUid(data.fk_uid)}`}>
+                        {data.fk_uid}
+                    </span>
                 </p>
             </div>
             <div className="col-span-2 italic">

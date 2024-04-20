@@ -155,7 +155,7 @@ const MainContent: FC = () => {
                 ) : (
                     <Card className="mt-8">
                         <span className="m-5 p-5  text-center h-15">
-                            {t("pageText.noClient")}
+                            {t("tips.noClient")}
                         </span>
                     </Card>
                 )}

@@ -14,7 +14,7 @@ import MainContent from "./MainContent";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 
 const Dashboard: FC = () => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const actionData = useActionData() as Tresponse;
     const { allPromise } = useLoaderData() as {
         allPromise: Promise<[TwlTableRow[], TwlTableRow[]]>;

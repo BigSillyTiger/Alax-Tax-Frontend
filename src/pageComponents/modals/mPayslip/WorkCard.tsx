@@ -13,7 +13,7 @@ import { useAtom } from "jotai";
 import { atStaff } from "@/configs/atoms";
 
 const WorkCard: FC = () => {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const [staff] = useAtom(atStaff);
     const staffWL = usePayslipStore((state) => state.staffWL);
     const dayRange = usePayslipStore((state) => state.dayRange);
