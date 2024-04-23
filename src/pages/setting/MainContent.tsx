@@ -38,11 +38,11 @@ const MainContent: FC = () => {
                         );
                     })}
                 </Tab.List>
-                <Tab.Panels className="mt-2">
-                    <Tab.Panel className="rounded-xl bg-white p-3ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400">
+                <Tab.Panels className="mt-2 ">
+                    <Tab.Panel className="rounded-xl bg-slate-100 p-3ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400">
                         <Company company={company} logo={logo} />
                     </Tab.Panel>
-                    <Tab.Panel className="rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400">
+                    <Tab.Panel className="rounded-xl bg-slate-100 p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400">
                         <Uni
                             services={univers.services}
                             units={univers.units}

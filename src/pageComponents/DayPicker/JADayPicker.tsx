@@ -44,6 +44,8 @@ const JADayPicker: FC = () => {
                 /* captionLayout="dropdown-buttons"
                 fromYear={2010}
                 toYear={2100} */
+                weekStartsOn={1}
+                firstWeekContainsDate={4}
                 mode="single"
                 required
                 selected={selectedDate}

@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { DateBtn } from "@/components/btns";
 import Card from "@/components/card";
-import Fieldset from "@/components/form/Fieldset";
+import Fieldset from "@/components/Fieldset";
 import { useTranslation } from "react-i18next";
 import { JADayPicker } from "@/pageComponents/DayPicker";
 import "react-day-picker/dist/style.css";

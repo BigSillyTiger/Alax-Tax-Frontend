@@ -24,7 +24,7 @@ import {
     staffUpdate,
     TstaffForm,
 } from "@/configs/schema/staffSchema";
-import Fieldset from "@/components/form/Fieldset";
+import Fieldset from "@/components/Fieldset";
 import { NormalBtn } from "@/components/btns";
 import { capFirstLetter } from "@/lib/literals";
 import { RES_STATUS, TmenuID } from "@/configs/types";

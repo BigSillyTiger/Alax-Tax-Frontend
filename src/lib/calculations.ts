@@ -14,12 +14,6 @@ export const divAB = (x: number, y: number): number => {
     return a.div(b).toNumber();
 };
 
-export const calNetto = (qty: number, price: number): number => {
-    const a = new Big(qty);
-    const b = new Big(price);
-    return a.times(b).toNumber();
-};
-
 export const minusAB = (x: number, y: number): number => {
     const a = new Big(x);
     const b = new Big(y);
@@ -41,4 +35,10 @@ export const calGst = (netto: number): number => {
 export const convertWorkHour = (wh: string): number => {
     const [hours, minutes] = wh.split(":").map(Number);
     return plusAB(hours, divAB(minutes, 60));
+};
+
+export const calNetto = (qty: number, price: number): number => {
+    const a = new Big(qty);
+    const b = new Big(price);
+    return a.times(b).toNumber();
 };

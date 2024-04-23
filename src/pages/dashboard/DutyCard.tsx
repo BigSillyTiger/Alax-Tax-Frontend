@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import Fieldset from "@/components/form/Fieldset";
+import Fieldset from "@/components/Fieldset";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useTranslation } from "react-i18next";
 import WorkCard from "./WorkCard";

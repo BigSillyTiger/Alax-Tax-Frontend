@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from "react";
 import { Amail, Atel } from "@/components/aLinks";
 import { useTranslation } from "react-i18next";
 import { TwlTableRow } from "@/configs/schema/workSchema";
-import Fieldset from "@/components/form/Fieldset";
+import Fieldset from "@/components/Fieldset";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import SingleField from "@/components/SingleField";
 

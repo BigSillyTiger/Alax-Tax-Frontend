@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef } from "react";
 import { useTranslation } from "react-i18next";
 import { TwlTableRow } from "@/configs/schema/workSchema";
-import Fieldset from "@/components/form/Fieldset";
+import Fieldset from "@/components/Fieldset";
 import {
     IdentificationIcon,
     HomeModernIcon,

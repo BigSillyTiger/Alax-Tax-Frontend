@@ -69,3 +69,5 @@ export type TactionReqList = (typeof actionReqList)[keyof typeof actionReqList];
 export type TmenuOptions = Partial<typeof defaultMenuOptions>;
 
 export type TitemContent = { title: string; content: JSX.Element };
+
+export type TctPayment = { [year: string]: { [month: string]: number } };

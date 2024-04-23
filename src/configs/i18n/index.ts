@@ -1,11 +1,11 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import en from "./scriptEn";
-import cn from "./scriptCn";
+//import cn from "./scriptCn";
 
 i18n.use(initReactI18next) // passes i18n down to react-i18next
     .init({
-        resources: { en, cn },
+        resources: { en },
         debug: true,
         lng: "en", // language to use
         // you can use the i18n.changeLanguage function to change the language manually

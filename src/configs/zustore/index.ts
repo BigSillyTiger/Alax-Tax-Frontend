@@ -6,6 +6,7 @@ import { staffWLStore, useStaffWLStore } from "./staffWLStore";
 import { deductStore, useDeductStore } from "./deductStore";
 import { staffStore, useStaffStore } from "./staffStore";
 import { globalAlertStore, useGlobalAlertStore } from "./globalAlertStore";
+import { ctPaymentStore, useCtPaymentStore } from "./ctPaymentStore";
 
 export {
     adminStore,
@@ -24,4 +25,6 @@ export {
     useStaffStore,
     globalAlertStore,
     useGlobalAlertStore,
+    ctPaymentStore,
+    useCtPaymentStore,
 };

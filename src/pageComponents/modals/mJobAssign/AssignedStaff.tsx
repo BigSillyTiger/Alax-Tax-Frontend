@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import Fieldset from "@/components/form/Fieldset";
+import Fieldset from "@/components/Fieldset";
 import { useTranslation } from "react-i18next";
 import WorkLogCard from "@/pageComponents/modals/mJobAssign/WorkLogCard";
 import { useJobAssignStore } from "@/configs/zustore";
