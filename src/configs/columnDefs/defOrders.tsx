@@ -4,7 +4,7 @@ import { Torder } from "../schema/orderSchema";
 import { minusAB } from "@/lib/calculations";
 import { dateFormat } from "@/lib/time";
 import { Atel } from "@/components/aLinks";
-import Badge from "@/components/Badge";
+import { StatusBadge } from "@/components/Badge";
 import { TstatusColor } from "../types";
 import { ExpandBtn, OrderStatusBtn } from "@/components/table/tableBtn";
 
@@ -79,7 +79,7 @@ const orderColumns: ColumnDef<Torder>[] = [
                     return (
                         <OrderStatusBtn
                             mLabel={
-                                <Badge
+                                <StatusBadge
                                     value={info.getValue() as TstatusColor}
                                 />
                             }

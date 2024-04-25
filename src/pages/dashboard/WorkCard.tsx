@@ -27,7 +27,7 @@ const WorkCard: FC<Tprops> = ({ data, clickAble = true }) => {
 
     return (
         <Card
-            className="cursor-pointer h-auto grid grid-cols-5 gap-y-2 border-2 border-indigo-300"
+            className="cursor-pointer h-auto grid grid-cols-5 gap-y-2 border-indigo-300"
             onClick={onClick}
         >
             <div className="col-span-3">
@@ -36,7 +36,7 @@ const WorkCard: FC<Tprops> = ({ data, clickAble = true }) => {
                         {data.first_name + " " + data.last_name}
                     </b>
                     {" - "}{" "}
-                    <span className={`${colorWithStaffUid(data.fk_uid)}`}>
+                    <span className={`${colorWithStaffUid(data.fk_uid).text}`}>
                         {data.fk_uid}
                     </span>
                 </p>

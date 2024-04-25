@@ -1,25 +1,24 @@
-import type { FC, ReactElement } from "react";
+import type { ComponentPropsWithoutRef, FC, ReactElement } from "react";
 
-type Tprops = {
+type Tprops = ComponentPropsWithoutRef<"div"> & {
     label: ReactElement | string;
-    content: ReactElement | string;
     outClass?: string;
     spanClass?: string;
 };
 
 const SingleField: FC<Tprops> = ({
     label,
-    content,
+    children,
     outClass = "",
     spanClass = "",
 }) => {
     return (
         <div className={`flex items-center ${outClass}`}>
-            <div className="size-8 text-indigo-500 inline-flex">
+            <div className="size-8 text-indigo-500 flex justify-center">
                 {label}
                 :&nbsp;
             </div>
-            <span className={`text-md ${spanClass}`}>{content}</span>
+            <span className={`text-md ${spanClass}`}>{children}</span>
         </div>
     );
 };

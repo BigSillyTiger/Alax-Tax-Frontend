@@ -7,7 +7,8 @@ import type {
 import MobileMenu from "./mobileMenu";
 
 import { menuList } from "@/configs/utils/router";
-import StaticMenu from "./staticMenu";
+
+import { Menu2 } from "./menu";
 import { Tpermission } from "@/configs/schema/universSchema";
 import { useAdminStore } from "@/configs/zustore";
 
@@ -59,7 +60,7 @@ const MainMenu: FC<Tprops> = ({ open, setOpen }) => {
                 open={open}
                 setOpen={setOpen}
             />
-            <StaticMenu menuList={newMenuList()} />
+            <Menu2 menuList={newMenuList()} />
         </div>
     );
 };

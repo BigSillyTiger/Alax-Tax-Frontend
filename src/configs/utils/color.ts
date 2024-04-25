@@ -17,9 +17,32 @@ export const timeBtnStyleMap = {
 export const BG_SLATE = "bg-slate-50";
 
 export const staffColorMap = {
-    labor: "text-amber-700",
-    employee: "text-lime-700",
-    manager: "text-indigo-700",
+    labor: {
+        text: "text-amber-700",
+        bg: "bg-amber-200",
+        border: "border-amber-600",
+    },
+    employee: {
+        text: "text-lime-700",
+        bg: "bg-lime-200",
+        border: "border-lime-600",
+    },
+    manager: {
+        text: "text-indigo-700",
+        bg: "bg-indigo-200",
+        border: "border-indigo-600",
+    },
+};
+
+export const colorWithStaffUid = (uid: string) => {
+    const color = uid.charAt(0);
+    if (color === "L") {
+        return staffColorMap.labor;
+    } else if (color === "E") {
+        return staffColorMap.employee;
+    } else {
+        return staffColorMap.manager;
+    }
 };
 
 export const statusColor = {
@@ -79,15 +102,4 @@ export const statusColor = {
         ftext: "focus:text-teal-700",
         border: "border-teal-600",
     },
-};
-
-export const colorWithStaffUid = (uid: string) => {
-    const color = uid.charAt(0);
-    if (color === "L") {
-        return staffColorMap.labor;
-    } else if (color === "E") {
-        return staffColorMap.employee;
-    } else {
-        return staffColorMap.manager;
-    }
 };

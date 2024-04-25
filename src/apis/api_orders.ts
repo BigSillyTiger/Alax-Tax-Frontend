@@ -10,6 +10,7 @@ import {
     PAYMENT_UPDATE,
     INVOICE_ISSUE_UPDATE,
     JOB_ASSIGN,
+    ORDER_ALL_ARRANGEMENT,
 } from "./req_list";
 
 export const orderAll = async () => {
@@ -129,7 +130,7 @@ export const updateInvoiceIssue = async (
 export const updateJobAssignment = async (
     data: TwlUnion[]
 ): Promise<Tresponse> => {
-    console.log("-> sending update job assignment req: ", data);
+    //console.log("-> sending update job assignment req: ", data);
     try {
         const response = await apis.post(JOB_ASSIGN, { workLogs: data });
         return response.data;
@@ -137,6 +138,20 @@ export const updateJobAssignment = async (
         return {
             status: 400,
             msg: "failed in updating job assignment",
+            data: "",
+        };
+    }
+};
+
+export const orderAllArrangement = async (): Promise<Tresponse> => {
+    try {
+        const response = await apis.get(ORDER_ALL_ARRANGEMENT);
+        return response.data;
+    } catch (err: unknown) {
+        console.log("-> retrieve all order arrangement error: ", err);
+        return {
+            status: 400,
+            msg: "failed in retrieving all order arrangement",
             data: "",
         };
     }

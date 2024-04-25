@@ -198,6 +198,7 @@ const en = {
             none: "None",
             noContent: "No Content",
             openMenu: "Open Menu",
+            
             orderDesc: "Order Description",
             orderInfo: "Order Info",
             orderDate: "Order Date",
@@ -288,6 +289,7 @@ const en = {
             workStatus: "Work Status",
             workDetail: "Work Details",
             wlid: "Worklog ID",
+            workArrangement: "Work Arrangement",
         },
         tips: {
             noAssignedStaff: "No Assigned Staff",

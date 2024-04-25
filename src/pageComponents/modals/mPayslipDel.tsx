@@ -10,7 +10,7 @@ import { atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
 import { usePayslipStore, useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
-import Badge from "@/components/Badge";
+import { StatusBadge } from "@/components/Badge";
 
 // this component is about building a modal with transition to delete a staff
 const MPayslipDel: FC = memo(() => {
@@ -48,7 +48,7 @@ const MPayslipDel: FC = memo(() => {
                 <div className="flex flex-row gap-x-4 justify-evenly">
                     <div>
                         <b className="text-indigo-600">{t("label.status")}: </b>{" "}
-                        <Badge value={payslip.status} />
+                        <StatusBadge value={payslip.status} />
                     </div>
                     <div>
                         <b className="text-indigo-600">{t("label.hr")}: </b> $

@@ -1,13 +1,13 @@
 import type { FC } from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { TmenuList } from "./mainMenu";
+import { TmenuList } from "../mainMenu";
 
 type Tprops = {
     menuList: TmenuList;
 };
 
-const StaticMenu: FC<Tprops> = ({ menuList }) => {
+const Menu1: FC<Tprops> = ({ menuList }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const navFocus = ({ isActive }: { isActive: boolean }) => {
@@ -60,4 +60,4 @@ const StaticMenu: FC<Tprops> = ({ menuList }) => {
     );
 };
 
-export default StaticMenu;
+export default Menu1;

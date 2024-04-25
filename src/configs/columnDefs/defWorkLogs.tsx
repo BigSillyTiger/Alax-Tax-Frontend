@@ -3,7 +3,7 @@ import i18n from "@/configs/i18n";
 import { TwlTableRow } from "../schema/workSchema";
 import { calWorkTime, dateFormat } from "@/lib/time";
 import { TstatusColor, TtimeBtnStyles } from "@/configs/types";
-import Badge from "@/components/Badge";
+import { StatusBadge } from "@/components/Badge";
 import TimeBtn from "@/pageComponents/TimeBtn";
 import { WLStatusBtn } from "@/components/table/tableBtn";
 import { colorWithStaffUid } from "../utils/color";
@@ -27,7 +27,7 @@ const wlColumns = [
                 accessorKey: "fk_uid",
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
                     <span
-                        className={`${colorWithStaffUid(info.getValue<string>())}`}
+                        className={`${colorWithStaffUid(info.getValue<string>()).text}`}
                     >
                         {info.getValue<string>()}
                     </span>
@@ -133,7 +133,9 @@ const wlColumns = [
                 cell: (info: CellContext<TwlTableRow, unknown>) => (
                     <WLStatusBtn
                         mLabel={
-                            <Badge value={info.getValue() as TstatusColor} />
+                            <StatusBadge
+                                value={info.getValue() as TstatusColor}
+                            />
                         }
                         data={info.row.original as TwlTableRow}
                     />

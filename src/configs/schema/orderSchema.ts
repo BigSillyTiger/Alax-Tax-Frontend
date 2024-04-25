@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { clientSchema } from "./clientSchema";
-import { wlUnionSchema } from "./workSchema";
+import { wlUnionSchema, worklogAbstractSchema } from "./workSchema";
 import i18n from "@/configs/i18n";
 
 export const plainOrderSchema = z.object({
@@ -32,6 +32,22 @@ export const plainOrderSchema = z.object({
     quotation_date: z.string().datetime().nullable().default(null),
     invoice_date: z.string().datetime().nullable().default(null),
 });
+
+export const orderAbstractSchema = plainOrderSchema
+    .pick({
+        oid: true,
+        fk_cid: true,
+        address: true,
+        suburb: true,
+        city: true,
+        state: true,
+        country: true,
+        postcode: true,
+        status: true,
+    })
+    .merge(
+        clientSchema.pick({ first_name: true, last_name: true, phone: true })
+    );
 
 export const orderServiceSchema = z.object({
     fk_oid: z.string().default(""),
@@ -87,7 +103,19 @@ export const orderSchema = plainOrderSchema.extend({
     wlUnion: wlUnionSchema.array().default([]),
 });
 
+export const orderArrangementSchema = orderAbstractSchema.extend({
+    date: z.string().datetime().default(new Date().toISOString()),
+    arrangement: z
+        .object({
+            order: orderAbstractSchema,
+            wl: worklogAbstractSchema.array(),
+        })
+        .array(),
+});
+
 export type Torder = z.infer<typeof orderSchema>;
 export type TorderForm = z.infer<typeof orderFormSchema>;
 export type TorderService = z.infer<typeof orderServiceSchema>;
 export type TorderPayment = z.infer<typeof orderPaymentSchema>;
+export type TorderAbstract = z.infer<typeof orderAbstractSchema>;
+export type TorderArrangement = z.infer<typeof orderArrangementSchema>;

@@ -4,7 +4,7 @@ import { TwlTableRow } from "@/configs/schema/workSchema";
 import Fieldset from "@/components/Fieldset";
 import {
     IdentificationIcon,
-    HomeModernIcon,
+    HomeIcon,
     CalendarDaysIcon,
 } from "@heroicons/react/24/outline";
 
@@ -21,14 +21,17 @@ const WorkInfoCard = ({ work, className }: Tprops) => {
         >
             <SingleField
                 label={<IdentificationIcon />}
-                content={work.wlid}
                 outClass="col-span-full"
                 spanClass="font-semibold"
-            />
+            >
+                {work.wlid}
+            </SingleField>
             <SingleField
-                label={<HomeModernIcon />}
-                content={
-                    work.address +
+                label={<HomeIcon />}
+                outClass="col-span-full"
+                spanClass="font-semibold"
+            >
+                {work.address +
                     ", " +
                     work.suburb +
                     ", " +
@@ -36,17 +39,15 @@ const WorkInfoCard = ({ work, className }: Tprops) => {
                     ", " +
                     work.state +
                     ", " +
-                    work.postcode
-                }
-                outClass="col-span-full"
-                spanClass="font-semibold"
-            />
+                    work.postcode}
+            </SingleField>
             <SingleField
                 label={<CalendarDaysIcon />}
-                content={work.wl_date}
                 outClass="col-span-full"
                 spanClass="font-semibold"
-            />
+            >
+                {work.wl_date}
+            </SingleField>
         </Fieldset>
     );
 };

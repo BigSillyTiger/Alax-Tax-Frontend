@@ -6,7 +6,7 @@ import en from "./scriptEn";
 i18n.use(initReactI18next) // passes i18n down to react-i18next
     .init({
         resources: { en },
-        debug: true,
+        //debug: true,
         lng: "en", // language to use
         // you can use the i18n.changeLanguage function to change the language manually
         // if you're using a language detector, do not define the lng option

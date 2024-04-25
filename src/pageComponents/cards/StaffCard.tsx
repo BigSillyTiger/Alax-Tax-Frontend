@@ -24,16 +24,18 @@ const StaffCard = ({ staff, className }: Tprops) => {
 
             <SingleField
                 label={<PhoneIcon />}
-                content={<Atel href={staff.phone} />}
                 outClass=""
                 spanClass="font-semibold"
-            />
+            >
+                <Atel href={staff.phone} />
+            </SingleField>
             <SingleField
                 label={<EnvelopeIcon />}
-                content={<Amail href={staff.email} />}
                 outClass=""
                 spanClass="font-semibold"
-            />
+            >
+                <Amail href={staff.email} />
+            </SingleField>
         </Fieldset>
     );
 };

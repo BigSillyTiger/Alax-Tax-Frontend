@@ -7,10 +7,12 @@ import { dateFormat, hmsTohm } from "@/lib/time";
 import ChartCard from "./OrderChart/ChartCard";
 import { TctPayment } from "@/configs/types";
 import { useCtPaymentStore } from "@/configs/zustore";
+import { TorderArrangement } from "@/configs/schema/orderSchema";
+import OrderArrangement from "./OrderArrangement";
+import { useOrderArrangementStore } from "@/configs/zustore/orderArrangeStore";
 
 const MainContent: FC = () => {
-    const [todayWls, tomorrowWLs, ctPayment] = useAsyncValue() as [
-        TwlTableRow[],
+    const [todayWls, ctPayment, orderAllArrangement] = useAsyncValue() as [
         TwlTableRow[],
         {
             allYears: string[];
@@ -18,12 +20,17 @@ const MainContent: FC = () => {
             orderAll: TctPayment;
             unpaidAll: TctPayment;
         },
+        TorderArrangement[],
     ];
+
     const setCtPaymentAll = useCtPaymentStore((state) => state.setPamentAll);
     const setOrderall = useCtPaymentStore((state) => state.setOrderall);
     const setUnpaidAll = useCtPaymentStore((state) => state.setUnpaidAll);
     const setYearAll = useCtPaymentStore((state) => state.setYearAll);
     const setTodayWorklogs = useTodayWLStore((state) => state.setWorklogs);
+    const setOrderArrangement = useOrderArrangementStore(
+        (state) => state.setOrderArrangement
+    );
 
     const newTodayWLs = todayWls.map((wl: TwlTableRow) => {
         return {
@@ -38,41 +45,30 @@ const MainContent: FC = () => {
         };
     });
 
-    const newTomorrowWLs = tomorrowWLs.map((wl: TwlTableRow) => {
-        return {
-            ...wl,
-            // convert the date format stored in mysql: yyyy-mm-dd to au: dd-mm-yyyy
-            // this format is related to date searching in the table
-            wl_date: dateFormat(wl.wl_date, "au"),
-            s_time: hmsTohm(wl.s_time as string),
-            e_time: hmsTohm(wl.e_time as string),
-            b_time: hmsTohm(wl.b_time as string),
-            b_hour: hmsTohm(wl.b_hour as string),
-        };
-    });
-
     useEffect(() => {
+        // set for today duty
         setTodayWorklogs(newTodayWLs);
+        // set for order chart
         setCtPaymentAll(ctPayment.paymentAll);
         setOrderall(ctPayment.orderAll);
         setUnpaidAll(ctPayment.unpaidAll);
         setYearAll(ctPayment.allYears);
+        // set for order arrangement card
+        setOrderArrangement(orderAllArrangement);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newTodayWLs]);
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="flex flex-row px-2 gap-4">
-                <div
-                    className={`grid grid-cols-1 w-screen h-[40dvh] sm:w-[50vw] sm:h-[50dvh] lg:w-[30vw] lg:h-[50dvh] gap-y-2 overflow-y-auto overflow-x-hidden`}
-                >
-                    <DutyCard worklogs={newTodayWLs} />
-                </div>
-                <div
-                    className={`grid grid-cols-1 w-screen h-[40dvh] sm:w-[50vw] sm:h-[50dvh] lg:w-[30vw] lg:h-[50dvh] gap-y-2 overflow-y-auto overflow-x-hidden`}
-                >
-                    <DutyCard worklogs={newTomorrowWLs} type="tomorrow" />
-                </div>
+            <div className="h-[55dvh] lg:h-[45dvh] flex flex-col md:flex-row px-2 gap-4">
+                <DutyCard
+                    worklogs={newTodayWLs}
+                    className={
+                        "h-full lg:h-[45dvh] md:w-full lg:w-[40dvw] xl:w-[30dvw]"
+                    }
+                />
+
+                <OrderArrangement className="h-auto lg:h-[45dvh] md:w-full lg:w-[45vw]" />
             </div>
             <div className="px-2">
                 <ChartCard />

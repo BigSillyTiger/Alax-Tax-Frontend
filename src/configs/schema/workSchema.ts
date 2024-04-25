@@ -59,6 +59,21 @@ const workLogSchema = z.object({
     archive: z.boolean().default(false),
 });
 
+export const worklogAbstractSchema = workLogSchema
+    .pick({
+        wlid: true,
+        fk_oid: true,
+        fk_uid: true,
+        wl_date: true,
+    })
+    .extend({
+        first_name: z.string().default(""),
+        last_name: z.string().default(""),
+        role: z.string().default("employee"),
+    });
+// why? this would cause error
+//.merge(staffSchema.pick({ first_name: true, last_name: true, role: true }));
+
 export const deductionSchema = z.object({
     did: z.string().default(""),
     fk_wlid: z.string().default(""),
@@ -122,3 +137,4 @@ export type TwlUnion = z.infer<typeof wlUnionSchema>;
 export type TformWorkLogs = z.infer<typeof formWorkLogs>;
 export type TwlTableRow = z.infer<typeof wlTableRowSchema>;
 export type Tdeduction = z.infer<typeof deductionSchema>;
+export type TwlAbstract = z.infer<typeof worklogAbstractSchema>;

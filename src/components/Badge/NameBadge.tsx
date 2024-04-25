@@ -1,7 +1,4 @@
-import { TstatusColor } from "@/configs/types";
-import { statusColor } from "@/configs/utils/color";
-import { joinAllValues } from "@/lib/utils";
-import { capFirstLetter } from "@/lib/literals";
+import { colorWithStaffUid } from "@/configs/utils/color";
 import type { FC } from "react";
 
 /**
@@ -15,21 +12,21 @@ import type { FC } from "react";
  * @returns
  */
 type Tprops = {
-    value: TstatusColor | undefined;
+    name: string;
+    uid: string;
 };
 
-const Badge: FC<Tprops> = ({ value }) => {
-    if (!value) {
-        return <></>;
-    }
+const NameBadge: FC<Tprops> = ({ name, uid }) => {
+    const color = colorWithStaffUid(uid);
+
     return (
         <span
             className={`rounded-full border-2 font-bold py-1 px-2 
-            ${joinAllValues(statusColor[value.toLowerCase() as TstatusColor])}`}
+            ${color.bg} ${color.border} ${color.text}`}
         >
-            {capFirstLetter(value)}
+            {name}
         </span>
     );
 };
 
-export default Badge;
+export default NameBadge;

@@ -7,19 +7,30 @@ import {
 } from "@/components/ui/tooltip";
 
 type Tprops = {
-    content: string | ReactNode;
     tipsContent: string | ReactNode;
+    children: ReactNode;
+    side?: "top" | "bottom" | "left" | "right";
+    delay?: number;
+    sideOffset?: number;
 };
 
-const HoverTips: FC<Tprops> = ({ content, tipsContent }) => {
+const HoverTips: FC<Tprops> = ({
+    children,
+    tipsContent,
+    side = "top",
+    delay = 500,
+    sideOffset = 4,
+}) => {
     return (
         <TooltipProvider>
-            <Tooltip>
+            <Tooltip delayDuration={delay}>
                 <TooltipTrigger>
                     {/* <Button variant="outline">Hover</Button> */}
-                    {content}
+                    {children}
                 </TooltipTrigger>
-                <TooltipContent>{tipsContent}</TooltipContent>
+                <TooltipContent side={side} sideOffset={sideOffset}>
+                    {tipsContent}
+                </TooltipContent>
             </Tooltip>
         </TooltipProvider>
     );

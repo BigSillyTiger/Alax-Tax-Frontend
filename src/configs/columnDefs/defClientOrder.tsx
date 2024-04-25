@@ -2,7 +2,7 @@ import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { Torder } from "@/configs/schema/orderSchema";
 import { minusAB } from "@/lib/calculations";
-import Badge from "@/components/Badge";
+import { StatusBadge } from "@/components/Badge";
 import { TstatusColor } from "../types";
 import { dateFormat } from "@/lib/time";
 import { ExpandBtn, OrderStatusBtn } from "@/components/table/tableBtn";
@@ -45,7 +45,7 @@ const clientOrderColumns: ColumnDef<Torder>[] = [
                     return (
                         <OrderStatusBtn
                             mLabel={
-                                <Badge
+                                <StatusBadge
                                     value={info.getValue() as TstatusColor}
                                 />
                             }
