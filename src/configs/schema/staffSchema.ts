@@ -78,16 +78,19 @@ export const staffFormSchema = staffSchema
 
 export const staffUpdate = staffSchema.omit({ uid: true, password: true });
 
-export const adminStore = staffSchema.omit({
-    email: true,
-    phone: true,
-    password: true,
-    address: true,
-    suburb: true,
-    city: true,
-    state: true,
-    country: true,
-    postcode: true,
+export const adminSchema = staffSchema.pick({
+    uid: true,
+    first_name: true,
+    last_name: true,
+    access: true,
+    role: true,
+    dashboard: true,
+    clients: true,
+    orders: true,
+    worklogs: true,
+    calendar: true,
+    staff: true,
+    setting: true,
 });
 
 /**
@@ -109,6 +112,6 @@ export const staffList = staffSchema
 export type Tstaff = z.infer<typeof staffSchema>;
 export type TstaffForm = z.infer<typeof staffFormSchema>;
 export type TstaffUpdate = z.infer<typeof staffUpdate>;
-export type TadminStore = z.infer<typeof adminStore>;
+export type Tadmin = z.infer<typeof adminSchema>;
 export type TstaffList = z.infer<typeof staffList>;
 export type TstaffWPayslip = z.infer<typeof staffWPayslipSchema>;

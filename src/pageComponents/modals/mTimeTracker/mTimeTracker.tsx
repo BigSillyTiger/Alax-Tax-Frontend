@@ -9,12 +9,13 @@ import WorkInfoCard from "@/pageComponents/cards/WorkInfoCard";
 import MResetTimer from "./mResetTimer";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
 import { SdTabs } from "@/components/tabs";
-import { useDeductStore } from "@/configs/zustore";
+import { useAdminStore, useDeductStore } from "@/configs/zustore";
 import { TitemContent } from "@/configs/types";
 import DeductionCard from "@/pageComponents/cards/DeductionCard";
 import TimeCard from "./TimeCard";
 import atResetModal from "@/configs/atoms/atResetModal";
 import { TwlTableRow } from "@/configs/schema/workSchema";
+import { useEffect } from "react";
 
 const MTimeTracker = () => {
     //const submit = useSubmit();
@@ -22,6 +23,7 @@ const MTimeTracker = () => {
     const [openReset, setOpenReset] = useAtom(atResetModal);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     //const currentRouter = useRouterStore((state) => state.currentRouter);
+    const currentAdmin = useAdminStore((state) => state.currentAdmin);
     const setDeduction = useDeductStore((state) => state.setDeduction);
     const currentWlid = useTodayWLStore((state) => state.currentWlid);
     const todayWorklogs = useTodayWLStore((state) => state.todayWorklogs);
@@ -33,7 +35,10 @@ const MTimeTracker = () => {
             ? true
             : false;
 
-    setDeduction(worklog.deduction ? worklog.deduction : []);
+    useEffect(() => {
+        setDeduction(worklog.deduction ? worklog.deduction : []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [worklog]);
 
     const onClose = () => {
         if (openReset) {
@@ -73,7 +78,11 @@ const MTimeTracker = () => {
                 <WorkInfoCard work={worklog} className="grow-1" />
             </div>
             {/* time */}
-            <SdTabs items={tabsContent()} className="col-span-1" />
+            {currentAdmin.role === "admin" ? (
+                <SdTabs items={tabsContent()} className="col-span-1" />
+            ) : (
+                <TimeCard isDisabled={isDisabled} />
+            )}
         </div>
     );
 

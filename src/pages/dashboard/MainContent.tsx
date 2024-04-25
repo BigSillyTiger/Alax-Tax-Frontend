@@ -6,10 +6,11 @@ import { useAsyncValue } from "react-router-dom";
 import { dateFormat, hmsTohm } from "@/lib/time";
 import ChartCard from "./OrderChart/ChartCard";
 import { TctPayment } from "@/configs/types";
-import { useCtPaymentStore } from "@/configs/zustore";
+import { useAdminStore, useCtPaymentStore } from "@/configs/zustore";
 import { TorderArrangement } from "@/configs/schema/orderSchema";
 import OrderArrangement from "./OrderArrangement";
 import { useOrderArrangementStore } from "@/configs/zustore/orderArrangeStore";
+import { ROLES } from "@/configs/utils/staff";
 
 const MainContent: FC = () => {
     const [todayWls, ctPayment, orderAllArrangement] = useAsyncValue() as [
@@ -31,6 +32,7 @@ const MainContent: FC = () => {
     const setOrderArrangement = useOrderArrangementStore(
         (state) => state.setOrderArrangement
     );
+    const currentAdmin = useAdminStore((state) => state.currentAdmin);
 
     const newTodayWLs = todayWls.map((wl: TwlTableRow) => {
         return {
@@ -70,9 +72,11 @@ const MainContent: FC = () => {
 
                 <OrderArrangement className="h-auto lg:h-[45dvh] md:w-full lg:w-[45vw]" />
             </div>
-            <div className="px-2">
-                <ChartCard />
-            </div>
+            {currentAdmin.role === ROLES.manager && (
+                <div className="px-2">
+                    <ChartCard />
+                </div>
+            )}
         </div>
     );
 };

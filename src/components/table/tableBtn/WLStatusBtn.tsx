@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react";
 import { useSubmit } from "react-router-dom";
-import { useRouterStore } from "@/configs/zustore";
+import { useAdminStore, useRouterStore } from "@/configs/zustore";
 import { capFirstLetter, genAction } from "@/lib/literals";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { WL_STATUS_TABLE } from "@/configs/utils/setting";
@@ -13,6 +13,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { statusColor } from "@/configs/utils/color";
+import { ROLES } from "@/configs/utils/staff";
 
 type Tprops = {
     mLabel: ReactNode | string;
@@ -27,6 +28,7 @@ type Tprops = {
 const WLStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     const submit = useSubmit();
     const currentRouter = useRouterStore((state) => state.currentRouter);
+    const currentAdmin = useAdminStore((state) => state.currentAdmin);
 
     const handleClick = async (wlid: string, status: string) => {
         submit(
@@ -63,6 +65,10 @@ const WLStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
             );
         }).filter((item) => item !== null && item !== undefined);
     })();
+
+    if (currentAdmin.role === ROLES.employee) {
+        return <div className="cursor-pointer">{mLabel}</div>;
+    }
 
     return (
         <DropdownMenu>

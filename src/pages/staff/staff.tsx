@@ -18,8 +18,11 @@ import { mOpenOps } from "@/configs/utils/modal";
 import MPayslipDel from "@/pageComponents/modals/mPayslipDel";
 import { Tbonus } from "@/configs/schema/payslipSchema";
 import MPSDisplay from "@/pageComponents/modals/mPSDisplay";
-import MainContent from "./MainContent";
 import ErrorTips from "@/components/ErrorTips";
+import { useAdminStore } from "@/configs/zustore";
+import { ROLES } from "@/configs/utils/staff";
+import EmployeeContent from "./EmployeeContent";
+import ManagerContent from "./ManagerContent";
 
 const Staff: FC = () => {
     const { t } = useTranslation();
@@ -33,8 +36,10 @@ const Staff: FC = () => {
     const [secModalOpen, setSecModalOpen] = useAtom(at2ndModalOpen);
     const [, setInfoConflict] = useState<TisConflict>(RES_STATUS.SUCCESS);
     const [staff, setStaff] = useAtom(atStaff);
-
     const actionData = useActionData() as Tresponse;
+
+    const currentAdmin = useAdminStore((state) => state.currentAdmin);
+    const isEmployee = currentAdmin.role === ROLES.employee;
 
     useEffect(() => {
         if (!actionData) return;
@@ -96,7 +101,7 @@ const Staff: FC = () => {
             <div className="container border-0">
                 <Suspense fallback={<LoadingPage />}>
                     <Await resolve={allPromise} errorElement={<ErrorTips />}>
-                        <MainContent />
+                        {isEmployee ? <EmployeeContent /> : <ManagerContent />}
                     </Await>
                 </Suspense>
             </div>

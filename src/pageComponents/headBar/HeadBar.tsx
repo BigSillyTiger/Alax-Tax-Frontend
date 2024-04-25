@@ -4,6 +4,8 @@ import Breadcrumbs from "./Breadcrumbs";
 import UserMenu from "./UserMenu";
 import { useTranslation } from "react-i18next";
 import AlertBell from "./AlertBell";
+import { useAdminStore } from "@/configs/zustore";
+import { ROLES } from "@/configs/utils/staff";
 //import LangBtn from "./LangBtn";
 
 type Tprops = {
@@ -13,6 +15,7 @@ type Tprops = {
 
 const HeadBar: FC<Tprops> = ({ setOpen }) => {
     const { t } = useTranslation();
+    const currentAdmin = useAdminStore((state) => state.currentAdmin);
 
     return (
         <header className="lg:pl-[5vw]">
@@ -43,13 +46,17 @@ const HeadBar: FC<Tprops> = ({ setOpen }) => {
                             className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10"
                             aria-hidden="true"
                         />
-                        <AlertBell />
-
-                        {/* Separator */}
-                        <div
-                            className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10"
-                            aria-hidden="true"
-                        />
+                        {/* only display alert bell when the current admin is manager */}
+                        {currentAdmin.role === ROLES.manager && (
+                            <>
+                                <AlertBell />
+                                {/* Separator */}
+                                <div
+                                    className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10"
+                                    aria-hidden="true"
+                                />
+                            </>
+                        )}
 
                         {/* Profile dropdown */}
                         <UserMenu />

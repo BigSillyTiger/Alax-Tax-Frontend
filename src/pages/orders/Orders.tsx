@@ -37,9 +37,11 @@ const Orders: FC = () => {
         switch (status) {
             case RES_STATUS.SUCCESS:
                 if (modalOpen === mOpenOps.add) {
-                    setModalOpen(mOpenOps.default);
                     toastSuccess(t("toastS.addOrder"));
+                } else if (modalOpen === mOpenOps.edit) {
+                    toastSuccess(t("toastS.updateOrder"));
                 }
+                setModalOpen(mOpenOps.default);
                 break;
             case RES_STATUS.SUC_DEL:
                 setModalOpen(mOpenOps.default);

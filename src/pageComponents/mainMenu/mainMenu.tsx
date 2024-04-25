@@ -33,7 +33,7 @@ type Tprops = {
 // create new menu list based on user permission
 
 const MainMenu: FC<Tprops> = ({ open, setOpen }) => {
-    const user = useAdminStore((state) => state.currentUser);
+    const user = useAdminStore((state) => state.currentAdmin);
     // generate new menu list based on current user permission
     const newMenuList = () => {
         //

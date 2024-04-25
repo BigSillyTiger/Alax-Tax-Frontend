@@ -128,7 +128,7 @@ const MOrderForm: FC = memo(() => {
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         if (!fields.length) {
-            toastError("Please add one client order description at least.");
+            toastError(t("toastW.addOrderService"));
             return;
         }
         console.log("-> mOrderForm click submit err: ", errors);

@@ -10,12 +10,21 @@ import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import { useAsyncValue } from "react-router-dom";
 import { updateBellAlert } from "@/lib/utils";
+import { useAdminStore } from "@/configs/zustore";
+import { ROLES } from "@/configs/utils/staff";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
     const [, setWorkLog] = useAtom(atWorkLogTableRow);
+    const currentAdmin = useAdminStore((state) => state.currentAdmin);
 
     const [worklogs] = useAsyncValue() as [TwlTableRow[]];
+
+    // remove menu bar for employee
+    const newWLColumns =
+        currentAdmin.role === ROLES.manager
+            ? wlColumns
+            : wlColumns.slice(0, -1);
 
     const newWorklogs = useMemo(
         () =>
@@ -61,7 +70,7 @@ const MainContent: FC = () => {
                         search={true}
                         hFilter={true}
                         data={newWorklogs}
-                        columns={wlColumns}
+                        columns={newWLColumns}
                         menuOptions={{
                             edit: true,
                             del: true,

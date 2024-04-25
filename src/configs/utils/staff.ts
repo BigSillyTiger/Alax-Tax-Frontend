@@ -29,9 +29,18 @@ export const roleOptions = {
     employee: {
         ...genMenuIDObject(0),
         dashboard: 2,
+        worklogs: 1,
+        staff: 1,
     },
 
     manager: {
         ...genMenuIDObject(2),
     },
+};
+
+// this must match the roleOptions above
+export const ROLES = {
+    labor: "labor",
+    employee: "employee",
+    manager: "manager",
 };

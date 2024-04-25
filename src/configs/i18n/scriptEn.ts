@@ -98,6 +98,7 @@ const en = {
             dlPayslip: "Download Payslip",
             download: "Download",
             edit: "Edit",
+            editInfo: "Edit Personal Info",
             invoice: "Invoice",
             newOrder: "New Order",
             newService: "New Service",
@@ -198,7 +199,7 @@ const en = {
             none: "None",
             noContent: "No Content",
             openMenu: "Open Menu",
-            
+
             orderDesc: "Order Description",
             orderInfo: "Order Info",
             orderDate: "Order Date",
@@ -351,6 +352,7 @@ const en = {
             cantDelWLUnion:
                 "Cannot delete this work log. \n Only 'Pending' or 'Cancelled' work log can be deleted.",
             cantDelManager: "Cannot Delete Admin Manager Account.",
+            addOrderService: "Please add at least one service to the order.",
         },
         sr: {
             openHeadBarMenu: "Open head bar menu",

@@ -10,6 +10,7 @@ import { useGlobalAlertStore } from "@/configs/zustore";
 
 const MainLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+    // this is for head bar alert bell notification
     const setUnPayslip = useGlobalAlertStore((state) => state.setUnPayslip);
     const setUnWorklog = useGlobalAlertStore((state) => state.setUnWorklog);
 

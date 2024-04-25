@@ -1,18 +1,18 @@
 import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
-import { TadminStore } from "../schema/staffSchema";
+import { Tadmin } from "../schema/staffSchema";
 import { genMenuIDObject, staffStandardHR } from "../utils/staff";
 
 type Tstate = {
-    currentUser: TadminStore;
+    currentAdmin: Tadmin;
 };
 
 type Taction = {
-    initUser: (user: TadminStore) => void;
+    initUser: (user: Tadmin) => void;
 };
 
 export const adminStore = createStore<Tstate & Taction>((set) => ({
-    currentUser: {
+    currentAdmin: {
         uid: "",
         first_name: "",
         last_name: "",
@@ -22,8 +22,8 @@ export const adminStore = createStore<Tstate & Taction>((set) => ({
         hr: staffStandardHR,
         ...genMenuIDObject(0),
     },
-    initUser: (user: TadminStore) =>
-        set((state) => ({ ...state, currentUser: user })),
+    initUser: (admin: Tadmin) =>
+        set((state) => ({ ...state, currentAdmin: admin })),
 }));
 
 export const useAdminStore = <T>(selector: (state: Tstate & Taction) => T) =>

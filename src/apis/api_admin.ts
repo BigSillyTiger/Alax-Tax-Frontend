@@ -1,8 +1,8 @@
 import { adminStore } from "@/configs/zustore";
 import apis from "./axios";
 import { LOGIN, LOGOUT, ADMIN_CHECK, ACCESS_CHECK } from "./req_list";
-import { TadminStore } from "@/configs/schema/staffSchema";
 import { RES_STATUS } from "@/configs/types";
+import { Tadmin } from "@/configs/schema/staffSchema";
 
 export const adminLogin = async (
     email: string,
@@ -14,7 +14,7 @@ export const adminLogin = async (
     };
     try {
         const response = await apis.post(LOGIN, newPost);
-        adminStore.setState({ currentUser: response.data.data as TadminStore });
+        adminStore.setState({ currentAdmin: response.data.data as Tadmin });
         return response.data;
     } catch (err: unknown) {
         console.error("err.adminLogin: ", err);
@@ -35,9 +35,9 @@ export const adminLogout = async () => {
 
 export const adminCheck = async (): Promise<Tresponse> => {
     try {
-        const response = await apis.get(ADMIN_CHECK);
-        adminStore.setState({ currentUser: response.data.data as TadminStore });
-        return response.data;
+        const response = await apis.get(ADMIN_CHECK).then((res) => res.data);
+        adminStore.setState({ currentAdmin: response.data as Tadmin });
+        return response;
     } catch (err: unknown) {
         console.error("err.adminCheck: ", err);
         return {
@@ -50,8 +50,7 @@ export const adminCheck = async (): Promise<Tresponse> => {
 
 export const accessCheck = async (page: string): Promise<Tresponse> => {
     try {
-        const response = await apis.post(ACCESS_CHECK, { page });
-        return response.data;
+        return await apis.post(ACCESS_CHECK, { page }).then((res) => res.data);
     } catch (err: unknown) {
         console.error("err.accessCheck: ", err);
         return {

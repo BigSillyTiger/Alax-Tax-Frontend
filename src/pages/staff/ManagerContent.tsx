@@ -21,7 +21,7 @@ import {
 import { dateFormat, hmsTohm } from "@/lib/time";
 import { updateBellAlert } from "@/lib/utils";
 
-const MainContent: FC = () => {
+const ManagerContent: FC = () => {
     const { t } = useTranslation();
     const [, setCompany] = useAtom(atCompany);
     const [, setLogo] = useAtom(atLogo);
@@ -110,6 +110,7 @@ const MainContent: FC = () => {
         <>
             <div className="px-4 sm:px-6 lg:px-8 top-0">
                 {/* header area */}
+
                 <div className="sm:flex sm:items-center">
                     <div className="sm:flex-auto sm:flex"></div>
                     <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -122,6 +123,7 @@ const MainContent: FC = () => {
                         </button>
                     </div>
                 </div>
+
                 {/* table */}
                 {newAllStaff ? (
                     <Card className="mt-8">
@@ -147,7 +149,7 @@ const MainContent: FC = () => {
                             }}
                             expandContent={SubTable}
                             cnSearch="my-3"
-                            cnTable={`h-[65dvh]`}
+                            cnTable="h-[65dvh]"
                             cnHead="sticky z-10 bg-indigo-300"
                             cnTh="py-3"
                         />
@@ -164,4 +166,4 @@ const MainContent: FC = () => {
     );
 };
 
-export default MainContent;
+export default ManagerContent;

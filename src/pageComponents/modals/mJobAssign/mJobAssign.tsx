@@ -40,6 +40,7 @@ const MJobAssign = () => {
     // for reset the workLogs when modalOpen changes
     // especially when it's closed by cancling
     useEffect(() => {
+        console.log("---> order job assign M: ", clientOrder.wlUnion);
         setWorkLogs(clientOrder.wlUnion);
     }, [clientOrder.wlUnion, setWorkLogs, modalOpen]);
 

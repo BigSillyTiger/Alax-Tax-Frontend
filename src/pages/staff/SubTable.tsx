@@ -2,9 +2,10 @@ import type { FC } from "react";
 import { PTable } from "@/components/table";
 import payslipColumns from "@/configs/columnDefs/defPayslip";
 import { TstaffWPayslip } from "@/configs/schema/staffSchema";
-import { usePayslipStore } from "@/configs/zustore";
+import { useAdminStore, usePayslipStore } from "@/configs/zustore";
 import { useTranslation } from "react-i18next";
 import Card from "@/components/card";
+import { ROLES } from "@/configs/utils/staff";
 
 type Tprops = {
     data: TstaffWPayslip;
@@ -13,6 +14,12 @@ type Tprops = {
 const SubTable: FC<Tprops> = ({ data }) => {
     const { t } = useTranslation();
     const setPayslip = usePayslipStore((state) => state.setPayslip);
+    const currentAdmin = useAdminStore((state) => state.currentAdmin);
+    const isEmployee = currentAdmin.role === ROLES.employee;
+
+    const newPayslipColumns = isEmployee
+        ? payslipColumns.slice(0, -1)
+        : payslipColumns;
 
     return (
         <Card className="m-2">
@@ -20,7 +27,7 @@ const SubTable: FC<Tprops> = ({ data }) => {
                 <PTable
                     data={data.payslips}
                     setData={setPayslip}
-                    columns={payslipColumns}
+                    columns={newPayslipColumns}
                     menuOptions={{
                         del: true,
                     }}

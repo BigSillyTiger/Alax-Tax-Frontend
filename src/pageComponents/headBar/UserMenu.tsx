@@ -22,7 +22,7 @@ const UserMenu: FC = () => {
     const nevigate = useNavigate();
     //const userNavigation = [{ name: t("btn.signOut"), href: "#" }];
 
-    const user = useAdminStore((state) => state.currentUser);
+    const user = useAdminStore((state) => state.currentAdmin);
 
     const handleLogout = async (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
