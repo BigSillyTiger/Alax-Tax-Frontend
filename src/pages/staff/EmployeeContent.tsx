@@ -91,6 +91,18 @@ const EmployeeContent: FC = () => {
         });
     }, [allStaff]);
 
+    const newPayslips = useMemo(() => {
+        if (!allPayslips) return [];
+        return allPayslips.sort((a: Tpayslip, b: Tpayslip) => {
+            const dateA = new Date(a.s_date);
+            const dateB = new Date(b.s_date);
+            // Compare dates
+            if (dateA > dateB) return -1; // Return -1 to indicate dateA comes before dateB
+            if (dateA < dateB) return 1; // Return 1 to indicate dateA comes after dateB
+            return 0;
+        });
+    }, [allPayslips]);
+
     useEffect(() => {
         setAllStaff(newAllStaff);
         setAllStaffWL(newWorklogs);
@@ -126,10 +138,10 @@ const EmployeeContent: FC = () => {
                 </div>
 
                 {/* table */}
-                {newAllStaff ? (
+                {newPayslips ? (
                     <Card className="mt-8">
                         <PTable
-                            data={newAllStaff[0].payslips}
+                            data={newPayslips}
                             columns={newPayslipColumns}
                             menuOptions={{
                                 edit: true,

@@ -29,7 +29,7 @@ export const plusAB = (x: number, y: number): number => {
 export const calGst = (netto: number): number => {
     const n = new Big(netto);
     const g = new Big(gstRate);
-    return n.times(g).toNumber();
+    return n.times(g).round(2).toNumber();
 };
 
 export const convertWorkHour = (wh: string): number => {
@@ -40,5 +40,5 @@ export const convertWorkHour = (wh: string): number => {
 export const calNetto = (qty: number, price: number): number => {
     const a = new Big(qty);
     const b = new Big(price);
-    return a.times(b).toNumber();
+    return a.times(b).round(2).toNumber();
 };

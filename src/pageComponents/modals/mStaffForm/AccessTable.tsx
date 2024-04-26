@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { menuList } from "@/configs/utils/router";
 import { TstaffForm } from "@/configs/schema/staffSchema";
