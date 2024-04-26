@@ -35,6 +35,7 @@ export const roleOptions = {
 
     manager: {
         ...genMenuIDObject(2),
+        calendar: 0,
     },
 };
 

@@ -2,17 +2,28 @@ import type { FC } from "react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { useTranslation } from "react-i18next";
-import { Tstaff } from "@/configs/schema/staffSchema";
 
 type Tprops = {
-    staff: Tstaff;
+    staffName: string;
+    staffPhone: string;
+    staffEmail: string;
+    staffBSB: string;
+    staffACC: string;
     startP: string;
     endP: string;
 };
 
 const tw = createTw({});
 
-const PayTitle: FC<Tprops> = ({ staff, startP, endP }) => {
+const BillTitle: FC<Tprops> = ({
+    staffName,
+    staffPhone,
+    staffEmail,
+    staffBSB,
+    staffACC,
+    startP,
+    endP,
+}) => {
     const { t } = useTranslation();
 
     return (
@@ -25,28 +36,26 @@ const PayTitle: FC<Tprops> = ({ staff, startP, endP }) => {
                 <Text style={tw("text-lg leading-7 text-teal-600")}>
                     {t("label.payTo")}
                 </Text>
-                <Text style={tw("text-lg leading-7 ml-2")}>
-                    {staff.first_name + " " + staff.last_name}
-                </Text>
+                <Text style={tw("text-lg leading-7 ml-2")}>{staffName}</Text>
             </View>
             <View style={tw("flex flex-row gap-x-4 w-[523pt]")}>
                 {/* left */}
                 <View style={tw("flex-1 items-start")}>
                     <Text style={tw("text-base leading-5 text-teal-700")}>
                         {t("label.tel")}:{" "}
-                        <Text style={tw("text-zinc-700")}>{staff.phone}</Text>
+                        <Text style={tw("text-zinc-700")}>{staffPhone}</Text>
                     </Text>
                     <Text style={tw("text-base leading-5 text-teal-700")}>
                         {t("label.email1")}:{" "}
-                        <Text style={tw("text-zinc-700")}>{staff.email}</Text>
+                        <Text style={tw("text-zinc-700")}>{staffEmail}</Text>
                     </Text>
                     <Text style={tw("text-base leading-5 text-teal-700")}>
                         {t("label.bsb")}:{" "}
-                        <Text style={tw("text-zinc-700")}>{staff.bsb}</Text>
+                        <Text style={tw("text-zinc-700")}>{staffBSB}</Text>
                     </Text>
                     <Text style={tw("text-base leading-5 text-teal-700")}>
                         {t("label.acc")}:{" "}
-                        <Text style={tw("text-zinc-700")}>{staff.account}</Text>
+                        <Text style={tw("text-zinc-700")}>{staffACC}</Text>
                     </Text>
                 </View>
                 {/* right */}
@@ -67,4 +76,4 @@ const PayTitle: FC<Tprops> = ({ staff, startP, endP }) => {
     );
 };
 
-export default PayTitle;
+export default BillTitle;

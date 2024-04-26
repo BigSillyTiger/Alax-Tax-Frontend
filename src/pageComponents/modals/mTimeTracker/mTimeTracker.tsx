@@ -16,6 +16,7 @@ import TimeCard from "./TimeCard";
 import atResetModal from "@/configs/atoms/atResetModal";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useEffect } from "react";
+import { ROLES } from "@/configs/utils/staff";
 
 const MTimeTracker = () => {
     //const submit = useSubmit();
@@ -78,7 +79,7 @@ const MTimeTracker = () => {
                 <WorkInfoCard work={worklog} className="grow-1" />
             </div>
             {/* time */}
-            {currentAdmin.role === "admin" ? (
+            {currentAdmin.role === ROLES.manager ? (
                 <SdTabs items={tabsContent()} className="col-span-1" />
             ) : (
                 <TimeCard isDisabled={isDisabled} />

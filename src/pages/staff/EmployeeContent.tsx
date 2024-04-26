@@ -94,7 +94,7 @@ const EmployeeContent: FC = () => {
     useEffect(() => {
         setAllStaff(newAllStaff);
         setAllStaffWL(newWorklogs);
-        setAllBonus(allBonus || []);
+        setAllBonus(allBonus);
         setCompany(company);
         setLogo(logo);
         // update bell alert

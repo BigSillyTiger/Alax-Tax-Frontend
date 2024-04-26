@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import { DayPicker } from "react-day-picker";
 //import "react-day-picker/dist/style.css";
 import "./datepickerstyle.css";
@@ -21,6 +21,14 @@ const ORDayPicker: FC = () => {
     const setCurrentOA = useOrderArrangementStore(
         (state) => state.setCurrentOA
     );
+
+    useEffect(() => {
+        setCurrentOA(
+            orderArrangement.find((order) => {
+                return order.date === dateFormat(selectedDate);
+            })!
+        );
+    }, [selectedDate, orderArrangement, setCurrentOA]);
 
     const scheduledDays = orderArrangement.map((order) => new Date(order.date));
 

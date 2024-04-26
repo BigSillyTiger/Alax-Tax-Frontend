@@ -9,17 +9,16 @@ import {
 } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import Title from "./Title";
-import PayTitle from "./BillTitle";
+import BillTitle from "./BillTitle";
 import PayHeader from "./PayHeader";
 import PayRows from "./PayRows";
 import PageFooter from "./PageFooter";
 import PayFooter from "./PayFooter";
 import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
-import { atCompany, atLogo, atStaff } from "@/configs/atoms";
+import { atLogo } from "@/configs/atoms";
 import { usePayslipStore } from "@/configs/zustore";
-import { dateFormat } from "@/lib/time";
-import BDRows from "./BRows";
+import BDRows from "./BDRows";
 import BDHeader from "./BHeader";
 import BDFooter from "./BDFooter";
 import DHeader from "./DHeader";
@@ -48,11 +47,9 @@ const PayslipTemplate: FC<Tprops> = ({
     },
 }) => {
     const { t } = useTranslation();
-    const [company] = useAtom(atCompany);
     const [logo] = useAtom(atLogo);
-    const [staff] = useAtom(atStaff);
+    const payslip = usePayslipStore((state) => state.payslip);
     const staffWL = usePayslipStore((state) => state.staffWL);
-    const dayRange = usePayslipStore((state) => state.dayRange);
     const bonus = usePayslipStore((state) => state.bonus);
     const deduction = usePayslipStore((state) => state.deduction);
 
@@ -62,7 +59,11 @@ const PayslipTemplate: FC<Tprops> = ({
                 <Text style={tw("text-lg")}>{t("label.thisPay")}: </Text>
                 <PayHeader />
                 <PayRows data={staffWL} unit={unit} />
-                <PayFooter data={staffWL} unit={unit} rate={staff.hr} />
+                <PayFooter
+                    data={staffWL}
+                    unit={unit}
+                    rate={payslip.hr ? payslip.hr : 25}
+                />
             </View>
         );
     };
@@ -92,15 +93,23 @@ const PayslipTemplate: FC<Tprops> = ({
     const mainContent = (
         <View style={tw("flex flex-col")}>
             <Title
-                company={company}
-                payslipID={"---"}
+                companyName={payslip.company_name ? payslip.company_name : ""}
+                companyAddr={payslip.company_addr ? payslip.company_addr : ""}
+                companyPhone={
+                    payslip.company_phone ? payslip.company_phone : ""
+                }
+                payslipID={payslip.psid!}
                 issueDate={date}
                 logo={logo}
             />
-            <PayTitle
-                staff={staff}
-                startP={dateFormat(dayRange?.from?.toISOString(), "au")}
-                endP={dateFormat(dayRange?.to?.toISOString(), "au")}
+            <BillTitle
+                staffName={payslip.staff_name ? payslip.staff_name : ""}
+                staffPhone={payslip.staff_phone ? payslip.staff_phone : ""}
+                staffEmail={payslip.staff_email ? payslip.staff_email : ""}
+                staffBSB={payslip.staff_bsb ? payslip.staff_bsb : ""}
+                staffACC={payslip.staff_acc ? payslip.staff_acc : ""}
+                startP={payslip.s_date ? payslip.s_date : ""}
+                endP={payslip.e_date ? payslip.e_date : ""}
             />
 
             <Pay />

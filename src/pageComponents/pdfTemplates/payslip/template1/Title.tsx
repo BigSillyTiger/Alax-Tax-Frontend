@@ -2,11 +2,12 @@ import type { FC } from "react";
 import { Text, View, Image } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { useTranslation } from "react-i18next";
-import { Tcompany } from "@/configs/schema/settingSchema";
 import { dateFormat } from "@/lib/time";
 
 type Tprops = {
-    company: Tcompany;
+    companyName: string;
+    companyAddr: string;
+    companyPhone: string;
     payslipID: string;
     issueDate: string;
     logo: string;
@@ -14,7 +15,14 @@ type Tprops = {
 
 const tw = createTw({});
 
-const Title: FC<Tprops> = ({ company, payslipID, issueDate, logo }) => {
+const Title: FC<Tprops> = ({
+    companyName,
+    companyAddr,
+    companyPhone,
+    payslipID,
+    issueDate,
+    logo,
+}) => {
     const { t } = useTranslation();
 
     return (
@@ -27,14 +35,14 @@ const Title: FC<Tprops> = ({ company, payslipID, issueDate, logo }) => {
             <Image src={logo} style={tw("rounded-lg h-20 w-20")} />
             {/* company */}
             <View style={tw("flex justify-center")}>
-                <Text style={tw("font-bold text-base")}>{company.name}</Text>
+                <Text style={tw("font-bold text-base")}>{companyName}</Text>
                 <Text style={tw("text-xs text-gray-600")}>
                     {t("label.address") + ":"}
-                    {company.address}
+                    {companyAddr}
                 </Text>
                 <Text style={tw("text-xs text-gray-600")}>
                     {t("label.tel") + ":"}
-                    {company.phone}
+                    {companyPhone}
                 </Text>
             </View>
             {/* invoice */}

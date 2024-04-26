@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { Form, useNavigation, useSubmit } from "react-router-dom";
 import { toastWarning } from "@/lib/toaster";
 import { SubmitBtn } from "@/components/form";
-import { atStaff } from "@/configs/atoms";
+import { atCompany, atStaff } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { calWorkTime, dateFormat } from "@/lib/time";
 import { convertWorkHour, minusAB, plusAB, timesAB } from "@/lib/calculations";
@@ -34,6 +34,7 @@ const PSSubmitBtn: FC<Tprops> = ({ onClose }) => {
     const submit = useSubmit();
     const navigation = useNavigation();
     const [staff] = useAtom(atStaff);
+    const [company] = useAtom(atCompany);
     const currentRouter = useRouterStore((state) => state.currentRouter);
     const bonus = usePayslipStore((state) => state.bonus);
     const staffWL = usePayslipStore((state) => state.staffWL);
@@ -100,6 +101,15 @@ const PSSubmitBtn: FC<Tprops> = ({ onClose }) => {
                     s_date: dateFormat(dayRange.from),
                     e_date: dateFormat(dayRange.to),
                     paid,
+                    company_name: company.name,
+                    company_addr: company.address,
+                    company_phone: company.phone,
+                    staff_name: `${staff.first_name} ${staff.last_name}`,
+                    staff_addr: staff.address,
+                    staff_phone: staff.phone,
+                    staff_email: staff.email,
+                    staff_bsb: staff.bsb,
+                    staff_acc: staff.account,
                 }),
             },
             {

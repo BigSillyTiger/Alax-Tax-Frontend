@@ -6,11 +6,20 @@ export const payslipSchema = z.object({
     fk_uid: z.string().default(""),
     created_date: z.string().default(""),
     status: z.literal("pending").or(z.literal("completed")).default("pending"),
-    hr: z.number().default(0),
+    hr: z.number().default(25),
     paid: z.number().default(0),
     s_date: z.string().default(""),
     e_date: z.string().default(""),
     archive: z.boolean().default(false),
+    company_name: z.string().default(""),
+    company_addr: z.string().default(""),
+    company_phone: z.string().default(""),
+    staff_name: z.string().default(""),
+    staff_addr: z.string().default(""),
+    staff_phone: z.string().default(""),
+    staff_email: z.string().default(""),
+    staff_bsb: z.string().default(""),
+    staff_acc: z.string().default(""),
 });
 
 const bonusSchema = z.object({
@@ -20,11 +29,11 @@ const bonusSchema = z.object({
     amount: z.number().multipleOf(0.01).default(0),
 });
 
-const payslipsSchema = payslipSchema.extend({
+const payslipWBDSchema = payslipSchema.extend({
     bonus: bonusSchema.array().default([]),
     deduction: deductionSchema.array().default([]),
 });
 
 export type Tpayslip = z.infer<typeof payslipSchema>;
-export type Tpayslips = z.infer<typeof payslipsSchema>;
+export type TpayslipWBD = z.infer<typeof payslipWBDSchema>;
 export type Tbonus = z.infer<typeof bonusSchema>;
