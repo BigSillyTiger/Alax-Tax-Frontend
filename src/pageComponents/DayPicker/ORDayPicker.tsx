@@ -1,16 +1,20 @@
-import { useEffect, type FC } from "react";
+import type { FC } from "react";
+import { useEffect } from "react";
 import { DayPicker } from "react-day-picker";
 //import "react-day-picker/dist/style.css";
 import "./datepickerstyle.css";
 import styles from "./datepicker.module.css";
 import { useOrderArrangementStore } from "@/configs/zustore/orderArrangeStore";
 import { dateFormat } from "@/lib/time";
+import { useScreenSize } from "@/lib/hooks";
 
 /**
  * @description job assignment day picker
  * @returns
  */
 const ORDayPicker: FC = () => {
+    const isTooSmallScreen = useScreenSize();
+
     const selectedDate = useOrderArrangementStore(
         (state) => state.selectedDate
     );
@@ -67,7 +71,7 @@ const ORDayPicker: FC = () => {
             <style>{css}</style>
             <DayPicker
                 showOutsideDays
-                showWeekNumber
+                showWeekNumber={isTooSmallScreen ? false : true}
                 fixedWeeks
                 /* captionLayout="dropdown-buttons"
                 fromYear={2010}

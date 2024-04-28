@@ -103,3 +103,27 @@ export const statusColor = {
         border: "border-teal-600",
     },
 };
+
+export const topPsedo = [
+    "before:top-[80px]",
+    "before:top-[132px]",
+    "before:top-[184px]",
+    "before:top-[236px]",
+    "before:top-[288px]",
+    "before:top-[340px]",
+    "before:top-[392px]",
+    "before:top-[444px]",
+    "before:top-[496px]",
+];
+
+export const btmPsedo = [
+    "after:top-[144px]",
+    "after:top-[196px]",
+    "after:top-[248px]",
+    "after:top-[300px]",
+    "after:top-[352px]",
+    "after:top-[404px]",
+    "after:top-[456px]",
+    "after:top-[508px]",
+    "after:top-[560px]",
+];

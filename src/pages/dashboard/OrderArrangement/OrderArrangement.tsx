@@ -14,7 +14,7 @@ const OrderArrangement: FC<Tprops> = ({ className }) => {
             title={t("label.workArrangement")}
             sFieldset={`flex flex-col lg:flex-row gap-x-2 gap-y-2 lg:justify-center items-center px-2 overflow-y-auto lg:overflow-y-hidden overflow-x-hidden ${className}`}
         >
-            <div className="h-[37dvh] lg:h-full">
+            <div className="">
                 <ORDayPicker />
             </div>
             {/* <Separator orientation="vertical" /> */}

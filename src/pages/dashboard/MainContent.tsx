@@ -62,15 +62,15 @@ const MainContent: FC = () => {
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="h-[55dvh] lg:h-[45dvh] flex flex-col md:flex-row px-2 gap-4">
+            <div className="h-screen lg:h-[45dvh] flex flex-col md:flex-row px-2 gap-4">
                 <DutyCard
                     worklogs={newTodayWLs}
                     className={
-                        "h-full lg:h-[45dvh] md:w-full lg:w-[40dvw] xl:w-[30dvw]"
+                        "h-[100dvh] lg:h-[45dvh] md:w-full lg:w-[40dvw] xl:w-[30dvw]"
                     }
                 />
 
-                <OrderArrangement className="h-auto lg:h-[45dvh] md:w-full lg:w-[45vw]" />
+                <OrderArrangement className="h-[100dvh] lg:h-[45dvh] md:w-full lg:w-[45vw]" />
             </div>
             {currentAdmin.role === ROLES.manager && (
                 <div className="px-2">
