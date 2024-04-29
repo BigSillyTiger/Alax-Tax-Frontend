@@ -25,12 +25,14 @@ export const genMenuIDObject = (access: TadminAccess) => {
 export const roleOptions = {
     labor: {
         ...genMenuIDObject(0),
+        calendar: 0,
     },
     employee: {
         ...genMenuIDObject(0),
         dashboard: 2,
         worklogs: 1,
         staff: 1,
+        calendar: 0,
     },
 
     manager: {

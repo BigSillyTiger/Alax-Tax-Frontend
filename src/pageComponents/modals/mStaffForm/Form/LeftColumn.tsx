@@ -24,7 +24,7 @@ const LeftColumn: FC<Tprops> = ({ register, errors }) => {
 
     return (
         <div
-            className={`sm:col-span-3 col-span-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 overflow-y-auto h-[70dvh] sm:h-auto`}
+            className={`sm:col-span-3 col-span-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 overflow-y-auto h-auto sm:h-[70dvh]`}
         >
             {/* first name */}
             <div className="sm:col-span-3">

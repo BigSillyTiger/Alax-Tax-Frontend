@@ -82,7 +82,7 @@ const ModalFrame: FC<Tprops> = ({
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             <Dialog.Panel
-                                className={`relative overflow-hidden bg-slate-100 text-left shadow-xl transition-all px-4 pb-4 pt-5 sm:my-8 sm:py-3 sm:px-4 ${widthSize(
+                                className={`relative h-full overflow-y-auto sm:h-auto bg-slate-100 text-left shadow-xl transition-all px-4 pb-4 pt-5 sm:my-8 sm:py-3 sm:px-4 ${widthSize(
                                     mode
                                 )} ${className}`}
                             >

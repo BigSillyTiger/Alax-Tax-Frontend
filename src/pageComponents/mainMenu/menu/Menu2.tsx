@@ -16,13 +16,12 @@ const Menu2: FC<Tprops> = ({ menuList }) => {
         isActive: boolean;
         index: number;
     }) => {
-        // why? this does not work
         return `
             group flex justify-center gap-x-3 rounded-md 
             p-2 text-sm leading-6 font-semibold text-center ml-2
             ${
                 isActive
-                    ? `text-indigo-500 rounded-l-full bg-slate-100 w-full 
+                    ? `text-indigo-500 rounded-l-full bg-slate-100 w-full animate-menu-slide
                 before:coutent-[''] before:absolute before:bg-transparent before:rounded-br-xl
                 before:shadow-[15px_0_0_rgba(241,245,249,1)] before:w-full before:h-4 ${topPsedo[index]} before:right-0 before:z-50
                 after:coutent-[''] after:absolute after:bg-transparent after:rounded-tr-xl

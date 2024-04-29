@@ -32,17 +32,21 @@ const FormContent: FC<Tprops> = ({
     const isEmployee = currentAdmin.role === ROLES.employee;
 
     return (
-        <Form onSubmit={onSubmit} className="mt-4">
-            <LeftColumn register={register} errors={errors} />
-            {isEmployee ? null : (
-                <RightColumn
-                    register={register}
-                    control={control}
-                    errors={errors}
-                    watch={watch}
-                    onClose={onClose}
-                />
-            )}
+        <Form onSubmit={onSubmit} className={`mt-4 h-screen sm:h-auto`}>
+            <div
+                className={`flex gap-x-4 ${isEmployee ? "flex-col" : "flex-col sm:flex-row"}`}
+            >
+                <LeftColumn register={register} errors={errors} />
+                {isEmployee ? null : (
+                    <RightColumn
+                        register={register}
+                        control={control}
+                        errors={errors}
+                        watch={watch}
+                        onClose={onClose}
+                    />
+                )}
+            </div>
             <SubmitBtn
                 onClick={() => trigger()}
                 onClose={onClose}
