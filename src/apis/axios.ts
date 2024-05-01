@@ -2,11 +2,11 @@ import axios from "axios";
 
 const apis = axios.create({
     withCredentials: true,
-    baseURL: `http://localhost:6464`,
+    baseURL: `http://localhost:8080`,
     // playground
-    //baseURL: `http://cpsoftware.com.au:6464`,
+    //baseURL: `https://cpsoftware.com.au`,
     // alex
-    //baseURL: `http://tool.srclandscaping.com.au:6464`,
+    //baseURL: `https://tool.srclandscaping.com.au`,
 });
 
 export default apis;

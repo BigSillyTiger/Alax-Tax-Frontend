@@ -6,6 +6,8 @@ RUN npm install
 COPY . .
 CMD ["npm", "run", "build"]
 
-FROM nginx:1.21.1-alpine
+FROM nginx:latest
 
-COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+EXPOSE 8080
+
+COPY --from=build /usr/src/app/dist /var/www/html
