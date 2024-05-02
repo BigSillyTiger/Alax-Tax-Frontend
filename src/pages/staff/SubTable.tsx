@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { PTable } from "@/components/table";
-import payslipColumns from "@/configs/columnDefs/defPayslip";
+import usePaySlipColumnsDef from "@/configs/columnDefs/defPayslip";
 import { TstaffWPayslip } from "@/configs/schema/staffSchema";
 import { useAdminStore, usePayslipStore } from "@/configs/zustore";
 import { useTranslation } from "react-i18next";
@@ -16,7 +16,7 @@ const SubTable: FC<Tprops> = ({ data }) => {
     const setPayslip = usePayslipStore((state) => state.setPayslip);
     const currentAdmin = useAdminStore((state) => state.currentAdmin);
     const isEmployee = currentAdmin.role === ROLES.employee;
-
+    const payslipColumns = usePaySlipColumnsDef();
     const newPayslipColumns = isEmployee
         ? payslipColumns.slice(0, -1)
         : payslipColumns;

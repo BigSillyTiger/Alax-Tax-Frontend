@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 import Card from "@/components/card";
 import { PTable } from "@/components/table";
 import { atWorkLogTableRow } from "@/configs/atoms";
-import wlColumns from "@/configs/columnDefs/defWorkLogs";
+import useWLConlumnsDef from "@/configs/columnDefs/defWorkLogs";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { dateFormat, hmsTohm } from "@/lib/time";
 import { useAtom } from "jotai";
@@ -19,7 +19,7 @@ const MainContent: FC = () => {
     const currentAdmin = useAdminStore((state) => state.currentAdmin);
 
     const [worklogs] = useAsyncValue() as [TwlTableRow[]];
-
+    const wlColumns = useWLConlumnsDef();
     // remove menu bar for employee
     const newWLColumns =
         currentAdmin.role === ROLES.manager

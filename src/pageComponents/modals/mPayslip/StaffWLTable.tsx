@@ -1,13 +1,14 @@
 import type { FC } from "react";
 import Card from "@/components/card";
 import { PTable } from "@/components/table";
-import staffWLColumns from "@/configs/columnDefs/defStaffWL";
+import useStaffWLColumns from "@/configs/columnDefs/defStaffWL";
 import { usePayslipStore } from "@/configs/zustore";
 import { useTranslation } from "react-i18next";
 
 const StaffWLTable: FC = () => {
     const { t } = useTranslation();
     const staffWL = usePayslipStore((state) => state.staffWL);
+    const staffWLColumns = useStaffWLColumns();
 
     return staffWL.length ? (
         <Card className="mt-2">

@@ -17,7 +17,7 @@ import {
 } from "@/configs/zustore";
 import { dateFormat, hmsTohm } from "@/lib/time";
 import { updateBellAlert } from "@/lib/utils";
-import payslipColumns from "@/configs/columnDefs/defPayslip";
+import usePaySlipColumnsDef from "@/configs/columnDefs/defPayslip";
 import StaffDetailedCard from "@/pageComponents/cards/StaffDetailedCard";
 import { mOpenOps } from "@/configs/utils/modal";
 
@@ -30,8 +30,8 @@ const EmployeeContent: FC = () => {
     const setAllStaff = useStaffStore((state) => state.setAllStaff);
     const setAllStaffWL = useStaffWLStore((state) => state.setAllStaffWL);
     const setAllBonus = usePayslipStore((state) => state.setAllBonus);
-
-    const newPayslipColumns = payslipColumns.slice(0, -1);
+    const newPayslipColumns = usePaySlipColumnsDef();
+    const newPSColumns = newPayslipColumns.slice(0, -1);
 
     const [worklogs, allStaff, allPayslips, allBonus, company, logo] =
         useAsyncValue() as [
@@ -142,7 +142,7 @@ const EmployeeContent: FC = () => {
                     <Card className="mt-8">
                         <PTable
                             data={newPayslips}
-                            columns={newPayslipColumns}
+                            columns={newPSColumns}
                             menuOptions={{
                                 edit: true,
                                 payslip: true,

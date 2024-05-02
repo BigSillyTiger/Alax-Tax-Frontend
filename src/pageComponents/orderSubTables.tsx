@@ -1,12 +1,16 @@
 import { PTable } from "@/components/table";
-import orderDescColumns from "@/configs/columnDefs/defOrderDesc";
-import orderPaymentsColumns from "@/configs/columnDefs/defPayments";
-import { Torder } from "@/configs/schema/orderSchema";
+import { Torder, TorderService } from "@/configs/schema/orderSchema";
 import i18n from "@/configs/i18n";
 import { TitemContent } from "@/configs/types";
+import { ColumnDef } from "@tanstack/react-table";
 
-export const orderSubTable = (data: Torder) => {
+export const orderSubTable = (
+    data: Torder,
+    orderDescColumns: ColumnDef<TorderService>[],
+    orderPaymentsColumns: ColumnDef<Torder>[]
+) => {
     const items = [] as TitemContent[];
+
     /* order services table */
     items.push({
         title: i18n.t("label.services"),

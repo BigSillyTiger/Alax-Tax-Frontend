@@ -2,7 +2,7 @@ import type { FC, TouchEvent, MouseEvent } from "react";
 import { useEffect, useMemo } from "react";
 import Card from "@/components/card";
 import { PTable } from "@/components/table";
-import staffColumns from "@/configs/columnDefs/defStaff";
+import useStaffColumnsDef from "@/configs/columnDefs/defStaff";
 import { useTranslation } from "react-i18next";
 import SubTable from "./SubTable";
 import { useAsyncValue } from "react-router-dom";
@@ -30,6 +30,7 @@ const ManagerContent: FC = () => {
     const setAllStaff = useStaffStore((state) => state.setAllStaff);
     const setAllStaffWL = useStaffWLStore((state) => state.setAllStaffWL);
     const setAllBonus = usePayslipStore((state) => state.setAllBonus);
+    const staffColumns = useStaffColumnsDef();
 
     const [worklogs, allStaff, allPayslips, allBonus, company, logo] =
         useAsyncValue() as [

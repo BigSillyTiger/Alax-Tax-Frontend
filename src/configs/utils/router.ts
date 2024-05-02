@@ -7,7 +7,6 @@ import {
     ClipboardDocumentListIcon,
     WrenchScrewdriverIcon,
 } from "@heroicons/react/24/outline";
-import i18n from "@/configs/i18n";
 
 export const routerPaths = {
     init: "/",
@@ -28,7 +27,7 @@ export const menuList = [
     /* 0 */
     {
         id: "dashboard",
-        name: i18n.t("menu.dashboard"),
+        name: "menu.dashboard",
         href: routerPaths.dashboard,
         icon: HomeIcon,
         current: true,
@@ -36,7 +35,7 @@ export const menuList = [
     /* 1 */
     {
         id: "clients",
-        name: i18n.t("menu.clients"),
+        name: "menu.clients",
         href: routerPaths.clients,
         icon: UserGroupIcon,
         current: false,
@@ -44,7 +43,7 @@ export const menuList = [
     /* 2 */
     {
         id: "orders",
-        name: i18n.t("menu.orders"),
+        name: "menu.orders",
         href: routerPaths.orders,
         icon: ClipboardDocumentIcon,
         current: false,
@@ -52,7 +51,7 @@ export const menuList = [
     /* 3 */
     {
         id: "worklogs",
-        name: i18n.t("menu.worklogs"),
+        name: "menu.worklogs",
         href: routerPaths.workLogs,
         icon: ClipboardDocumentListIcon,
         current: false,
@@ -60,7 +59,7 @@ export const menuList = [
     /* 4 */
     {
         id: "calendar",
-        name: i18n.t("menu.calendar"),
+        name: "menu.calendar",
         href: routerPaths.calendar,
         icon: CalendarIcon,
         current: false,
@@ -68,7 +67,7 @@ export const menuList = [
     /* 5 */
     {
         id: "staff",
-        name: i18n.t("menu.staff"),
+        name: "menu.staff",
         href: routerPaths.staff,
         icon: IdentificationIcon,
         current: false,
@@ -76,7 +75,7 @@ export const menuList = [
     /* 6 */
     {
         id: "setting",
-        name: i18n.t("menu.setting"),
+        name: "menu.setting",
         href: routerPaths.setting,
         icon: WrenchScrewdriverIcon,
         current: false,

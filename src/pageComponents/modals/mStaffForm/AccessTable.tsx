@@ -20,6 +20,10 @@ const AccessTable: FC<Tprops> = ({ register, watch }) => {
     const setRadioDisable = (page: TmenuID, adminNum: TadminAccess) => {
         return !(watch(page) === adminNum);
     };
+    const newMenuList = menuList.map((item) => ({
+        ...item,
+        name: t(item.name),
+    }));
 
     return (
         <div className={`pointer-events-none mx-2`}>
@@ -43,7 +47,7 @@ const AccessTable: FC<Tprops> = ({ register, watch }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {menuList.map((item) => {
+                    {newMenuList.map((item) => {
                         return (
                             <tr key={item.id}>
                                 <td

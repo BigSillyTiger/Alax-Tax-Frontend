@@ -18,7 +18,7 @@ import {
 } from "@/configs/atoms";
 import { useAsyncValue } from "react-router-dom";
 import { hmsTohm } from "@/lib/time";
-import orderColumns from "@/configs/columnDefs/defOrders";
+import useOrderColumnsDef from "@/configs/columnDefs/defOrders";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
@@ -35,6 +35,8 @@ const MainContent: FC = () => {
         Tcompany,
         string,
     ];
+
+    const orderColumns = useOrderColumnsDef();
 
     const newOrders = useMemo(() => {
         return orders.map((item) => {

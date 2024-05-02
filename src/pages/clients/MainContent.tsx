@@ -6,7 +6,7 @@ import { Tclient } from "@/configs/schema/clientSchema";
 import { atClient, atModalOpen } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
-import clientColumns from "@/configs/columnDefs/defClients";
+import useClientColumnsDef from "@/configs/columnDefs/defClients";
 
 type Tprops = {
     clients: Tclient[] | null;
@@ -16,6 +16,7 @@ const MainContent: FC<Tprops> = ({ clients }) => {
     const { t } = useTranslation();
     const [, setClient] = useAtom(atClient);
     const [, setModalOpen] = useAtom(atModalOpen);
+    const clientColumns = useClientColumnsDef();
 
     const handleAddNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();

@@ -2,10 +2,11 @@ import type { FC } from "react";
 import Card from "@/components/card";
 import { PTable } from "@/components/table";
 import { usePayslipStore } from "@/configs/zustore";
-import staffDeductColumns from "@/configs/columnDefs/defStaffDeduct";
+import useStaffDeductColumnsDef from "@/configs/columnDefs/defStaffDeduct";
 
 const Deduction: FC = () => {
     const deduction = usePayslipStore((state) => state.deduction);
+    const staffDeductColumns = useStaffDeductColumnsDef();
 
     return (
         <>

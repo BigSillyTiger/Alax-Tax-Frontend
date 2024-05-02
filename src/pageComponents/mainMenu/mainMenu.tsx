@@ -11,6 +11,7 @@ import { menuList } from "@/configs/utils/router";
 import { Menu2 } from "./menu";
 import { Tpermission } from "@/configs/schema/universSchema";
 import { useAdminStore } from "@/configs/zustore";
+import { useTranslation } from "react-i18next";
 
 export type TmenuList = {
     name: string;
@@ -33,6 +34,7 @@ type Tprops = {
 // create new menu list based on user permission
 
 const MainMenu: FC<Tprops> = ({ open, setOpen }) => {
+    const { t } = useTranslation();
     const user = useAdminStore((state) => state.currentAdmin);
     // generate new menu list based on current user permission
     const newMenuList = () => {
@@ -46,11 +48,16 @@ const MainMenu: FC<Tprops> = ({ open, setOpen }) => {
                 {} as Record<string, number>
             )
         );
-        return menuList.filter((_, index) => {
-            // if temp[index] is > 0, then return the menu item => display it
-            // otehrwise, return undefined => hide it
-            return temp[index];
-        });
+        return menuList
+            .filter((_, index) => {
+                // if temp[index] is > 0, then return the menu item => display it
+                // otherwise, return undefined => hide it
+                return temp[index];
+            })
+            .map((item) => ({
+                ...item,
+                name: t(item.name),
+            }));
     };
 
     return (

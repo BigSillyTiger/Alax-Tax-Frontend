@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useAsyncValue } from "react-router-dom";
 import Card from "@/components/card";
 import { PTable } from "@/components/table";
-import clientOrderColumns from "@/configs/columnDefs/defClientOrder";
+import useClientOrderColumnsDef from "@/configs/columnDefs/defClientOrder";
 import SubTable from "./SubTable";
 import { useAtom } from "jotai";
 import {
@@ -39,6 +39,7 @@ const MainContent: FC = () => {
         Tcompany,
         string,
     ];
+    const clientOrderColumns = useClientOrderColumnsDef();
 
     const newOrders = useMemo(() => {
         return orders.map((item) => {
