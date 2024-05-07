@@ -1,7 +1,6 @@
 import { API_ADMIN, API_CLIENT, API_SETTING, API_ORDER } from "@/apis";
-import { Tadmin } from "@/configs/schema/staffSchema";
 import { menuList } from "@/configs/utils/router";
-import { adminStore, routerStore } from "@/configs/zustore";
+import { routerStore } from "@/configs/zustore";
 import { LoaderFunctionArgs, defer, redirect } from "react-router-dom";
 
 /**
@@ -13,19 +12,7 @@ export const clientLoader = async ({ request, params }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;
     routerStore.setState({ currentRouter: "client" });
     try {
-        const result = await API_ADMIN.accessCheck(menuList[1].id)
-            .then((res) => {
-                if (!res.data || !(res.data as Tadmin).clients) {
-                    return false;
-                } else {
-                    adminStore.setState({ currentAdmin: res.data as Tadmin });
-                    return res.data;
-                }
-            })
-            .catch((error) => {
-                console.log("-> Error: orders page admin check: ", error);
-                return false;
-            });
+        const result = await API_ADMIN.loaderAccessCheck(menuList[1].id);
 
         if (!result) {
             return pname

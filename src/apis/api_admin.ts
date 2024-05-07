@@ -1,7 +1,7 @@
 import { adminStore } from "@/configs/zustore";
 import apis from "./axios";
 import { LOGIN, LOGOUT, ADMIN_CHECK, ACCESS_CHECK } from "./req_list";
-import { RES_STATUS } from "@/configs/types";
+import { RES_STATUS, TmenuID } from "@/configs/types";
 import { Tadmin } from "@/configs/schema/staffSchema";
 
 export const adminLogin = async (
@@ -68,5 +68,20 @@ export const test = async () => {
     } catch (err: unknown) {
         console.error("err.test: ", err);
         return { status: RES_STATUS.FAILED, msg: "", data: {} };
+    }
+};
+
+export const loaderAccessCheck = async (menuId: TmenuID) => {
+    try {
+        const result = await accessCheck(menuId);
+        if (!result.data || !(result.data as Tadmin)[menuId]) {
+            return false;
+        } else {
+            adminStore.setState({ currentAdmin: result.data as Tadmin });
+            return result.data;
+        }
+    } catch (err: unknown) {
+        console.error("err.loaderAccessCheck: ", err);
+        return false;
     }
 };
