@@ -99,6 +99,7 @@ const en = {
             download: "Download",
             edit: "Edit",
             editInfo: "Edit Personal Info",
+            goToLogin: "Go to Login",
             invoice: "Invoice",
             newOrder: "New Order",
             newService: "New Service",
@@ -304,7 +305,8 @@ const en = {
             noDutyToday: "No Work Assignment Today",
             noDutyTomorrow: "No Work Assignment Tomorrow",
             noDeduction: "No Deduction",
-            errorTips: "Something went wrong.",
+            errorTips:
+                "Something went wrong. Pleas try Re-Login or Contact Manager.",
             unfinishedPS: "Unfinished Payslip",
             unconfirmedWL: "Unconfirmed Worklogs",
             noClient: "No client",

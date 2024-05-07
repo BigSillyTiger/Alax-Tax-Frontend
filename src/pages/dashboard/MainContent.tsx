@@ -61,7 +61,7 @@ const MainContent: FC = () => {
     }, [newTodayWLs]);
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 px-4 sm:px-6 lg:px-8 top-0">
             <div className="h-screen lg:h-[45dvh] flex flex-col md:flex-row px-2 gap-4">
                 <DutyCard
                     worklogs={newTodayWLs}
@@ -70,7 +70,7 @@ const MainContent: FC = () => {
                     }
                 />
 
-                <OrderArrangement className="h-[100dvh] lg:h-[45dvh] md:w-full lg:w-[45vw]" />
+                <OrderArrangement className="h-[100dvh] lg:h-[45dvh] md:w-full " />
             </div>
             {currentAdmin.role === ROLES.manager && (
                 <div className="px-2">

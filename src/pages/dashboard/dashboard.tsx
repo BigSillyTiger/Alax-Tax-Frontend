@@ -46,7 +46,7 @@ const Dashboard: FC = () => {
     }, [actionData, modalOpen, setModalOpen, t]);
 
     return (
-        <div className="mx-2 px-0">
+        <div className="container border-0">
             <Suspense fallback={<SpinningEle />}>
                 <Await resolve={allPromise} errorElement={<ErrorTips />}>
                     <MainContent />
