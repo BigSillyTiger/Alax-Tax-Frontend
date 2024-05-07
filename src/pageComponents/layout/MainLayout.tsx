@@ -44,7 +44,7 @@ const MainLayout = () => {
 
             {/* view area */}
             <main
-                className={`relative py-5 w-screen left-0 lg:left-[5vw] lg:w-[95vw] h-[93vh] overflow-y-auto`}
+                className={`relative py-5 w-screen left-0 lg:left-[5dvw] lg:w-[95dvw] h-[93dvh] overflow-y-auto`}
             >
                 <Outlet />
             </main>

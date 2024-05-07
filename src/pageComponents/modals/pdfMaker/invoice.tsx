@@ -77,7 +77,7 @@ const DatePicker = ({
                             setDate(newDate);
                             onSubmit(newDate);
                         }}
-                        className={`h-[4dvh] mt-[1vh]`}
+                        className={`h-[4dvh] mt-[1dvh]`}
                     >
                         {t("btn.updateIssueDate")}
                     </NormalBtn>
@@ -111,7 +111,7 @@ const DatePicker = ({
                             setDate(defaultDate);
                             onSubmit(defaultDate);
                         }}
-                        className={`h-[4dvh] mt-[1vh]`}
+                        className={`h-[4dvh] mt-[1dvh]`}
                     >
                         {t("btn.resetIssue")}
                     </NormalBtn>

@@ -71,7 +71,7 @@ const ModalFrame: FC<Tprops> = ({
                 {/* modal content */}
                 <div className="mt-[7vh] fixed inset-0 z-10 overflow-y-auto">
                     {/* min-h-full */}
-                    <div className="flex h-[93vh] items-end justify-center text-center sm:items-center p-0">
+                    <div className="flex h-[93dvh] items-end justify-center text-center sm:items-center p-0">
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -82,7 +82,7 @@ const ModalFrame: FC<Tprops> = ({
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             <Dialog.Panel
-                                className={`relative h-full overflow-y-auto sm:h-auto bg-slate-100 text-left shadow-xl transition-all px-4 pb-4 pt-5 sm:my-8 sm:py-3 sm:px-4 ${widthSize(
+                                className={`relative overflow-y-auto bg-slate-100 text-left shadow-xl transition-all px-4 pb-4 pt-5 sm:my-8 sm:py-3 sm:px-4 ${widthSize(
                                     mode
                                 )} ${className}`}
                             >
@@ -105,7 +105,7 @@ const ModalFrame: FC<Tprops> = ({
                                     {/* title */}
                                     <Dialog.Title
                                         as="h3"
-                                        className={`text-base flex items-center font-semibold leading-6 h-[5vh] ${
+                                        className={`text-base flex items-center font-semibold leading-6 h-[5dvh] ${
                                             isMajor
                                                 ? "text-red-600 flex items-center justify-center"
                                                 : "text-gray-900"

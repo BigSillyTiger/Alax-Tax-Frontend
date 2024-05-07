@@ -60,3 +60,13 @@ export const accessCheck = async (page: string): Promise<Tresponse> => {
         };
     }
 };
+
+export const test = async () => {
+    try {
+        const response = await apis.get("/api/test");
+        return response.data;
+    } catch (err: unknown) {
+        console.error("err.test: ", err);
+        return { status: RES_STATUS.FAILED, msg: "", data: {} };
+    }
+};

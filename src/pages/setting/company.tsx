@@ -317,7 +317,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                             }
                         }
                     }}
-                    className={`h-[4dvh] mt-[1vh]`}
+                    className={`h-[4dvh] mt-[1dvh]`}
                 >
                     {t("btn.updateLogo")}
                 </NormalBtn>

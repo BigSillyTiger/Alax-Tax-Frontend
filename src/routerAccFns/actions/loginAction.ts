@@ -6,6 +6,8 @@ export const loginAction = async ({ request }: ActionFunctionArgs) => {
     const search = new URL(request.url).searchParams.get("redirect");
     const data = await request.formData();
 
+    //await API_ADMIN.test();
+
     const result = await API_ADMIN.adminLogin(
         data.get("email") as string,
         data.get("password") as string
