@@ -10,14 +10,18 @@ export const layoutLoader = async ({ request }: LoaderFunctionArgs) => {
     //routerStore.setState({ currentRouter: "login" });
 
     try {
-        await API_ADMIN.adminCheck().then((res) => {
-            if (res.status !== RES_STATUS.SUCCESS) {
-                //return res.data;
-                return pname
-                    ? redirect(`/login?redirect=${pname}`)
-                    : redirect("/login");
-            }
-        });
+        const result = await API_ADMIN.adminCheck()
+            .then((res) => (res.status === RES_STATUS.SUCCESS ? true : false))
+            .catch((error) => {
+                console.log("-> Error: orders page admin check: ", error);
+                return false;
+            });
+
+        if (!result) {
+            return pname
+                ? redirect(`/login?redirect=${pname}`)
+                : redirect("/login");
+        }
 
         const allPromise = Promise.all([
             API_ADMIN.adminCheck().then((res) => res.data),

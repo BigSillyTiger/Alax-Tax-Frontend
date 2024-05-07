@@ -1,18 +1,19 @@
 import { API_ADMIN, API_WORKLOGS } from "@/apis";
 import { menuList } from "@/configs/utils/router";
 import { adminStore, routerStore } from "@/configs/zustore";
-import { defer, redirect } from "react-router-dom";
+import { defer, LoaderFunctionArgs, redirect } from "react-router-dom";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { Tadmin } from "@/configs/schema/staffSchema";
 
-export const wlLoader = async () => {
+export const wlLoader = async ({ request }: LoaderFunctionArgs) => {
+    const pname = new URL(request.url).pathname;
     routerStore.setState({ currentRouter: "workLogs" });
     try {
-        await API_ADMIN.accessCheck(menuList[3].id)
+        const result = await API_ADMIN.accessCheck(menuList[3].id)
             .then((res) => {
                 //return !res.data && redirect("/login");
-                if (!(res.data as Tadmin).worklogs) {
-                    return redirect("/login");
+                if (!res.data || !(res.data as Tadmin).worklogs) {
+                    return false;
                 } else {
                     adminStore.setState({ currentAdmin: res.data as Tadmin });
                     return res.data;
@@ -20,8 +21,14 @@ export const wlLoader = async () => {
             })
             .catch((error) => {
                 console.log("-> Error: orders page admin check: ", error);
-                return redirect("/login");
+                return false;
             });
+
+        if (!result) {
+            return pname
+                ? redirect(`/login?redirect=${pname}`)
+                : redirect("/login");
+        }
 
         const allPromise = Promise.all([
             API_WORKLOGS.wlAll().then((res) => res.data as TwlTableRow[]),

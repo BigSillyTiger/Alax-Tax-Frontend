@@ -8,16 +8,17 @@ import {
 import { Tadmin } from "@/configs/schema/staffSchema";
 import { menuList } from "@/configs/utils/router";
 import { adminStore, routerStore } from "@/configs/zustore";
-import { defer, redirect } from "react-router-dom";
+import { defer, LoaderFunctionArgs, redirect } from "react-router-dom";
 
-export const staffLoader = async () => {
+export const staffLoader = async ({ request }: LoaderFunctionArgs) => {
+    const pname = new URL(request.url).pathname;
     routerStore.setState({ currentRouter: "staff" });
     try {
-        await API_ADMIN.accessCheck(menuList[5].id)
+        const result = await API_ADMIN.accessCheck(menuList[5].id)
             .then((res) => {
                 //return !res.data && redirect("/login");
-                if (!(res.data as Tadmin).staff) {
-                    return redirect("/login");
+                if (!res.data || !(res.data as Tadmin).staff) {
+                    return false;
                 } else {
                     adminStore.setState({ currentAdmin: res.data as Tadmin });
                     return res.data;
@@ -25,8 +26,14 @@ export const staffLoader = async () => {
             })
             .catch((error) => {
                 console.log("-> Error: staff page admin check: ", error);
-                return redirect("/login");
+                return false;
             });
+
+        if (!result) {
+            return pname
+                ? redirect(`/login?redirect=${pname}`)
+                : redirect("/login");
+        }
 
         const allPromise = Promise.all([
             API_WORKLOGS.wlAll().then((res) => res.data),

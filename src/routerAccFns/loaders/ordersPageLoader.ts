@@ -1,19 +1,32 @@
 import { API_ADMIN, API_SETTING, API_ORDER, API_STAFF } from "@/apis";
+import { Tadmin } from "@/configs/schema/staffSchema";
 import { menuList } from "@/configs/utils/router";
-import { routerStore } from "@/configs/zustore";
-import { defer, redirect } from "react-router-dom";
+import { adminStore, routerStore } from "@/configs/zustore";
+import { defer, LoaderFunctionArgs, redirect } from "react-router-dom";
 
-export const ordersLoader = async () => {
+export const ordersLoader = async ({ request }: LoaderFunctionArgs) => {
+    const pname = new URL(request.url).pathname;
     routerStore.setState({ currentRouter: "orders" });
     try {
-        await API_ADMIN.accessCheck(menuList[2].id)
+        const result = await API_ADMIN.accessCheck(menuList[2].id)
             .then((res) => {
-                return !res.data && redirect("/login");
+                if (!res.data || !(res.data as Tadmin).orders) {
+                    return false;
+                } else {
+                    adminStore.setState({ currentAdmin: res.data as Tadmin });
+                    return res.data;
+                }
             })
             .catch((error) => {
                 console.log("-> Error: orders page admin check: ", error);
-                return redirect("/login");
+                return false;
             });
+
+        if (!result) {
+            return pname
+                ? redirect(`/login?redirect=${pname}`)
+                : redirect("/login");
+        }
 
         const allPromise = Promise.all([
             API_ORDER.orderAll().then((res) => res.data),

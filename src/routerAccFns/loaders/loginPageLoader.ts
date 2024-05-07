@@ -3,21 +3,16 @@ import { API_ADMIN } from "@/apis";
 import { RES_STATUS } from "@/configs/types";
 
 export const loginLoader = async ({ request }: LoaderFunctionArgs) => {
-    const pname = new URL(request.url).pathname;
+    //const pname = new URL(request.url).pathname;
     const search = new URL(request.url).searchParams.get("redirect");
-    await API_ADMIN.adminCheck()
-        .then((res) => {
-            //return res.status === RES_STATUS.SUCCESS && redirect("/dashboard");
-            if (res.status === RES_STATUS.SUCCESS) {
-                return redirect("/dashboard");
-            }
-            return pname
-                ? redirect(`/login?redirect=${pname}`)
-                : redirect("/login");
-        })
+    const result = await API_ADMIN.adminCheck()
+        .then((res) => (res.status === RES_STATUS.SUCCESS ? true : false))
         .catch((error) => {
             console.log("-> Error: login page admin check: ", error);
-            return redirect("/login");
+            return false;
         });
-    return search;
+
+    console.log("---> login loader redirect to login");
+
+    return result ? redirect("/dashboard") : search;
 };

@@ -1,6 +1,7 @@
 import { API_ADMIN, API_CLIENT, API_SETTING, API_ORDER } from "@/apis";
+import { Tadmin } from "@/configs/schema/staffSchema";
 import { menuList } from "@/configs/utils/router";
-import { routerStore } from "@/configs/zustore";
+import { adminStore, routerStore } from "@/configs/zustore";
 import { LoaderFunctionArgs, defer, redirect } from "react-router-dom";
 
 /**
@@ -8,20 +9,31 @@ import { LoaderFunctionArgs, defer, redirect } from "react-router-dom";
  * @param param0 cid
  * @returns
  */
-export const clientLoader = async ({ params }: LoaderFunctionArgs) => {
+export const clientLoader = async ({ request, params }: LoaderFunctionArgs) => {
+    const pname = new URL(request.url).pathname;
     routerStore.setState({ currentRouter: "client" });
     try {
-        await API_ADMIN.accessCheck(menuList[1].id)
+        const result = await API_ADMIN.accessCheck(menuList[1].id)
             .then((res) => {
-                return !res.data && redirect("/login");
+                if (!res.data || !(res.data as Tadmin).clients) {
+                    return false;
+                } else {
+                    adminStore.setState({ currentAdmin: res.data as Tadmin });
+                    return res.data;
+                }
             })
             .catch((error) => {
                 console.log("-> Error: orders page admin check: ", error);
-                return redirect("/login");
+                return false;
             });
 
-        const cid = params.cid as string;
+        if (!result) {
+            return pname
+                ? redirect(`/login?redirect=${pname}`)
+                : redirect("/login");
+        }
 
+        const cid = params.cid as string;
         const allPromise = Promise.all([
             API_CLIENT.clientInfo(cid).then((res) => res.data),
             API_ORDER.orderWClient(cid).then((res) => res.data),
