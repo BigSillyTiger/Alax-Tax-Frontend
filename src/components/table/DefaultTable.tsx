@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import { useState, useDeferredValue } from "react";
+import { useState, useDeferredValue, Fragment } from "react";
 import {
     useReactTable,
     getCoreRowModel,
@@ -7,13 +7,14 @@ import {
     getFilteredRowModel,
     getSortedRowModel,
     getExpandedRowModel,
+    flexRender,
 } from "@tanstack/react-table";
 import type {
     OnChangeFn,
     SortingState,
     Row,
     ColumnDef,
-    //ColumnResizeMode, B-resize
+    ColumnResizeMode,
 } from "@tanstack/react-table";
 import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
@@ -21,6 +22,8 @@ import ColumnToggleBtn from "./ColumnToggleBtn";
 import { CTable, CTBody, CTHead } from ".";
 import { TmenuOptions } from "@/configs/types";
 import { defaultMenuOptions } from "@/configs/utils/modal";
+import { MenuBtn, PSDelBtn } from "./tableBtn";
+import { Tpayslip } from "@/configs/schema/payslipSchema";
 
 type Tprops<T> = {
     data: T[];
@@ -85,15 +88,14 @@ const PTable = <T extends object>({
     const [sorting, setSorting] = useState([]);
     // for column toggle
     const [columnVisibility, setColumnVisibility] = useState({});
-    // for column resize B-resize
-    //const [columnResizeMode] = useState<ColumnResizeMode>("onChange");
+    // for column resize
+    const [columnResizeMode] = useState<ColumnResizeMode>("onChange");
 
     const table = useReactTable({
         data,
         columns,
         // for column resize, but this will cause ctbody render before mount issue
-        // B-resize
-        //columnResizeMode,
+        columnResizeMode,
         getRowCanExpand, // for expanding row
         state: { globalFilter: deferredGF, sorting, columnVisibility },
         onSortingChange: setSorting as OnChangeFn<SortingState>,
@@ -107,6 +109,75 @@ const PTable = <T extends object>({
         getExpandedRowModel: getExpandedRowModel(), // for expanding row
         onColumnVisibilityChange: setColumnVisibility, // for column toggle
     });
+
+    const tableBody = table.getRowModel().rows.length
+        ? table.getRowModel().rows.map((row: Row<T>, i: number) => (
+              <Fragment key={row.id}>
+                  <tr className={i % 2 === 0 ? undefined : "bg-gray-100"}>
+                      {row.getVisibleCells().map((cell) => {
+                          if (cell.column.id === "Menu" && setData) {
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex justify-center items-center z-0"
+                                  >
+                                      <MenuBtn
+                                          {...menuOptions}
+                                          setData={setData}
+                                          mItem={row.original}
+                                      />
+                                  </td>
+                              );
+                          } else if (
+                              cell.column.id === "PayslipDel" &&
+                              setData
+                          ) {
+                              return (
+                                  <td
+                                      key={cell.id}
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex justify-center items-center z-0"
+                                      style={{
+                                          width: cell.column.getSize(),
+                                      }}
+                                  >
+                                      <PSDelBtn
+                                          data={row.original as Tpayslip}
+                                          setData={
+                                              setData as (
+                                                  data: Tpayslip
+                                              ) => void
+                                          }
+                                      />
+                                  </td>
+                              );
+                          }
+                          return (
+                              <td
+                                  key={cell.id}
+                                  className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
+                              >
+                                  {flexRender(
+                                      cell.column.columnDef.cell,
+                                      cell.getContext()
+                                  )}
+                              </td>
+                          );
+                      })}
+                  </tr>
+                  {getRowCanExpand &&
+                      getRowCanExpand(row) &&
+                      SubTable &&
+                      row.getIsExpanded() && (
+                          <tr>
+                              <td colSpan={row.getVisibleCells().length}>
+                                  {/* 2nd row is a custom 1 cell row */}
+                                  <SubTable data={row.original} />
+                              </td>
+                          </tr>
+                      )}
+              </Fragment>
+          ))
+        : "";
 
     return (
         <div className="container flex flex-col">
@@ -131,13 +202,7 @@ const PTable = <T extends object>({
                     hFilter={hFilter}
                     cnTh={cnTh}
                 />
-                <CTBody
-                    className={`${cnBody}`}
-                    table={table}
-                    setData={setData}
-                    subTable={SubTable}
-                    menuOptions={menuOptions}
-                />
+                <CTBody className={`${cnBody}`}>{tableBody}</CTBody>
             </CTable>
 
             {/* pagination */}

@@ -16,9 +16,9 @@ const CTh = <T extends object>({
     children,
     scope,
     onClick,
-    //table,
+    table,
     header,
-    //columnResizeMode = "onChange", B-resize
+    columnResizeMode = "onChange",
 }: Tprops<T>) => {
     return (
         <th
@@ -32,8 +32,8 @@ const CTh = <T extends object>({
         >
             {children}
 
-            {/* resizer block B-resize */}
-            {/* <div
+            {/* resizer block */}
+            <div
                 onMouseDown={header.getResizeHandler()}
                 onTouchStart={header.getResizeHandler()}
                 className={`resizer ${
@@ -48,7 +48,7 @@ const CTh = <T extends object>({
                               }px)`
                             : "",
                 }}
-            /> */}
+            />
         </th>
     );
 };

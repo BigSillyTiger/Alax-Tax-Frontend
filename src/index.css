@@ -75,7 +75,6 @@
     }
 }
 
-/* B-resize
 .resizer {
     @apply absolute right-0 top-0 h-full w-3 bg-indigo-800 cursor-col-resize select-none touch-none;
     background-color: rgba(53, 5, 116, 0.5);
@@ -93,4 +92,4 @@
     *:hover > .resizer {
         @apply opacity-100;
     }
-} */
+}
