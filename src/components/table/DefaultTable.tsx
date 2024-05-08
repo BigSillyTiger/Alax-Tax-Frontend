@@ -1,8 +1,7 @@
 import type { ComponentType } from "react";
-import { useState, useDeferredValue, Fragment } from "react";
+import { useState, useDeferredValue } from "react";
 import {
     useReactTable,
-    flexRender,
     getCoreRowModel,
     getPaginationRowModel,
     getFilteredRowModel,
@@ -18,11 +17,9 @@ import type {
 import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
 import ColumnToggleBtn from "./ColumnToggleBtn";
-import { MenuBtn, PSDelBtn } from "./tableBtn";
 import { CTable, CTBody, CTHead } from ".";
 import { TmenuOptions } from "@/configs/types";
 import { defaultMenuOptions } from "@/configs/utils/modal";
-import { Tpayslip } from "@/configs/schema/payslipSchema";
 
 type Tprops<T> = {
     data: T[];
@@ -105,72 +102,6 @@ const PTable = <T extends object>({
         onColumnVisibilityChange: setColumnVisibility,
     });
 
-    const tableBody = table.getRowModel().rows.length
-        ? table.getRowModel().rows.map((row: Row<T>, i: number) => (
-              <Fragment key={row.id}>
-                  <tr className={i % 2 === 0 ? undefined : "bg-gray-100"}>
-                      {row.getVisibleCells().map((cell) => {
-                          if (cell.column.id === "Menu" && setData) {
-                              return (
-                                  <td
-                                      key={cell.id}
-                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex justify-center items-center z-0"
-                                  >
-                                      <MenuBtn
-                                          {...menuOptions}
-                                          setData={setData}
-                                          mItem={row.original}
-                                      />
-                                  </td>
-                              );
-                          } else if (
-                              cell.column.id === "PayslipDel" &&
-                              setData
-                          ) {
-                              return (
-                                  <td
-                                      key={cell.id}
-                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex justify-center items-center z-0"
-                                  >
-                                      <PSDelBtn
-                                          data={row.original as Tpayslip}
-                                          setData={
-                                              setData as (
-                                                  data: Tpayslip
-                                              ) => void
-                                          }
-                                      />
-                                  </td>
-                              );
-                          }
-                          return (
-                              <td
-                                  key={cell.id}
-                                  className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 text-center z-0"
-                              >
-                                  {flexRender(
-                                      cell.column.columnDef.cell,
-                                      cell.getContext()
-                                  )}
-                              </td>
-                          );
-                      })}
-                  </tr>
-                  {getRowCanExpand &&
-                      getRowCanExpand(row) &&
-                      SubTable &&
-                      row.getIsExpanded() && (
-                          <tr>
-                              <td colSpan={row.getVisibleCells().length}>
-                                  {/* 2nd row is a custom 1 cell row */}
-                                  <SubTable data={row.original} />
-                              </td>
-                          </tr>
-                      )}
-              </Fragment>
-          ))
-        : null;
-
     return (
         <div className="container flex flex-col">
             <div className="flex flex-col sm:flex-row ">
@@ -194,7 +125,13 @@ const PTable = <T extends object>({
                     hFilter={hFilter}
                     cnTh={cnTh}
                 />
-                <CTBody className={`${cnBody}`}>{tableBody}</CTBody>
+                <CTBody
+                    className={`${cnBody}`}
+                    table={table}
+                    setData={setData}
+                    subTable={SubTable}
+                    menuOptions={menuOptions}
+                />
             </CTable>
 
             {/* pagination */}
