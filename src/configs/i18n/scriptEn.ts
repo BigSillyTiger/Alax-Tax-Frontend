@@ -116,6 +116,8 @@ const en = {
             timeStop: "Stop Timer",
             timeBreak: "Take a Break",
             timeResume: "Continue",
+            toggleAll: "Toggle All",
+            toggleColumn: "Toggle Columns",
             update: "Update",
             updateIssueDate: "Update Issue Date",
             updateLogo: "Update Logo",

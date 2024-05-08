@@ -1,13 +1,12 @@
-import type { FC } from "react";
 import { Column, Table } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 
-type Tprops = {
-    column: Column<any, any>;
-    table: Table<any>;
+type Tprops<T> = {
+    column: Column<T, unknown>;
+    table: Table<T>;
 };
 
-const HeaderFilter: FC<Tprops> = ({ column, table }) => {
+const HeaderFilter = <T extends object>({ column, table }: Tprops<T>) => {
     const { t } = useTranslation();
 
     const firstValue = table
@@ -20,11 +19,12 @@ const HeaderFilter: FC<Tprops> = ({ column, table }) => {
                 <input
                     type="number"
                     value={
-                        ((column.getFilterValue() as any)?.[0] ?? "") as string
+                        ((column.getFilterValue() as string)?.[0] ??
+                            "") as string
                     }
                     min={0}
                     onChange={(e) =>
-                        column.setFilterValue((old: any) => [
+                        column.setFilterValue((old: string) => [
                             e.target.value,
                             old?.[1],
                         ])
@@ -35,11 +35,12 @@ const HeaderFilter: FC<Tprops> = ({ column, table }) => {
                 <input
                     type="number"
                     value={
-                        ((column.getFilterValue() as any)?.[1] ?? "") as string
+                        ((column.getFilterValue() as string)?.[1] ??
+                            "") as string
                     }
                     min={0}
                     onChange={(e) =>
-                        column.setFilterValue((old: any) => [
+                        column.setFilterValue((old: string) => [
                             old?.[0],
                             e.target.value,
                         ])

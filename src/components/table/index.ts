@@ -3,7 +3,7 @@ import CTHead from "./CTHead";
 import CTBody from "./CTBody";
 import CTh from "./CTh";
 import Pagination from "./pagination";
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 import { sortingIcon } from "./config";
 import PTable from "./defaultTable";
 

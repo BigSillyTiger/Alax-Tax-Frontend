@@ -9,9 +9,15 @@ import {
     getSortedRowModel,
     getExpandedRowModel,
 } from "@tanstack/react-table";
-import type { OnChangeFn, SortingState, Row } from "@tanstack/react-table";
+import type {
+    OnChangeFn,
+    SortingState,
+    Row,
+    ColumnDef,
+} from "@tanstack/react-table";
 import Pagination from "./pagination";
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
+import ColumnToggleBtn from "./ColumnToggleBtn";
 import { sortingIcon } from "./config";
 import { MenuBtn, PSDelBtn } from "./tableBtn";
 import HeaderFilter from "./headerFilter";
@@ -22,13 +28,15 @@ import { Tpayslip } from "@/configs/schema/payslipSchema";
 
 type Tprops<T> = {
     data: T[];
-    columns: any;
+    columns: ColumnDef<T>[];
     // specific options
     // for menu btn open modal: edit & del & payment
     menuOptions?: TmenuOptions;
     setData?: (data: T) => void;
     // for search bar
     search?: boolean;
+    // for column toggle
+    columnToggle?: boolean;
     // for header filter:
     hFilter?: boolean;
     // for sub table
@@ -65,8 +73,9 @@ const PTable = <T extends object>({
     columns,
     menuOptions = defaultMenuOptions,
     setData,
-    search,
-    hFilter,
+    search = true,
+    columnToggle = true,
+    hFilter = true,
     getRowCanExpand,
     expandContent: SubTable,
     cnSearch,
@@ -78,12 +87,13 @@ const PTable = <T extends object>({
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
+    const [columnVisibility, setColumnVisibility] = useState({});
 
     const table = useReactTable({
         data,
         columns,
         getRowCanExpand, // for expanding row
-        state: { globalFilter: deferredGF, sorting },
+        state: { globalFilter: deferredGF, sorting, columnVisibility },
         onSortingChange: setSorting as OnChangeFn<SortingState>,
         // not sure what is this onGlobalFilterChange used for
         // the filter still works very well without this
@@ -93,6 +103,8 @@ const PTable = <T extends object>({
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getExpandedRowModel: getExpandedRowModel(), // for expanding row
+        // for column toggle
+        onColumnVisibilityChange: setColumnVisibility,
     });
 
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
@@ -186,15 +198,20 @@ const PTable = <T extends object>({
         : null;
 
     return (
-        <div className="container">
-            {/* search bar */}
-            {search && (
-                <SearchBar
-                    value={globalFilter}
-                    onChange={setGlobalFilter}
-                    className={`${cnSearch}`}
-                />
-            )}
+        <div className="container flex flex-col">
+            <div className="flex flex-col sm:flex-row ">
+                {/* search bar */}
+
+                {search && (
+                    <SearchBar
+                        value={globalFilter}
+                        onChange={setGlobalFilter}
+                        className={`${cnSearch}`}
+                    />
+                )}
+
+                {columnToggle && <ColumnToggleBtn table={table} />}
+            </div>
 
             <CTable className={`${cnTable}`}>
                 <CTHead className={`${cnHead}`}>{tableHeader}</CTHead>
