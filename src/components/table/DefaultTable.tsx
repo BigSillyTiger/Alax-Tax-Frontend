@@ -13,6 +13,7 @@ import type {
     SortingState,
     Row,
     ColumnDef,
+    //ColumnResizeMode, B-resize
 } from "@tanstack/react-table";
 import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
@@ -82,11 +83,17 @@ const PTable = <T extends object>({
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
     const [sorting, setSorting] = useState([]);
+    // for column toggle
     const [columnVisibility, setColumnVisibility] = useState({});
+    // for column resize B-resize
+    //const [columnResizeMode] = useState<ColumnResizeMode>("onChange");
 
     const table = useReactTable({
         data,
         columns,
+        // for column resize, but this will cause ctbody render before mount issue
+        // B-resize
+        //columnResizeMode,
         getRowCanExpand, // for expanding row
         state: { globalFilter: deferredGF, sorting, columnVisibility },
         onSortingChange: setSorting as OnChangeFn<SortingState>,
@@ -98,8 +105,7 @@ const PTable = <T extends object>({
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getExpandedRowModel: getExpandedRowModel(), // for expanding row
-        // for column toggle
-        onColumnVisibilityChange: setColumnVisibility,
+        onColumnVisibilityChange: setColumnVisibility, // for column toggle
     });
 
     return (
@@ -118,7 +124,7 @@ const PTable = <T extends object>({
                 {columnToggle && <ColumnToggleBtn table={table} />}
             </div>
 
-            <CTable className={`${cnTable}`}>
+            <CTable className={`${cnTable}`} table={table}>
                 <CTHead
                     className={`${cnHead}`}
                     table={table}

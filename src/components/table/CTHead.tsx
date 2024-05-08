@@ -23,7 +23,8 @@ const CTHead = <T extends object>({
                     key={header.id}
                     scope="col"
                     className={`${cnTh}`}
-                    colSpan={header.colSpan}
+                    table={table}
+                    header={header}
                 >
                     <button onClick={header.column.getToggleSortingHandler()}>
                         {flexRender(
