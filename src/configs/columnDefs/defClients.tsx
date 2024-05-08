@@ -27,7 +27,7 @@ const useClientColumnsDef = () => {
             accessorFn: (data: Tclient) =>
                 data.first_name + " " + data.last_name,
             cell: (info: CellContext<Tclient, unknown>) => (
-                <span>{info.getValue<string>()}</span>
+                <span className="text-wrap">{info.getValue<string>()}</span>
             ),
         },
         {
@@ -55,16 +55,16 @@ const useClientColumnsDef = () => {
                 ", " +
                 data.postcode,
             cell: (info: CellContext<Tclient, unknown>) => (
-                <span>{info.getValue<string>()}</span>
+                <span className="text-wrap">{info.getValue<string>()}</span>
             ),
         },
-        {
+        /* {
             header: i18n.t("label.pc"),
             accessorKey: "postcode",
             cell: (info: CellContext<Tclient, unknown>) => (
                 <span>{info.getValue<string>()}</span>
             ),
-        },
+        }, */
         {
             header: i18n.t("label.menu"),
             cell: () => <></>,

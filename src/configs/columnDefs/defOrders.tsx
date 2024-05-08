@@ -33,7 +33,9 @@ const useOrderColumnsDef = () => {
                         data.client_info.last_name,
                     accessorKey: "full_name",
                     cell: (info: CellContext<Torder, unknown>) => (
-                        <span>{info.getValue<string>()}</span>
+                        <span className="text-wrap">
+                            {info.getValue<string>()}
+                        </span>
                     ),
                 },
                 {
@@ -72,7 +74,7 @@ const useOrderColumnsDef = () => {
                         data.postcode,
                     accessorKey: "address",
                     cell: (info: CellContext<Torder, string>) => (
-                        <span>{info.getValue()}</span>
+                        <span className="text-wrap">{info.getValue()}</span>
                     ),
                 },
                 {

@@ -23,14 +23,18 @@ const usePaySlipColumnsDef = () => {
             header: i18n.t("label.start"),
             accessorKey: "s_date",
             cell: (info: CellContext<Tpayslip, unknown>) => {
-                return <span>{info.getValue<string>()}</span>;
+                return (
+                    <span className="text-wrap">{info.getValue<string>()}</span>
+                );
             },
         },
         {
             header: i18n.t("label.end"),
             accessorKey: "e_date",
             cell: (info: CellContext<Tpayslip, unknown>) => {
-                return <span>{info.getValue<string>()}</span>;
+                return (
+                    <span className="text-wrap">{info.getValue<string>()}</span>
+                );
             },
         },
         {

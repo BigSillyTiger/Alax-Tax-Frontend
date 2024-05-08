@@ -8,14 +8,18 @@ const useOrderDescColumnsDef = () => {
             header: i18n.t("label.service"),
             accessorKey: "title",
             cell: (info: CellContext<TorderService, unknown>) => {
-                return <span>{info.getValue<string>()}</span>;
+                return (
+                    <span className="text-wrap">{info.getValue<string>()}</span>
+                );
             },
         },
         {
             header: i18n.t("label.desc"),
             accessorKey: "description",
             cell: (info: CellContext<TorderService, unknown>) => {
-                return <span>{info.getValue<string>()}</span>;
+                return (
+                    <span className="text-wrap">{info.getValue<string>()}</span>
+                );
             },
         },
         {

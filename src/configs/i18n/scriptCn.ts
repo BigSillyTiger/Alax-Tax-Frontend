@@ -1,3 +1,4 @@
+// the script for the Chinese language
 const en = {
     translation: {
         login: {
@@ -112,6 +113,8 @@ const en = {
             timeStop: "停止计时器",
             timeBreak: "休息一下",
             timeResume: "继续",
+            toggleAll: "全部显示",
+            toggleColumn: "列显示",
             update: "更新",
             updateIssueDate: "更新发布日期",
             updateLogo: "更新徽标",
@@ -301,7 +304,7 @@ const en = {
             noDutyToday: "今天无工作任务",
             noDutyTomorrow: "明天无工作任务",
             noDeduction: "无扣除项",
-            errorTips: "发生了一些错误。",
+            errorTips: "数据错误，请尝试重新登陆或者联系管理员。",
             unfinishedPS: "未完成的工资单",
             unconfirmedWL: "未确认的工作日志",
             noClient: "无客户",

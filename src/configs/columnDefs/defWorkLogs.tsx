@@ -40,7 +40,9 @@ const useWLConlumnsDef = () => {
                     accessorFn: (data: TwlTableRow) =>
                         data.first_name + " " + data.last_name,
                     cell: (info: CellContext<TwlTableRow, unknown>) => (
-                        <span>{info.getValue<string>()}</span>
+                        <span className="text-wrap">
+                            {info.getValue<string>()}
+                        </span>
                     ),
                 },
                 {
@@ -65,7 +67,9 @@ const useWLConlumnsDef = () => {
                         ", " +
                         data.postcode,
                     cell: (info: CellContext<TwlTableRow, unknown>) => (
-                        <span>{info.getValue<string>()}</span>
+                        <span className="text-wrap">
+                            {info.getValue<string>()}
+                        </span>
                     ),
                 },
             ],
@@ -79,7 +83,9 @@ const useWLConlumnsDef = () => {
                     header: i18n.t("label.workDate"),
                     accessorKey: "wl_date",
                     cell: (info: CellContext<TwlTableRow, unknown>) => (
-                        <span>{dateFormat(info.getValue<string>(), "au")}</span>
+                        <span className="text-wrap">
+                            {dateFormat(info.getValue<string>(), "au")}
+                        </span>
                     ),
                 },
                 {

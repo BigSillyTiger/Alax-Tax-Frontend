@@ -52,7 +52,9 @@ const useStaffColumnsDef = () => {
                     }
                 }
 
-                return <span className="">{info.getValue<string>()}</span>;
+                return (
+                    <span className="text-wrap">{info.getValue<string>()}</span>
+                );
             },
         },
         {
@@ -80,7 +82,7 @@ const useStaffColumnsDef = () => {
                 ", " +
                 data.postcode,
             cell: (info: CellContext<TstaffWPayslip, unknown>) => (
-                <span>{info.getValue<string>()}</span>
+                <span className="text-wrap">{info.getValue<string>()}</span>
             ),
         },
         {
