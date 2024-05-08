@@ -1,12 +1,45 @@
-import type { FC, ReactNode } from "react";
+import { flexRender, Table } from "@tanstack/react-table";
+import HeaderFilter from "./HeaderFilter";
+import { sortingIcon } from "./config";
+import CTh from "./CTh";
 
-type Tprops = {
+type Tprops<T> = {
     className?: string;
-    children: ReactNode[] | ReactNode;
+    hFilter?: boolean;
+    cnTh?: string;
+    table: Table<T>;
 };
 
-const CTHead: FC<Tprops> = ({ className = "bg-indigo-50", children }) => {
-    return <thead className={`w-full top-0 ${className}`}>{children}</thead>;
+const CTHead = <T extends object>({
+    className = "bg-indigo-50",
+    hFilter = false,
+    cnTh = "",
+    table,
+}: Tprops<T>) => {
+    const tableHeader = table.getHeaderGroups().map((headerGroup) => (
+        <tr key={headerGroup.id}>
+            {headerGroup.headers.map((header) => (
+                <CTh
+                    key={header.id}
+                    scope="col"
+                    className={`${cnTh}`}
+                    colSpan={header.colSpan}
+                >
+                    <button onClick={header.column.getToggleSortingHandler()}>
+                        {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                        )}
+                        {sortingIcon(header.column.getIsSorted())}
+                    </button>
+                    {hFilter && header.column.getCanFilter() ? (
+                        <HeaderFilter column={header.column} table={table} />
+                    ) : null}
+                </CTh>
+            ))}
+        </tr>
+    ));
+    return <thead className={`w-full top-0 ${className}`}>{tableHeader}</thead>;
 };
 
 export default CTHead;

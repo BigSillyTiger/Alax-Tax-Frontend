@@ -1,10 +1,10 @@
-import type { FC } from "react";
+import { Table } from "@tanstack/react-table";
 
-type Tprops = {
-    table: any;
+type Tprops<T> = {
+    table: Table<T>;
 };
 
-const Pagination: FC<Tprops> = ({ table }) => {
+const Pagination = <T extends object>({ table }: Tprops<T>) => {
     return (
         <div className="flex items-center justify-end mt-2 gap-2">
             <select

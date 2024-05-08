@@ -15,13 +15,11 @@ import type {
     Row,
     ColumnDef,
 } from "@tanstack/react-table";
-import Pagination from "./pagination";
+import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
 import ColumnToggleBtn from "./ColumnToggleBtn";
-import { sortingIcon } from "./config";
 import { MenuBtn, PSDelBtn } from "./tableBtn";
-import HeaderFilter from "./headerFilter";
-import { CTable, CTBody, CTHead, CTh } from ".";
+import { CTable, CTBody, CTHead } from ".";
 import { TmenuOptions } from "@/configs/types";
 import { defaultMenuOptions } from "@/configs/utils/modal";
 import { Tpayslip } from "@/configs/schema/payslipSchema";
@@ -107,30 +105,6 @@ const PTable = <T extends object>({
         onColumnVisibilityChange: setColumnVisibility,
     });
 
-    const tableHeader = table.getHeaderGroups().map((headerGroup) => (
-        <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-                <CTh
-                    key={header.id}
-                    scope="col"
-                    className={`${cnTh}`}
-                    colSpan={header.colSpan}
-                >
-                    <button onClick={header.column.getToggleSortingHandler()}>
-                        {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                        )}
-                        {sortingIcon(header.column.getIsSorted())}
-                    </button>
-                    {hFilter && header.column.getCanFilter() ? (
-                        <HeaderFilter column={header.column} table={table} />
-                    ) : null}
-                </CTh>
-            ))}
-        </tr>
-    ));
-
     const tableBody = table.getRowModel().rows.length
         ? table.getRowModel().rows.map((row: Row<T>, i: number) => (
               <Fragment key={row.id}>
@@ -214,7 +188,12 @@ const PTable = <T extends object>({
             </div>
 
             <CTable className={`${cnTable}`}>
-                <CTHead className={`${cnHead}`}>{tableHeader}</CTHead>
+                <CTHead
+                    className={`${cnHead}`}
+                    table={table}
+                    hFilter={hFilter}
+                    cnTh={cnTh}
+                />
                 <CTBody className={`${cnBody}`}>{tableBody}</CTBody>
             </CTable>
 
