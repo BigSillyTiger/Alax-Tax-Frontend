@@ -62,7 +62,8 @@ const ColumnToggleBtn = <T extends object>({ table }: Tprops<T>) => {
                                         }}
                                         className="mr-2"
                                     />{" "}
-                                    {column.id}
+                                    {column.columnDef.header?.toString() ??
+                                        column.id}
                                 </label>
                             </DropdownMenuItem>
                         );
