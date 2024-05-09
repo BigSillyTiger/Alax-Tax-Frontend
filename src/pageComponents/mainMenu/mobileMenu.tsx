@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { TmenuList } from "./mainMenu";
 import { CloseBtn } from "@/components/btns";
 import { useTranslation } from "react-i18next";
+import { useLogoStore } from "@/configs/zustore";
 
 type Tprops = {
     menuList: TmenuList;
@@ -25,6 +26,8 @@ const navFocus = ({ isActive }: { isActive: boolean }) => {
 
 const MobileMenu: FC<Tprops> = ({ menuList, open, setOpen }) => {
     const { t } = useTranslation();
+    const logoSrc = useLogoStore((state) => state.logoSrc);
+
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog
@@ -78,7 +81,8 @@ const MobileMenu: FC<Tprops> = ({ menuList, open, setOpen }) => {
                                 <div className="flex h-16 shrink-0 items-center">
                                     <img
                                         className="h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                        //src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                        src={logoSrc}
                                         alt="Your Company"
                                     />
                                 </div>

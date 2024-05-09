@@ -2,12 +2,14 @@ import type { FC } from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { TmenuList } from "../mainMenu";
+import { useLogoStore } from "@/configs/zustore";
 
 type Tprops = {
     menuList: TmenuList;
 };
 
 const Menu1: FC<Tprops> = ({ menuList }) => {
+    const logoSrc = useLogoStore((state) => state.logoSrc);
     const [isHovered, setIsHovered] = useState(false);
 
     const navFocus = ({ isActive }: { isActive: boolean }) => {
@@ -29,7 +31,8 @@ const Menu1: FC<Tprops> = ({ menuList }) => {
             <div className="flex h-16 shrink-0 items-center justify-center">
                 <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    //src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src={logoSrc}
                     alt="Company icon"
                 />
             </div>

@@ -7,6 +7,7 @@ import { deductStore, useDeductStore } from "./deductStore";
 import { staffStore, useStaffStore } from "./staffStore";
 import { globalAlertStore, useGlobalAlertStore } from "./globalAlertStore";
 import { ctPaymentStore, useCtPaymentStore } from "./ctPaymentStore";
+import { logoStore, useLogoStore } from "./logoStore";
 
 export {
     adminStore,
@@ -27,4 +28,6 @@ export {
     useGlobalAlertStore,
     ctPaymentStore,
     useCtPaymentStore,
+    logoStore,
+    useLogoStore,
 };

@@ -6,18 +6,20 @@ import HeadBar from "../headBar";
 import { Tpermission } from "@/configs/schema/universSchema";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { Tpayslip } from "@/configs/schema/payslipSchema";
-import { useGlobalAlertStore } from "@/configs/zustore";
+import { useGlobalAlertStore, useLogoStore } from "@/configs/zustore";
 
 const MainLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
     // this is for head bar alert bell notification
     const setUnPayslip = useGlobalAlertStore((state) => state.setUnPayslip);
     const setUnWorklog = useGlobalAlertStore((state) => state.setUnWorklog);
+    const setLogoSrc = useLogoStore((state) => state.setLogoSrc);
 
-    const [loaderData, allWorklogs, allPayslips] = useAsyncValue() as [
+    const [loaderData, allWorklogs, allPayslips, logo] = useAsyncValue() as [
         Tpermission,
         TwlTableRow[],
         Tpayslip[],
+        string,
     ];
 
     const unWL = useMemo(() => {
@@ -30,8 +32,9 @@ const MainLayout = () => {
     useEffect(() => {
         setUnWorklog(unWL);
         setUnPayslip(unPS);
+        setLogoSrc(logo);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [unWL, unPS]);
+    }, [unWL, unPS, logo]);
 
     return (
         <>

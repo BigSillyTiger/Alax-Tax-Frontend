@@ -44,6 +44,7 @@ const useStaffColumnsDef = () => {
                                 <span>{info.getValue<string>()}</span>
                                 <HoverTips
                                     tipsContent={i18n.t("tips.unfinishedPS")}
+                                    delay={0}
                                 >
                                     <BellAlertIcon className="pl-2 size-7 animate-bell-swing text-red-500" />
                                 </HoverTips>

@@ -76,12 +76,11 @@
 }
 
 .resizer {
-    @apply absolute right-0 top-0 h-full w-3 bg-indigo-800 cursor-col-resize select-none touch-none;
-    background-color: rgba(53, 5, 116, 0.5);
+    @apply absolute right-0 top-0 h-full w-3 bg-sky-600 cursor-col-resize select-none touch-none;
 }
 
 .resizer.isResizing {
-    @apply bg-blue-500 opacity-100;
+    @apply bg-blue-600 opacity-100;
 }
 
 @media (hover: hover) {
@@ -92,4 +91,10 @@
     *:hover > .resizer {
         @apply opacity-100;
     }
+}
+
+@property --chase {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
 }

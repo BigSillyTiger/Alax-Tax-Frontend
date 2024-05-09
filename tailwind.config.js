@@ -80,12 +80,17 @@ module.exports = {
                     "0%,100%": { transform: "rotate(15deg)" },
                     "50%": { transform: "rotate(-15deg)" },
                 },
+                "chase-spin": {
+                    "0%": { "--chase": "0deg" },
+                    "100%": { "--chase": "360deg" },
+                },
             },
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
                 "menu-slide": "menu-slide 0.2s ease-out",
                 "bell-swing": "bell-swing 1s infinite",
+                "chase-spin": "chase-spin 7s linear infinite",
             },
         },
     },
