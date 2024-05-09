@@ -7,7 +7,8 @@ import {
     useNavigation,
 } from "react-router-dom";
 import { XCircleIcon } from "@heroicons/react/24/solid";
-import LoginCard from "@/components/LoginCard";
+import LoginCard from "@/pages/login/LoginCard";
+import { Nbtn } from "@/components/btns";
 //import Bganimation from "./Bganimation";
 
 const Login: FC = () => {
@@ -139,9 +140,9 @@ const Login: FC = () => {
                         </div> */}
 
                                 <div>
-                                    <button
+                                    <Nbtn
                                         type="submit"
-                                        className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                        className="w-full rounded-lg"
                                         disabled={
                                             navigation.state === "submitting" ||
                                             navigation.state === "loading"
@@ -150,7 +151,7 @@ const Login: FC = () => {
                                         {navigation.state === "submitting"
                                             ? t("login.btn.logining")
                                             : t("login.btn.signIn")}
-                                    </button>
+                                    </Nbtn>
                                 </div>
                             </Form>
                         </LoginCard>
