@@ -156,7 +156,10 @@ const InvContent: FC = memo(() => {
                 <OrderDetailsCard order={clientOrder} className="" />
             </Toggle>
             <Toggle defaultOpen={true} title={t("label.orderServices")}>
-                <OrderDescCard data={clientOrder.order_services} />
+                <OrderDescCard
+                    data={clientOrder.order_services}
+                    readonly={true}
+                />
             </Toggle>
         </div>
     );

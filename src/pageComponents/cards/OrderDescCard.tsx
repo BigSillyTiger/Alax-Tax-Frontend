@@ -5,9 +5,10 @@ import Card from "@/components/Card";
 
 type Tprops = {
     data: TorderService[];
+    readonly?: boolean;
 };
 
-const OrderDescCard: FC<Tprops> = ({ data }) => {
+const OrderDescCard: FC<Tprops> = ({ data, readonly = false }) => {
     const { t } = useTranslation();
 
     const mainContent = data.length ? (
@@ -56,6 +57,11 @@ const OrderDescCard: FC<Tprops> = ({ data }) => {
                                 </b>
                                 <input
                                     type="checkbox"
+                                    onClick={(e) => {
+                                        // there's no readonly attribute for checkbox
+                                        // so use this to prevent click event
+                                        if (readonly) e.preventDefault();
+                                    }}
                                     defaultChecked={Boolean(item.taxable)}
                                 />
                             </p>
