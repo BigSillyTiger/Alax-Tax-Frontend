@@ -113,19 +113,23 @@ const PTable = <T extends object>({
     const tableBody = table.getRowModel().rows.length
         ? table.getRowModel().rows.map((row: Row<T>, i: number) => (
               <Fragment key={row.id}>
-                  <tr className={i % 2 === 0 ? undefined : "bg-gray-100"}>
+                  <tr
+                      className={`${i % 2 === 0 ? "bg-slate-50" : "bg-gray-200"} `}
+                  >
                       {row.getVisibleCells().map((cell) => {
                           if (cell.column.id === "Menu" && setData) {
                               return (
                                   <td
                                       key={cell.id}
-                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex justify-center items-center z-0"
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900"
                                   >
-                                      <MenuBtn
-                                          {...menuOptions}
-                                          setData={setData}
-                                          mItem={row.original}
-                                      />
+                                      <div className="flex justify-center items-center">
+                                          <MenuBtn
+                                              {...menuOptions}
+                                              setData={setData}
+                                              mItem={row.original}
+                                          />
+                                      </div>
                                   </td>
                               );
                           } else if (
@@ -135,7 +139,7 @@ const PTable = <T extends object>({
                               return (
                                   <td
                                       key={cell.id}
-                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex justify-center items-center z-0"
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex justify-center items-center z-0 border-2 border-pink-400"
                                       style={{
                                           width: cell.column.getSize(),
                                       }}

@@ -64,7 +64,7 @@ const MenuBtn = <T,>({
         <DropdownMenu>
             <DropdownMenuTrigger className="outline-none ring-0 cursor-pointer">
                 <EllipsisVerticalIcon
-                    className="size-7 text-indigo-500"
+                    className="size-8 text-indigo-500"
                     aria-hidden="true"
                 />
             </DropdownMenuTrigger>
