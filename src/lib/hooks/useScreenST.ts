@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 
 /**
+ * @name useScreenST - Screen Size Small Than
  * @description custom hook to check if the screen size is smaller than a certain width[430]
- * @returns
+ * @returns true - if the screen size is smaller than the specified width
+ * @returns false - if the screen size is larger than the specified width
  */
-const useScreenSize = (size: number = 430) => {
+const useScreenST = (size: number = 430) => {
     const width = size;
     const [isTooSmallScreen, setIsTooSmallScreen] = useState(
         window.innerWidth <= width
@@ -29,4 +31,4 @@ const useScreenSize = (size: number = 430) => {
     return isTooSmallScreen;
 };
 
-export default useScreenSize;
+export default useScreenST;

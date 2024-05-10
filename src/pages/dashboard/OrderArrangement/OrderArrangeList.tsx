@@ -21,7 +21,7 @@ const OrderArrangeList: FC = () => {
         currentOA && currentOA.arrangement && currentOA.arrangement.length ? (
             currentOA.arrangement.map((oa, index) => {
                 return (
-                    <Card key={index}>
+                    <Card key={index} className="m-2">
                         <SingleField label={<UserIcon />}>
                             <div className="font-bold text-indigo-700">
                                 {oa.order.first_name +
@@ -66,9 +66,9 @@ const OrderArrangeList: FC = () => {
         );
 
     return (
-        <Card className="w-full h-full overflow-y-auto flex flex-col gap-y-2">
+        <div className="w-full h-full overflow-y-auto flex flex-col gap-y-2">
             {orderListContent}
-        </Card>
+        </div>
     );
 };
 

@@ -10,7 +10,7 @@ import { dateFormat } from "@/lib/time";
 import { sortWorkLogs } from "@/lib/literals";
 import { toastWarning } from "@/lib/toaster";
 import { WL_DELETABLE_STATUS } from "@/configs/utils/setting";
-import { useScreenSize } from "@/lib/hooks";
+import { useScreenST } from "@/lib/hooks";
 
 const DateSchedule: FC = () => {
     const { t } = useTranslation();
@@ -18,7 +18,7 @@ const DateSchedule: FC = () => {
     const setDate = useJobAssignStore((state) => state.setDate);
     const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
-    const isTooSmallScreen = useScreenSize();
+    const isTooSmallScreen = useScreenST();
 
     // remove work log from the current work log list
     // should only be deletable when all the work log status is pending or cancelled

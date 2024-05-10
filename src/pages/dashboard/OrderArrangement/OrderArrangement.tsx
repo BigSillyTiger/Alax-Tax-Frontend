@@ -3,12 +3,16 @@ import { ORDayPicker } from "@/pageComponents/DayPicker";
 import type { ComponentPropsWithoutRef, FC } from "react";
 import { useTranslation } from "react-i18next";
 import OrderArrangeList from "./OrderArrangeList";
+import { useScreenST } from "@/lib/hooks";
+import { Separator } from "@/components/ui/separator";
 //import { Separator } from "@/components/ui/separator";
 
 type Tprops = ComponentPropsWithoutRef<"fieldset">;
 
 const OrderArrangement: FC<Tprops> = ({ className }) => {
     const { t } = useTranslation();
+    const size = useScreenST(1024); // lg:1024
+
     return (
         <Fieldset
             title={t("label.workArrangement")}
@@ -17,7 +21,20 @@ const OrderArrangement: FC<Tprops> = ({ className }) => {
             <div className="">
                 <ORDayPicker />
             </div>
-            {/* <Separator orientation="vertical" /> */}
+
+            {size ? (
+                <Separator
+                    orientation="horizontal"
+                    className="border-indigo-300"
+                    decorative={true}
+                />
+            ) : (
+                <Separator
+                    orientation="vertical"
+                    className="border-indigo-300"
+                    decorative={true}
+                />
+            )}
             <div className="h-auto lg:h-full w-full m-1">
                 <OrderArrangeList />
             </div>

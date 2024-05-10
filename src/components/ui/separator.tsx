@@ -21,7 +21,15 @@ const Separator = React.forwardRef<
                 orientation === "horizontal"
                     ? "h-[1px] w-full"
                     : "h-full w-[1px]",
-                className
+                className,
+                decorative ? "bg-trasparent" : "bg-indigo-200", // Set background color based on decorative prop
+                decorative && "border-none", // Hide border if decorative
+                decorative && "border-dashed", // Add dashed border style if decorative
+                decorative && "border-[1px]", // Adjust border thickness if decorative
+                !decorative && "border-solid", // Add solid border style if not decorative
+                !decorative && "border-[1px]", // Adjust border thickness if not decorative
+                !decorative && orientation === "horizontal" && "h-[1px]", // Adjust height if not decorative and horizontal
+                !decorative && orientation === "vertical" && "w-[1px]" // Adjust width if not decorative and vertical
             )}
             {...props}
         />

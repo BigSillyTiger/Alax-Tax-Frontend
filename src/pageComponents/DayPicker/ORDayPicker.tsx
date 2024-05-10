@@ -6,14 +6,14 @@ import "./datepickerstyle.css";
 import styles from "./datepicker.module.css";
 import { useOrderArrangementStore } from "@/configs/zustore/orderArrangeStore";
 import { dateFormat } from "@/lib/time";
-import { useScreenSize } from "@/lib/hooks";
+import { useScreenST } from "@/lib/hooks";
 
 /**
  * @description job assignment day picker
  * @returns
  */
 const ORDayPicker: FC = () => {
-    const isTooSmallScreen = useScreenSize();
+    const isTooSmallScreen = useScreenST();
 
     const selectedDate = useOrderArrangementStore(
         (state) => state.selectedDate

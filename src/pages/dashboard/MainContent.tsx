@@ -1,6 +1,6 @@
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useEffect, type FC } from "react";
-import DutyCard from "./DutyCard";
+import DutyCard from "./DutyList";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
 import { useAsyncValue } from "react-router-dom";
 import { dateFormat, hmsTohm } from "@/lib/time";
