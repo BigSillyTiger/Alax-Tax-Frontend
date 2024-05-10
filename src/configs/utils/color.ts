@@ -104,6 +104,7 @@ export const statusColor = {
     },
 };
 
+// for menu options position
 export const topPsedo = [
     "before:top-[80px]",
     "before:top-[132px]",
@@ -115,7 +116,7 @@ export const topPsedo = [
     "before:top-[444px]",
     "before:top-[496px]",
 ];
-
+// for menu options position
 export const btmPsedo = [
     "after:top-[144px]",
     "after:top-[196px]",
@@ -127,3 +128,8 @@ export const btmPsedo = [
     "after:top-[508px]",
     "after:top-[560px]",
 ];
+
+export const moneyColors = {
+    unpaid: "text-pink-600",
+    finished: "text-teal-600",
+};

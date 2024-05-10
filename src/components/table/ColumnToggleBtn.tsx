@@ -12,7 +12,7 @@ import {
     DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { ViewColumnsIcon } from "@heroicons/react/24/outline";
-import { Nbtn } from "../btns";
+import { NormalDivBtn } from "../btns";
 
 type Tprops<T> = {
     table: Table<T>;
@@ -25,7 +25,7 @@ const ColumnToggleBtn = <T extends object>({ table }: Tprops<T>) => {
         <DropdownMenu>
             {/* trigger */}
             <DropdownMenuTrigger className="outline-none ring-0 cursor-pointer">
-                <Nbtn asDiv>
+                <NormalDivBtn>
                     <div className="flex flex-row justify-center items-center">
                         <ViewColumnsIcon
                             className="size-7 text-slate-50 mr-2"
@@ -33,7 +33,7 @@ const ColumnToggleBtn = <T extends object>({ table }: Tprops<T>) => {
                         />
                         {t("btn.toggleColumn")}
                     </div>
-                </Nbtn>
+                </NormalDivBtn>
             </DropdownMenuTrigger>
             {/* */}
             <DropdownMenuContent>

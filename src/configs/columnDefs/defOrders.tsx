@@ -7,6 +7,8 @@ import { Atel } from "@/components/aLinks";
 import { StatusBadge } from "@/components/Badge";
 import { TstatusColor } from "../types";
 import { ExpandBtn, OrderStatusBtn } from "@/components/table/tableBtn";
+import { moneyColors } from "../utils/color";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 const useOrderColumnsDef = () => {
     const orderColumns: ColumnDef<Torder>[] = [
@@ -104,7 +106,7 @@ const useOrderColumnsDef = () => {
                     header: i18n.t("label.total"),
                     accessorKey: "total",
                     cell: (info: CellContext<Torder, string>) => (
-                        <span>{info.getValue()}</span>
+                        <span className="text-base">{info.getValue()}</span>
                     ),
                 },
                 {
@@ -112,7 +114,7 @@ const useOrderColumnsDef = () => {
                     header: i18n.t("label.gst"),
                     accessorKey: "gst",
                     cell: (info: CellContext<Torder, number>) => (
-                        <span>{info.getValue()}</span>
+                        <span className="text-base">{info.getValue()}</span>
                     ),
                 },
                 {
@@ -120,20 +122,29 @@ const useOrderColumnsDef = () => {
                     header: i18n.t("label.paid"),
                     accessorKey: "paid",
                     cell: (info: CellContext<Torder, string>) => (
-                        <span>{info.getValue()}</span>
+                        <span className="text-base">{info.getValue()}</span>
                     ),
                 },
                 {
                     header: i18n.t("label.balance"),
                     accessorKey: "balance",
-                    cell: (info: CellContext<Torder, string>) => (
-                        <span className="text-pink-500 text-base font-bold">
-                            {minusAB(
-                                info.row.original.total,
-                                info.row.original.paid
-                            )}
-                        </span>
-                    ),
+                    cell: (info: CellContext<Torder, string>) => {
+                        const balance = minusAB(
+                            info.row.original.total,
+                            info.row.original.paid
+                        );
+                        return (
+                            <span
+                                className={`${balance ? moneyColors.unpaid : moneyColors.finished} text-base font-bold flex justify-center items-center`}
+                            >
+                                {balance ? (
+                                    balance
+                                ) : (
+                                    <CheckCircleIcon className="size-10" />
+                                )}
+                            </span>
+                        );
+                    },
                 },
             ],
         },

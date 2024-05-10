@@ -12,7 +12,7 @@ type Tstate = {
     staffWL: TwlTableRow[];
     // this bonus is for current payslip, used in payslip template
     bonus: Partial<Tbonus>[];
-    deduction: Partial<Tdeduction>[];
+    deduction: Tdeduction[];
     payslip: Partial<Tpayslip>;
     // this bonus is for all bonus from bonus table
     allBonus: Tbonus[];
@@ -37,7 +37,7 @@ type Taction = {
     appendBonus: (bonus: Partial<Tbonus>) => void;
     removeBonus: (index: number) => void;
     /* deduction */
-    setDeduction: (deductions: Partial<Tdeduction>[]) => void;
+    setDeduction: (deductions: Tdeduction[]) => void;
 };
 
 export const payslipStore = createStore<Tstate & Taction>((set) => ({
@@ -114,7 +114,7 @@ export const payslipStore = createStore<Tstate & Taction>((set) => ({
             return { ...state, bonus: newBonus };
         }),
     /* deduction */
-    setDeduction: (deductions: Partial<Tdeduction>[]) =>
+    setDeduction: (deductions: Tdeduction[]) =>
         set((state) => ({ ...state, deduction: deductions })),
 }));
 

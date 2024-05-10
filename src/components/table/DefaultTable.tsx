@@ -5,6 +5,9 @@ import {
     getCoreRowModel,
     getPaginationRowModel,
     getFilteredRowModel,
+    getFacetedMinMaxValues,
+    getFacetedRowModel,
+    getFacetedUniqueValues,
     getSortedRowModel,
     getExpandedRowModel,
     flexRender,
@@ -103,6 +106,9 @@ const PTable = <T extends object>({
         // the filter still works very well without this
         onGlobalFilterChange: setGlobalFilter,
         getFilteredRowModel: getFilteredRowModel(),
+        getFacetedRowModel: getFacetedRowModel(), // client-side faceting
+        getFacetedUniqueValues: getFacetedUniqueValues(), // generate unique values for select filter/autocomplete
+        getFacetedMinMaxValues: getFacetedMinMaxValues(), // generate min/max values for range filter
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
@@ -139,7 +145,7 @@ const PTable = <T extends object>({
                               return (
                                   <td
                                       key={cell.id}
-                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex justify-center items-center z-0 border-2 border-pink-400"
+                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex justify-center items-center z-0"
                                       style={{
                                           width: cell.column.getSize(),
                                       }}

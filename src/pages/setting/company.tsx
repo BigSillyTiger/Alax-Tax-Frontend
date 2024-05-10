@@ -249,15 +249,15 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                 {/* submit btn */}
             </Card>
             <div className="col-span-full flex items-center mt-1">
-                <button
+                <Nbtn
                     name="intent"
                     value="add"
                     type="submit"
-                    className="w-full mx-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset hover:bg-indigo-700"
+                    className="w-full"
                     onClick={() => trigger()}
                 >
                     {t("btn.updateCompany")}
-                </button>
+                </Nbtn>
             </div>
         </Form>
     );
@@ -305,7 +305,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                     )}
                 </div>
             </Card>
-            <div className="mt-1">
+            <div className="mt-1 flex justify-center">
                 <Nbtn
                     onClick={async () => {
                         if (uploadFile) {

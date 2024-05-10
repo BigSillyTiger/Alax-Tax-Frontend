@@ -1,5 +1,4 @@
 import { type FC, type ComponentPropsWithoutRef } from "react";
-import { Button } from "@/components/ui/button";
 import { useSubmit } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { genAction } from "@/lib/literals";
@@ -40,12 +39,12 @@ const TimeBtnGroup: FC<Tprops> = ({ className }) => {
             className={`w-full grid grid-cols-5 gap-x-5 pt-3 border-t border-indigo-100 border-dashed ${className}`}
         >
             {worklog.wl_status === "pending" ? (
-                <Button
-                    className={`border-2 text-lg font-bold col-span-full border-lime-700 bg-lime-600 text-slate-100 hover:bg-slate-100 hover:text-lime-600`}
+                <Nbtn
+                    className={`text-lg font-bold col-span-full `}
                     onClick={() => handleClick(actionReqList.startTimer)}
                 >
                     {t("btn.timeStart")}
-                </Button>
+                </Nbtn>
             ) : (
                 <>
                     <TRbtn

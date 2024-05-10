@@ -1,5 +1,5 @@
 import { flexRender, Table } from "@tanstack/react-table";
-import HeaderFilter from "./HeaderFilter";
+import { HeaderFilterFuzzy } from "./HeaderFilter";
 import { sortingIcon } from "./config";
 import CTh from "./CTh";
 
@@ -34,7 +34,10 @@ const CTHead = <T extends object>({
                         {sortingIcon(header.column.getIsSorted())}
                     </button>
                     {hFilter && header.column.getCanFilter() ? (
-                        <HeaderFilter column={header.column} table={table} />
+                        <HeaderFilterFuzzy
+                            column={header.column}
+                            table={table}
+                        />
                     ) : null}
                 </CTh>
             ))}

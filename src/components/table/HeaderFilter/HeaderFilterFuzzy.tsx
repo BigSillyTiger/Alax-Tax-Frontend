@@ -6,7 +6,7 @@ type Tprops<T> = {
     table: Table<T>;
 };
 
-const HeaderFilter = <T extends object>({ column, table }: Tprops<T>) => {
+const HeaderFilterFuzzy = <T extends object>({ column, table }: Tprops<T>) => {
     const { t } = useTranslation();
 
     const firstValue = table
@@ -61,4 +61,4 @@ const HeaderFilter = <T extends object>({ column, table }: Tprops<T>) => {
     return <div className="mt-1">{content}</div>;
 };
 
-export default HeaderFilter;
+export default HeaderFilterFuzzy;

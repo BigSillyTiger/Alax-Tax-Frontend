@@ -7,5 +7,17 @@ import XBtn from "./XBtn";
 import CloseBtn from "./CloseBtn";
 import TimeBtn from "./TimeBtn";
 import TRbtn from "./TimerResetBtn";
+import NormalDivBtn from "./NormalDivBtn";
 
-export { Bbtn, Cbtn, Dbtn, Nbtn, DateBtn, XBtn, CloseBtn, TimeBtn, TRbtn };
+export {
+    Bbtn,
+    Cbtn,
+    Dbtn,
+    Nbtn,
+    DateBtn,
+    XBtn,
+    CloseBtn,
+    TimeBtn,
+    TRbtn,
+    NormalDivBtn,
+};
