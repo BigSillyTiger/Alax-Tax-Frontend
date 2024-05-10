@@ -25,7 +25,7 @@ const ColumnToggleBtn = <T extends object>({ table }: Tprops<T>) => {
         <DropdownMenu>
             {/* trigger */}
             <DropdownMenuTrigger className="outline-none ring-0 cursor-pointer">
-                <Nbtn>
+                <Nbtn asDiv>
                     <div className="flex flex-row justify-center items-center">
                         <ViewColumnsIcon
                             className="size-7 text-slate-50 mr-2"
