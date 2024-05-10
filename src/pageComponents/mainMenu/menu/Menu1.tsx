@@ -46,7 +46,7 @@ const Menu1: FC<Tprops> = ({ menuList }) => {
                                 className={navFocus}
                             >
                                 <item.icon
-                                    className="size-8 shrink-0"
+                                    className="size-8 shrink-0 ring-0 outline-none"
                                     aria-hidden="true"
                                 />
                                 <span

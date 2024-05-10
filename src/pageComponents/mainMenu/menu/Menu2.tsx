@@ -63,7 +63,7 @@ const Menu2: FC<Tprops> = ({ menuList }) => {
                                     sideOffset={33}
                                 >
                                     <item.icon
-                                        className="size-8 shrink-0"
+                                        className="size-8 shrink-0 ring-0 outline-none"
                                         aria-hidden="true"
                                     />
                                     <span className="sr-only">{item.name}</span>
