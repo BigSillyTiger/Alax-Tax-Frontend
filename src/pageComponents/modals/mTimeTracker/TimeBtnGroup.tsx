@@ -10,6 +10,7 @@ import { actionReqList } from "@/configs/utils/router";
 import { useAtom } from "jotai";
 import atResetModal from "@/configs/atoms/atResetModal";
 import { TwlTableRow } from "@/configs/schema/workSchema";
+import { Bbtn, Nbtn, TRbtn } from "@/components/btns";
 
 type Tprops = ComponentPropsWithoutRef<"div">;
 
@@ -47,15 +48,15 @@ const TimeBtnGroup: FC<Tprops> = ({ className }) => {
                 </Button>
             ) : (
                 <>
-                    <Button
-                        className={`border-2 col-span-1 rounded-full font-bold border-red-600 bg-red-500 text-slate-100 hover:bg-slate-100 hover:text-red-600 text-wrap`}
+                    <TRbtn
+                        className={`col-span-1 rounded-full font-bold`}
                         onClick={() => setOpenReset(true)}
                     >
                         {t("btn.timeReset")}
-                    </Button>
+                    </TRbtn>
                     {worklog.b_time === "00:00" ? (
-                        <Button
-                            className={`border-2 text-lg font-bold col-span-2 border-amber-700 bg-amber-600 text-slate-100 hover:bg-slate-100 hover:text-amber-600`}
+                        <Bbtn
+                            className="text-lg font-bold col-span-2"
                             disabled={
                                 worklog.wl_status === "confirmed" ||
                                 worklog.wl_status === "unconfirmed" ||
@@ -66,10 +67,10 @@ const TimeBtnGroup: FC<Tprops> = ({ className }) => {
                             }
                         >
                             {t("btn.timeBreak")}
-                        </Button>
+                        </Bbtn>
                     ) : (
-                        <Button
-                            className={`border-2 text-lg font-bold col-span-2 border-amber-700 bg-amber-600 text-slate-100 hover:bg-slate-100 hover:text-amber-600`}
+                        <Bbtn
+                            className="text-lg font-bold col-span-2"
                             disabled={
                                 worklog.wl_status === "confirmed" ||
                                 worklog.wl_status === "unconfirmed"
@@ -79,11 +80,11 @@ const TimeBtnGroup: FC<Tprops> = ({ className }) => {
                             }
                         >
                             {t("btn.timeResume")}
-                        </Button>
+                        </Bbtn>
                     )}
 
-                    <Button
-                        className={`border-2 text-lg font-bold col-span-2 border-indigo-700 bg-indigo-600 text-slate-100 hover:bg-slate-100 hover:text-indigo-600`}
+                    <Nbtn
+                        className="text-lg font-bold col-span-2"
                         disabled={
                             worklog.wl_status === "confirmed" ||
                             worklog.wl_status === "unconfirmed"
@@ -91,7 +92,7 @@ const TimeBtnGroup: FC<Tprops> = ({ className }) => {
                         onClick={() => handleClick(actionReqList.stopTimer)}
                     >
                         {t("btn.timeStop")}
-                    </Button>
+                    </Nbtn>
                 </>
             )}
         </div>

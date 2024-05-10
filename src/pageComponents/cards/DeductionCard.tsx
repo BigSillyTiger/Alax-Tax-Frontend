@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef, FC, FormEvent } from "react";
 import Card from "@/components/Card";
 import { useTranslation } from "react-i18next";
-import { XBtn } from "@/components/btns";
+import { Nbtn, XBtn } from "@/components/btns";
 import { useNavigation, Form, useSubmit } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useDeductStore, useRouterStore } from "@/configs/zustore";
@@ -73,17 +73,14 @@ const DeductionCard: FC<Tprops> = ({
 
     const SubmitBtn = () => (
         <Form onSubmit={onSubmit} className="flex justify-around gap-x-2 mt-3">
-            <Button
-                className="bg-indigo-400 text-slate-50 text-xl hover:bg-slate-50 hover:text-indigo-500 border-2 border-indigo-600"
-                onClick={handleAddDeduction}
-            >
+            <Nbtn className="text-xl" onClick={handleAddDeduction}>
                 {t("btn.addNewDeduction")}
-            </Button>
-            <Button
+            </Nbtn>
+            <Nbtn
                 name="intent"
                 value="add"
                 type="submit"
-                className="bg-indigo-400 text-slate-50 text-xl hover:bg-slate-50 hover:text-indigo-500 border-2 border-indigo-600"
+                className="text-xl"
                 disabled={
                     navigation.state === "submitting" ||
                     navigation.state === "loading"
@@ -93,7 +90,7 @@ const DeductionCard: FC<Tprops> = ({
                 {navigation.state === "submitting"
                     ? t("btn.submitting")
                     : t("btn.submit")}
-            </Button>
+            </Nbtn>
         </Form>
     );
 

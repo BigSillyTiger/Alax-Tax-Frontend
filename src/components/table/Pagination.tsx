@@ -1,10 +1,13 @@
 import { Table } from "@tanstack/react-table";
+import { useTranslation } from "react-i18next";
 
 type Tprops<T> = {
     table: Table<T>;
 };
 
 const Pagination = <T extends object>({ table }: Tprops<T>) => {
+    const { t } = useTranslation();
+
     return (
         <div className="flex items-center justify-end mt-2 gap-2">
             <select
@@ -12,11 +15,11 @@ const Pagination = <T extends object>({ table }: Tprops<T>) => {
                 onChange={(e) => {
                     table.setPageSize(Number(e.target.value));
                 }}
-                className="p-2 bg-transparent"
+                className="p-2 bg-transparent ring-0 outline-none"
             >
                 {[10, 20, 30, 40, 50].map((pageSize) => (
                     <option key={pageSize} value={pageSize}>
-                        Show {pageSize}
+                        {t("label.show") + " " + pageSize}
                     </option>
                 ))}
             </select>

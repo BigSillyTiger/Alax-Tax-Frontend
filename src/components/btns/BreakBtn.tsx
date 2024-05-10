@@ -4,11 +4,11 @@ import { Button } from "../ui/button";
 type Tprops = ComponentPropsWithoutRef<"button">;
 
 /**
- * @description this btn is usually used as delete btn
+ * @description this btn is usually used as break btn
  * @param param0
  * @returns
  */
-const DeleteBtn: FC<Tprops> = ({
+const BreakBtn: FC<Tprops> = ({
     type = "button",
     children,
     onClick,
@@ -23,9 +23,9 @@ const DeleteBtn: FC<Tprops> = ({
             name={name}
             value={value}
             disabled={disabled}
-            className={`relative text-wrap rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-slate-200 shadow-sm 
-            border-2 border-red-400
-            ring-1 ring-inset ring-red-400
+            className={`relative text-wrap rounded-md bg-amber-600 px-3 py-2 text-sm font-semibold text-slate-200 shadow-sm 
+            border-2 border-amber-500
+            ring-1 ring-inset ring-amber-500
             hover:text-slate-50
             hover:ring-slate-50
             hover:transition-all hover:duration-300 hover:ease-in-out
@@ -37,4 +37,4 @@ const DeleteBtn: FC<Tprops> = ({
     );
 };
 
-export default DeleteBtn;
+export default BreakBtn;

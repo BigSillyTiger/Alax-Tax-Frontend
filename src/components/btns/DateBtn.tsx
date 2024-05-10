@@ -9,7 +9,12 @@ type Tprops = ComponentPropsWithoutRef<"button"> & {
 const DateBtn: FC<Tprops> = ({ name, onClick, onDelete }) => {
     return (
         <div
-            className={`bg-blue-100 text-indigo-400 hover:bg-blue-500 hover:text-white font-semibold  py-2 px-2 hover:border-transparent rounded flex items-center justify-around w-full cursor-pointer`}
+            className={`bg-blue-100 text-indigo-400 font-semibold  py-2 px-2
+            rounded flex items-center justify-around w-full cursor-pointer
+            hover:bg-blue-500
+            hover:text-white hover:border-transparent
+            hover:transition-all hover:duration-500 hover:ease-in-out
+            `}
         >
             <button onClick={onClick} className="text-base grow">
                 {name}

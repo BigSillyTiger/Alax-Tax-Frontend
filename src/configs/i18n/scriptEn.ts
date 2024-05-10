@@ -242,6 +242,7 @@ const en = {
             selectStaff: "Select Staff",
             servicesDetails: "Services Details",
             serviceList: "Services List",
+            show: "Show",
             switch: "Switch",
             service: "Service",
             services: "Services",

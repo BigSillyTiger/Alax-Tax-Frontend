@@ -5,7 +5,7 @@ import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
 import { capFirstLetter } from "@/lib/literals";
 import { calBreakTime, calWorkTime, genHHMM } from "@/lib/time";
 import { useTranslation } from "react-i18next";
-import TimeBtnGroup from "./TimeBtns";
+import TimeBtnGroup from "./TimeBtnGroup";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import Card from "@/components/Card";
 import { statusColor } from "@/configs/utils/color";

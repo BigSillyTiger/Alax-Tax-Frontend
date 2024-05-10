@@ -5,8 +5,6 @@ type Tprops = ComponentPropsWithoutRef<"button">;
 
 /**
  * @description this btn is usually used as cancel btn
- *              - sky-500
- *              - slate-50
  * @param param0
  * @returns
  */
@@ -25,7 +23,7 @@ const CancelBtn: FC<Tprops> = ({
             name={name}
             value={value}
             disabled={disabled}
-            className={`relative rounded-md bg-slate-500 px-3 py-2 text-sm font-semibold text-slate-200 shadow-sm 
+            className={`relative text-wrap rounded-md bg-slate-500 px-3 py-2 text-sm font-semibold text-slate-200 shadow-sm 
             border-2 border-slate-400
             ring-1 ring-inset ring-slate-400
             hover:text-slate-50

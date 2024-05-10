@@ -239,6 +239,7 @@ const en = {
             selectStaff: "选择员工",
             servicesDetails: "服务详情",
             serviceList: "服务列表",
+            show: "显示",
             switch: "切换",
             service: "服务",
             services: "服务",
