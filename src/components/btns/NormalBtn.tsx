@@ -25,19 +25,12 @@ const NormalBtn: FC<Tprops> = ({
             name={name}
             value={value}
             disabled={disabled}
-            className={`relative rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-slate-50 shadow-sm border-0 ring-1 ring-inset ring-indigo-300 overflow-hidden
-            before:hover:scale-x-100
-            before:content-['']
-            before:absolute
-            before:top-0 before:left-0
-            before:w-full before:h-full
-            before:rounded-md
-            before:bg-[linear-gradient(60deg,#4f46e5_20.8%,#0ea5e9_94.3%)]
-            before:scale-x-0 before:origin-[0_50%]
-            before:transition-all
-            before:duration-300
-            before:pointer-events-none
-            transition-all duration-300 ease-out hover:ease-in
+            className={`relative rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-slate-200 shadow-sm 
+            border-2 border-indigo-400
+            ring-1 ring-inset ring-indigo-400
+            hover:text-slate-50
+            hover:ring-slate-50
+            hover:transition-all hover:duration-300 hover:ease-in-out
             ${className}`}
             onClick={onClick}
         >

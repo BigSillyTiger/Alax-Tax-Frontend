@@ -11,6 +11,7 @@ import Card from "@/components/Card";
 import { statusColor } from "@/configs/utils/color";
 import { joinAllValues } from "@/lib/utils";
 import { TstatusColor } from "@/configs/types";
+import { Separator } from "@/components/ui/separator";
 
 type Tprops = {
     isDisabled?: boolean;
@@ -53,9 +54,22 @@ const TimeCard: FC<Tprops> = ({ isDisabled }) => {
     })();
 
     return (
-        <>
-            <div className="flex flex-col">
-                <Card className="m-3 flex justify-around flex-wrap">
+        <div className="flex flex-col">
+            <Card className="m-3 flex flex-col gap-y-3">
+                <div className="mt-2 flex justify-evenly items-center">
+                    <span className="text-lg font-bold text-indigo-600">
+                        {t("label.workStatus") + ": "}
+                    </span>
+                    <span
+                        className={`text-3xl font-bold rounded-full px-4 ${joinAllValues(statusColor[worklog.wl_status as TstatusColor])}`}
+                    >
+                        {capFirstLetter(worklog.wl_status)}
+                    </span>
+                </div>
+
+                <Separator className="border-indigo-300" />
+
+                <div className="flex flex-row flex-wrap justify">
                     {/* start */}
                     <div className="flex flex-col items-center">
                         <label
@@ -124,20 +138,10 @@ const TimeCard: FC<Tprops> = ({ isDisabled }) => {
                             className="text-bold text-3xl w-auto text-center text-lime-600 m-2 p-2"
                         />
                     </div>
-                </Card>
-                <div className="mt-2 flex justify-evenly items-center">
-                    <span className="text-lg font-bold text-indigo-600">
-                        {t("label.workStatus") + ": "}
-                    </span>
-                    <span
-                        className={`text-3xl font-bold rounded-full px-4 ${joinAllValues(statusColor[worklog.wl_status as TstatusColor])}`}
-                    >
-                        {capFirstLetter(worklog.wl_status)}
-                    </span>
                 </div>
-            </div>
+            </Card>
             {isDisabled ? null : <TimeBtnGroup className="mt-2" />}
-        </>
+        </div>
     );
 };
 

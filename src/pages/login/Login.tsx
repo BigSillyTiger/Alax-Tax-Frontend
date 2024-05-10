@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import LoginCard from "@/pages/login/LoginCard";
-import { Nbtn } from "@/components/btns";
+import { StyledBtn1 } from "@/components/btns/StyledBtns";
 //import Bganimation from "./Bganimation";
 
 const Login: FC = () => {
@@ -140,7 +140,7 @@ const Login: FC = () => {
                         </div> */}
 
                                 <div>
-                                    <Nbtn
+                                    <StyledBtn1
                                         type="submit"
                                         className="w-full rounded-lg"
                                         disabled={
@@ -151,7 +151,7 @@ const Login: FC = () => {
                                         {navigation.state === "submitting"
                                             ? t("login.btn.logining")
                                             : t("login.btn.signIn")}
-                                    </Nbtn>
+                                    </StyledBtn1>
                                 </div>
                             </Form>
                         </LoginCard>
