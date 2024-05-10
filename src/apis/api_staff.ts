@@ -1,3 +1,4 @@
+import { ROLES } from "@/configs/utils/staff";
 import apis from "./axios";
 import {
     STAFF_ALL,
@@ -67,9 +68,15 @@ export const staffSingleDel = async (uid: string): Promise<Tresponse> => {
     }
 };
 
-export const staffSingleUpdate = async (staff: Tstaff): Promise<Tresponse> => {
+export const staffSingleUpdate = async (
+    staff: Tstaff,
+    currentRole: keyof typeof ROLES
+): Promise<Tresponse> => {
     try {
-        const response = await apis.put(STAFF_SINGLE_UPDATE, staff);
+        const response = await apis.put(STAFF_SINGLE_UPDATE, {
+            staff,
+            currentRole,
+        });
         return response.data;
     } catch (err: unknown) {
         console.log("-> update staff failed: ", err);

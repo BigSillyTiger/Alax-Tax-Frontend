@@ -83,7 +83,7 @@ const MStaffForm: FC = memo(() => {
             const method = !staff.uid ? "POST" : "PUT";
             const req = !staff.uid ? "addStaff" : "updateStaff";
             submit(
-                { ...values, id: staff.uid, req },
+                { ...values, currentRole: staff.role, req },
                 { method, action: "/staff" }
             );
         }
