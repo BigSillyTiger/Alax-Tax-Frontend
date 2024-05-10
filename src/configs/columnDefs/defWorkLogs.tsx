@@ -4,7 +4,7 @@ import { TwlTableRow } from "../schema/workSchema";
 import { calWorkTime, dateFormat } from "@/lib/time";
 import { TstatusColor, TtimeBtnStyles } from "@/configs/types";
 import { StatusBadge } from "@/components/Badge";
-import TimeBtn from "@/pageComponents/TimeBtn";
+import { TimeBtn } from "@/components/btns/";
 import { WLStatusBtn } from "@/components/table/tableBtn";
 import { colorWithStaffUid } from "../utils/color";
 

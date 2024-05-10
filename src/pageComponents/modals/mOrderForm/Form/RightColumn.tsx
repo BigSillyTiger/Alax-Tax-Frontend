@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
-import DescContent from "../DescContent";
+import DescContent from "./DescContent";
 import {
     FieldArrayWithId,
     UseFieldArrayAppend,
@@ -9,7 +9,7 @@ import {
     UseFormReturn,
 } from "react-hook-form";
 import { TorderForm, TorderService } from "@/configs/schema/orderSchema";
-import AppendNewService from "../AppendNewService";
+import AppendNewService from "./AppendNewService";
 import { SubmitBtn } from "@/components/form";
 import { useNavigation } from "react-router-dom";
 

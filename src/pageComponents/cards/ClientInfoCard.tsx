@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { useTranslation } from "react-i18next";
 

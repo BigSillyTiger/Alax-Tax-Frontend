@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef, FC, FormEvent } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { useTranslation } from "react-i18next";
 import { XBtn } from "@/components/btns";
 import { useNavigation, Form, useSubmit } from "react-router-dom";

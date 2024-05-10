@@ -1,6 +1,6 @@
 import type { FC, TouchEvent, MouseEvent } from "react";
 import { useEffect, useMemo } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { PTable } from "@/components/table";
 import { useTranslation } from "react-i18next";
 import { useAsyncValue } from "react-router-dom";

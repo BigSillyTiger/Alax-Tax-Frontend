@@ -1,6 +1,6 @@
 import type { FC, TouchEvent, MouseEvent } from "react";
 import { useEffect, useMemo } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { PTable } from "@/components/table";
 import useStaffColumnsDef from "@/configs/columnDefs/defStaff";
 import { useTranslation } from "react-i18next";
@@ -20,6 +20,7 @@ import {
 } from "@/configs/zustore";
 import { dateFormat, hmsTohm } from "@/lib/time";
 import { updateBellAlert } from "@/lib/utils";
+import { Nbtn } from "@/components/btns";
 
 const ManagerContent: FC = () => {
     const { t } = useTranslation();
@@ -111,18 +112,14 @@ const ManagerContent: FC = () => {
         <>
             <div className="px-4 sm:px-6 lg:px-8 top-0">
                 {/* header area */}
-
-                <div className="sm:flex sm:items-center">
-                    <div className="sm:flex-auto sm:flex"></div>
-                    <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                        <button
-                            type="button"
-                            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            onClick={handleAddNew}
-                        >
-                            {t("btn.addStuff")}
-                        </button>
-                    </div>
+                <div className="flex justify-end">
+                    <Nbtn
+                        type="button"
+                        className="w-[25dvh] text-wrap"
+                        onClick={handleAddNew}
+                    >
+                        {t("btn.addStuff")}
+                    </Nbtn>
                 </div>
 
                 {/* table */}

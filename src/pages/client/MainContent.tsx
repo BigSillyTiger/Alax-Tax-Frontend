@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 import { ClientInfoCard } from "@/pageComponents/cards";
 import { useTranslation } from "react-i18next";
 import { useAsyncValue } from "react-router-dom";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { PTable } from "@/components/table";
 import useClientOrderColumnsDef from "@/configs/columnDefs/defClientOrder";
 import SubTable from "./SubTable";
@@ -22,6 +22,7 @@ import { calGst } from "@/lib/calculations";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { Tunivers } from "@/configs/types";
 import { Tcompany } from "@/configs/schema/settingSchema";
+import { Nbtn } from "@/components/btns";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
@@ -130,28 +131,27 @@ const MainContent: FC = () => {
     }, [client[0], clientOrder, uniData, company, logo]);
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 top-0 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 ">
-            <ClientInfoCard
-                client={client[0]}
-                className="my-2 mx-1 col-span-3 text-sm"
-            />
-            <div className="sm:flex sm:items-center">
-                <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <button
-                        type="button"
-                        className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            setClientOrder({
-                                ...initOrder,
-                                oid: "",
-                            });
-                            setModalOpen("Add");
-                        }}
-                    >
-                        {t("btn.newOrder")}
-                    </button>
-                </div>
+        <div className="px-4 sm:px-6 lg:px-8 top-0 flex flex-col gap-y-4">
+            <div className="flex flex-col sm:flex-row gap-x-4 w-full justify-evenly">
+                <ClientInfoCard
+                    client={client[0]}
+                    className="my-2 mx-1 col-span-3 text-sm"
+                />
+
+                <Nbtn
+                    type="button"
+                    className="w-full sm:w-[25dvw] md:w-[30dvw] text-wrap"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setClientOrder({
+                            ...initOrder,
+                            oid: "",
+                        });
+                        setModalOpen("Add");
+                    }}
+                >
+                    {t("btn.newOrder")}
+                </Nbtn>
             </div>
             <Card className="col-span-6">
                 {/* order table */}

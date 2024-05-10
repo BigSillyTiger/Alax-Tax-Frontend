@@ -7,7 +7,7 @@ import { calBreakTime, calWorkTime, genHHMM } from "@/lib/time";
 import { useTranslation } from "react-i18next";
 import TimeBtnGroup from "./TimeBtns";
 import { TwlTableRow } from "@/configs/schema/workSchema";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { statusColor } from "@/configs/utils/color";
 import { joinAllValues } from "@/lib/utils";
 import { TstatusColor } from "@/configs/types";

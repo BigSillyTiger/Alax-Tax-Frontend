@@ -6,12 +6,12 @@ import { Toggle } from "@/components/disclosure";
 import StaffDetailCard from "@/pageComponents/cards/StaffDetailCard";
 import DayPickerContent from "./DayPickerContent";
 import StaffWLTable from "./StaffWLTable";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import Bonus from "./Bonus";
 import Deduction from "./Deduction";
 import PSSubmitBtn from "./PSSubmitBtn";
 import { useStaffWLStore } from "@/configs/zustore";
-import { Button } from "@/components/ui/button";
+import { Cbtn } from "@/components/btns";
 
 type Tprops = ComponentPropsWithoutRef<"main"> & {
     title: string;
@@ -67,14 +67,9 @@ const FormContent: FC<Tprops> = ({ onClose }) => {
             ) : (
                 <div className="flex flex-col justify-center">
                     <Card className="m-2">{t("modal.tips.noAvailableWL")}</Card>
-                    <Button
-                        name="cancel"
-                        type="button"
-                        className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset hover:bg-indigo-700"
-                        onClick={onClose}
-                    >
+                    <Cbtn name="cancel" type="button" onClick={onClose}>
                         {t("btn.cancel")}
-                    </Button>
+                    </Cbtn>
                 </div>
             )}
 

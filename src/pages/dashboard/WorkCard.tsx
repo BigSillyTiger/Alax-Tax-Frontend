@@ -1,4 +1,4 @@
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { atModalOpen } from "@/configs/atoms";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { TstatusColor } from "@/configs/types";

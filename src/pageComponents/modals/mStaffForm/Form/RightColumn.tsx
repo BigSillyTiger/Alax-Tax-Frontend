@@ -4,9 +4,9 @@ import { FieldErrors, UseFormReturn } from "react-hook-form";
 import { at2ndModalOpen, atModalOpen } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { mOpenOps } from "@/configs/utils/modal";
-import PWSection from "../PWSection";
-import { NormalBtn } from "@/components/btns";
-import RoleSelection from "../RoleSelection";
+import PWSection from "./PWSection";
+import { Nbtn } from "@/components/btns";
+import RoleSelection from "./RoleSelection";
 import { useTranslation } from "react-i18next";
 
 type Tprops = {
@@ -39,12 +39,12 @@ const RightColumn: FC<Tprops> = ({
                 <PWSection register={register} watch={watch} errors={errors} />
             )}
             {modalOpen === mOpenOps.edit && (
-                <NormalBtn
+                <Nbtn
                     onClick={handleClickPWReset}
                     className="w-full mt-4 grow-0 py-4 text-xl"
                 >
                     {t("btn.resetPW")}
-                </NormalBtn>
+                </Nbtn>
             )}
 
             <RoleSelection

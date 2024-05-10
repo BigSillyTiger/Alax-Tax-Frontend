@@ -7,6 +7,7 @@ import { Tservice } from "@/configs/schema/settingSchema";
 import { calGst } from "@/lib/calculations";
 import { TorderForm } from "@/configs/schema/orderSchema";
 import { UseFieldArrayAppend } from "react-hook-form";
+import { Nbtn } from "@/components/btns";
 
 type Tprops = {
     append: UseFieldArrayAppend<TorderForm, "order_services">;
@@ -63,13 +64,13 @@ const AppendNewService: FC<Tprops> = ({ append }) => {
                 />
             </div>
             <div className="col-span-2 mt-6">
-                <button
+                <Nbtn
                     type="button"
-                    className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+                    className="w-full"
                     onClick={() => append(serviceDesc)}
                 >
                     {t("btn.append")}
-                </button>
+                </Nbtn>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import { Atel } from "@/components/aLinks";
 import { NameBadge } from "@/components/Badge";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import SingleField from "@/components/SingleField";
 import { useOrderArrangementStore } from "@/configs/zustore/orderArrangeStore";
 import { UserIcon, PhoneIcon, HomeIcon } from "@heroicons/react/24/outline";

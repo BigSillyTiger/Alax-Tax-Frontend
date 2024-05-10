@@ -1,7 +1,7 @@
 import { ClientInfoCard } from "@/pageComponents/cards";
 import type { FC } from "react";
-import AddressContent from "../AddressContent";
-import DetailsContent from "../DetailsContent";
+import AddressContent from "./AddressContent";
+import DetailsContent from "./DetailsContent";
 import { useTranslation } from "react-i18next";
 import { atOrder } from "@/configs/atoms";
 import { useAtom } from "jotai";

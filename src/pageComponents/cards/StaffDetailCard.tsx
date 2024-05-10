@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from "react";
 import { Amail, Atel } from "@/components/aLinks";
 import { useTranslation } from "react-i18next";
 import { Tstaff } from "@/configs/schema/staffSchema";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 
 type Tprops = ComponentPropsWithoutRef<"div"> & { staff: Tstaff };
 

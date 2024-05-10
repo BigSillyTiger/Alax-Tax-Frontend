@@ -19,6 +19,7 @@ export const orderSubTable = (
                 data={data.order_services}
                 columns={orderDescColumns}
                 cnHead="bg-indigo-50"
+                hFilter={false}
             />
         ) : (
             <div className="my-2 px-1">{i18n.t("tips.noServices")}</div>
@@ -31,8 +32,16 @@ export const orderSubTable = (
         content: data?.payments?.length ? (
             <PTable
                 data={data.payments}
-                columns={orderPaymentsColumns}
+                columns={
+                    orderPaymentsColumns as ColumnDef<{
+                        paid: number;
+                        fk_oid: string;
+                        pid: string;
+                        paid_date: string;
+                    }>[]
+                }
                 cnHead="bg-indigo-50"
+                hFilter={false}
             />
         ) : (
             <div className="my-2 px-1">{i18n.t("tips.noPayments")}</div>

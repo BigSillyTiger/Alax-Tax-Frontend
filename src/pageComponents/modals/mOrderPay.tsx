@@ -9,7 +9,7 @@ import {
     TorderPayment,
     orderPaymentSchema,
 } from "@/configs/schema/orderSchema";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { MTemplate } from "@/components/modal";
 import { SubmitBtn } from "@/components/form";
 import { plusAB } from "@/lib/calculations";

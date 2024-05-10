@@ -38,7 +38,7 @@ const useClientOrderColumnsDef = () => {
                         data.postcode,
                     accessorKey: "address",
                     cell: (info: CellContext<Torder, string>) => (
-                        <span>{info.getValue()}</span>
+                        <span className="text-wrap">{info.getValue()}</span>
                     ),
                 },
                 {

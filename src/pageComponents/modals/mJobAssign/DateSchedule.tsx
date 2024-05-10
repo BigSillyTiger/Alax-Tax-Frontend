@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { DateBtn } from "@/components/btns";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import Fieldset from "@/components/Fieldset";
 import { useTranslation } from "react-i18next";
 import { JADayPicker } from "@/pageComponents/DayPicker";

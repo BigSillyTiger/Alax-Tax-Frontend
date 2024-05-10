@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useEffect, useMemo } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { PTable } from "@/components/table";
 import SubTable from "./SubTable";
 import { useTranslation } from "react-i18next";

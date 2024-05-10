@@ -1,6 +1,9 @@
-import NormalBtn from "./NormalBtn";
-import BorderBtn from "./BorderBtn";
+import Bbtn from "./BorderBtn";
+import Cbtn from "./CancelBtn";
+import Dbtn from "./DeleteBtn";
+import Nbtn from "./NormalBtn";
 import DateBtn from "./DateBtn";
 import XBtn from "./XBtn";
 import CloseBtn from "./CloseBtn";
-export { NormalBtn as Nbtn, BorderBtn as Bbtn, DateBtn, XBtn, CloseBtn };
+import TimeBtn from "./TimeBtn";
+export { Bbtn, Cbtn, Dbtn, Nbtn, DateBtn, XBtn, CloseBtn, TimeBtn };

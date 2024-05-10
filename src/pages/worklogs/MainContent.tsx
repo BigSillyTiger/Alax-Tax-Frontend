@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useEffect, useMemo } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { PTable } from "@/components/table";
 import { atWorkLogTableRow } from "@/configs/atoms";
 import useWLConlumnsDef from "@/configs/columnDefs/defWorkLogs";

@@ -1,7 +1,7 @@
 import SingleField from "@/components/SingleField";
 import UserIcon from "@/components/UserIcon";
 import { Amail, Atel } from "@/components/aLinks";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import Fieldset from "@/components/Fieldset";
 import { Input } from "@/components/ui/input";
 import { TassignedWork } from "@/configs/schema/workSchema";

@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { TorderForm } from "@/configs/schema/orderSchema";
 import { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";

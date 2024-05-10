@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useSubmit } from "react-router-dom";
 import { useAtom } from "jotai";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { isServiceType } from "@/lib/literals";
 import { MTemplate } from "@/components/modal";
 import { DelBtn } from "@/components/form";

@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { mOpenOps } from "@/configs/utils/modal";
 import { PayslipTemplate } from "@/pageComponents/pdfTemplates/payslip";
 import { usePayslipStore } from "@/configs/zustore";
-import { NormalBtn } from "@/components/btns";
+import { Nbtn } from "@/components/btns";
 
 const MPSDisplay: FC = () => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
@@ -34,10 +34,12 @@ const MPSDisplay: FC = () => {
     const MainContent = () => (
         <main className={`overflow-y-auto h-[83dvh] grid grid-cols-6 gap-x-4`}>
             <div className="col-span-1 flex flex-col justify-center gap-y-5">
-                <NormalBtn>
+                <Nbtn className="w-full">
                     <DownloadLink />
-                </NormalBtn>
-                <NormalBtn onClick={onClose}>{t("btn.close")}</NormalBtn>
+                </Nbtn>
+                <Nbtn className="w-full" onClick={onClose}>
+                    {t("btn.close")}
+                </Nbtn>
             </div>
             <div className="col-span-5">
                 <PayslipTemplate date={new Date().toISOString()} />

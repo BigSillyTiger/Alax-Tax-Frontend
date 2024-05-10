@@ -1,5 +1,5 @@
 import type { FC, TouchEvent, MouseEvent } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { PTable } from "@/components/table";
 import { useTranslation } from "react-i18next";
 import { Tclient } from "@/configs/schema/clientSchema";
@@ -7,6 +7,7 @@ import { atClient, atModalOpen } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
 import useClientColumnsDef from "@/configs/columnDefs/defClients";
+import { Nbtn } from "@/components/btns";
 
 type Tprops = {
     clients: Tclient[] | null;
@@ -28,18 +29,16 @@ const MainContent: FC<Tprops> = ({ clients }) => {
         <>
             <div className="px-4 sm:px-6 lg:px-8 top-0">
                 {/* header area */}
-                <div className="sm:flex sm:items-center">
-                    <div className="sm:flex-auto sm:flex"></div>
-                    <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                        <button
-                            type="button"
-                            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            onClick={handleAddNew}
-                        >
-                            {t("btn.addClient")}
-                        </button>
-                    </div>
+                <div className="flex justify-end">
+                    <Nbtn
+                        type="button"
+                        className="w-full sm:w-[25dvw] md:w-[30dvw] text-wrap"
+                        onClick={handleAddNew}
+                    >
+                        {t("btn.addClient")}
+                    </Nbtn>
                 </div>
+
                 {/* table */}
                 {clients && clients.length ? (
                     <Card className="mt-8">

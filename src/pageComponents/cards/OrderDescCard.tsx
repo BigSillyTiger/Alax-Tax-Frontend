@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { TorderService } from "@/configs/schema/orderSchema";
 import { useTranslation } from "react-i18next";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 
 type Tprops = {
     data: TorderService[];

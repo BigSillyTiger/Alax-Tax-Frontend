@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { MTemplate } from "@/components/modal";
 import { useSubmit } from "react-router-dom";
 import { useAtom } from "jotai";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { DelBtn } from "@/components/form";
 import { atClient, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";

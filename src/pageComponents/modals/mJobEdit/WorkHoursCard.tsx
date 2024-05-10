@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { calWorkTime, isWorkHoursValid } from "@/lib/time";
 import { useWLHoursStore } from "@/configs/zustore/wlHoursStore";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 
 type Tprops = ComponentPropsWithoutRef<"div">;
 

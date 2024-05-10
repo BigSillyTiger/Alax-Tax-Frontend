@@ -1,4 +1,4 @@
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import StatesOptions from "@/components/stateOptions";
 import { TorderForm } from "@/configs/schema/orderSchema";
 import type { FC } from "react";

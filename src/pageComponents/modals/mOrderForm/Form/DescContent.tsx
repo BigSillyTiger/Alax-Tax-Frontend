@@ -1,5 +1,5 @@
 import { XBtn } from "@/components/btns";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import DataList from "@/components/dataList";
 import { atSUData } from "@/configs/atoms";
 import { TorderForm, TorderService } from "@/configs/schema/orderSchema";

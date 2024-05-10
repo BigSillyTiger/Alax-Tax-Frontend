@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { usePayslipStore } from "@/configs/zustore";
 import { useTranslation } from "react-i18next";
 import {

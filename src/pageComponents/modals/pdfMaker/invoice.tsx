@@ -10,7 +10,7 @@ import {
     OrderDescCard,
     OrderDetailsCard,
 } from "@/pageComponents/cards";
-import { NormalBtn } from "@/components/btns";
+import { Nbtn } from "@/components/btns";
 import CompanyInfoCard from "@/pageComponents/cards/CompanyInfoCard";
 import { dateFormat } from "@/lib/time";
 import { dateMax, dateMin } from "@/configs/utils/date";
@@ -72,7 +72,7 @@ const DatePicker = ({
                     </div>
                 </div>
                 <div className="col-span-1 mt-3.5">
-                    <NormalBtn
+                    <Nbtn
                         onClick={() => {
                             setDate(newDate);
                             onSubmit(newDate);
@@ -80,7 +80,7 @@ const DatePicker = ({
                         className={`h-[4dvh] mt-[1dvh]`}
                     >
                         {t("btn.updateIssueDate")}
-                    </NormalBtn>
+                    </Nbtn>
                 </div>
             </div>
             {/* default issued date */}
@@ -106,7 +106,7 @@ const DatePicker = ({
                     </div>
                 </div>
                 <div className="col-span-1 mt-3.5">
-                    <NormalBtn
+                    <Nbtn
                         onClick={() => {
                             setDate(defaultDate);
                             onSubmit(defaultDate);
@@ -114,7 +114,7 @@ const DatePicker = ({
                         className={`h-[4dvh] mt-[1dvh]`}
                     >
                         {t("btn.resetIssue")}
-                    </NormalBtn>
+                    </Nbtn>
                 </div>
             </div>
         </div>

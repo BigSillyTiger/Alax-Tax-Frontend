@@ -1,7 +1,8 @@
 import { useState } from "react";
 import type { FC } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import VHSwitch from "@/components/VHSwitch";
+import SubtableCard from "./SubtableCard";
 
 type Tprops = {
     items: { title: string; content: JSX.Element }[];
@@ -10,8 +11,8 @@ type Tprops = {
 const SubTableSwitch: FC<Tprops> = ({ items }) => {
     const [isChecked, setIsChecked] = useState(false);
     return (
-        <div className="grid grid-cols-8 my-2">
-            <div className="col-span-1 flex flex-col justify-start text-center">
+        <SubtableCard className="grid grid-cols-8">
+            <div className="col-span-1 flex flex-col justify-center text-center gap-x-1">
                 <span className="text-bold text-indigo-500 pb-1">
                     {items[0].title}
                 </span>
@@ -24,10 +25,10 @@ const SubTableSwitch: FC<Tprops> = ({ items }) => {
                     {items[1].title}
                 </span>
             </div>
-            <Card className="col-span-7">
+            <Card className="col-span-7 transition-all duration-300 ease-linear">
                 {isChecked ? items[1].content : items[0].content}
             </Card>
-        </div>
+        </SubtableCard>
     );
 };
 

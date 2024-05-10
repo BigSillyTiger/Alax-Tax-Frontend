@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
+import { Nbtn } from "../btns";
 
 type Tprops = {
     onClose: () => void;
@@ -10,6 +11,12 @@ type Tprops = {
     dlCMP: JSX.Element | string;
 };
 
+/**
+ * @description submit with download link button
+ *              - not used for now
+ * @param param0
+ * @returns
+ */
 const SubmitWdlBtn: FC<Tprops> = ({
     onClick,
     onClose,
@@ -40,18 +47,17 @@ const SubmitWdlBtn: FC<Tprops> = ({
             >
                 {dlCMP}
             </Button>
-            <Button
+            <Nbtn
                 name="intent"
                 value="add"
                 type="submit"
-                className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset hover:bg-indigo-700"
                 disabled={navState === "submitting" || navState === "loading"}
                 onClick={onClick}
             >
                 {navState === "submitting"
                     ? t("btn.submitting")
                     : t("btn.submit")}
-            </Button>
+            </Nbtn>
         </div>
     );
 };

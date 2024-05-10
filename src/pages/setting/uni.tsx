@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useAtom } from "jotai";
-import Card from "@/components/card";
+import Card from "@/components/Card.tsx";
 import { Tservice, Tunit } from "@/configs/schema/settingSchema.ts";
 import {
     serviceListColDefs,
@@ -12,6 +12,8 @@ import { PTable } from "@/components/table";
 import { useTranslation } from "react-i18next";
 import { atSUInitData, initS, initU, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
+import { ColumnDef } from "@tanstack/react-table";
+import { Nbtn } from "@/components/btns/index.tsx";
 
 type Tprops = Tunivers;
 
@@ -30,10 +32,10 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                     <div className="sm:flex-auto sm:flex">
                         {t("label.serviceList")}
                     </div>
-                    <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                        <button
+                    <div className="my-2 sm:ml-16 sm:mt-0 sm:flex-none">
+                        <Nbtn
                             type="button"
-                            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="w-[20dvh]"
                             onClick={(e) => {
                                 e.preventDefault();
                                 setSUinitData(initS);
@@ -41,7 +43,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                             }}
                         >
                             {t("btn.newService")}
-                        </button>
+                        </Nbtn>
                     </div>
                 </div>
                 {/* table */}
@@ -50,7 +52,14 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                         <PTable
                             search={true}
                             data={services}
-                            columns={serviceListColDefs}
+                            columns={
+                                serviceListColDefs as ColumnDef<{
+                                    id: number;
+                                    unit: string;
+                                    unit_price: number;
+                                    service: string;
+                                }>[]
+                            }
                             setData={setSUinitData}
                             menuOptions={{ edit: true, del: true }}
                             cnSearch="my-3"
@@ -76,10 +85,10 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                     <div className="sm:flex-auto sm:flex">
                         {t("label.unitList")}
                     </div>
-                    <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                        <button
+                    <div className="my-2 sm:ml-16 sm:mt-0 sm:flex-none">
+                        <Nbtn
                             type="button"
-                            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="w-[15dvh]"
                             onClick={(e) => {
                                 e.preventDefault();
                                 setSUinitData(initU);
@@ -87,7 +96,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                             }}
                         >
                             {t("btn.newUnit")}
-                        </button>
+                        </Nbtn>
                     </div>
                 </div>
 
@@ -97,7 +106,12 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                         <PTable
                             search={true}
                             data={units}
-                            columns={unitListColDefs}
+                            columns={
+                                unitListColDefs as ColumnDef<{
+                                    id: number;
+                                    unit_name: string;
+                                }>[]
+                            }
                             setData={setSUinitData}
                             menuOptions={{ edit: true, del: true }}
                             cnSearch="my-3"

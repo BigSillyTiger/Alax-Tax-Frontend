@@ -4,8 +4,9 @@ import usePaySlipColumnsDef from "@/configs/columnDefs/defPayslip";
 import { TstaffWPayslip } from "@/configs/schema/staffSchema";
 import { useAdminStore, usePayslipStore } from "@/configs/zustore";
 import { useTranslation } from "react-i18next";
-import Card from "@/components/card";
 import { ROLES } from "@/configs/utils/staff";
+import SubtableCard from "@/components/table/SubtableCard";
+import { ColumnDef } from "@tanstack/react-table";
 
 type Tprops = {
     data: TstaffWPayslip;
@@ -22,21 +23,31 @@ const SubTable: FC<Tprops> = ({ data }) => {
         : payslipColumns;
 
     return (
-        <Card className="m-2">
+        <SubtableCard className="m-2">
             {data?.payslips?.length ? (
                 <PTable
                     data={data.payslips}
                     setData={setPayslip}
-                    columns={newPayslipColumns}
+                    columns={
+                        newPayslipColumns as ColumnDef<{
+                            psid?: string | undefined;
+                            fk_uid?: string | undefined;
+                            created_date?: string | undefined;
+                            status?: "pending" | "completed" | undefined;
+                            hr?: number | undefined;
+                            paid?: number | undefined;
+                        }>[]
+                    }
                     menuOptions={{
                         del: true,
                     }}
+                    hFilter={false}
                     cnHead="bg-indigo-50"
                 />
             ) : (
                 <div className="my-2 px-1">{t("tips.noPayslips")}</div>
             )}
-        </Card>
+        </SubtableCard>
     );
 };
 export default SubTable;

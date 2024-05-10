@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import Card from "./card";
+import Card from "./Card";
 import { useAsyncError, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 

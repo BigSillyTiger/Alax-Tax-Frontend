@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { PTable } from "@/components/table";
 import useStaffWLColumns from "@/configs/columnDefs/defStaffWL";
 import { usePayslipStore } from "@/configs/zustore";

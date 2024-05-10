@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Tcompany, companySchema } from "@/configs/schema/settingSchema";
 import { useTranslation } from "react-i18next";
-import Card from "@/components/card";
-import { NormalBtn } from "@/components/btns";
+import Card from "@/components/Card";
+import { Nbtn } from "@/components/btns";
 import { API_SETTING } from "@/apis";
 import { toastSuccess } from "@/lib/toaster";
 import { RES_STATUS } from "@/configs/types";
@@ -306,7 +306,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                 </div>
             </Card>
             <div className="mt-1">
-                <NormalBtn
+                <Nbtn
                     onClick={async () => {
                         if (uploadFile) {
                             const result =
@@ -320,7 +320,7 @@ const Company: FC<Tprops> = ({ company, logo }) => {
                     className={`h-[4dvh] mt-[1dvh]`}
                 >
                     {t("btn.updateLogo")}
-                </NormalBtn>
+                </Nbtn>
             </div>
         </>
     );

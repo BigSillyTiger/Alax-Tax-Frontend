@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 
 import { useTranslation } from "react-i18next";
 import { Tstaff } from "@/configs/schema/staffSchema";
