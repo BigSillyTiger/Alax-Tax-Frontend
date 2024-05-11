@@ -1,7 +1,7 @@
 import { CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { TwlTableRow } from "../schema/workSchema";
-import { calWorkTime } from "@/lib/time";
+import { calWorkTime, dateFormat } from "@/lib/time";
 import { convertWorkHour, timesAB } from "@/lib/calculations";
 import { rangeFilterFn } from "./filterFn";
 
@@ -21,7 +21,8 @@ const useStaffWLColumns = () => {
         {
             id: "workDate",
             header: i18n.t("label.workDate"),
-            accessorKey: "wl_date",
+            accessorFn: (data: TwlTableRow) => dateFormat(data.wl_date),
+            //accessorKey: "wl_date",
             cell: (info: CellContext<TwlTableRow, unknown>) => (
                 <span>{info.getValue<string>()}</span>
             ),

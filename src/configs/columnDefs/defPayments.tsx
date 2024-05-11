@@ -1,21 +1,15 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
-import { Torder } from "@/configs/schema/orderSchema";
+import { TorderPayment } from "@/configs/schema/orderSchema";
 import { dateFormat } from "@/lib/time";
 import { rangeFilterFn } from "./filterFn";
 
-const useOrderColumnsDef = () => {
-    const orderPaymentsColumns: ColumnDef<Torder>[] = [
-        /* {
-        header: i18n.t("label.id"),
-        cell: ({ row }) => {
-            return <span>{row.index + 1}</span>;
-        },
-    }, */
+const useOrderPaymentColumnsDef = () => {
+    const orderPaymentsColumns: ColumnDef<TorderPayment>[] = [
         {
             header: i18n.t("label.paid"),
             accessorKey: "paid",
-            cell: (info: CellContext<Torder, unknown>) => {
+            cell: (info: CellContext<TorderPayment, unknown>) => {
                 return <span>{info.getValue<number>()}</span>;
             },
             filterFn: rangeFilterFn,
@@ -25,8 +19,8 @@ const useOrderColumnsDef = () => {
         },
         {
             header: i18n.t("label.payDate"),
-            accessorKey: "paid_date",
-            cell: (info: CellContext<Torder, unknown>) => {
+            accessorFn: (data: TorderPayment) => dateFormat(data.paid_date),
+            cell: (info: CellContext<TorderPayment, unknown>) => {
                 return (
                     <span>{dateFormat(info.getValue() as string, "au")}</span>
                 );
@@ -36,4 +30,4 @@ const useOrderColumnsDef = () => {
     return orderPaymentsColumns;
 };
 
-export default useOrderColumnsDef;
+export default useOrderPaymentColumnsDef;

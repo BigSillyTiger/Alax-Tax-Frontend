@@ -58,7 +58,7 @@ const useOrderColumnsDef = () => {
                 },
                 {
                     header: i18n.t("label.orderDate"),
-                    accessorKey: "created_date",
+                    accessorFn: (data: Torder) => dateFormat(data.created_date),
                     cell: (info: CellContext<Torder, unknown>) => (
                         <span>{dateFormat(info.getValue<string>(), "au")}</span>
                     ),

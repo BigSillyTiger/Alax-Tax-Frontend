@@ -81,7 +81,7 @@ const useWLConlumnsDef = () => {
                 {
                     id: "workDate",
                     header: i18n.t("label.workDate"),
-                    accessorKey: "wl_date",
+                    accessorFn: (data: TwlTableRow) => dateFormat(data.wl_date),
                     cell: (info: CellContext<TwlTableRow, unknown>) => (
                         <span className="text-wrap">
                             {dateFormat(info.getValue<string>(), "au")}

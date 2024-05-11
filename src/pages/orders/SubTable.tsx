@@ -3,7 +3,7 @@ import SubTableSwitch from "@/components/table/SubTableSwitch";
 import { Torder } from "@/configs/schema/orderSchema";
 import { orderSubTable } from "@/pageComponents/orderSubTables";
 import useOrderDescColumnsDef from "@/configs/columnDefs/defOrderDesc";
-import useOrderColumnsDef from "@/configs/columnDefs/defPayments";
+import useOrderPaymentColumnsDef from "@/configs/columnDefs/defPayments";
 
 type Tprops = {
     data: Torder;
@@ -11,7 +11,7 @@ type Tprops = {
 
 const SubTable: FC<Tprops> = ({ data }) => {
     const orderDescColumns = useOrderDescColumnsDef();
-    const orderPaymentsColumns = useOrderColumnsDef();
+    const orderPaymentsColumns = useOrderPaymentColumnsDef();
     return (
         <SubTableSwitch
             items={orderSubTable(data, orderDescColumns, orderPaymentsColumns)}

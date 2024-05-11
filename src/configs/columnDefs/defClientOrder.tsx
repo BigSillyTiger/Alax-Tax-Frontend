@@ -66,7 +66,7 @@ const useClientOrderColumnsDef = () => {
                 },
                 {
                     header: "Order Date",
-                    accessorKey: "created_date",
+                    accessorFn: (data: Torder) => dateFormat(data.created_date),
                     cell: (info: CellContext<Torder, string>) => {
                         return <span>{dateFormat(info.getValue(), "au")}</span>;
                     },

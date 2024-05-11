@@ -1,5 +1,9 @@
 import { PTable } from "@/components/table";
-import { Torder, TorderService } from "@/configs/schema/orderSchema";
+import {
+    Torder,
+    TorderPayment,
+    TorderService,
+} from "@/configs/schema/orderSchema";
 import i18n from "@/configs/i18n";
 import { TitemContent } from "@/configs/types";
 import { ColumnDef } from "@tanstack/react-table";
@@ -7,7 +11,7 @@ import { ColumnDef } from "@tanstack/react-table";
 export const orderSubTable = (
     data: Torder,
     orderDescColumns: ColumnDef<TorderService>[],
-    orderPaymentsColumns: ColumnDef<Torder>[]
+    orderPaymentsColumns: ColumnDef<TorderPayment>[]
 ) => {
     const items = [] as TitemContent[];
 
