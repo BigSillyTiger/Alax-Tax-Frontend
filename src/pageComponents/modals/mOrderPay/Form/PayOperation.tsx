@@ -1,5 +1,5 @@
 import { atOrder } from "@/configs/atoms";
-import { TorderPayment } from "@/configs/schema/orderSchema";
+import { TorderPayment, Tpayment } from "@/configs/schema/orderSchema";
 import { plusAB } from "@/lib/calculations";
 import { dateFormat } from "@/lib/time";
 import { toastError } from "@/lib/toaster";
@@ -9,10 +9,6 @@ import { UseFieldArrayPrepend } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { dateMax, dateMin } from "@/configs/utils/date";
 import { Nbtn } from "@/components/btns";
-
-type Tpayment = {
-    payments: TorderPayment[];
-};
 
 type Tprops = { prepend: UseFieldArrayPrepend<Tpayment>; totalPaid: number };
 

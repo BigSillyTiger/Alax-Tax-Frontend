@@ -119,3 +119,6 @@ export type TorderService = z.infer<typeof orderServiceSchema>;
 export type TorderPayment = z.infer<typeof orderPaymentSchema>;
 export type TorderAbstract = z.infer<typeof orderAbstractSchema>;
 export type TorderArrangement = z.infer<typeof orderArrangementSchema>;
+export type Tpayment = {
+    payments: TorderPayment[];
+};

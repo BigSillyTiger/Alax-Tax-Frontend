@@ -8,16 +8,12 @@ import {
     UseFieldArrayRemove,
     UseFormReturn,
 } from "react-hook-form";
-import { TorderPayment } from "@/configs/schema/orderSchema";
+import { Tpayment } from "@/configs/schema/orderSchema";
 import { toastError } from "@/lib/toaster";
 import { atOrder } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
-
-type Tpayment = {
-    payments: TorderPayment[];
-};
 
 type Tprops = {
     fields: FieldArrayWithId<Tpayment>[];

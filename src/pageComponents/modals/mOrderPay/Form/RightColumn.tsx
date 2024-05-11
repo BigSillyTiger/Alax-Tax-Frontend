@@ -7,12 +7,8 @@ import { SubmitBtn } from "@/components/form";
 import { useNavigation } from "react-router-dom";
 import { atOrder } from "@/configs/atoms";
 import { useAtom } from "jotai";
-import { TorderPayment } from "@/configs/schema/orderSchema";
+import { Tpayment } from "@/configs/schema/orderSchema";
 import { UseFieldArrayPrepend, UseFormReturn } from "react-hook-form";
-
-type Tpayment = {
-    payments: TorderPayment[];
-};
 
 type Tprops = {
     totalPaid: number;

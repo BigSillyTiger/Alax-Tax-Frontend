@@ -4,20 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useAtom } from "jotai";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    TorderPayment,
-    orderPaymentSchema,
-} from "@/configs/schema/orderSchema";
+import { Tpayment, orderPaymentSchema } from "@/configs/schema/orderSchema";
 import { MTemplate } from "@/components/modal";
 import { plusAB } from "@/lib/calculations";
 import { dateFormat } from "@/lib/time";
 import { mOpenOps } from "@/configs/utils/modal";
 import { atOrder, atModalOpen } from "@/configs/atoms";
 import FormContent from "./Form";
-
-type Tpayment = {
-    payments: TorderPayment[];
-};
 
 const MOrderPay: FC = memo(() => {
     const [clientOrder] = useAtom(atOrder);

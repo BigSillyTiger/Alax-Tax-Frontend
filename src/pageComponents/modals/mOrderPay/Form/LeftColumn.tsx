@@ -9,11 +9,7 @@ import {
     UseFieldArrayRemove,
     UseFormReturn,
 } from "react-hook-form";
-import { TorderPayment } from "@/configs/schema/orderSchema";
-
-type Tpayment = {
-    payments: TorderPayment[];
-};
+import { Tpayment } from "@/configs/schema/orderSchema";
 
 type Tprops = {
     totalPaid: number;
