@@ -29,7 +29,7 @@ export const jobAssignStore = createStore<Tstate & Taction>((set) => ({
         set((state) => {
             if (workLogs && workLogs.length)
                 return { ...state, currentWLUnion: [...workLogs] };
-            return { ...state };
+            return { ...state, currentWLUnion: [] };
         }),
     // assignedWork - the work log to add
     appendAssignedWork: (assignedWork, date) =>

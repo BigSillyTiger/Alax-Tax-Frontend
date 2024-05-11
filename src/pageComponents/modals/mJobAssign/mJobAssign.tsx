@@ -41,7 +41,8 @@ const MJobAssign = () => {
     // especially when it's closed by cancling
     useEffect(() => {
         setWorkLogs(clientOrder.wlUnion);
-    }, [clientOrder.wlUnion, setWorkLogs, modalOpen]);
+        setDate(new Date());
+    }, [modalOpen]);
 
     /* update all staff with unselected status as default*/
     useEffect(() => {
@@ -50,7 +51,7 @@ const MJobAssign = () => {
     }, [newAllStaff]);
 
     const onClose = () => {
-        setWorkLogs(clientOrder.wlUnion);
+        setWorkLogs([]);
         setDate(new Date());
         setModalOpen(mOpenOps.default);
     };

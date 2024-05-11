@@ -39,7 +39,6 @@ export const ordersAction = async ({
         return result;
     } else if ("POST" === request.method && data.get("req") === "jobAssign") {
         const assignedData = JSON.parse(data.get("values") as string);
-        //console.log("-> action work assign: ", assignedData);
         const result = await API_ORDER.updateJobAssignment(
             assignedData as TwlUnion[]
         );
