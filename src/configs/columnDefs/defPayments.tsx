@@ -2,6 +2,7 @@ import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { Torder } from "@/configs/schema/orderSchema";
 import { dateFormat } from "@/lib/time";
+import { rangeFilterFn } from "./filterFn";
 
 const useOrderColumnsDef = () => {
     const orderPaymentsColumns: ColumnDef<Torder>[] = [
@@ -16,6 +17,10 @@ const useOrderColumnsDef = () => {
             accessorKey: "paid",
             cell: (info: CellContext<Torder, unknown>) => {
                 return <span>{info.getValue<number>()}</span>;
+            },
+            filterFn: rangeFilterFn,
+            meta: {
+                filterVariant: "range",
             },
         },
         {

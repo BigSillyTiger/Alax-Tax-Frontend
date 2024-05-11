@@ -1,6 +1,7 @@
 import { CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { Tdeduction } from "../schema/workSchema";
+import { rangeFilterFn } from "./filterFn";
 
 const useStaffDeductColumnsDef = () => {
     const staffDeductColumns = [
@@ -31,6 +32,10 @@ const useStaffDeductColumnsDef = () => {
                     ${info.getValue<number>()}
                 </span>
             ),
+            filterFn: rangeFilterFn,
+            meta: {
+                filterVariant: "range",
+            },
         },
     ];
     return staffDeductColumns;

@@ -89,6 +89,24 @@ const useWLConlumnsDef = () => {
                     ),
                 },
                 {
+                    id: "wlStatus",
+                    header: i18n.t("label.status"),
+                    accessorKey: "wl_status",
+                    cell: (info: CellContext<TwlTableRow, unknown>) => (
+                        <WLStatusBtn
+                            mLabel={
+                                <StatusBadge
+                                    value={info.getValue() as TstatusColor}
+                                />
+                            }
+                            data={info.row.original as TwlTableRow}
+                        />
+                    ),
+                    meta: {
+                        filterVariant: "select",
+                    },
+                },
+                {
                     id: "startTime",
                     header: i18n.t("label.timeStart"),
                     accessorKey: "s_time",
@@ -129,21 +147,6 @@ const useWLConlumnsDef = () => {
                     cell: (info: CellContext<TwlTableRow, unknown>) => (
                         <TimeBtn
                             type={info.cell.column.id as TtimeBtnStyles}
-                            data={info.row.original as TwlTableRow}
-                        />
-                    ),
-                },
-                {
-                    id: "wlStatus",
-                    header: i18n.t("label.status"),
-                    accessorKey: "wl_status",
-                    cell: (info: CellContext<TwlTableRow, unknown>) => (
-                        <WLStatusBtn
-                            mLabel={
-                                <StatusBadge
-                                    value={info.getValue() as TstatusColor}
-                                />
-                            }
                             data={info.row.original as TwlTableRow}
                         />
                     ),

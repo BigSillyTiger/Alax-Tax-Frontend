@@ -3,6 +3,7 @@ import i18n from "@/configs/i18n";
 import { TwlTableRow } from "../schema/workSchema";
 import { calWorkTime } from "@/lib/time";
 import { convertWorkHour, timesAB } from "@/lib/calculations";
+import { rangeFilterFn } from "./filterFn";
 
 /**
  * @description this column definition is for the staff work log table in payslip modal
@@ -81,6 +82,10 @@ const useStaffWLColumns = () => {
                     ${info.getValue<string>()}
                 </span>
             ),
+            filterFn: rangeFilterFn,
+            meta: {
+                filterVariant: "range",
+            },
         },
     ];
     return staffWLColumns;

@@ -18,6 +18,7 @@ import type {
     Row,
     ColumnDef,
     ColumnResizeMode,
+    ColumnFiltersState,
 } from "@tanstack/react-table";
 import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
@@ -93,6 +94,8 @@ const PTable = <T extends object>({
     const [columnVisibility, setColumnVisibility] = useState({});
     // for column resize
     const [columnResizeMode] = useState<ColumnResizeMode>("onChange");
+    // for column filter
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
     const table = useReactTable({
         data,
@@ -100,7 +103,13 @@ const PTable = <T extends object>({
         // for column resize, but this will cause ctbody render before mount issue
         columnResizeMode,
         getRowCanExpand, // for expanding row
-        state: { globalFilter: deferredGF, sorting, columnVisibility },
+        state: {
+            columnFilters, // for column filter
+            globalFilter: deferredGF,
+            sorting,
+            columnVisibility, // for column toggle
+        },
+        onColumnFiltersChange: setColumnFilters, // for column filter
         onSortingChange: setSorting as OnChangeFn<SortingState>,
         // not sure what is this onGlobalFilterChange used for
         // the filter still works very well without this

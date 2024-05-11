@@ -1,5 +1,6 @@
 import { Cell } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
+import { rangeFilterFn } from "./filterFn";
 
 export const serviceListColDefs = [
     {
@@ -28,6 +29,10 @@ export const serviceListColDefs = [
         accessorKey: "unit_price",
         cell: (info: Cell<{ id: string }, string>) => {
             return <span>{info.getValue()}</span>;
+        },
+        filterFn: rangeFilterFn,
+        meta: {
+            filterVariant: "range",
         },
     },
     {

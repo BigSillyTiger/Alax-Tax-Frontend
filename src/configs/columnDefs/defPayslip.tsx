@@ -56,6 +56,9 @@ const usePaySlipColumnsDef = () => {
                     data={info.row.original as Tpayslip}
                 />
             ),
+            meta: {
+                filterVariant: "select",
+            },
         },
         {
             header: i18n.t("label.thisPay"),

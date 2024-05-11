@@ -1,6 +1,7 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { TorderService } from "@/configs/schema/orderSchema";
+import { rangeFilterFn } from "./filterFn";
 
 const useOrderDescColumnsDef = () => {
     const orderDescColumns: ColumnDef<TorderService>[] = [
@@ -28,12 +29,20 @@ const useOrderDescColumnsDef = () => {
             cell: (info: CellContext<TorderService, unknown>) => {
                 return <span>{info.getValue<number>()}</span>;
             },
+            filterFn: rangeFilterFn,
+            meta: {
+                filterVariant: "range",
+            },
         },
         {
             header: i18n.t("label.unit"),
             accessorKey: "unit",
             cell: (info: CellContext<TorderService, unknown>) => {
                 return <span>{info.getValue<number>()}</span>;
+            },
+            filterFn: rangeFilterFn,
+            meta: {
+                filterVariant: "range",
             },
         },
         {
@@ -42,12 +51,20 @@ const useOrderDescColumnsDef = () => {
             cell: (info: CellContext<TorderService, unknown>) => {
                 return <span>{info.getValue<number>()}</span>;
             },
+            filterFn: rangeFilterFn,
+            meta: {
+                filterVariant: "range",
+            },
         },
         {
             header: i18n.t("label.netto"),
             accessorKey: "netto",
             cell: (info: CellContext<TorderService, unknown>) => {
                 return <span>{info.getValue<number>()}</span>;
+            },
+            filterFn: rangeFilterFn,
+            meta: {
+                filterVariant: "range",
             },
         },
     ];

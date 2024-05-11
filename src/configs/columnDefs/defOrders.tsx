@@ -9,6 +9,7 @@ import { TstatusColor } from "../types";
 import { ExpandBtn, OrderStatusBtn } from "@/components/table/tableBtn";
 import { moneyColors } from "../utils/color";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { rangeFilterFn } from "./filterFn";
 
 const useOrderColumnsDef = () => {
     const orderColumns: ColumnDef<Torder>[] = [
@@ -108,9 +109,13 @@ const useOrderColumnsDef = () => {
                 {
                     header: i18n.t("label.total"),
                     accessorKey: "total",
-                    cell: (info: CellContext<Torder, string>) => (
+                    cell: (info: CellContext<Torder, number>) => (
                         <span className="text-base">{info.getValue()}</span>
                     ),
+                    filterFn: rangeFilterFn,
+                    meta: {
+                        filterVariant: "range",
+                    },
                 },
                 {
                     id: "Gst",
@@ -119,6 +124,10 @@ const useOrderColumnsDef = () => {
                     cell: (info: CellContext<Torder, number>) => (
                         <span className="text-base">{info.getValue()}</span>
                     ),
+                    filterFn: rangeFilterFn,
+                    meta: {
+                        filterVariant: "range",
+                    },
                 },
                 {
                     id: "Paid",
@@ -127,10 +136,15 @@ const useOrderColumnsDef = () => {
                     cell: (info: CellContext<Torder, string>) => (
                         <span className="text-base">{info.getValue()}</span>
                     ),
+                    filterFn: rangeFilterFn,
+                    meta: {
+                        filterVariant: "range",
+                    },
                 },
                 {
                     header: i18n.t("label.balance"),
-                    accessorKey: "balance",
+                    accessorFn: (data: Torder) =>
+                        minusAB(data.total, data.paid),
                     cell: (info: CellContext<Torder, string>) => {
                         const balance = minusAB(
                             info.row.original.total,
@@ -147,6 +161,10 @@ const useOrderColumnsDef = () => {
                                 )}
                             </span>
                         );
+                    },
+                    filterFn: rangeFilterFn,
+                    meta: {
+                        filterVariant: "range",
                     },
                 },
             ],
