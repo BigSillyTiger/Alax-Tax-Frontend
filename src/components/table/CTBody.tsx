@@ -11,5 +11,4 @@ const CTBody: FC<Tprops> = ({ className, children }) => {
         </tbody>
     );
 };
-
 export default CTBody;

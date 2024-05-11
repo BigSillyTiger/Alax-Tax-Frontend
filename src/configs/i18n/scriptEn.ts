@@ -84,6 +84,7 @@ const en = {
             },
         },
         btn: {
+            all: "All",
             addDate: "Add Date",
             addNewBonus: "Add New Bonus",
             addNewDeduction: "Add Deduction",
@@ -91,8 +92,9 @@ const en = {
             addClient: "Register New Client",
             addStuff: "Register New Staff",
             assign: "Assign",
-            confirm: "Confirm",
+            choose: "Choose",
             close: "Close",
+            confirm: "Confirm",
             cancel: "Cancel",
             del: "Delete",
             dlPayslip: "Download Payslip",

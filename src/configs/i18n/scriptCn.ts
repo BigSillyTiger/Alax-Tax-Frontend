@@ -82,6 +82,7 @@ const en = {
             },
         },
         btn: {
+            all: "全部",
             addDate: "添加日期",
             addNewBonus: "添加新奖金",
             addNewDeduction: "添加扣除项",
@@ -91,6 +92,7 @@ const en = {
             assign: "分配",
             confirm: "确认",
             close: "关闭",
+            choose: "选择",
             cancel: "取消",
             del: "删除",
             dlPayslip: "下载工资单",

@@ -1,2 +1,3 @@
 import HeaderFilterFuzzy from "./HeaderFilterFuzzy";
-export { HeaderFilterFuzzy };
+import HeaderFilterFaceted from "./HeaderFilterFaceted";
+export { HeaderFilterFuzzy, HeaderFilterFaceted };

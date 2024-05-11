@@ -95,6 +95,9 @@ const useOrderColumnsDef = () => {
                             />
                         );
                     },
+                    meta: {
+                        filterVariant: "select",
+                    },
                 },
             ],
         },

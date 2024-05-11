@@ -10,7 +10,7 @@ const ErrorTips: FC = () => {
     const error = useAsyncError();
     console.log("---> Error Tips Page:", error);
     return (
-        <div className="h-full w-full flex flex-col justify-center items-center">
+        <div className="h-screen w-full flex flex-col justify-center items-center">
             <Card className="flex flex-col justify-center items-center">
                 <p className="text-lg font-bold">{t("tips.errorTips")}</p>
                 <Nbtn
@@ -23,7 +23,6 @@ const ErrorTips: FC = () => {
                     {t("btn.goToLogin")}
                 </Nbtn>
             </Card>
-            ;
         </div>
     );
 };
