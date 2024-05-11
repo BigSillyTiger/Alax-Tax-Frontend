@@ -348,6 +348,7 @@ const en = {
             unMatchPW: "错误：密码不匹配",
             updateWorkHours: "错误：更新工作小时失败",
             updateWL: "错误：更新工作日志。",
+            fileTooLarge: "错误: 上传文件太大。",
         },
         toastW: {
             selectDate: "请先选择一个日期。",

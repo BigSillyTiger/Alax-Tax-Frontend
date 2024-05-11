@@ -352,6 +352,7 @@ const en = {
             unMatchPW: "Error: Passwords do not match",
             updateWorkHours: "Error: Updating Work Hours Failed",
             updateWL: "Error: Updating Work Log.",
+            fileTooLarge: "Error: File is too large.",
         },
         toastW: {
             selectDate: "Please select a date first.",

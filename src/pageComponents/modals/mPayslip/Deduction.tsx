@@ -16,7 +16,13 @@ const Deduction: FC = () => {
                         search={false}
                         hFilter={false}
                         data={deduction}
-                        columns={staffDeductColumns}
+                        columns={staffDeductColumns.map((column) => ({
+                            ...column,
+                            meta: {
+                                ...column.meta,
+                                filterVariant: "text", // Replace "text" with the appropriate value
+                            },
+                        }))}
                         cnSearch="my-3"
                         cnTable={`h-[30dvh]`}
                         cnHead="sticky z-10 bg-red-300"

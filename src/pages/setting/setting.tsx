@@ -37,6 +37,9 @@ const Setting: FC = () => {
             case RES_STATUS.FAILED_ADD_NEW_SU:
                 toastError(t("toastE.addedNewSU"));
                 break;
+            case RES_STATUS.FAILED_TOO_LARGE:
+                toastError(t("toastF.fileTooLarge"));
+                break;
             default:
                 break;
         }

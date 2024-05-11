@@ -4,10 +4,13 @@ import { PTable } from "@/components/table";
 import useStaffWLColumns from "@/configs/columnDefs/defStaffWL";
 import { usePayslipStore } from "@/configs/zustore";
 import { useTranslation } from "react-i18next";
+import { ColumnDef } from "@tanstack/react-table";
+import { TwlTableRow } from "@/configs/schema/workSchema";
 
 const StaffWLTable: FC = () => {
     const { t } = useTranslation();
     const staffWL = usePayslipStore((state) => state.staffWL);
+
     const staffWLColumns = useStaffWLColumns();
 
     return staffWL.length ? (
@@ -16,7 +19,7 @@ const StaffWLTable: FC = () => {
                 search={false}
                 hFilter={false}
                 data={staffWL}
-                columns={staffWLColumns}
+                columns={staffWLColumns as ColumnDef<TwlTableRow>[]}
                 cnSearch="my-3"
                 cnTable={`h-[40dvh]`}
                 cnHead="sticky z-10 bg-indigo-300"
