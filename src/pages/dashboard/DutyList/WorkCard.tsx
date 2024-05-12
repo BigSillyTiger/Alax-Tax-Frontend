@@ -10,6 +10,7 @@ import { useAtom } from "jotai";
 import type { FC } from "react";
 import { capFirstLetter } from "@/lib/literals";
 import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
+import { Separator } from "@/components/ui/separator";
 
 type Tprops = {
     data: TwlTableRow;
@@ -63,10 +64,17 @@ const WorkCard: FC<Tprops> = ({ data, clickAble = true }) => {
                 </p>
             </div>
             {data.wl_note && (
-                <div className="col-span-full flex flex-row justify-start items-center border-t-2 border-dashed border-indigo-300 pt-2">
-                    <ExclamationCircleIcon className="size-10 text-amber-600 mr-2" />
-                    <span className="text-lg">{data.wl_note}</span>
-                </div>
+                <>
+                    <Separator
+                        orientation="horizontal"
+                        className="col-span-full border-indigo-300"
+                        decorative={true}
+                    />
+                    <div className="col-span-full flex flex-row justify-start items-center bg-amber-200 px-2 py-1 rounded-xl text-wrap">
+                        <ExclamationCircleIcon className="size-10 text-amber-600 mr-2" />
+                        <span className="text-md">{data.wl_note}</span>
+                    </div>
+                </>
             )}
         </Card>
     );
