@@ -15,12 +15,17 @@ import {
 } from "@heroicons/react/24/outline";
 import { StatusBadge } from "@/components/Badge";
 import { useTranslation } from "react-i18next";
+import { Textarea } from "@/components/ui/textarea";
+import { ComponentPropsWithoutRef } from "react";
 
-type Tprops<T extends TassignedWork> = {
+type Tprops<T extends TassignedWork> = ComponentPropsWithoutRef<"div"> & {
     item: T;
 };
 
-const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
+const WorkLogCard = <T extends TassignedWork>({
+    item,
+    className,
+}: Tprops<T>) => {
     const { t } = useTranslation();
     const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
@@ -49,9 +54,34 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
         setWorkLogs(newWL);
     };
 
+    const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const newWL = currentWLUnion.map((wl) => {
+            if (wl.fk_oid === item.fk_oid) {
+                return {
+                    ...wl,
+                    assigned_work: wl.assigned_work.map((aw) => {
+                        if (aw.fk_uid === item.fk_uid) {
+                            return {
+                                ...aw,
+                                wl_note: e.target.value,
+                            };
+                        } else {
+                            return aw;
+                        }
+                    }),
+                };
+            } else {
+                return wl;
+            }
+        });
+        setWorkLogs(newWL);
+    };
+
     return (
         /* self-11 content-8 */
-        <Card className="col-span-full mt-3 grid grid-cols-1 gap-x-4 sm:grid-cols-8 bg-indigo-50 py-2">
+        <Card
+            className={`${className} mt-3 grid grid-cols-1 gap-x-4 sm:grid-cols-8 bg-indigo-50 py-2`}
+        >
             {/* 3 col */}
             <div className="col-span-3">
                 <div className="col-span-full row-span-2">
@@ -99,7 +129,7 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                 {/* time area */}
                 <Fieldset
                     title={t("label.workTime")}
-                    sFieldset="p-2 justify-evenly grid grid-cols-4 gap-x-2 gap-y-2 h-full"
+                    sFieldset="p-2 justify-evenly grid grid-cols-4 gap-x-2 gap-y-2"
                 >
                     <div className="col-span-2 row-span-1">
                         <label htmlFor="s_time" className="mx-2">
@@ -159,12 +189,19 @@ const WorkLogCard = <T extends TassignedWork>({ item }: Tprops<T>) => {
                     </div>
                 </Fieldset>
                 {/* note area */}
-                {/* <div className="col-span-full">
-                    <label htmlFor="wl_note" className="mx-2">
+                <div className="">
+                    <label
+                        htmlFor="wl_note"
+                        className="mx-2 text-indigo-600 text-md text-bold"
+                    >
                         {t("label.workNote")}
                     </label>
-                    <textarea id="wl_note" className="w-full" />
-                </div> */}
+                    <Textarea
+                        id="wl_note"
+                        className="w-full"
+                        onChange={handleNoteChange}
+                    />
+                </div>
             </div>
         </Card>
     );

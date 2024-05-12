@@ -54,7 +54,7 @@ const workLogSchema = z.object({
         ])
         .default("pending"), */
     wl_status: constructZodLiteralUnionType(statusLiterals).default("pending"),
-    //wl_note: z.string().trim().nullable().default(""),
+    wl_note: z.string().trim().nullable().default(""),
     confirm_status: z.boolean().default(false),
     archive: z.boolean().default(false),
 });
@@ -65,6 +65,7 @@ export const worklogAbstractSchema = workLogSchema
         fk_oid: true,
         fk_uid: true,
         wl_date: true,
+        wl_note: true,
     })
     .extend({
         first_name: z.string().default(""),

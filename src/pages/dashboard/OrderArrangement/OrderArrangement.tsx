@@ -22,6 +22,7 @@ const OrderArrangement: FC<Tprops> = ({ className }) => {
                 <ORDayPicker />
             </div>
 
+            {/* seperator */}
             {size ? (
                 <Separator
                     orientation="horizontal"
@@ -35,6 +36,7 @@ const OrderArrangement: FC<Tprops> = ({ className }) => {
                     decorative={true}
                 />
             )}
+
             <div className="h-auto lg:h-full w-full m-1">
                 <OrderArrangeList />
             </div>

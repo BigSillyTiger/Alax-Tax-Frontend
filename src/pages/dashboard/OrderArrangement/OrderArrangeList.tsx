@@ -1,6 +1,6 @@
 import { Atel } from "@/components/aLinks";
-import { NameBadge } from "@/components/Badge";
 import Card from "@/components/Card";
+import { Badgepop } from "@/components/popover";
 import SingleField from "@/components/SingleField";
 import { useOrderArrangementStore } from "@/configs/zustore/orderArrangeStore";
 import { UserIcon, PhoneIcon, HomeIcon } from "@heroicons/react/24/outline";
@@ -45,18 +45,22 @@ const OrderArrangeList: FC = () => {
                                 ", " +
                                 oa.order.postcode}
                         </SingleField>
-                        <div className="flex flex-row flex-wrap gap-2 border-t border-indigo-400 border-dashed pt-2 my-2">
-                            {oa.wl.map((wl, index) => {
-                                return (
-                                    <NameBadge
+                        {/* <NameBadge
                                         key={index}
                                         name={
                                             wl.first_name + " " + wl.last_name
                                         }
                                         uid={wl.fk_uid}
-                                    />
-                                );
-                            })}
+                                    /> */}
+                        <div className="flex flex-row flex-wrap gap-2 border-t border-indigo-400 border-dashed pt-2 my-2">
+                            {oa.wl.map((wl, index) => (
+                                <Badgepop
+                                    key={index}
+                                    name={wl.first_name + " " + wl.last_name}
+                                    uid={wl.fk_uid}
+                                    content={wl.wl_note}
+                                />
+                            ))}
                         </div>
                     </Card>
                 );

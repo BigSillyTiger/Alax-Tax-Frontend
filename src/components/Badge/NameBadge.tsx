@@ -22,9 +22,9 @@ const NameBadge: FC<Tprops> = ({ name, uid }) => {
     return (
         <span
             className={`rounded-full border-2 font-bold py-1 px-2 
-            ${color.bg} ${color.border} ${color.text}`}
+            ${color.bg} ${color.border} ${color.text} flex flex-row justify-center items-center gap-x-1`}
         >
-            {name}
+            {uid + ": " + name}
         </span>
     );
 };
