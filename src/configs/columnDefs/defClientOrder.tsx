@@ -13,6 +13,11 @@ import { rangeFilterFn } from "./filterFn";
 const useClientOrderColumnsDef = () => {
     const clientOrderColumns: ColumnDef<Torder>[] = [
         {
+            id: "Menu",
+            header: i18n.t("label.menu"),
+            //cell: (info: CellContext<Torder, string>) => <></>,
+        },
+        {
             id: "Details",
             header: i18n.t("label.details"), // Details
             columns: [
@@ -139,11 +144,6 @@ const useClientOrderColumnsDef = () => {
                     },
                 },
             ],
-        },
-        {
-            id: "Menu",
-            header: i18n.t("label.menu"),
-            //cell: (info: CellContext<Torder, string>) => <></>,
         },
     ];
     return clientOrderColumns;

@@ -4,6 +4,12 @@ import { rangeFilterFn } from "./filterFn";
 
 export const serviceListColDefs = [
     {
+        header: i18n.t("label.menu"),
+        cell: () => {
+            return <></>;
+        },
+    },
+    {
         header: i18n.t("label.id"),
         accessorKey: "id",
         cell: (info: Cell<{ id: number }, number>) => {
@@ -35,15 +41,15 @@ export const serviceListColDefs = [
             filterVariant: "range",
         },
     },
+];
+
+export const unitListColDefs = [
     {
         header: i18n.t("label.menu"),
         cell: () => {
             return <></>;
         },
     },
-];
-
-export const unitListColDefs = [
     {
         header: i18n.t("label.id"),
         accessorKey: "id",
@@ -56,12 +62,6 @@ export const unitListColDefs = [
         accessorKey: "unit_name",
         cell: (info: Cell<{ id: string }, string>) => {
             return <span>{info.getValue()}</span>;
-        },
-    },
-    {
-        header: i18n.t("label.menu"),
-        cell: () => {
-            return <></>;
         },
     },
 ];

@@ -11,6 +11,10 @@ import { DetailBtn } from "@/components/table/tableBtn";
 const useClientColumnsDef = () => {
     const clientColumns: ColumnDef<Tclient>[] = [
         {
+            header: i18n.t("label.menu"),
+            cell: () => <></>,
+        },
+        {
             header: i18n.t("label.idClient"),
             accessorFn: (data: Tclient) => data.cid,
             cell: (info: CellContext<Tclient, unknown>) => (
@@ -57,17 +61,6 @@ const useClientColumnsDef = () => {
             cell: (info: CellContext<Tclient, unknown>) => (
                 <span className="text-wrap">{info.getValue<string>()}</span>
             ),
-        },
-        /* {
-            header: i18n.t("label.pc"),
-            accessorKey: "postcode",
-            cell: (info: CellContext<Tclient, unknown>) => (
-                <span>{info.getValue<string>()}</span>
-            ),
-        }, */
-        {
-            header: i18n.t("label.menu"),
-            cell: () => <></>,
         },
     ];
     return clientColumns;

@@ -14,6 +14,11 @@ import HoverTips from "@/components/HoverTips";
 const useStaffColumnsDef = () => {
     const staffColumns: ColumnDef<TstaffWPayslip>[] = [
         {
+            id: "Menu",
+            header: i18n.t("label.menu"),
+            cell: () => <></>,
+        },
+        {
             id: "UID",
             header: i18n.t("label.uid"),
             accessorFn: (data: TstaffWPayslip) => data.uid,
@@ -87,11 +92,6 @@ const useStaffColumnsDef = () => {
             cell: (info: CellContext<TstaffWPayslip, unknown>) => (
                 <span className="text-wrap">{info.getValue<string>()}</span>
             ),
-        },
-        {
-            id: "Menu",
-            header: i18n.t("label.menu"),
-            cell: () => <></>,
         },
     ];
     return staffColumns;

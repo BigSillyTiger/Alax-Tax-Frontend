@@ -13,6 +13,11 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 const useWLConlumnsDef = () => {
     const wlColumns: ColumnDef<TwlTableRow>[] = [
         {
+            id: "Menu",
+            header: i18n.t("label.menu"),
+            //cell: (info: CellContext<TwlTableRow, string>) => <></>,
+        },
+        {
             id: "details",
             header: i18n.t("label.details"), // Details
             columns: [
@@ -168,11 +173,6 @@ const useWLConlumnsDef = () => {
                     ),
                 },
             ],
-        },
-        {
-            id: "Menu",
-            header: i18n.t("label.menu"),
-            //cell: (info: CellContext<TwlTableRow, string>) => <></>,
         },
     ];
     return wlColumns;
