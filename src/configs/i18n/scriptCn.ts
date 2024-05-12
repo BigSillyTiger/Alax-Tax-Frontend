@@ -357,6 +357,7 @@ const en = {
                 "无法删除此工作日志。\n仅'待定'或'已取消'的工作日志可被删除。",
             cantDelManager: "无法删除管理员账户。",
             addOrderService: "请至少添加一个服务到订单。",
+            triggerCheckFails: "表格数据出错，请检查已输入的数据信息。",
         },
         sr: {
             openHeadBarMenu: "打开头部菜单",

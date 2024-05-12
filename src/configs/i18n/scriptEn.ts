@@ -361,6 +361,8 @@ const en = {
                 "Cannot delete this work log. \n Only 'Pending' or 'Cancelled' work log can be deleted.",
             cantDelManager: "Cannot Delete Admin Manager Account.",
             addOrderService: "Please add at least one service to the order.",
+            triggerCheckFails:
+                "Something wrong with form fields. Please check again.",
         },
         sr: {
             openHeadBarMenu: "Open head bar menu",

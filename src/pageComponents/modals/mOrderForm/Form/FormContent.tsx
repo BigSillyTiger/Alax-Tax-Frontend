@@ -107,8 +107,12 @@ const FormContent: FC<Tprops> = ({
                             : genAction(currentRouter),
                 }
             );
+        } else {
+            toastError(t("toastW.triggerCheckFails"));
+            return;
         }
     };
+
     return (
         <Form
             onSubmit={onSubmit}
