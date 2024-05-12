@@ -10,7 +10,7 @@ type Tprops<T> = {
 const RangeFilter = <T extends object>({ column, values }: Tprops<T>) => {
     const { t } = useTranslation();
     // the column.getFacetedMinMaxValues can not asure the return value is fo the order [min, max]
-    // so we need to get the min and max value from the return value muanlly
+    // so I get the min and max value from the return value muanlly
     const newPairV = column.getFacetedMinMaxValues()?.flat() ?? [];
     const facetedMin = Math.min(...newPairV.map(Number));
     const facetedMax = Math.max(...newPairV.map(Number));

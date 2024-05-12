@@ -1,7 +1,7 @@
 import { CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
 import { TwlTableRow } from "../schema/workSchema";
-import { calWorkTime, dateFormat } from "@/lib/time";
+import { auToISO, calWorkTime, dateFormat } from "@/lib/time";
 import { convertWorkHour, timesAB } from "@/lib/calculations";
 import { rangeFilterFn } from "./filterFn";
 
@@ -21,11 +21,14 @@ const useStaffWLColumns = () => {
         {
             id: "workDate",
             header: i18n.t("label.workDate"),
-            accessorFn: (data: TwlTableRow) => dateFormat(data.wl_date),
-            //accessorKey: "wl_date",
-            cell: (info: CellContext<TwlTableRow, unknown>) => (
-                <span>{info.getValue<string>()}</span>
-            ),
+            accessorFn: (data: TwlTableRow) => {
+                // the date passed in is already in AU format
+                // but the table only accept ISO format
+                return auToISO(data.wl_date);
+            },
+            cell: (info: CellContext<TwlTableRow, unknown>) => {
+                return <span>{info.getValue<string>()}</span>;
+            },
         },
         {
             id: "startTimeSR",
