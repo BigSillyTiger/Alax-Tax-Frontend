@@ -8,8 +8,6 @@ import { TtimeBtnStyles } from "@/configs/types";
 import { t } from "i18next";
 import { calWorkTime } from "@/lib/time";
 import { timeBtnStyleMap } from "@/configs/utils/color";
-import { useAdminStore } from "@/configs/zustore";
-import { ROLES } from "@/configs/utils/staff";
 
 type Tprops = ComponentPropsWithoutRef<"div"> & {
     data: TwlTableRow;
@@ -19,10 +17,8 @@ type Tprops = ComponentPropsWithoutRef<"div"> & {
 const TimeBtn = ({ data, type }: Tprops) => {
     const [, setModalOpen] = useAtom(atModalOpen);
     const [, setWorkLog] = useAtom(atWorkLogTableRow);
-    const currentAdmin = useAdminStore((state) => state.currentAdmin);
 
     const onClick = () => {
-        if (currentAdmin.role === ROLES.employee) return;
         setWorkLog(data);
         setModalOpen(mOpenOps.edit);
     };

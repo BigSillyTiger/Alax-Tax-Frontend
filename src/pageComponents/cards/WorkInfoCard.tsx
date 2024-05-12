@@ -62,7 +62,7 @@ const WorkInfoCard = ({ work, className, editable = false }: Tprops) => {
                 spanClass="font-semibold"
             >
                 <Textarea
-                    disabled={editable}
+                    disabled={!editable}
                     value={wlNote}
                     onChange={(e) => setWlNote(e.target.value)}
                 />

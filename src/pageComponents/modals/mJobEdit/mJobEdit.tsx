@@ -12,13 +12,18 @@ import WorkInfoCard from "@/pageComponents/cards/WorkInfoCard";
 import { isWorkHoursValid } from "@/lib/time";
 import { genAction } from "@/lib/literals";
 import { toastError } from "@/lib/toaster";
-import { useDeductStore, useRouterStore } from "@/configs/zustore";
+import {
+    useAdminStore,
+    useDeductStore,
+    useRouterStore,
+} from "@/configs/zustore";
 import { useWLHoursStore } from "@/configs/zustore/wlHoursStore";
 import { SdTabs } from "@/components/tabs";
 import { TitemContent } from "@/configs/types";
 import WorkHoursCard from "./WorkHoursCard";
 import DeductionCard from "@/pageComponents/cards/DeductionCard";
 import { useJobWLStore } from "@/configs/zustore/jobWLStore";
+import { ROLES } from "@/configs/utils/staff";
 
 const MJobEdit = () => {
     const navigation = useNavigation();
@@ -26,6 +31,8 @@ const MJobEdit = () => {
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [worklog] = useAtom(atWorkLogTableRow);
+    const isManager =
+        useAdminStore((state) => state.currentAdmin).role === ROLES.manager;
     const currentRouter = useRouterStore((state) => state.currentRouter);
     const s_time = useWLHoursStore((state) => state.s_time);
     const e_time = useWLHoursStore((state) => state.e_time);
@@ -37,10 +44,16 @@ const MJobEdit = () => {
     const setDeduction = useDeductStore((state) => state.setDeduction);
     const wlNote = useJobWLStore((state) => state.wlNote);
     const setWlNote = useJobWLStore((state) => state.setWlNote);
-    const isDisable =
-        worklog.wl_status === "completed" || worklog.wl_status === "unpaid"
+    const isDisable = isManager
+        ? worklog.wl_status === "completed" || worklog.wl_status === "unpaid"
             ? true
-            : false;
+            : false
+        : worklog.wl_status === "cancelled" ||
+            worklog.wl_status === "confirmed" ||
+            worklog.wl_status === "completed" ||
+            worklog.wl_status === "unpaid"
+          ? true
+          : false;
 
     useEffect(() => {
         setSTime(worklog.s_time ? worklog.s_time : "00:00");
@@ -58,30 +71,46 @@ const MJobEdit = () => {
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        if (!isWorkHoursValid(s_time, e_time, b_hour)) {
-            toastError(t("toastW.invalidWorkHoursUpdateOthers"));
-            submit(
-                {
+        let submitContent = {};
+        if (isManager) {
+            if (!isWorkHoursValid(s_time, e_time, b_hour)) {
+                toastError(t("toastW.invalidWorkHoursUpdateOthers"));
+                submitContent = {
                     wlid: JSON.stringify(worklog.wlid),
+                    values: JSON.stringify("skip"),
                     wlNote: JSON.stringify(wlNote),
                     deduction: JSON.stringify(deduction),
-                    req: "jobEditNoteDeduction",
-                },
-                { method: "POST", action: genAction(currentRouter) }
-            );
-            return;
-        }
-        submit(
-            {
+                    req: "jobEdit",
+                };
+            } else {
+                submitContent = {
+                    wlid: JSON.stringify(worklog.wlid),
+                    values: JSON.stringify({
+                        s_time,
+                        e_time,
+                        b_hour,
+                    }),
+                    wlNote: JSON.stringify(wlNote),
+                    deduction: JSON.stringify(deduction),
+                    req: "jobEdit",
+                };
+            }
+        } else {
+            submitContent = {
                 wlid: JSON.stringify(worklog.wlid),
                 values: JSON.stringify({
                     s_time,
                     e_time,
                     b_hour,
                 }),
-                wlNote: JSON.stringify(wlNote),
-                deduction: JSON.stringify(deduction),
+                wlNote: JSON.stringify("skip"),
+                deduction: JSON.stringify("skip"),
                 req: "jobEdit",
+            };
+        }
+        submit(
+            {
+                ...submitContent,
             },
             { method: "POST", action: genAction(currentRouter) }
         );
@@ -112,9 +141,18 @@ const MJobEdit = () => {
         <Form onSubmit={onSubmit} className="grid grid-cols-1">
             <div className="col-span-1 flex flex-col sm:flex-row">
                 <StaffCard staff={worklog} className="grow-1" />
-                <WorkInfoCard work={worklog} className="grow-1" />
+                <WorkInfoCard
+                    work={worklog}
+                    className="grow-1"
+                    editable={isManager}
+                />
             </div>
-            <SdTabs items={tabsContent()} className="col-span-full" />
+            {/* time */}
+            {isManager ? (
+                <SdTabs items={tabsContent()} className="col-span-full" />
+            ) : (
+                <WorkHoursCard className="col-span-full h-[25dvh]" />
+            )}
             {isDisable ? null : (
                 <div className="col-span-full">
                     {/* btns */}
