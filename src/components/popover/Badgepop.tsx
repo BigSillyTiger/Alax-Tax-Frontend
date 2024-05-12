@@ -35,7 +35,7 @@ const Badgepop: FC<Tprops> = ({ uid, name, content }) => {
             ${color.bg} ${color.border} ${color.text} flex flex-row justify-center items-center gap-x-1`}
             >
                 <ExclamationCircleIcon className="size-8 text-amber-600" />
-                {uid + ": " + name}
+                <span className="pr-1">{uid + ": " + name}</span>
             </PopoverTrigger>
             <PopoverContent>{content}</PopoverContent>
         </Popover>

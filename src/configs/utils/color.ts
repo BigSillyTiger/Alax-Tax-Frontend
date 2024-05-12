@@ -19,17 +19,17 @@ export const BG_SLATE = "bg-slate-50";
 export const staffColorMap = {
     labor: {
         text: "text-amber-700",
-        bg: "bg-amber-200",
+        bg: "bg-amber-100",
         border: "border-amber-600",
     },
     employee: {
         text: "text-lime-700",
-        bg: "bg-lime-200",
+        bg: "bg-lime-100",
         border: "border-lime-600",
     },
     manager: {
         text: "text-indigo-700",
-        bg: "bg-indigo-200",
+        bg: "bg-indigo-100",
         border: "border-indigo-600",
     },
 };
