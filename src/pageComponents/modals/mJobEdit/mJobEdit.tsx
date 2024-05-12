@@ -18,6 +18,7 @@ import { SdTabs } from "@/components/tabs";
 import { TitemContent } from "@/configs/types";
 import WorkHoursCard from "./WorkHoursCard";
 import DeductionCard from "@/pageComponents/cards/DeductionCard";
+import { useJobWLStore } from "@/configs/zustore/jobWLStore";
 
 const MJobEdit = () => {
     const navigation = useNavigation();
@@ -34,6 +35,8 @@ const MJobEdit = () => {
     const setBHour = useWLHoursStore((state) => state.setBHour);
     const deduction = useDeductStore((state) => state.deduction);
     const setDeduction = useDeductStore((state) => state.setDeduction);
+    const wlNote = useJobWLStore((state) => state.wlNote);
+    const setWlNote = useJobWLStore((state) => state.setWlNote);
     const isDisable =
         worklog.wl_status === "completed" || worklog.wl_status === "unpaid"
             ? true
@@ -44,6 +47,7 @@ const MJobEdit = () => {
         setETime(worklog.e_time ? worklog.e_time : "00:00");
         setBHour(worklog.b_hour ? worklog.b_hour : "00:00");
         setDeduction(worklog.deduction ? worklog.deduction : []);
+        setWlNote(worklog.wl_note ? worklog.wl_note : "");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modalOpen, worklog]);
 
@@ -55,17 +59,27 @@ const MJobEdit = () => {
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         if (!isWorkHoursValid(s_time, e_time, b_hour)) {
-            toastError(t("toastF.invalidWorkHours"));
+            toastError(t("toastW.invalidWorkHoursUpdateOthers"));
+            submit(
+                {
+                    wlid: JSON.stringify(worklog.wlid),
+                    wlNote: JSON.stringify(wlNote),
+                    deduction: JSON.stringify(deduction),
+                    req: "jobEditNoteDeduction",
+                },
+                { method: "POST", action: genAction(currentRouter) }
+            );
             return;
         }
         submit(
             {
+                wlid: JSON.stringify(worklog.wlid),
                 values: JSON.stringify({
-                    wlid: worklog.wlid,
                     s_time,
                     e_time,
                     b_hour,
                 }),
+                wlNote: JSON.stringify(wlNote),
                 deduction: JSON.stringify(deduction),
                 req: "jobEdit",
             },

@@ -363,6 +363,8 @@ const en = {
             addOrderService: "Please add at least one service to the order.",
             triggerCheckFails:
                 "Something wrong with form fields. Please check again.",
+            invalidWorkHoursUpdateOthers:
+                "Warning: Invalid Work Hours, will just submit changes of work not and deductions.",
         },
         sr: {
             openHeadBarMenu: "Open head bar menu",

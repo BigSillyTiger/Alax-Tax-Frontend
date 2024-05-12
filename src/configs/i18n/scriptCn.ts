@@ -358,6 +358,8 @@ const en = {
             cantDelManager: "无法删除管理员账户。",
             addOrderService: "请至少添加一个服务到订单。",
             triggerCheckFails: "表格数据出错，请检查已输入的数据信息。",
+            invalidWorkHoursUpdateOthers:
+                "提示：无效的工作小时数, 将继续尝试更新工作笔记和扣款记录.",
         },
         sr: {
             openHeadBarMenu: "打开头部菜单",

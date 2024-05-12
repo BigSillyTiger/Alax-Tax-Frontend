@@ -2,7 +2,8 @@ import { Tdeduction, TworkLog } from "@/configs/schema/workSchema";
 import apis from "./axios";
 import {
     WL_ALL,
-    WL_SINGLE_UPDATE_H_D,
+    WL_SINGLE_UPDATE_N_D,
+    WL_SINGLE_UPDATE_H_N_D,
     WL_PAUSE_TIMER,
     WL_RESET_TIMER,
     WL_RESUME_TIMER,
@@ -45,18 +46,49 @@ export const wlSingleUpdateHours = async (
 };
 
 /**
+ * @description update work log working note and deduction
+ * @param data
+ * @param deduction
+ * @returns
+ */
+export const wlSigleUpdateND = async (
+    wlid: string,
+    note: string,
+    deduction: Partial<Tdeduction>[]
+): Promise<Tresponse> => {
+    try {
+        const response = await apis.post(WL_SINGLE_UPDATE_N_D, {
+            wlid,
+            note,
+            deduction,
+        });
+        return response.data;
+    } catch (error) {
+        return {
+            status: 400,
+            msg: "failed in updating work log",
+            data: "",
+        };
+    }
+};
+
+/**
  * @description update work log working hours and deduction
  * @param data
  * @param deduction
  * @returns
  */
-export const wlSigleUpdateHD = async (
-    data: Partial<TworkLog>,
+export const wlSigleUpdateHND = async (
+    wlid: string,
+    hourData: Partial<TworkLog>,
+    note: string,
     deduction: Partial<Tdeduction>[]
 ): Promise<Tresponse> => {
     try {
-        const response = await apis.post(WL_SINGLE_UPDATE_H_D, {
-            hourData: data,
+        const response = await apis.post(WL_SINGLE_UPDATE_H_N_D, {
+            wlid,
+            hourData,
+            note,
             deduction,
         });
         return response.data;
