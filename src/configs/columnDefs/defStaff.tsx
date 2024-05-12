@@ -41,12 +41,14 @@ const useStaffColumnsDef = () => {
                     if (payslip.status?.toLocaleLowerCase() === "pending") {
                         return (
                             <div className="flex flex-row justify-center items-center">
-                                <span>{info.getValue<string>()}</span>
                                 <HoverTips
                                     tipsContent={i18n.t("tips.unfinishedPS")}
                                     delay={0}
                                 >
-                                    <BellAlertIcon className="pl-2 size-7 animate-bell-swing text-red-500" />
+                                    <div className="flex flex-row gap-x-1 justify-center items-center">
+                                        <span>{info.getValue<string>()}</span>
+                                        <BellAlertIcon className="pl-2 size-7 animate-bell-swing text-red-500" />
+                                    </div>
                                 </HoverTips>
                             </div>
                         );

@@ -7,6 +7,8 @@ import { StatusBadge } from "@/components/Badge";
 import { TimeBtn } from "@/components/btns/";
 import { WLStatusBtn } from "@/components/table/tableBtn";
 import { colorWithStaffUid } from "../utils/color";
+import HoverTips from "@/components/HoverTips";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 
 const useWLConlumnsDef = () => {
     const wlColumns: ColumnDef<TwlTableRow>[] = [
@@ -39,11 +41,25 @@ const useWLConlumnsDef = () => {
                     header: i18n.t("label.name"),
                     accessorFn: (data: TwlTableRow) =>
                         data.first_name + " " + data.last_name,
-                    cell: (info: CellContext<TwlTableRow, unknown>) => (
-                        <span className="text-wrap">
-                            {info.getValue<string>()}
-                        </span>
-                    ),
+                    cell: (info: CellContext<TwlTableRow, unknown>) => {
+                        return info.row.original.wl_note ? (
+                            <div className="flex flex-row justify-center items-center">
+                                <HoverTips
+                                    tipsContent={info.row.original.wl_note}
+                                    delay={0}
+                                >
+                                    <div className="flex flex-row gap-x-1 justify-center items-center">
+                                        <ExclamationCircleIcon className="pl-2 size-8 text-amber-500" />
+                                        <span>{info.getValue<string>()}</span>
+                                    </div>
+                                </HoverTips>
+                            </div>
+                        ) : (
+                            <span className="text-wrap">
+                                {info.getValue<string>()}
+                            </span>
+                        );
+                    },
                 },
                 {
                     id: "oid",

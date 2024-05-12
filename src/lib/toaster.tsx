@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 export const toastSuccess = (text: string) => {
     toast.success(text, {
         style: {
-            border: "1px solid #047857",
+            border: "2px solid #059669",
             padding: "8px",
             backgroundColor: "#dcfce7",
             color: "black",

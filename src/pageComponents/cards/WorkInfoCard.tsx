@@ -6,12 +6,11 @@ import {
     IdentificationIcon,
     HomeIcon,
     CalendarDaysIcon,
-    ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
-
 import SingleField from "@/components/SingleField";
 import { Textarea } from "@/components/ui/textarea";
 import { useJobWLStore } from "@/configs/zustore/jobWLStore";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 
 type Tprops = ComponentPropsWithoutRef<"div"> & {
     work: TwlTableRow;
@@ -22,6 +21,7 @@ const WorkInfoCard = ({ work, className, editable = false }: Tprops) => {
     const { t } = useTranslation();
     const wlNote = useJobWLStore((state) => state.wlNote);
     const setWlNote = useJobWLStore((state) => state.setWlNote);
+
     return (
         <Fieldset
             title={t("label.workInfo")}
@@ -59,10 +59,11 @@ const WorkInfoCard = ({ work, className, editable = false }: Tprops) => {
             <SingleField
                 label={<ExclamationCircleIcon />}
                 outClass="col-span-full"
-                spanClass="font-semibold"
+                spanClass="font-semibold w-full"
             >
                 <Textarea
                     disabled={!editable}
+                    className="w-full text-md"
                     value={wlNote}
                     onChange={(e) => setWlNote(e.target.value)}
                 />

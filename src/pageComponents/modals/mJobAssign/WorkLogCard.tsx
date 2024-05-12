@@ -199,6 +199,7 @@ const WorkLogCard = <T extends TassignedWork>({
                     <Textarea
                         id="wl_note"
                         className="w-full"
+                        value={item.wl_note ?? ""}
                         onChange={handleNoteChange}
                     />
                 </div>

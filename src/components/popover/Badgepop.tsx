@@ -3,7 +3,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import { colorWithStaffUid } from "@/configs/utils/color";
 import { FC } from "react";
 import { useAdminStore } from "@/configs/zustore";
@@ -34,7 +34,7 @@ const Badgepop: FC<Tprops> = ({ uid, name, content }) => {
                 className={`rounded-full border-2 font-bold py-1 px-2 
             ${color.bg} ${color.border} ${color.text} flex flex-row justify-center items-center gap-x-1`}
             >
-                <ExclamationCircleIcon className="size-8 text-red-600" />
+                <ExclamationCircleIcon className="size-8 text-amber-600" />
                 {uid + ": " + name}
             </PopoverTrigger>
             <PopoverContent>{content}</PopoverContent>

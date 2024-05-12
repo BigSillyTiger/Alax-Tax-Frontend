@@ -17,6 +17,7 @@ import atResetModal from "@/configs/atoms/atResetModal";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { useEffect } from "react";
 import { ROLES } from "@/configs/utils/staff";
+import { useJobWLStore } from "@/configs/zustore/jobWLStore";
 
 const MTimeTracker = () => {
     //const submit = useSubmit();
@@ -24,9 +25,11 @@ const MTimeTracker = () => {
     const [openReset, setOpenReset] = useAtom(atResetModal);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     //const currentRouter = useRouterStore((state) => state.currentRouter);
-    const currentAdmin = useAdminStore((state) => state.currentAdmin);
+    const isManager =
+        useAdminStore((state) => state.currentAdmin).role === ROLES.manager;
     const setDeduction = useDeductStore((state) => state.setDeduction);
     const currentWlid = useTodayWLStore((state) => state.currentWlid);
+    const setWlNote = useJobWLStore((state) => state.setWlNote);
     const todayWorklogs = useTodayWLStore((state) => state.todayWorklogs);
     const worklog =
         todayWorklogs.find((wl) => wl.wlid === currentWlid) ??
@@ -38,6 +41,7 @@ const MTimeTracker = () => {
 
     useEffect(() => {
         setDeduction(worklog.deduction ? worklog.deduction : []);
+        setWlNote(worklog.wl_note ? worklog.wl_note : "");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [worklog]);
 
@@ -72,14 +76,14 @@ const MTimeTracker = () => {
     };
 
     const mainContent = (
-        <div className={`grid grid-cols-1 gap-x-2 overflow-y-auto h-[55dvh]`}>
+        <div className={`grid grid-cols-1 gap-x-2 overflow-y-auto`}>
             {/* info */}
             <div className="col-span-1 flex flex-col sm:flex-row">
                 <StaffCard staff={worklog} className="grow-1" />
                 <WorkInfoCard work={worklog} className="grow-1" />
             </div>
             {/* time */}
-            {currentAdmin.role === ROLES.manager ? (
+            {isManager ? (
                 <SdTabs items={tabsContent()} className="col-span-1" />
             ) : (
                 <TimeCard isDisabled={isDisabled} />

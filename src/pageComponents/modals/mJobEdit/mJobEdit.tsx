@@ -11,7 +11,7 @@ import StaffCard from "@/pageComponents/cards/StaffCard";
 import WorkInfoCard from "@/pageComponents/cards/WorkInfoCard";
 import { isWorkHoursValid } from "@/lib/time";
 import { genAction } from "@/lib/literals";
-import { toastError } from "@/lib/toaster";
+import { toastWarning } from "@/lib/toaster";
 import {
     useAdminStore,
     useDeductStore,
@@ -74,7 +74,7 @@ const MJobEdit = () => {
         let submitContent = {};
         if (isManager) {
             if (!isWorkHoursValid(s_time, e_time, b_hour)) {
-                toastError(t("toastW.invalidWorkHoursUpdateOthers"));
+                toastWarning(t("toastW.invalidWorkHoursUpdateOthers"));
                 submitContent = {
                     wlid: JSON.stringify(worklog.wlid),
                     values: JSON.stringify("skip"),

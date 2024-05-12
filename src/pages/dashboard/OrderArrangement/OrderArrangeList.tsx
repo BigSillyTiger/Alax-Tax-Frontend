@@ -27,8 +27,10 @@ const OrderArrangeList: FC = () => {
                                 {oa.order.first_name +
                                     " " +
                                     oa.order.last_name +
-                                    " - " +
-                                    oa.order.fk_cid}
+                                    " / " +
+                                    oa.order.fk_cid +
+                                    " / " +
+                                    oa.order.oid}
                             </div>
                         </SingleField>
                         <SingleField label={<PhoneIcon />}>
