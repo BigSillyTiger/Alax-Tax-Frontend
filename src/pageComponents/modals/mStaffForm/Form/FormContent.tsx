@@ -36,7 +36,11 @@ const FormContent: FC<Tprops> = ({
             <div
                 className={`flex gap-x-4 ${isEmployee ? "flex-col" : "flex-col sm:flex-row"}`}
             >
-                <LeftColumn register={register} errors={errors} />
+                <LeftColumn
+                    register={register}
+                    errors={errors}
+                    onClose={onClose}
+                />
                 {isEmployee ? null : (
                     <RightColumn
                         register={register}

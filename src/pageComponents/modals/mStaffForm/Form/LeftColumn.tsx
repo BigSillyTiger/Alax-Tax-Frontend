@@ -10,13 +10,15 @@ import { PhoneIcon } from "lucide-react";
 import type { FC } from "react";
 import { FieldErrors, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import PWResetBtn from "./PWResetBtn";
 
 type Tprops = {
     register: UseFormReturn<TstaffForm>["register"];
+    onClose: () => void;
     errors: FieldErrors<TstaffForm>;
 };
 
-const LeftColumn: FC<Tprops> = ({ register, errors }) => {
+const LeftColumn: FC<Tprops> = ({ register, onClose, errors }) => {
     const { t } = useTranslation();
     const [infoConflict] = useAtom(atInfoConflict);
     const currentAdmin = useAdminStore((state) => state.currentAdmin);
@@ -312,7 +314,7 @@ const LeftColumn: FC<Tprops> = ({ register, errors }) => {
                     />
                 </div>
             </div>
-            {/* account */}
+            {/* bank account */}
             <div className="sm:col-span-3">
                 <label
                     htmlFor="account"
@@ -337,6 +339,13 @@ const LeftColumn: FC<Tprops> = ({ register, errors }) => {
                     />
                 </div>
             </div>
+
+            {/* reset pw for employee */}
+            {isEmployee && (
+                <div className="col-span-full">
+                    <PWResetBtn onClose={onClose} />
+                </div>
+            )}
         </div>
     );
 };
