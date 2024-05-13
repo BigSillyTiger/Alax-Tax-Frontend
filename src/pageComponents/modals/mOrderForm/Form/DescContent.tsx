@@ -1,8 +1,10 @@
 import { XBtn } from "@/components/btns";
 import Card from "@/components/Card";
 import DataList from "@/components/dataList";
+import Label from "@/components/Label";
 import { atSUData } from "@/configs/atoms";
 import { TorderForm, TorderService } from "@/configs/schema/orderSchema";
+import { linearLargeBG } from "@/configs/utils/color";
 import { calGst, calNetto } from "@/lib/calculations";
 import {
     ChevronDoubleDownIcon,
@@ -81,7 +83,9 @@ const DescContent: FC<Tprops> = ({
                                 <XBtn onClick={() => remove(index)} />
                             </div>
                             {/* content */}
-                            <Card className="col-span-9 mt-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8 bg-indigo-50">
+                            <Card
+                                className={`col-span-9 mt-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8 ${linearLargeBG}`}
+                            >
                                 <div
                                     className={`${
                                         fields.length === 1
@@ -91,12 +95,12 @@ const DescContent: FC<Tprops> = ({
                                 >
                                     {/* title - 6*/}
                                     <div className="col-span-8">
-                                        <label
+                                        <Label
                                             htmlFor="title"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block text-sm font-normal"
                                         >
                                             {t("label.service")}
-                                        </label>
+                                        </Label>
                                         <input
                                             {...register(
                                                 `order_services.${index}.title`
@@ -110,12 +114,12 @@ const DescContent: FC<Tprops> = ({
                                     </div>
                                     {/* qty - 1 */}
                                     <div className="col-span-6 sm:col-span-1">
-                                        <label
+                                        <Label
                                             htmlFor="qty"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block text-sm font-normal"
                                         >
                                             {t("label.qty")}
-                                        </label>
+                                        </Label>
                                         <input
                                             {...register(
                                                 `order_services.${index}.qty`,
@@ -141,12 +145,12 @@ const DescContent: FC<Tprops> = ({
                                     </div>
                                     {/* unit - 2 */}
                                     <div className="col-span-6 sm:col-span-2">
-                                        <label
+                                        <Label
                                             htmlFor="unit"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block text-sm font-normal"
                                         >
                                             {t("label.unit")}
-                                        </label>
+                                        </Label>
                                         <input
                                             {...register(
                                                 `order_services.${index}.unit`
@@ -160,12 +164,12 @@ const DescContent: FC<Tprops> = ({
                                     </div>
                                     {/* taxable - 1 */}
                                     <div className="col-span-6 sm:col-span-1">
-                                        <label
+                                        <Label
                                             htmlFor="taxable"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block text-sm font-normal"
                                         >
                                             {t("label.taxable")}
-                                        </label>
+                                        </Label>
                                         <input
                                             {...register(
                                                 `order_services.${index}.taxable`
@@ -184,12 +188,12 @@ const DescContent: FC<Tprops> = ({
                                     </div>
                                     {/* gst - 2 */}
                                     <div className="col-span-6 sm:col-span-2">
-                                        <label
+                                        <Label
                                             htmlFor="unit"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block text-sm font-normal"
                                         >
                                             {t("label.gst")}
-                                        </label>
+                                        </Label>
                                         <input
                                             {...register(
                                                 `order_services.${index}.gst`
@@ -204,12 +208,12 @@ const DescContent: FC<Tprops> = ({
 
                                     {/* unit price - 2 */}
                                     <div className="col-span-6 sm:col-span-3">
-                                        <label
+                                        <Label
                                             htmlFor="unit_price"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block text-sm font-normal"
                                         >
                                             {t("label.uPrice")}
-                                        </label>
+                                        </Label>
                                         <input
                                             {...register(
                                                 `order_services.${index}.unit_price`,
@@ -234,12 +238,12 @@ const DescContent: FC<Tprops> = ({
                                     </div>
                                     {/* netto - 2 */}
                                     <div className="col-span-6 sm:col-span-3">
-                                        <label
+                                        <Label
                                             htmlFor="netto"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block text-sm font-normal"
                                         >
                                             {t("label.netto")}
-                                        </label>
+                                        </Label>
                                         <input
                                             {...register(
                                                 `order_services.${index}.netto`,
@@ -256,12 +260,12 @@ const DescContent: FC<Tprops> = ({
 
                                     {/* desc - 6 */}
                                     <div className="col-span-6 sm:col-span-7">
-                                        <label
+                                        <Label
                                             htmlFor="description"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block text-sm font-normal"
                                         >
                                             {t("label.desc")}
-                                        </label>
+                                        </Label>
                                         <textarea
                                             {...register(
                                                 `order_services.${index}.description`

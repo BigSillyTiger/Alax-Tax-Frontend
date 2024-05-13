@@ -11,6 +11,7 @@ import { mOpenOps } from "@/configs/utils/modal";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
 import { toastWarning } from "@/lib/toaster";
+import { Btext } from "@/components/Btext";
 
 // this component is about building a modal with transition to delete a staff
 const MStaffDel: FC = memo(() => {
@@ -37,35 +38,30 @@ const MStaffDel: FC = memo(() => {
             <div className="m-3 grid grid-cols-6 gap-x-4 gap-y-4 text-left">
                 <div className="col-span-5">
                     <p>
-                        <b className="text-indigo-600">{t("label.staff")}: </b>{" "}
-                        {staff.first_name}&nbsp;{staff.last_name}
+                        <Btext>{t("label.staff")}: </Btext> {staff.first_name}
+                        &nbsp;{staff.last_name}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
-                        <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
-                        {staff?.phone}
+                        <Btext>{t("label.phone1")}: </Btext> {staff?.phone}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
-                        <b className="text-indigo-600">{t("label.pc")}: </b>
+                        <Btext>{t("label.pc")}: </Btext>
                         {staff?.postcode}
                     </p>
                 </div>
                 <div className="col-span-6">
                     <p>
-                        <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
-                        {staff?.email}
+                        <Btext>{t("label.email1")}: </Btext> {staff?.email}
                     </p>
                 </div>
                 <div className="col-span-6">
                     <p>
-                        <b className="text-indigo-600">
-                            {t("label.address")}:{" "}
-                        </b>{" "}
-                        {staff?.address}, {staff?.city}, {staff?.state},{" "}
-                        {staff?.country}
+                        <Btext>{t("label.address")}: </Btext> {staff?.address},{" "}
+                        {staff?.city}, {staff?.state}, {staff?.country}
                     </p>
                 </div>
             </div>

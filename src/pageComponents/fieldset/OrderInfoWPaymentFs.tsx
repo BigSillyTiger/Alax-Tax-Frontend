@@ -1,31 +1,40 @@
 import type { FC } from "react";
-import Card from "@/components/Card";
 import { useTranslation } from "react-i18next";
 import { Torder } from "@/configs/schema/orderSchema";
 import { minusAB } from "@/lib/calculations";
+import Fieldset from "@/components/Fieldset";
+import { Separator } from "@/components/ui/separator";
 import { Btext } from "@/components/Btext";
 
 type TorderInfo = {
     order: Torder;
-    className: string;
+    paid: number;
+    sFieldset?: string;
 };
 
-const OrderDetailsCard: FC<TorderInfo> = ({ order, className }) => {
+const OrderInfoWPaymentFs: FC<TorderInfo> = ({ order, paid, sFieldset }) => {
     const { t } = useTranslation();
     return (
-        <Card
-            className={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 ${className}`}
+        <Fieldset
+            title={t("label.orderInfo")}
+            sFieldset={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6  my-2 mx-1 text-md p-4 ${sFieldset}`}
         >
             {/* address */}
-            <div className="col-span-full pb-3 break-words border-b-2 border-dotted border-indigo-300">
-                <p>
+            <div className="col-span-full break-words">
+                <p className="text-lg">
                     <Btext>{t("label.workAddr")}: </Btext> {order?.address},{" "}
                     {order?.suburb}, {order?.city}, {order?.state},{" "}
                     {order?.country}, {order?.postcode}
                 </p>
             </div>
-
-            <div className="col-span-full grid grid-cols-2 gap-2">
+            {/*  */}
+            <Separator
+                orientation="horizontal"
+                className="border-indigo-300 col-span-full"
+                decorative={true}
+            />
+            {/* payment */}
+            <div className="col-span-full grid grid-cols-2 text-lg">
                 <div className="col-span-1">
                     <p>
                         <Btext>{t("label.due")}: </Btext> {order?.total}
@@ -39,18 +48,19 @@ const OrderDetailsCard: FC<TorderInfo> = ({ order, className }) => {
                 <div className="col-span-1">
                     <p>
                         <Btext>{t("label.paid")}: </Btext>
-                        {order.paid}
+                        {paid}
                     </p>
                 </div>
                 <div className="col-span-1">
                     <p>
                         <Btext>{t("label.balance")}: </Btext>{" "}
-                        {minusAB(order?.total, order?.paid)}
+                        {minusAB(order?.total, paid)}
+                        {}
                     </p>
                 </div>
             </div>
-        </Card>
+        </Fieldset>
     );
 };
 
-export default OrderDetailsCard;
+export default OrderInfoWPaymentFs;

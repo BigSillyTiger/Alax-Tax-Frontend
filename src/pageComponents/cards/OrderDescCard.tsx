@@ -2,6 +2,8 @@ import type { FC } from "react";
 import { TorderService } from "@/configs/schema/orderSchema";
 import { useTranslation } from "react-i18next";
 import Card from "@/components/Card";
+import { linearLargeBG } from "@/configs/utils/color";
+import { Btext } from "@/components/Btext";
 
 type Tprops = {
     data: TorderService[];
@@ -17,44 +19,38 @@ const OrderDescCard: FC<Tprops> = ({ data, readonly = false }) => {
                 // total col: 6
                 <div key={index} className="col-span-full grid grid-cols-12">
                     {/* index */}
-                    <p className="m-auto text-bold text-indigo-400">
+                    <p className="m-auto text-xl font-bold text-indigo-400">
                         {index + 1}
                     </p>
                     {/* card */}
-                    <Card className="col-span-11 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-6 bg-indigo-50">
+                    <Card
+                        className={`col-span-11 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-6 ${linearLargeBG}`}
+                    >
                         {/* title - 6*/}
                         <div className="col-span-full">
                             <p>
-                                <b className="text-indigo-600">
-                                    {t("label.service")}:{" "}
-                                </b>
+                                <Btext>{t("label.service")}: </Btext>
                                 {item.title}
                             </p>
                         </div>
                         {/* qty - 1 */}
                         <div className="col-span-1">
                             <p>
-                                <b className="text-indigo-600">
-                                    {t("label.qty")}:{" "}
-                                </b>
+                                <Btext>{t("label.qty")}: </Btext>
                                 {item.qty}
                             </p>
                         </div>
                         {/* unit - 2 */}
                         <div className="col-span-1 sm:col-span-2">
                             <p>
-                                <b className="text-indigo-600">
-                                    {t("label.unit")}:{" "}
-                                </b>
+                                <Btext>{t("label.unit")}: </Btext>
                                 {item.unit}
                             </p>
                         </div>
                         {/* taxable - 1 */}
                         <div className="col-span-1 sm:col-span-1">
                             <p>
-                                <b className="text-indigo-600">
-                                    {t("label.tax")}:{" "}
-                                </b>
+                                <Btext>{t("label.tax")}: </Btext>
                                 <input
                                     type="checkbox"
                                     onClick={(e) => {
@@ -70,9 +66,7 @@ const OrderDescCard: FC<Tprops> = ({ data, readonly = false }) => {
                         {/* gst - 2 */}
                         <div className="col-span-1 sm:col-span-2">
                             <p>
-                                <b className="text-indigo-600">
-                                    {t("label.gst")}:{" "}
-                                </b>
+                                <Btext>{t("label.gst")}: </Btext>
                                 {item.gst}
                             </p>
                         </div>
@@ -80,18 +74,14 @@ const OrderDescCard: FC<Tprops> = ({ data, readonly = false }) => {
                         {/* unit price - 3 */}
                         <div className="col-span-1 sm:col-span-3">
                             <p>
-                                <b className="text-indigo-600">
-                                    {t("label.uPrice")}:{" "}
-                                </b>
+                                <Btext>{t("label.uPrice")}: </Btext>
                                 {item.unit_price}
                             </p>
                         </div>
                         {/* netto - 2 */}
                         <div className="col-span-1 sm:col-span-3">
                             <p>
-                                <b className="text-indigo-600">
-                                    {t("label.netto")}:{" "}
-                                </b>
+                                <Btext>{t("label.netto")}: </Btext>
                                 {item.netto}
                             </p>
                         </div>
@@ -100,9 +90,7 @@ const OrderDescCard: FC<Tprops> = ({ data, readonly = false }) => {
                         {item.description && (
                             <div className="col-span-full">
                                 <p>
-                                    <b className="text-indigo-600">
-                                        {t("label.desc")}:{" "}
-                                    </b>
+                                    <Btext>{t("label.desc")}: </Btext>
                                     {item.description}
                                 </p>
                             </div>

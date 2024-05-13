@@ -8,6 +8,7 @@ import Card from "@/components/Card";
 import { DelBtn } from "@/components/form";
 import { atClient, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
+import { Btext } from "@/components/Btext";
 
 // this component is about building a modal with transition to delete a client
 const MClientDel: FC = memo(() => {
@@ -26,35 +27,30 @@ const MClientDel: FC = memo(() => {
             <div className="m-3 grid grid-cols-6 gap-x-4 gap-y-4 text-left">
                 <div className="col-span-5">
                     <p>
-                        <b className="text-indigo-600">{t("label.client")}: </b>{" "}
-                        {client.first_name}&nbsp;{client.last_name}
+                        <Btext>{t("label.client")}: </Btext> {client.first_name}
+                        &nbsp;{client.last_name}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
-                        <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
-                        {client?.phone}
+                        <Btext>{t("label.phone1")}: </Btext> {client?.phone}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
-                        <b className="text-indigo-600">{t("label.pc")}: </b>
+                        <Btext>{t("label.pc")}: </Btext>
                         {client?.postcode}
                     </p>
                 </div>
                 <div className="col-span-6">
                     <p>
-                        <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
-                        {client?.email}
+                        <Btext>{t("label.email1")}: </Btext> {client?.email}
                     </p>
                 </div>
                 <div className="col-span-6">
                     <p>
-                        <b className="text-indigo-600">
-                            {t("label.address")}:{" "}
-                        </b>{" "}
-                        {client?.address}, {client?.city}, {client?.state},{" "}
-                        {client?.country}
+                        <Btext>{t("label.address")}: </Btext> {client?.address},{" "}
+                        {client?.city}, {client?.state}, {client?.country}
                     </p>
                 </div>
             </div>

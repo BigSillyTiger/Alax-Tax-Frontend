@@ -3,55 +3,48 @@ import Fieldset from "@/components/Fieldset";
 import { Tclient } from "@/configs/schema/clientSchema";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { Btext } from "@/components/Btext";
 
 type Tprops = {
     client: Tclient;
     title: string;
     sFieldset?: string;
-    sLegend?: string;
 };
 
-const ClientInfoFs: FC<Tprops> = ({
-    client,
-    title,
-    sFieldset = "",
-    sLegend = "",
-}) => {
+const ClientInfoFs: FC<Tprops> = ({ client, title, sFieldset = "" }) => {
     const { t } = useTranslation();
     return (
         <Fieldset
             title={title}
             sFieldset={`grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 my-2 mx-1 text-sm p-4 ${sFieldset}`}
-            sLegend={`text-indigo-500 text-bold text-lg ${sLegend}`}
         >
-            <div className="col-span-3">
+            <div className="col-span-3 text-lg">
                 <p>
-                    <b className="text-indigo-600">{t("label.client")}: </b>{" "}
-                    {client.first_name}&nbsp;{client.last_name}
+                    <Btext>{t("label.client")}: </Btext> {client.first_name}
+                    &nbsp;{client.last_name}
                 </p>
             </div>
-            <div className="col-span-3">
+            <div className="col-span-3 text-lg">
                 <p>
-                    <b className="text-indigo-600">{t("label.clientID")}: </b>{" "}
-                    {client.cid}
+                    <Btext>{t("label.clientID")}: </Btext> {client.cid}
                 </p>
             </div>
-            <div className="col-span-6 sm:col-span-3">
+            <div className="col-span-6 sm:col-span-3 text-lg">
                 <p>
-                    <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
+                    <Btext>{t("label.phone1")}: </Btext>{" "}
                     <Atel href={client?.phone} />
                 </p>
             </div>
 
-            <div className="col-span-6 sm:col-span-3">
+            <div className="col-span-6 sm:col-span-3 text-lg">
                 <p>
-                    <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
+                    <Btext>{t("label.email1")}: </Btext>{" "}
                     <Amail href={client?.email} />
                 </p>
             </div>
-            <div className="col-span-6">
+            <div className="col-span-6 text-lg">
                 <p>
-                    <b className="text-indigo-600">{t("label.address")}: </b>{" "}
+                    <Btext>{t("label.address")}: </Btext>{" "}
                     {client?.address +
                         ", " +
                         client?.suburb +

@@ -9,31 +9,47 @@ import {
     UseFormReturn,
 } from "react-hook-form";
 import { Tpayment } from "@/configs/schema/orderSchema";
+import { linearLargeBG } from "@/configs/utils/color";
+import Fieldset from "@/components/Fieldset";
 
 type Tprops = {
     fields: FieldArrayWithId<Tpayment>[];
     register: UseFormReturn<Tpayment>["register"];
     remove: UseFieldArrayRemove;
+    title: string;
+    sFieldset?: string;
+    sLegend?: string;
 };
 
-const PaymentsContent: FC<Tprops> = ({ fields, register, remove }) => {
+const PaymentsContent: FC<Tprops> = ({
+    fields,
+    register,
+    remove,
+    title,
+    sFieldset,
+    sLegend,
+}) => {
     const { t } = useTranslation();
 
-    if (fields.length) {
-        return (
-            <Card className={`my-2 mx-1 text-sm lg:h-[45dvh] overflow-y-auto`}>
-                {fields.map((field, index) => {
-                    return (
-                        <div
-                            key={field.id}
-                            className="col-span-6 row-span-2 grid grid-cols-10 gap-x-2 gap-y-2"
-                        >
+    const content = fields?.length ? (
+        <Fieldset
+            title={title}
+            sFieldset={`my-2 mx-1 text-sm lg:h-[45dvh] overflow-y-auto ${sFieldset}`}
+            sLegend={`text-indigo-500 text-bold text-lg ${sLegend}`}
+        >
+            {fields.map((field, index) => {
+                return (
+                    <div key={field.id} className="flex flex-col gap-y-2">
+                        <div className="flex flex-row gap-x-2 items-center ml-1 mr-3">
                             {/* x btn */}
-                            <div className="col-span-1 m-auto">
+
+                            <div className="">
                                 <XBtn onClick={() => remove(index)} />
                             </div>
                             {/* content */}
-                            <Card className="col-span-9 mt-3 grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-8 bg-indigo-50 py-2">
+                            <Card
+                                className={`w-full mt-3 grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-8 py-2 ${linearLargeBG}`}
+                            >
                                 {/* paid amount */}
                                 <div className="col-span-4">
                                     <label
@@ -76,19 +92,15 @@ const PaymentsContent: FC<Tprops> = ({ fields, register, remove }) => {
                                 </div>
                             </Card>
                         </div>
-                    );
-                })}
-            </Card>
-        );
-    } else {
-        return (
-            <Card
-                className={`my-2 mx-1 text-indigo-300 text-bold lg:h-[45dvh]`}
-            >
-                {t("tips.noPayments")}
-            </Card>
-        );
-    }
+                    </div>
+                );
+            })}
+        </Fieldset>
+    ) : (
+        t("tips.noPayments")
+    );
+
+    return content;
 };
 
 export default PaymentsContent;

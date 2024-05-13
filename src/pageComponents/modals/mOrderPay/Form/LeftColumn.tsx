@@ -1,4 +1,3 @@
-import { ClientInfoCard, OrderInfoCard } from "@/pageComponents/cards";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import PaymentsContent from "./PaymentsContent";
@@ -10,6 +9,8 @@ import {
     UseFormReturn,
 } from "react-hook-form";
 import { Tpayment } from "@/configs/schema/orderSchema";
+import OrderInfoWPaymentFs from "@/pageComponents/fieldset/OrderInfoWPaymentFs";
+import { ClientInfoFs } from "@/pageComponents/fieldset";
 
 type Tprops = {
     totalPaid: number;
@@ -25,36 +26,25 @@ const LeftColumn: FC<Tprops> = ({ totalPaid, fields, register, remove }) => {
     return (
         <div className="col-span-1 lg:col-span-3 grid grid-cols-1">
             {/* client info */}
-            <fieldset className="col-span-full">
-                <legend className="text-indigo-500 text-bold">
-                    <b>{t("label.clientInfo")}:</b>
-                </legend>
-                <ClientInfoCard
-                    client={clientOrder.client_info}
-                    className="my-2 mx-1 text-sm"
-                />
-            </fieldset>
+            <ClientInfoFs
+                client={clientOrder.client_info}
+                title={t("label.clientInfo")}
+                sFieldset="my-2 mx-1 text-sm"
+            />
             {/* order info */}
-            <fieldset className="col-span-full">
-                <legend className="text-indigo-500 text-bold">
-                    <b>{t("label.orderInfo")}:</b>
-                </legend>
-                <OrderInfoCard
-                    order={clientOrder}
-                    paid={totalPaid}
-                    className="my-2 mx-1 text-sm"
-                />
-            </fieldset>
-            <fieldset className="col-span-full">
-                <legend className="text-indigo-500 text-bold">
-                    <b>{t("label.payments")}</b>
-                </legend>
-                <PaymentsContent
-                    fields={fields}
-                    register={register}
-                    remove={remove}
-                />
-            </fieldset>
+            <OrderInfoWPaymentFs
+                order={clientOrder}
+                paid={totalPaid}
+                sFieldset="my-2 mx-1 text-sm"
+            />
+
+            <PaymentsContent
+                fields={fields}
+                register={register}
+                remove={remove}
+                title={t("label.payments")}
+                sFieldset="col-span-full"
+            />
         </div>
     );
 };

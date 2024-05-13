@@ -1,4 +1,3 @@
-import Card from "@/components/Card";
 import { OrderDescCard } from "@/pageComponents/cards";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -9,6 +8,7 @@ import { atOrder } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { Tpayment } from "@/configs/schema/orderSchema";
 import { UseFieldArrayPrepend, UseFormReturn } from "react-hook-form";
+import Fieldset from "@/components/Fieldset";
 
 type Tprops = {
     totalPaid: number;
@@ -24,18 +24,15 @@ const RightColumn: FC<Tprops> = ({ totalPaid, trigger, prepend, onClose }) => {
 
     return (
         <div className="col-span-1 lg:col-span-5 grid grid-cols-1">
-            <fieldset className="col-span-full">
-                <legend className="text-indigo-500 text-bold">
-                    <b>{t("label.serviceList")}:</b>
-                </legend>
-                <Card
-                    className={`my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[60dvh] overflow-y-auto`}
-                >
-                    <div className="col-span-full">
-                        <OrderDescCard data={clientOrder.order_services} />
-                    </div>
-                </Card>
-            </fieldset>
+            <Fieldset
+                title={t("label.serviceList")}
+                sFieldset={`col-span-full my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[60dvh] overflow-y-auto`}
+            >
+                <div className="col-span-full mr-4">
+                    <OrderDescCard data={clientOrder.order_services} />
+                </div>
+            </Fieldset>
+
             {/* payment section */}
             <PayOperation prepend={prepend} totalPaid={totalPaid} />
             {/* submit btns */}

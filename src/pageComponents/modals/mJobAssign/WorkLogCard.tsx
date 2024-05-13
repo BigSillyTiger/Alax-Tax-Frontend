@@ -2,7 +2,6 @@ import SingleField from "@/components/SingleField";
 import UserIcon from "@/components/UserIcon";
 import { Amail, Atel } from "@/components/aLinks";
 import Card from "@/components/Card";
-import Fieldset from "@/components/Fieldset";
 import { Input } from "@/components/ui/input";
 import { TassignedWork } from "@/configs/schema/workSchema";
 import { useJobAssignStore } from "@/configs/zustore";
@@ -18,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { Textarea } from "@/components/ui/textarea";
 import { ComponentPropsWithoutRef } from "react";
 import { linearLargeBG } from "@/configs/utils/color";
+import Label from "@/components/Label";
 
 type Tprops<T extends TassignedWork> = ComponentPropsWithoutRef<"div"> & {
     item: T;
@@ -92,7 +92,7 @@ const WorkLogCard = <T extends TassignedWork>({
                         size="xl"
                     />
                 </div>
-                <p className="col-span-full row-span-1 text-bold text-indigo-500">
+                <p className="col-span-full row-span-1 text-xl font-extrabold text-indigo-700 text-wrap">
                     {item.first_name + " " + item.last_name}
                 </p>
                 <SingleField
@@ -130,20 +130,15 @@ const WorkLogCard = <T extends TassignedWork>({
             {/* 5 col */}
             <div className="col-span-5">
                 {/* time area */}
-                <label
-                    htmlFor="timeCard"
-                    className="mx-2 text-slate-500 font-bold"
-                >
-                    {t("label.workTime")}
-                </label>
+                <Label htmlFor="timeCard">{t("label.workTime")}</Label>
                 <Card
                     id="timeCard"
                     className="p-2 justify-evenly grid grid-cols-4 gap-x-2 gap-y-2"
                 >
                     <div className="col-span-2 row-span-1">
-                        <label htmlFor="s_time" className="mx-2">
+                        <Label htmlFor="s_time" className="mx-2 font-normal">
                             {t("label.start")}
-                        </label>
+                        </Label>
                         <Input
                             id="s_time"
                             type="time"
@@ -154,9 +149,9 @@ const WorkLogCard = <T extends TassignedWork>({
                         />
                     </div>
                     <div className="col-span-2 row-span-1">
-                        <label htmlFor="e_time" className="mx-2">
+                        <Label htmlFor="e_time" className="mx-2 font-normal">
                             {t("label.end")}
-                        </label>
+                        </Label>
                         <Input
                             id="e_time"
                             type="time"
@@ -167,9 +162,9 @@ const WorkLogCard = <T extends TassignedWork>({
                         />
                     </div>
                     <div className="col-span-2 row-span-1">
-                        <label htmlFor="b_hour" className="mx-2">
+                        <Label htmlFor="b_hour" className="mx-2 font-normal">
                             {t("label.break")}
-                        </label>
+                        </Label>
                         <Input
                             id="b_hour"
                             type="time"
@@ -180,9 +175,12 @@ const WorkLogCard = <T extends TassignedWork>({
                         />
                     </div>
                     <div className="col-span-2 row-span-1">
-                        <label htmlFor="total_time" className="mx-2">
+                        <Label
+                            htmlFor="total_time"
+                            className="mx-2 font-normal"
+                        >
                             {t("label.workTime")}
-                        </label>
+                        </Label>
                         <Input
                             id="total_time"
                             type="time"

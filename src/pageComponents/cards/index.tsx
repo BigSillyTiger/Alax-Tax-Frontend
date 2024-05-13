@@ -1,5 +1,5 @@
 import ClientInfoCard from "./ClientInfoCard";
-import OrderInfoCard from "./OrderInfoCard";
+import OrderInfoCard from "../fieldset/OrderInfoWPaymentFs";
 import OrderDetailsCard from "./OrderDetailsCard";
 import OrderDescCard from "./OrderDescCard";
 

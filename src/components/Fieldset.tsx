@@ -14,7 +14,7 @@ const Fieldset: FC<Tprops> = ({ sFieldset, sLegend, title, children }) => {
         >
             {title && (
                 <legend
-                    className={`ml-2 px-2 text-indigo-500 text-bold ${sLegend}`}
+                    className={`ml-2 px-2 text-indigo-500 text-lg font-bold ${sLegend}`}
                 >
                     {title}
                 </legend>

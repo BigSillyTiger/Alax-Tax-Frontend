@@ -2,6 +2,7 @@ import type { FC } from "react";
 import Card from "@/components/Card";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { useTranslation } from "react-i18next";
+import { Btext } from "@/components/Btext";
 
 type Tinfo = {
     client: Tclient;
@@ -16,39 +17,36 @@ const ClientInfoCard: FC<Tinfo> = ({ client, className = "" }) => {
         >
             <div className="col-span-4">
                 <p>
-                    <b className="text-indigo-600">{t("label.client")}: </b>{" "}
-                    {client.first_name}&nbsp;{client.last_name}
+                    <Btext>{t("label.client")}: </Btext> {client.first_name}
+                    &nbsp;{client.last_name}
                 </p>
             </div>
             <div className="col-span-2">
                 <p>
-                    <b className="text-indigo-600">{t("label.clientID")}: </b>{" "}
-                    {client.cid}
+                    <Btext>{t("label.clientID")}: </Btext> {client.cid}
                 </p>
             </div>
             <div className="col-span-6 sm:col-span-4">
                 <p>
-                    <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
-                    {client?.phone}
+                    <Btext>{t("label.phone1")}: </Btext> {client?.phone}
                 </p>
             </div>
             <div className="col-span-6 sm:col-span-2">
                 <p>
-                    <b className="text-indigo-600">{t("label.pc")}: </b>
+                    <Btext>{t("label.pc")}: </Btext>
                     {client?.postcode}
                 </p>
             </div>
             <div className="col-span-6">
                 <p>
-                    <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
-                    {client?.email}
+                    <Btext>{t("label.email1")}: </Btext> {client?.email}
                 </p>
             </div>
             <div className="col-span-6">
                 <p>
-                    <b className="text-indigo-600">{t("label.address")}: </b>{" "}
-                    {client?.address}, {client?.suburb}, {client?.city},{" "}
-                    {client?.state}, {client?.country}
+                    <Btext>{t("label.address")}: </Btext> {client?.address},{" "}
+                    {client?.suburb}, {client?.city}, {client?.state},{" "}
+                    {client?.country}
                 </p>
             </div>
         </Card>

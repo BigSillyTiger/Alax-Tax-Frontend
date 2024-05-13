@@ -3,6 +3,7 @@ import Card from "@/components/Card";
 
 import { useTranslation } from "react-i18next";
 import { Tstaff } from "@/configs/schema/staffSchema";
+import { Btext } from "@/components/Btext";
 
 type Tprops = {
     staff: Partial<Tstaff>;
@@ -18,57 +19,50 @@ const StaffDetailedCard: FC<Tprops> = ({ staff, className = "" }) => {
         >
             <div className="col-span-4">
                 <p>
-                    <b className="text-indigo-600">{t("label.client")}: </b>{" "}
-                    {staff.first_name}&nbsp;{staff.last_name}
+                    <Btext>{t("label.client")}: </Btext> {staff.first_name}
+                    &nbsp;{staff.last_name}
                 </p>
             </div>
             <div className="col-span-2">
                 <p>
-                    <b className="text-indigo-600">{t("label.clientID")}: </b>{" "}
-                    {staff.uid}
+                    <Btext>{t("label.clientID")}: </Btext> {staff.uid}
                 </p>
             </div>
             <div className="col-span-6 sm:col-span-4">
                 <p>
-                    <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
-                    {staff.phone}
+                    <Btext>{t("label.phone1")}: </Btext> {staff.phone}
                 </p>
             </div>
             <div className="col-span-6 sm:col-span-2">
                 <p>
-                    <b className="text-indigo-600">{t("label.pc")}: </b>
+                    <Btext>{t("label.pc")}: </Btext>
                     {staff.postcode}
                 </p>
             </div>
             <div className="col-span-6">
                 <p>
-                    <b className="text-indigo-600">{t("label.email1")}: </b>{" "}
-                    {staff.email}
+                    <Btext>{t("label.email1")}: </Btext> {staff.email}
                 </p>
             </div>
             <div className="col-span-6">
                 <p>
-                    <b className="text-indigo-600">{t("label.address")}: </b>{" "}
-                    {staff.address}, {staff.suburb}, {staff.city}, {staff.state}
-                    , {staff.country}
+                    <Btext>{t("label.address")}: </Btext> {staff.address},{" "}
+                    {staff.suburb}, {staff.city}, {staff.state}, {staff.country}
                 </p>
             </div>
             <div className="col-span-2">
                 <p>
-                    <b className="text-indigo-600">{t("label.hr")}: </b> $
-                    {staff.hr}/H
+                    <Btext>{t("label.hr")}: </Btext> ${staff.hr}/H
                 </p>
             </div>
             <div className="col-span-2">
                 <p>
-                    <b className="text-indigo-600">{t("label.bsb")}: </b>{" "}
-                    {staff.bsb}
+                    <Btext>{t("label.bsb")}: </Btext> {staff.bsb}
                 </p>
             </div>
             <div className="col-span-2">
                 <p>
-                    <b className="text-indigo-600">{t("label.acc")}: </b>{" "}
-                    {staff.account}
+                    <Btext>{t("label.acc")}: </Btext> {staff.account}
                 </p>
             </div>
         </Card>

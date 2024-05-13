@@ -9,6 +9,7 @@ import { MTemplate } from "@/components/modal";
 import { DelBtn } from "@/components/form";
 import { atModalOpen, atSUInitData } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
+import { Btext } from "@/components/Btext";
 
 // this component is about building a modal with transition to delete a client
 const MUniDel: FC = memo(() => {
@@ -29,26 +30,19 @@ const MUniDel: FC = memo(() => {
                     <>
                         <div className="col-span-6">
                             <p>
-                                <b className="text-indigo-600">
-                                    {t("label.service")}:{" "}
-                                </b>{" "}
+                                <Btext>{t("label.service")}: </Btext>{" "}
                                 {uniData.service}
                             </p>
                         </div>
                         <div className="col-span-3">
                             <p>
-                                <b className="text-indigo-600">
-                                    {t("label.unit")}:{" "}
-                                </b>{" "}
+                                <Btext>{t("label.unit")}: </Btext>{" "}
                                 {uniData.unit}
                             </p>
                         </div>
                         <div className="col-span-3">
                             <p>
-                                <b className="text-indigo-600">
-                                    {" "}
-                                    {t("label.uPrice")}:{" "}
-                                </b>{" "}
+                                <Btext> {t("label.uPrice")}: </Btext>{" "}
                                 {uniData.unit_price}
                             </p>
                         </div>
@@ -56,9 +50,7 @@ const MUniDel: FC = memo(() => {
                 ) : (
                     <div className="col-span-5">
                         <p>
-                            <b className="text-indigo-600">
-                                {t("label.unit")}:{" "}
-                            </b>{" "}
+                            <Btext>{t("label.unit")}: </Btext>{" "}
                             {uniData.unit_name}
                         </p>
                     </div>

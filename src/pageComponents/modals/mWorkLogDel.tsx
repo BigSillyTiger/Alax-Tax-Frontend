@@ -14,6 +14,7 @@ import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
 import { WL_DELETABLE_STATUS } from "@/configs/utils/setting";
 import { toastWarning } from "@/lib/toaster";
+import { Btext } from "@/components/Btext";
 
 const MWorkLogDel: FC = memo(() => {
     const submit = useSubmit();
@@ -42,7 +43,7 @@ const MWorkLogDel: FC = memo(() => {
             <div className="m-3 grid grid-cols-6 gap-x-3 text-left">
                 <div className="col-span-full">
                     <p>
-                        <b className="text-indigo-600">{t("label.staff")}: </b>
+                        <Btext>{t("label.staff")}: </Btext>
                         {worklog.first_name +
                             " " +
                             worklog.last_name +
@@ -52,7 +53,7 @@ const MWorkLogDel: FC = memo(() => {
                 </div>
                 <div className="col-span-full">
                     <p>
-                        <b className="text-indigo-600">{t("label.addr")}: </b>{" "}
+                        <Btext>{t("label.addr")}: </Btext>{" "}
                         {worklog.address +
                             ", " +
                             worklog.suburb +
@@ -70,41 +71,30 @@ const MWorkLogDel: FC = memo(() => {
                 >
                     <div className="col-span-full">
                         <p>
-                            <b className="text-indigo-600">
-                                {t("label.date")}:{" "}
-                            </b>{" "}
-                            {worklog.wl_date}
+                            <Btext>{t("label.date")}: </Btext> {worklog.wl_date}
                         </p>
                     </div>
                     <div className="col-span-1">
                         <p>
-                            <b className="text-indigo-600">
-                                {t("label.timeStart")}:{" "}
-                            </b>{" "}
+                            <Btext>{t("label.timeStart")}: </Btext>{" "}
                             {worklog.s_time}
                         </p>
                     </div>
                     <div className="col-span-1">
                         <p>
-                            <b className="text-indigo-600">
-                                {t("label.timeEnd")}:{" "}
-                            </b>{" "}
+                            <Btext>{t("label.timeEnd")}: </Btext>{" "}
                             {worklog.e_time}
                         </p>
                     </div>
                     <div className="col-span-1">
                         <p>
-                            <b className="text-indigo-600">
-                                {t("label.timeBreak")}:{" "}
-                            </b>{" "}
+                            <Btext>{t("label.timeBreak")}: </Btext>{" "}
                             {worklog.b_hour}
                         </p>
                     </div>
                     <div className="col-span-1">
                         <p>
-                            <b className="text-indigo-600">
-                                {t("label.workTime")}:{" "}
-                            </b>{" "}
+                            <Btext>{t("label.workTime")}: </Btext>{" "}
                             {calWorkTime(
                                 worklog.s_time,
                                 worklog.e_time,

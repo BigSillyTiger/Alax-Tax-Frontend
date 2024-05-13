@@ -10,6 +10,7 @@ import { atOrder, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
+import { Btext } from "@/components/Btext";
 
 // this component is about building a modal with transition to delete a client
 const MOrderDel: FC = memo(() => {
@@ -38,24 +39,18 @@ const MOrderDel: FC = memo(() => {
             <div className="m-3 grid grid-cols-6 gap-x-4 gap-y-4 text-left">
                 <div className="col-span-3">
                     <p>
-                        <b className="text-indigo-600">
-                            {t("label.idOrder")}:{" "}
-                        </b>{" "}
-                        {clientOrder?.oid}
+                        <Btext>{t("label.idOrder")}: </Btext> {clientOrder?.oid}
                     </p>
                 </div>
                 <div className="col-span-3">
                     <p>
-                        <b className="text-indigo-600">{t("label.pc")}: </b>{" "}
-                        {clientOrder?.postcode}
+                        <Btext>{t("label.pc")}: </Btext> {clientOrder?.postcode}
                     </p>
                 </div>
 
                 <div className="col-span-full">
                     <p>
-                        <b className="text-indigo-600">
-                            {t("label.address")}:{" "}
-                        </b>{" "}
+                        <Btext>{t("label.address")}: </Btext>{" "}
                         {clientOrder?.address}, {clientOrder?.suburb},{" "}
                         {clientOrder?.city}, {clientOrder?.state},{" "}
                         {clientOrder?.country}

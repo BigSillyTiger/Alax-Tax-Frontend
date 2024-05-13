@@ -11,6 +11,7 @@ import { mOpenOps } from "@/configs/utils/modal";
 import { usePayslipStore, useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
 import { StatusBadge } from "@/components/Badge";
+import { Btext } from "@/components/Btext";
 
 // this component is about building a modal with transition to delete a staff
 const MPayslipDel: FC = memo(() => {
@@ -32,32 +33,27 @@ const MPayslipDel: FC = memo(() => {
         <Card className="mt-2">
             <div className="m-3 flex flex-col gap-x-4 gap-y-4 text-left">
                 <div>
-                    <b className="text-indigo-600">{t("label.psid")}: </b>{" "}
-                    {payslip.psid}
+                    <Btext>{t("label.psid")}: </Btext> {payslip.psid}
                 </div>
                 <div className="flex flec-row justify-evenly gap-x-4">
                     <div>
-                        <b className="text-indigo-600">{t("label.start")}: </b>{" "}
-                        {payslip.s_date}
+                        <Btext>{t("label.start")}: </Btext> {payslip.s_date}
                     </div>
                     <div>
-                        <b className="text-indigo-600">{t("label.end")}: </b>{" "}
-                        {payslip.e_date}
+                        <Btext>{t("label.end")}: </Btext> {payslip.e_date}
                     </div>
                 </div>
                 <div className="flex flex-row gap-x-4 justify-evenly">
                     <div>
-                        <b className="text-indigo-600">{t("label.status")}: </b>{" "}
+                        <Btext>{t("label.status")}: </Btext>{" "}
                         <StatusBadge value={payslip.status} />
                     </div>
                     <div>
-                        <b className="text-indigo-600">{t("label.hr")}: </b> $
-                        {payslip.hr}
+                        <Btext>{t("label.hr")}: </Btext> ${payslip.hr}
                     </div>
                 </div>
                 <div>
-                    <b className="text-indigo-600">{t("label.thisPay")}: </b> $
-                    {payslip.paid}
+                    <Btext>{t("label.thisPay")}: </Btext> ${payslip.paid}
                 </div>
             </div>
         </Card>

@@ -3,6 +3,7 @@ import type { FC } from "react";
 import Card from "@/components/Card";
 import { useTranslation } from "react-i18next";
 import { Tcompany } from "@/configs/schema/settingSchema";
+import { Btext } from "@/components/Btext";
 
 type Tinfo = {
     company: Tcompany;
@@ -17,50 +18,43 @@ const CompanyInfoCard: FC<Tinfo> = memo(({ company, className }) => {
         >
             <div className="col-span-full">
                 <p>
-                    <b className="text-indigo-600">{t("label.company")}: </b>{" "}
-                    {company.name}
+                    <Btext>{t("label.company")}: </Btext> {company.name}
                 </p>
             </div>
             <div className="col-span-full">
                 <p>
-                    <b className="text-indigo-600">{t("label.address")}: </b>{" "}
-                    {company.address}
+                    <Btext>{t("label.address")}: </Btext> {company.address}
                 </p>
             </div>
             <div className="col-span-full">
                 <p>
-                    <b className="text-indigo-600">{t("label.phone1")}: </b>{" "}
-                    {company.phone}
+                    <Btext>{t("label.phone1")}: </Btext> {company.phone}
                 </p>
             </div>
             <div className="col-span-full">
                 <p>
-                    <b className="text-indigo-600">{t("label.email1")}: </b>
+                    <Btext>{t("label.email1")}: </Btext>
                     {company.email}
                 </p>
             </div>
             <div className="col-span-1">
                 <p>
-                    <b className="text-indigo-600">{t("label.bld")}: </b>{" "}
-                    {company.bld}
+                    <Btext>{t("label.bld")}: </Btext> {company.bld}
                 </p>
             </div>
             <div className="col-span-1">
                 <p>
-                    <b className="text-indigo-600">{t("label.abn")}: </b>{" "}
-                    {company.abn}
+                    <Btext>{t("label.abn")}: </Btext> {company.abn}
                 </p>
             </div>
             <div className="col-span-1">
                 <p>
-                    <b className="text-indigo-600">{t("label.bsb")}: </b>{" "}
-                    {company.bsb}
+                    <Btext>{t("label.bsb")}: </Btext> {company.bsb}
                 </p>
             </div>
             <div className="col-span-1">
                 <p>
-                    <b className="text-indigo-600">{t("label.acc")}: </b>{" "}
-                    {company.acc}
+                    <Btext>{t("label.acc")}: </Btext> {company.acc}
                 </p>
             </div>
         </Card>
