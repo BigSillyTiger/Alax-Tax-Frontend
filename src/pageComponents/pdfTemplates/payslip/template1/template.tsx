@@ -6,6 +6,7 @@ import {
     Document,
     Text,
     PDFDownloadLink,
+    Font,
 } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import Title from "./Title";
@@ -24,6 +25,9 @@ import BDFooter from "./BDFooter";
 import DHeader from "./DHeader";
 import DRows from "./DRows";
 import Footer from "./Footer";
+import { hyphenationCallback } from "@/lib/utils";
+
+Font.registerHyphenationCallback(hyphenationCallback);
 
 const tw = createTw({});
 

@@ -1,9 +1,9 @@
 import { useEffect, useState, type ComponentPropsWithoutRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Input } from "@/components/ui/input";
 import { calWorkTime, isWorkHoursValid } from "@/lib/time";
 import { useWLHoursStore } from "@/configs/zustore/wlHoursStore";
 import Card from "@/components/Card";
+import { TimeInput } from "@/components/input";
 
 type Tprops = ComponentPropsWithoutRef<"div">;
 
@@ -30,17 +30,17 @@ const WorkHoursCard = ({ className }: Tprops) => {
             <div className="col-span-3 row-span-2 flex flex-col items-center">
                 <label
                     htmlFor="s_time"
-                    className={`mx-2 text-lg font-bold ${!isValid && "text-red-500"}`}
+                    className={`text-lg ${!isValid && "text-red-500"}`}
                 >
                     {t("label.start")}
                 </label>
-                <Input
+                <TimeInput
                     id="s_time"
-                    type="time"
-                    step="60"
+                    type="start"
                     value={s_time}
+                    isValid={isValid}
                     onChange={(e) => setSTime(e.target.value)}
-                    className={`text-bold text-3xl text-center text-indigo-500 m-2 p-2 ${isValid ? "text-indigo-500" : "border-red-500 focus-visible:ring-red-500 text-red-500"}`}
+                    className=""
                 />
             </div>
             <div className="col-span-3 row-span-2 flex flex-col items-center">
@@ -50,13 +50,13 @@ const WorkHoursCard = ({ className }: Tprops) => {
                 >
                     {t("label.end")}
                 </label>
-                <Input
+                <TimeInput
                     id="e_time"
-                    type="time"
-                    step="60"
+                    type="end"
                     value={e_time}
+                    isValid={isValid}
                     onChange={(e) => setETime(e.target.value)}
-                    className={`text-bold text-3xl text-center text-indigo-500 m-2 p-2 ${isValid ? "text-indigo-500" : "border-red-500 focus-visible:ring-red-500 text-red-500"}`}
+                    className=""
                 />
             </div>
             <div className="col-span-3 row-span-1 flex flex-col items-center">
@@ -66,26 +66,24 @@ const WorkHoursCard = ({ className }: Tprops) => {
                 >
                     {t("label.break")}
                 </label>
-                <Input
+                <TimeInput
                     id="b_hour"
-                    type="time"
-                    step="60"
+                    type="break"
                     value={b_hour}
+                    isValid={isValid}
                     onChange={(e) => setBHour(e.target.value)}
-                    className={`text-bold text-3xl text-center m-2 p-2 ${isValid ? "text-amber-500" : "border-red-500 focus-visible:ring-red-500 text-red-500"}`}
+                    className=""
                 />
             </div>
             <div className="col-span-3 row-span-1 flex flex-col items-center">
                 <label htmlFor="w_time" className="mx-2 text-lg font-bold">
                     {t("label.workTime")}
                 </label>
-                <Input
+                <TimeInput
                     id="w_time"
-                    type="time"
-                    step="60"
-                    readOnly
+                    type="work"
                     value={totalWH}
-                    className="text-bold text-3xl text-center text-lime-600 m-2 p-2"
+                    className=""
                 />
             </div>
         </Card>

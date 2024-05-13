@@ -30,7 +30,7 @@ const CTh = <T extends object>({
           };
     return (
         <th
-            className={`relative whitespace-nowrap px-2 text-sm font-semibold text-gray-900 capitalize text-center border-indigo-200 border-2 ${className} ${headerW}`}
+            className={`relative whitespace-nowrap px-2 text-sm font-semibold text-gray-900 capitalize text-center border-collapse border-indigo-200 border-2 ${className} ${headerW}`}
             scope={scope}
             colSpan={header.colSpan}
             onClick={onClick}

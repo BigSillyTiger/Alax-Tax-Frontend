@@ -1,5 +1,12 @@
 import type { FC } from "react";
-import { PDFViewer, Page, View, Document, Text } from "@react-pdf/renderer";
+import {
+    PDFViewer,
+    Page,
+    Font,
+    View,
+    Document,
+    Text,
+} from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { TorderService, Torder } from "@/configs/schema/orderSchema";
@@ -11,8 +18,11 @@ import TableFooter from "./TableFooter";
 import PageFooter from "./PageFooter";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { useTranslation } from "react-i18next";
+import { hyphenationCallback } from "@/lib/utils";
 
 const tw = createTw({});
+
+Font.registerHyphenationCallback(hyphenationCallback);
 
 type Tprops = {
     client: Tclient;

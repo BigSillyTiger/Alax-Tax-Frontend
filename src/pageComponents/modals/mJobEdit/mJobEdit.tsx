@@ -138,8 +138,8 @@ const MJobEdit = () => {
     };
 
     const mainContent = (
-        <Form onSubmit={onSubmit} className="grid grid-cols-1">
-            <div className="col-span-1 flex flex-col sm:flex-row">
+        <Form onSubmit={onSubmit} className="grid grid-cols-1 gap-y-2">
+            <div className="col-span-1 flex flex-col sm:flex-row gap-x-2 mb-1">
                 <StaffCard staff={worklog} className="grow-1" />
                 <WorkInfoCard
                     work={worklog}

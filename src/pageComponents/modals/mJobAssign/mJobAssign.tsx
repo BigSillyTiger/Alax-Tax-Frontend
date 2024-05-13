@@ -88,7 +88,7 @@ const MJobAssign = () => {
                     <DateSchedule />
                 </div>
                 {/* right area */}
-                <div className="col-span-1 flex flex-col">
+                <div className="col-span-1 flex flex-col gap-y-2">
                     {/* assigned staff area */}
                     <AssignedStaff />
                     {/* select staff area */}
