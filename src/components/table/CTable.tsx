@@ -15,7 +15,7 @@ const CTable = <T extends object>({
     return (
         <div className={`overflow-auto w-full ${className}`}>
             <table
-                className="table-fixed min-w-full divide-y divide-gray-300"
+                className="min-w-full divide-y divide-gray-300"
                 style={{
                     width: table.getCenterTotalSize(),
                 }}

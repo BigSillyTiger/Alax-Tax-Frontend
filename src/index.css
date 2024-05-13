@@ -76,7 +76,7 @@
 }
 
 .resizer {
-    @apply absolute right-0 top-0 h-full w-3 bg-sky-600 cursor-col-resize select-none touch-none;
+    @apply absolute right-0 top-0 h-full w-3 bg-sky-500 cursor-col-resize select-none touch-none opacity-25;
 }
 
 .resizer.isResizing {
