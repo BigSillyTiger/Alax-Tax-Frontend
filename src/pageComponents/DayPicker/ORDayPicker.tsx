@@ -7,6 +7,7 @@ import styles from "./datepicker.module.css";
 import { useOrderArrangementStore } from "@/configs/zustore/orderArrangeStore";
 import { dateFormat } from "@/lib/time";
 import { useScreenST } from "@/lib/hooks";
+import { daypickerCSS } from "@/configs/utils/color";
 
 /**
  * @description job assignment day picker
@@ -36,26 +37,6 @@ const ORDayPicker: FC = () => {
 
     const scheduledDays = orderArrangement.map((order) => new Date(order.date));
 
-    const css = `
-        .my-selected:not([disabled]) { 
-            font-weight: bold; 
-            border: 2px solid #4338ca;
-        }
-        .my-selected:hover:not([disabled]) { 
-            border-color: #6366f1;
-            color: #6366f1;
-        }
-        .my-today { 
-            font-weight: bold;
-            font-size: 140%; 
-            color: #15803d;
-        }
-        .my-scheduled {
-            font-weight: bold; 
-            border: 2px solid #4338ca;
-        }
-        `;
-
     // the daypicker is set to required, so day is not undefined
     const handleClick = (day: Date | undefined) => {
         setDate(day as Date);
@@ -68,7 +49,7 @@ const ORDayPicker: FC = () => {
 
     return (
         <div className={styles.reactDatepicker}>
-            <style>{css}</style>
+            <style>{daypickerCSS}</style>
             <DayPicker
                 showOutsideDays
                 showWeekNumber={isTooSmallScreen ? false : true}

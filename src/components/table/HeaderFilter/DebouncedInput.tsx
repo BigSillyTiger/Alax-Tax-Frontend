@@ -1,17 +1,19 @@
 import { Input } from "@/components/ui/input";
-import React from "react";
+import React, { FC } from "react";
 
-const DebouncedInput = ({
+type Tprops = Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> & {
+    value: string | number;
+    onChange: (value: string | number) => void;
+    debounce?: number;
+};
+
+const DebouncedInput: FC<Tprops> = ({
     value: initialValue,
     onChange,
     debounce = 500,
     className,
     ...props
-}: {
-    value: string | number;
-    onChange: (value: string | number) => void;
-    debounce?: number;
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) => {
+}) => {
     const [value, setValue] = React.useState(initialValue);
 
     React.useEffect(() => {

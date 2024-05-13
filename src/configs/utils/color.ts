@@ -133,3 +133,23 @@ export const moneyColors = {
     unpaid: "text-pink-600",
     finished: "text-teal-600",
 };
+
+export const daypickerCSS = `
+.my-selected:not([disabled]) { 
+    font-weight: bold; 
+    border: 2px solid #4338ca;
+}
+.my-selected:hover:not([disabled]) { 
+    border-color: #6366f1;
+    color: #6366f1;
+}
+.my-today { 
+    font-weight: bold;
+    font-size: 140%; 
+    color: #10b981;
+}
+.my-scheduled {
+    font-weight: bold; 
+    border: 2px solid #4338ca;
+}
+`;

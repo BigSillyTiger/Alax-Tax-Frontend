@@ -7,6 +7,7 @@ import { usePayslipStore, useStaffWLStore } from "@/configs/zustore";
 import { atStaff } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { auToISO, checkDateRange } from "@/lib/time";
+import { daypickerCSS } from "@/configs/utils/color";
 
 /**
  * @description job assignment day picker
@@ -65,29 +66,9 @@ const RangedDayPicker: FC = () => {
         newDeduct && setDeduction(newDeduct);
     }, [newDeduct, setDeduction]);
 
-    const css = `
-        .my-selected:not([disabled]) { 
-            font-weight: bold; 
-            border: 2px solid #4338ca;
-        }
-        .my-selected:hover:not([disabled]) { 
-            border-color: #6366f1;
-            color: #6366f1;
-        }
-        .my-today { 
-            font-weight: bold;
-            font-size: 140%; 
-            color: #15803d;
-        }
-        .my-scheduled {
-            font-weight: bold; 
-            border: 2px solid #4338ca;
-        }
-        `;
-
     return (
         <div className={styles.reactDatepicker}>
-            <style>{css}</style>
+            <style>{daypickerCSS}</style>
             <DayPicker
                 showOutsideDays
                 showWeekNumber

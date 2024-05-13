@@ -4,6 +4,7 @@ import { DayPicker } from "react-day-picker";
 import "./datepickerstyle.css";
 import styles from "./datepicker.module.css";
 import { useJobAssignStore } from "@/configs/zustore";
+import { daypickerCSS } from "@/configs/utils/color";
 
 /**
  * @description job assignment day picker
@@ -14,29 +15,10 @@ const JADayPicker: FC = () => {
     const setDate = useJobAssignStore((state) => state.setDate);
     const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
     const scheduledDays = currentWLUnion.map((wl) => new Date(wl.wl_date));
-    const css = `
-        .my-selected:not([disabled]) { 
-            font-weight: bold; 
-            border: 2px solid #4338ca;
-        }
-        .my-selected:hover:not([disabled]) { 
-            border-color: #6366f1;
-            color: #6366f1;
-        }
-        .my-today { 
-            font-weight: bold;
-            font-size: 140%; 
-            color: #15803d;
-        }
-        .my-scheduled {
-            font-weight: bold; 
-            border: 2px solid #4338ca;
-        }
-        `;
 
     return (
         <div className={styles.reactDatepicker}>
-            <style>{css}</style>
+            <style>{daypickerCSS}</style>
             <DayPicker
                 showOutsideDays
                 showWeekNumber

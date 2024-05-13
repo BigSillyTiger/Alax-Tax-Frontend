@@ -15,9 +15,16 @@ const CloseBtn: FC<Tprop> = ({
 }) => {
     const { t } = useTranslation();
     return (
-        <button type="button" className="-m-2.5 p-2.5" onClick={onClick}>
+        <button
+            type="button"
+            className="-m-2.5 p-2.5 ring-0 outline-none"
+            onClick={onClick}
+        >
             <span className="sr-only">{srStr ? srStr : t("btn.close")}</span>
-            <XMarkIcon className={xStyle} aria-hidden="true" />
+            <XMarkIcon
+                className={`${xStyle} ring-0 outline-none`}
+                aria-hidden="true"
+            />
         </button>
     );
 };
