@@ -140,10 +140,10 @@ const MJobEdit = () => {
     const mainContent = (
         <Form onSubmit={onSubmit} className="grid grid-cols-1 gap-y-2">
             <div className="col-span-1 flex flex-col sm:flex-row gap-x-2 mb-1">
-                <StaffCard staff={worklog} className="grow-1" />
+                <StaffCard staff={worklog} className="" />
                 <WorkInfoCard
                     work={worklog}
-                    className="grow-1"
+                    className="grow-1 w-full"
                     editable={isManager}
                 />
             </div>

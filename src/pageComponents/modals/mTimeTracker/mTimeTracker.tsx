@@ -78,9 +78,9 @@ const MTimeTracker = () => {
     const mainContent = (
         <div className={`grid grid-cols-1 gap-x-2 overflow-y-auto`}>
             {/* info */}
-            <div className="col-span-1 flex flex-col sm:flex-row gap-x-2 mb-2">
-                <StaffCard staff={worklog} className="grow-1" />
-                <WorkInfoCard work={worklog} className="grow-1" />
+            <div className="col-span-1 flex flex-col sm:flex-row gap-x-2 mb-2 w-full">
+                <StaffCard staff={worklog} className="" />
+                <WorkInfoCard work={worklog} className="grow-1 w-full" />
             </div>
             {/* time */}
             {isManager ? (
