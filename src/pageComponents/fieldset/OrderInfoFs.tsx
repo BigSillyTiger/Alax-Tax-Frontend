@@ -14,7 +14,7 @@ const OrderInfoFs: FC<Tprops> = ({ info, sFieldset = "", sLegend = "" }) => {
     return (
         <Fieldset
             title={t("label.orderInfo")}
-            sFieldset={`justify-evenly m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 my-2 mx-1 text-sm p-4 ${sFieldset}`}
+            sFieldset={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 my-2 mx-1 text-sm p-4 ${sFieldset}`}
             sLegend={`text-indigo-500 text-bold text-lg ${sLegend}`}
         >
             <div className="col-span-full break-words">
@@ -25,18 +25,22 @@ const OrderInfoFs: FC<Tprops> = ({ info, sFieldset = "", sLegend = "" }) => {
                     {info.oid}
                 </p>
             </div>
-            <div className="col-span-full break-words">
+            <div className="col-span-full text-wrap">
                 <p>
                     <b className="text-indigo-600">
                         {t("label.workAddr")}:&nbsp;
                     </b>
-                    {info.address},&nbsp;
-                    {info.suburb}
-                    ,&nbsp;
-                    {info.city},&nbsp;
-                    {info.state},&nbsp;
-                    {info.country},&nbsp;
-                    {info.postcode}
+                    {info.address +
+                        ", " +
+                        info.suburb +
+                        ", " +
+                        info.city +
+                        ", " +
+                        info.state +
+                        ", " +
+                        info.country +
+                        ", " +
+                        info.postcode}
                 </p>
             </div>
         </Fieldset>

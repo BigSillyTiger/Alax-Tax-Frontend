@@ -17,6 +17,7 @@ import { StatusBadge } from "@/components/Badge";
 import { useTranslation } from "react-i18next";
 import { Textarea } from "@/components/ui/textarea";
 import { ComponentPropsWithoutRef } from "react";
+import { linearLargeBG } from "@/configs/utils/color";
 
 type Tprops<T extends TassignedWork> = ComponentPropsWithoutRef<"div"> & {
     item: T;
@@ -80,10 +81,10 @@ const WorkLogCard = <T extends TassignedWork>({
     return (
         /* self-11 content-8 */
         <Card
-            className={`${className} mt-3 grid grid-cols-1 gap-x-4 sm:grid-cols-8 bg-indigo-50 py-2`}
+            className={`${className} mt-3 grid grid-cols-1 gap-x-4 sm:grid-cols-8 py-2 ${linearLargeBG}`}
         >
             {/* 3 col */}
-            <div className="col-span-3">
+            <div className="col-span-3 flex flex-col justify-start gap-y-1">
                 <div className="col-span-full row-span-2">
                     <UserIcon
                         fName={item.first_name}
@@ -122,14 +123,22 @@ const WorkLogCard = <T extends TassignedWork>({
                 >
                     {selectedDate ? selectedDate.toDateString() : ""}
                 </SingleField>
-                <StatusBadge value={item.wl_status} />
+                <div>
+                    <StatusBadge value={item.wl_status} />
+                </div>
             </div>
             {/* 5 col */}
             <div className="col-span-5">
                 {/* time area */}
-                <Fieldset
-                    title={t("label.workTime")}
-                    sFieldset="p-2 justify-evenly grid grid-cols-4 gap-x-2 gap-y-2"
+                <label
+                    htmlFor="timeCard"
+                    className="mx-2 text-slate-500 font-bold"
+                >
+                    {t("label.workTime")}
+                </label>
+                <Card
+                    id="timeCard"
+                    className="p-2 justify-evenly grid grid-cols-4 gap-x-2 gap-y-2"
                 >
                     <div className="col-span-2 row-span-1">
                         <label htmlFor="s_time" className="mx-2">
@@ -187,12 +196,12 @@ const WorkLogCard = <T extends TassignedWork>({
                             className="text-bold text-lime-600 text-2xl"
                         />
                     </div>
-                </Fieldset>
+                </Card>
                 {/* note area */}
-                <div className="">
+                <div className="mt-1">
                     <label
                         htmlFor="wl_note"
-                        className="mx-2 text-indigo-600 text-md text-bold"
+                        className="mx-2 text-slate-500 font-bold"
                     >
                         {t("label.workNote")}
                     </label>

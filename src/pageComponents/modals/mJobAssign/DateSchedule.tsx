@@ -51,65 +51,51 @@ const DateSchedule: FC = () => {
         <Fieldset
             title={
                 <>
-                    {t("label.today") + ": "}
+                    {t("label.scheduleDate") + ": "}
                     {/* click today to jump back to today */}
-                    <button
-                        className="text-green-600"
-                        onClick={() => setDate(new Date())}
-                    >
-                        {new Date().toDateString()}
-                    </button>
-                </>
-            }
-            sFieldset={`justify-evenly m-3 grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-8 my-2 mx-1 text-sm p-4`}
-            sLegend={`text-lg`}
-        >
-            {/* date picker area */}
-            <div className="col-span-full md:col-span-5 lg:col-span-full xl:col-span-5">
-                <div className="font-semibold text-indigo-500 text-bold my-2 ml-2">
                     {selectedDate != undefined ? (
-                        <>
-                            {t("modal.tips.selectedDate")}
-                            <span className="text-black">
-                                {selectedDate.toDateString()}
-                            </span>
-                        </>
+                        <span className="text-green-700 font-bold">
+                            {selectedDate.toDateString()}
+                        </span>
                     ) : (
                         t("modal.tips.noDateSelected")
                     )}
-                </div>
-                <Card className="flex justify-center h-auto w-auto">
+                </>
+            }
+            sFieldset={`flex flex-col sm:flex-row gap-y-2 lg:justify-center items-center px-2 h-[80dvh] sm:h-[57dvh] overflow-y-hidden overflow-x-hidden`}
+            sLegend={`text-lg`}
+        >
+            {/* date picker area */}
+            <div className="">
+                {/* <div className="flex justify-center h-auto w-auto"> */}
+                <div>
                     {isTooSmallScreen ? <InputDatePicker /> : <JADayPicker />}
-                </Card>
+                </div>
             </div>
 
             {/* assigned dates area */}
-            <div className="col-span-full md:col-span-3 lg:col-span-full xl:col-span-3">
-                <div className="font-semibold text-indigo-500 text-bold my-2 ml-2">
-                    {t("modal.tips.scheduledWork")}
-                </div>
-                <Card
-                    className={`overflow-y-auto flex flex-col justify-stretch max-h-[40dvh]`}
-                >
-                    {sortWorkLogs("dsc", currentWLUnion).map((item, index) => {
-                        return (
-                            <div key={index} className="my-1 w-full flex">
-                                <DateBtn
-                                    name={dateFormat(item.wl_date, "au")}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        setDate(new Date(item.wl_date));
-                                    }}
-                                    className="grow"
-                                    onDelete={() => {
-                                        handleDelete(index);
-                                    }}
-                                />
-                            </div>
-                        );
-                    })}
-                </Card>
-            </div>
+
+            <Card
+                className={`h-full w-full mx-1 overflow-y-auto flex flex-col gap-y-2`}
+            >
+                {sortWorkLogs("dsc", currentWLUnion).map((item, index) => {
+                    return (
+                        <div key={index} className="my-1 w-full flex">
+                            <DateBtn
+                                name={dateFormat(item.wl_date, "au")}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setDate(new Date(item.wl_date));
+                                }}
+                                className="grow"
+                                onDelete={() => {
+                                    handleDelete(index);
+                                }}
+                            />
+                        </div>
+                    );
+                })}
+            </Card>
         </Fieldset>
     );
 };

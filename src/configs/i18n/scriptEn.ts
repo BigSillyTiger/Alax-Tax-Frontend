@@ -246,6 +246,7 @@ const en = {
             serviceList: "Services List",
             show: "Show",
             switch: "Switch",
+            scheduleDate: "Schedule Date",
             service: "Service",
             services: "Services",
             staff: "Staff",

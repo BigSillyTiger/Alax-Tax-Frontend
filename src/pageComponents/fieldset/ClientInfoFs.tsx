@@ -21,7 +21,7 @@ const ClientInfoFs: FC<Tprops> = ({
     return (
         <Fieldset
             title={title}
-            sFieldset={`justify-evenly m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 my-2 mx-1 text-sm p-4 ${sFieldset}`}
+            sFieldset={`grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 my-2 mx-1 text-sm p-4 ${sFieldset}`}
             sLegend={`text-indigo-500 text-bold text-lg ${sLegend}`}
         >
             <div className="col-span-3">
@@ -52,8 +52,17 @@ const ClientInfoFs: FC<Tprops> = ({
             <div className="col-span-6">
                 <p>
                     <b className="text-indigo-600">{t("label.address")}: </b>{" "}
-                    {client?.address}, {client?.suburb}, {client?.city},{" "}
-                    {client?.state}, {client?.country}, {client?.postcode}
+                    {client?.address +
+                        ", " +
+                        client?.suburb +
+                        ", " +
+                        client?.city +
+                        ", " +
+                        client?.state +
+                        ", " +
+                        client?.country +
+                        ", " +
+                        client?.postcode}
                 </p>
             </div>
         </Fieldset>

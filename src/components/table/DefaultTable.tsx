@@ -159,14 +159,16 @@ const PTable = <T extends object>({
                                           width: cell.column.getSize(),
                                       }}
                                   >
-                                      <PSDelBtn
-                                          data={row.original as Tpayslip}
-                                          setData={
-                                              setData as (
-                                                  data: Tpayslip
-                                              ) => void
-                                          }
-                                      />
+                                      <div className="flex justify-center items-center">
+                                          <PSDelBtn
+                                              data={row.original as Tpayslip}
+                                              setData={
+                                                  setData as (
+                                                      data: Tpayslip
+                                                  ) => void
+                                              }
+                                          />
+                                      </div>
                                   </td>
                               );
                           }
@@ -189,7 +191,6 @@ const PTable = <T extends object>({
                       row.getIsExpanded() && (
                           <tr>
                               <td colSpan={row.getVisibleCells().length}>
-                                  {/* 2nd row is a custom 1 cell row */}
                                   <SubTable data={row.original} />
                               </td>
                           </tr>

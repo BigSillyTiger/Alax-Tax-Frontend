@@ -1,3 +1,4 @@
+import { linearLargeBG } from "@/configs/utils/color";
 import type { ComponentPropsWithoutRef, FC } from "react";
 
 type Tprops = ComponentPropsWithoutRef<"div">;
@@ -8,7 +9,7 @@ const SubtableCard: FC<Tprops> = ({ className, children, onClick }) => {
             className={`
             relative  py-2 mt-3 mb-2 mx-10
             ring-0 ring-opacity-25 rounded-lg p-3 
-            bg-[linear-gradient(0deg,#eef2ff_20.8%,#c7d2fe_94.3%)]
+            ${linearLargeBG}
             drop-shadow-lg
             ${className}
             after:contents-[''] after:bg-indigo-200

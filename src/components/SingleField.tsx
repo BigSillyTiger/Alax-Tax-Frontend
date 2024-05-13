@@ -18,7 +18,9 @@ const SingleField: FC<Tprops> = ({
                 {label}
                 :&nbsp;
             </div>
-            <span className={`text-md ${spanClass}`}>{children}</span>
+            <div className={`w-full text-md text-wrap break-all ${spanClass}`}>
+                {children}
+            </div>
         </div>
     );
 };

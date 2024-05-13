@@ -153,3 +153,6 @@ export const daypickerCSS = `
     border: 2px solid #4338ca;
 }
 `;
+
+export const linearLargeBG =
+    "bg-[linear-gradient(0deg,#eef2ff_20.8%,#c7d2fe_94.3%)]";

@@ -6,7 +6,7 @@ const Amail: FC<Tprops> = ({ href }) => {
     return (
         <a
             href={`mailto:+${href}`}
-            className="underline underline-offset-4 text-blue-500"
+            className="w-full text-wrap underline underline-offset-4 text-blue-500"
         >
             {href}
         </a>

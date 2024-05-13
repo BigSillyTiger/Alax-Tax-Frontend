@@ -71,10 +71,10 @@ const MJobAssign = () => {
     const mainContent = (
         <Form onSubmit={onSubmit} className="grid grid-cols-1 gap-y-3 gap-x-4">
             <div
-                className={`grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[77dvh] lg:h-auto`}
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-y-2 gap-x-4 h-[77dvh]`}
             >
                 {/* left area */}
-                <div className="col-span-1 lg:col-span-4 grid grid-cols-1">
+                <div className="col-span-1 flex flex-col h-full">
                     {/* client fieldset */}
                     <ClientInfoFs
                         client={clientOrder.client_info}
@@ -88,7 +88,7 @@ const MJobAssign = () => {
                     <DateSchedule />
                 </div>
                 {/* right area */}
-                <div className="col-span-1 lg:col-span-4 grid grid-cols-1">
+                <div className="col-span-1 flex flex-col">
                     {/* assigned staff area */}
                     <AssignedStaff />
                     {/* select staff area */}

@@ -25,7 +25,7 @@ const AssignedStaff: FC = () => {
     return (
         <Fieldset
             title={t("label.assignedStaff")}
-            sFieldset={`col-span-full lg:col-span-5 my-2 mx-1 h-[28dvh] md:h-[38dvh] lg:h-[45dvh] overflow-y-auto p-4`}
+            sFieldset={`my-2 mx-1 h-[60dvh] lg:h-[45dvh] overflow-y-auto p-4`}
         >
             {scheduledWork.length > 0 ? (
                 scheduledWork.map((item) => (
