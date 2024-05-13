@@ -349,6 +349,7 @@ const en = {
             updateWorkHours: "错误：更新工作小时失败",
             updateWL: "错误：更新工作日志。",
             fileTooLarge: "错误: 上传文件太大。",
+            invalidTime: "错误：工作时间数据异常",
         },
         toastW: {
             selectDate: "请先选择一个日期。",

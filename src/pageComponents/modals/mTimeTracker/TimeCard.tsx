@@ -12,6 +12,8 @@ import { statusColor } from "@/configs/utils/color";
 import { joinAllValues } from "@/lib/utils";
 import { TstatusColor } from "@/configs/types";
 import { Separator } from "@/components/ui/separator";
+import { BreakInputRO } from "@/components/input";
+import WorkInput from "@/components/input/WorkInput";
 
 type Tprops = {
     isDisabled?: boolean;
@@ -69,7 +71,7 @@ const TimeCard: FC<Tprops> = ({ isDisabled }) => {
 
                 <Separator className="border-indigo-300" />
 
-                <div className="flex flex-row flex-wrap justify">
+                <div className="flex flex-row flex-wrap justify-between">
                     {/* start */}
                     <div className="flex flex-col items-center">
                         <label
@@ -84,7 +86,7 @@ const TimeCard: FC<Tprops> = ({ isDisabled }) => {
                             step="60"
                             value={worklog.s_time}
                             readOnly
-                            className={`text-bold text-3xl w-auto text-center text-indigo-500 m-2 p-2`}
+                            className={`text-bold text-3xl w-auto text-center text-indigo-500 m-2 p-2 border-2 border-indigo-100`}
                         />
                     </div>
                     {/* end */}
@@ -101,7 +103,7 @@ const TimeCard: FC<Tprops> = ({ isDisabled }) => {
                             step="60"
                             value={worklog.e_time}
                             readOnly
-                            className={`text-bold text-3xl text-center w-auto text-indigo-500 m-2 p-2`}
+                            className={`text-bold text-3xl text-center w-auto text-indigo-500 m-2 p-2 border-2 border-indigo-100`}
                         />
                     </div>
                     {/* break hour */}
@@ -112,14 +114,7 @@ const TimeCard: FC<Tprops> = ({ isDisabled }) => {
                         >
                             {t("label.break")}
                         </label>
-                        <Input
-                            id="b_hour"
-                            type="time"
-                            step="60"
-                            value={breakTime}
-                            readOnly
-                            className={`text-bold text-3xl w-auto text-amber-500 text-center m-2 p-2`}
-                        />
+                        <BreakInputRO value={breakTime} />
                     </div>
                     {/* work hour */}
                     <div className="flex flex-col items-center">
@@ -129,14 +124,15 @@ const TimeCard: FC<Tprops> = ({ isDisabled }) => {
                         >
                             {t("label.workTime")}
                         </label>
-                        <Input
+                        {/* <Input
                             id="w_time"
                             type="time"
                             step="60"
                             readOnly
                             value={workTime}
                             className="text-bold text-3xl w-auto text-center text-lime-600 m-2 p-2"
-                        />
+                        /> */}
+                        <WorkInput value={workTime} />
                     </div>
                 </div>
             </Card>

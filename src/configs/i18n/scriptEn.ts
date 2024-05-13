@@ -354,6 +354,7 @@ const en = {
             updateWorkHours: "Error: Updating Work Hours Failed",
             updateWL: "Error: Updating Work Log.",
             fileTooLarge: "Error: File is too large.",
+            invalidTime: "Error: Invalid Working Time Input",
         },
         toastW: {
             selectDate: "Please select a date first.",

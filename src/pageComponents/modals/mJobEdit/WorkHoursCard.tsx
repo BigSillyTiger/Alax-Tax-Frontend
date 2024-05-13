@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import { calWorkTime, isWorkHoursValid } from "@/lib/time";
 import { useWLHoursStore } from "@/configs/zustore/wlHoursStore";
 import Card from "@/components/Card";
-import { TimeInput } from "@/components/input";
+import { BreakInput, TimeInput } from "@/components/input";
+import WorkInput from "@/components/input/WorkInput";
 
 type Tprops = ComponentPropsWithoutRef<"div">;
 
@@ -36,11 +37,10 @@ const WorkHoursCard = ({ className }: Tprops) => {
                 </label>
                 <TimeInput
                     id="s_time"
-                    type="start"
                     value={s_time}
                     isValid={isValid}
                     onChange={(e) => setSTime(e.target.value)}
-                    className=""
+                    className="w-[65%]"
                 />
             </div>
             <div className="col-span-3 row-span-2 flex flex-col items-center">
@@ -52,11 +52,10 @@ const WorkHoursCard = ({ className }: Tprops) => {
                 </label>
                 <TimeInput
                     id="e_time"
-                    type="end"
                     value={e_time}
                     isValid={isValid}
                     onChange={(e) => setETime(e.target.value)}
-                    className=""
+                    className="w-[65%]"
                 />
             </div>
             <div className="col-span-3 row-span-1 flex flex-col items-center">
@@ -66,25 +65,21 @@ const WorkHoursCard = ({ className }: Tprops) => {
                 >
                     {t("label.break")}
                 </label>
-                <TimeInput
-                    id="b_hour"
-                    type="break"
-                    value={b_hour}
+                <BreakInput
                     isValid={isValid}
-                    onChange={(e) => setBHour(e.target.value)}
-                    className=""
+                    value={b_hour}
+                    onChange={setBHour}
+                    className="w-[65%]"
                 />
             </div>
             <div className="col-span-3 row-span-1 flex flex-col items-center">
-                <label htmlFor="w_time" className="mx-2 text-lg font-bold">
+                <label
+                    htmlFor="w_time"
+                    className="mx-2 text-lg font-bold text-lime-700"
+                >
                     {t("label.workTime")}
                 </label>
-                <TimeInput
-                    id="w_time"
-                    type="work"
-                    value={totalWH}
-                    className=""
-                />
+                <WorkInput value={totalWH} className="w-[65%]" />
             </div>
         </Card>
     );

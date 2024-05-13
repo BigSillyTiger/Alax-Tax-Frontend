@@ -2,7 +2,6 @@ import SingleField from "@/components/SingleField";
 import UserIcon from "@/components/UserIcon";
 import { Amail, Atel } from "@/components/aLinks";
 import Card from "@/components/Card";
-import { Input } from "@/components/ui/input";
 import { TassignedWork } from "@/configs/schema/workSchema";
 import { useJobAssignStore } from "@/configs/zustore";
 import { calWorkTime } from "@/lib/time";
@@ -15,9 +14,11 @@ import {
 import { StatusBadge } from "@/components/Badge";
 import { useTranslation } from "react-i18next";
 import { Textarea } from "@/components/ui/textarea";
-import { ComponentPropsWithoutRef } from "react";
+import { ChangeEvent, ComponentPropsWithoutRef, useState } from "react";
 import { linearLargeBG } from "@/configs/utils/color";
 import Label from "@/components/Label";
+import { BreakInputRO, TimeInput } from "@/components/input";
+import WorkInput from "@/components/input/WorkInput";
 
 type Tprops<T extends TassignedWork> = ComponentPropsWithoutRef<"div"> & {
     item: T;
@@ -28,11 +29,14 @@ const WorkLogCard = <T extends TassignedWork>({
     className,
 }: Tprops<T>) => {
     const { t } = useTranslation();
+    const [totalWH] = useState(
+        calWorkTime(item.s_time, item.e_time, item.b_hour)
+    );
     const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
     const setWorkLogs = useJobAssignStore((state) => state.setWorkLogs);
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
 
-    const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleTimeChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newWL = currentWLUnion.map((wl) => {
             if (wl.fk_oid === item.fk_oid) {
                 return {
@@ -58,7 +62,7 @@ const WorkLogCard = <T extends TassignedWork>({
         setWorkLogs(newWL);
     };
 
-    const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleNoteChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const newWL = currentWLUnion.map((wl) => {
             if (wl.fk_oid === item.fk_oid) {
                 return {
@@ -145,39 +149,34 @@ const WorkLogCard = <T extends TassignedWork>({
                         <Label htmlFor="s_time" className="mx-2 font-normal">
                             {t("label.start")}
                         </Label>
-                        <Input
+                        <TimeInput
                             id="s_time"
-                            type="time"
-                            step="60"
-                            onChange={handleTimeChange}
+                            readOnly
                             value={item.s_time ? item.s_time : "00:00"}
-                            className="text-bold text-indigo-500 text-2xl"
+                            onChange={handleTimeChange}
+                            className="w-[65%]"
                         />
                     </div>
                     <div className="col-span-2 row-span-1">
                         <Label htmlFor="e_time" className="mx-2 font-normal">
                             {t("label.end")}
                         </Label>
-                        <Input
+                        <TimeInput
                             id="e_time"
-                            type="time"
-                            step="60"
-                            onChange={handleTimeChange}
+                            readOnly
                             value={item.e_time ? item.e_time : "00:00"}
-                            className="text-bold text-indigo-500 text-2xl"
+                            onChange={handleTimeChange}
+                            className="w-[65%]"
                         />
                     </div>
                     <div className="col-span-2 row-span-1">
                         <Label htmlFor="b_hour" className="mx-2 font-normal">
                             {t("label.break")}
                         </Label>
-                        <Input
+                        <BreakInputRO
                             id="b_hour"
-                            type="time"
-                            step="60"
-                            value={item.b_hour ? item.b_hour : "00:00"}
-                            onChange={handleTimeChange}
-                            className="text-bold text-amber-600 text-2xl"
+                            value={item.b_hour}
+                            className="w-[67%] ml-1.5"
                         />
                     </div>
                     <div className="col-span-2 row-span-1">
@@ -187,18 +186,7 @@ const WorkLogCard = <T extends TassignedWork>({
                         >
                             {t("label.workTime")}
                         </Label>
-                        <Input
-                            id="total_time"
-                            type="time"
-                            step="60"
-                            readOnly
-                            value={calWorkTime(
-                                item.s_time,
-                                item.e_time,
-                                item.b_hour
-                            )}
-                            className="text-bold text-lime-600 text-2xl"
-                        />
+                        <WorkInput value={totalWH} className="w-[67%] ml-1.5" />
                     </div>
                 </Card>
                 {/* note area */}
