@@ -58,7 +58,7 @@ const MJobAssign = () => {
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-
+        console.log("---> current wl union: ", currentWLUnion);
         submit(
             { values: JSON.stringify(currentWLUnion), req: "jobAssign" },
             {

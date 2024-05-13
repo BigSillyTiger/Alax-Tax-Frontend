@@ -14,6 +14,11 @@ type Tprops = ComponentPropsWithoutRef<"div"> & {
     type: TtimeBtnStyles;
 };
 
+/**
+ * @description used in worklog table to show time
+ * @param param0
+ * @returns
+ */
 const TimeBtn = ({ data, type }: Tprops) => {
     const [, setModalOpen] = useAtom(atModalOpen);
     const [, setWorkLog] = useAtom(atWorkLogTableRow);
@@ -38,10 +43,44 @@ const TimeBtn = ({ data, type }: Tprops) => {
         }
     })();
 
+    //
+    const compareTime = () => {
+        // Split the time strings into hours and minutes
+        const [hoursS, minutesS] = data.s_time.split(":").map(Number);
+        const [hoursE, minutesE] = data.e_time.split(":").map(Number);
+
+        if (data.s_time === data.e_time && data.s_time === "00:00") {
+            return 0;
+        }
+
+        // Compare hours
+        if (hoursS < hoursE) {
+            return 1;
+        } else if (hoursS > hoursE) {
+            return -1;
+        } else {
+            if (minutesS < minutesE) {
+                return 1;
+            } else if (minutesS > minutesE) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    };
+
+    const breakStyle = compareTime();
+
     const style = () => {
-        return time === "00:00"
-            ? timeBtnStyleMap.default
-            : timeBtnStyleMap[type];
+        if (type === "breakTime") {
+            return !breakStyle
+                ? timeBtnStyleMap.default
+                : timeBtnStyleMap[type];
+        } else {
+            return time === "00:00"
+                ? timeBtnStyleMap.default
+                : timeBtnStyleMap[type];
+        }
     };
 
     return (

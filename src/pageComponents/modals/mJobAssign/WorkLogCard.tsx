@@ -38,7 +38,10 @@ const WorkLogCard = <T extends TassignedWork>({
                 return {
                     ...wl,
                     assigned_work: wl.assigned_work.map((aw) => {
-                        if (aw.fk_uid === item.fk_uid) {
+                        if (
+                            aw.fk_uid === item.fk_uid &&
+                            aw.wl_date === item.wl_date
+                        ) {
                             return {
                                 ...aw,
                                 [e.target.id]: e.target.value,
@@ -61,7 +64,10 @@ const WorkLogCard = <T extends TassignedWork>({
                 return {
                     ...wl,
                     assigned_work: wl.assigned_work.map((aw) => {
-                        if (aw.fk_uid === item.fk_uid) {
+                        if (
+                            aw.fk_uid === item.fk_uid &&
+                            aw.wl_date === item.wl_date
+                        ) {
                             return {
                                 ...aw,
                                 wl_note: e.target.value,
