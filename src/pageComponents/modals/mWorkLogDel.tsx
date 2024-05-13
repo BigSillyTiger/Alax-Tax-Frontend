@@ -67,7 +67,7 @@ const MWorkLogDel: FC = memo(() => {
                 </div>
                 <Fieldset
                     title={t("label.timeInfo")}
-                    sFieldset="col-span-full mt-3 p-3 grid grid-cols-2 gap-x-3 gap-y-2"
+                    sFieldset="col-span-full grid grid-cols-2 gap-x-3 gap-y-2"
                 >
                     <div className="col-span-full">
                         <p>

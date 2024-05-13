@@ -12,14 +12,15 @@ type Tprops = {
     register: UseFormReturn<TstaffForm>["register"];
     watch: UseFormReturn<TstaffForm>["watch"];
     control: UseFormReturn<TstaffForm>["control"];
+    sFieldset?: string;
 };
 
-const RoleSelection: FC<Tprops> = ({ register, watch, control }) => {
+const RoleSelection: FC<Tprops> = ({ register, watch, control, sFieldset }) => {
     const { t } = useTranslation();
 
     return (
         <Fieldset
-            sFieldset={`mt-2 justify-normal grow flex flex-col justify-around`}
+            sFieldset={`flex flex-col justify-around ${sFieldset}`}
             title={
                 <p className="mb-1">
                     <Trans

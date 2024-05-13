@@ -74,7 +74,7 @@ const MJobAssign = () => {
                 className={`grid grid-cols-1 lg:grid-cols-2 gap-y-2 gap-x-4 h-[77dvh]`}
             >
                 {/* left area */}
-                <div className="col-span-1 flex flex-col h-full">
+                <div className="col-span-1 flex flex-col h-full gap-y-2">
                     {/* client fieldset */}
                     <ClientInfoFs
                         client={clientOrder.client_info}

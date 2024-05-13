@@ -1,8 +1,8 @@
 import type { FC } from "react";
-import Card from "@/components/Card";
 import { TorderForm } from "@/configs/schema/orderSchema";
 import { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import Fieldset from "@/components/Fieldset";
 
 type Tprops = {
     register: UseFormReturn<TorderForm>["register"];
@@ -14,7 +14,10 @@ const DetailsContent: FC<Tprops> = ({ register, calTotalGst, calTotal }) => {
     const { t } = useTranslation();
 
     return (
-        <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+        <Fieldset
+            title={t("label.orderDetail")}
+            sFieldset="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6"
+        >
             {/* order satus */}
             <div className="sm:col-span-3">
                 <label
@@ -58,6 +61,7 @@ const DetailsContent: FC<Tprops> = ({ register, calTotalGst, calTotal }) => {
                         {...register("deposit", {
                             valueAsNumber: true,
                         })}
+                        readOnly
                         type="number"
                         step="0.01"
                         min={0}
@@ -78,6 +82,7 @@ const DetailsContent: FC<Tprops> = ({ register, calTotalGst, calTotal }) => {
                 <div className="mt-1">
                     <input
                         {...register("gst", { valueAsNumber: true })}
+                        readOnly
                         type="number"
                         step="0.01"
                         min={0}
@@ -101,6 +106,7 @@ const DetailsContent: FC<Tprops> = ({ register, calTotalGst, calTotal }) => {
                         {...register("total", {
                             valueAsNumber: true,
                         })}
+                        readOnly
                         type="number"
                         step="0.01"
                         min={0}
@@ -110,7 +116,7 @@ const DetailsContent: FC<Tprops> = ({ register, calTotalGst, calTotal }) => {
                     />
                 </div>
             </div>
-        </Card>
+        </Fieldset>
     );
 };
 

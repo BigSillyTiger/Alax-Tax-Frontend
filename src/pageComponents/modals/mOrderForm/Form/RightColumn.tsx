@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import { useTranslation } from "react-i18next";
 import DescContent from "./DescContent";
 import {
     FieldArrayWithId,
@@ -36,34 +35,29 @@ const RightColumn: FC<Tprops> = ({
     swap,
     onClose,
 }) => {
-    const { t } = useTranslation();
     const navigation = useNavigation();
 
     return (
         <div className="col-span-1 lg:col-span-5 grid grid-cols-1">
-            <fieldset className="col-span-full">
-                <legend className="text-indigo-500 text-bold">
-                    {t("label.serviceList")}:
-                </legend>
-                <DescContent
-                    register={register}
-                    watch={watch}
-                    setValue={setValue}
-                    fields={fields}
-                    remove={remove}
-                    swap={swap}
+            <DescContent
+                register={register}
+                watch={watch}
+                setValue={setValue}
+                fields={fields}
+                remove={remove}
+                swap={swap}
+                sFieldset="col-span-full"
+            />
+            {/* append btn - adding a new service */}
+            <AppendNewService append={append} />
+            <div className="col-span-full row-span-2">
+                {/* btns */}
+                <SubmitBtn
+                    onClick={() => trigger()}
+                    onClose={onClose}
+                    navState={navigation.state}
                 />
-                {/* append btn - adding a new service */}
-                <AppendNewService append={append} />
-                <div className="col-span-full row-span-2">
-                    {/* btns */}
-                    <SubmitBtn
-                        onClick={() => trigger()}
-                        onClose={onClose}
-                        navState={navigation.state}
-                    />
-                </div>
-            </fieldset>
+            </div>
         </div>
     );
 };

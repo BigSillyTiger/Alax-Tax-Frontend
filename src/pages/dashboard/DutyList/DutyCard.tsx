@@ -14,7 +14,7 @@ const DutyCard: FC<Tprops> = ({ worklogs, className }) => {
     return (
         <Fieldset
             title={t("label.todayDuty")}
-            sFieldset={`p-3 flex flex-col gap-y-2 overflow-y-auto overflow-x-hidden ${className}`}
+            sFieldset={`flex flex-col gap-y-2 overflow-y-auto overflow-x-hidden ${className}`}
         >
             {!worklogs.length && <p>{t("tips.noDutyToday")}</p>}
             {worklogs.map((wl) => {

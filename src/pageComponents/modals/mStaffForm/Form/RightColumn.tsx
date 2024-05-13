@@ -36,6 +36,7 @@ const RightColumn: FC<Tprops> = ({
                 register={register}
                 watch={watch}
                 control={control}
+                sFieldset="grow"
             />
         </div>
     );

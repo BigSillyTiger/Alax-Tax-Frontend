@@ -1,6 +1,7 @@
 import { XBtn } from "@/components/btns";
 import Card from "@/components/Card";
 import DataList from "@/components/dataList";
+import Fieldset from "@/components/Fieldset";
 import Label from "@/components/Label";
 import { atSUData } from "@/configs/atoms";
 import { TorderForm, TorderService } from "@/configs/schema/orderSchema";
@@ -27,6 +28,7 @@ type Tprops = {
     fields: FieldArrayWithId<TorderService>[];
     remove: UseFieldArrayRemove;
     swap: UseFieldArraySwap;
+    sFieldset?: string;
 };
 
 const DescContent: FC<Tprops> = ({
@@ -36,6 +38,7 @@ const DescContent: FC<Tprops> = ({
     fields,
     setValue,
     swap,
+    sFieldset,
 }) => {
     const { t } = useTranslation();
     const [uniData] = useAtom(atSUData);
@@ -70,7 +73,10 @@ const DescContent: FC<Tprops> = ({
     ) : null;
 
     return (
-        <Card className="my-2 mx-1 lg:h-[65dvh] overflow-y-auto">
+        <Fieldset
+            title={t("label.serviceList")}
+            sFieldset={`lg:h-[65dvh] overflow-y-auto ${sFieldset}`}
+        >
             {fields.length ? (
                 fields.map((field, index) => {
                     return (
@@ -320,7 +326,7 @@ const DescContent: FC<Tprops> = ({
                     {t("tips.noServices")}
                 </span>
             )}
-        </Card>
+        </Fieldset>
     );
 };
 

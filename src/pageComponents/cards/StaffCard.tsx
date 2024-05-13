@@ -13,7 +13,7 @@ const StaffCard = ({ staff, className }: Tprops) => {
     return (
         <Fieldset
             title={t("label.staffInfo")}
-            sFieldset={`m-3 px-4 flex flex-col gap-x-6 gap-y-2 ${className}`}
+            sFieldset={`flex flex-col gap-x-6 gap-y-2 ${className}`}
         >
             <div className="flex justify-evenly">
                 <span className="font-bold text-lg">

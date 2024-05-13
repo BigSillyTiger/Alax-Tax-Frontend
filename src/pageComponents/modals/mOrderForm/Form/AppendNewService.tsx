@@ -51,7 +51,7 @@ const AppendNewService: FC<Tprops> = ({ append }) => {
     };
 
     return (
-        <div className="col-span-full grid grid-cols-6 mt-4 pt-2 gap-x-3 border-t-2 border-indigo-300 border-dashed">
+        <div className="col-span-full grid grid-cols-6 my-3 gap-x-3">
             <div className="col-span-4 ">
                 <label htmlFor="sTitle" className="text-indigo-500 text-bold">
                     {t("modal.tips.pickService")}:

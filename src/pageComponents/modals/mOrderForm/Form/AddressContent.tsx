@@ -1,4 +1,4 @@
-import Card from "@/components/Card";
+import Fieldset from "@/components/Fieldset";
 import StatesOptions from "@/components/stateOptions";
 import { TorderForm } from "@/configs/schema/orderSchema";
 import type { FC } from "react";
@@ -8,13 +8,17 @@ import { useTranslation } from "react-i18next";
 type Tprops = {
     register: UseFormReturn<TorderForm>["register"];
     errors: FieldErrors<TorderForm>;
+    sFieldset?: string;
 };
 
-const AddressContent: FC<Tprops> = ({ register, errors }) => {
+const AddressContent: FC<Tprops> = ({ register, errors, sFieldset }) => {
     const { t } = useTranslation();
 
     return (
-        <Card className="my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+        <Fieldset
+            title={t("label.workAddr")}
+            sFieldset={`grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 ${sFieldset}`}
+        >
             {/* street */}
             <div className="col-span-full">
                 <label
@@ -137,7 +141,7 @@ const AddressContent: FC<Tprops> = ({ register, errors }) => {
                     />
                 </div>
             </div>
-        </Card>
+        </Fieldset>
     );
 };
 

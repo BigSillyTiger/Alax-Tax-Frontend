@@ -34,8 +34,8 @@ const PaymentsContent: FC<Tprops> = ({
     const content = fields?.length ? (
         <Fieldset
             title={title}
-            sFieldset={`my-2 mx-1 text-sm lg:h-[45dvh] overflow-y-auto ${sFieldset}`}
-            sLegend={`text-indigo-500 text-bold text-lg ${sLegend}`}
+            sFieldset={`lg:h-[45dvh] overflow-y-auto ${sFieldset}`}
+            sLegend={sLegend}
         >
             {fields.map((field, index) => {
                 return (

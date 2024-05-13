@@ -26,7 +26,7 @@ const RightColumn: FC<Tprops> = ({ totalPaid, trigger, prepend, onClose }) => {
         <div className="col-span-1 lg:col-span-5 grid grid-cols-1">
             <Fieldset
                 title={t("label.serviceList")}
-                sFieldset={`col-span-full my-2 mx-1 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[60dvh] overflow-y-auto`}
+                sFieldset={`col-span-full grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 lg:h-[60dvh] overflow-y-auto`}
             >
                 <div className="col-span-full mr-4">
                     <OrderDescCard data={clientOrder.order_services} />

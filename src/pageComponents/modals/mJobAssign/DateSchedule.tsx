@@ -62,7 +62,7 @@ const DateSchedule: FC = () => {
                     )}
                 </>
             }
-            sFieldset={`flex flex-col sm:flex-row gap-y-2 lg:justify-center items-center px-2 h-[80dvh] sm:h-[57dvh] overflow-y-hidden overflow-x-hidden`}
+            sFieldset={`flex flex-col sm:flex-row gap-y-2 lg:justify-center items-center px-2 h-[80dvh] sm:h-[50dvh] overflow-y-hidden overflow-x-hidden`}
         >
             {/* date picker area */}
             <div className="">

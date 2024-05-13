@@ -25,7 +25,7 @@ const WorkInfoCard = ({ work, className, editable = false }: Tprops) => {
     return (
         <Fieldset
             title={t("label.workInfo")}
-            sFieldset={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 pl-3 pr-5 pb-3 ${className}`}
+            sFieldset={`grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6${className}`}
         >
             <SingleField
                 label={<IdentificationIcon />}

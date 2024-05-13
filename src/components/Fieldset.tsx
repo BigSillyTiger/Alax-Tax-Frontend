@@ -10,7 +10,7 @@ type Tprops = {
 const Fieldset: FC<Tprops> = ({ sFieldset, sLegend, title, children }) => {
     return (
         <fieldset
-            className={`py-2 border-2 border-indigo-100 bg-slate-50 rounded-lg ${sFieldset}`}
+            className={`px-4 py-2 border-2 border-indigo-200 bg-slate-50 rounded-lg ${sFieldset}`}
         >
             {title && (
                 <legend

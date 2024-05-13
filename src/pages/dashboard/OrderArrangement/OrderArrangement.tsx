@@ -16,7 +16,7 @@ const OrderArrangement: FC<Tprops> = ({ className }) => {
     return (
         <Fieldset
             title={t("label.workArrangement")}
-            sFieldset={`flex flex-col lg:flex-row gap-x-2 gap-y-2 lg:justify-center items-center px-2 overflow-y-auto lg:overflow-y-hidden overflow-x-hidden ${className}`}
+            sFieldset={`flex flex-col lg:flex-row gap-x-2 gap-y-2 lg:justify-center items-center overflow-y-auto lg:overflow-y-hidden overflow-x-hidden ${className}`}
         >
             <div className="">
                 <ORDayPicker />

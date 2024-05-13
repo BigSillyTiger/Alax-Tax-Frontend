@@ -1,4 +1,3 @@
-import { ClientInfoCard } from "@/pageComponents/cards";
 import type { FC } from "react";
 import AddressContent from "./AddressContent";
 import DetailsContent from "./DetailsContent";
@@ -7,6 +6,7 @@ import { atOrder } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { TorderForm } from "@/configs/schema/orderSchema";
 import { FieldErrors, UseFormReturn } from "react-hook-form";
+import { ClientInfoFs } from "@/pageComponents/fieldset";
 
 type Tprops = {
     register: UseFormReturn<TorderForm>["register"];
@@ -27,33 +27,24 @@ const LeftColumn: FC<Tprops> = ({
     return (
         <div className="col-span-1 lg:col-span-3 grid grid-cols-1">
             {/* client info */}
-            <fieldset className="">
-                <legend className="text-indigo-500 text-bold">
-                    <b>{t("label.clientInfo")}:</b>
-                </legend>
-                <ClientInfoCard
-                    client={clientOrder.client_info}
-                    className="my-2 mx-1 text-sm"
-                />
-            </fieldset>
+            <ClientInfoFs
+                title={t("label.clientInfo")}
+                client={clientOrder.client_info}
+                sFieldset={`col-span-full my-2 mx-1`}
+            />
             {/* addres */}
-            <fieldset className="">
-                <legend className="text-indigo-500 text-bold">
-                    <b>{t("label.workAddr")}:</b>
-                </legend>
-                <AddressContent register={register} errors={errors} />
-            </fieldset>
+            <AddressContent
+                register={register}
+                errors={errors}
+                sFieldset={`col-span-full my-2 mx-1`}
+            />
+
             {/* details */}
-            <fieldset className="">
-                <legend className="text-indigo-500 text-bold">
-                    {t("label.orderDetail")}:
-                </legend>
-                <DetailsContent
-                    register={register}
-                    calTotalGst={calTotalGst}
-                    calTotal={calTotal}
-                />
-            </fieldset>
+            <DetailsContent
+                register={register}
+                calTotalGst={calTotalGst}
+                calTotal={calTotal}
+            />
         </div>
     );
 };

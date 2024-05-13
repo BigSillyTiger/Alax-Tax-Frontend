@@ -14,7 +14,7 @@ const OrderInfoFs: FC<Tprops> = ({ info, sFieldset = "" }) => {
     return (
         <Fieldset
             title={t("label.orderInfo")}
-            sFieldset={`m-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 my-2 mx-1 text-sm p-4 ${sFieldset}`}
+            sFieldset={`grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 ${sFieldset}`}
         >
             <div className="col-span-full break-words text-lg">
                 <p>
