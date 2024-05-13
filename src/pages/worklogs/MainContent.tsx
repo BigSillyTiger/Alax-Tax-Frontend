@@ -22,9 +22,7 @@ const MainContent: FC = () => {
     const wlColumns = useWLConlumnsDef();
     // remove menu bar for employee
     const newWLColumns =
-        currentAdmin.role === ROLES.manager
-            ? wlColumns
-            : wlColumns.slice(0, -1);
+        currentAdmin.role === ROLES.manager ? wlColumns : wlColumns.slice(1);
 
     const newWorklogs = useMemo(
         () =>
