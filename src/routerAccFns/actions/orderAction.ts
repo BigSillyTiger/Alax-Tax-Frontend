@@ -81,7 +81,7 @@ export const ordersAction = async ({
     else if ("PUT" === request.method && data.get("req") === "orderStatus") {
         const result = await API_ORDER.orderChangeStatus({
             oid: data.get("oid"),
-            status: data.get("status"),
+            status: data.get("status")?.toString().toLocaleLowerCase(),
         });
         return result;
     } else if (

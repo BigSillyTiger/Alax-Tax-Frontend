@@ -25,7 +25,10 @@ export const wlAction = async ({
         return result;
     } else if ("PUT" === request.method && data.get("req") === "wlStatus") {
         const wlid = data.get("wlid") as string;
-        const status = data.get("status") as string;
+        const status = data
+            .get("status")
+            ?.toString()
+            .toLocaleLowerCase() as string;
         return await API_WORKLOGS.wlSingleUpdateStatus(wlid, status);
     } else {
         return {

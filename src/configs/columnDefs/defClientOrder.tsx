@@ -127,15 +127,15 @@ const useClientOrderColumnsDef = () => {
                             info.row.original.paid
                         );
                         return (
-                            <span
+                            <div
                                 className={`${balance ? moneyColors.unpaid : moneyColors.finished} text-base font-bold flex justify-center items-center`}
                             >
                                 {balance ? (
                                     balance
                                 ) : (
-                                    <CheckCircleIcon className="size-10" />
+                                    <CheckCircleIcon className="size-9" />
                                 )}
-                            </span>
+                            </div>
                         );
                     },
                     filterFn: rangeFilterFn,
