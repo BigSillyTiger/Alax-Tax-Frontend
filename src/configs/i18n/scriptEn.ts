@@ -327,6 +327,7 @@ const en = {
             delOrder: "Deleted An Order.",
             delStaff: "Deleted A Staff.",
             delWorkLog: "Deleted Work Log.",
+            deleteClient: "Deleted A Client.",
             updateClient: "Updated Client Information.",
             updateCompany: "Updated Company Information.",
             updateOrder: "Updated Order Details.",
@@ -342,7 +343,12 @@ const en = {
             addOrder: "Error: Adding New Order Failed",
             addPayslip: "Error: Adding A New Payslip.",
             addedNewSU: "Error: Adding A New Service/Unit.",
-            delOrder: "Error: Deleting Order Failed",
+            delStaff:
+                "Error: Deleting Staff Failed. This Staff May Have Worklogs.",
+            deleteClient:
+                "Error: Deleting Client Failed. This Client May Have Job Orders.",
+            delOrder:
+                "Error: Deleting Order Failed. Check If The Order meets the condition below: 1. Order Status is 'Pending' or 'Cancelled'. 2. Order has no Worklogs. 3. Order has no Payments.",
             delWorkLog: "Error: Deleted Work Log.",
             existedPE: "Email or Phone already existed",
             updateOrder: "Error: Updating Order Failed",
@@ -355,6 +361,7 @@ const en = {
             updateWL: "Error: Updating Work Log.",
             fileTooLarge: "Error: File is too large.",
             invalidTime: "Error: Invalid Working Time Input",
+            responseFailed: "Error: Server Response Failed",
         },
         toastW: {
             selectDate: "Please select a date first.",

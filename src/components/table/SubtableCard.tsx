@@ -12,7 +12,7 @@ const SubtableCard: FC<Tprops> = ({ className, children, onClick }) => {
             ${linearLargeBG}
             drop-shadow-lg
             ${className}
-            after:contents-[''] after:bg-indigo-200
+            after:contents-[''] after:bg-indigo-100
             after:size-6 after:absolute
             after:-top-2 after:left-20
             after:-z-10

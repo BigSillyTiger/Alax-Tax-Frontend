@@ -65,6 +65,10 @@ const Orders: FC = () => {
                     toastSuccess(t("toastS.updateWorkLog"));
                 }
                 break;
+            case RES_STATUS.FAILED_DEL:
+                setModalOpen(mOpenOps.default);
+                toastError(t("toastF.delOrder"));
+                break;
             case RES_STATUS.FAILED:
                 if (modalOpen === mOpenOps.add) {
                     toastError(t("toastF.addOrder"));
@@ -74,6 +78,9 @@ const Orders: FC = () => {
                     actionData.status = RES_STATUS.DEFAULT;
                 } else if (modalOpen === mOpenOps.del) {
                     toastError(t("toastF.delOrder"));
+                } else {
+                    setModalOpen(mOpenOps.default);
+                    toastError(t("toastF.responseFailed"));
                 }
                 break;
             default:

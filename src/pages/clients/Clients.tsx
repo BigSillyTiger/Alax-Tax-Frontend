@@ -11,6 +11,7 @@ import { atClient, atInfoConflict, atModalOpen } from "@/configs/atoms";
 import { RES_STATUS } from "@/configs/types";
 import MainContent from "./MainContent";
 import ErrorTips from "@/components/ErrorTips";
+import { mOpenOps } from "@/configs/utils/modal";
 
 const Clients: FC = () => {
     const { allPromise } = useLoaderData() as {
@@ -35,14 +36,14 @@ const Clients: FC = () => {
                     ? t("toastS.updateClient")
                     : t("toastS.addClient");
                 setInfoConflict(status);
-                setModalOpen("");
+                setModalOpen(mOpenOps.default);
                 setClient(RESET);
                 toastSuccess(successMessage);
                 break;
             }
             case RES_STATUS.SUC_DEL:
                 // Delete a client
-                setModalOpen("");
+                setModalOpen(mOpenOps.default);
                 toastSuccess(t("toastS.deleteClient"));
                 break;
             case RES_STATUS.FAILED_DUP_PHONE:
@@ -51,6 +52,14 @@ const Clients: FC = () => {
                 // Duplicated register info
                 setInfoConflict(status);
                 toastError(t("toastS.duplicateRegistration"));
+                break;
+            case RES_STATUS.FAILED_DEL:
+                setModalOpen(mOpenOps.default);
+                toastError(t("toastF.deleteClient"));
+                break;
+            case RES_STATUS.FAILED:
+                setModalOpen(mOpenOps.default);
+                toastError(t("toastF.responseFailed"));
                 break;
             default:
                 break;

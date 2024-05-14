@@ -4,7 +4,11 @@ import { TwlTableRow } from "@/configs/schema/workSchema";
 import { TstatusColor } from "@/configs/types";
 import { mOpenOps } from "@/configs/utils/modal";
 import { useTodayWLStore } from "@/configs/zustore/todayWLStore";
-import { colorWithStaffUid, statusColor } from "@/configs/utils/color";
+import {
+    colorWithStaffUid,
+    linearLargeBG,
+    statusColor,
+} from "@/configs/utils/color";
 import { joinAllValues } from "@/lib/utils";
 import { useAtom } from "jotai";
 import type { FC } from "react";
@@ -29,7 +33,7 @@ const WorkCard: FC<Tprops> = ({ data, clickAble = true }) => {
 
     return (
         <Card
-            className="cursor-pointer h-auto grid grid-cols-5 gap-y-2 border-indigo-300"
+            className={`cursor-pointer h-auto grid grid-cols-5 gap-y-2 border-indigo-300 ${linearLargeBG}`}
             onClick={onClick}
         >
             <div className="col-span-3">

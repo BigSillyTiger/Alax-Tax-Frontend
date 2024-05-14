@@ -9,7 +9,6 @@ import {
     UseFormReturn,
 } from "react-hook-form";
 import { Tpayment } from "@/configs/schema/orderSchema";
-import { toastError } from "@/lib/toaster";
 import { atOrder } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { useRouterStore } from "@/configs/zustore";
@@ -42,10 +41,10 @@ const FormContent: FC<Tprops> = ({
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        if (!fields.length) {
+        /* if (!fields.length) {
             toastError("Please add one payment at least.");
             return;
-        }
+        } */
         //console.log("-> click submit err: ", errors);
         const isValid = await trigger("payments");
         if (isValid) {

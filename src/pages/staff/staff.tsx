@@ -76,6 +76,14 @@ const Staff: FC = () => {
                 setInfoConflict(actionData?.status);
                 toastError(t("toastF.existedPE"));
                 break;
+            case RES_STATUS.FAILED_DEL:
+                setModalOpen(mOpenOps.default);
+                toastError(t("toastF.delStaff"));
+                break;
+            case RES_STATUS.FAILED:
+                setModalOpen(mOpenOps.default);
+                toastError(t("toastF.responseFailed"));
+                break;
             default:
                 break;
         }

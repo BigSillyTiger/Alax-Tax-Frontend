@@ -27,7 +27,7 @@ export const ordersAction = async ({
                 state: orData.state,
                 country: orData.country,
                 postcode: orData.postcode,
-                status: orData.status,
+                status: orData.status.toLocaleLowerCase() as string,
                 deposit: orData.deposit,
                 gst: orData.gst,
                 total: orData.total,

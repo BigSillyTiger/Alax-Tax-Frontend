@@ -1,3 +1,4 @@
+import { RES_STATUS } from "@/configs/types";
 import apis from "./axios";
 import {
     CLIENT_ALL,
@@ -57,6 +58,14 @@ export const clientSingleDel = async (cid: string): Promise<Tresponse> => {
         return response.data;
     } catch (err: unknown) {
         console.log("-> delete client failed: ", err);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((err as any).response.status === RES_STATUS.FAILED_DEL) {
+            return {
+                status: RES_STATUS.FAILED_DEL,
+                msg: "client has one or more orders",
+                data: "",
+            };
+        }
         return {
             status: 400,
             msg: "failed in delete client",

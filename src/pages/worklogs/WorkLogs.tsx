@@ -48,6 +48,14 @@ const WorkLogs: FC = () => {
                 setModalOpen(mOpenOps.default);
                 toastError(t("toastF.delWorkLog"));
                 break;
+            case RES_STATUS.FAILED_DEL:
+                setModalOpen(mOpenOps.default);
+                toastError(t("toastF.delWorkLog"));
+                break;
+            case RES_STATUS.FAILED:
+                setModalOpen(mOpenOps.default);
+                toastError(t("toastF.responseFailed"));
+                break;
             default:
                 break;
         }

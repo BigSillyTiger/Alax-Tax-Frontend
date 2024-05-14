@@ -12,6 +12,7 @@ import {
     JOB_ASSIGN,
     ORDER_ALL_ARRANGEMENT,
 } from "./req_list";
+import { RES_STATUS } from "@/configs/types";
 
 export const orderAll = async () => {
     try {
@@ -75,7 +76,7 @@ export const orderDel = async (data: unknown): Promise<Tresponse> => {
         return response.data;
     } catch (err: unknown) {
         return {
-            status: 400,
+            status: RES_STATUS.FAILED_DEL,
             msg: "failed in deleting client order",
             data: "",
         };

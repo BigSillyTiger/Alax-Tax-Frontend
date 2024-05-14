@@ -29,6 +29,7 @@ const TimerResetBtn: FC<Tprops> = ({
             hover:text-slate-50
             hover:ring-slate-50
             hover:transition-all hover:duration-300 hover:ease-in-out
+            active:scale-95
             ${className}`}
             onClick={onClick}
         >

@@ -74,7 +74,7 @@ const MOrderPay: FC = memo(() => {
     }, [newTotalPaid]);
 
     const onClose = () => {
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
         reset();
     };
 

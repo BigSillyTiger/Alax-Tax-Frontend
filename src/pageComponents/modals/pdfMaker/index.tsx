@@ -12,7 +12,7 @@ const MpdfMaker: FC = () => {
     const { t } = useTranslation();
 
     const onClose = () => {
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
     };
 
     return (

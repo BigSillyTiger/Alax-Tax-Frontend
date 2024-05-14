@@ -9,6 +9,7 @@ import {
     STAFF_UPDATE_PW,
 } from "./req_list";
 import { Tstaff, TstaffForm } from "@/configs/schema/staffSchema";
+import { RES_STATUS } from "@/configs/types";
 
 export const staffAll = async (): Promise<Tresponse> => {
     try {
@@ -60,6 +61,14 @@ export const staffSingleDel = async (uid: string): Promise<Tresponse> => {
         return response.data;
     } catch (err: unknown) {
         console.log("-> delete staff failed: ", err);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((err as any).response.status === RES_STATUS.FAILED_DEL) {
+            return {
+                status: RES_STATUS.FAILED_DEL,
+                msg: "staff has one or more orders",
+                data: "",
+            };
+        }
         return {
             status: 400,
             msg: "failed in delete staff",

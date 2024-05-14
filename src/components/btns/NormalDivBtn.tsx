@@ -3,7 +3,7 @@ import type { FC, ComponentPropsWithoutRef } from "react";
 type Tprops = ComponentPropsWithoutRef<"div">;
 
 /**
- * @description this btn is usually used as confirm btn
+ * @description this btn is usually used as confirm btn for table column toggle btn
  * @param param0
  * @returns
  */
@@ -16,6 +16,7 @@ const NormalDivBtn: FC<Tprops> = ({ children, onClick, className }) => {
         hover:text-slate-50
         hover:ring-slate-50
         hover:transition-all hover:duration-300 hover:ease-in-out
+        active:scale-95
         ${className}`}
             onClick={onClick}
         >

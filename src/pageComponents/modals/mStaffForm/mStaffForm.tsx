@@ -91,7 +91,7 @@ const MStaffForm: FC = memo(() => {
 
     const onClose = () => {
         setInfoConflict(RES_STATUS.SUCCESS);
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
         reset(initStaff);
     };
 

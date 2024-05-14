@@ -21,7 +21,6 @@ const MOrderDel: FC = memo(() => {
     const currentRouter = useRouterStore((state) => state.currentRouter);
 
     const handleDeleteClient = async (oid: string) => {
-        console.log("-> handle delete order click: ", oid);
         await submit(
             { oid },
             {
@@ -61,7 +60,7 @@ const MOrderDel: FC = memo(() => {
     );
 
     const onClose = () => {
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
     };
 
     const mainContent = (

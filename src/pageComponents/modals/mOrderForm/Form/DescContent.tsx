@@ -1,4 +1,4 @@
-import { XBtn } from "@/components/btns";
+import { Nbtn, XBtn } from "@/components/btns";
 import Card from "@/components/Card";
 import DataList from "@/components/dataList";
 import Fieldset from "@/components/Fieldset";
@@ -288,9 +288,9 @@ const DescContent: FC<Tprops> = ({
                                 {fields.length > 1 && (
                                     <div className="col-span-1 flex flex-col justify-around">
                                         {index != 0 && (
-                                            <button
+                                            <Nbtn
                                                 type="button"
-                                                className="h-10 rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50"
+                                                className="h-10"
                                                 onClick={() => {
                                                     swap(index, index - 1);
                                                 }}
@@ -299,12 +299,12 @@ const DescContent: FC<Tprops> = ({
                                                     className="h-6 w-6 m-auto"
                                                     aria-hidden="true"
                                                 />
-                                            </button>
+                                            </Nbtn>
                                         )}
                                         {index + 1 !== fields.length && (
-                                            <button
+                                            <Nbtn
                                                 type="button"
-                                                className="h-10 rounded-md bg-indigo-400 text-slate-200 hover:bg-indigo-600 hover:text-slate-50"
+                                                className="h-10"
                                                 onClick={() => {
                                                     swap(index, index + 1);
                                                 }}
@@ -313,7 +313,7 @@ const DescContent: FC<Tprops> = ({
                                                     className="h-6 w-6 m-auto"
                                                     aria-hidden="true"
                                                 />
-                                            </button>
+                                            </Nbtn>
                                         )}
                                     </div>
                                 )}

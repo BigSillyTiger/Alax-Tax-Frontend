@@ -69,9 +69,9 @@ const StyledBtn2: FC<Tprops> = ({
             after:hover:blur-md
             after:hover:transition-all after:hover:duration-300 
             after:hover:ease-in-out
-
             hover:text-slate-50
             hover:transition-all hover:duration-300 hover:ease-in-out
+            active:scale-95
             ${className}`}
             onClick={onClick}
         >
@@ -101,6 +101,7 @@ const StyledBtn3: FC<Tprops> = ({
             hover:text-slate-50
             hover:ring-slate-50
             hover:transition-all hover:duration-300 hover:ease-in-out
+            active:scale-95
             ${className}`}
             onClick={onClick}
         >

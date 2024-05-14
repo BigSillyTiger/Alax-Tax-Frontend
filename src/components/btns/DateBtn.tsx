@@ -14,6 +14,7 @@ const DateBtn: FC<Tprops> = ({ name, onClick, onDelete }) => {
             hover:bg-blue-500
             hover:text-white hover:border-transparent
             hover:transition-all hover:duration-500 hover:ease-in-out
+            active:scale-95
             `}
         >
             <button onClick={onClick} className="text-base grow">

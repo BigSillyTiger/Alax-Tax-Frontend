@@ -86,7 +86,7 @@ const TimeBtn = ({ data, type }: Tprops) => {
     return (
         <Button
             onClick={onClick}
-            className={`font-bold text-lg border-2 ${style()}`}
+            className={`font-bold text-lg border-2 ${style()} active:scale-95`}
         >
             {time}
         </Button>

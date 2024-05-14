@@ -60,7 +60,7 @@ const MUniDel: FC = memo(() => {
     );
 
     const onClose = () => {
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
     };
 
     const mainContent = (
@@ -75,7 +75,7 @@ const MUniDel: FC = memo(() => {
             <DelBtn
                 onClick={() => {
                     uniData && handleDeleteClient(uniData.id);
-                    setModalOpen("");
+                    setModalOpen(mOpenOps.default);
                 }}
                 onClose={onClose}
             />

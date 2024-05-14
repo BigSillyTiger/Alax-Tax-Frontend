@@ -2,6 +2,7 @@ import { Atel } from "@/components/aLinks";
 import Card from "@/components/Card";
 import { Badgepop } from "@/components/popover";
 import SingleField from "@/components/SingleField";
+import { linearLargeBG } from "@/configs/utils/color";
 import { useOrderArrangementStore } from "@/configs/zustore/orderArrangeStore";
 import { UserIcon, PhoneIcon, HomeIcon } from "@heroicons/react/24/outline";
 import type { FC } from "react";
@@ -21,7 +22,7 @@ const OrderArrangeList: FC = () => {
         currentOA && currentOA.arrangement && currentOA.arrangement.length ? (
             currentOA.arrangement.map((oa, index) => {
                 return (
-                    <Card key={index} className="m-2">
+                    <Card key={index} className={`m-2 ${linearLargeBG}`}>
                         <SingleField label={<UserIcon />}>
                             <div className="font-bold text-indigo-700">
                                 {oa.order.first_name +

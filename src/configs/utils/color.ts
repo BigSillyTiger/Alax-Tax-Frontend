@@ -154,5 +154,6 @@ export const daypickerCSS = `
 }
 `;
 
+//"bg-[linear-gradient(0deg,#eef2ff_20.8%,#c7d2fe_94.3%)]";
 export const linearLargeBG =
-    "bg-[linear-gradient(0deg,#eef2ff_20.8%,#c7d2fe_94.3%)]";
+    "bg-[linear-gradient(0deg,#f8fafc_20.8%,#e0e7ff_94.3%)]";

@@ -321,6 +321,7 @@ const en = {
             addedPayslip: "添加了新工资单。",
             delOrder: "删除了一个订单。",
             delStaff: "删除了一个员工。",
+            delClient: "删除了一个客户。",
             delWorkLog: "删除了工作日志。",
             updateClient: "更新了客户信息。",
             updateCompany: "更新了公司信息。",
@@ -337,6 +338,8 @@ const en = {
             addOrder: "错误：添加新订单失败",
             addPayslip: "错误：添加新工资单。",
             addedNewSU: "错误：添加新服务/单位。",
+            deleteClient:
+                "错误: 删除客户失败。请确保客户没有任何订单或工作日志。",
             delOrder: "错误：删除订单失败",
             delWorkLog: "错误：删除工作日志。",
             existedPE: "电子邮件或电话已存在",
@@ -350,6 +353,7 @@ const en = {
             updateWL: "错误：更新工作日志。",
             fileTooLarge: "错误: 上传文件太大。",
             invalidTime: "错误：工作时间数据异常",
+            responseFailed: "错误：服务器响应失败",
         },
         toastW: {
             selectDate: "请先选择一个日期。",

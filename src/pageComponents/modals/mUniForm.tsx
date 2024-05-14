@@ -96,11 +96,11 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
                 { method, action: "/setting" }
             );
         }
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
     };
 
     const onClose = () => {
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
         reset();
     };
 

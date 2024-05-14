@@ -65,7 +65,7 @@ const MOrderForm: FC = memo(() => {
     }, [clientOrder, reset, uniData, t]);
 
     const onClose = () => {
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
         reset();
     };
 

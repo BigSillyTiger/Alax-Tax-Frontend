@@ -36,7 +36,7 @@ const MClientForm: FC = memo(() => {
 
     const onClose = () => {
         setInfoConflict(RES_STATUS.SUCCESS);
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
         setClient(RESET);
     };
 

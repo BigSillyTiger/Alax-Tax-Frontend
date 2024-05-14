@@ -37,22 +37,22 @@ const Client: FC = () => {
                 } else if (modalOpen === mOpenOps.edit) {
                     toastSuccess(t("toastS.updateOrder"));
                 }
-                setModalOpen("");
+                setModalOpen(mOpenOps.default);
                 break;
             case RES_STATUS.SUC_DEL:
-                setModalOpen("");
+                setModalOpen(mOpenOps.default);
                 toastSuccess(t("toastS.delOrder"));
                 break;
             case RES_STATUS.SUC_UPDATE_STATUS:
-                setModalOpen("");
+                setModalOpen(mOpenOps.default);
                 toastSuccess(t("toastS.updateOrderStatus"));
                 break;
             case RES_STATUS.SUC_UPDATE:
-                setModalOpen("");
+                setModalOpen(mOpenOps.default);
                 toastSuccess(t("toastS.updateOrder"));
                 break;
             case RES_STATUS.SUC_UPDATE_PAYMENTS:
-                setModalOpen("");
+                setModalOpen(mOpenOps.default);
                 toastSuccess(t("toastS.updatePayment"));
                 break;
             case RES_STATUS.FAILED:

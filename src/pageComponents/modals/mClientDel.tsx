@@ -58,7 +58,7 @@ const MClientDel: FC = memo(() => {
     );
 
     const onClose = () => {
-        setModalOpen("");
+        setModalOpen(mOpenOps.default);
     };
 
     const mainContent = (
