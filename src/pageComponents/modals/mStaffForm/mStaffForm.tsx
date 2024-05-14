@@ -21,6 +21,8 @@ import {
 } from "@/configs/schema/staffSchema";
 import { RES_STATUS } from "@/configs/types";
 import FormContent from "./Form";
+import { useRouterStore } from "@/configs/zustore";
+import { genAction } from "@/lib/literals";
 
 const MStaffForm: FC = memo(() => {
     const submit = useSubmit();
@@ -28,6 +30,7 @@ const MStaffForm: FC = memo(() => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [, setInfoConflict] = useAtom(atInfoConflict);
     const [staff] = useAtom(atStaff);
+    const currentRouter = useRouterStore((state) => state.currentRouter);
 
     const {
         control,
@@ -80,11 +83,16 @@ const MStaffForm: FC = memo(() => {
         errors && console.log("-> staff add err: ", errors);
         if (errors) {
             const values = getValues();
+            console.log("---> staff form values: ", values);
             const method = !staff.uid ? "POST" : "PUT";
             const req = !staff.uid ? "addStaff" : "updateStaff";
             submit(
-                { ...values, currentRole: staff.role, req },
-                { method, action: "/staff" }
+                {
+                    ...values,
+                    currentRole: staff.role,
+                    req,
+                },
+                { method, action: genAction(currentRouter) }
             );
         }
     };

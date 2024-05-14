@@ -21,17 +21,28 @@ const SelectFilter = <T extends object>({ column, values }: Tprops<T>) => {
     const all = t("btn.all");
 
     const options = values.map((value) => {
-        const v = value.toLocaleLowerCase() as keyof typeof statusColor;
-        return (
-            //dynamically generated select options from faceted values feature
-            <SelectItem
-                value={value}
-                key={value}
-                className={`${statusColor[v].text} ${statusColor[v].fbg} ${statusColor[v].ftext}`}
-            >
-                {capFirstLetter(value)}
-            </SelectItem>
-        );
+        if (
+            column.columnDef.header?.toString().toLocaleLowerCase() === "status"
+        ) {
+            const v = value.toLocaleLowerCase() as keyof typeof statusColor;
+            return (
+                //dynamically generated select options from faceted values feature
+                <SelectItem
+                    value={value}
+                    key={value}
+                    className={`${statusColor[v].text} ${statusColor[v].fbg} ${statusColor[v].ftext}`}
+                >
+                    {capFirstLetter(value)}
+                </SelectItem>
+            );
+        } else {
+            return (
+                //dynamically generated select options from faceted values feature
+                <SelectItem value={value} key={value} className="">
+                    {capFirstLetter(value)}
+                </SelectItem>
+            );
+        }
     });
 
     return (

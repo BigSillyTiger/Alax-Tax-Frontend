@@ -6,45 +6,15 @@ import {
     useLoaderData,
     useNavigation,
 } from "react-router-dom";
-import { XCircleIcon } from "@heroicons/react/24/solid";
 import LoginCard from "@/pages/login/LoginCard";
 import { StyledBtn1 } from "@/components/btns/StyledBtns";
-//import Bganimation from "./Bganimation";
+import LoginErrorAlert from "./LoginErrorAlert";
 
 const Login: FC = () => {
     const navigation = useNavigation();
     const loaderData = useLoaderData();
     const { t } = useTranslation();
     const data = useActionData() as { actionErr: boolean } | null;
-
-    const LoginErrorAlert = () => {
-        return (
-            <div className="rounded-md bg-red-50 p-4 mt-4">
-                <div className="flex">
-                    <div className="flex-shrink-0">
-                        <XCircleIcon
-                            className="h-5 w-5 text-red-400"
-                            aria-hidden="true"
-                        />
-                    </div>
-                    <div className="ml-3">
-                        <h3 className="text-sm font-medium text-red-800">
-                            {t("login.text.errLoginTitle")}
-                        </h3>
-                        <div className="mt-2 text-sm text-red-700">
-                            <ul
-                                role="list"
-                                className="list-disc pl-5 space-y-1"
-                            >
-                                <li>{t("login.text.checkEmail")}</li>
-                                <li>{t("login.text.checkPW")}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    };
 
     return (
         <div className="flex min-h-[100dvh] flex-col justify-center py-12 sm:px-6 lg:px-8">

@@ -22,12 +22,14 @@ const CTh = <T extends object>({
     columnResizeMode = "onChange",
 }: Tprops<T>) => {
     const isMenu = header.column.id === "Menu";
-    const headerW = isMenu ? "w-2" : "w-auto";
-    const styleW = isMenu
-        ? {}
-        : {
-              width: header.getSize(),
-          };
+    const isAccess = header.column.id === "Access";
+    const headerW = isMenu || isAccess ? "w-2" : "w-auto";
+    const styleW =
+        isMenu || isAccess
+            ? {}
+            : {
+                  width: header.getSize(),
+              };
     return (
         <th
             className={`relative whitespace-nowrap px-2 text-sm font-semibold text-gray-900 capitalize text-center border-collapse border-indigo-200 border-2 ${className} ${headerW}`}
@@ -43,7 +45,7 @@ const CTh = <T extends object>({
             )}
 
             {/* resizer block */}
-            {!isMenu && (
+            {!isMenu && !isAccess && (
                 <div
                     onMouseDown={header.getResizeHandler()}
                     onTouchStart={header.getResizeHandler()}

@@ -5,10 +5,10 @@ const apis = axios.create({
     baseURL: `http://localhost:8080`,
     // playground
     //baseURL: `https://cpsoftware.com.au`,
+    //baseURL: `https://test.cssoftware.com.au`,
     // alex
     //baseURL: `https://tool.srclandscaping.com.au`,
     //baseURL: `https://test.srclandscaping.com.au`,
-    //baseURL: `https://test.cssoftware.com.au`,
 });
 
 export default apis;

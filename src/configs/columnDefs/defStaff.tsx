@@ -6,6 +6,7 @@ import { BellAlertIcon } from "@heroicons/react/24/solid";
 import { Atel, Amail } from "@/components/aLinks";
 import { ExpandBtn } from "@/components/table/tableBtn";
 import HoverTips from "@/components/HoverTips";
+import OnOff from "@/components/OnOff";
 
 /**
  * @description
@@ -21,7 +22,7 @@ const useStaffColumnsDef = () => {
         {
             id: "UID",
             header: i18n.t("label.uid"),
-            accessorFn: (data: TstaffWPayslip) => data.uid,
+            accessorKey: "uid",
             cell: (info: CellContext<TstaffWPayslip, unknown>) => {
                 return (
                     <ExpandBtn
@@ -92,6 +93,24 @@ const useStaffColumnsDef = () => {
             cell: (info: CellContext<TstaffWPayslip, unknown>) => (
                 <span className="text-wrap">{info.getValue<string>()}</span>
             ),
+        },
+        {
+            id: "Access",
+            header: i18n.t("label.access"),
+            accessorFn: (data: TstaffWPayslip) => (data.access ? "Yes" : "No"),
+            cell: (info: CellContext<TstaffWPayslip, unknown>) => (
+                <OnOff
+                    access={
+                        info
+                            .getValue<string>()
+                            .toString()
+                            .toLocaleLowerCase() as "yes" | "no"
+                    }
+                />
+            ),
+            meta: {
+                filterVariant: "select",
+            },
         },
     ];
     return staffColumns;

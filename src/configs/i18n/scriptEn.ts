@@ -6,6 +6,7 @@ const en = {
                 errLoginTitle: "Something wrong occured while login:",
                 checkEmail: "Please check your email address.",
                 checkPW: "Please check your password.",
+                contactManager: "Please try to contact manager for details.",
                 forgotPW: "Forgot your password?",
                 rememberMe: "Remember me",
                 pw: "Password",
@@ -35,13 +36,14 @@ const en = {
         },
         modal: {
             title: {
-                delete: "DELETE WARNING",
+                accessControl: "Login Access",
                 addClient: "Register New Client",
                 addOrder: "Add New Order",
                 addService: "Add New Service",
                 addStaff: "Register New Staff",
                 addUnit: "Add New Unit",
                 alert: "Alert",
+                delete: "DELETE WARNING",
                 editService: "Edit Service",
                 editUnit: "Edit Unit",
                 editOrder: "Edit Order",
@@ -136,6 +138,7 @@ const en = {
         label: {
             abn: "ABN",
             acc: "Account",
+            access: "Access",
             addr: "Addr",
             address: "Address",
             addrJob: "Job Address",

@@ -7,6 +7,7 @@ import { mOpenOps } from "@/configs/utils/modal";
 import PWSection from "./PWSection";
 import RoleSelection from "./RoleSelection";
 import PWResetBtn from "./PWResetBtn";
+import LoginAccessContent from "./LoginAccessContent";
 
 type Tprops = {
     register: UseFormReturn<TstaffForm>["register"];
@@ -31,6 +32,8 @@ const RightColumn: FC<Tprops> = ({
                 <PWSection register={register} watch={watch} errors={errors} />
             )}
             {modalOpen === mOpenOps.edit && <PWResetBtn onClose={onClose} />}
+
+            <LoginAccessContent control={control} />
 
             <RoleSelection
                 register={register}

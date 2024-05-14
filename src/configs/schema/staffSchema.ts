@@ -42,6 +42,7 @@ export const staffSchema = z.object({
         .nullable()
         .default("5000"),
     role: z.string().trim().default(defaultStaffRole),
+    access: z.boolean().default(true),
     dashboard: z.number().default(roleOptions[defaultStaffRole].dashboard),
     clients: z.number().default(roleOptions[defaultStaffRole].clients),
     orders: z.number().default(roleOptions[defaultStaffRole].orders),
