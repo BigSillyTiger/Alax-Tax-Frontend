@@ -24,17 +24,22 @@ const LoginAccessContent: FC<Tprops> = ({ control, sFieldset }) => {
             <Controller
                 control={control}
                 name="access"
-                render={({ field: { onChange, value } }) => (
-                    <>
-                        <span className="text-lg font-bold text-red-600">
-                            Off
-                        </span>
-                        <Switch checked={value} onCheckedChange={onChange} />
-                        <span className="text-lg font-bold text-green-600">
-                            On
-                        </span>
-                    </>
-                )}
+                render={({ field: { onChange, value } }) => {
+                    return (
+                        <>
+                            <span className="text-lg font-bold text-red-600">
+                                Off
+                            </span>
+                            <Switch
+                                checked={value}
+                                onCheckedChange={onChange}
+                            />
+                            <span className="text-lg font-bold text-green-600">
+                                On
+                            </span>
+                        </>
+                    );
+                }}
             />
         </Fieldset>
     );

@@ -51,8 +51,10 @@ export const staffAction = async ({
     ) {
         return await API_PAYSLIP.psSingleDel(data.get("psid") as string);
     } else if ("PUT" === request.method && data.get("req") === "updateStaff") {
-        console.log("---> staff action access1: ", data.get("access"));
-        console.log("---> staff action access2: ", Boolean(data.get("access")));
+        const access =
+            data.get("access") === "true" || data.get("access") === "1"
+                ? true
+                : false;
         return await API_STAFF.staffSingleUpdate(
             {
                 uid: data.get("uid"),
@@ -62,7 +64,7 @@ export const staffAction = async ({
                 email: data.get("email") as string,
                 address: data.get("address") as string | null,
                 role: data.get("role") as string,
-                access: data.get("access") === "true",
+                access,
                 password: "", // seperate password reset
                 pwConfirm: data.get("pwConfirm") as string,
                 suburb: data.get("suburb") as string | null,

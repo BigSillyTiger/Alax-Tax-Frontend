@@ -83,7 +83,6 @@ const MStaffForm: FC = memo(() => {
         errors && console.log("-> staff add err: ", errors);
         if (errors) {
             const values = getValues();
-            console.log("---> staff form values: ", values);
             const method = !staff.uid ? "POST" : "PUT";
             const req = !staff.uid ? "addStaff" : "updateStaff";
             submit(

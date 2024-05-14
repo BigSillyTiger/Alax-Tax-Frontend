@@ -17,6 +17,7 @@ export const adminStore = createStore<Tstate & Taction>((set) => ({
         first_name: "",
         last_name: "",
         role: "",
+        access: true,
         bsb: "",
         account: "",
         hr: staffStandardHR,
