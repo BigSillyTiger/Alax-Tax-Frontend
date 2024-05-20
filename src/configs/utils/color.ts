@@ -67,12 +67,12 @@ export const statusColor = {
         ftext: "focus:text-red-700",
         border: "border-red-600",
     },
-    unconfirmed: {
-        bg: "bg-amber-200",
-        fbg: "focus:bg-amber-200",
-        text: "text-amber-700",
-        ftext: "focus:text-amber-700",
-        border: "border-amber-600",
+    processing: {
+        bg: "bg-purple-200",
+        fbg: "focus:bg-purple-200",
+        text: "text-purple-700",
+        ftext: "focus:text-purple-700",
+        border: "border-purple-600",
     },
     confirmed: {
         bg: "bg-indigo-200",

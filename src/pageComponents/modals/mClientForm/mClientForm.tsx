@@ -25,6 +25,7 @@ const MClientForm: FC = memo(() => {
         register,
         reset,
         trigger,
+        control,
     } = useForm<Tclient>({
         resolver: zodResolver(clientNoIDSchema),
         defaultValues: client,
@@ -56,6 +57,7 @@ const MClientForm: FC = memo(() => {
                 errors={errors}
                 onClose={onClose}
                 getValues={getValues}
+                control={control}
             />
         </div>
     );

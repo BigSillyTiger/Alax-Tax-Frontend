@@ -8,17 +8,19 @@ import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { useAtom } from "jotai";
 import { PhoneIcon } from "lucide-react";
 import type { FC } from "react";
-import { FieldErrors, UseFormReturn } from "react-hook-form";
+import { Controller, FieldErrors, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import PWResetBtn from "./PWResetBtn";
+import { formPhone, PHONE_HOLDER } from "@/lib/literals";
 
 type Tprops = {
     register: UseFormReturn<TstaffForm>["register"];
-    onClose: () => void;
+    control: UseFormReturn<TstaffForm>["control"];
     errors: FieldErrors<TstaffForm>;
+    onClose: () => void;
 };
 
-const LeftColumn: FC<Tprops> = ({ register, onClose, errors }) => {
+const LeftColumn: FC<Tprops> = ({ register, control, onClose, errors }) => {
     const { t } = useTranslation();
     const [infoConflict] = useAtom(atInfoConflict);
     const currentAdmin = useAdminStore((state) => state.currentAdmin);
@@ -104,42 +106,55 @@ const LeftColumn: FC<Tprops> = ({ register, onClose, errors }) => {
                 </div>
             </div>
             {/* phone */}
-            <div className="sm:col-span-4">
-                <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                    {t("label.phone1")}
-                </label>
-                <div className="relative mt-1 rounded-md shadow-sm">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                        <PhoneIcon
-                            className="h-5 w-5 text-gray-400"
-                            aria-hidden="true"
-                        />
-                    </div>
-                    <input
-                        {...register("phone")}
-                        type="text"
-                        id="phone"
-                        autoComplete="tel"
-                        placeholder="0-xxx-xxx-xxx"
-                        className={`
-                outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10 
-                ${
-                    (infoConflict === RES_STATUS.FAILED_DUP_PHONE ||
-                        infoConflict === RES_STATUS.FAILED_DUP_P_E) &&
-                    " ring-2 ring-red-500 focus:ring-red-600 "
-                }
-                ${
-                    (infoConflict === RES_STATUS.SUCCESS ||
-                        infoConflict === RES_STATUS.FAILED_DUP_EMAIL) &&
-                    " ring-1 ring-gray-300 focus:ring-indigo-600 "
-                }
-            `}
-                    />
-                </div>
-            </div>
+            <Controller
+                name="phone"
+                control={control}
+                render={({ field: { onChange, value } }) => {
+                    return (
+                        <div className="sm:col-span-4">
+                            <label
+                                htmlFor="phone"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                            >
+                                {t("label.phone1")}
+                            </label>
+                            <div className="relative mt-1 rounded-md shadow-sm">
+                                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                    <PhoneIcon
+                                        className="h-5 w-5 text-gray-400"
+                                        aria-hidden="true"
+                                    />
+                                </div>
+                                <input
+                                    /* {...register("phone")} */
+                                    value={formPhone(value)}
+                                    onChange={onChange}
+                                    type="tel"
+                                    id="phone"
+                                    required
+                                    pattern={`[+]?[0-9]{4,14}`}
+                                    autoComplete="tel"
+                                    placeholder={PHONE_HOLDER}
+                                    className={`
+                        outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10 
+                        ${
+                            (infoConflict === RES_STATUS.FAILED_DUP_PHONE ||
+                                infoConflict === RES_STATUS.FAILED_DUP_P_E) &&
+                            " ring-2 ring-red-500 focus:ring-red-600 "
+                        }
+                        ${
+                            (infoConflict === RES_STATUS.SUCCESS ||
+                                infoConflict === RES_STATUS.FAILED_DUP_EMAIL) &&
+                            " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                        }
+                    `}
+                                />
+                            </div>
+                        </div>
+                    );
+                }}
+            />
+
             {/* address */}
             <div className="col-span-full">
                 <label

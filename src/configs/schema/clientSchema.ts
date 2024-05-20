@@ -28,7 +28,7 @@ export const clientSchema = z.object({
     suburb: z.string().trim().nullable().default(""),
     city: z.string().trim().nullable().default(""),
     state: z.string().trim().nullable().default(""),
-    country: z.string().trim().nullable().default(""),
+    country: z.string().trim().nullable().default("Australia"),
     postcode: z
         .string()
         //match 4 digits string which may start with 0

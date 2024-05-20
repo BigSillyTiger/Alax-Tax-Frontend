@@ -27,7 +27,7 @@ const en = {
             pending: "待定",
             ongoing: "进行中",
             cancelled: "已取消",
-            unconfirmed: "未确认",
+            processing: "审核中",
             confirmed: "已确认",
             resting: "休息",
             unpaid: "未付款",

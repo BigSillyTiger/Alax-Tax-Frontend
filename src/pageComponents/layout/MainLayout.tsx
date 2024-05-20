@@ -23,7 +23,7 @@ const MainLayout = () => {
     ];
 
     const unWL = useMemo(() => {
-        return allWorklogs.filter((wl) => wl.wl_status === "unconfirmed");
+        return allWorklogs.filter((wl) => wl.wl_status === "processing");
     }, [allWorklogs]);
     const unPS = useMemo(() => {
         return allPayslips.filter((ps) => ps.status === "pending");

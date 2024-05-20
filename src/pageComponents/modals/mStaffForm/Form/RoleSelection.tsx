@@ -1,7 +1,7 @@
 import Fieldset from "@/components/Fieldset";
 import type { FC } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import AccessTable from "../AccessTable";
+import AccessTable from "./AccessTable";
 import { TstaffForm } from "@/configs/schema/staffSchema";
 import { Controller, UseFormReturn } from "react-hook-form";
 import { RadioGroup } from "@headlessui/react";

@@ -32,6 +32,7 @@ const DebouncedInput: FC<Tprops> = ({
     return (
         <Input
             {...props}
+            type="search"
             className={`${className} h-6 mt-1 text-center`}
             value={value}
             onChange={(e) => setValue(e.target.value)}

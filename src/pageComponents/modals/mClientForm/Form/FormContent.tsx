@@ -3,10 +3,11 @@ import StatesOptions from "@/components/stateOptions";
 import { atClient, atInfoConflict } from "@/configs/atoms";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { RES_STATUS } from "@/configs/types";
+import { formPhone, PHONE_HOLDER } from "@/lib/literals";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { useAtom } from "jotai";
 import type { FC, FormEvent } from "react";
-import { FieldErrors, UseFormReturn } from "react-hook-form";
+import { Controller, FieldErrors, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Form, useNavigation, useSubmit } from "react-router-dom";
 
@@ -15,6 +16,7 @@ type Tprops = {
     trigger: UseFormReturn<Tclient>["trigger"];
     getValues: UseFormReturn<Tclient>["getValues"];
     errors: FieldErrors<Tclient>;
+    control: UseFormReturn<Tclient>["control"];
     onClose: () => void;
 };
 
@@ -23,6 +25,7 @@ const FormContent: FC<Tprops> = ({
     trigger,
     getValues,
     errors,
+    control,
     onClose,
 }) => {
     const { t } = useTranslation();
@@ -125,43 +128,59 @@ const FormContent: FC<Tprops> = ({
                     </div>
                 </div>
                 {/* phone */}
-                <div className="sm:col-span-4">
-                    <label
-                        htmlFor="phone"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                        {t("label.phone1")}
-                    </label>
-                    <div className="relative mt-1 rounded-md shadow-sm">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                            <PhoneIcon
-                                className="h-5 w-5 text-gray-400"
-                                aria-hidden="true"
-                            />
-                        </div>
-                        <input
-                            {...register("phone", { required: true })}
-                            type="text"
-                            id="phone"
-                            required
-                            autoComplete="tel"
-                            placeholder="0-xxx-xxx-xxx"
-                            className={`
-                        outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10 
-                        ${
-                            (infoConflict === RES_STATUS.FAILED_DUP_PHONE ||
-                                infoConflict === RES_STATUS.FAILED_DUP_P_E) &&
-                            " ring-2 ring-red-500 focus:ring-red-600 "
-                        }
-                        ${
-                            (infoConflict === RES_STATUS.SUCCESS ||
-                                infoConflict === RES_STATUS.FAILED_DUP_EMAIL) &&
-                            " ring-1 ring-gray-300 focus:ring-indigo-600 "
-                        }
-                    `}
-                        />
-                    </div>
-                </div>
+                <Controller
+                    name="phone"
+                    control={control}
+                    render={({ field: { onChange, value } }) => {
+                        return (
+                            <div className="sm:col-span-4">
+                                <label
+                                    htmlFor="phone"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    {t("label.phone1")}
+                                </label>
+                                <div className="relative mt-1 rounded-md shadow-sm">
+                                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                        <PhoneIcon
+                                            className="h-5 w-5 text-gray-400"
+                                            aria-hidden="true"
+                                        />
+                                    </div>
+                                    <input
+                                        /* {...register("phone", {
+                                            required: true,
+                                        })} */
+                                        value={formPhone(value)}
+                                        onChange={onChange}
+                                        type="tel"
+                                        id="phone"
+                                        pattern={`[+]?[0-9]{4,14}`}
+                                        required
+                                        autoComplete="tel"
+                                        placeholder={PHONE_HOLDER}
+                                        className={`
+                            outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 pl-10 
+                            ${
+                                (infoConflict === RES_STATUS.FAILED_DUP_PHONE ||
+                                    infoConflict ===
+                                        RES_STATUS.FAILED_DUP_P_E) &&
+                                " ring-2 ring-red-500 focus:ring-red-600 "
+                            }
+                            ${
+                                (infoConflict === RES_STATUS.SUCCESS ||
+                                    infoConflict ===
+                                        RES_STATUS.FAILED_DUP_EMAIL) &&
+                                " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                            }
+                        `}
+                                    />
+                                </div>
+                            </div>
+                        );
+                    }}
+                />
+
                 {/* address */}
                 <div className="col-span-full">
                     <label
@@ -180,6 +199,7 @@ const FormContent: FC<Tprops> = ({
                         />
                     </div>
                 </div>
+                {/* suburb */}
                 <div className="sm:col-span-2">
                     <label
                         htmlFor="suburb"
@@ -197,6 +217,7 @@ const FormContent: FC<Tprops> = ({
                         />
                     </div>
                 </div>
+                {/* city */}
                 <div className="sm:col-span-2">
                     <label
                         htmlFor="city"
@@ -214,6 +235,7 @@ const FormContent: FC<Tprops> = ({
                         />
                     </div>
                 </div>
+                {/* state */}
                 <div className="sm:col-span-2">
                     <label
                         htmlFor="state"
@@ -232,6 +254,7 @@ const FormContent: FC<Tprops> = ({
                         </select>
                     </div>
                 </div>
+                {/* country */}
                 <div className="sm:col-span-2">
                     <label
                         htmlFor="country"
@@ -277,7 +300,7 @@ const FormContent: FC<Tprops> = ({
                     </div>
                 </div>
             </div>
-            
+
             <SubmitBtn
                 onClick={() => trigger()}
                 onClose={onClose}

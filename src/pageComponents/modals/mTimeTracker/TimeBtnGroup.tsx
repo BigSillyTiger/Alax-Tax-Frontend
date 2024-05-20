@@ -58,7 +58,7 @@ const TimeBtnGroup: FC<Tprops> = ({ className }) => {
                             className="text-lg font-bold col-span-2"
                             disabled={
                                 worklog.wl_status === "confirmed" ||
-                                worklog.wl_status === "unconfirmed" ||
+                                worklog.wl_status === "processing" ||
                                 worklog.wl_status === "cancelled"
                             }
                             onClick={() =>
@@ -72,7 +72,7 @@ const TimeBtnGroup: FC<Tprops> = ({ className }) => {
                             className="text-lg font-bold col-span-2"
                             disabled={
                                 worklog.wl_status === "confirmed" ||
-                                worklog.wl_status === "unconfirmed"
+                                worklog.wl_status === "processing"
                             }
                             onClick={() =>
                                 handleClick(actionReqList.resumeTimer)
@@ -86,7 +86,7 @@ const TimeBtnGroup: FC<Tprops> = ({ className }) => {
                         className="text-lg font-bold col-span-2"
                         disabled={
                             worklog.wl_status === "confirmed" ||
-                            worklog.wl_status === "unconfirmed"
+                            worklog.wl_status === "processing"
                         }
                         onClick={() => handleClick(actionReqList.stopTimer)}
                     >

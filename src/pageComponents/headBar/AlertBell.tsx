@@ -21,7 +21,7 @@ import { routerPaths } from "@/configs/utils/router";
 /**
  * @description AlertBell component Display the number of:
  *              - pending payslips
- *              - unconfirmed worklogs
+ *              - processing worklogs
  * @returns
  */
 const AlertBell: FC = () => {
@@ -33,7 +33,7 @@ const AlertBell: FC = () => {
     );
 
     const unWorklog = useGlobalAlertStore((state) => state.unWorklog).filter(
-        (item) => item.wl_status === "unconfirmed"
+        (item) => item.wl_status === "processing"
     );
 
     const totalCount = unPayslip.length + unWorklog.length;

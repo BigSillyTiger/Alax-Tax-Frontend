@@ -47,7 +47,7 @@ const workLogSchema = z.object({
             z.literal("pending"),
             z.literal("ongoing"),
             z.literal("cancelled"),
-            z.literal("unconfirmed"),
+            z.literal("processing"),
             z.literal("confirmed"),
             z.literal("resting"),
             z.literal("paid"),

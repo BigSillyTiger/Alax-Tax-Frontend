@@ -39,6 +39,7 @@ const FormContent: FC<Tprops> = ({
                 <LeftColumn
                     register={register}
                     errors={errors}
+                    control={control}
                     onClose={onClose}
                 />
                 {isEmployee ? null : (

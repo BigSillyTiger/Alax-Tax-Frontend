@@ -28,7 +28,7 @@ const en = {
             pending: "Pending",
             ongoing: "Ongoing",
             cancelled: "Cancelled",
-            unconfirmed: "Unconfirmed",
+            processing: "Processing",
             confirmed: "Confirmed",
             resting: "Resting",
             unpaid: "Unpaid",
@@ -60,7 +60,7 @@ const en = {
                 updateStaff: "Update Staff Info",
             },
             tips: {
-                addUni: "The {{name}} description must <b>NOT</b> be duplecated.",
+                addUni: "The {{name}} description must <b>NOT</b> be duplicated.",
                 dataLost: "All unsaved data will be lost.",
                 delClient: "Are you sure to delete this client?",
                 delStaff: "Are you sure to delete this staff?",
@@ -69,8 +69,8 @@ const en = {
                 delWL: "Are you sure to delete this work log?",
                 noMatch: "Confirm Password <b>NOT Match</b>",
                 noDupAddr:
-                    "The email address and phone number must <b>NOT</b> be duplecated.",
-                addService: "description must NOT be duplecated",
+                    "The email address and phone number must <b>NOT</b> be duplicated.",
+                addService: "description must NOT be duplicated",
                 noAvailableWL:
                     "No available work log for generating new payslip.",
                 pickService: "Pick a service to append",
@@ -231,7 +231,7 @@ const en = {
             payTo: "Pay To",
             pending: "Pending",
             period: "Work Period",
-            pc: "Poscode",
+            pc: "Postcode",
             phone1: "Phone",
             phone2: "Phone Number",
             processing: "Processing",

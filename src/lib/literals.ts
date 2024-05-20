@@ -56,3 +56,33 @@ export const genAction = (path: keyof typeof routerPaths, cid?: string) => {
             return `/${path}`;
     }
 };
+
+export const PHONE_HOLDER = `xxx-xxx-xxx`;
+export const formPhone = (phone: string) => {
+    let formatted = phone.replace(/\D/g, ""); // Remove all non-digit characters
+
+    if (phone.startsWith("+")) {
+        formatted = "+" + formatted;
+    }
+
+    if (formatted.startsWith("+")) {
+        // Handle the international format with the '+' sign
+        const match = formatted.match(
+            /^\+(\d{1,2})(\d{1,3})(\d{1,3})(\d{1,3})?$/
+        );
+        if (match) {
+            formatted = `+${match[1]}-${match[2]}`;
+            if (match[3]) {
+                formatted += `-${match[3]}`;
+            }
+            if (match[4]) {
+                formatted += `-${match[4]}`;
+            }
+        }
+    } else {
+        // Handle the local format
+        formatted = formatted.replace(/(\d{3})(?=\d)/g, "$1-");
+    }
+
+    return formatted;
+};
