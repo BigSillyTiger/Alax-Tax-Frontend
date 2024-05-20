@@ -2,6 +2,7 @@ import { z } from "zod";
 import { defaultStaffRole } from "../utils/staff";
 import { payslipSchema } from "./payslipSchema";
 import { roleOptions, staffStandardHR } from "../utils/staff";
+import { BANK_ACCOUNT, BSB_COUNT } from "../utils/literals";
 
 export const staffSchema = z.object({
     uid: z.string().default(""),
@@ -52,8 +53,12 @@ export const staffSchema = z.object({
     setting: z.number().default(roleOptions[defaultStaffRole].setting),
     //created_date: z.string().trim().nullable(),
     hr: z.number().default(staffStandardHR),
-    bsb: z.string().default(""),
-    account: z.string().default(""),
+    bsb: z
+        .union([z.string().length(BSB_COUNT), z.string().length(0)])
+        .default(""),
+    account: z
+        .union([z.string().length(BANK_ACCOUNT), z.string().length(0)])
+        .default(""),
 });
 
 export const staffWPayslipSchema = staffSchema.extend({

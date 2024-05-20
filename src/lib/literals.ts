@@ -1,6 +1,7 @@
 import { TwlUnion } from "@/configs/schema/workSchema";
 import { routerPaths } from "@/configs/utils/router";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
+import { toastWarning } from "./toaster";
 
 export type AreTypesEqual<T, U> = T extends U ? true : false;
 
@@ -57,11 +58,10 @@ export const genAction = (path: keyof typeof routerPaths, cid?: string) => {
     }
 };
 
-export const PHONE_HOLDER = `xxx-xxx-xxx`;
-export const formPhone = (phone: string) => {
-    let formatted = phone.replace(/\D/g, ""); // Remove all non-digit characters
+export const formNumberDigits = (number: string) => {
+    let formatted = number.replace(/\D/g, ""); // Remove all non-digit characters
 
-    if (phone.startsWith("+")) {
+    if (number.startsWith("+")) {
         formatted = "+" + formatted;
     }
 
@@ -85,4 +85,25 @@ export const formPhone = (phone: string) => {
     }
 
     return formatted;
+};
+
+export const formNumberWLimit = (
+    type: "number" | "phone" = "number",
+    value: string,
+    limit: number
+) => {
+    // Remove all non-numeric characters
+
+    let numericInput =
+        type === "number"
+            ? value.replace(/\D/g, "")
+            : value.replace(/[^\d+]/g, "");
+
+    // truncate from the beginning: numericInput = numericInput.slice(-limit);
+    if (numericInput.length > limit) {
+        toastWarning(`Input is too long, max ${limit} characters`);
+        numericInput = numericInput.slice(0, limit);
+    }
+
+    return numericInput;
 };

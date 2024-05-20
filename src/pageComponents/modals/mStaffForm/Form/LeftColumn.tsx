@@ -11,7 +11,13 @@ import type { FC } from "react";
 import { Controller, FieldErrors, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import PWResetBtn from "./PWResetBtn";
-import { formPhone, PHONE_HOLDER } from "@/lib/literals";
+import { formNumberDigits, formNumberWLimit } from "@/lib/literals";
+import {
+    AU_PHONE,
+    BANK_ACCOUNT,
+    BSB_COUNT,
+    PHONE_HOLDER,
+} from "@/configs/utils/literals";
 
 type Tprops = {
     register: UseFormReturn<TstaffForm>["register"];
@@ -127,8 +133,15 @@ const LeftColumn: FC<Tprops> = ({ register, control, onClose, errors }) => {
                                 </div>
                                 <input
                                     /* {...register("phone")} */
-                                    value={formPhone(value)}
-                                    onChange={onChange}
+                                    value={formNumberDigits(value)}
+                                    onChange={(e) => {
+                                        const number = formNumberWLimit(
+                                            "phone",
+                                            e.target.value,
+                                            AU_PHONE
+                                        );
+                                        onChange(number);
+                                    }}
                                     type="tel"
                                     id="phone"
                                     required
@@ -305,55 +318,90 @@ const LeftColumn: FC<Tprops> = ({ register, control, onClose, errors }) => {
                 </div>
             </div>
             {/* bsb */}
-            <div className="sm:col-span-3">
-                <label
-                    htmlFor="bsb"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                    {t("label.bsb")}
-                </label>
-                <div className="mt-1">
-                    <input
-                        {...register("bsb")}
-                        type="text"
-                        id="bsb"
-                        autoComplete="bsb"
-                        className={`
-                outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
-                ${
-                    errors.postcode
-                        ? " ring-2 ring-red-600 focus:ring-red-400 "
-                        : " ring-1 ring-gray-300 focus:ring-indigo-600 "
-                }
-            `}
-                    />
-                </div>
-            </div>
+            <Controller
+                name="bsb"
+                control={control}
+                render={({ field: { onChange, value } }) => {
+                    return (
+                        <div className="sm:col-span-3">
+                            <label
+                                htmlFor="bsb"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                            >
+                                {t("label.bsb")}
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    //{...register("bsb")}
+                                    value={formNumberDigits(value)}
+                                    onChange={(e) => {
+                                        const number = formNumberWLimit(
+                                            "number",
+                                            e.target.value,
+                                            BSB_COUNT
+                                        );
+                                        onChange(number);
+                                    }}
+                                    type="text"
+                                    id="bsb"
+                                    autoComplete="bsb"
+                                    className={`
+                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
+                    ${
+                        errors.postcode
+                            ? " ring-2 ring-red-600 focus:ring-red-400 "
+                            : " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                    }
+                `}
+                                />
+                            </div>
+                        </div>
+                    );
+                }}
+            />
+
             {/* bank account */}
-            <div className="sm:col-span-3">
-                <label
-                    htmlFor="account"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                    {t("label.acc")}
-                </label>
-                <div className="mt-1">
-                    <input
-                        {...register("account")}
-                        type="text"
-                        id="account"
-                        autoComplete="account"
-                        className={`
-                outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
-                ${
-                    errors.postcode
-                        ? " ring-2 ring-red-600 focus:ring-red-400 "
-                        : " ring-1 ring-gray-300 focus:ring-indigo-600 "
-                }
-            `}
-                    />
-                </div>
-            </div>
+            <Controller
+                name="account"
+                control={control}
+                render={({ field: { onChange, value } }) => {
+                    return (
+                        <div className="sm:col-span-3">
+                            <label
+                                htmlFor="account"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                            >
+                                {t("label.acc")}
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    //{...register("account")}
+                                    value={formNumberDigits(value)}
+                                    onChange={(e) => {
+                                        const number = formNumberWLimit(
+                                            "number",
+                                            e.target.value,
+                                            BANK_ACCOUNT
+                                        );
+                                        onChange(number);
+                                    }}
+                                    type="text"
+                                    id="account"
+                                    autoComplete="account"
+                                    className={`
+                    outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 pl-2 
+                    ${
+                        errors.postcode
+                            ? " ring-2 ring-red-600 focus:ring-red-400 "
+                            : " ring-1 ring-gray-300 focus:ring-indigo-600 "
+                    }
+                `}
+                                />
+                            </div>
+                        </div>
+                    );
+                }}
+            />
 
             {/* reset pw for employee */}
             {isEmployee && (

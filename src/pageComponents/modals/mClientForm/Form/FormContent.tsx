@@ -3,7 +3,8 @@ import StatesOptions from "@/components/stateOptions";
 import { atClient, atInfoConflict } from "@/configs/atoms";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { RES_STATUS } from "@/configs/types";
-import { formPhone, PHONE_HOLDER } from "@/lib/literals";
+import { PHONE_HOLDER } from "@/configs/utils/literals";
+import { formNumberDigits } from "@/lib/literals";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { useAtom } from "jotai";
 import type { FC, FormEvent } from "react";
@@ -151,7 +152,7 @@ const FormContent: FC<Tprops> = ({
                                         /* {...register("phone", {
                                             required: true,
                                         })} */
-                                        value={formPhone(value)}
+                                        value={formNumberDigits(value)}
                                         onChange={onChange}
                                         type="tel"
                                         id="phone"
