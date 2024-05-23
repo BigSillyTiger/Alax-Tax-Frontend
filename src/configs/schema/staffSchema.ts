@@ -2,46 +2,27 @@ import { z } from "zod";
 import { defaultStaffRole } from "../utils/staff";
 import { payslipSchema } from "./payslipSchema";
 import { roleOptions, staffStandardHR } from "../utils/staff";
-import { BANK_ACCOUNT, BSB_COUNT } from "../utils/literals";
+import {
+    baSchema,
+    bsbSchema,
+    emailSchema,
+    phoneSchema,
+    postSchema,
+} from "./utilSchema";
 
 export const staffSchema = z.object({
     uid: z.string().default(""),
     first_name: z.string().trim().default(""),
     last_name: z.string().trim().default(""),
-    phone: z
-        .string()
-        .trim()
-        .min(3, { message: "Phone number is too short" })
-        .transform((val) => {
-            if (val.length > 6) {
-                return `${val.slice(0, 3)}-${val.slice(3, 6)}-${val.slice(6)}`;
-            } else if (val.length > 3) {
-                return `${val.slice(0, 3)}-${val.slice(3)}`;
-            } else {
-                return val;
-            }
-        })
-        .default("123"),
-    email: z
-        .string()
-        .email()
-        .trim()
-        .toLowerCase()
-        .default("your_email@email.com"),
+    phone: phoneSchema,
+    email: emailSchema,
     password: z.string().default(""),
     address: z.string().trim().nullable().default(""),
     suburb: z.string().trim().nullable().default("Adelaide"),
     city: z.string().trim().nullable().default("Adelaide"),
     state: z.string().trim().nullable().default("SA"),
     country: z.string().trim().nullable().default("Australia"),
-    postcode: z
-        .string()
-        //match 4 digits string which may start with 0
-        .regex(/^[0-9]{4}$/, { message: "Must be numbers" })
-        .min(4)
-        .max(4)
-        .nullable()
-        .default("5000"),
+    postcode: postSchema,
     role: z.string().trim().default(defaultStaffRole),
     access: z.boolean().default(true),
     dashboard: z.number().default(roleOptions[defaultStaffRole].dashboard),
@@ -53,12 +34,8 @@ export const staffSchema = z.object({
     setting: z.number().default(roleOptions[defaultStaffRole].setting),
     //created_date: z.string().trim().nullable(),
     hr: z.number().default(staffStandardHR),
-    bsb: z
-        .union([z.string().length(BSB_COUNT), z.string().length(0)])
-        .default(""),
-    account: z
-        .union([z.string().length(BANK_ACCOUNT), z.string().length(0)])
-        .default(""),
+    bsb: bsbSchema,
+    account: baSchema,
 });
 
 export const staffWPayslipSchema = staffSchema.extend({

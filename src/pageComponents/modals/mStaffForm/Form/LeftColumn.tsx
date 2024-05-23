@@ -145,7 +145,7 @@ const LeftColumn: FC<Tprops> = ({ register, control, onClose, errors }) => {
                                     type="tel"
                                     id="phone"
                                     required
-                                    pattern={`[+]?[0-9]{4,14}`}
+                                    //pattern={`[+]?[0-9]{4,14}`}
                                     autoComplete="tel"
                                     placeholder={PHONE_HOLDER}
                                     className={`

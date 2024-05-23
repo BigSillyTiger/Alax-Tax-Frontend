@@ -2,6 +2,7 @@ import { z } from "zod";
 import { clientSchema } from "./clientSchema";
 import { wlUnionSchema, worklogAbstractSchema } from "./workSchema";
 import i18n from "@/configs/i18n";
+import { postSchema } from "./utilSchema";
 
 export const plainOrderSchema = z.object({
     oid: z.string().default(""),
@@ -11,14 +12,7 @@ export const plainOrderSchema = z.object({
     city: z.string().trim().nullable().default("Adelaide"),
     state: z.string().trim().nullable().default("SA"),
     country: z.string().trim().nullable().default("Australia"),
-    postcode: z
-        .string()
-        //match 4 digits string which may start with 0
-        .regex(/^[0-9]{4}$/, { message: "Must be numbers" })
-        .min(4)
-        .max(4)
-        .nullable()
-        .default("5000"),
+    postcode: postSchema,
     status: z.string().trim().default(i18n.t("label.pending")),
     gst: z.number().default(0),
     total: z.number().default(0),

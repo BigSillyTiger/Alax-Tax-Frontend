@@ -2,6 +2,7 @@ import { TwlUnion } from "@/configs/schema/workSchema";
 import { routerPaths } from "@/configs/utils/router";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
 import { toastWarning } from "./toaster";
+import i18n from "@/configs/i18n";
 
 export type AreTypesEqual<T, U> = T extends U ? true : false;
 
@@ -93,7 +94,6 @@ export const formNumberWLimit = (
     limit: number
 ) => {
     // Remove all non-numeric characters
-
     let numericInput =
         type === "number"
             ? value.replace(/\D/g, "")
@@ -101,7 +101,7 @@ export const formNumberWLimit = (
 
     // truncate from the beginning: numericInput = numericInput.slice(-limit);
     if (numericInput.length > limit) {
-        toastWarning(`Input is too long, max ${limit} characters`);
+        toastWarning(i18n.t("toastW.inputReachMax"));
         numericInput = numericInput.slice(0, limit);
     }
 

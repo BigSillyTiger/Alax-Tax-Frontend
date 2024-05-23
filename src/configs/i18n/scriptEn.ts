@@ -253,6 +253,7 @@ const en = {
             service: "Service",
             services: "Services",
             staff: "Staff",
+            staffID: "Staff ID",
             staffInfo: "Staff Info",
             staffWL: "Staff Worklogs",
             state: "State",
@@ -377,6 +378,7 @@ const en = {
                 "Something wrong with form fields. Please check again.",
             invalidWorkHoursUpdateOthers:
                 "Warning: Invalid Work Hours, will just submit changes of work not and deductions.",
+            inputReachMax: "Input reached the maximum length.",
         },
         sr: {
             openHeadBarMenu: "Open head bar menu",

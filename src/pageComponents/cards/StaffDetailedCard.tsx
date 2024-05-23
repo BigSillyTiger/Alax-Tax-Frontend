@@ -19,13 +19,13 @@ const StaffDetailedCard: FC<Tprops> = ({ staff, className = "" }) => {
         >
             <div className="col-span-4">
                 <p>
-                    <Btext>{t("label.client")}: </Btext> {staff.first_name}
+                    <Btext>{t("label.staff")}: </Btext> {staff.first_name}
                     &nbsp;{staff.last_name}
                 </p>
             </div>
             <div className="col-span-2">
                 <p>
-                    <Btext>{t("label.clientID")}: </Btext> {staff.uid}
+                    <Btext>{t("label.staffID")}: </Btext> {staff.uid}
                 </p>
             </div>
             <div className="col-span-6 sm:col-span-4">
