@@ -86,7 +86,10 @@ const DescContent: FC<Tprops> = ({
                         >
                             {/* x btn */}
                             <div className="col-span-1 m-auto">
-                                <XBtn onClick={() => remove(index)} />
+                                <XBtn
+                                    index={index + 1}
+                                    onClick={() => remove(index)}
+                                />
                             </div>
                             {/* content */}
                             <Card
@@ -105,7 +108,9 @@ const DescContent: FC<Tprops> = ({
                                             htmlFor="title"
                                             className="block text-sm font-normal"
                                         >
-                                            {t("label.service")}
+                                            {t("label.service") +
+                                                " " +
+                                                (index + 1)}
                                         </Label>
                                         <input
                                             {...register(
@@ -279,7 +284,12 @@ const DescContent: FC<Tprops> = ({
                                             id="description"
                                             name="description"
                                             rows={4}
-                                            //type="textarea"
+                                            onChange={(e) => {
+                                                setValue(
+                                                    `order_services.${index}.description`,
+                                                    e.target.value
+                                                );
+                                            }}
                                             className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                         />
                                     </div>

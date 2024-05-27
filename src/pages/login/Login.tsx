@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useState, type FC } from "react";
 import { useTranslation } from "react-i18next";
 import {
     Form,
@@ -12,7 +12,8 @@ import LoginErrorAlert from "./LoginErrorAlert";
 
 const Login: FC = () => {
     const navigation = useNavigation();
-    const loaderData = useLoaderData();
+    const loaderData = useLoaderData() as { search: string; logo: string };
+    const [imgSrc, setImgSrc] = useState<string>(loaderData.logo);
     const { t } = useTranslation();
     const data = useActionData() as { actionErr: boolean } | null;
 
@@ -24,7 +25,11 @@ const Login: FC = () => {
                     <div className="sm:mx-auto sm:w-full sm:max-w-md">
                         <img
                             className="mx-auto h-[20dvh] w-auto"
-                            src="http://test.cpsoftware.com.au/logo.svg"
+                            onError={() => {
+                                console.log("---> logo not found");
+                                setImgSrc("/logo.svg");
+                            }}
+                            src={imgSrc}
                             alt="CP Software logo"
                         />
                         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
@@ -38,8 +43,8 @@ const Login: FC = () => {
                             <Form
                                 className="space-y-6"
                                 action={
-                                    loaderData
-                                        ? `/login?redirect=${loaderData}`
+                                    loaderData.search
+                                        ? `/login?redirect=${loaderData.search}`
                                         : "/login"
                                 }
                                 method="POST"

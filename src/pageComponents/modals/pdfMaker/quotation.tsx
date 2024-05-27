@@ -14,7 +14,7 @@ import { Nbtn } from "@/components/btns";
 import CompanyInfoCard from "@/pageComponents/cards/CompanyInfoCard";
 import { dateFormat } from "@/lib/time";
 import { dateMax, dateMin } from "@/configs/utils/date";
-import { atCompany, atLogo, atOrder, atClient } from "@/configs/atoms";
+import { atCompany, atLogo, atOrder } from "@/configs/atoms";
 
 const DatePicker = ({
     oid,
@@ -125,7 +125,6 @@ const DatePicker = ({
 const QuoContent: FC = memo(() => {
     const [date, setDate] = useState(dateFormat(new Date()));
     const { t } = useTranslation();
-    const [client] = useAtom(atClient);
     const [clientOrder] = useAtom(atOrder);
     const [company] = useAtom(atCompany);
     const [logo] = useAtom(atLogo);
@@ -142,7 +141,7 @@ const QuoContent: FC = memo(() => {
                 <CompanyInfoCard company={company} className="" />
             </Toggle>
             <Toggle defaultOpen={true} title={t("label.clientInfo")}>
-                <ClientInfoCard client={client} className="" />
+                <ClientInfoCard client={clientOrder.client_info} className="" />
             </Toggle>
             <Toggle defaultOpen={true} title={t("label.orderInfo")}>
                 <OrderDetailsCard order={clientOrder} className="" />
@@ -177,7 +176,7 @@ const QuoContent: FC = memo(() => {
             <div className="col-span-1 md:col-span-5">
                 <Template
                     type="Q"
-                    client={client}
+                    client={clientOrder.client_info}
                     order={clientOrder}
                     company={company}
                     unit="$"

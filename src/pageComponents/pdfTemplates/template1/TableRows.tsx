@@ -28,7 +28,7 @@ const TableRows: FC<Tprops> = memo(({ data, unit: u }) => {
                     <Text style={tw("text-sm w-[250pt] my-auto pl-3")}>
                         {item.title}
                     </Text>
-                    {item.description && (
+                    {item.description ? (
                         <Text
                             style={tw(
                                 "left-[5pt] text-sm w-[250pt] my-auto pl-5 text-gray-500"
@@ -36,7 +36,7 @@ const TableRows: FC<Tprops> = memo(({ data, unit: u }) => {
                         >
                             {item.description}
                         </Text>
-                    )}
+                    ) : null}
                 </View>
                 <Text style={tw("text-sm w-[40pt] text-center my-auto")}>
                     {item.qty}

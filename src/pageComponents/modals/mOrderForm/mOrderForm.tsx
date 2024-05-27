@@ -80,6 +80,7 @@ const MOrderForm: FC = memo(() => {
             }
             mode={"full"}
             mQuit={true}
+            className="overflow-y-hidden"
         >
             <FormContent
                 register={register}

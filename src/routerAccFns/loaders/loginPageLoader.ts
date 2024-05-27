@@ -1,5 +1,5 @@
 import { redirect, LoaderFunctionArgs } from "react-router-dom";
-import { API_ADMIN } from "@/apis";
+import { API_ADMIN, API_SETTING } from "@/apis";
 import { RES_STATUS } from "@/configs/types";
 
 export const loginLoader = async ({ request }: LoaderFunctionArgs) => {
@@ -12,8 +12,9 @@ export const loginLoader = async ({ request }: LoaderFunctionArgs) => {
                 console.log("-> Error: login page admin check: ", error);
                 return false;
             });
+        const logo = await API_SETTING.logo().then((res) => res.data);
 
-        return result ? redirect("/dashboard") : search;
+        return result ? redirect("/dashboard") : { search, logo };
     } catch (error) {
         console.log("-> login page loader error: ", error);
         return redirect("/login");

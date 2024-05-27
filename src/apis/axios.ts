@@ -8,7 +8,6 @@ const apis = axios.create({
     //baseURL: `https://test.cpsoftware.com.au`,
     // alex
     //baseURL: `https://tool.srclandscaping.com.au`,
-    //baseURL: `https://test.srclandscaping.com.au`,
 });
 
 export default apis;

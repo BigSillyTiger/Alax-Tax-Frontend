@@ -31,7 +31,7 @@ const Title: FC<Tprops> = ({
             )}
             fixed
         >
-            <Image src={logo} style={tw("rounded-lg h-20 w-20")} />
+            <Image src={logo} style={tw("rounded-lg h-16 w-28")} />
             {/* company */}
             <View style={tw("flex justify-center")}>
                 <Text style={tw("font-bold text-base")}>{company.name}</Text>
