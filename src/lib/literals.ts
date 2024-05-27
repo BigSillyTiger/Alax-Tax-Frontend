@@ -59,35 +59,46 @@ export const genAction = (path: keyof typeof routerPaths, cid?: string) => {
     }
 };
 
+/**
+ * @description form the number displaying style
+ *              - if number is start with +, then result would be +xx-xxx-xxx-xxx
+ *              - if number is start with 0, then result would be 0xxx-xxx-xxx
+ *              - otherwise, result would be xxx-xxx-xxx
+ * @param number
+ * @returns
+ */
 export const formNumberDigits = (number: string) => {
-    let formatted = number.replace(/\D/g, ""); // Remove all non-digit characters
+    const formatted: string = number.replace(/\D/g, "");
+    let formattedNumber;
 
-    if (number.startsWith("+")) {
-        formatted = "+" + formatted;
+    if (number.length <= 2) {
+        return number;
     }
 
-    if (formatted.startsWith("+")) {
-        // Handle the international format with the '+' sign
-        const match = formatted.match(
-            /^\+(\d{1,2})(\d{1,3})(\d{1,3})(\d{1,3})?$/
-        );
-        if (match) {
-            formatted = `+${match[1]}-${match[2]}`;
-            if (match[3]) {
-                formatted += `-${match[3]}`;
-            }
-            if (match[4]) {
-                formatted += `-${match[4]}`;
-            }
-        }
+    if (number.startsWith("0")) {
+        const head = formatted.slice(0, 4);
+        const body = formatted.slice(4);
+        formattedNumber = head + "-" + body.match(/.{1,3}/g)!.join("-");
+    } else if (number.startsWith("+")) {
+        const head = formatted.slice(0, 2);
+        const body = formatted.slice(2);
+        formattedNumber = "+" + head + "-" + body.match(/.{0,3}/g)!.join("-");
     } else {
-        // Handle the local format
-        formatted = formatted.replace(/(\d{3})(?=\d)/g, "$1-");
+        formattedNumber = formatted.match(/.{1,3}/g)!.join("-");
     }
 
-    return formatted;
+    return formattedNumber.replace(/-$/, "");
 };
 
+/**
+ * @description form the input content of input tag with limitation
+ *              - if type is phone, only + and numbers are allowed
+ *              - if type is number, only numbers are allowed
+ * @param type
+ * @param value
+ * @param limit
+ * @returns
+ */
 export const formNumberWLimit = (
     type: "number" | "phone" = "number",
     value: string,

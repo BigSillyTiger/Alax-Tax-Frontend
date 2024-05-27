@@ -24,14 +24,14 @@ const TableRows: FC<Tprops> = memo(({ data, unit: u }) => {
                     }`
                 )}
             >
-                <View style={tw("text-sm w-[270pt] my-auto pl-5")}>
-                    <Text style={tw("text-sm w-[270pt] my-auto pl-3")}>
+                <View style={tw("text-sm w-[260pt] my-auto")}>
+                    <Text style={tw("text-sm w-[250pt] my-auto pl-3")}>
                         {item.title}
                     </Text>
                     {item.description && (
                         <Text
                             style={tw(
-                                "text-sm w-[280pt] my-auto pl-5 text-gray-500"
+                                "left-[5pt] text-sm w-[250pt] my-auto pl-5 text-gray-500"
                             )}
                         >
                             {item.description}

@@ -4,7 +4,7 @@ import { atClient, atInfoConflict } from "@/configs/atoms";
 import { Tclient } from "@/configs/schema/clientSchema";
 import { RES_STATUS } from "@/configs/types";
 import { AU_PHONE, PHONE_HOLDER } from "@/configs/utils/literals";
-import { formNumberDigits, formNumberWLimit } from "@/lib/literals";
+import { formNumberWLimit } from "@/lib/literals";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { useAtom } from "jotai";
 import type { FC, FormEvent } from "react";
@@ -152,7 +152,7 @@ const FormContent: FC<Tprops> = ({
                                         /* {...register("phone", {
                                             required: true,
                                         })} */
-                                        value={formNumberDigits(value)}
+                                        value={value}
                                         onChange={(e) => {
                                             const number = formNumberWLimit(
                                                 "phone",

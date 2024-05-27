@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 const tw = createTw({});
 
 type Tprops = {
+    type?: "I" | "Q";
     client: Tclient;
     order: Torder;
     company: Tcompany;
@@ -29,7 +30,19 @@ type Tprops = {
     logo: string;
 };
 
-const InvTemplate: FC<Tprops> = ({
+/**
+ * @description Template for invoice and quotation
+ * @param type - type of the template: I or Q
+ * @param client - client details
+ * @param order - order details
+ * @param company - company details
+ * @param unit - currency unit
+ * @param date - date of the invoice
+ * @param logo - company logo
+ * @returns
+ */
+const Template: FC<Tprops> = ({
+    type = "I",
     client,
     order,
     company,
@@ -67,16 +80,17 @@ const InvTemplate: FC<Tprops> = ({
     const mainContent = (
         <View style={tw("flex flex-col")}>
             <Title
+                type={type}
                 company={company}
-                invoiceID={order.oid}
+                orderID={order.oid}
                 issueDate={date}
                 logo={logo}
             />
             <BillTitle company={company} client={client} />
             <Services order={order.order_services} />
-            <Payments payments={order.payments} />
+            {type === "I" && <Payments payments={order.payments} />}
             <TableFooter
-                company={company}
+                type={type}
                 order={order.order_services}
                 paid={order.paid}
                 unit={unit}
@@ -89,7 +103,11 @@ const InvTemplate: FC<Tprops> = ({
             <Document
                 creator={"SRC"}
                 producer={"SRC"}
-                title={t("label.templateInvoice")}
+                title={
+                    type === "I"
+                        ? t("label.templateInvoice")
+                        : t("label.templateQuotation")
+                }
                 author={"Areos"}
             >
                 <Page
@@ -105,4 +123,4 @@ const InvTemplate: FC<Tprops> = ({
     );
 };
 
-export default InvTemplate;
+export default Template;

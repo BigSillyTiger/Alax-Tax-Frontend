@@ -11,7 +11,7 @@ import type { FC } from "react";
 import { Controller, FieldErrors, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import PWResetBtn from "./PWResetBtn";
-import { formNumberDigits, formNumberWLimit } from "@/lib/literals";
+import { formNumberWLimit } from "@/lib/literals";
 import {
     AU_PHONE,
     BANK_ACCOUNT,
@@ -133,7 +133,7 @@ const LeftColumn: FC<Tprops> = ({ register, control, onClose, errors }) => {
                                 </div>
                                 <input
                                     /* {...register("phone")} */
-                                    value={formNumberDigits(value)}
+                                    value={value}
                                     onChange={(e) => {
                                         const number = formNumberWLimit(
                                             "phone",
@@ -333,7 +333,7 @@ const LeftColumn: FC<Tprops> = ({ register, control, onClose, errors }) => {
                             <div className="mt-1">
                                 <input
                                     //{...register("bsb")}
-                                    value={formNumberDigits(value)}
+                                    value={value}
                                     onChange={(e) => {
                                         const number = formNumberWLimit(
                                             "number",
@@ -376,7 +376,7 @@ const LeftColumn: FC<Tprops> = ({ register, control, onClose, errors }) => {
                             <div className="mt-1">
                                 <input
                                     //{...register("account")}
-                                    value={formNumberDigits(value)}
+                                    value={value}
                                     onChange={(e) => {
                                         const number = formNumberWLimit(
                                             "number",

@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from "react";
 import type { FC } from "react";
 import { useAtom } from "jotai";
 import { useSubmit } from "react-router-dom";
-import { QuoTemplate } from "@/pageComponents/pdfTemplates/quotations";
+import Template from "@/pageComponents/pdfTemplates/template1";
 import { useTranslation } from "react-i18next";
 import { Toggle } from "@/components/disclosure";
 import {
@@ -175,7 +175,8 @@ const QuoContent: FC = memo(() => {
                 />
             </div>
             <div className="col-span-1 md:col-span-5">
-                <QuoTemplate
+                <Template
+                    type="Q"
                     client={client}
                     order={clientOrder}
                     company={company}

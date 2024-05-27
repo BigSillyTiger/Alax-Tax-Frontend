@@ -10,10 +10,10 @@ const TableHeader: FC = () => {
 
     return (
         <View style={tw("flex flex-row gap-x-1 w-[523pt] bg-orange-200")}>
-            <Text style={tw("text-base w-[270pt] pl-5 mt-2")}>
+            <Text style={tw("text-base w-[260pt] pl-3 mt-2")}>
                 {t("label.services")}
             </Text>
-            <Text style={tw("text-base w-[40pt] text-center mt-2")}>
+            <Text style={tw("left-[5pt] text-base w-[40pt] text-center mt-2")}>
                 {t("label.qty")}
             </Text>
             <Text style={tw("text-base w-[70pt] text-center mt-2")}>

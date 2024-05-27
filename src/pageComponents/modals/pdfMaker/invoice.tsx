@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from "react";
 import type { FC } from "react";
 import { useAtom } from "jotai";
 import { useSubmit } from "react-router-dom";
-import { InvTemplate } from "@/pageComponents/pdfTemplates/invoices";
+import Template from "@/pageComponents/pdfTemplates/template1";
 import { useTranslation } from "react-i18next";
 import { Toggle } from "@/components/disclosure";
 import {
@@ -183,7 +183,8 @@ const InvContent: FC = memo(() => {
                 />
             </div>
             <div className="col-span-1 md:col-span-5">
-                <InvTemplate
+                <Template
+                    type="I"
                     client={client}
                     order={clientOrder}
                     company={company}
