@@ -51,6 +51,11 @@ const DescContent: FC<Tprops> = ({
         />
     ) : null;
 
+    const title =
+        fields.length != 0
+            ? t("label.serviceList") + "(" + fields.length + ")"
+            : t("label.serviceList");
+
     const calSNettoGst = useCallback(
         (index: number) => {
             const total = calNetto(
@@ -74,7 +79,7 @@ const DescContent: FC<Tprops> = ({
 
     return (
         <Fieldset
-            title={t("label.serviceList")}
+            title={title}
             sFieldset={`lg:h-[65dvh] overflow-y-auto ${sFieldset}`}
         >
             {fields.length ? (
@@ -123,150 +128,151 @@ const DescContent: FC<Tprops> = ({
                                         />
                                         {serviceTitleList}
                                     </div>
-                                    {/* qty - 1 */}
-                                    <div className="col-span-6 sm:col-span-1">
-                                        <Label
-                                            htmlFor="qty"
-                                            className="block text-sm font-normal"
-                                        >
-                                            {t("label.qty")}
-                                        </Label>
-                                        <input
-                                            {...register(
-                                                `order_services.${index}.qty`,
-                                                {
-                                                    valueAsNumber: true,
-                                                    min: 0,
-                                                }
-                                            )}
-                                            id="qty"
-                                            min={0}
-                                            type="number"
-                                            step="0.01"
-                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                            onChange={(e) => {
-                                                setValue(
+                                    <div className="col-span-8 grid grid-cols-8 gap-x-3">
+                                        {/* qty - 1 */}
+                                        <div className="col-span-6 sm:col-span-1">
+                                            <Label
+                                                htmlFor="qty"
+                                                className="block text-sm font-normal"
+                                            >
+                                                {t("label.qty")}
+                                            </Label>
+                                            <input
+                                                {...register(
                                                     `order_services.${index}.qty`,
-                                                    Number(e.target.value)
-                                                );
-                                                calSNettoGst(index);
-                                                //return Number(e.target.value);
-                                            }}
-                                        />
-                                    </div>
-                                    {/* unit - 2 */}
-                                    <div className="col-span-6 sm:col-span-2">
-                                        <Label
-                                            htmlFor="unit"
-                                            className="block text-sm font-normal"
-                                        >
-                                            {t("label.unit")}
-                                        </Label>
-                                        <input
-                                            {...register(
-                                                `order_services.${index}.unit`
-                                            )}
-                                            id="unit"
-                                            type="text"
-                                            list="unit_name"
-                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                        />
-                                        {unitsList}
-                                    </div>
-                                    {/* taxable - 1 */}
-                                    <div className="col-span-6 sm:col-span-1">
-                                        <Label
-                                            htmlFor="taxable"
-                                            className="block text-sm font-normal"
-                                        >
-                                            {t("label.taxable")}
-                                        </Label>
-                                        <input
-                                            {...register(
-                                                `order_services.${index}.taxable`
-                                            )}
-                                            id="taxable"
-                                            type="checkbox"
-                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6 pl-2"
-                                            onChange={(e) => {
-                                                setValue(
-                                                    `order_services.${index}.taxable`,
-                                                    e.target.checked
-                                                );
-                                                calSNettoGst(index);
-                                            }}
-                                        />
-                                    </div>
-                                    {/* gst - 2 */}
-                                    <div className="col-span-6 sm:col-span-2">
-                                        <Label
-                                            htmlFor="unit"
-                                            className="block text-sm font-normal"
-                                        >
-                                            {t("label.gst")}
-                                        </Label>
-                                        <input
-                                            {...register(
-                                                `order_services.${index}.gst`
-                                            )}
-                                            id="gst"
-                                            type="number"
-                                            step="0.01"
-                                            min={0}
-                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                        />
-                                    </div>
-
-                                    {/* unit price - 2 */}
-                                    <div className="col-span-6 sm:col-span-3">
-                                        <Label
-                                            htmlFor="unit_price"
-                                            className="block text-sm font-normal"
-                                        >
-                                            {t("label.uPrice")}
-                                        </Label>
-                                        <input
-                                            {...register(
-                                                `order_services.${index}.unit_price`,
-                                                {
-                                                    valueAsNumber: true,
-                                                    min: 0,
-                                                }
-                                            )}
-                                            id="unit_price"
-                                            type="number"
-                                            step="0.01"
-                                            min={0}
-                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                            onChange={(e) => {
-                                                setValue(
+                                                    {
+                                                        valueAsNumber: true,
+                                                        min: 0,
+                                                    }
+                                                )}
+                                                id="qty"
+                                                min={0}
+                                                type="number"
+                                                step="0.01"
+                                                className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                                onChange={(e) => {
+                                                    setValue(
+                                                        `order_services.${index}.qty`,
+                                                        Number(e.target.value)
+                                                    );
+                                                    calSNettoGst(index);
+                                                    //return Number(e.target.value);
+                                                }}
+                                            />
+                                        </div>
+                                        {/* unit - 2 */}
+                                        <div className="col-span-6 sm:col-span-1">
+                                            <Label
+                                                htmlFor="unit"
+                                                className="block text-sm font-normal"
+                                            >
+                                                {t("label.unit")}
+                                            </Label>
+                                            <input
+                                                {...register(
+                                                    `order_services.${index}.unit`
+                                                )}
+                                                id="unit"
+                                                type="text"
+                                                list="unit_name"
+                                                className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                            />
+                                            {unitsList}
+                                        </div>
+                                        {/* unit price - 2 */}
+                                        <div className="col-span-6 sm:col-span-1">
+                                            <Label
+                                                htmlFor="unit_price"
+                                                className="block text-sm font-normal"
+                                            >
+                                                {t("label.uPrice")}
+                                            </Label>
+                                            <input
+                                                {...register(
                                                     `order_services.${index}.unit_price`,
-                                                    Number(e.target.value)
-                                                );
-                                                return calSNettoGst(index);
-                                            }}
-                                        />
-                                    </div>
-                                    {/* netto - 2 */}
-                                    <div className="col-span-6 sm:col-span-3">
-                                        <Label
-                                            htmlFor="netto"
-                                            className="block text-sm font-normal"
-                                        >
-                                            {t("label.netto")}
-                                        </Label>
-                                        <input
-                                            {...register(
-                                                `order_services.${index}.netto`,
-                                                {
-                                                    valueAsNumber: true,
-                                                }
-                                            )}
-                                            id="netto"
-                                            type="number"
-                                            step="0.01"
-                                            className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                                        />
+                                                    {
+                                                        valueAsNumber: true,
+                                                        min: 0,
+                                                    }
+                                                )}
+                                                id="unit_price"
+                                                type="number"
+                                                step="0.01"
+                                                min={0}
+                                                className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                                onChange={(e) => {
+                                                    setValue(
+                                                        `order_services.${index}.unit_price`,
+                                                        Number(e.target.value)
+                                                    );
+                                                    return calSNettoGst(index);
+                                                }}
+                                            />
+                                        </div>
+                                        {/* netto - 2 */}
+                                        <div className="col-span-6 sm:col-span-2">
+                                            <Label
+                                                htmlFor="netto"
+                                                className="block text-sm font-normal"
+                                            >
+                                                {t("label.netto")}
+                                            </Label>
+                                            <input
+                                                {...register(
+                                                    `order_services.${index}.netto`,
+                                                    {
+                                                        valueAsNumber: true,
+                                                    }
+                                                )}
+                                                id="netto"
+                                                type="number"
+                                                step="0.01"
+                                                className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                            />
+                                        </div>
+                                        {/* taxable - 1 */}
+                                        <div className="col-span-6 sm:col-span-1 flex flex-col justify-center items-center">
+                                            <Label
+                                                htmlFor="taxable"
+                                                className="block text-sm font-normal"
+                                            >
+                                                {t("label.taxable")}
+                                            </Label>
+                                            <input
+                                                {...register(
+                                                    `order_services.${index}.taxable`
+                                                )}
+                                                id="taxable"
+                                                type="checkbox"
+                                                className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6 pl-2"
+                                                onChange={(e) => {
+                                                    setValue(
+                                                        `order_services.${index}.taxable`,
+                                                        e.target.checked
+                                                    );
+                                                    calSNettoGst(index);
+                                                }}
+                                            />
+                                        </div>
+                                        {/* gst - 2 */}
+                                        <div className="col-span-6 sm:col-span-2">
+                                            <Label
+                                                htmlFor="unit"
+                                                className="block text-sm font-normal"
+                                            >
+                                                {t("label.gst")}
+                                            </Label>
+                                            <input
+                                                {...register(
+                                                    `order_services.${index}.gst`
+                                                )}
+                                                id="gst"
+                                                type="number"
+                                                step="0.01"
+                                                min={0}
+                                                className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* desc - 6 */}

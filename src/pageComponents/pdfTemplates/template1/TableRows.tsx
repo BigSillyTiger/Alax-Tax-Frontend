@@ -3,16 +3,16 @@ import type { FC } from "react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { TorderService } from "@/configs/schema/orderSchema";
-import { plusAB } from "@/lib/calculations";
+import { formMoney } from "@/lib/literals";
 
 type Tprops = {
     data: TorderService[];
-    unit: "AUD" | "$";
+    unit?: "AUD" | "$";
 };
 
 const tw = createTw({});
 
-const TableRows: FC<Tprops> = memo(({ data, unit: u }) => {
+const TableRows: FC<Tprops> = memo(({ data }) => {
     if (data.length <= 0) return null;
 
     return data.map((item, i) => {
@@ -42,16 +42,13 @@ const TableRows: FC<Tprops> = memo(({ data, unit: u }) => {
                     {item.qty}
                 </Text>
                 <Text style={tw("text-sm w-[70pt] text-center my-auto")}>
-                    {u + " "}
-                    {item.gst}
+                    {item.unit}
                 </Text>
                 <Text style={tw("text-sm w-[70pt] text-center my-auto")}>
-                    {u + " "}
-                    {item.netto}
+                    {formMoney(item.unit_price)}
                 </Text>
                 <Text style={tw("text-sm w-[73pt] text-center my-auto")}>
-                    {u + " "}
-                    {plusAB(item.netto, item.gst)}
+                    {formMoney(item.netto)}
                 </Text>
             </View>
         );

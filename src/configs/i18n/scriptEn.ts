@@ -190,6 +190,7 @@ const en = {
             id: "ID",
             idClient: "Client ID",
             idOrder: "Order ID",
+            index: "Index",
             invoice: "Invoice",
             issuedDate: "Issued Date",
             lastName: "Last Name",

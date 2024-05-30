@@ -9,6 +9,7 @@ import { ExpandBtn, OrderStatusBtn } from "@/components/table/tableBtn";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { moneyColors } from "../utils/color";
 import { rangeFilterFn } from "./filterFn";
+import { formMoney } from "@/lib/literals";
 
 const useClientOrderColumnsDef = () => {
     const clientOrderColumns: ColumnDef<Torder>[] = [
@@ -85,8 +86,8 @@ const useClientOrderColumnsDef = () => {
                 {
                     header: i18n.t("label.total"),
                     accessorKey: "total",
-                    cell: (info: CellContext<Torder, string>) => (
-                        <span>{info.getValue()}</span>
+                    cell: (info: CellContext<Torder, number>) => (
+                        <span>{formMoney(info.getValue())}</span>
                     ),
                     filterFn: rangeFilterFn,
                     meta: {
@@ -98,7 +99,7 @@ const useClientOrderColumnsDef = () => {
                     header: i18n.t("label.gst"),
                     accessorKey: "gst",
                     cell: (info: CellContext<Torder, number>) => (
-                        <span>{info.getValue()}</span>
+                        <span>{formMoney(info.getValue())}</span>
                     ),
                     filterFn: rangeFilterFn,
                     meta: {
@@ -109,8 +110,8 @@ const useClientOrderColumnsDef = () => {
                     id: "Paid",
                     header: i18n.t("label.paid"),
                     accessorKey: "paid",
-                    cell: (info: CellContext<Torder, string>) => (
-                        <span>{info.getValue()}</span>
+                    cell: (info: CellContext<Torder, number>) => (
+                        <span>{formMoney(info.getValue())}</span>
                     ),
                     filterFn: rangeFilterFn,
                     meta: {
@@ -121,7 +122,7 @@ const useClientOrderColumnsDef = () => {
                     header: i18n.t("label.balance"),
                     accessorFn: (data: Torder) =>
                         minusAB(data.total, data.paid),
-                    cell: (info: CellContext<Torder, string>) => {
+                    cell: (info: CellContext<Torder, number>) => {
                         const balance = minusAB(
                             info.row.original.total,
                             info.row.original.paid
@@ -131,7 +132,7 @@ const useClientOrderColumnsDef = () => {
                                 className={`${balance ? moneyColors.unpaid : moneyColors.finished} text-base font-bold flex justify-center items-center`}
                             >
                                 {balance ? (
-                                    balance
+                                    formMoney(balance)
                                 ) : (
                                     <CheckCircleIcon className="size-9" />
                                 )}

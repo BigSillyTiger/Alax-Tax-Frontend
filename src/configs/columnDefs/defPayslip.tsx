@@ -4,6 +4,7 @@ import { Tpayslip } from "../schema/payslipSchema";
 import { StatusBadge } from "@/components/Badge";
 import { TstatusColor } from "../types";
 import { PSDisplayBtn, PSStatusBtn } from "@/components/table/tableBtn";
+import { formMoney } from "@/lib/literals";
 
 const usePaySlipColumnsDef = () => {
     const payslipColumns: ColumnDef<Tpayslip>[] = [
@@ -64,7 +65,7 @@ const usePaySlipColumnsDef = () => {
             header: i18n.t("label.thisPay"),
             accessorKey: "paid",
             cell: (info: CellContext<Tpayslip, unknown>) => {
-                return <span>${info.getValue<number>()}</span>;
+                return <span>{formMoney(info.getValue<number>())}</span>;
             },
         },
         { id: "PayslipDel", header: i18n.t("btn.del"), cell: () => <></> },

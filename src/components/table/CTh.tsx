@@ -23,9 +23,11 @@ const CTh = <T extends object>({
 }: Tprops<T>) => {
     const isMenu = header.column.id === "Menu";
     const isAccess = header.column.id === "Access";
-    const headerW = isMenu || isAccess ? "w-2" : "w-auto";
+    const isIndex = header.column.id === "Index";
+    const notResize = isMenu || isAccess || isIndex;
+    const headerW = notResize ? "w-2" : "w-auto";
     const styleW =
-        isMenu || isAccess
+        isMenu || isAccess || isIndex
             ? {}
             : {
                   width: header.getSize(),
@@ -45,7 +47,7 @@ const CTh = <T extends object>({
             )}
 
             {/* resizer block */}
-            {!isMenu && !isAccess && (
+            {!notResize && (
                 <div
                     onMouseDown={header.getResizeHandler()}
                     onTouchStart={header.getResizeHandler()}

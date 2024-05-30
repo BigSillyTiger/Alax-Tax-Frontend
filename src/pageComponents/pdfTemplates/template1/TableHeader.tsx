@@ -16,14 +16,17 @@ const TableHeader: FC = () => {
             <Text style={tw("left-[5pt] text-base w-[40pt] text-center mt-2")}>
                 {t("label.qty")}
             </Text>
-            <Text style={tw("text-base w-[70pt] text-center mt-2")}>
+            {/* <Text style={tw("text-base w-[70pt] text-center mt-2")}>
                 {t("label.gst")}
+            </Text> */}
+            <Text style={tw("text-base w-[70pt] text-center mt-2")}>
+                {t("label.unit")}
             </Text>
             <Text style={tw("text-base w-[70pt] text-center mt-2")}>
-                {t("label.netto")}
+                {t("label.uPrice")}
             </Text>
             <Text style={tw("text-base w-[73pt] text-center mt-2")}>
-                {t("label.totalLine")}
+                {t("label.netto")}
             </Text>
         </View>
     );

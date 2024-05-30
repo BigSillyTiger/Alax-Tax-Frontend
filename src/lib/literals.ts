@@ -118,3 +118,12 @@ export const formNumberWLimit = (
 
     return numericInput;
 };
+
+export const formMoney = (amount: number) => {
+    return new Intl.NumberFormat("en-AU", {
+        style: "currency",
+        currency: "AUD",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }).format(amount);
+};
