@@ -3,13 +3,17 @@ import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { useTranslation } from "react-i18next";
 
+type Tprops = {
+    bgC: string;
+};
+
 const tw = createTw({});
 
-const TableHeader: FC = () => {
+const TableHeader: FC<Tprops> = ({ bgC }) => {
     const { t } = useTranslation();
 
     return (
-        <View style={tw("flex flex-row gap-x-1 w-[523pt] bg-orange-200")}>
+        <View style={tw(`flex flex-row gap-x-1 w-[523pt] ${bgC}`)}>
             <Text style={tw("text-base w-[260pt] pl-3 mt-2")}>
                 {t("label.services")}
             </Text>

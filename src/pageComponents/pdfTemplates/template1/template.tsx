@@ -52,14 +52,20 @@ const Template: FC<Tprops> = ({
 }) => {
     const { t } = useTranslation();
 
+    const borderC = type === "I" ? "border-orange-200" : "border-indigo-200";
+    const textC = type === "I" ? "text-orange-700" : "text-indigo-700";
+    const bgC1 = type === "I" ? "bg-orange-200" : "bg-indigo-200";
+    const bgC2 = type === "I" ? "bg-orange-100" : "bg-indigo-100";
+    const bgC3 = type === "I" ? "bg-orange-50" : "bg-indigo-50";
+
     const Services = ({ order }: { order: TorderService[] }) => {
         return (
             <View style={tw("flex w-[523pt] py-3")}>
                 <Text style={tw("text-lg")}>
                     {t("label.servicesDetails")}:{" "}
                 </Text>
-                <TableHeader />
-                <TableRows data={order} unit={unit} />
+                <TableHeader bgC={bgC1} />
+                <TableRows bgC={bgC2} data={order} unit={unit} />
             </View>
         );
     };
@@ -71,8 +77,8 @@ const Template: FC<Tprops> = ({
         return (
             <View style={tw("flex w-[523pt] py-3")}>
                 <Text style={tw("text-lg")}>{t("label.payments")}: </Text>
-                <PayHeader />
-                <PayRows data={payments} unit={unit} />
+                <PayHeader bgC={bgC1} />
+                <PayRows bgC={bgC2} data={payments} unit={unit} />
             </View>
         );
     };
@@ -85,8 +91,14 @@ const Template: FC<Tprops> = ({
                 orderID={order.oid}
                 issueDate={date}
                 logo={logo}
+                borderC={borderC}
             />
-            <BillTitle company={company} client={client} />
+            <BillTitle
+                company={company}
+                client={client}
+                borderC={borderC}
+                textC={textC}
+            />
             <Services order={order.order_services} />
             {type === "I" && <Payments payments={order.payments} />}
             <TableFooter
@@ -94,6 +106,11 @@ const Template: FC<Tprops> = ({
                 order={order.order_services}
                 paid={order.paid}
                 unit={unit}
+                dRate={company.deposit_rate}
+                bgC={bgC3}
+                bgC2={bgC2}
+                textC={textC}
+                borderC={borderC}
             />
         </View>
     );

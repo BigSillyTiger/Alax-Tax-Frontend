@@ -322,6 +322,9 @@ const en = {
             unconfirmedWL: "Unconfirmed Worklogs",
             noClient: "No client",
             noWorklog: "No worklog",
+            depositTips1: "A deposit in the amount of ",
+            depositTips2:
+                " shall be paid by owner to contractor to secure performance of the work on the property. Absent default against contractor, deposit shall be non-refundable and shall be paid upon execution of this contract.",
         },
         toastS: {
             addOrder: "Added A New Order.",

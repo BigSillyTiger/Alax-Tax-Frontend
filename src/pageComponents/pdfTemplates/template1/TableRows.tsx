@@ -8,11 +8,12 @@ import { formMoney } from "@/lib/literals";
 type Tprops = {
     data: TorderService[];
     unit?: "AUD" | "$";
+    bgC: string;
 };
 
 const tw = createTw({});
 
-const TableRows: FC<Tprops> = memo(({ data }) => {
+const TableRows: FC<Tprops> = memo(({ data, bgC }) => {
     if (data.length <= 0) return null;
 
     return data.map((item, i) => {
@@ -20,7 +21,7 @@ const TableRows: FC<Tprops> = memo(({ data }) => {
             <View
                 style={tw(
                     `flex flex-row gap-x-1 w-[523pt] justify-center py-1 ${
-                        i % 2 ? "bg-orange-100" : "bg-slate-50"
+                        i % 2 ? bgC : "bg-slate-50"
                     }`
                 )}
             >

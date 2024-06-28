@@ -11,6 +11,7 @@ type Tprops = {
     orderID: string; // quotation or invoice ID
     issueDate: string;
     logo: string;
+    borderC: string;
 };
 
 const tw = createTw({});
@@ -21,13 +22,14 @@ const Title: FC<Tprops> = ({
     orderID,
     issueDate,
     logo,
+    borderC,
 }) => {
     const { t } = useTranslation();
 
     return (
         <View
             style={tw(
-                "flex flex-row gap-2 w-[523pt] border-b-4 border-orange-200 pb-3"
+                `flex flex-row gap-2 w-[523pt] border-b-4 pb-3 ${borderC}`
             )}
             fixed
         >

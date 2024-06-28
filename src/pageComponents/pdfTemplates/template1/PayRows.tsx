@@ -8,11 +8,12 @@ import { dateFormat } from "@/lib/time";
 type Tprops = {
     data: TorderPayment[];
     unit: "AUD" | "$";
+    bgC: string;
 };
 
 const tw = createTw({});
 
-const PayRows: FC<Tprops> = memo(({ data, unit: u }) => {
+const PayRows: FC<Tprops> = memo(({ data, unit: u, bgC }) => {
     if (data.length <= 0) return null;
 
     return data.map((item, i) => {
@@ -20,7 +21,7 @@ const PayRows: FC<Tprops> = memo(({ data, unit: u }) => {
             <View
                 style={tw(
                     `flex flex-row gap-x-1 w-[523pt] justify-center py-1 ${
-                        i % 2 ? "bg-orange-100" : "bg-slate-50"
+                        i % 2 ? bgC : "bg-slate-50"
                     }`
                 )}
             >
