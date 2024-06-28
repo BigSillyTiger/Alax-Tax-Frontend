@@ -1,3 +1,4 @@
+import { RES_STATUS } from "@/configs/types";
 import apis from "./axios";
 import {
     SETTING_UNI_ALL,
@@ -38,7 +39,7 @@ export const companyUpdate = async (company: Tcompany): Promise<Tresponse> => {
     } catch (err: unknown) {
         console.log("-> update company error: ", err);
         return {
-            status: 400,
+            status: RES_STATUS.FAILED_UPDATE_COMPANY,
             msg: "failed in updating company",
             data: "",
         };

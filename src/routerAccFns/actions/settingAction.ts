@@ -41,6 +41,7 @@ export const settingAction = async ({
         const result = await API_SETTING.uniEdit(temp);
         return result;
     } else if ("PUT" === request.method && data.get("req") === "company") {
+        //const companyData = JSON.parse(data.get("values") as string);
         const temp = {
             id: Number(data.get("id")),
             name: data.get("name") as string,
@@ -51,7 +52,8 @@ export const settingAction = async ({
             abn: data.get("abn") as string,
             bsb: data.get("bsb") as string,
             acc: data.get("acc") as string,
-            logoName: data.get("logoName") as string,
+            //logoName: data.get("logoName") as string,
+            deposit_rate: Number(data.get("deposit_rate")),
         };
         console.log("-> setting action update company info: ", temp);
         const result = await API_SETTING.companyUpdate(temp);

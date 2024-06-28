@@ -167,6 +167,7 @@ const en = {
             confirmedWU: "Confirmed Work Units",
             confirmedWL: "Confirmed Work Logs",
             country: "Country",
+            dRate: "Deposit Rate",
             date: "Date",
             datePicker: "Date Picker",
             deduction: "Deduction",
@@ -208,7 +209,6 @@ const en = {
             none: "None",
             noContent: "No Content",
             openMenu: "Open Menu",
-
             orderDesc: "Order Description",
             orderInfo: "Order Info",
             orderDate: "Order Date",
@@ -363,6 +363,7 @@ const en = {
             overPaid: "Error: Over Paid Amount",
             unMatchPW: "Error: Passwords do not match",
             updateWorkHours: "Error: Updating Work Hours Failed",
+            updateCompany: "Error: Updating Company Information Failed",
             updateWL: "Error: Updating Work Log.",
             fileTooLarge: "Error: File is too large.",
             invalidTime: "Error: Invalid Working Time Input",

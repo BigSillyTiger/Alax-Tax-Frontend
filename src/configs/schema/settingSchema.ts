@@ -22,6 +22,7 @@ export const companySchema = z.object({
     abn: z.string().trim().default(""),
     bsb: z.string().trim().default(""),
     acc: z.string().trim().default(""),
+    deposit_rate: z.number().min(0).default(0),
 });
 
 export const newServiceSchema = serviceSchema.omit({ id: true });

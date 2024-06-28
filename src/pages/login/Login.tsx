@@ -9,6 +9,7 @@ import {
 import LoginCard from "@/pages/login/LoginCard";
 import { StyledBtn1 } from "@/components/btns/StyledBtns";
 import LoginErrorAlert from "./LoginErrorAlert";
+//import DemoTips from "./DemoTips";
 
 const Login: FC = () => {
     const navigation = useNavigation();
@@ -18,7 +19,7 @@ const Login: FC = () => {
     const data = useActionData() as { actionErr: boolean } | null;
 
     return (
-        <div className="flex min-h-[100dvh] flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="flex min-h-[100dvh] flex-row justify-center items-center gap-x-10 py-12 sm:px-6 lg:px-8">
             <div className="relative">
                 {/* <Bganimation /> */}
                 <div className="z-20">
@@ -135,6 +136,7 @@ const Login: FC = () => {
                     </div>
                 </div>
             </div>
+            {/* <DemoTips /> */}
         </div>
     );
 };

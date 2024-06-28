@@ -2,6 +2,7 @@ import { useState, memo } from "react";
 import type { FC, ReactNode } from "react";
 import ModalFrame from "./modalFrame";
 import MQuit from "./mQuit";
+import { cn } from "@/lib/utils";
 
 type Tprops = {
     open: boolean;
@@ -49,7 +50,7 @@ const MTemplate: FC<Tprops> = memo(
                     title={title}
                     mode={mode}
                     isMajor={isMajor}
-                    className={className}
+                    className={cn("overflow-hidden", className)}
                 >
                     {children}
                 </ModalFrame>

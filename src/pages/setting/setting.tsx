@@ -34,6 +34,9 @@ const Setting: FC = () => {
             case RES_STATUS.SUC_ADD_NEW_SU:
                 toastSuccess(t("toastS.addedNewSU"));
                 break;
+            case RES_STATUS.FAILED_UPDATE_COMPANY:
+                toastError(t("toastF.updateCompany"));
+                break;
             case RES_STATUS.FAILED_ADD_NEW_SU:
                 toastError(t("toastE.addedNewSU"));
                 break;
