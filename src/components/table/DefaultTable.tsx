@@ -49,8 +49,8 @@ type Tprops<T> = {
     // for each components className
     cnSearch?: string;
     cnTable?: string;
-    cnHead?: string;
-    cnBody?: string;
+    cnTHead?: string;
+    cnTBody?: string;
     cnTh?: string;
 };
 
@@ -64,8 +64,8 @@ type Tprops<T> = {
  * @param expandContent - [function] to get the content of the expanded row
  * @param cnSearch - [string] className for search bar
  * @param cnTable - [string] className for table
- * @param cnHead - [string] className for table header
- * @param cnBody - [string] className for table body
+ * @param cnTHead - [string] className for table header
+ * @param cnTBody - [string] className for table body
  * @param cnTh - [string] className for table table header
  * @param menuOptions - [TmenuOptions] for menu btn options
  * @param setData - [function] to set the data for the modal opened by menu btn options
@@ -81,11 +81,11 @@ const PTable = <T extends object>({
     hFilter = true,
     getRowCanExpand,
     expandContent: SubTable,
-    cnSearch,
+    cnSearch = "my-2",
     cnTable,
-    cnHead,
-    cnBody,
-    cnTh,
+    cnTHead = "sticky top-0 bg-indigo-300",
+    cnTBody,
+    cnTh = "py-1",
 }: Tprops<T>) => {
     const [globalFilter, setGlobalFilter] = useState("");
     const deferredGF = useDeferredValue(globalFilter);
@@ -200,10 +200,9 @@ const PTable = <T extends object>({
         : "";
 
     return (
-        <div className="container flex flex-col">
+        <div className="flex flex-col">
             <div className="flex flex-col sm:flex-row my-2 gap-y-2">
                 {/* search bar */}
-
                 {search && (
                     <SearchBar
                         value={globalFilter}
@@ -211,18 +210,18 @@ const PTable = <T extends object>({
                         className={`${cnSearch}`}
                     />
                 )}
-
+                {/* toggle btn */}
                 {columnToggle && <ColumnToggleBtn table={table} />}
             </div>
 
             <CTable className={`${cnTable}`} table={table}>
                 <CTHead
-                    className={`${cnHead}`}
+                    className={`${cnTHead}`}
                     table={table}
                     hFilter={hFilter}
                     cnTh={cnTh}
                 />
-                <CTBody className={`${cnBody}`}>{tableBody}</CTBody>
+                <CTBody className={`${cnTBody}`}>{tableBody}</CTBody>
             </CTable>
 
             {/* pagination */}

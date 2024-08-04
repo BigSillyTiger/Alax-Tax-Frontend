@@ -26,44 +26,38 @@ const MainContent: FC<Tprops> = ({ clients }) => {
     };
 
     return (
-        <>
-            <div className="px-4 sm:px-6 lg:px-8 top-0">
-                {/* header area */}
-                <div className="flex justify-end">
-                    <Nbtn
-                        type="button"
-                        className="w-full sm:w-[25dvw] md:w-[30dvw] text-wrap"
-                        onClick={handleAddNew}
-                    >
-                        {t("btn.addClient")}
-                    </Nbtn>
-                </div>
-
-                {/* table */}
-                {clients && clients.length ? (
-                    <Card className="mt-8">
-                        <PTable
-                            search={true}
-                            hFilter={true}
-                            data={clients}
-                            columns={clientColumns}
-                            menuOptions={{ edit: true, del: true }}
-                            setData={setClient}
-                            cnSearch="my-3"
-                            cnTable={`h-[65dvh]`}
-                            cnHead="sticky z-10 bg-indigo-300"
-                            cnTh="py-3"
-                        />
-                    </Card>
-                ) : (
-                    <Card className="mt-8">
-                        <span className="m-5 p-5  text-center h-15">
-                            {t("tips.noClient")}
-                        </span>
-                    </Card>
-                )}
+        <div className="flex flex-col top-0">
+            {/* header area */}
+            <div className="flex justify-end my-4">
+                <Nbtn
+                    type="button"
+                    className="w-full sm:w-[25dvw] md:w-[30dvw] text-wrap"
+                    onClick={handleAddNew}
+                >
+                    {t("btn.addClient")}
+                </Nbtn>
             </div>
-        </>
+
+            {/* table */}
+            {clients && clients.length ? (
+                <Card className="mb-3">
+                    <PTable
+                        search={true}
+                        hFilter={true}
+                        data={clients}
+                        columns={clientColumns}
+                        menuOptions={{ edit: true, del: true }}
+                        setData={setClient}
+                    />
+                </Card>
+            ) : (
+                <Card className="mt-8">
+                    <span className="m-5 p-5 text-center h-15">
+                        {t("tips.noClient")}
+                    </span>
+                </Card>
+            )}
+        </div>
     );
 };
 

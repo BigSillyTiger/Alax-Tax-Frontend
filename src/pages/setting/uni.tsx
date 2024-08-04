@@ -64,7 +64,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                             menuOptions={{ edit: true, del: true }}
                             cnSearch="my-3"
                             cnTable={`h-[55dvh]`}
-                            cnHead="sticky z-10 bg-indigo-300"
+                            cnTHead="sticky z-10 bg-indigo-300"
                             cnTh="py-3"
                         />
                     ) : (
@@ -116,7 +116,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                             menuOptions={{ edit: true, del: true }}
                             cnSearch="my-3"
                             cnTable={`h-[55dvh]`}
-                            cnHead="sticky z-10 bg-indigo-300"
+                            cnTHead="sticky z-10 bg-indigo-300"
                             cnTh="py-3"
                         />
                     ) : (

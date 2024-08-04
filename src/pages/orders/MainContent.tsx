@@ -77,12 +77,12 @@ const MainContent: FC = () => {
     }, [staff, uniData, company, logo]);
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 top-0">
+        <div className="flex flex-col top-0">
             {/* header area */}
 
             {/* table */}
             {newOrders && newOrders.length ? (
-                <Card className="mt-8">
+                <Card className="my-3">
                     <PTable
                         search={true}
                         hFilter={true}
@@ -104,15 +104,11 @@ const MainContent: FC = () => {
                             return false;
                         }}
                         expandContent={SubTable}
-                        cnSearch="my-3"
-                        cnTable={`h-[70dvh]`}
-                        cnHead="sticky z-10 bg-indigo-300"
-                        cnTh="py-3"
                     />
                 </Card>
             ) : (
                 <Card className="mt-8">
-                    <span className="m-5 p-5  text-center h-15">
+                    <span className="m-5 p-5 text-center h-15">
                         {t("tips.noOrder")}
                     </span>
                 </Card>

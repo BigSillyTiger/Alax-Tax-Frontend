@@ -42,7 +42,7 @@ const SubTable: FC<Tprops> = ({ data }) => {
                         del: true,
                     }}
                     hFilter={false}
-                    cnHead="bg-indigo-50"
+                    cnTHead="bg-indigo-50"
                 />
             ) : (
                 <div className="my-2 px-1">{t("tips.noPayslips")}</div>

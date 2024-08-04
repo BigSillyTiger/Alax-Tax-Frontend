@@ -42,7 +42,11 @@ const CTHead = <T extends object>({
             ))}
         </tr>
     ));
-    return <thead className={`w-full top-0 ${className}`}>{tableHeader}</thead>;
+    return (
+        <thead className={`w-full sticky top-0 ${className}`}>
+            {tableHeader}
+        </thead>
+    );
 };
 
 export default CTHead;

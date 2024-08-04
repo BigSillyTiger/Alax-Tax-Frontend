@@ -22,7 +22,7 @@ export const orderSubTable = (
             <PTable
                 data={data.order_services}
                 columns={orderDescColumns}
-                cnHead="bg-indigo-50"
+                cnTHead="bg-indigo-50"
                 hFilter={false}
             />
         ) : (
@@ -44,7 +44,7 @@ export const orderSubTable = (
                         paid_date: string;
                     }>[]
                 }
-                cnHead="bg-indigo-50"
+                cnTHead="bg-indigo-50"
                 hFilter={false}
             />
         ) : (

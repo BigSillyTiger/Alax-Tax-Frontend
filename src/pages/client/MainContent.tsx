@@ -132,7 +132,7 @@ const MainContent: FC = () => {
 
     return (
         <div className="px-4 sm:px-6 lg:px-8 top-0 flex flex-col gap-y-4">
-            <div className="flex flex-col sm:flex-row gap-x-4 w-full justify-evenly">
+            <div className="flex flex-col sm:flex-row gap-x-4 w-full justify-evenly items-center">
                 <ClientInfoCard
                     client={client[0]}
                     className="my-2 mx-1 col-span-3 text-sm"
@@ -153,7 +153,7 @@ const MainContent: FC = () => {
                     {t("btn.newOrder")}
                 </Nbtn>
             </div>
-            <Card className="col-span-6">
+            <Card className="mb-3">
                 {/* order table */}
                 {newOrders.length > 0 ? (
                     <PTable
@@ -175,10 +175,6 @@ const MainContent: FC = () => {
                             return false;
                         }}
                         expandContent={SubTable}
-                        cnSearch="my-3"
-                        cnTable={`h-[55dvh]`}
-                        cnHead="sticky z-10 bg-indigo-300"
-                        cnTh="py-3"
                     />
                 ) : (
                     <span>{t("tips.noOrder")}</span>

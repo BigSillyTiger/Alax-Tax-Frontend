@@ -25,7 +25,7 @@ const Deduction: FC = () => {
                         }))}
                         cnSearch="my-3"
                         cnTable={`h-[30dvh]`}
-                        cnHead="sticky z-10 bg-red-300"
+                        cnTHead="sticky z-10 bg-red-300"
                         cnTh="py-3"
                     />
                 </Card>

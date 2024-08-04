@@ -22,7 +22,7 @@ const StaffWLTable: FC = () => {
                 columns={staffWLColumns as ColumnDef<TwlTableRow>[]}
                 cnSearch="my-3"
                 cnTable={`h-[40dvh]`}
-                cnHead="sticky z-10 bg-indigo-300"
+                cnTHead="sticky z-10 bg-indigo-300"
                 cnTh="py-3"
             />
         </Card>

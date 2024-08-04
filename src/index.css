@@ -106,3 +106,9 @@
         margin: 0;
     }
 }
+
+/* customized style */
+
+.cps-container {
+    @apply mx-4;
+}

@@ -148,7 +148,7 @@ const ManagerContent: FC = () => {
                             expandContent={SubTable}
                             cnSearch="my-3"
                             cnTable="h-[65dvh]"
-                            cnHead="sticky z-10 bg-indigo-300"
+                            cnTHead="sticky z-10 bg-indigo-300"
                             cnTh="py-3"
                         />
                     </Card>

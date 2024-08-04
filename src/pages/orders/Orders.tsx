@@ -90,7 +90,7 @@ const Orders: FC = () => {
     }, [actionData, modalOpen, setModalOpen, t]);
 
     return (
-        <div className="container border-0">
+        <div className="cps-container border-0 h-full">
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={allPromise} errorElement={<ErrorTips />}>
                     <MainContent />

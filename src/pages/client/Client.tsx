@@ -76,7 +76,7 @@ const Client: FC = () => {
 
     return (
         <>
-            <div className="container border-0">
+            <div className="cps-container border-0">
                 <Suspense fallback={<LoadingPage />}>
                     <Await resolve={allPromise} errorElement={<ErrorTips />}>
                         <MainContent />
