@@ -196,7 +196,7 @@ const en = {
             name: "名称",
             newOrder: "新订单",
             note: "备注",
-            netto: "净价",
+            net: "净价",
             newIssueDate: "新的发布日期",
             none: "无",
             noContent: "无内容",

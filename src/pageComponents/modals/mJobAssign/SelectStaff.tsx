@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useJobAssignStore } from "@/configs/zustore";
 import { Tstaff } from "@/configs/schema/staffSchema";
 import { isSameDay } from "date-fns";
-import { atAllStaff, atOrder } from "@/configs/atoms";
+import { atAllStaff, atOrderWithClient } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { assignedWorkSchema } from "@/configs/schema/workSchema";
 import { dateFormat } from "@/lib/time";
@@ -20,7 +20,7 @@ const SelectStaff: FC = () => {
     );
     // jotai atoms
     const [atomAllStaff] = useAtom(atAllStaff);
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
     // zustand states and actions
     //const selectStaff = useJobAssignStore((state) => state.selectStaff);
     const selectedDate = useJobAssignStore((state) => state.selectedDate);

@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import PaymentsContent from "./PaymentsContent";
-import { atOrder } from "@/configs/atoms";
+import { atOrderWithClient } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import {
     FieldArrayWithId,
@@ -21,7 +21,7 @@ type Tprops = {
 
 const LeftColumn: FC<Tprops> = ({ totalPaid, fields, register, remove }) => {
     const { t } = useTranslation();
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
 
     return (
         <div className="col-span-1 lg:col-span-3 grid grid-cols-1">

@@ -9,7 +9,7 @@ import {
     UseFormReturn,
 } from "react-hook-form";
 import { Tpayment } from "@/configs/schema/orderSchema";
-import { atOrder } from "@/configs/atoms";
+import { atOrderWithClient } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
@@ -36,7 +36,7 @@ const FormContent: FC<Tprops> = ({
     totalPaid,
 }) => {
     const submit = useSubmit();
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
     const currentRouter = useRouterStore((state) => state.currentRouter);
 
     const onSubmit = async (e: FormEvent) => {

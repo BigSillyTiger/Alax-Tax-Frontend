@@ -6,14 +6,14 @@ import { useAtom } from "jotai";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TorderForm, orderFormSchema } from "@/configs/schema/orderSchema";
 import { MTemplate } from "@/components/modal";
-import { atModalOpen, atOrder, atSUData } from "@/configs/atoms";
+import { atModalOpen, atOrderWithClient, atSUData } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
 import FormContent from "./Form";
 
 const MOrderForm: FC = memo(() => {
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
     const [uniData] = useAtom(atSUData);
 
     const {
@@ -37,26 +37,10 @@ const MOrderForm: FC = memo(() => {
 
     useEffect(() => {
         if (clientOrder && uniData?.services) {
-            const {
-                address,
-                suburb,
-                city,
-                state,
-                country,
-                postcode,
-                status,
-                deposit,
-                order_services,
-            } = clientOrder;
+            const { status, q_deposit, order_services } = clientOrder;
             reset({
-                address: address ?? undefined,
-                suburb: suburb ?? undefined,
-                city: city ?? undefined,
-                state: state ?? undefined,
-                country: country ?? undefined,
-                postcode: postcode ?? undefined,
                 status: status ?? t("label.pending"),
-                deposit: deposit ?? 0,
+                q_deposit: q_deposit ?? 0,
                 // notice this is the major operation for fields to read data
                 // from the order_services field
                 order_services: order_services ?? undefined,
@@ -80,6 +64,8 @@ const MOrderForm: FC = memo(() => {
             }
             mode={"full"}
             mQuit={true}
+            noX={true}
+            noTitle={true}
             className="overflow-y-hidden"
         >
             <FormContent

@@ -1,4 +1,4 @@
-import { atOrder } from "@/configs/atoms";
+import { atOrderWithClient } from "@/configs/atoms";
 import { TorderPayment, Tpayment } from "@/configs/schema/orderSchema";
 import { plusAB } from "@/lib/calculations";
 import { dateFormat } from "@/lib/time";
@@ -14,7 +14,7 @@ type Tprops = { prepend: UseFieldArrayPrepend<Tpayment>; totalPaid: number };
 
 const PayOperation: FC<Tprops> = ({ prepend, totalPaid }) => {
     const { t } = useTranslation();
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
     const [payment, setPayment] = useState<TorderPayment>({
         pid: "",
         fk_oid: "",

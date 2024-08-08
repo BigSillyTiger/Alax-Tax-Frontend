@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react";
 import { useSubmit } from "react-router-dom";
-import { Torder } from "@/configs/schema/orderSchema";
+import { TorderWithClient } from "@/configs/schema/orderSchema";
 import { useRouterStore } from "@/configs/zustore";
 import { capFirstLetter, genAction } from "@/lib/literals";
 import { ORDER_STATUS } from "@/configs/utils/setting";
@@ -16,7 +16,7 @@ import { statusColor } from "@/configs/utils/color";
 
 type Tprops = {
     mLabel: ReactNode | string;
-    data: Torder;
+    data: TorderWithClient;
 };
 
 // this menu btn group component is highly designed for order status change usage

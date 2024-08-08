@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import ComboBox from "@/components/ComboBox";
 import { useTranslation } from "react-i18next";
-import { atOrder, atOrderService, atSUData } from "@/configs/atoms";
+import { atOrderWithClient, atOrderService, atSUData } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { Tservice } from "@/configs/schema/settingSchema";
 import { calGst } from "@/lib/calculations";
@@ -17,7 +17,7 @@ const AppendNewService: FC<Tprops> = ({ append }) => {
     const { t } = useTranslation();
     const [uniData] = useAtom(atSUData);
     const [serviceDesc, setServiceDesc] = useAtom(atOrderService);
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
 
     const setDefaultService = (value: string) => {
         let service = uniData?.services
@@ -46,13 +46,13 @@ const AppendNewService: FC<Tprops> = ({ append }) => {
             unit: service.unit as string,
             unit_price: service.unit_price as number,
             gst: calGst(Number(service.unit_price)),
-            netto: service.unit_price as number,
+            net: service.unit_price as number,
         });
     };
 
     return (
-        <div className="col-span-full grid grid-cols-6 my-3 gap-x-3">
-            <div className="col-span-4 ">
+        <div className="col-span-full grid grid-cols-6 my-2 gap-x-3">
+            <div className="col-span-4">
                 <label htmlFor="sTitle" className="text-indigo-500 text-bold">
                     {t("modal.tips.pickService")}:
                 </label>

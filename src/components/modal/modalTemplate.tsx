@@ -16,6 +16,8 @@ type Tprops = {
     // true for using quit tips, false for no quit tips
     mQuit?: boolean;
     className?: string;
+    noX?: boolean;
+    noTitle?: boolean;
 };
 
 const MTemplate: FC<Tprops> = memo(
@@ -27,6 +29,8 @@ const MTemplate: FC<Tprops> = memo(
         title,
         children,
         mode = "md",
+        noX = false,
+        noTitle = false,
         className,
     }) => {
         const [openQuit, setOpenQuit] = useState(false);
@@ -50,6 +54,8 @@ const MTemplate: FC<Tprops> = memo(
                     title={title}
                     mode={mode}
                     isMajor={isMajor}
+                    noX={noX}
+                    noTitle={noTitle}
                     className={cn("overflow-hidden", className)}
                 >
                     {children}

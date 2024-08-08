@@ -1,50 +1,50 @@
 import type { FC } from "react";
-import AddressContent from "./AddressContent";
-import DetailsContent from "./DetailsContent";
+import QuoteDetailsContent from "./QuoteDetailsContent";
 import { useTranslation } from "react-i18next";
-import { atOrder } from "@/configs/atoms";
+import { atOrderWithClient } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { TorderForm } from "@/configs/schema/orderSchema";
-import { FieldErrors, UseFormReturn } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 import { ClientInfoFs } from "@/pageComponents/fieldset";
+import OrderNote from "./OrderNote";
+import ModalTitle from "../../ModalTitle";
 
 type Tprops = {
     register: UseFormReturn<TorderForm>["register"];
-    errors: FieldErrors<TorderForm>;
     calTotalGst: number;
+    calTotalNet: number;
     calTotal: number;
 };
 
 const LeftColumn: FC<Tprops> = ({
     register,
-    errors,
     calTotalGst,
+    calTotalNet,
     calTotal,
 }) => {
     const { t } = useTranslation();
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
 
     return (
-        <div className="col-span-1 lg:col-span-3 grid grid-cols-1">
+        <div className="col-span-1 lg:col-span-3 flex flex-col">
+            {/* title */}
+            <ModalTitle title={t("modal.title.addOrder")} />
             {/* client info */}
             <ClientInfoFs
                 title={t("label.clientInfo")}
                 client={clientOrder.client_info}
                 sFieldset={`col-span-full my-2 mx-1`}
             />
-            {/* addres */}
-            <AddressContent
-                register={register}
-                errors={errors}
-                sFieldset={`col-span-full my-2 mx-1`}
-            />
 
             {/* details */}
-            <DetailsContent
+            <QuoteDetailsContent
                 register={register}
                 calTotalGst={calTotalGst}
+                calTotalNet={calTotalNet}
                 calTotal={calTotal}
             />
+            {/* note */}
+            <OrderNote register={register} />
         </div>
     );
 };

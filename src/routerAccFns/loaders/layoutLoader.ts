@@ -1,5 +1,5 @@
 import { redirect, LoaderFunctionArgs, defer } from "react-router-dom";
-import { API_ADMIN, API_PAYSLIP, API_SETTING, API_WORKLOGS } from "@/apis";
+import { API_ADMIN, API_SETTING } from "@/apis";
 //import { routerStore } from "@/configs/zustore";
 import { RES_STATUS } from "@/configs/types";
 //import { routerStore } from "@/configs/zustore";
@@ -25,8 +25,7 @@ export const layoutLoader = async ({ request }: LoaderFunctionArgs) => {
 
         const allPromise = Promise.all([
             API_ADMIN.adminCheck().then((res) => res.data),
-            API_WORKLOGS.wlAll().then((res) => res.data),
-            API_PAYSLIP.psAll().then((res) => res.data),
+            //API_PAYSLIP.psAll().then((res) => res.data),
             API_SETTING.logo().then((res) => res.data),
         ]);
         return defer({ allPromise });

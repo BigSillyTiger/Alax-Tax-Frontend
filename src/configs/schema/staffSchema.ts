@@ -28,7 +28,6 @@ export const staffSchema = z.object({
     dashboard: z.number().default(roleOptions[defaultStaffRole].dashboard),
     clients: z.number().default(roleOptions[defaultStaffRole].clients),
     orders: z.number().default(roleOptions[defaultStaffRole].orders),
-    worklogs: z.number().default(roleOptions[defaultStaffRole].worklogs),
     calendar: z.number().default(roleOptions[defaultStaffRole].calendar),
     staff: z.number().default(roleOptions[defaultStaffRole].staff),
     setting: z.number().default(roleOptions[defaultStaffRole].setting),

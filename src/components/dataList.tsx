@@ -6,7 +6,7 @@ type Tprops = {
     data: any[];
 };
 
-const DataList: FC<Tprops> = ({ id, data, name }) => {
+const DataList: FC<Tprops> = ({ id, name, data }) => {
     if (data.length) {
         return (
             <datalist id={id}>

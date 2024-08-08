@@ -15,7 +15,7 @@ import {
 } from "react-hook-form";
 import { TorderForm, TorderService } from "@/configs/schema/orderSchema";
 import { toastError } from "@/lib/toaster";
-import { atOrder } from "@/configs/atoms";
+import { atOrderWithClient } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
@@ -54,14 +54,14 @@ const FormContent: FC<Tprops> = ({
     const submit = useSubmit();
     const currentRouter = useRouterStore((state) => state.currentRouter);
 
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
 
     const values = useWatch({ control, name: "order_services" });
 
     const calTotal = useMemo(() => {
         let total = 0;
         for (const item of values) {
-            total = plusAB(total, item.netto);
+            total = plusAB(total, item.net);
             total = plusAB(total, item.gst);
         }
         return total;
@@ -73,6 +73,14 @@ const FormContent: FC<Tprops> = ({
             gst = plusAB(gst, item.gst);
         }
         return gst;
+    }, [values]);
+
+    const calTotalNet = useMemo(() => {
+        let net = 0;
+        for (const item of values) {
+            net = plusAB(net, item.net);
+        }
+        return net;
     }, [values]);
 
     const onSubmit = async (e: FormEvent) => {
@@ -116,12 +124,12 @@ const FormContent: FC<Tprops> = ({
     return (
         <Form
             onSubmit={onSubmit}
-            className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-[77dvh] lg:h-auto"
+            className="grid grid-cols-1 lg:grid-cols-8 gap-y-3 gap-x-4 overflow-y-auto h-full"
         >
             <LeftColumn
                 register={register}
-                errors={errors}
                 calTotalGst={calTotalGst}
+                calTotalNet={calTotalNet}
                 calTotal={calTotal}
             />
             <RightColumn

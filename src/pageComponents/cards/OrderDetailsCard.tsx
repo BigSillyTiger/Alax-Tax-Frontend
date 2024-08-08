@@ -1,12 +1,12 @@
 import type { FC } from "react";
 import Card from "@/components/Card";
 import { useTranslation } from "react-i18next";
-import { Torder } from "@/configs/schema/orderSchema";
+import { TorderWithClient } from "@/configs/schema/orderSchema";
 import { minusAB } from "@/lib/calculations";
 import { Btext } from "@/components/Btext";
 
 type TorderInfo = {
-    order: Torder;
+    order: TorderWithClient;
     className: string;
 };
 
@@ -19,9 +19,10 @@ const OrderDetailsCard: FC<TorderInfo> = ({ order, className }) => {
             {/* address */}
             <div className="col-span-full pb-3 break-words border-b-2 border-dotted border-indigo-300">
                 <p>
-                    <Btext>{t("label.workAddr")}: </Btext> {order?.address},{" "}
-                    {order?.suburb}, {order?.city}, {order?.state},{" "}
-                    {order?.country}, {order?.postcode}
+                    <Btext>{t("label.workAddr")}: </Btext>{" "}
+                    {order?.client_info.address}, {order?.client_info.suburb},{" "}
+                    {order?.client_info.city}, {order?.client_info.state},{" "}
+                    {order?.client_info.country}, {order?.client_info.postcode}
                 </p>
             </div>
 

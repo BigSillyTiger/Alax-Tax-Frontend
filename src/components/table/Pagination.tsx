@@ -15,7 +15,7 @@ const Pagination = <T extends object>({ table }: Tprops<T>) => {
                 onChange={(e) => {
                     table.setPageSize(Number(e.target.value));
                 }}
-                className="p-2 bg-transparent ring-0 outline-none"
+                className="p-2 bg-transparent ring-0 outline-none cursor-pointer"
             >
                 {[10, 20, 30, 40, 50].map((pageSize) => (
                     <option key={pageSize} value={pageSize}>

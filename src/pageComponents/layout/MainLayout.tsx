@@ -1,40 +1,22 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import MainMenu from "../mainMenu";
 import { Outlet, useAsyncValue } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import HeadBar from "../headBar";
 import { Tpermission } from "@/configs/schema/universSchema";
-import { TwlTableRow } from "@/configs/schema/workSchema";
-import { Tpayslip } from "@/configs/schema/payslipSchema";
-import { useGlobalAlertStore, useLogoStore } from "@/configs/zustore";
+import { useLogoStore } from "@/configs/zustore";
 
 const MainLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
     // this is for head bar alert bell notification
-    const setUnPayslip = useGlobalAlertStore((state) => state.setUnPayslip);
-    const setUnWorklog = useGlobalAlertStore((state) => state.setUnWorklog);
     const setLogoSrc = useLogoStore((state) => state.setLogoSrc);
 
-    const [loaderData, allWorklogs, allPayslips, logo] = useAsyncValue() as [
-        Tpermission,
-        TwlTableRow[],
-        Tpayslip[],
-        string,
-    ];
-
-    const unWL = useMemo(() => {
-        return allWorklogs.filter((wl) => wl.wl_status === "processing");
-    }, [allWorklogs]);
-    const unPS = useMemo(() => {
-        return allPayslips.filter((ps) => ps.status === "pending");
-    }, [allPayslips]);
+    const [loaderData, logo] = useAsyncValue() as [Tpermission, string];
 
     useEffect(() => {
-        setUnWorklog(unWL);
-        setUnPayslip(unPS);
         setLogoSrc(logo);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [unWL, unPS, logo]);
+    }, [logo]);
 
     return (
         <>

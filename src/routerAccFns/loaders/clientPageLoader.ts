@@ -1,4 +1,5 @@
 import { API_ADMIN, API_CLIENT, API_SETTING, API_ORDER } from "@/apis";
+import { TorderWithClient } from "@/configs/schema/orderSchema";
 import { menuList } from "@/configs/utils/router";
 import { routerStore } from "@/configs/zustore";
 import { LoaderFunctionArgs, defer, redirect } from "react-router-dom";
@@ -23,7 +24,21 @@ export const clientLoader = async ({ request, params }: LoaderFunctionArgs) => {
         const cid = params.cid as string;
         const allPromise = Promise.all([
             API_CLIENT.clientInfo(cid).then((res) => res.data),
-            API_ORDER.orderWClient(cid).then((res) => res.data),
+            API_ORDER.orderWClient(cid).then((res) =>
+                (res.data as TorderWithClient[]).map((item) => {
+                    return {
+                        ...item,
+                        order_services: item.order_services
+                            .sort((a, b) => a.ranking - b.ranking)
+                            .map((desc) => {
+                                return {
+                                    ...desc,
+                                    taxable: Boolean(desc.taxable),
+                                };
+                            }),
+                    };
+                })
+            ),
             API_SETTING.uniAll().then((res) => res.data),
             API_SETTING.companyGet().then((res) => res.data),
             API_SETTING.logo().then((res) => res.data),

@@ -14,7 +14,7 @@ import { Nbtn } from "@/components/btns";
 import CompanyInfoCard from "@/pageComponents/cards/CompanyInfoCard";
 import { dateFormat } from "@/lib/time";
 import { dateMax, dateMin } from "@/configs/utils/date";
-import { atCompany, atLogo, atOrder } from "@/configs/atoms";
+import { atCompany, atLogo, atOrderWithClient } from "@/configs/atoms";
 
 const DatePicker = ({
     oid,
@@ -125,15 +125,15 @@ const DatePicker = ({
 const QuoContent: FC = memo(() => {
     const [date, setDate] = useState(dateFormat(new Date()));
     const { t } = useTranslation();
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
     const [company] = useAtom(atCompany);
     const [logo] = useAtom(atLogo);
 
     useEffect(() => {
-        if (clientOrder.invoice_date) {
-            setDate(dateFormat(new Date(clientOrder.invoice_date)));
+        if (clientOrder.i_date) {
+            setDate(dateFormat(new Date(clientOrder.i_date)));
         }
-    }, [clientOrder.invoice_date]);
+    }, [clientOrder.i_date]);
 
     const detailContent = (
         <div className={`h-[64dvh] overflow-y-auto`}>
@@ -167,8 +167,8 @@ const QuoContent: FC = memo(() => {
                     date={date}
                     setDate={setDate}
                     defaultDate={
-                        clientOrder.invoice_date
-                            ? clientOrder.invoice_date
+                        clientOrder.i_date
+                            ? clientOrder.i_date
                             : new Date().toISOString()
                     }
                 />

@@ -14,7 +14,12 @@ import { Nbtn } from "@/components/btns";
 import CompanyInfoCard from "@/pageComponents/cards/CompanyInfoCard";
 import { dateFormat } from "@/lib/time";
 import { dateMax, dateMin } from "@/configs/utils/date";
-import { atCompany, atLogo, atOrder, atClient } from "@/configs/atoms";
+import {
+    atCompany,
+    atLogo,
+    atOrderWithClient,
+    atClient,
+} from "@/configs/atoms";
 
 const DatePicker = ({
     oid,
@@ -125,15 +130,15 @@ const InvContent: FC = memo(() => {
     const [date, setDate] = useState(dateFormat(new Date()));
     const { t } = useTranslation();
     const [client, setClient] = useAtom(atClient);
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
     const [company] = useAtom(atCompany);
     const [logo] = useAtom(atLogo);
 
     useEffect(() => {
-        if (clientOrder.invoice_date) {
-            setDate(dateFormat(new Date(clientOrder.invoice_date)));
+        if (clientOrder.i_date) {
+            setDate(dateFormat(new Date(clientOrder.i_date)));
         }
-    }, [clientOrder.invoice_date]);
+    }, [clientOrder.i_date]);
 
     useEffect(() => {
         if (clientOrder.client_info) {
@@ -176,8 +181,8 @@ const InvContent: FC = memo(() => {
                     date={date}
                     setDate={setDate}
                     defaultDate={
-                        clientOrder.invoice_date
-                            ? clientOrder.invoice_date
+                        clientOrder.i_date
+                            ? clientOrder.i_date
                             : new Date().toISOString()
                     }
                 />

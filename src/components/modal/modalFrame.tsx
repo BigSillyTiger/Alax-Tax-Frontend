@@ -7,6 +7,8 @@ import { CloseBtn } from "../btns";
 
 type Tprops = {
     open: boolean;
+    noX?: boolean;
+    noTitle?: boolean;
     onClose: () => void;
     onCloseForce?: () => void;
     // using red color for major warning
@@ -26,6 +28,8 @@ const ModalFrame: FC<Tprops> = ({
     children,
     mode = "md",
     className,
+    noX = false,
+    noTitle = false,
 }) => {
     const { t } = useTranslation();
 
@@ -82,44 +86,47 @@ const ModalFrame: FC<Tprops> = ({
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             <Dialog.Panel
-                                className={`relative overflow-y-auto bg-slate-100 text-left shadow-xl transition-all px-4 pb-4 pt-5 sm:my-8 sm:py-3 sm:px-4 ${widthSize(
+                                className={`relative overflow-y-auto bg-slate-100 text-left shadow-xl transition-all p-2 ${widthSize(
                                     mode
                                 )} ${className}`}
                             >
                                 {/* right top close button */}
-                                <div className="absolute right-0 top-0 pr-4 pt-4 block">
-                                    <CloseBtn
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            if (onCloseForce) {
-                                                onCloseForce();
-                                            } else {
-                                                onClose();
-                                            }
-                                        }}
-                                        srStr={t("sr.closeModal")}
-                                    />
-                                </div>
-
-                                <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                                {noX ? null : (
+                                    <div className="absolute right-0 top-0 pr-4 pt-4 block">
+                                        <CloseBtn
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                if (onCloseForce) {
+                                                    onCloseForce();
+                                                } else {
+                                                    onClose();
+                                                }
+                                            }}
+                                            srStr={t("sr.closeModal")}
+                                        />
+                                    </div>
+                                )}
+                                <div className="text-center sm:text-left w-full h-full ">
                                     {/* title */}
-                                    <Dialog.Title
-                                        as="h3"
-                                        className={`text-base flex items-center font-semibold leading-6 h-[5dvh] ${
-                                            isMajor
-                                                ? "text-red-600 flex items-center justify-center"
-                                                : "text-gray-900"
-                                        }`}
-                                    >
-                                        {isMajor && (
-                                            <ExclamationTriangleIcon
-                                                className="h-5 w-5 inline"
-                                                aria-hidden="true"
-                                            />
-                                        )}
-                                        &nbsp;
-                                        {title}
-                                    </Dialog.Title>
+                                    {noTitle ? null : (
+                                        <Dialog.Title
+                                            as="h3"
+                                            className={`text-base flex items-center font-semibold leading-6 h-[5dvh] ${
+                                                isMajor
+                                                    ? "text-red-600 flex items-center justify-center"
+                                                    : "text-gray-900"
+                                            }`}
+                                        >
+                                            {isMajor && (
+                                                <ExclamationTriangleIcon
+                                                    className="h-5 w-5 inline"
+                                                    aria-hidden="true"
+                                                />
+                                            )}
+                                            &nbsp;
+                                            {title}
+                                        </Dialog.Title>
+                                    )}
 
                                     {/* main content */}
                                     {children}

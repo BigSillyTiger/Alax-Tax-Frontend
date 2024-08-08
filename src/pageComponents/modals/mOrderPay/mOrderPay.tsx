@@ -9,11 +9,11 @@ import { MTemplate } from "@/components/modal";
 import { plusAB } from "@/lib/calculations";
 import { dateFormat } from "@/lib/time";
 import { mOpenOps } from "@/configs/utils/modal";
-import { atOrder, atModalOpen } from "@/configs/atoms";
+import { atOrderWithClient, atModalOpen } from "@/configs/atoms";
 import FormContent from "./Form";
 
 const MOrderPay: FC = memo(() => {
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const [totalPaid, setTotalPaid] = useState(0);
 

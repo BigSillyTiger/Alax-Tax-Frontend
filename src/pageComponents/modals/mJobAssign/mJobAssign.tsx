@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useMemo } from "react";
 import { MTemplate } from "@/components/modal";
-import { atAllStaff, atModalOpen, atOrder } from "@/configs/atoms";
+import { atAllStaff, atModalOpen, atOrderWithClient } from "@/configs/atoms";
 import { useNavigation, useSubmit, Form } from "react-router-dom";
 import { mOpenOps } from "@/configs/utils/modal";
 import { useAtom } from "jotai";
@@ -20,7 +20,7 @@ const MJobAssign = () => {
     const { t } = useTranslation();
     // jotai atoms
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
     const [atomAllStaff] = useAtom(atAllStaff);
     // zustand states and actions
     const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
@@ -40,7 +40,6 @@ const MJobAssign = () => {
     // for reset the workLogs when modalOpen changes
     // especially when it's closed by cancling
     useEffect(() => {
-        setWorkLogs(clientOrder.wlUnion);
         setDate(new Date());
     }, [modalOpen]);
 

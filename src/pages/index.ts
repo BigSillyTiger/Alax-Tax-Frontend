@@ -7,7 +7,6 @@ import Orders from "./orders";
 import Staff from "./staff";
 import Setting from "./setting";
 import Calendar from "./calendar";
-import WorkLogs from "./worklogs";
 
 export {
     InitPage,
@@ -19,5 +18,4 @@ export {
     Staff,
     Setting,
     Calendar,
-    WorkLogs,
 };

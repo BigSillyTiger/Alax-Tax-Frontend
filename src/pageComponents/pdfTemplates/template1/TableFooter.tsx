@@ -30,11 +30,11 @@ const TableFooter: FC<Tprops> = memo(
             (acc, item) => plusAB(acc as number, item.gst as number),
             0
         );
-        const netto = order.reduce(
-            (acc, item) => plusAB(acc as number, item.netto as number),
+        const net = order.reduce(
+            (acc, item) => plusAB(acc as number, item.net as number),
             0
         );
-        const total = plusAB(gst, netto);
+        const total = plusAB(gst, net);
         const deposit = timesAB(total, convertToFloat(dRate));
 
         return (
@@ -62,7 +62,7 @@ const TableFooter: FC<Tprops> = memo(
                                 {t("label.totalNetto")}:
                             </Text>
                             <Text style={tw("text-sm my-auto text-right")}>
-                                {formMoney(netto)}
+                                {formMoney(net)}
                             </Text>
                         </View>
 

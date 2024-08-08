@@ -4,7 +4,7 @@ import Card from "@/components/Card";
 import { PTable } from "@/components/table";
 import SubTable from "./SubTable";
 import { useTranslation } from "react-i18next";
-import { Torder } from "@/configs/schema/orderSchema";
+import { TorderWithClient } from "@/configs/schema/orderSchema";
 import { Tunivers } from "@/configs/types";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { TstaffWPayslip } from "@/configs/schema/staffSchema";
@@ -13,23 +13,22 @@ import {
     atAllStaff,
     atCompany,
     atLogo,
-    atOrder,
+    atOrderWithClient,
     atSUData,
 } from "@/configs/atoms";
 import { useAsyncValue } from "react-router-dom";
-import { hmsTohm } from "@/lib/time";
 import useOrderColumnsDef from "@/configs/columnDefs/defOrders";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
-    const [, setClientOrder] = useAtom(atOrder);
+    const [, setClientOrder] = useAtom(atOrderWithClient);
     const [, setAllStaff] = useAtom(atAllStaff);
     const [, setUniData] = useAtom(atSUData);
     const [, setCompany] = useAtom(atCompany);
     const [, setLogo] = useAtom(atLogo);
 
     const [orders, staff, uniData, company, logo] = useAsyncValue() as [
-        Torder[],
+        TorderWithClient[],
         TstaffWPayslip[],
         Tunivers,
         Tcompany,
@@ -50,20 +49,6 @@ const MainContent: FC = () => {
                             taxable: Boolean(desc.taxable),
                         };
                     }),
-                wlUnion: item.wlUnion.map((wl) => {
-                    return {
-                        ...wl,
-
-                        assigned_work: wl.assigned_work.map((aw) => {
-                            return {
-                                ...aw,
-                                s_time: hmsTohm(aw.s_time as string),
-                                e_time: hmsTohm(aw.e_time as string),
-                                b_hour: hmsTohm(aw.b_hour as string),
-                            };
-                        }),
-                    };
-                }),
             };
         });
     }, [orders]);

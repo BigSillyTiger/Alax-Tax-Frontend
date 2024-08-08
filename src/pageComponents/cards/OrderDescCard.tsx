@@ -78,11 +78,11 @@ const OrderDescCard: FC<Tprops> = ({ data, readonly = false }) => {
                                 {item.unit_price}
                             </p>
                         </div>
-                        {/* netto - 2 */}
+                        {/* net - 2 */}
                         <div className="col-span-1 sm:col-span-3">
                             <p>
-                                <Btext>{t("label.netto")}: </Btext>
-                                {item.netto}
+                                <Btext>{t("label.net")}: </Btext>
+                                {item.net}
                             </p>
                         </div>
 

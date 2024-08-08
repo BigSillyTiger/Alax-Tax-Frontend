@@ -1,11 +1,11 @@
 import { Btext } from "@/components/Btext";
 import Fieldset from "@/components/Fieldset";
-import { Torder } from "@/configs/schema/orderSchema";
+import { TorderWithClient } from "@/configs/schema/orderSchema";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 type Tprops = {
-    info: Torder;
+    info: TorderWithClient;
     sFieldset?: string;
 };
 
@@ -25,17 +25,17 @@ const OrderInfoFs: FC<Tprops> = ({ info, sFieldset = "" }) => {
             <div className="col-span-full text-wrap  text-lg">
                 <p>
                     <Btext>{t("label.workAddr")}:&nbsp;</Btext>
-                    {info.address +
+                    {info.client_info.address +
                         ", " +
-                        info.suburb +
+                        info.client_info.suburb +
                         ", " +
-                        info.city +
+                        info.client_info.city +
                         ", " +
-                        info.state +
+                        info.client_info.state +
                         ", " +
-                        info.country +
+                        info.client_info.country +
                         ", " +
-                        info.postcode}
+                        info.client_info.postcode}
                 </p>
             </div>
         </Fieldset>

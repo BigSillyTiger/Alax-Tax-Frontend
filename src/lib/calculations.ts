@@ -26,8 +26,8 @@ export const plusAB = (x: number, y: number): number => {
     return a.plus(b).toNumber();
 };
 
-export const calGst = (netto: number): number => {
-    const n = new Big(netto);
+export const calGst = (net: number): number => {
+    const n = new Big(net);
     const g = new Big(gstRate);
     return n.times(g).round(2).toNumber();
 };

@@ -30,7 +30,7 @@ const TableHeader: FC<Tprops> = ({ bgC }) => {
                 {t("label.uPrice")}
             </Text>
             <Text style={tw("text-base w-[73pt] text-center mt-2")}>
-                {t("label.netto")}
+                {t("label.net")}
             </Text>
         </View>
     );

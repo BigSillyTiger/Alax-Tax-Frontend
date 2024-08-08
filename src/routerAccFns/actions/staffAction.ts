@@ -30,7 +30,6 @@ export const staffAction = async ({
             dashboard: Number(data.get("dashboard")),
             clients: Number(data.get("clients")),
             orders: Number(data.get("orders")),
-            worklogs: Number(data.get("worklogs")),
             calendar: Number(data.get("calendar")),
             staff: Number(data.get("staff")),
             setting: Number(data.get("setting")),

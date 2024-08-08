@@ -65,8 +65,8 @@ const useOrderDescColumnsDef = () => {
             },
         },
         {
-            header: i18n.t("label.netto"),
-            accessorKey: "netto",
+            header: i18n.t("label.net"),
+            accessorKey: "net",
             cell: (info: CellContext<TorderService, unknown>) => {
                 return <span>{formMoney(info.getValue<number>())}</span>;
             },

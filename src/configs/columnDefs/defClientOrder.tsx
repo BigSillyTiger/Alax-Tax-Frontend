@@ -1,22 +1,18 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
-import { Torder } from "@/configs/schema/orderSchema";
-import { minusAB } from "@/lib/calculations";
+import { TorderWithClient } from "@/configs/schema/orderSchema";
 import { StatusBadge } from "@/components/Badge";
 import { TstatusColor } from "../types";
 import { dateFormat } from "@/lib/time";
 import { ExpandBtn, OrderStatusBtn } from "@/components/table/tableBtn";
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import { moneyColors } from "../utils/color";
 import { rangeFilterFn } from "./filterFn";
 import { formMoney } from "@/lib/literals";
 
 const useClientOrderColumnsDef = () => {
-    const clientOrderColumns: ColumnDef<Torder>[] = [
+    const clientOrderColumns: ColumnDef<TorderWithClient>[] = [
         {
             id: "Menu",
             header: i18n.t("label.menu"),
-            //cell: (info: CellContext<Torder, string>) => <></>,
         },
         {
             id: "Details",
@@ -26,7 +22,7 @@ const useClientOrderColumnsDef = () => {
                     id: "orderID",
                     header: i18n.t("label.idOrder"),
                     accessorKey: "oid",
-                    cell: (info: CellContext<Torder, string>) => (
+                    cell: (info: CellContext<TorderWithClient, string>) => (
                         <ExpandBtn
                             row={info.row}
                             name={info.getValue<string>()}
@@ -34,27 +30,10 @@ const useClientOrderColumnsDef = () => {
                     ),
                 },
                 {
-                    header: i18n.t("label.address"),
-                    accessorFn: (data: Torder) =>
-                        data.address +
-                        ", " +
-                        data.suburb +
-                        ", " +
-                        data.city +
-                        ", " +
-                        data.state +
-                        ", " +
-                        data.postcode,
-                    accessorKey: "address",
-                    cell: (info: CellContext<Torder, string>) => (
-                        <span className="text-wrap">{info.getValue()}</span>
-                    ),
-                },
-                {
                     id: "orderStatus",
                     header: i18n.t("label.status"),
                     accessorKey: "status",
-                    cell: (info: CellContext<Torder, string>) => {
+                    cell: (info: CellContext<TorderWithClient, string>) => {
                         return (
                             <OrderStatusBtn
                                 mLabel={
@@ -62,7 +41,7 @@ const useClientOrderColumnsDef = () => {
                                         value={info.getValue() as TstatusColor}
                                     />
                                 }
-                                data={info.row.original as Torder}
+                                data={info.row.original as TorderWithClient}
                             />
                         );
                     },
@@ -71,9 +50,19 @@ const useClientOrderColumnsDef = () => {
                     },
                 },
                 {
-                    header: "Order Date",
-                    accessorFn: (data: Torder) => dateFormat(data.created_date),
-                    cell: (info: CellContext<Torder, string>) => {
+                    id: "orderDate",
+                    header: i18n.t("label.createdDate"),
+                    accessorKey: "note",
+                    cell: (info: CellContext<TorderWithClient, string>) => {
+                        return <span>{info.getValue()}</span>;
+                    },
+                },
+                {
+                    id: "orderNote",
+                    header: i18n.t("label.orderNote"),
+                    accessorFn: (data: TorderWithClient) =>
+                        dateFormat(data.created_date),
+                    cell: (info: CellContext<TorderWithClient, string>) => {
                         return <span>{dateFormat(info.getValue(), "au")}</span>;
                     },
                 },
@@ -84,21 +73,10 @@ const useClientOrderColumnsDef = () => {
             header: i18n.t("label.feeStatus"),
             columns: [
                 {
-                    header: i18n.t("label.total"),
-                    accessorKey: "total",
-                    cell: (info: CellContext<Torder, number>) => (
-                        <span>{formMoney(info.getValue())}</span>
-                    ),
-                    filterFn: rangeFilterFn,
-                    meta: {
-                        filterVariant: "range",
-                    },
-                },
-                {
                     id: "Gst",
                     header: i18n.t("label.gst"),
                     accessorKey: "gst",
-                    cell: (info: CellContext<Torder, number>) => (
+                    cell: (info: CellContext<TorderWithClient, number>) => (
                         <span>{formMoney(info.getValue())}</span>
                     ),
                     filterFn: rangeFilterFn,
@@ -107,10 +85,9 @@ const useClientOrderColumnsDef = () => {
                     },
                 },
                 {
-                    id: "Paid",
-                    header: i18n.t("label.paid"),
-                    accessorKey: "paid",
-                    cell: (info: CellContext<Torder, number>) => (
+                    header: i18n.t("label.net"),
+                    accessorKey: "net",
+                    cell: (info: CellContext<TorderWithClient, number>) => (
                         <span>{formMoney(info.getValue())}</span>
                     ),
                     filterFn: rangeFilterFn,
@@ -119,10 +96,22 @@ const useClientOrderColumnsDef = () => {
                     },
                 },
                 {
+                    header: i18n.t("label.total"),
+                    accessorKey: "total",
+                    cell: (info: CellContext<TorderWithClient, number>) => (
+                        <span>{formMoney(info.getValue())}</span>
+                    ),
+                    filterFn: rangeFilterFn,
+                    meta: {
+                        filterVariant: "range",
+                    },
+                },
+
+                /* {
                     header: i18n.t("label.balance"),
-                    accessorFn: (data: Torder) =>
+                    accessorFn: (data: TorderWithClient) =>
                         minusAB(data.total, data.paid),
-                    cell: (info: CellContext<Torder, number>) => {
+                    cell: (info: CellContext<TorderWithClient, number>) => {
                         const balance = minusAB(
                             info.row.original.total,
                             info.row.original.paid
@@ -143,7 +132,7 @@ const useClientOrderColumnsDef = () => {
                     meta: {
                         filterVariant: "range",
                     },
-                },
+                }, */
             ],
         },
     ];

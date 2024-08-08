@@ -1,7 +1,7 @@
 import { FC, Suspense, useEffect } from "react";
 import { Await, useLoaderData, useActionData } from "react-router-dom";
 import LoadingPage from "@/components/loadingEle";
-import { Torder } from "@/configs/schema/orderSchema";
+import { TorderWithClient } from "@/configs/schema/orderSchema";
 import type { Tunivers } from "@/configs/types";
 import { RES_STATUS } from "@/configs/types";
 import {
@@ -27,7 +27,7 @@ const Orders: FC = () => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const { allPromise } = useLoaderData() as {
         allPromise: Promise<
-            [Torder[], TstaffWPayslip[], Tunivers, Tcompany, string]
+            [TorderWithClient[], TstaffWPayslip[], Tunivers, Tcompany, string]
         >;
     };
 

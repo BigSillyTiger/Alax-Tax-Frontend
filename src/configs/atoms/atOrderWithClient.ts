@@ -1,13 +1,15 @@
 import { atom } from "jotai";
 import {
     TorderService,
-    Torder,
-    orderSchema,
+    TorderWithClient,
+    orderWithClientSchema,
     orderServiceSchema,
 } from "@/configs/schema/orderSchema";
 
-const atOrder = atom<Torder>(orderSchema.parse({}));
+const atOrderWithClient = atom<TorderWithClient>(
+    orderWithClientSchema.parse({})
+);
 
 const atOrderService = atom<TorderService>(orderServiceSchema.parse({}));
 
-export { atOrder, atOrderService };
+export { atOrderWithClient, atOrderService };

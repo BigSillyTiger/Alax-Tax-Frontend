@@ -67,9 +67,7 @@ const AlertBell: FC = () => {
                     {/* <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator /> */}
                     {unWorklog.length ? (
-                        <DropdownMenuItem
-                            onClick={() => navigate(routerPaths.workLogs)}
-                        >
+                        <DropdownMenuItem>
                             <ClipboardDocumentListIcon className="size-6 mr-1 text-red-500" />
                             {t("label.workLogs") + ": "}
                             <b>{unWorklog.length}</b>

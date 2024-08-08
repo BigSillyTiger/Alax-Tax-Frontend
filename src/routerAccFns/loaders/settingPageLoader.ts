@@ -7,7 +7,7 @@ export const settingLoader = async ({ request }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;
     routerStore.setState({ currentRouter: "setting" });
     try {
-        const result = await API_ADMIN.loaderAccessCheck(menuList[6].id);
+        const result = await API_ADMIN.loaderAccessCheck(menuList[5].id);
 
         if (!result) {
             return pname

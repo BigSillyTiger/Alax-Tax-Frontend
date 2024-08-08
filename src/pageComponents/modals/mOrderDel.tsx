@@ -6,7 +6,7 @@ import { MTemplate } from "@/components/modal";
 import { useSubmit } from "react-router-dom";
 import Card from "@/components/Card";
 import { DelBtn } from "@/components/form";
-import { atOrder, atModalOpen } from "@/configs/atoms";
+import { atOrderWithClient, atModalOpen } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
@@ -17,7 +17,7 @@ const MOrderDel: FC = memo(() => {
     const submit = useSubmit();
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
     const currentRouter = useRouterStore((state) => state.currentRouter);
 
     const handleDeleteClient = async (oid: string) => {
@@ -43,16 +43,19 @@ const MOrderDel: FC = memo(() => {
                 </div>
                 <div className="col-span-3">
                     <p>
-                        <Btext>{t("label.pc")}: </Btext> {clientOrder?.postcode}
+                        <Btext>{t("label.pc")}: </Btext>{" "}
+                        {clientOrder?.client_info.postcode}
                     </p>
                 </div>
 
                 <div className="col-span-full">
                     <p>
                         <Btext>{t("label.address")}: </Btext>{" "}
-                        {clientOrder?.address}, {clientOrder?.suburb},{" "}
-                        {clientOrder?.city}, {clientOrder?.state},{" "}
-                        {clientOrder?.country}
+                        {clientOrder?.client_info.address},{" "}
+                        {clientOrder?.client_info.suburb},{" "}
+                        {clientOrder?.client_info.city},{" "}
+                        {clientOrder?.client_info.state},{" "}
+                        {clientOrder?.client_info.country}
                     </p>
                 </div>
             </div>

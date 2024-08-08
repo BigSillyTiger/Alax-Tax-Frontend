@@ -49,7 +49,7 @@ const TableRows: FC<Tprops> = memo(({ data, bgC }) => {
                     {formMoney(item.unit_price)}
                 </Text>
                 <Text style={tw("text-sm w-[73pt] text-center my-auto")}>
-                    {formMoney(item.netto)}
+                    {formMoney(item.net)}
                 </Text>
             </View>
         );

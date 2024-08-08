@@ -4,7 +4,6 @@ import {
     IdentificationIcon,
     UserGroupIcon,
     ClipboardDocumentIcon,
-    ClipboardDocumentListIcon,
     WrenchScrewdriverIcon,
 } from "@heroicons/react/24/outline";
 
@@ -15,7 +14,6 @@ export const routerPaths = {
     clients: "/clients",
     client: "/clients/:cid",
     orders: "/orders",
-    workLogs: "/worklogs",
     calendar: "/calendar",
     staff: "/staff",
     makePayslip: "/makePayslip/:uid",
@@ -24,7 +22,6 @@ export const routerPaths = {
 };
 
 export const menuList = [
-    /* 0 */
     {
         id: "dashboard",
         name: "menu.dashboard",
@@ -32,7 +29,6 @@ export const menuList = [
         icon: HomeIcon,
         current: true,
     },
-    /* 1 */
     {
         id: "clients",
         name: "menu.clients",
@@ -40,7 +36,6 @@ export const menuList = [
         icon: UserGroupIcon,
         current: false,
     },
-    /* 2 */
     {
         id: "orders",
         name: "menu.orders",
@@ -48,15 +43,6 @@ export const menuList = [
         icon: ClipboardDocumentIcon,
         current: false,
     },
-    /* 3 */
-    {
-        id: "worklogs",
-        name: "menu.worklogs",
-        href: routerPaths.workLogs,
-        icon: ClipboardDocumentListIcon,
-        current: false,
-    },
-    /* 4 */
     {
         id: "calendar",
         name: "menu.calendar",
@@ -64,7 +50,6 @@ export const menuList = [
         icon: CalendarIcon,
         current: false,
     },
-    /* 5 */
     {
         id: "staff",
         name: "menu.staff",
@@ -72,7 +57,6 @@ export const menuList = [
         icon: IdentificationIcon,
         current: false,
     },
-    /* 6 */
     {
         id: "setting",
         name: "menu.setting",

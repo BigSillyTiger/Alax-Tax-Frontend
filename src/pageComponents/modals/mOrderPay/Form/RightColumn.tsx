@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import PayOperation from "./PayOperation";
 import { SubmitBtn } from "@/components/form";
 import { useNavigation } from "react-router-dom";
-import { atOrder } from "@/configs/atoms";
+import { atOrderWithClient } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { Tpayment } from "@/configs/schema/orderSchema";
 import { UseFieldArrayPrepend, UseFormReturn } from "react-hook-form";
@@ -20,7 +20,7 @@ type Tprops = {
 const RightColumn: FC<Tprops> = ({ totalPaid, trigger, prepend, onClose }) => {
     const { t } = useTranslation();
     const navigation = useNavigation();
-    const [clientOrder] = useAtom(atOrder);
+    const [clientOrder] = useAtom(atOrderWithClient);
 
     return (
         <div className="col-span-1 lg:col-span-5 grid grid-cols-1">

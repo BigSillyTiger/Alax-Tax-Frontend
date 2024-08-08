@@ -4,7 +4,7 @@ import { Await, useLoaderData, useActionData } from "react-router-dom";
 import { useAtom } from "jotai";
 import LoadingPage from "@/components/loadingEle";
 import type { Tclient } from "@/configs/schema/clientSchema";
-import type { Torder } from "@/configs/schema/orderSchema";
+import type { TorderWithClient } from "@/configs/schema/orderSchema";
 import type { Tunivers } from "@/configs/types";
 import { RES_STATUS } from "@/configs/types";
 import { MOrderDel, MOrderForm, MOrderPay } from "@/pageComponents/modals";
@@ -21,7 +21,9 @@ const Client: FC = () => {
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const { allPromise } = useLoaderData() as {
-        allPromise: Promise<[Tclient[], Torder[], Tunivers, Tcompany, string]>;
+        allPromise: Promise<
+            [Tclient[], TorderWithClient[], Tunivers, Tcompany, string]
+        >;
     };
     const actionData = useActionData() as Tresponse;
 
@@ -76,7 +78,7 @@ const Client: FC = () => {
 
     return (
         <>
-            <div className="cps-container border-0">
+            <div className="cps-container border-0 h-full">
                 <Suspense fallback={<LoadingPage />}>
                     <Await resolve={allPromise} errorElement={<ErrorTips />}>
                         <MainContent />

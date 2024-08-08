@@ -1,6 +1,6 @@
 import { PTable } from "@/components/table";
 import {
-    Torder,
+    TorderWithClient,
     TorderPayment,
     TorderService,
 } from "@/configs/schema/orderSchema";
@@ -9,7 +9,7 @@ import { TitemContent } from "@/configs/types";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const orderSubTable = (
-    data: Torder,
+    data: TorderWithClient,
     orderDescColumns: ColumnDef<TorderService>[],
     orderPaymentsColumns: ColumnDef<TorderPayment>[]
 ) => {

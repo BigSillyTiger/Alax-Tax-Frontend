@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import DescContent from "./DescContent";
+import ServiceContent from "./ServiceContent";
 import {
     FieldArrayWithId,
     UseFieldArrayAppend,
@@ -38,8 +38,8 @@ const RightColumn: FC<Tprops> = ({
     const navigation = useNavigation();
 
     return (
-        <div className="col-span-1 lg:col-span-5 grid grid-cols-1">
-            <DescContent
+        <div className="col-span-1 lg:col-span-5 flex flex-col">
+            <ServiceContent
                 register={register}
                 watch={watch}
                 setValue={setValue}
