@@ -56,7 +56,7 @@ export const ordersAction = async ({
                 total: orData.total,
                 paid: orData.paid,
                 q_date: orData.q_date,
-                q_deposit: orData.deposit,
+                q_deposit: orData.q_deposit,
                 q_valid: orData.q_valid,
                 estimate_finish_date: orData.estimate_finish_date,
                 i_date: orData.i_date,
