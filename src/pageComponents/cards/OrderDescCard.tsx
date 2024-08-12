@@ -87,11 +87,11 @@ const OrderDescCard: FC<Tprops> = ({ data, readonly = false }) => {
                         </div>
 
                         {/* desc - 6 */}
-                        {item.description && (
+                        {item.note && (
                             <div className="col-span-full">
                                 <p>
-                                    <Btext>{t("label.desc")}: </Btext>
-                                    {item.description}
+                                    <Btext>{t("label.note")}: </Btext>
+                                    {item.note}
                                 </p>
                             </div>
                         )}

@@ -11,11 +11,22 @@ type Tprops = {
     register: UseFormReturn<TorderForm>["register"];
 };
 
-const ServiceTypes: FC<Tprops> = ({ index, register }) => {
+const ServiceDetails: FC<Tprops> = ({ index, register }) => {
     const { t } = useTranslation();
 
     const serviceType = {
         types: [{ name: "t1" }, { name: "t2" }, { name: "t3" }],
+    };
+    const serviceName = {
+        types: [{ name: "N1" }, { name: "N2" }, { name: "N3" }],
+    };
+
+    const testStatus = {
+        types: [
+            { name: "PENDING1" },
+            { name: "PENDING2" },
+            { name: "PENDING3" },
+        ],
     };
 
     const serviceTypeList = serviceType ? (
@@ -30,12 +41,36 @@ const ServiceTypes: FC<Tprops> = ({ index, register }) => {
         <DataList
             id={"productNameList"}
             name={"name"}
-            data={serviceType.types}
+            data={serviceName.types}
         />
     ) : null;
 
+    const serviceStatusList = (
+        <DataList
+            id={"serviceStatusList"}
+            name={"name"}
+            data={testStatus.types}
+        />
+    );
+
     return (
         <div className="flex flex-row items-stretch gap-x-3">
+            {/* service status */}
+            <div className="w-[20%]">
+                <Label
+                    htmlFor="serviceStatus"
+                    className="block text-sm font-normal"
+                >
+                    {t("label.status")}
+                </Label>
+                <Input
+                    {...register(`order_services.${index}.status`)}
+                    id="serviceStatus"
+                    type="text"
+                    list="serviceStatusList"
+                />
+                {serviceStatusList}
+            </div>
             {/* service type */}
             <div className="w-[20%]">
                 <Label
@@ -72,4 +107,4 @@ const ServiceTypes: FC<Tprops> = ({ index, register }) => {
     );
 };
 
-export default ServiceTypes;
+export default ServiceDetails;

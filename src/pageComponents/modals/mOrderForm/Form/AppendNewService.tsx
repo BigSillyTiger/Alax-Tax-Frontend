@@ -37,16 +37,21 @@ const AppendNewService: FC<Tprops> = ({ append }) => {
         }
 
         setServiceDesc({
+            osid: "",
             ranking: 0,
             fk_oid: clientOrder.oid,
+            status: "pending",
             title: service.service as string,
             taxable: true,
-            description: "",
+            note: "",
             qty: 1,
             unit: service.unit as string,
             unit_price: service.unit_price as number,
             gst: calGst(Number(service.unit_price)),
             net: service.unit_price as number,
+            created_date: "",
+            service_type: "",
+            product_name: "",
         });
     };
 

@@ -1,13 +1,13 @@
 import { z } from "zod";
 import { clientSchema } from "./clientSchema";
-import i18n from "@/configs/i18n";
 import { orderServiceSchema } from "./orderServiceSchema";
+import { ORDER_STATUS } from "../utils/setting";
 
 export const plainOrderSchema = z.object({
     oid: z.string().default(""),
     fk_cid: z.string().default(""),
     archive: z.boolean().default(false),
-    status: z.string().trim().default(i18n.t("label.pending")),
+    status: z.string().trim().default(ORDER_STATUS[0]), // pending
     gst: z.number().default(0),
     net: z.number().default(0),
     total: z.number().default(0),
@@ -18,8 +18,8 @@ export const plainOrderSchema = z.object({
         .nullable()
         .default(new Date().toISOString()),
     q_deposit: z.number().default(0),
-    q_valid: z.number().default(30),
-    q_date: z.string().datetime().nullable().default(null),
+    q_valid: z.number().default(15),
+    q_date: z.string().datetime().nullable().default(new Date().toISOString()),
     i_date: z.string().datetime().nullable().default(null),
     note: z.string().trim().default(""),
 });
@@ -63,6 +63,7 @@ export const orderFormSchema = plainOrderSchema
         order_services: orderServiceSchema
             .omit({
                 fk_oid: true,
+                created_date: true,
             })
             .array(),
     });

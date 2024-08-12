@@ -2,6 +2,7 @@ import { API_ADMIN, API_CLIENT, API_SETTING, API_ORDER } from "@/apis";
 import { TorderWithClient } from "@/configs/schema/orderSchema";
 import { menuList } from "@/configs/utils/router";
 import { routerStore } from "@/configs/zustore";
+import { dateFormat } from "@/lib/time";
 import { LoaderFunctionArgs, defer, redirect } from "react-router-dom";
 
 /**
@@ -28,6 +29,7 @@ export const clientLoader = async ({ request, params }: LoaderFunctionArgs) => {
                 (res.data as TorderWithClient[]).map((item) => {
                     return {
                         ...item,
+                        q_date: dateFormat(item.q_date),
                         order_services: item.order_services
                             .sort((a, b) => a.ranking - b.ranking)
                             .map((desc) => {

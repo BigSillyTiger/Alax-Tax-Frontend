@@ -16,19 +16,16 @@ const Note: FC<Tprops> = ({ index, register, setValue }) => {
 
     return (
         <div className="col-span-6 sm:col-span-7">
-            <Label htmlFor="description" className="block text-sm font-normal">
+            <Label htmlFor="note" className="block text-sm font-normal">
                 {t("label.desc")}
             </Label>
             <Textarea
-                {...register(`order_services.${index}.description`)}
-                id="description"
-                name="description"
+                {...register(`order_services.${index}.note`)}
+                id="note"
+                name="note"
                 rows={4}
                 onChange={(e) => {
-                    setValue(
-                        `order_services.${index}.description`,
-                        e.target.value
-                    );
+                    setValue(`order_services.${index}.note`, e.target.value);
                 }}
             />
         </div>

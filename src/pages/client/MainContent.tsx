@@ -56,11 +56,11 @@ const MainContent: FC = () => {
         gst: 0,
         net: 0,
         q_deposit: 0,
-        q_valid: 30,
-        q_date: "",
-        i_date: "",
+        q_valid: 15,
+        q_date: new Date().toISOString().slice(0, 10),
+        i_date: new Date().toISOString().slice(0, 10),
         note: "",
-        created_date: "",
+        created_date: new Date().toISOString().slice(0, 10),
         client_info: client[0],
         order_services: [],
         payments: [],
@@ -74,13 +74,15 @@ const MainContent: FC = () => {
         if (uniData) {
             setUniData(uniData);
             setServiceDesc({
+                osid: "",
                 fk_oid: clientOrder.oid,
+                status: t("label.pending"),
                 ranking: 0,
                 title: uniData?.services?.length
                     ? (uniData.services[0].service as string)
                     : "",
                 taxable: true,
-                description: "",
+                note: "",
                 qty: 1,
                 unit: uniData?.services.length
                     ? (uniData.services[0].unit as string)
@@ -96,6 +98,9 @@ const MainContent: FC = () => {
                 net: uniData?.services.length
                     ? (uniData.services[0].unit_price as number)
                     : 0,
+                created_date: "",
+                service_type: "",
+                product_name: "",
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

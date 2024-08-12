@@ -46,17 +46,19 @@ const RightColumn: FC<Tprops> = ({
                 fields={fields}
                 remove={remove}
                 swap={swap}
-                sFieldset="col-span-full"
+                sFieldset="h-[74dvh] col-span-full"
             />
             {/* append btn - adding a new service */}
-            <AppendNewService append={append} />
-            <div className="col-span-full row-span-2">
-                {/* btns */}
-                <SubmitBtn
-                    onClick={() => trigger()}
-                    onClose={onClose}
-                    navState={navigation.state}
-                />
+            <div className="h-[17dvh]">
+                <AppendNewService append={append} />
+                <div className="col-span-full row-span-2">
+                    {/* btns */}
+                    <SubmitBtn
+                        onClick={() => trigger()}
+                        onClose={onClose}
+                        navState={navigation.state}
+                    />
+                </div>
             </div>
         </div>
     );

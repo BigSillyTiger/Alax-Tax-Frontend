@@ -14,6 +14,7 @@ type Tprops = {
     calTotalGst: number;
     calTotalNet: number;
     calTotal: number;
+    setQDate: (date: string) => void;
 };
 
 const LeftColumn: FC<Tprops> = ({
@@ -21,6 +22,7 @@ const LeftColumn: FC<Tprops> = ({
     calTotalGst,
     calTotalNet,
     calTotal,
+    setQDate,
 }) => {
     const { t } = useTranslation();
     const [clientOrder] = useAtom(atOrderWithClient);
@@ -42,6 +44,7 @@ const LeftColumn: FC<Tprops> = ({
                 calTotalGst={calTotalGst}
                 calTotalNet={calTotalNet}
                 calTotal={calTotal}
+                setQDate={setQDate}
             />
             {/* note */}
             <OrderNote register={register} />

@@ -9,6 +9,7 @@ import { MTemplate } from "@/components/modal";
 import { atModalOpen, atOrderWithClient, atSUData } from "@/configs/atoms";
 import { mOpenOps } from "@/configs/utils/modal";
 import FormContent from "./Form";
+import { ORDER_STATUS } from "@/configs/utils/setting";
 
 const MOrderForm: FC = memo(() => {
     const { t } = useTranslation();
@@ -37,10 +38,13 @@ const MOrderForm: FC = memo(() => {
 
     useEffect(() => {
         if (clientOrder && uniData?.services) {
-            const { status, q_deposit, order_services } = clientOrder;
+            const { status, q_deposit, q_valid, q_date, order_services } =
+                clientOrder;
             reset({
-                status: status ?? t("label.pending"),
+                status: status.toLowerCase() ?? ORDER_STATUS[0], // pending
                 q_deposit: q_deposit ?? 0,
+                q_valid: q_valid ?? 15,
+                q_date: q_date ?? new Date().toISOString().slice(0, 10),
                 // notice this is the major operation for fields to read data
                 // from the order_services field
                 order_services: order_services ?? undefined,

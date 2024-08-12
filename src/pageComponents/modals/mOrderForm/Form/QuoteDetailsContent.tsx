@@ -4,12 +4,15 @@ import { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import Fieldset from "@/components/Fieldset";
 import { Input } from "@/components/ui/input";
+import { dateMax, dateMin } from "@/configs/utils/date";
+import { ORDER_STATUS } from "@/configs/utils/setting";
 
 type Tprops = {
     register: UseFormReturn<TorderForm>["register"];
     calTotalGst?: number;
     calTotalNet?: number;
     calTotal: number;
+    setQDate: (date: string) => void;
 };
 
 const QuoteDetailsContent: FC<Tprops> = ({
@@ -17,6 +20,7 @@ const QuoteDetailsContent: FC<Tprops> = ({
     //calTotalGst = 0,
     calTotalNet,
     calTotal,
+    setQDate,
 }) => {
     const { t } = useTranslation();
 
@@ -40,16 +44,16 @@ const QuoteDetailsContent: FC<Tprops> = ({
                     //autoComplete="status"
                     className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                 >
-                    <option value={t("status.pending")}>
+                    <option value={ORDER_STATUS[0]}>
                         {t("status.pending")}
                     </option>
-                    <option value={t("status.ongoing")}>
+                    <option value={ORDER_STATUS[1]}>
                         {t("status.ongoing")}
                     </option>
-                    <option value={t("status.completed")}>
+                    <option value={ORDER_STATUS[3]}>
                         {t("status.completed")}
                     </option>
-                    <option value={t("status.cancelled")}>
+                    <option value={ORDER_STATUS[2]}>
                         {t("status.cancelled")}
                     </option>
                 </select>
@@ -66,12 +70,10 @@ const QuoteDetailsContent: FC<Tprops> = ({
                     {...register("q_deposit", {
                         valueAsNumber: true,
                     })}
-                    readOnly
                     type="number"
                     step="0.01"
                     min={0}
                     id="deposit"
-                    name="deposit"
                 />
             </div>
             {/* order total Gst */}
@@ -83,13 +85,12 @@ const QuoteDetailsContent: FC<Tprops> = ({
                     {t("label.net")}
                 </label>
                 <Input
-                    {...register("net", { valueAsNumber: true })}
+                    {...register("net", { valueAsNumber: true, min: 0 })}
                     readOnly
                     type="number"
                     step="0.01"
                     min={0}
                     id="net"
-                    name="net"
                     value={calTotalNet}
                 />
             </div>
@@ -105,6 +106,7 @@ const QuoteDetailsContent: FC<Tprops> = ({
                 <Input
                     {...register("total", {
                         valueAsNumber: true,
+                        min: 0,
                     })}
                     readOnly
                     type="number"
@@ -117,7 +119,7 @@ const QuoteDetailsContent: FC<Tprops> = ({
             {/* order quote valid days */}
             <div className="sm:col-span-3">
                 <label
-                    htmlFor="valid"
+                    htmlFor="validDays"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
                     {t("label.quoteValid")}
@@ -127,11 +129,10 @@ const QuoteDetailsContent: FC<Tprops> = ({
                     {...register("q_valid", {
                         valueAsNumber: true,
                     })}
-                    readOnly
                     type="number"
                     step="1"
+                    id="validDays"
                     min={0}
-                    id="valid"
                 />
             </div>
             {/* order quote issued date */}
@@ -145,11 +146,14 @@ const QuoteDetailsContent: FC<Tprops> = ({
 
                 <Input
                     {...register("q_date", {
-                        valueAsDate: true,
+                        onChange: (e) => {
+                            setQDate(e.target.value);
+                        },
                     })}
-                    readOnly
                     type="date"
                     id="qDate"
+                    min={dateMin}
+                    max={dateMax}
                 />
             </div>
         </Fieldset>

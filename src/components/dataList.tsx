@@ -3,7 +3,7 @@ import type { FC } from "react";
 type Tprops = {
     id: string;
     name: string;
-    data: any[];
+    data: { [key: string]: string | number }[];
 };
 
 const DataList: FC<Tprops> = ({ id, name, data }) => {

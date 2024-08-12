@@ -14,7 +14,7 @@ import Title from "./Title";
 import Fee from "./Fee";
 import Note from "./Note";
 import { useTranslation } from "react-i18next";
-import ServiceTypes from "./ServiceTypes";
+import ServiceDetails from "./ServiceDetails";
 
 type Tprops = {
     fields: FieldArrayWithId<TorderService>[];
@@ -55,7 +55,7 @@ const ServiceItem: FC<Tprops> = ({
                         {/* main content */}
                         <div className="grow flex flex-col gap-x-2 gap-y-2">
                             <Title index={index} register={register} />
-                            <ServiceTypes index={index} register={register} />
+                            <ServiceDetails index={index} register={register} />
                             <Fee
                                 index={index}
                                 register={register}

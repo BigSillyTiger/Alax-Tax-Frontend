@@ -37,7 +37,7 @@ const ServiceContent: FC<Tprops> = ({
             : t("label.serviceList");
 
     return (
-        <Fieldset title={title} sFieldset={`grow overflow-y-auto ${sFieldset}`}>
+        <Fieldset title={title} sFieldset={`overflow-y-auto ${sFieldset}`}>
             <ServiceItem
                 fields={fields}
                 remove={remove}

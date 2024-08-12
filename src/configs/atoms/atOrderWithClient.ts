@@ -3,8 +3,8 @@ import {
     TorderService,
     TorderWithClient,
     orderWithClientSchema,
-    orderServiceSchema,
 } from "@/configs/schema/orderSchema";
+import { orderServiceSchema } from "../schema/orderServiceSchema";
 
 const atOrderWithClient = atom<TorderWithClient>(
     orderWithClientSchema.parse({})

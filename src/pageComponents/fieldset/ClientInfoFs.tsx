@@ -36,7 +36,7 @@ const ClientInfoFs: FC<Tprops> = ({ client, title, sFieldset = "" }) => {
                 </p>
             </div>
 
-            <div className="col-span-6 sm:col-span-3 text-lg">
+            <div className="col-span-6 sm:col-span-3 text-lg text-wrap">
                 <p>
                     <Btext>{t("label.email1")}: </Btext>{" "}
                     <Amail href={client?.email} />

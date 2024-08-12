@@ -50,20 +50,19 @@ const useClientOrderColumnsDef = () => {
                     },
                 },
                 {
-                    id: "orderDate",
+                    id: "orderCreatedDate",
                     header: i18n.t("label.createdDate"),
-                    accessorKey: "note",
+                    accessorKey: "created_date",
                     cell: (info: CellContext<TorderWithClient, string>) => {
-                        return <span>{info.getValue()}</span>;
+                        return <span>{dateFormat(info.getValue(), "au")}</span>;
                     },
                 },
                 {
                     id: "orderNote",
                     header: i18n.t("label.orderNote"),
-                    accessorFn: (data: TorderWithClient) =>
-                        dateFormat(data.created_date),
+                    accessorKey: "note",
                     cell: (info: CellContext<TorderWithClient, string>) => {
-                        return <span>{dateFormat(info.getValue(), "au")}</span>;
+                        return <span>{info.getValue()}</span>;
                     },
                 },
             ],

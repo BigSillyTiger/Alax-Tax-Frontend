@@ -1,10 +1,10 @@
 import { z } from "zod";
-import i18n from "@/configs/i18n";
+import { ORDER_STATUS } from "../utils/setting";
 
 export const orderServiceSchema = z.object({
     osid: z.string().default(""),
     fk_oid: z.string().default(""),
-    status: z.string().default(i18n.t("label.pending")),
+    status: z.string().default(ORDER_STATUS[0]), // pending
     ranking: z.number().default(0),
     title: z.string().trim().default(""),
     taxable: z.boolean().default(true),
@@ -15,7 +15,6 @@ export const orderServiceSchema = z.object({
     gst: z.number().default(0),
     net: z.number().default(0),
     created_date: z.string().datetime().nullable().default(null),
-    expiry_date: z.string().datetime().nullable().default(null),
     service_type: z.string().trim().default(""),
     product_name: z.string().trim().default(""),
 });

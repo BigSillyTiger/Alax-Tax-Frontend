@@ -29,13 +29,13 @@ const TableRows: FC<Tprops> = memo(({ data, bgC }) => {
                     <Text style={tw("text-sm w-[250pt] my-auto pl-3")}>
                         {item.title}
                     </Text>
-                    {item.description ? (
+                    {item.note ? (
                         <Text
                             style={tw(
                                 "left-[5pt] text-sm w-[250pt] my-auto pl-5 text-gray-500"
                             )}
                         >
-                            {item.description}
+                            {item.note}
                         </Text>
                     ) : null}
                 </View>

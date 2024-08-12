@@ -1,4 +1,4 @@
-import { FormEvent, useMemo, type FC } from "react";
+import { FormEvent, useMemo, useState, type FC } from "react";
 import LeftColumn from "./LeftColumn";
 import RightColumn from "./RightColumn";
 import { Form, useSubmit } from "react-router-dom";
@@ -50,6 +50,9 @@ const FormContent: FC<Tprops> = ({
     onClose,
 }) => {
     const { t } = useTranslation();
+    // since the input can only return date object for q_date,
+    // we need to convert it to string and store it with state
+    const [qDate, setQDate] = useState<string>(new Date().toISOString());
 
     const submit = useSubmit();
     const currentRouter = useRouterStore((state) => state.currentRouter);
@@ -90,11 +93,20 @@ const FormContent: FC<Tprops> = ({
             return;
         }
         console.log("-> mOrderForm click submit err: ", errors);
-        const isValid = await trigger();
+        const isValid = await trigger([
+            "gst",
+            "total",
+            "net",
+            "q_valid",
+            "q_deposit",
+            //"q_date", this value is handled by qDate, setQDate
+            "order_services",
+        ]);
         if (isValid) {
             const req = !clientOrder.oid ? "orderCreate" : "orderUpdate";
             const values = JSON.stringify({
                 ...getValues(),
+                q_date: qDate.slice(0, 10),
                 cid: clientOrder.client_info.cid,
                 // these 3 the value has be manually calculated or registered
                 // therefore, they are not in the form
@@ -131,6 +143,7 @@ const FormContent: FC<Tprops> = ({
                 calTotalGst={calTotalGst}
                 calTotalNet={calTotalNet}
                 calTotal={calTotal}
+                setQDate={setQDate}
             />
             <RightColumn
                 register={register}
