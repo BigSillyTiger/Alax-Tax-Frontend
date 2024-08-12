@@ -38,13 +38,17 @@ const MOrderForm: FC = memo(() => {
 
     useEffect(() => {
         if (clientOrder && uniData?.services) {
-            const { status, q_deposit, q_valid, q_date, order_services } =
+            const { status, q_deposit, q_valid, q_date, order_services, note } =
                 clientOrder;
             reset({
+                // quote
                 status: status.toLowerCase() ?? ORDER_STATUS[0], // pending
                 q_deposit: q_deposit ?? 0,
                 q_valid: q_valid ?? 15,
                 q_date: q_date ?? new Date().toISOString().slice(0, 10),
+                // note
+                note: note,
+                // services list
                 // notice this is the major operation for fields to read data
                 // from the order_services field
                 order_services: order_services ?? undefined,
