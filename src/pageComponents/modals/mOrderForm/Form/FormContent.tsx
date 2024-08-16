@@ -113,6 +113,7 @@ const FormContent: FC<Tprops> = ({
                 // we need to manually add them to the values
                 oid: clientOrder.oid,
                 gst: calTotalGst,
+                net: calTotalNet,
                 total: calTotal,
             });
             const method = !clientOrder.oid ? "POST" : "PUT";

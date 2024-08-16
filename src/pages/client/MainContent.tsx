@@ -3,9 +3,6 @@ import { useEffect } from "react";
 import { ClientInfoCard } from "@/pageComponents/cards";
 import { useTranslation } from "react-i18next";
 import { useAsyncValue } from "react-router-dom";
-import Card from "@/components/Card";
-import { PTable } from "@/components/table";
-import SubTable from "./SubTable";
 import { useAtom } from "jotai";
 import {
     atClient,
@@ -23,7 +20,7 @@ import { Tunivers } from "@/configs/types";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { Nbtn } from "@/components/btns";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import useClientOrderColumnsDef from "@/configs/columnDefs/defClientOrder";
+import ClientOrderContent from "./ClientOrderContent";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
@@ -44,7 +41,6 @@ const MainContent: FC = () => {
         Tcompany,
         string,
     ];
-    const clientOrderColumns = useClientOrderColumnsDef();
 
     const initOrder: TorderWithClient = {
         oid: "",
@@ -123,38 +119,8 @@ const MainContent: FC = () => {
         </Nbtn>
     );
 
-    const PendingTabContent = () => (
-        <Card className="">
-            {/* order table */}
-            {orders.length > 0 ? (
-                <PTable
-                    search={true}
-                    data={orders}
-                    columns={clientOrderColumns}
-                    setData={setClientOrder}
-                    menuOptions={{
-                        edit: true,
-                        del: true,
-                        pay: true,
-                        invoice: true,
-                        quotation: true,
-                    }}
-                    getRowCanExpand={(row) => {
-                        if (row.original.order_services.length > 0) {
-                            return true;
-                        }
-                        return false;
-                    }}
-                    expandContent={SubTable}
-                />
-            ) : (
-                <span>{t("tips.noOrder")}</span>
-            )}
-        </Card>
-    );
-
     return (
-        <Tabs defaultValue="pending" className="w-full h-full flex flex-col">
+        <Tabs defaultValue="orders" className="w-full h-full flex flex-col">
             {/* tabs header */}
             <TabsList className="flex flex-col md:flex-row justify-between mb-4 h-[35dvh] sm:h-[25dvh]">
                 <div className="flex flex-row justify-center items-center w-full md:w-[50%]">
@@ -169,20 +135,20 @@ const MainContent: FC = () => {
                     {/* empty square */}
                     <div className="hidden md:block md:w-full md:grow"></div>
                     <div className="flex flex-row bg-indigo-100 rounded-lg p-2">
-                        <TabsTrigger value="pending" className="w-full">
-                            {t("label.pending")}
+                        <TabsTrigger value="orders" className="w-full">
+                            {t("label.orders")}
                         </TabsTrigger>
-                        <TabsTrigger value="processing" className="w-full">
-                            {t("label.processing")}
+                        <TabsTrigger value="services" className="w-full">
+                            {t("label.services")}
                         </TabsTrigger>
                     </div>
                 </div>
             </TabsList>
             {/* tabs body */}
-            <TabsContent value="pending" className="grow">
-                <PendingTabContent />
+            <TabsContent value="orders" className="grow">
+                <ClientOrderContent orders={orders} />
             </TabsContent>
-            <TabsContent value="processing" className="grow">
+            <TabsContent value="services" className="grow">
                 <div>processing</div>
             </TabsContent>
         </Tabs>

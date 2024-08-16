@@ -33,6 +33,7 @@ const en = {
             resting: "Resting",
             unpaid: "Unpaid",
             completed: "Completed",
+            expired: "Expired",
         },
         modal: {
             title: {
@@ -183,6 +184,7 @@ const en = {
             email2: "Email Address",
             employee: "Employee",
             end: "End",
+            expiredDate: "Expired Date",
             feeStatus: "Fee Status",
             firstName: "First Name",
             from: "From",
@@ -210,6 +212,7 @@ const en = {
             none: "None",
             noContent: "No Content",
             openMenu: "Open Menu",
+            orders: "Orders",
             orderDesc: "Order Description",
             orderInfo: "Order Info",
             orderDate: "Order Date",

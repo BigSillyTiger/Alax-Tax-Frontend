@@ -3,7 +3,7 @@ import i18n from "@/configs/i18n";
 import { TorderWithClient } from "@/configs/schema/orderSchema";
 import { StatusBadge } from "@/components/Badge";
 import { TstatusColor } from "../types";
-import { dateFormat } from "@/lib/time";
+import { dateFormat, isDateExpired } from "@/lib/time";
 import { ExpandBtn, OrderStatusBtn } from "@/components/table/tableBtn";
 import { rangeFilterFn } from "./filterFn";
 import { formMoney } from "@/lib/literals";
@@ -54,7 +54,17 @@ const useClientOrderColumnsDef = () => {
                     header: i18n.t("label.createdDate"),
                     accessorKey: "created_date",
                     cell: (info: CellContext<TorderWithClient, string>) => {
-                        return <span>{dateFormat(info.getValue(), "au")}</span>;
+                        const isExpired = isDateExpired(
+                            info.row.original.q_date ?? "",
+                            info.row.original.q_valid
+                        );
+                        return (
+                            <span
+                                className={`${isExpired ? "text-red-500" : ""}`}
+                            >
+                                {dateFormat(info.getValue(), "au")}
+                            </span>
+                        );
                     },
                 },
                 {

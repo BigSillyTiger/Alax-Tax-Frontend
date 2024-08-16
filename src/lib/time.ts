@@ -165,3 +165,51 @@ export const checkDateRange = (
         startWithoutTime <= dayWithoutTime && dayWithoutTime <= endWithoutTime
     );
 };
+
+/**
+ * @description check if the date is expired
+ * @param startDate
+ * @param days
+ * @returns
+ */
+export const isDateExpired = (startDate: string, days: number) => {
+    // Convert the start date string to a Date object
+    const startDateObj = new Date(startDate);
+
+    // Calculate the expiry date
+    const expiryDate = new Date(
+        startDateObj.getTime() + days * 24 * 60 * 60 * 1000
+    );
+
+    // Get today's date
+    const today = new Date();
+
+    // Check if the expiry date is before today
+    return expiryDate < today;
+};
+
+/**
+ * @description calculate the expiry date
+ * @param startDate
+ * @param days
+ * @returns
+ */
+export const calculateExpiryDate = (
+    startDate: string,
+    days: number
+): string => {
+    // Convert the start date string to a Date object
+    const startDateObj = new Date(startDate);
+
+    // Calculate the expiry date
+    const expiryDate = new Date(
+        startDateObj.getTime() + days * 24 * 60 * 60 * 1000
+    );
+
+    // Format the expiry date as 'yyyy-mm-dd'
+    const year = expiryDate.getFullYear();
+    const month = String(expiryDate.getMonth() + 1).padStart(2, "0");
+    const day = String(expiryDate.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+};

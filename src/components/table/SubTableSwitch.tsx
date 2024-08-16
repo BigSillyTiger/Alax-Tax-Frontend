@@ -10,6 +10,7 @@ type Tprops = {
 
 const SubTableSwitch: FC<Tprops> = ({ items }) => {
     const [isChecked, setIsChecked] = useState(false);
+    
     return (
         <SubtableCard className="grid grid-cols-8">
             <div className="col-span-1 flex flex-col justify-center text-center gap-x-1">

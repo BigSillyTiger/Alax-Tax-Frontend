@@ -12,6 +12,7 @@ type Tprops = {
 const SubTable: FC<Tprops> = ({ data }) => {
     const orderDescColumns = useOrderDescColumnsDef();
     const orderPaymentsColumns = useOrderPaymentColumnsDef();
+
     return (
         <SubTableSwitch
             items={orderSubTable(data, orderDescColumns, orderPaymentsColumns)}
@@ -20,3 +21,4 @@ const SubTable: FC<Tprops> = ({ data }) => {
 };
 
 export default SubTable;
+ 
