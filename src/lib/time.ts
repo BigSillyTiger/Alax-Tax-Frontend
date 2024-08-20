@@ -1,3 +1,4 @@
+import { DEFAULT_EXPIRY_DATE } from "@/configs/utils/literals";
 import { format } from "date-fns";
 
 export const genHHMM = (date: Date) => {
@@ -212,4 +213,11 @@ export const calculateExpiryDate = (
     const day = String(expiryDate.getDate()).padStart(2, "0");
 
     return `${year}-${month}-${day}`;
+};
+
+/**
+ * @description form date or string for client service
+ */
+export const formCSDate = (date: Date | string | null) => {
+    return date === DEFAULT_EXPIRY_DATE ? "none" : dateFormat(date, "au");
 };

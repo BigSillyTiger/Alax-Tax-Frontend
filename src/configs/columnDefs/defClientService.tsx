@@ -4,7 +4,7 @@ import { TclientService } from "../schema/serviceSchema";
 import ServiceStatusBtn from "@/components/table/tableBtn/ServiceStatusBtn";
 import { StatusBadge } from "@/components/Badge";
 import { TstatusColor } from "../types";
-import { dateFormat } from "@/lib/time";
+import { dateFormat, formCSDate } from "@/lib/time";
 
 const useClientServiceColumnsDef = () => {
     const clientServiceColumns: ColumnDef<TclientService>[] = [
@@ -76,11 +76,14 @@ const useClientServiceColumnsDef = () => {
             ),
         },
         {
+            // this property is not just date type, but also includes string like: none
             id: "expiryDate",
             header: i18n.t("label.expiredDate"),
             accessorKey: "expiry_date",
             cell: (info: CellContext<TclientService, unknown>) => (
-                <span className="text-wrap">{info.getValue<string>()}</span>
+                <span className="text-wrap">
+                    {formCSDate(info.getValue<string>())}
+                </span>
             ),
         },
         {

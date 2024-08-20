@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { ORDER_STATUS } from "../utils/setting";
+import { DEFAULT_EXPIRY_DATE } from "../utils/literals";
 
 export const serviceSchema = z.object({
     csid: z.string().default(""),
@@ -9,7 +10,7 @@ export const serviceSchema = z.object({
     product_name: z.string().trim().default(""),
     status: z.string().default(ORDER_STATUS[0]), // pending
     created_date: z.string().datetime().nullable().default(null),
-    expiry_date: z.string().datetime().nullable().default(null),
+    expiry_date: z.string().default(DEFAULT_EXPIRY_DATE),
     archive: z.boolean().default(false),
     note: z.string().trim().default(""),
 });
