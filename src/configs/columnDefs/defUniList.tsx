@@ -24,6 +24,20 @@ export const serviceListColDefs = [
         },
     },
     {
+        header: i18n.t("label.serviceType"),
+        accessorKey: "service_type",
+        cell: (info: Cell<{ id: string }, string>) => {
+            return <span>{info.getValue()}</span>;
+        },
+    },
+    {
+        header: i18n.t("label.productName"),
+        accessorKey: "product_name",
+        cell: (info: Cell<{ id: string }, string>) => {
+            return <span>{info.getValue()}</span>;
+        },
+    },
+    {
         header: i18n.t("label.unit"),
         accessorKey: "unit",
         cell: (info: Cell<{ id: string }, string>) => {

@@ -26,6 +26,8 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
     // service
     const [service, setService] = useState("");
     const [unit, setUnit] = useState("");
+    const [serviceType, setServiceType] = useState("OOP");
+    const [productName, setProductName] = useState("Product");
     const [unitPrice, setUnitPrice] = useState(0);
     // unit
     const [unitName, setUnitName] = useState("");
@@ -52,6 +54,8 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
             setService(uniData.service);
             setUnit(uniData.unit);
             setUnitPrice(uniData.unit_price);
+            setServiceType(uniData.service_type);
+            setProductName(uniData.product_name);
         } else {
             setUnitName(uniData.unit_name);
         }
@@ -133,6 +137,52 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
                                 `}
                                 value={service}
                                 onChange={(e) => setService(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    {/* service type */}
+                    <div className="sm:col-span-3">
+                        <label
+                            htmlFor="serviceType"
+                            className="block text-sm font-medium leading-6 text-gray-900"
+                        >
+                            {t("label.serviceType")}
+                        </label>
+                        <div className="mt-1">
+                            <input
+                                {...register("service_type")}
+                                type="text"
+                                id="serviceType"
+                                required
+                                className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                value={serviceType}
+                                onChange={(e) => {
+                                    e.preventDefault();
+                                    setServiceType(e.target.value);
+                                }}
+                            />
+                        </div>
+                    </div>
+                    {/* product name */}
+                    <div className="sm:col-span-3">
+                        <label
+                            htmlFor="productName"
+                            className="block text-sm font-medium leading-6 text-gray-900"
+                        >
+                            {t("label.productName")}
+                        </label>
+                        <div className="mt-1">
+                            <input
+                                {...register("product_name")}
+                                type="text"
+                                id="productName"
+                                required
+                                className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                                value={productName}
+                                onChange={(e) => {
+                                    e.preventDefault();
+                                    setProductName(e.target.value);
+                                }}
                             />
                         </div>
                     </div>

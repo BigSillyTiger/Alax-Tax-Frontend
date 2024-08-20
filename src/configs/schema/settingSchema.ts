@@ -1,10 +1,13 @@
 import { z } from "zod";
+import { PRODUCT_NAME, SERVICE_TYPE } from "../utils/setting";
 
 export const serviceSchema = z.object({
     id: z.number().default(0),
     service: z.string().trim().default(""),
     unit: z.string().trim().default(""),
     unit_price: z.number().min(0).default(0),
+    service_type: z.string().trim().default(SERVICE_TYPE[0]), // OOP
+    product_name: z.string().trim().default(PRODUCT_NAME[0]), // product 1
 });
 
 export const unitSchema = z.object({

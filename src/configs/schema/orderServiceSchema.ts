@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ORDER_STATUS } from "../utils/setting";
+import { ORDER_STATUS, PRODUCT_NAME, SERVICE_TYPE } from "../utils/setting";
 
 export const orderServiceSchema = z.object({
     osid: z.string().default(""),
@@ -17,8 +17,8 @@ export const orderServiceSchema = z.object({
     net: z.number().default(0),
     created_date: z.string().datetime().nullable().default(null),
     expiry_date: z.string().default("none"),
-    service_type: z.string().trim().default(""),
-    product_name: z.string().trim().default(""),
+    service_type: z.string().trim().default(SERVICE_TYPE[0]), // OOP
+    product_name: z.string().trim().default(PRODUCT_NAME[0]), // product 1
 });
 
 export type TorderService = z.infer<typeof orderServiceSchema>;

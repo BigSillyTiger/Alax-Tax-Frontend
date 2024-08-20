@@ -2,7 +2,11 @@ import DataList from "@/components/dataList";
 import Label from "@/components/Label";
 import { Input } from "@/components/ui/input";
 import { TorderForm } from "@/configs/schema/orderSchema";
-import { orderStatusList, serviceTypeList } from "@/configs/utils/setting";
+import {
+    orderStatusList,
+    PRODUCT_NAME,
+    serviceTypeList,
+} from "@/configs/utils/setting";
 import type { FC } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -15,19 +19,23 @@ type Tprops = {
 const ServiceDetails: FC<Tprops> = ({ index, register }) => {
     const { t } = useTranslation();
 
-    const serviceName = {
-        types: [{ name: "N1" }, { name: "N2" }, { name: "N3" }],
+    const productName = {
+        types: [
+            { name: PRODUCT_NAME[0] },
+            { name: PRODUCT_NAME[1] },
+            { name: PRODUCT_NAME[2] },
+        ],
     };
 
     const sTypeList = (
         <DataList id={"serviceTypeList"} name={"name"} data={serviceTypeList} />
     );
 
-    const productNameList = serviceName ? (
+    const productNameList = productName ? (
         <DataList
             id={"productNameList"}
             name={"name"}
-            data={serviceName.types}
+            data={productName.types}
         />
     ) : null;
 

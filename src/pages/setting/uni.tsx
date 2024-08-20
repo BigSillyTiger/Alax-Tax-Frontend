@@ -53,12 +53,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                             search={true}
                             data={services}
                             columns={
-                                serviceListColDefs as ColumnDef<{
-                                    id: number;
-                                    unit: string;
-                                    unit_price: number;
-                                    service: string;
-                                }>[]
+                                serviceListColDefs as ColumnDef<Tservice>[]
                             }
                             setData={setSUinitData}
                             menuOptions={{ edit: true, del: true }}

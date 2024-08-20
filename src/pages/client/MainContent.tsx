@@ -23,6 +23,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ClientOrderContent from "./ClientOrderContent";
 import ClientServiceContent from "./ClientServiceContent";
 import { TorderService } from "@/configs/schema/orderServiceSchema";
+import {
+    PRODUCT_NAME,
+    SERVICE_STATUS,
+    SERVICE_TYPE,
+} from "@/configs/utils/setting";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
@@ -74,12 +79,13 @@ const MainContent: FC = () => {
         setCompany(company);
         setLogo(logo);
         if (uniData) {
+            // this is the default append service data
             setUniData(uniData);
             setOrderService({
                 osid: "",
                 fk_cid: clientOrder.fk_cid,
                 fk_oid: clientOrder.oid,
-                status: t("label.pending"),
+                status: SERVICE_STATUS[0], // pending
                 ranking: 0,
                 title: uniData?.services?.length
                     ? (uniData.services[0].service as string)
@@ -103,8 +109,12 @@ const MainContent: FC = () => {
                     : 0,
                 created_date: "",
                 expiry_date: "none",
-                service_type: "",
-                product_name: "",
+                service_type: uniData?.services.length
+                    ? (uniData.services[0].service_type as string)
+                    : SERVICE_TYPE[0], // OOP
+                product_name: uniData?.services.length
+                    ? (uniData.services[0].product_name as string)
+                    : PRODUCT_NAME[0], // product 1
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

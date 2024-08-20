@@ -56,6 +56,24 @@ const useOrderServiceColumnsDef = () => {
             },
         },
         {
+            header: i18n.t("label.serviceType"),
+            accessorKey: "service_type",
+            cell: (info: CellContext<TorderService, unknown>) => {
+                return (
+                    <span className="text-wrap">{info.getValue<string>()}</span>
+                );
+            },
+        },
+        {
+            header: i18n.t("label.productName"),
+            accessorKey: "product_name",
+            cell: (info: CellContext<TorderService, unknown>) => {
+                return (
+                    <span className="text-wrap">{info.getValue<string>()}</span>
+                );
+            },
+        },
+        {
             id: "createdDate",
             header: i18n.t("label.createdDate"),
             accessorKey: "created_date",
@@ -71,39 +89,6 @@ const useOrderServiceColumnsDef = () => {
             accessorKey: "expiry_date",
             cell: (info: CellContext<TorderService, unknown>) => {
                 return <span>{formExpiryDate(info.getValue() as string)}</span>;
-            },
-        },
-        {
-            header: i18n.t("label.qty"),
-            accessorKey: "qty",
-            cell: (info: CellContext<TorderService, unknown>) => {
-                return <span>{info.getValue<number>()}</span>;
-            },
-            filterFn: rangeFilterFn,
-            meta: {
-                filterVariant: "range",
-            },
-        },
-        {
-            header: i18n.t("label.unit"),
-            accessorKey: "unit",
-            cell: (info: CellContext<TorderService, unknown>) => {
-                return <span>{info.getValue<number>()}</span>;
-            },
-            filterFn: rangeFilterFn,
-            meta: {
-                filterVariant: "range",
-            },
-        },
-        {
-            header: i18n.t("label.uPrice"),
-            accessorKey: "unit_price",
-            cell: (info: CellContext<TorderService, unknown>) => {
-                return <span>{formMoney(info.getValue<number>())}</span>;
-            },
-            filterFn: rangeFilterFn,
-            meta: {
-                filterVariant: "range",
             },
         },
         {

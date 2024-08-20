@@ -14,6 +14,8 @@ export const settingAction = async ({
                   service: data.get("service") as string,
                   unit: data.get("unit") as string,
                   unit_price: Number(data.get("unit_price")),
+                  service_type: data.get("service_type") as string,
+                  product_name: data.get("product_name") as string,
               }
             : { unit_name: data.get("unit_name") as string }; // unit
         const result = await API_SETTING.uniAdd(temp);
@@ -33,6 +35,8 @@ export const settingAction = async ({
                   service: data.get("service") as string,
                   unit: data.get("unit") as string,
                   unit_price: Number(data.get("unit_price")),
+                  service_type: data.get("service_type") as string,
+                  product_name: data.get("product_name") as string,
               }
             : {
                   id: Number(data.get("id")),

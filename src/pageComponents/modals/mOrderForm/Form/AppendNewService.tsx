@@ -8,6 +8,7 @@ import { calGst } from "@/lib/calculations";
 import { TorderForm } from "@/configs/schema/orderSchema";
 import { UseFieldArrayAppend } from "react-hook-form";
 import { Nbtn } from "@/components/btns";
+import { ORDER_STATUS } from "@/configs/utils/setting";
 
 type Tprops = {
     append: UseFieldArrayAppend<TorderForm, "order_services">;
@@ -22,18 +23,10 @@ const AppendNewService: FC<Tprops> = ({ append }) => {
     const setDefaultService = (value: string) => {
         let service = uniData?.services
             ? uniData.services.find((item: Tservice) => item.service === value)
-            : ({
-                  service: value,
-                  unit: "",
-                  unit_price: 0,
-              } as Partial<Tservice>);
+            : uniData.services[0];
 
         if (service === undefined) {
-            service = {
-                service: value,
-                unit: "",
-                unit_price: 0,
-            } as Partial<Tservice>;
+            service = uniData.services[0];
         }
 
         setServiceDesc({
@@ -41,7 +34,7 @@ const AppendNewService: FC<Tprops> = ({ append }) => {
             ranking: 0,
             fk_cid: clientOrder.fk_cid,
             fk_oid: clientOrder.oid,
-            status: "pending",
+            status: ORDER_STATUS[0], // pending
             title: service.service as string,
             taxable: true,
             note: "",
@@ -52,8 +45,8 @@ const AppendNewService: FC<Tprops> = ({ append }) => {
             net: service.unit_price as number,
             created_date: "",
             expiry_date: "none",
-            service_type: "",
-            product_name: "",
+            service_type: service.service_type,
+            product_name: service.product_name,
         });
     };
 

@@ -23,6 +23,9 @@ export const orderStatusList = [
     { name: ORDER_STATUS[3] }, // completed
 ];
 
+// test data
+export const PRODUCT_NAME = ["Product1", "Product2", "Product3"] as const;
+
 export const SERVICE_TYPE = ["OOP", "CTM", "SUB"] as const;
 
 export const serviceTypeList = [

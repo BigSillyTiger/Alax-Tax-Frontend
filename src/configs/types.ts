@@ -1,4 +1,4 @@
-import { ORDER_STATUS, WL_STATUS } from "@/configs/utils/setting";
+import { ORDER_STATUS, SERVICE_TYPE, WL_STATUS } from "@/configs/utils/setting";
 import { Tservice, Tunit } from "./schema/settingSchema";
 import { statusColor, timeBtnStyleMap } from "./utils/color";
 import { actionReqList, menuList } from "./utils/router";
@@ -73,3 +73,5 @@ export type TmenuOptions = Partial<typeof defaultMenuOptions>;
 export type TitemContent = { title: string; content: JSX.Element };
 
 export type TctPayment = { [year: string]: { [month: string]: number } };
+
+export type TserviceType = (typeof SERVICE_TYPE)[number];
