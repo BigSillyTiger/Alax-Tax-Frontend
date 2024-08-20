@@ -3,14 +3,27 @@ import i18n from "@/configs/i18n";
 import { rangeFilterFn } from "./filterFn";
 import { formMoney } from "@/lib/literals";
 import { TorderService } from "../schema/orderServiceSchema";
+import ServiceStatusBtn from "@/components/table/tableBtn/ServiceStatusBtn";
+import { StatusBadge } from "@/components/Badge";
+import { TstatusColor } from "../types";
+import { dateFormat, formExpiryDate } from "@/lib/time";
 
-const useOrderDescColumnsDef = () => {
-    const orderDescColumns: ColumnDef<TorderService>[] = [
+const useOrderServiceColumnsDef = () => {
+    const orderServiceColumns: ColumnDef<TorderService>[] = [
         {
             header: i18n.t("label.index"),
             accessorFn: (_, index) => index,
             cell: (info: CellContext<TorderService, unknown>) => {
                 return <span>{info.row.index + 1}</span>;
+            },
+        },
+        {
+            header: i18n.t("label.serviceID"),
+            accessorKey: "osid",
+            cell: (info: CellContext<TorderService, unknown>) => {
+                return (
+                    <span className="text-wrap">{info.getValue<string>()}</span>
+                );
             },
         },
         {
@@ -23,12 +36,41 @@ const useOrderDescColumnsDef = () => {
             },
         },
         {
-            header: i18n.t("label.desc"),
-            accessorKey: "description",
+            id: "serviceStatus",
+            header: i18n.t("label.status"),
+            accessorKey: "status",
             cell: (info: CellContext<TorderService, unknown>) => {
                 return (
-                    <span className="text-wrap">{info.getValue<string>()}</span>
+                    <ServiceStatusBtn
+                        mLabel={
+                            <StatusBadge
+                                value={info.getValue() as TstatusColor}
+                            />
+                        }
+                        data={info.row.original as TorderService}
+                    />
                 );
+            },
+            meta: {
+                filterVariant: "select",
+            },
+        },
+        {
+            id: "createdDate",
+            header: i18n.t("label.createdDate"),
+            accessorKey: "created_date",
+            cell: (info: CellContext<TorderService, unknown>) => {
+                return (
+                    <span>{dateFormat(info.getValue() as string, "au")}</span>
+                );
+            },
+        },
+        {
+            id: "expiredDate",
+            header: i18n.t("label.expiredDate"),
+            accessorKey: "expiry_date",
+            cell: (info: CellContext<TorderService, unknown>) => {
+                return <span>{formExpiryDate(info.getValue() as string)}</span>;
             },
         },
         {
@@ -75,8 +117,17 @@ const useOrderDescColumnsDef = () => {
                 filterVariant: "range",
             },
         },
+        {
+            header: i18n.t("label.note"),
+            accessorKey: "note",
+            cell: (info: CellContext<TorderService, unknown>) => {
+                return (
+                    <span className="text-wrap">{info.getValue<string>()}</span>
+                );
+            },
+        },
     ];
-    return orderDescColumns;
+    return orderServiceColumns;
 };
 
-export default useOrderDescColumnsDef;
+export default useOrderServiceColumnsDef;

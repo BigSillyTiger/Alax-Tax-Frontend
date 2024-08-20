@@ -5,5 +5,3 @@ declare type Tresponse = {
 };
 
 declare type Tmode = "sm" | "md" | "lg" | "xl" | "full" | "md-full";
-
-//declare type TorderStatus = "Pending" | "Processing" | "Closed" | "Completed";

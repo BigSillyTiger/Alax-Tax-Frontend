@@ -12,11 +12,11 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { statusColor } from "@/configs/utils/color";
-import { TclientService } from "@/configs/schema/serviceSchema";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 type Tprops = {
     mLabel: ReactNode | string;
-    data: TclientService;
+    data: TorderService;
 };
 
 // this menu btn group component is highly designed for order status change usage
@@ -24,9 +24,9 @@ const ServiceStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     const submit = useSubmit();
     const currentRouter = useRouterStore((state) => state.currentRouter);
 
-    const handleClick = async (csid: string, status: string) => {
+    const handleClick = async (osid: string, status: string) => {
         submit(
-            { req: "ServiceStatus", csid, status },
+            { req: "ServiceStatus", osid, status },
             {
                 method: "PUT",
                 action:
@@ -49,7 +49,7 @@ const ServiceStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
                 <div
                     onClick={() => {
                         //e.preventDefault();
-                        handleClick(data.csid, item);
+                        handleClick(data.osid, item);
                     }}
                     className="flex w-full items-center rounded-md px-2 text-md font-bold"
                 >

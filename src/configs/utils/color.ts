@@ -61,11 +61,11 @@ export const statusColor = {
         border: "border-lime-600",
     },
     cancelled: {
-        bg: "bg-red-200",
-        fbg: "focus:bg-red-200",
-        text: "text-red-700",
-        ftext: "focus:text-red-700",
-        border: "border-red-600",
+        bg: "bg-rose-200",
+        fbg: "focus:bg-rose-200",
+        text: "text-rose-700",
+        ftext: "focus:text-rose-700",
+        border: "border-rose-600",
     },
     processing: {
         bg: "bg-purple-200",
@@ -101,6 +101,20 @@ export const statusColor = {
         text: "text-teal-700",
         ftext: "focus:text-teal-700",
         border: "border-teal-600",
+    },
+    expired: {
+        bg: "bg-red-200",
+        fbg: "focus:bg-red-200",
+        text: "text-red-700",
+        ftext: "focus:text-red-700",
+        border: "border-red-600",
+    },
+    refunded: {
+        bg: "bg-orange-200",
+        fbg: "focus:bg-orange-200",
+        text: "text-orange-700",
+        ftext: "focus:text-orange-700",
+        border: "border-orange-600",
     },
 };
 

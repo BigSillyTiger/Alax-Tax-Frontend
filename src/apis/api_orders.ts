@@ -6,6 +6,7 @@ import {
     ORDER_UPDATE,
     ORDER_DEL,
     ORDER_W_CLIENT,
+    ORDER_SERVICE_W_CLIENT,
     ORDER_STATUS,
     PAYMENT_UPDATE,
     INVOICE_ISSUE_UPDATE,
@@ -23,6 +24,20 @@ export const orderAll = async () => {
         return {
             status: 400,
             msg: "failed in retrieving all orders",
+            data: "",
+        };
+    }
+};
+
+export const orderServiceWClient = async (cid: string) => {
+    try {
+        const response = await apis.post(ORDER_SERVICE_W_CLIENT, { cid });
+        return response.data;
+    } catch (err: unknown) {
+        console.log("-> retrieve client order services error: ", err);
+        return {
+            status: 400,
+            msg: "failed in retrieving client order services",
             data: "",
         };
     }

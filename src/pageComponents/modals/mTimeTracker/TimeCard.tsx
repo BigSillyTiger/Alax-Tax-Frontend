@@ -38,7 +38,7 @@ const TimeCard: FC<Tprops> = ({ isDisabled }) => {
     }, []);
 
     const workTime = (() => {
-        if (worklog.wl_status === "ongoing") {
+        if (worklog.wl_status === "processing") {
             return calWorkTime(worklog.s_time, nowTime, worklog.b_hour);
         } else if (worklog.wl_status === "resting") {
             return calWorkTime(worklog.s_time, worklog.b_time, worklog.b_hour);

@@ -1,17 +1,17 @@
 import Card from "@/components/Card";
 import { PTable } from "@/components/table";
-import useClientServiceColumnsDef from "@/configs/columnDefs/defClientService";
-import { TclientService } from "@/configs/schema/serviceSchema";
+import useOrderServiceColumnsDef from "@/configs/columnDefs/defOrderService";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 type Tprops = {
-    services: TclientService[];
+    services: TorderService[];
 };
 
 const ClientServiceContent: FC<Tprops> = ({ services }) => {
     const { t } = useTranslation();
-    const clientServiceColumns = useClientServiceColumnsDef();
+    const orderServiceColumns = useOrderServiceColumnsDef();
 
     return (
         <Card className="">
@@ -20,7 +20,7 @@ const ClientServiceContent: FC<Tprops> = ({ services }) => {
                 <PTable
                     search={true}
                     data={services}
-                    columns={clientServiceColumns}
+                    columns={orderServiceColumns}
                 />
             ) : (
                 <span>{t("tips.noContent")}</span>

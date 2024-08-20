@@ -48,7 +48,7 @@ const QuoteDetailsContent: FC<Tprops> = ({
                         {t("status.pending")}
                     </option>
                     <option value={ORDER_STATUS[1]}>
-                        {t("status.ongoing")}
+                        {t("status.processing")}
                     </option>
                     <option value={ORDER_STATUS[3]}>
                         {t("status.completed")}

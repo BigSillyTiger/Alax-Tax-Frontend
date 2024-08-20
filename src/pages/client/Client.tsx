@@ -16,7 +16,7 @@ import { mOpenOps } from "@/configs/utils/modal";
 import { MpdfMaker } from "@/pageComponents/modals";
 import ErrorTips from "@/components/ErrorTips";
 import MainContent from "./MainContent";
-import { TclientService } from "@/configs/schema/serviceSchema";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 const Client: FC = () => {
     const { t } = useTranslation();
@@ -26,7 +26,7 @@ const Client: FC = () => {
             [
                 Tclient[],
                 TorderWithClient[],
-                TclientService[],
+                TorderService[],
                 Tunivers,
                 Tcompany,
                 string,

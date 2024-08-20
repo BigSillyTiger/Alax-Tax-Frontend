@@ -39,6 +39,7 @@ const AppendNewService: FC<Tprops> = ({ append }) => {
         setServiceDesc({
             osid: "",
             ranking: 0,
+            fk_cid: clientOrder.fk_cid,
             fk_oid: clientOrder.oid,
             status: "pending",
             title: service.service as string,
@@ -50,6 +51,7 @@ const AppendNewService: FC<Tprops> = ({ append }) => {
             gst: calGst(Number(service.unit_price)),
             net: service.unit_price as number,
             created_date: "",
+            expiry_date: "none",
             service_type: "",
             product_name: "",
         });

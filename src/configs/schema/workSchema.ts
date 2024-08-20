@@ -45,7 +45,7 @@ const workLogSchema = z.object({
     /* wl_status: z
         .union([
             z.literal("pending"),
-            z.literal("ongoing"),
+            z.literal("processing"),
             z.literal("cancelled"),
             z.literal("processing"),
             z.literal("confirmed"),

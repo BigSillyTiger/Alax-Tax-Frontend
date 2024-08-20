@@ -6,18 +6,19 @@ export const mTabList = [
     /* { name: "Unit List" }, */
 ];
 
-// the value in this array must be the same as the value in statusColor keys
+// the keys in this array must be the same as the value in statusColor keys
 export const ORDER_STATUS = [
     "pending",
-    "ongoing",
-    "cancelled",
+    "processing",
     "completed",
+    "cancelled",
+    "refunded",
 ] as const;
 
 // shared with service status
 export const orderStatusList = [
     { name: ORDER_STATUS[0] }, // pending
-    { name: ORDER_STATUS[1] }, // ongoing
+    { name: ORDER_STATUS[1] }, // processing
     { name: ORDER_STATUS[2] }, // cancelled
     { name: ORDER_STATUS[3] }, // completed
 ];
@@ -33,7 +34,7 @@ export const serviceTypeList = [
 // the value in this array must be the same as the value in statusColor keys
 export const WL_STATUS = [
     "pending",
-    "ongoing",
+    "processing",
     "cancelled",
     "processing",
     "confirmed",
@@ -59,3 +60,14 @@ export const PS_STATUS_TABLE = ["pending", "completed"] as const;
  * @description work log status that can be deleted
  */
 export const WL_DELETABLE_STATUS = ["pending", "cancelled"];
+
+export const DEFAULT_EXPIRY_DATE = "none";
+
+export const SERVICE_STATUS = [
+    "pending",
+    "processing",
+    "ongoing",
+    "cancelled",
+    "completed",
+    "expired",
+] as const;

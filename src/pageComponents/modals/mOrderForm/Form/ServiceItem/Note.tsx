@@ -17,7 +17,7 @@ const Note: FC<Tprops> = ({ index, register, setValue }) => {
     return (
         <div className="col-span-6 sm:col-span-7">
             <Label htmlFor="note" className="block text-sm font-normal">
-                {t("label.desc")}
+                {t("label.note")}
             </Label>
             <Textarea
                 {...register(`order_services.${index}.note`)}

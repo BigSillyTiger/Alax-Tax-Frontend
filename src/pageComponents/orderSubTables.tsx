@@ -9,7 +9,7 @@ import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 export const orderSubTable = (
     data: TorderWithClient,
-    orderDescColumns: ColumnDef<TorderService>[],
+    orderServiceColumns: ColumnDef<TorderService>[],
     orderPaymentsColumns: ColumnDef<TorderPayment>[]
 ) => {
     const items = [] as TitemContent[];
@@ -20,7 +20,7 @@ export const orderSubTable = (
         content: data?.order_services?.length ? (
             <PTable
                 data={data.order_services}
-                columns={orderDescColumns}
+                columns={orderServiceColumns}
                 cnTHead="bg-indigo-50"
                 hFilter={false}
             />

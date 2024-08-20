@@ -21,8 +21,8 @@ import { Tcompany } from "@/configs/schema/settingSchema";
 import { Nbtn } from "@/components/btns";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ClientOrderContent from "./ClientOrderContent";
-import { TclientService } from "@/configs/schema/serviceSchema";
 import ClientServiceContent from "./ClientServiceContent";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
@@ -35,12 +35,12 @@ const MainContent: FC = () => {
     const [, setUniData] = useAtom(atSUData);
     const [, setCompany] = useAtom(atCompany);
     const [, setLogo] = useAtom(atLogo);
-    const [, setServiceDesc] = useAtom(atOrderService);
+    const [, setOrderService] = useAtom(atOrderService);
     const [client, orders, services, uniData, company, logo] =
         useAsyncValue() as [
             Tclient[],
             TorderWithClient[],
-            TclientService[],
+            TorderService[],
             Tunivers,
             Tcompany,
             string,
@@ -75,8 +75,9 @@ const MainContent: FC = () => {
         setLogo(logo);
         if (uniData) {
             setUniData(uniData);
-            setServiceDesc({
+            setOrderService({
                 osid: "",
+                fk_cid: clientOrder.fk_cid,
                 fk_oid: clientOrder.oid,
                 status: t("label.pending"),
                 ranking: 0,
@@ -101,6 +102,7 @@ const MainContent: FC = () => {
                     ? (uniData.services[0].unit_price as number)
                     : 0,
                 created_date: "",
+                expiry_date: "none",
                 service_type: "",
                 product_name: "",
             });
