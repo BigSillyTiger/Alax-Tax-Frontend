@@ -2,11 +2,11 @@ import { memo } from "react";
 import type { FC } from "react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
-import { TorderService } from "@/configs/schema/orderSchema";
 import { useTranslation } from "react-i18next";
 import { minusAB, plusAB, timesAB } from "@/lib/calculations";
 import { convertToFloat, formMoney } from "@/lib/literals";
 import Deposit from "./Deposit";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 type Tprops = {
     type?: "I" | "Q"; // Invoice or Quotation

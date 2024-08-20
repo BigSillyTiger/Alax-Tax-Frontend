@@ -1,5 +1,5 @@
 import { API_ORDER } from "@/apis";
-import { TorderService } from "@/configs/schema/orderSchema";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 import { TwlUnion } from "@/configs/schema/workSchema";
 import { ActionFunctionArgs } from "react-router-dom";
 
@@ -78,6 +78,7 @@ export const ordersAction = async ({
     // change order status
     else if ("PUT" === request.method && data.get("req") === "orderStatus") {
         const result = await API_ORDER.orderChangeStatus({
+            cid: data.get("cid"),
             oid: data.get("oid"),
             status: data.get("status")?.toString().toLocaleLowerCase(),
         });

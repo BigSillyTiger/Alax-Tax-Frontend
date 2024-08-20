@@ -1,6 +1,6 @@
 import { XBtn } from "@/components/btns";
 import Card from "@/components/Card";
-import { TorderForm, TorderService } from "@/configs/schema/orderSchema";
+import { TorderForm } from "@/configs/schema/orderSchema";
 import { linearLargeBG } from "@/configs/utils/color";
 import type { FC } from "react";
 import {
@@ -15,6 +15,7 @@ import Fee from "./Fee";
 import Note from "./Note";
 import { useTranslation } from "react-i18next";
 import ServiceDetails from "./ServiceDetails";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 type Tprops = {
     fields: FieldArrayWithId<TorderService>[];

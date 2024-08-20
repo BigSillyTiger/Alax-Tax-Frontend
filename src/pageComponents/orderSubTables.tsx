@@ -1,14 +1,11 @@
 import { PTable } from "@/components/table";
-import {
-    TorderWithClient,
-    TorderPayment,
-    TorderService,
-} from "@/configs/schema/orderSchema";
+import { TorderWithClient, TorderPayment } from "@/configs/schema/orderSchema";
 import i18n from "@/configs/i18n";
 import { TitemContent } from "@/configs/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ORDER_STATUS } from "@/configs/utils/setting";
 import QuoteDetailsCard from "./cards/QuoteDetailsCard";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 export const orderSubTable = (
     data: TorderWithClient,

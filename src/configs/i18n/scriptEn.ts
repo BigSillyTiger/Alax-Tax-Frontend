@@ -210,7 +210,6 @@ const en = {
             net: "NET",
             newIssueDate: "New Issue Date",
             none: "None",
-            noContent: "No Content",
             openMenu: "Open Menu",
             orders: "Orders",
             orderDesc: "Order Description",
@@ -261,6 +260,7 @@ const en = {
             switch: "Switch",
             scheduleDate: "Schedule Date",
             service: "Service",
+            serviceID: "Service ID",
             services: "Services",
             serviceType: "Service Type",
             staff: "Staff",
@@ -317,6 +317,7 @@ const en = {
         tips: {
             noAssignedStaff: "No Assigned Staff",
             noOrder: "No Order",
+            noContent: "No Content",
             noServices: "No Service",
             noPayments: "No Payment",
             noPayslips: "No Payslip",

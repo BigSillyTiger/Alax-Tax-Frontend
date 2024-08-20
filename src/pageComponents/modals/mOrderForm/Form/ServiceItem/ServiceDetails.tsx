@@ -2,6 +2,7 @@ import DataList from "@/components/dataList";
 import Label from "@/components/Label";
 import { Input } from "@/components/ui/input";
 import { TorderForm } from "@/configs/schema/orderSchema";
+import { orderStatusList, serviceTypeList } from "@/configs/utils/setting";
 import type { FC } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -14,30 +15,15 @@ type Tprops = {
 const ServiceDetails: FC<Tprops> = ({ index, register }) => {
     const { t } = useTranslation();
 
-    const serviceType = {
-        types: [{ name: "t1" }, { name: "t2" }, { name: "t3" }],
-    };
     const serviceName = {
         types: [{ name: "N1" }, { name: "N2" }, { name: "N3" }],
     };
 
-    const testStatus = {
-        types: [
-            { name: "PENDING1" },
-            { name: "PENDING2" },
-            { name: "PENDING3" },
-        ],
-    };
+    const sTypeList = (
+        <DataList id={"serviceTypeList"} name={"name"} data={serviceTypeList} />
+    );
 
-    const serviceTypeList = serviceType ? (
-        <DataList
-            id={"serviceTypeList"}
-            name={"name"}
-            data={serviceType.types}
-        />
-    ) : null;
-
-    const productNameList = serviceType ? (
+    const productNameList = serviceName ? (
         <DataList
             id={"productNameList"}
             name={"name"}
@@ -49,7 +35,7 @@ const ServiceDetails: FC<Tprops> = ({ index, register }) => {
         <DataList
             id={"serviceStatusList"}
             name={"name"}
-            data={testStatus.types}
+            data={orderStatusList}
         />
     );
 
@@ -85,7 +71,7 @@ const ServiceDetails: FC<Tprops> = ({ index, register }) => {
                     type="text"
                     list="serviceTypeList"
                 />
-                {serviceTypeList}
+                {sTypeList}
             </div>
             {/* product name */}
             <div className="grow">

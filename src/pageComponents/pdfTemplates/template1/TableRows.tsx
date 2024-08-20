@@ -2,8 +2,8 @@ import { memo } from "react";
 import type { FC } from "react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
-import { TorderService } from "@/configs/schema/orderSchema";
 import { formMoney } from "@/lib/literals";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 type Tprops = {
     data: TorderService[];

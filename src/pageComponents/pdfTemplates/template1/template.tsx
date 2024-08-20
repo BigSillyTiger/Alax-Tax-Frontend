@@ -2,11 +2,7 @@ import type { FC } from "react";
 import { PDFViewer, Page, View, Document, Text } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 import { Tclient } from "@/configs/schema/clientSchema";
-import {
-    TorderService,
-    TorderPayment,
-    TorderWithClient,
-} from "@/configs/schema/orderSchema";
+import { TorderPayment, TorderWithClient } from "@/configs/schema/orderSchema";
 import TableHeader from "./TableHeader";
 import TableRows from "./TableRows";
 import BillTitle from "./BillTitle";
@@ -17,6 +13,7 @@ import PayHeader from "./PayHeader";
 import PayRows from "./PayRows";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { useTranslation } from "react-i18next";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 const tw = createTw({});
 

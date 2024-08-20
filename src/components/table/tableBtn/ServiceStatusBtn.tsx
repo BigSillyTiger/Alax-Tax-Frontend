@@ -1,6 +1,5 @@
 import type { FC, ReactNode } from "react";
 import { useSubmit } from "react-router-dom";
-import { TorderWithClient } from "@/configs/schema/orderSchema";
 import { useRouterStore } from "@/configs/zustore";
 import { capFirstLetter, genAction } from "@/lib/literals";
 import { ORDER_STATUS } from "@/configs/utils/setting";
@@ -13,20 +12,21 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { statusColor } from "@/configs/utils/color";
+import { TclientService } from "@/configs/schema/serviceSchema";
 
 type Tprops = {
     mLabel: ReactNode | string;
-    data: TorderWithClient;
+    data: TclientService;
 };
 
 // this menu btn group component is highly designed for order status change usage
-const OrderStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
+const ServiceStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     const submit = useSubmit();
     const currentRouter = useRouterStore((state) => state.currentRouter);
 
-    const handleClick = async (cid: string, oid: string, status: string) => {
+    const handleClick = async (csid: string, status: string) => {
         submit(
-            { req: "orderStatus", cid, oid, status },
+            { req: "ServiceStatus", csid, status },
             {
                 method: "PUT",
                 action:
@@ -49,7 +49,7 @@ const OrderStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
                 <div
                     onClick={() => {
                         //e.preventDefault();
-                        handleClick(data.fk_cid, data.oid, item);
+                        handleClick(data.csid, item);
                     }}
                     className="flex w-full items-center rounded-md px-2 text-md font-bold"
                 >
@@ -71,4 +71,4 @@ const OrderStatusBtn: FC<Tprops> = ({ mLabel, data }) => {
     );
 };
 
-export default OrderStatusBtn;
+export default ServiceStatusBtn;

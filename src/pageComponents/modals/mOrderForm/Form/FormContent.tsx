@@ -13,12 +13,13 @@ import {
     UseFormReturn,
     useWatch,
 } from "react-hook-form";
-import { TorderForm, TorderService } from "@/configs/schema/orderSchema";
+import { TorderForm } from "@/configs/schema/orderSchema";
 import { toastError } from "@/lib/toaster";
 import { atOrderWithClient } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { useRouterStore } from "@/configs/zustore";
 import { genAction } from "@/lib/literals";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 type Tprops = {
     register: UseFormReturn<TorderForm>["register"];

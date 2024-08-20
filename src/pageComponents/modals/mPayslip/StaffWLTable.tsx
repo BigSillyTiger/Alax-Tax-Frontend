@@ -29,7 +29,7 @@ const StaffWLTable: FC = () => {
     ) : (
         <Card className="mt-2">
             <span className="m-5 p-5  text-center h-15">
-                {t("label.noContent")}
+                {t("tips.noContent")}
             </span>
         </Card>
     );

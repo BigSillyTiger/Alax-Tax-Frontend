@@ -1,4 +1,10 @@
-import { API_ADMIN, API_CLIENT, API_SETTING, API_ORDER } from "@/apis";
+import {
+    API_ADMIN,
+    API_CLIENT,
+    API_SETTING,
+    API_ORDER,
+    API_SERVICE,
+} from "@/apis";
 import { TorderWithClient } from "@/configs/schema/orderSchema";
 import { menuList } from "@/configs/utils/router";
 import { routerStore } from "@/configs/zustore";
@@ -41,6 +47,7 @@ export const clientLoader = async ({ request, params }: LoaderFunctionArgs) => {
                     };
                 })
             ),
+            API_SERVICE.serviceWClient(cid).then((res) => res.data),
             API_SETTING.uniAll().then((res) => res.data),
             API_SETTING.companyGet().then((res) => res.data),
             API_SETTING.logo().then((res) => res.data),

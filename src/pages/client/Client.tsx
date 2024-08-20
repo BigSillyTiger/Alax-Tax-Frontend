@@ -16,13 +16,21 @@ import { mOpenOps } from "@/configs/utils/modal";
 import { MpdfMaker } from "@/pageComponents/modals";
 import ErrorTips from "@/components/ErrorTips";
 import MainContent from "./MainContent";
+import { TclientService } from "@/configs/schema/serviceSchema";
 
 const Client: FC = () => {
     const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const { allPromise } = useLoaderData() as {
         allPromise: Promise<
-            [Tclient[], TorderWithClient[], Tunivers, Tcompany, string]
+            [
+                Tclient[],
+                TorderWithClient[],
+                TclientService[],
+                Tunivers,
+                Tcompany,
+                string,
+            ]
         >;
     };
     const actionData = useActionData() as Tresponse;

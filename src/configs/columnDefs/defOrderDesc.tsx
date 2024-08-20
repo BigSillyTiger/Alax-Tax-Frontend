@@ -1,8 +1,8 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
 import i18n from "@/configs/i18n";
-import { TorderService } from "@/configs/schema/orderSchema";
 import { rangeFilterFn } from "./filterFn";
 import { formMoney } from "@/lib/literals";
+import { TorderService } from "../schema/orderServiceSchema";
 
 const useOrderDescColumnsDef = () => {
     const orderDescColumns: ColumnDef<TorderService>[] = [

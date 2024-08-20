@@ -5,6 +5,7 @@ import * as API_ORDER from "./api_orders";
 import * as API_STAFF from "./api_staff";
 import * as API_PAYSLIP from "./api_payslip";
 import * as API_CHART from "./api_chart";
+import * as API_SERVICE from "./api_services";
 
 export {
     API_ADMIN,
@@ -14,4 +15,5 @@ export {
     API_ORDER,
     API_STAFF,
     API_PAYSLIP,
+    API_SERVICE,
 };

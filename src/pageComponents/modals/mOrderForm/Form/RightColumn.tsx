@@ -7,10 +7,11 @@ import {
     UseFieldArraySwap,
     UseFormReturn,
 } from "react-hook-form";
-import { TorderForm, TorderService } from "@/configs/schema/orderSchema";
+import { TorderForm } from "@/configs/schema/orderSchema";
 import AppendNewService from "./AppendNewService";
 import { SubmitBtn } from "@/components/form";
 import { useNavigation } from "react-router-dom";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 type Tprops = {
     register: UseFormReturn<TorderForm>["register"];

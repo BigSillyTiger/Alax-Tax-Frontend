@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import Fieldset from "@/components/Fieldset";
-import { TorderForm, TorderService } from "@/configs/schema/orderSchema";
+import { TorderForm } from "@/configs/schema/orderSchema";
 import {
     FieldArrayWithId,
     UseFieldArrayRemove,
@@ -9,6 +9,7 @@ import {
 } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import ServiceItem from "./ServiceItem";
+import { TorderService } from "@/configs/schema/orderServiceSchema";
 
 type Tprops = {
     register: UseFormReturn<TorderForm>["register"];

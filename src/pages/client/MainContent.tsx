@@ -21,6 +21,8 @@ import { Tcompany } from "@/configs/schema/settingSchema";
 import { Nbtn } from "@/components/btns";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ClientOrderContent from "./ClientOrderContent";
+import { TclientService } from "@/configs/schema/serviceSchema";
+import ClientServiceContent from "./ClientServiceContent";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
@@ -34,13 +36,17 @@ const MainContent: FC = () => {
     const [, setCompany] = useAtom(atCompany);
     const [, setLogo] = useAtom(atLogo);
     const [, setServiceDesc] = useAtom(atOrderService);
-    const [client, orders, uniData, company, logo] = useAsyncValue() as [
-        Tclient[],
-        TorderWithClient[],
-        Tunivers,
-        Tcompany,
-        string,
-    ];
+    const [client, orders, services, uniData, company, logo] =
+        useAsyncValue() as [
+            Tclient[],
+            TorderWithClient[],
+            TclientService[],
+            Tunivers,
+            Tcompany,
+            string,
+        ];
+
+    console.log("--> client services: ", services);
 
     const initOrder: TorderWithClient = {
         oid: "",
@@ -149,7 +155,7 @@ const MainContent: FC = () => {
                 <ClientOrderContent orders={orders} />
             </TabsContent>
             <TabsContent value="services" className="grow">
-                <div>processing</div>
+                <ClientServiceContent services={services} />
             </TabsContent>
         </Tabs>
     );

@@ -14,6 +14,22 @@ export const ORDER_STATUS = [
     "completed",
 ] as const;
 
+// shared with service status
+export const orderStatusList = [
+    { name: ORDER_STATUS[0] }, // pending
+    { name: ORDER_STATUS[1] }, // ongoing
+    { name: ORDER_STATUS[2] }, // cancelled
+    { name: ORDER_STATUS[3] }, // completed
+];
+
+export const SERVICE_TYPE = ["OOP", "CTM", "SUB"] as const;
+
+export const serviceTypeList = [
+    { name: SERVICE_TYPE[0] }, // OOP
+    { name: SERVICE_TYPE[1] }, // CTM
+    { name: SERVICE_TYPE[2] }, // SUB
+];
+
 // the value in this array must be the same as the value in statusColor keys
 export const WL_STATUS = [
     "pending",

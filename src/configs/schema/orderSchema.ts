@@ -80,7 +80,6 @@ export const orderWithClientSchema = plainOrderSchema.extend({
 
 export type TorderWithClient = z.infer<typeof orderWithClientSchema>;
 export type TorderForm = z.infer<typeof orderFormSchema>;
-export type TorderService = z.infer<typeof orderServiceSchema>;
 export type TorderPayment = z.infer<typeof orderPaymentSchema>;
 export type TorderAbstract = z.infer<typeof orderAbstractSchema>;
 export type Tpayment = {
