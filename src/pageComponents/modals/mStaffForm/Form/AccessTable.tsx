@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { menuList } from "@/configs/utils/router";
+import { defaultMenuList } from "@/configs/utils/router";
 import { TstaffForm } from "@/configs/schema/staffSchema";
 import { UseFormReturn } from "react-hook-form";
 import { atModalOpen } from "@/configs/atoms";
@@ -20,7 +20,7 @@ const AccessTable: FC<Tprops> = ({ register, watch }) => {
     const setRadioDisable = (page: TmenuID, adminNum: TadminAccess) => {
         return !(watch(page) === adminNum);
     };
-    const newMenuList = menuList.map((item) => ({
+    const newMenuList = defaultMenuList.map((item) => ({
         ...item,
         name: t(item.name),
     }));

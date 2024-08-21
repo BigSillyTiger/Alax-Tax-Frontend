@@ -1,5 +1,5 @@
 import { TmenuID, TstaffRole } from "../types";
-import { menuList } from "./router";
+import { defaultMenuList } from "./router";
 
 export type TadminAccess = 0 | 1 | 2;
 
@@ -13,7 +13,7 @@ export const defaultStaffRole: TstaffRole = "employee";
  * @returns
  */
 export const genMenuIDObject = (access: TadminAccess) => {
-    return menuList.reduce(
+    return defaultMenuList.reduce(
         (acc, item) => {
             acc[item.id] = access;
             return acc;

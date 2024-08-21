@@ -1,5 +1,5 @@
 import { API_ADMIN, API_CLIENT } from "@/apis";
-import { menuList } from "@/configs/utils/router";
+import { MenuItems } from "@/configs/utils/router";
 import { routerStore } from "@/configs/zustore";
 import { defer, LoaderFunctionArgs, redirect } from "react-router-dom";
 
@@ -7,7 +7,7 @@ export const clientsLoader = async ({ request }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;
     routerStore.setState({ currentRouter: "clients" });
     try {
-        const result = await API_ADMIN.loaderAccessCheck(menuList[1].id);
+        const result = await API_ADMIN.loaderAccessCheck(MenuItems.clients);
 
         if (!result) {
             return pname

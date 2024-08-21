@@ -1,5 +1,5 @@
 import { API_ADMIN } from "@/apis";
-import { menuList } from "@/configs/utils/router";
+import { MenuItems } from "@/configs/utils/router";
 import { routerStore } from "@/configs/zustore";
 import { defer, LoaderFunctionArgs, redirect } from "react-router-dom";
 
@@ -7,7 +7,7 @@ export const dashboardLoader = async ({ request }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;
     routerStore.setState({ currentRouter: "dashboard" });
     try {
-        const result = await API_ADMIN.loaderAccessCheck(menuList[0].id);
+        const result = await API_ADMIN.loaderAccessCheck(MenuItems.dashboard);
 
         if (!result) {
             return pname

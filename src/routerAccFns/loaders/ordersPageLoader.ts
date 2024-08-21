@@ -1,5 +1,5 @@
 import { API_ADMIN, API_SETTING, API_ORDER, API_STAFF } from "@/apis";
-import { menuList } from "@/configs/utils/router";
+import { MenuItems } from "@/configs/utils/router";
 import { routerStore } from "@/configs/zustore";
 import { defer, LoaderFunctionArgs, redirect } from "react-router-dom";
 
@@ -7,7 +7,7 @@ export const ordersLoader = async ({ request }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;
     routerStore.setState({ currentRouter: "orders" });
     try {
-        const result = await API_ADMIN.loaderAccessCheck(menuList[2].id);
+        const result = await API_ADMIN.loaderAccessCheck(MenuItems.orders);
 
         if (!result) {
             return pname

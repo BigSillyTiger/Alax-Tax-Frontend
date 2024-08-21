@@ -36,6 +36,7 @@ const MainContent: FC = () => {
     ];
 
     const orderColumns = useOrderColumnsDef();
+    console.log("---> [] all orders: ", orders);
 
     const newOrders = useMemo(() => {
         return orders.map((item) => {

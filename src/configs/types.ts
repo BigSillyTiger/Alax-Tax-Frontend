@@ -1,7 +1,7 @@
 import { ORDER_STATUS, SERVICE_TYPE, WL_STATUS } from "@/configs/utils/setting";
 import { Tservice, Tunit } from "./schema/settingSchema";
 import { statusColor, timeBtnStyleMap } from "./utils/color";
-import { actionReqList, menuList } from "./utils/router";
+import { actionReqList, defaultMenuList } from "./utils/router";
 import { roleOptions } from "./utils/staff";
 import { defaultMenuOptions, mOpenOps } from "./utils/modal";
 
@@ -10,7 +10,7 @@ export type Tunivers = {
     units: Tunit[];
 };
 
-export type TmenuID = (typeof menuList)[number]["id"];
+export type TmenuID = (typeof defaultMenuList)[number]["id"];
 
 /**
  * @description  modal open option types for all modals

@@ -6,7 +6,7 @@ import type {
 } from "react";
 import MobileMenu from "./mobileMenu";
 
-import { menuList } from "@/configs/utils/router";
+import { defaultMenuList } from "@/configs/utils/router";
 
 import { Menu2 } from "./menu";
 import { Tpermission } from "@/configs/schema/universSchema";
@@ -40,7 +40,7 @@ const MainMenu: FC<Tprops> = ({ open, setOpen }) => {
     const newMenuList = () => {
         //
         const temp = Object.values(
-            menuList.reduce(
+            defaultMenuList.reduce(
                 (acc, item) => {
                     acc[item.id] = user[item.id];
                     return acc;
@@ -48,7 +48,7 @@ const MainMenu: FC<Tprops> = ({ open, setOpen }) => {
                 {} as Record<string, number>
             )
         );
-        return menuList
+        return defaultMenuList
             .filter((_, index) => {
                 // if temp[index] is > 0, then return the menu item => display it
                 // otherwise, return undefined => hide it

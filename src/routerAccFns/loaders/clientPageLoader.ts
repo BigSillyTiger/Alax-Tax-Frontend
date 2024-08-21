@@ -1,6 +1,6 @@
 import { API_ADMIN, API_CLIENT, API_SETTING, API_ORDER } from "@/apis";
 import { TorderWithClient } from "@/configs/schema/orderSchema";
-import { menuList } from "@/configs/utils/router";
+import { MenuItems } from "@/configs/utils/router";
 import { routerStore } from "@/configs/zustore";
 import { dateFormat } from "@/lib/time";
 import { LoaderFunctionArgs, defer, redirect } from "react-router-dom";
@@ -14,7 +14,7 @@ export const clientLoader = async ({ request, params }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;
     routerStore.setState({ currentRouter: "client" });
     try {
-        const result = await API_ADMIN.loaderAccessCheck(menuList[1].id);
+        const result = await API_ADMIN.loaderAccessCheck(MenuItems.clients);
 
         if (!result) {
             return pname

@@ -20,6 +20,7 @@ export const ordersAction = async ({
         const orData = JSON.parse(data.get("values") as string);
         const order = {
             order: {
+                oid: orData.oid,
                 fk_cid: orData.cid,
                 status: orData.status.toLocaleLowerCase() as string,
                 gst: orData.gst,
