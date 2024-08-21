@@ -18,6 +18,7 @@ type Tprops = {
     fields: FieldArrayWithId<TorderService>[];
     remove: UseFieldArrayRemove;
     swap: UseFieldArraySwap;
+    control: UseFormReturn<TorderForm>["control"];
     sFieldset?: string;
 };
 
@@ -28,6 +29,7 @@ const ServiceContent: FC<Tprops> = ({
     fields,
     setValue,
     swap,
+    control,
     sFieldset,
 }) => {
     const { t } = useTranslation();
@@ -46,6 +48,7 @@ const ServiceContent: FC<Tprops> = ({
                 register={register}
                 setValue={setValue}
                 watch={watch}
+                control={control}
             />
         </Fieldset>
     );

@@ -1,102 +1,151 @@
-import DataList from "@/components/dataList";
+import { Controller } from "react-hook-form";
 import Label from "@/components/Label";
-import { Input } from "@/components/ui/input";
 import { TorderForm } from "@/configs/schema/orderSchema";
 import {
-    orderStatusList,
+    ORDER_STATUS,
     PRODUCT_NAME,
-    serviceTypeList,
+    SERVICE_TYPE,
+    //serviceTypeList,
 } from "@/configs/utils/setting";
 import type { FC } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { capFirstLetter } from "@/lib/literals";
+import { statusColor } from "@/configs/utils/color";
+import { TorderStatus } from "@/configs/types";
 
 type Tprops = {
     index: number;
-    register: UseFormReturn<TorderForm>["register"];
+    control: UseFormReturn<TorderForm>["control"];
 };
 
-const ServiceDetails: FC<Tprops> = ({ index, register }) => {
+const ServiceDetails: FC<Tprops> = ({ index, control }) => {
     const { t } = useTranslation();
 
-    const productName = {
-        types: [
-            { name: PRODUCT_NAME[0] },
-            { name: PRODUCT_NAME[1] },
-            { name: PRODUCT_NAME[2] },
-        ],
-    };
+    // order service status List
+    const ossList = ORDER_STATUS.map((item) => (
+        <SelectItem
+            value={item}
+            className={`${statusColor[item].text} ${statusColor[item].fbg} ${statusColor[item].ftext}`}
+        >
+            {capFirstLetter(item)}
+        </SelectItem>
+    ));
 
-    const sTypeList = (
-        <DataList id={"serviceTypeList"} name={"name"} data={serviceTypeList} />
+    // controlled order service status
+    const CorderServiceStatus = () => (
+        <Controller
+            name={`order_services.${index}.status`}
+            control={control}
+            render={({ field: { onChange, value } }) => {
+                return (
+                    <div className="w-[20%]">
+                        <Label className="block text-sm font-normal">
+                            {t("label.status")}
+
+                            <Select
+                                onValueChange={onChange}
+                                defaultValue={value}
+                            >
+                                <SelectTrigger
+                                    className={`${statusColor[value as TorderStatus].text} ${statusColor[value as TorderStatus].fbg} ${statusColor[value as TorderStatus].ftext}`}
+                                >
+                                    <SelectValue
+                                        placeholder={t("label.status")}
+                                    />
+                                </SelectTrigger>
+                                <SelectContent>{ossList}</SelectContent>
+                            </Select>
+                        </Label>
+                    </div>
+                );
+            }}
+        />
     );
 
-    const productNameList = productName ? (
-        <DataList
-            id={"productNameList"}
-            name={"name"}
-            data={productName.types}
-        />
-    ) : null;
+    // service type list
+    const pnList = PRODUCT_NAME.map((item) => (
+        <SelectItem value={item}>{item}</SelectItem>
+    ));
 
-    const serviceStatusList = (
-        <DataList
-            id={"serviceStatusList"}
-            name={"name"}
-            data={orderStatusList}
+    // product name content
+    const CProductName = () => (
+        <Controller
+            name={`order_services.${index}.product_name`}
+            control={control}
+            render={({ field: { onChange, value } }) => {
+                return (
+                    <div className="grow">
+                        <Label className="block text-sm font-normal">
+                            {t("label.productName")}
+                            <Select
+                                onValueChange={onChange}
+                                defaultValue={value}
+                            >
+                                <SelectTrigger className="">
+                                    <SelectValue
+                                        placeholder={t("label.productName")}
+                                    />
+                                </SelectTrigger>
+                                <SelectContent>{pnList}</SelectContent>
+                            </Select>
+                        </Label>
+                    </div>
+                );
+            }}
+        />
+    );
+
+    // service type list
+    const stList = SERVICE_TYPE.map((item) => (
+        <SelectItem value={item}>{item}</SelectItem>
+    ));
+
+    // controlled service type
+    const CServiceType = () => (
+        <Controller
+            name={`order_services.${index}.service_type`}
+            control={control}
+            render={({ field: { onChange, value } }) => {
+                return (
+                    <div className="w-[20%]">
+                        <Label className="block text-sm font-normal">
+                            {t("label.serviceType")}
+
+                            <Select
+                                onValueChange={onChange}
+                                defaultValue={value}
+                            >
+                                <SelectTrigger className="">
+                                    <SelectValue
+                                        placeholder={t("label.serviceType")}
+                                    />
+                                </SelectTrigger>
+                                <SelectContent>{stList}</SelectContent>
+                            </Select>
+                        </Label>
+                    </div>
+                );
+            }}
         />
     );
 
     return (
         <div className="flex flex-row items-stretch gap-x-3">
             {/* service status */}
-            <div className="w-[20%]">
-                <Label
-                    htmlFor="serviceStatus"
-                    className="block text-sm font-normal"
-                >
-                    {t("label.status")}
-                </Label>
-                <Input
-                    {...register(`order_services.${index}.status`)}
-                    id="serviceStatus"
-                    type="text"
-                    list="serviceStatusList"
-                />
-                {serviceStatusList}
-            </div>
-            {/* service type */}
-            <div className="w-[20%]">
-                <Label
-                    htmlFor="serviceType"
-                    className="block text-sm font-normal"
-                >
-                    {t("label.serviceType")}
-                </Label>
-                <Input
-                    {...register(`order_services.${index}.service_type`)}
-                    id="serviceType"
-                    type="text"
-                    list="serviceTypeList"
-                />
-                {sTypeList}
-            </div>
+            <CorderServiceStatus />
+
             {/* product name */}
-            <div className="grow">
-                <Label
-                    htmlFor="productName"
-                    className="block text-sm font-normal"
-                >
-                    {t("label.productName")}
-                </Label>
-                <Input
-                    {...register(`order_services.${index}.product_name`)}
-                    id="productName"
-                    type="text"
-                    list="productNameList"
-                />
-                {productNameList}
-            </div>
+            <CProductName />
+            {/* service type */}
+            <CServiceType />
         </div>
     );
 };

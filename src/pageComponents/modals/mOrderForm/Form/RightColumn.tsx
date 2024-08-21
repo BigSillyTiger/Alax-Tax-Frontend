@@ -22,6 +22,7 @@ type Tprops = {
     append: UseFieldArrayAppend<TorderForm, "order_services">;
     remove: UseFieldArrayRemove;
     swap: UseFieldArraySwap;
+    control: UseFormReturn<TorderForm>["control"];
     onClose: () => void;
 };
 
@@ -34,6 +35,7 @@ const RightColumn: FC<Tprops> = ({
     remove,
     trigger,
     swap,
+    control,
     onClose,
 }) => {
     const navigation = useNavigation();
@@ -47,6 +49,7 @@ const RightColumn: FC<Tprops> = ({
                 fields={fields}
                 remove={remove}
                 swap={swap}
+                control={control}
                 sFieldset="h-[74dvh] col-span-full"
             />
             {/* append btn - adding a new service */}

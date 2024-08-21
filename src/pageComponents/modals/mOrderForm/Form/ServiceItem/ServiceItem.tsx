@@ -24,6 +24,7 @@ type Tprops = {
     register: UseFormReturn<TorderForm>["register"];
     setValue: UseFormReturn<TorderForm>["setValue"];
     watch: UseFormReturn<TorderForm>["watch"];
+    control: UseFormReturn<TorderForm>["control"];
 };
 
 const ServiceItem: FC<Tprops> = ({
@@ -32,6 +33,7 @@ const ServiceItem: FC<Tprops> = ({
     swap,
     register,
     watch,
+    control,
     setValue,
 }) => {
     const { t } = useTranslation();
@@ -56,7 +58,7 @@ const ServiceItem: FC<Tprops> = ({
                         {/* main content */}
                         <div className="grow flex flex-col gap-x-2 gap-y-2">
                             <Title index={index} register={register} />
-                            <ServiceDetails index={index} register={register} />
+                            <ServiceDetails index={index} control={control} />
                             <Fee
                                 index={index}
                                 register={register}

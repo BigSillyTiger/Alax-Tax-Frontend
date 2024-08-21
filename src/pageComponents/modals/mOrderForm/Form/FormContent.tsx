@@ -156,6 +156,7 @@ const FormContent: FC<Tprops> = ({
                 append={append}
                 remove={remove}
                 swap={swap}
+                control={control}
                 onClose={onClose}
             />
         </Form>
