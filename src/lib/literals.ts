@@ -1,4 +1,3 @@
-import { TwlUnion } from "@/configs/schema/workSchema";
 import { routerPaths } from "@/configs/utils/router";
 import { Tservice, Tunit } from "../configs/schema/settingSchema";
 import { toastWarning } from "./toaster";
@@ -17,20 +16,6 @@ export const isServiceType = (obj: Tservice | Tunit): obj is Tservice => {
 export const capFirstLetter = (str: string) => {
     if (!str) return "";
     return `${str.charAt(0).toUpperCase()}${str.slice(1).toLowerCase()}`;
-};
-
-/**
- * @description sort work logs by date
- */
-export const sortWorkLogs = (sort: "dsc" | "asc", workLogs: TwlUnion[]) => {
-    return workLogs.sort((a, b) => {
-        const dateA = new Date(a.wl_date).getTime();
-        const dateB = new Date(b.wl_date).getTime();
-        if (sort === "asc") {
-            return dateA - dateB;
-        }
-        return dateB - dateA;
-    });
 };
 
 /**

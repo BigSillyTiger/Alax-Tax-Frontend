@@ -26,8 +26,7 @@ import ColumnToggleBtn from "./ColumnToggleBtn";
 import { CTable, CTBody, CTHead } from ".";
 import { TmenuOptions } from "@/configs/types";
 import { defaultMenuOptions } from "@/configs/utils/modal";
-import { MenuBtn, PSDelBtn } from "./tableBtn";
-import { Tpayslip } from "@/configs/schema/payslipSchema";
+import { MenuBtn } from "./tableBtn";
 
 type Tprops<T> = {
     data: T[];
@@ -143,30 +142,6 @@ const PTable = <T extends object>({
                                               {...menuOptions}
                                               setData={setData}
                                               mItem={row.original}
-                                          />
-                                      </div>
-                                  </td>
-                              );
-                          } else if (
-                              cell.column.id === "PayslipDel" &&
-                              setData
-                          ) {
-                              return (
-                                  <td
-                                      key={cell.id}
-                                      className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 flex justify-center items-center z-0"
-                                      style={{
-                                          width: cell.column.getSize(),
-                                      }}
-                                  >
-                                      <div className="flex justify-center items-center">
-                                          <PSDelBtn
-                                              data={row.original as Tpayslip}
-                                              setData={
-                                                  setData as (
-                                                      data: Tpayslip
-                                                  ) => void
-                                              }
                                           />
                                       </div>
                                   </td>

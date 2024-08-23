@@ -30,7 +30,7 @@ export const roleOptions = {
     employee: {
         ...genMenuIDObject(0),
         dashboard: 2,
-        worklogs: 1,
+        services: 1,
         staff: 1,
         calendar: 0,
     },

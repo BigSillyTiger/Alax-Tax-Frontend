@@ -6,6 +6,7 @@ import Client from "./client";
 import Orders from "./orders";
 import Staff from "./staff";
 import Setting from "./setting";
+import Services from "./services";
 import Calendar from "./calendar";
 
 export {
@@ -17,5 +18,6 @@ export {
     Orders,
     Staff,
     Setting,
+    Services,
     Calendar,
 };

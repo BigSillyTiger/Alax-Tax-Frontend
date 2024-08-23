@@ -1,12 +1,12 @@
 import type { ComponentPropsWithoutRef } from "react";
 import { Amail, Atel } from "@/components/aLinks";
 import { useTranslation } from "react-i18next";
-import { TwlTableRow } from "@/configs/schema/workSchema";
 import Fieldset from "@/components/Fieldset";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import SingleField from "@/components/SingleField";
+import { Tstaff } from "@/configs/schema/staffSchema";
 
-type Tprops = ComponentPropsWithoutRef<"div"> & { staff: TwlTableRow };
+type Tprops = ComponentPropsWithoutRef<"div"> & { staff: Tstaff };
 
 const StaffCard = ({ staff, className }: Tprops) => {
     const { t } = useTranslation();
@@ -19,7 +19,7 @@ const StaffCard = ({ staff, className }: Tprops) => {
                 <span className="font-bold text-lg">
                     {staff.first_name + " " + staff.last_name}
                 </span>
-                <span>{staff.fk_uid}</span>
+                <span>{staff.uid}</span>
             </div>
 
             <SingleField

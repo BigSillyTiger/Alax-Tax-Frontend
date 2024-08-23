@@ -4,6 +4,7 @@ import { loginAction } from "./loginAction";
 import { clientsAction } from "./clientsAction";
 import { staffAction } from "./staffAction";
 import { settingAction } from "./settingAction";
+import { servicesAction } from "./serviceAction";
 
 export {
     dashboardAction,
@@ -12,4 +13,5 @@ export {
     loginAction,
     staffAction,
     settingAction,
+    servicesAction,
 };

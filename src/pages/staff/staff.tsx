@@ -6,30 +6,20 @@ import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
 import LoadingPage from "@/components/loadingEle";
 import { toastError, toastSuccess } from "@/lib/toaster";
-import { TstaffWPayslip } from "@/configs/schema/staffSchema.ts";
+import { Tstaff } from "@/configs/schema/staffSchema.ts";
 import { MStaffDel, MStaffForm, MStaffResetPW } from "@/pageComponents/modals";
 import { atStaff, at2ndModalOpen, atModalOpen } from "@/configs/atoms";
 import type { TisConflict } from "@/configs/types";
 import { RES_STATUS } from "@/configs/types";
-import MPayslip from "@/pageComponents/modals/mPayslip";
-import { TwlTableRow } from "@/configs/schema/workSchema";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { mOpenOps } from "@/configs/utils/modal";
-import MPayslipDel from "@/pageComponents/modals/mPayslipDel";
-import { Tbonus } from "@/configs/schema/payslipSchema";
-import MPSDisplay from "@/pageComponents/modals/mPSDisplay";
 import ErrorTips from "@/components/ErrorTips";
-import { useAdminStore } from "@/configs/zustore";
-import { ROLES } from "@/configs/utils/staff";
-import EmployeeContent from "./EmployeeContent";
 import ManagerContent from "./ManagerContent";
 
 const Staff: FC = () => {
     const { t } = useTranslation();
     const { allPromise } = useLoaderData() as {
-        allPromise: Promise<
-            [TwlTableRow[], TstaffWPayslip[], Tbonus[], Tcompany, string]
-        >;
+        allPromise: Promise<[Tstaff[], Tcompany, string]>;
     };
 
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
@@ -37,9 +27,6 @@ const Staff: FC = () => {
     const [, setInfoConflict] = useState<TisConflict>(RES_STATUS.SUCCESS);
     const [staff, setStaff] = useAtom(atStaff);
     const actionData = useActionData() as Tresponse;
-
-    const currentAdmin = useAdminStore((state) => state.currentAdmin);
-    const isEmployee = currentAdmin.role === ROLES.employee;
 
     useEffect(() => {
         if (!actionData) return;
@@ -109,7 +96,7 @@ const Staff: FC = () => {
             <div className="cps-container border-0">
                 <Suspense fallback={<LoadingPage />}>
                     <Await resolve={allPromise} errorElement={<ErrorTips />}>
-                        {isEmployee ? <EmployeeContent /> : <ManagerContent />}
+                        <ManagerContent />
                     </Await>
                 </Suspense>
             </div>
@@ -119,9 +106,6 @@ const Staff: FC = () => {
             <MStaffForm />
             <MStaffDel />
             <MStaffResetPW />
-            <MPayslip />
-            <MPayslipDel />
-            <MPSDisplay />
         </>
     );
 };

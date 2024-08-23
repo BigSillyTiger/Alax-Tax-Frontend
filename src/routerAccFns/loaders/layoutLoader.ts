@@ -25,7 +25,6 @@ export const layoutLoader = async ({ request }: LoaderFunctionArgs) => {
 
         const allPromise = Promise.all([
             API_ADMIN.adminCheck().then((res) => res.data),
-            //API_PAYSLIP.psAll().then((res) => res.data),
             API_SETTING.logo().then((res) => res.data),
         ]);
         return defer({ allPromise });

@@ -1,18 +1,18 @@
 import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
-import { TstaffWPayslip } from "../schema/staffSchema";
+import { Tstaff } from "../schema/staffSchema";
 
 type Tstate = {
-    allStaff: TstaffWPayslip[];
+    allStaff: Tstaff[];
 };
 
 type Taction = {
-    setAllStaff: (staff: TstaffWPayslip[]) => void;
+    setAllStaff: (staff: Tstaff[]) => void;
 };
 
 export const staffStore = createStore<Tstate & Taction>((set) => ({
     allStaff: [],
-    setAllStaff: (staff: TstaffWPayslip[]) =>
+    setAllStaff: (staff: Tstaff[]) =>
         set((state) => ({ ...state, allStaff: staff })),
 }));
 

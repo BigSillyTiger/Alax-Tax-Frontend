@@ -5,7 +5,6 @@ import { TorderWithClient } from "@/configs/schema/orderSchema";
 import type { Tunivers } from "@/configs/types";
 import { RES_STATUS } from "@/configs/types";
 import {
-    MJobAssign,
     MOrderDel,
     MOrderForm,
     MOrderPay,
@@ -17,9 +16,9 @@ import { Tcompany } from "@/configs/schema/settingSchema";
 import { mOpenOps } from "@/configs/utils/modal";
 import { toastError, toastSuccess } from "@/lib/toaster";
 import { useTranslation } from "react-i18next";
-import { TstaffWPayslip } from "@/configs/schema/staffSchema";
 import ErrorTips from "@/components/ErrorTips";
 import MainContent from "./MainContent";
+import { Tstaff } from "@/configs/schema/staffSchema";
 
 const Orders: FC = () => {
     const { t } = useTranslation();
@@ -27,7 +26,7 @@ const Orders: FC = () => {
     const [modalOpen, setModalOpen] = useAtom(atModalOpen);
     const { allPromise } = useLoaderData() as {
         allPromise: Promise<
-            [TorderWithClient[], TstaffWPayslip[], Tunivers, Tcompany, string]
+            [TorderWithClient[], Tstaff[], Tunivers, Tcompany, string]
         >;
     };
 
@@ -58,12 +57,6 @@ const Orders: FC = () => {
             case RES_STATUS.SUC_UPDATE_PAYMENTS:
                 setModalOpen(mOpenOps.default);
                 toastSuccess(t("toastS.updatePayment"));
-                break;
-            case RES_STATUS.SUC_UPDATE_WORKLOG:
-                if (modalOpen === mOpenOps.assign) {
-                    setModalOpen(mOpenOps.default);
-                    toastSuccess(t("toastS.updateWorkLog"));
-                }
                 break;
             case RES_STATUS.FAILED_DEL:
                 setModalOpen(mOpenOps.default);
@@ -102,7 +95,6 @@ const Orders: FC = () => {
             <MOrderDel />
             <MOrderPay />
             <MpdfMaker />
-            <MJobAssign />
         </div>
     );
 };

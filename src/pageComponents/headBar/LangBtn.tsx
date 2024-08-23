@@ -11,12 +11,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import i18next from "@/configs/i18n";
 
-/**
- * @description AlertBell component Display the number of:
- *              - pending payslips
- *              - processing worklogs
- * @returns
- */
 const LangBtn: FC = () => {
     //const { i18n } = useTranslation();
 

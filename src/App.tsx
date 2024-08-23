@@ -18,6 +18,7 @@ import {
     Orders,
     Staff,
     Setting,
+    Services,
     Calendar,
 } from "./pages";
 import {
@@ -28,6 +29,7 @@ import {
     ordersLoader,
     loginLoader,
     staffLoader,
+    servicesLoader,
     settingLoader,
     layoutLoader,
 } from "./routerAccFns/loaders";
@@ -38,6 +40,7 @@ import {
     loginAction,
     staffAction,
     settingAction,
+    servicesAction,
 } from "./routerAccFns/actions";
 
 import LoadingPage from "./components/loadingEle";
@@ -89,6 +92,12 @@ const App: FC = () => {
                         loader={ordersLoader}
                         // client and orders page are using one action fn
                         action={ordersAction}
+                    />
+                    <Route
+                        path={routerPaths.services}
+                        element={<Services />}
+                        loader={servicesLoader}
+                        action={servicesAction}
                     />
                     <Route path={routerPaths.calendar} element={<Calendar />} />
                     <Route

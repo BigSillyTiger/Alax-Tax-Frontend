@@ -1,4 +1,4 @@
-import { API_PAYSLIP, API_STAFF } from "@/apis";
+import { API_STAFF } from "@/apis";
 import { ActionFunctionArgs } from "react-router-dom";
 import type { Tstaff } from "@/configs/schema/staffSchema";
 import { ROLES } from "@/configs/utils/staff";
@@ -30,6 +30,7 @@ export const staffAction = async ({
             dashboard: Number(data.get("dashboard")),
             clients: Number(data.get("clients")),
             orders: Number(data.get("orders")),
+            services: Number(data.get("services")),
             calendar: Number(data.get("calendar")),
             staff: Number(data.get("staff")),
             setting: Number(data.get("setting")),
@@ -38,17 +39,8 @@ export const staffAction = async ({
             account: data.get("account") as string,
         });
         return result;
-    } else if ("POST" === request.method && data.get("req") === "newPayslip") {
-        const bonus = JSON.parse(data.get("bonus") as string);
-        const payslip = JSON.parse(data.get("payslip") as string);
-        return await API_PAYSLIP.psSingleInsert(bonus, payslip);
     } else if ("DELETE" === request.method && data.get("req") === "delStaff") {
         return await API_STAFF.staffSingleDel(data.get("uid") as string);
-    } else if (
-        "DELETE" === request.method &&
-        data.get("req") === "delPayslip"
-    ) {
-        return await API_PAYSLIP.psSingleDel(data.get("psid") as string);
     } else if ("PUT" === request.method && data.get("req") === "updateStaff") {
         const access =
             data.get("access") === "true" || data.get("access") === "1"
@@ -74,7 +66,7 @@ export const staffAction = async ({
                 dashboard: Number(data.get("dashboard")),
                 clients: Number(data.get("clients")),
                 orders: Number(data.get("orders")),
-                worklogs: Number(data.get("worklogs")),
+                services: Number(data.get("services")),
                 calendar: Number(data.get("calendar")),
                 staff: Number(data.get("staff")),
                 setting: Number(data.get("setting")),
@@ -89,11 +81,6 @@ export const staffAction = async ({
         return await API_STAFF.staffUpdatePW(
             data.get("uid") as string,
             data.get("password") as string
-        );
-    } else if ("PUT" === request.method && data.get("req") === "psStatus") {
-        return await API_PAYSLIP.psStatusUpdate(
-            data.get("psid") as string,
-            data.get("status") as string
         );
     } else {
         return {

@@ -5,6 +5,7 @@ import {
     UserGroupIcon,
     ClipboardDocumentIcon,
     WrenchScrewdriverIcon,
+    DocumentDuplicateIcon,
 } from "@heroicons/react/24/outline";
 
 export const routerPaths = {
@@ -14,6 +15,7 @@ export const routerPaths = {
     clients: "/clients",
     client: "/clients/:cid",
     orders: "/orders",
+    services: "/services",
     calendar: "/calendar",
     staff: "/staff",
     makePayslip: "/makePayslip/:uid",
@@ -26,7 +28,7 @@ export const MenuItems = {
     clients: "clients" as const,
     client: "client" as const,
     orders: "orders" as const,
-    orderServices: "orderServices" as const,
+    services: "services" as const,
     calendar: "calendar" as const,
     staff: "staff" as const,
     setting: "setting" as const,
@@ -52,6 +54,13 @@ export const defaultMenuList = [
         name: "menu.orders",
         href: routerPaths.orders,
         icon: ClipboardDocumentIcon,
+        current: false,
+    },
+    {
+        id: MenuItems.services,
+        name: "menu.services",
+        href: routerPaths.services,
+        icon: DocumentDuplicateIcon,
         current: false,
     },
     {

@@ -1,21 +1,17 @@
 import type { FC, TouchEvent, MouseEvent } from "react";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import Card from "@/components/Card";
 import { PTable } from "@/components/table";
 import useStaffColumnsDef from "@/configs/columnDefs/defStaff";
 import { useTranslation } from "react-i18next";
-import SubTable from "./SubTable";
 import { useAsyncValue } from "react-router-dom";
-import { TstaffWPayslip } from "@/configs/schema/staffSchema";
-import { Tbonus, Tpayslip } from "@/configs/schema/payslipSchema";
 import { Tcompany } from "@/configs/schema/settingSchema";
 import { atCompany, atLogo, atModalOpen, atStaff } from "@/configs/atoms";
 import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
-import { usePayslipStore, useStaffStore } from "@/configs/zustore";
-import { dateFormat } from "@/lib/time";
-import { updateBellAlert } from "@/lib/utils";
+import { useStaffStore } from "@/configs/zustore";
 import { Nbtn } from "@/components/btns";
+import { Tstaff } from "@/configs/schema/staffSchema";
 
 const ManagerContent: FC = () => {
     const { t } = useTranslation();
@@ -24,49 +20,20 @@ const ManagerContent: FC = () => {
     const [, setStaff] = useAtom(atStaff);
     const [, setModalOpen] = useAtom(atModalOpen);
     const setAllStaff = useStaffStore((state) => state.setAllStaff);
-    const setAllBonus = usePayslipStore((state) => state.setAllBonus);
     const staffColumns = useStaffColumnsDef();
 
-    const [allStaff, allPayslips, allBonus, company, logo] =
-        useAsyncValue() as [
-            TstaffWPayslip[],
-            Tpayslip[],
-            Tbonus[],
-            Tcompany,
-            string,
-        ];
-
-    const newAllStaff = useMemo(() => {
-        if (!allStaff) return [];
-        return allStaff.map((staff) => {
-            if (staff.payslips === null) {
-                return {
-                    ...staff,
-                    payslips: [],
-                };
-            }
-            return {
-                ...staff,
-                payslips: staff.payslips.map((ps) => {
-                    return {
-                        ...ps,
-                        s_date: dateFormat(ps.s_date, "au"),
-                        e_date: dateFormat(ps.e_date, "au"),
-                    };
-                }),
-            };
-        });
-    }, [allStaff]);
+    const [allStaff, company, logo] = useAsyncValue() as [
+        Tstaff[],
+        Tcompany,
+        string,
+    ];
 
     useEffect(() => {
-        setAllStaff(newAllStaff);
-        setAllBonus(allBonus || []);
+        setAllStaff(allStaff);
         setCompany(company);
         setLogo(logo);
-        // update bell alert
-        updateBellAlert({ unPayslip: allPayslips });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [allBonus, company, logo, newAllStaff]);
+    }, [company, logo]);
 
     const handleAddNew = (e: MouseEvent | TouchEvent) => {
         e.preventDefault();
@@ -89,12 +56,12 @@ const ManagerContent: FC = () => {
                 </div>
 
                 {/* table */}
-                {newAllStaff ? (
+                {allStaff ? (
                     <Card className="mt-8">
                         <PTable
                             search={true}
                             hFilter={true}
-                            data={newAllStaff}
+                            data={allStaff}
                             columns={staffColumns}
                             menuOptions={{
                                 edit: true,
@@ -102,16 +69,6 @@ const ManagerContent: FC = () => {
                                 del: true,
                             }}
                             setData={setStaff}
-                            getRowCanExpand={(row) => {
-                                if (
-                                    row.original.payslips &&
-                                    row.original.payslips.length > 0
-                                ) {
-                                    return true;
-                                }
-                                return false;
-                            }}
-                            expandContent={SubTable}
                             cnSearch="my-3"
                             cnTable="h-[65dvh]"
                             cnTHead="sticky z-10 bg-indigo-300"

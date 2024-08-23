@@ -3,7 +3,6 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "./Breadcrumbs";
 import UserMenu from "./UserMenu";
 import { useTranslation } from "react-i18next";
-import AlertBell from "./AlertBell";
 import { useAdminStore } from "@/configs/zustore";
 import { ROLES } from "@/configs/utils/staff";
 //import LangBtn from "./LangBtn";
@@ -49,7 +48,6 @@ const HeadBar: FC<Tprops> = ({ setOpen }) => {
                         {/* only display alert bell when the current admin is manager */}
                         {currentAdmin.role === ROLES.manager && (
                             <>
-                                <AlertBell />
                                 {/* Separator */}
                                 <div
                                     className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10"

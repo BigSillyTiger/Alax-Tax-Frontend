@@ -3,9 +3,9 @@ import { MenuItems } from "@/configs/utils/router";
 import { routerStore } from "@/configs/zustore";
 import { defer, LoaderFunctionArgs, redirect } from "react-router-dom";
 
-export const ordersLoader = async ({ request }: LoaderFunctionArgs) => {
+export const servicesLoader = async ({ request }: LoaderFunctionArgs) => {
     const pname = new URL(request.url).pathname;
-    routerStore.setState({ currentRouter: MenuItems.orders });
+    routerStore.setState({ currentRouter: MenuItems.services });
     try {
         const result = await API_ADMIN.loaderAccessCheck(MenuItems.orders);
 
@@ -25,7 +25,7 @@ export const ordersLoader = async ({ request }: LoaderFunctionArgs) => {
 
         return defer({ allPromise });
     } catch (err) {
-        console.log("-> order page loader error: ", err);
+        console.log("-> service page loader error: ", err);
         return redirect("/login");
     }
 };

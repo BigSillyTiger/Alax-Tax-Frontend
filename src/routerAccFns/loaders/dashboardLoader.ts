@@ -21,7 +21,7 @@ export const dashboardLoader = async ({ request }: LoaderFunctionArgs) => {
         ]);
         return defer({ allPromise });
     } catch (error) {
-        console.log("-> worklogs page loader error: ", error);
+        console.log("-> dashboard page loader error: ", error);
         return redirect("/login");
     }
 };

@@ -1,4 +1,4 @@
-import { API_ADMIN, API_PAYSLIP, API_SETTING, API_STAFF } from "@/apis";
+import { API_ADMIN, API_SETTING, API_STAFF } from "@/apis";
 import { MenuItems } from "@/configs/utils/router";
 import { routerStore } from "@/configs/zustore";
 import { defer, LoaderFunctionArgs, redirect } from "react-router-dom";
@@ -17,8 +17,6 @@ export const staffLoader = async ({ request }: LoaderFunctionArgs) => {
 
         const allPromise = Promise.all([
             API_STAFF.staffAll().then((res) => res.data),
-            API_PAYSLIP.psAll().then((res) => res.data),
-            API_PAYSLIP.psBonusAll().then((res) => res.data),
             API_SETTING.companyGet().then((res) => res.data),
             API_SETTING.logo().then((res) => res.data),
         ]);

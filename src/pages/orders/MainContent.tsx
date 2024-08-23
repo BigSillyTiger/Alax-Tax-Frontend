@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { TorderWithClient } from "@/configs/schema/orderSchema";
 import { Tunivers } from "@/configs/types";
 import { Tcompany } from "@/configs/schema/settingSchema";
-import { TstaffWPayslip } from "@/configs/schema/staffSchema";
 import { useAtom } from "jotai";
 import {
     atAllStaff,
@@ -18,6 +17,7 @@ import {
 } from "@/configs/atoms";
 import { useAsyncValue } from "react-router-dom";
 import useOrderColumnsDef from "@/configs/columnDefs/defOrders";
+import { Tstaff } from "@/configs/schema/staffSchema";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
@@ -29,7 +29,7 @@ const MainContent: FC = () => {
 
     const [orders, staff, uniData, company, logo] = useAsyncValue() as [
         TorderWithClient[],
-        TstaffWPayslip[],
+        Tstaff[],
         Tunivers,
         Tcompany,
         string,
