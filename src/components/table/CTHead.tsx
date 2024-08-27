@@ -18,28 +18,35 @@ const CTHead = <T extends object>({
 }: Tprops<T>) => {
     const tableHeader = table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-                <CTh
-                    key={header.id}
-                    scope="col"
-                    className={`${cnTh}`}
-                    table={table}
-                    header={header}
-                >
-                    <button onClick={header.column.getToggleSortingHandler()}>
-                        {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                        )}
-                        {sortingIcon(header.column.getIsSorted())}
-                    </button>
-                    {hFilter && header.column.getCanFilter() ? (
-                        <div className="mr-3">
-                            <HeaderFilterFaceted column={header.column} />
-                        </div>
-                    ) : null}
-                </CTh>
-            ))}
+            {headerGroup.headers.map((header) => {
+                return (
+                    <CTh
+                        key={header.id}
+                        scope="col"
+                        className={`${cnTh}`}
+                        table={table}
+                        header={header}
+                    >
+                        <button
+                            onClick={header.column.getToggleSortingHandler()}
+                        >
+                            {flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                            )}
+                            {sortingIcon(header.column.getIsSorted())}
+                        </button>
+                        {hFilter &&
+                        header.column.getCanFilter() &&
+                        // block filter for Index column
+                        header.id.toLocaleLowerCase() !== "index" ? (
+                            <div className="mr-3">
+                                <HeaderFilterFaceted column={header.column} />
+                            </div>
+                        ) : null}
+                    </CTh>
+                );
+            })}
         </tr>
     ));
     return (
