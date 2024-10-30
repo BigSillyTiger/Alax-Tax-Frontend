@@ -23,7 +23,8 @@ const JADayPicker: FC = () => {
                 showOutsideDays
                 showWeekNumber
                 fixedWeeks
-                /* captionLayout="dropdown-buttons"
+                /* 
+                captionLayout="dropdown-buttons"
                 fromYear={2010}
                 toYear={2100} */
                 weekStartsOn={1}

@@ -7,6 +7,7 @@ import { Tpermission } from "@/configs/schema/universSchema";
 import { TwlTableRow } from "@/configs/schema/workSchema";
 import { Tpayslip } from "@/configs/schema/payslipSchema";
 import { useGlobalAlertStore, useLogoStore } from "@/configs/zustore";
+import NavigationGuard from "@/components/NavigationGuard";
 
 const MainLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -38,6 +39,11 @@ const MainLayout = () => {
 
     return (
         <>
+            <NavigationGuard
+                isEnabled={true}
+                message="Leaving the page will lose all unsaved data. Are you sure you want to leave?"
+                onConfirm={() => console.log("User confirmed leaving")}
+            />
             <MainMenu
                 permissionData={loaderData}
                 open={sidebarOpen}

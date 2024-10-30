@@ -15,9 +15,6 @@ import { WL_DELETABLE_STATUS } from "@/configs/utils/setting";
 
 const SelectStaff: FC = () => {
     const { t } = useTranslation();
-    const allStaff: (Tstaff & { selected: boolean })[] = useJobAssignStore(
-        (state) => state.allStaff
-    );
     // jotai atoms
     const [atomAllStaff] = useAtom(atAllStaff);
     const [clientOrder] = useAtom(atOrder);
@@ -25,6 +22,9 @@ const SelectStaff: FC = () => {
     //const selectStaff = useJobAssignStore((state) => state.selectStaff);
     const selectedDate = useJobAssignStore((state) => state.selectedDate);
     const currentWLUnion = useJobAssignStore((state) => state.currentWLUnion);
+    const allStaff: (Tstaff & { selected: boolean })[] = useJobAssignStore(
+        (state) => state.allStaff
+    );
     const setAllStaff = useJobAssignStore((state) => state.setAllStaff);
     const appendAssignedWork = useJobAssignStore(
         (state) => state.appendAssignedWork
