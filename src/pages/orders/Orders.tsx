@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import { TstaffWPayslip } from "@/configs/schema/staffSchema";
 import ErrorTips from "@/components/ErrorTips";
 import MainContent from "./MainContent";
+import PageWrapper from "@/components/PageWrapper";
 
 const Orders: FC = () => {
     const { t } = useTranslation();
@@ -90,12 +91,14 @@ const Orders: FC = () => {
     }, [actionData, modalOpen, setModalOpen, t]);
 
     return (
-        <div className="container border-0">
-            <Suspense fallback={<LoadingPage />}>
-                <Await resolve={allPromise} errorElement={<ErrorTips />}>
-                    <MainContent />
-                </Await>
-            </Suspense>
+        <>
+            <PageWrapper>
+                <Suspense fallback={<LoadingPage />}>
+                    <Await resolve={allPromise} errorElement={<ErrorTips />}>
+                        <MainContent />
+                    </Await>
+                </Suspense>
+            </PageWrapper>
 
             {/* modals */}
             <MOrderForm />
@@ -103,7 +106,7 @@ const Orders: FC = () => {
             <MOrderPay />
             <MpdfMaker />
             <MJobAssign />
-        </div>
+        </>
     );
 };
 

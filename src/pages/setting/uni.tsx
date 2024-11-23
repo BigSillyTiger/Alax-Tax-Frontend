@@ -26,7 +26,7 @@ const Uni: FC<Tprops> = ({ services, units }) => {
         services,
     }) => {
         return (
-            <Card className="m-1">
+            <div className="m-1">
                 {/* header area */}
                 <div className="sm:flex sm:items-center">
                     <div className="sm:flex-auto sm:flex">
@@ -73,13 +73,13 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                         </span>
                     )}
                 </Card>
-            </Card>
+            </div>
         );
     };
 
     const UnitTable: FC<{ units: Tunit[] | null }> = ({ units }) => {
         return (
-            <Card className="m-1">
+            <div className="m-1">
                 {/* header area */}
                 <div className="sm:flex sm:items-center">
                     <div className="sm:flex-auto sm:flex">
@@ -125,16 +125,16 @@ const Uni: FC<Tprops> = ({ services, units }) => {
                         </span>
                     )}
                 </Card>
-            </Card>
+            </div>
         );
     };
     return (
         <>
-            <div className="grid grid-cols-6 gap-y-4 gap-x-4">
-                <div className="col-span-6 sm:col-span-4">
+            <div className="flex flex-row justify-between items-center gap-x-4">
+                <div className="grow">
                     <ServiceTable services={services} />
                 </div>
-                <div className="col-span-6 sm:col-span-2">
+                <div className="w-[30dvw]">
                     <UnitTable units={units} />
                 </div>
             </div>

@@ -16,6 +16,7 @@ import { mOpenOps } from "@/configs/utils/modal";
 import { MpdfMaker } from "@/pageComponents/modals";
 import ErrorTips from "@/components/ErrorTips";
 import MainContent from "./MainContent";
+import PageWrapper from "@/components/PageWrapper";
 
 const Client: FC = () => {
     const { t } = useTranslation();
@@ -76,13 +77,13 @@ const Client: FC = () => {
 
     return (
         <>
-            <div className="container border-0">
+            <PageWrapper>
                 <Suspense fallback={<LoadingPage />}>
                     <Await resolve={allPromise} errorElement={<ErrorTips />}>
                         <MainContent />
                     </Await>
                 </Suspense>
-            </div>
+            </PageWrapper>
 
             <MOrderDel />
             <MOrderForm />

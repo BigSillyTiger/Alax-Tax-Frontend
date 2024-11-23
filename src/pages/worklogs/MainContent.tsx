@@ -12,6 +12,7 @@ import { useAsyncValue } from "react-router-dom";
 import { updateBellAlert } from "@/lib/utils";
 import { useAdminStore } from "@/configs/zustore";
 import { ROLES } from "@/configs/utils/staff";
+import EmptyTips from "@/components/EmptyTips";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
@@ -58,42 +59,43 @@ const MainContent: FC = () => {
     }, [worklogs]);
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 top-0">
+        <div
+            className="w-full h-full px-4 sm:px-6 lg:px-8 top-0 
+            flex flex-col gap-3"
+        >
             {/* header area */}
 
             {/* table */}
-            {newWorklogs && newWorklogs.length ? (
-                <Card className="mt-8">
-                    <PTable
-                        search={true}
-                        hFilter={true}
-                        data={newWorklogs}
-                        columns={newWLColumns}
-                        menuOptions={{
-                            edit: true,
-                            del: true,
-                        }}
-                        setData={setWorkLog}
-                        /* getRowCanExpand={(row) => {
+            {
+                <Card className="my-2 grow">
+                    {newWorklogs && newWorklogs.length ? (
+                        <PTable
+                            search={true}
+                            hFilter={true}
+                            data={newWorklogs}
+                            columns={newWLColumns}
+                            menuOptions={{
+                                edit: true,
+                                del: true,
+                            }}
+                            setData={setWorkLog}
+                            /* getRowCanExpand={(row) => {
                             if (row.original. > 0) {
                                 return true;
                             }
                             return false;
                         }} */
-                        //expandContent={orderSubTable}
-                        cnSearch="my-3"
-                        cnTable={`h-[65dvh]`}
-                        cnHead="sticky z-10 bg-indigo-300"
-                        cnTh="py-3"
-                    />
+                            //expandContent={orderSubTable}
+                            cnSearch="mb-2"
+                            cnTable={`h-[74dvh]`}
+                            cnHead="sticky z-10 bg-indigo-300"
+                            cnTh="py-3"
+                        />
+                    ) : (
+                        <EmptyTips>{t("tips.noWorklog")}</EmptyTips>
+                    )}
                 </Card>
-            ) : (
-                <Card className="mt-8">
-                    <span className="m-5 p-5  text-center h-15">
-                        {t("tips.noWorklog")}
-                    </span>
-                </Card>
-            )}
+            }
         </div>
     );
 };

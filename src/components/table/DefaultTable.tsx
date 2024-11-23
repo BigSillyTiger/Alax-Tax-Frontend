@@ -197,10 +197,10 @@ const PTable = <T extends object>({
                       )}
               </Fragment>
           ))
-        : "";
+        : null;
 
     return (
-        <div className="container flex flex-col">
+        <div className="flex flex-col">
             <div className="flex flex-col sm:flex-row my-2 gap-y-2">
                 {/* search bar */}
 

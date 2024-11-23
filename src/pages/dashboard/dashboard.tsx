@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import ErrorTips from "@/components/ErrorTips";
 import MainContent from "./MainContent";
 import { TwlTableRow } from "@/configs/schema/workSchema";
+import PageWrapper from "@/components/PageWrapper";
 
 const Dashboard: FC = () => {
     const { t } = useTranslation();
@@ -46,7 +47,7 @@ const Dashboard: FC = () => {
     }, [actionData, modalOpen, setModalOpen, t]);
 
     return (
-        <div className="container border-0">
+        <PageWrapper>
             <Suspense fallback={<SpinningEle />}>
                 <Await resolve={allPromise} errorElement={<ErrorTips />}>
                     <MainContent />
@@ -55,7 +56,7 @@ const Dashboard: FC = () => {
 
             {/* modals */}
             <MTimeTracker />
-        </div>
+        </PageWrapper>
     );
 };
 

@@ -10,6 +10,7 @@ export const serviceListColDefs = [
         },
     },
     {
+        id: "id_index",
         header: i18n.t("label.id"),
         accessorKey: "id",
         cell: (info: Cell<{ id: number }, number>) => {
@@ -51,6 +52,7 @@ export const unitListColDefs = [
         },
     },
     {
+        id: "id_index",
         header: i18n.t("label.id"),
         accessorKey: "id",
         cell: (info: Cell<{ id: number }, number>) => {

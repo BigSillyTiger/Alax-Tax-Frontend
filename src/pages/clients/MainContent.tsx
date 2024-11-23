@@ -8,6 +8,7 @@ import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
 import useClientColumnsDef from "@/configs/columnDefs/defClients";
 import { Nbtn } from "@/components/btns";
+import EmptyTips from "@/components/EmptyTips";
 
 type Tprops = {
     clients: Tclient[] | null;
@@ -26,44 +27,42 @@ const MainContent: FC<Tprops> = ({ clients }) => {
     };
 
     return (
-        <>
-            <div className="px-4 sm:px-6 lg:px-8 top-0">
-                {/* header area */}
-                <div className="flex justify-end">
-                    <Nbtn
-                        type="button"
-                        className="w-full sm:w-[25dvw] md:w-[30dvw] text-wrap"
-                        onClick={handleAddNew}
-                    >
-                        {t("btn.addClient")}
-                    </Nbtn>
-                </div>
-
-                {/* table */}
-                {clients && clients.length ? (
-                    <Card className="mt-8">
-                        <PTable
-                            search={true}
-                            hFilter={true}
-                            data={clients}
-                            columns={clientColumns}
-                            menuOptions={{ edit: true, del: true }}
-                            setData={setClient}
-                            cnSearch="my-3"
-                            cnTable={`h-[65dvh]`}
-                            cnHead="sticky z-10 bg-indigo-300"
-                            cnTh="py-3"
-                        />
-                    </Card>
-                ) : (
-                    <Card className="mt-8">
-                        <span className="m-5 p-5  text-center h-15">
-                            {t("tips.noClient")}
-                        </span>
-                    </Card>
-                )}
+        <div
+            className="w-full h-full px-4 sm:px-6 lg:px-8 top-0 
+            flex flex-col gap-3"
+        >
+            {/* header area */}
+            <div className="flex justify-end">
+                <Nbtn
+                    type="button"
+                    className="w-full sm:w-[25dvw] md:w-[30dvw] text-wrap"
+                    onClick={handleAddNew}
+                >
+                    {t("btn.addClient")}
+                </Nbtn>
             </div>
-        </>
+
+            {/* table */}
+
+            <Card className="grow">
+                {clients && clients.length ? (
+                    <PTable
+                        search={true}
+                        hFilter={true}
+                        data={clients}
+                        columns={clientColumns}
+                        menuOptions={{ edit: true, del: true }}
+                        setData={setClient}
+                        cnSearch="my-3"
+                        cnTable={`h-[65dvh]`}
+                        cnHead="sticky z-10 bg-indigo-300"
+                        cnTh="py-3"
+                    />
+                ) : (
+                    <EmptyTips>{t("tips.noClient")}</EmptyTips>
+                )}
+            </Card>
+        </div>
     );
 };
 

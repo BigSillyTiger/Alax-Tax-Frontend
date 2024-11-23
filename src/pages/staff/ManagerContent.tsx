@@ -21,6 +21,7 @@ import {
 import { dateFormat, hmsTohm } from "@/lib/time";
 import { updateBellAlert } from "@/lib/utils";
 import { Nbtn } from "@/components/btns";
+import EmptyTips from "@/components/EmptyTips";
 
 const ManagerContent: FC = () => {
     const { t } = useTranslation();
@@ -109,22 +110,25 @@ const ManagerContent: FC = () => {
     };
 
     return (
-        <>
-            <div className="px-4 sm:px-6 lg:px-8 top-0">
-                {/* header area */}
-                <div className="flex justify-end">
-                    <Nbtn
-                        type="button"
-                        className="w-[25dvh] text-wrap"
-                        onClick={handleAddNew}
-                    >
-                        {t("btn.addStuff")}
-                    </Nbtn>
-                </div>
+        <div
+            className="w-full h-full px-4 sm:px-6 lg:px-8 top-0 
+            flex flex-col gap-3"
+        >
+            {/* header area */}
+            <div className="flex justify-end">
+                <Nbtn
+                    type="button"
+                    className="w-[25dvh] text-wrap"
+                    onClick={handleAddNew}
+                >
+                    {t("btn.addStuff")}
+                </Nbtn>
+            </div>
 
-                {/* table */}
-                {newAllStaff ? (
-                    <Card className="mt-8">
+            {/* table */}
+            {
+                <Card className="grow">
+                    {newAllStaff ? (
                         <PTable
                             search={true}
                             hFilter={true}
@@ -147,20 +151,16 @@ const ManagerContent: FC = () => {
                             }}
                             expandContent={SubTable}
                             cnSearch="my-3"
-                            cnTable="h-[65dvh]"
+                            cnTable="h-[67dvh]"
                             cnHead="sticky z-10 bg-indigo-300"
                             cnTh="py-3"
                         />
-                    </Card>
-                ) : (
-                    <Card className="mt-8">
-                        <span className="m-5 p-5  text-center h-15">
-                            {t("tips.noClient")}
-                        </span>
-                    </Card>
-                )}
-            </div>
-        </>
+                    ) : (
+                        <EmptyTips>{t("tips.noClient")}</EmptyTips>
+                    )}
+                </Card>
+            }
+        </div>
     );
 };
 

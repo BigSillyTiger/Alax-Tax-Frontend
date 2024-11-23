@@ -23,6 +23,7 @@ import { useAdminStore } from "@/configs/zustore";
 import { ROLES } from "@/configs/utils/staff";
 import EmployeeContent from "./EmployeeContent";
 import ManagerContent from "./ManagerContent";
+import PageWrapper from "@/components/PageWrapper";
 
 const Staff: FC = () => {
     const { t } = useTranslation();
@@ -106,13 +107,13 @@ const Staff: FC = () => {
 
     return (
         <>
-            <div className="container border-0">
+            <PageWrapper>
                 <Suspense fallback={<LoadingPage />}>
                     <Await resolve={allPromise} errorElement={<ErrorTips />}>
                         {isEmployee ? <EmployeeContent /> : <ManagerContent />}
                     </Await>
                 </Suspense>
-            </div>
+            </PageWrapper>
 
             {/* Modal for add new staff, and this modal can not be insert into Await*/}
             {/* otherwise, the animation would get lost*/}

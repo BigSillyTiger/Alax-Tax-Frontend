@@ -12,6 +12,7 @@ import { RES_STATUS } from "@/configs/types";
 import MainContent from "./MainContent";
 import ErrorTips from "@/components/ErrorTips";
 import { mOpenOps } from "@/configs/utils/modal";
+import PageWrapper from "@/components/PageWrapper";
 
 const Clients: FC = () => {
     const { allPromise } = useLoaderData() as {
@@ -70,21 +71,23 @@ const Clients: FC = () => {
     }, [actionData, client.cid, setClient, setInfoConflict, setModalOpen, t]);
 
     return (
-        <div className="container border-0">
-            <Suspense fallback={<LoadingPage />}>
-                <Await resolve={allPromise} errorElement={<ErrorTips />}>
-                    {(result) => {
-                        const [clientList] = result;
-                        return <MainContent clients={clientList.data} />;
-                    }}
-                </Await>
-            </Suspense>
+        <>
+            <PageWrapper>
+                <Suspense fallback={<LoadingPage />}>
+                    <Await resolve={allPromise} errorElement={<ErrorTips />}>
+                        {(result) => {
+                            const [clientList] = result;
+                            return <MainContent clients={clientList.data} />;
+                        }}
+                    </Await>
+                </Suspense>
+            </PageWrapper>
 
             {/* Modal for add new client, and this modal can not be insert into Await*/}
             {/* otherwise, the animation would get lost*/}
             <MClientDel />
             <MClientForm />
-        </div>
+        </>
     );
 };
 

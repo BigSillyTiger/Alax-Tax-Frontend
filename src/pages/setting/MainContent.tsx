@@ -15,7 +15,10 @@ const MainContent: FC = () => {
     ];
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 top-0">
+        <div
+            className="w-full h-full px-4 sm:px-6 lg:px-8 top-0 
+            flex flex-col gap-3"
+        >
             <Tab.Group defaultIndex={0}>
                 <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
                     {mTabList.map((item, index) => {

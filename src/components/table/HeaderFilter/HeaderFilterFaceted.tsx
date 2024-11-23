@@ -31,7 +31,7 @@ const HeaderFilterFaceted = <T extends object>({ column }: Tprops<T>) => {
         case "select":
             return <SelectFilter column={column} values={sortedUniqueValues} />;
 
-        // text(fuzzy) search
+        // text(fuzzy) search by default
         default:
             return (
                 <TextFilter

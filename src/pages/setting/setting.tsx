@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { RES_STATUS } from "@/configs/types";
 import ErrorTips from "@/components/ErrorTips";
 import MainContent from "./MainContent";
+import PageWrapper from "@/components/PageWrapper";
 
 const Setting: FC = () => {
     const { allPromise } = useLoaderData() as {
@@ -50,13 +51,13 @@ const Setting: FC = () => {
     }, [actionData, t]);
 
     return (
-        <div className="container border-0">
+        <PageWrapper>
             <Suspense fallback={<LoadingPage />}>
                 <Await resolve={allPromise} errorElement={<ErrorTips />}>
                     <MainContent />
                 </Await>
             </Suspense>
-        </div>
+        </PageWrapper>
     );
 };
 

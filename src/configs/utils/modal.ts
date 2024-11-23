@@ -14,6 +14,11 @@ export const mOpenOps = {
     invoice: "Invoice",
     quotation: "Quotation",
     assign: "JobAssign",
+    // for preset unit / service
+    addPS: "AddPS",
+    editPS: "EditPS",
+    addPU: "AddPU",
+    editPU: "EditPU",
 };
 
 /**

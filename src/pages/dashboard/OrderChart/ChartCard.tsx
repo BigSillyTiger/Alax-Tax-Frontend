@@ -11,7 +11,7 @@ const ChartCard: FC = () => {
             <>
                 <Title />
                 <SummaryContent />
-                <div className="h-[30dvh]">
+                <div className="h-[44dvh]">
                     <OrderChart />
                 </div>
             </>

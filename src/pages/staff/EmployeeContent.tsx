@@ -121,48 +121,49 @@ const EmployeeContent: FC = () => {
     };
 
     return (
-        <>
-            <div className="px-4 sm:px-6 lg:px-8 top-0">
-                {/* header area */}
-                <div className="grid grid-cols-2 gap-2">
-                    <StaffDetailedCard staff={newAllStaff[0]} />
-                    <div className="flex  justify-center items-center">
-                        <button
-                            type="button"
-                            className="block rounded-md bg-indigo-600 px-4 py-3 text-center text-lg font-semibold text-slate-50 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            onClick={handleAddNew}
-                        >
-                            {t("btn.editInfo")}
-                        </button>
-                    </div>
+        <div
+            className="w-full h-full px-4 sm:px-6 lg:px-8 top-0 
+            flex flex-col gap-3"
+        >
+            {/* header area */}
+            <div className="grid grid-cols-2 gap-2">
+                <StaffDetailedCard staff={newAllStaff[0]} />
+                <div className="flex  justify-center items-center">
+                    <button
+                        type="button"
+                        className="block rounded-md bg-indigo-600 px-4 py-3 text-center text-lg font-semibold text-slate-50 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        onClick={handleAddNew}
+                    >
+                        {t("btn.editInfo")}
+                    </button>
                 </div>
-
-                {/* table */}
-                {newPayslips ? (
-                    <Card className="mt-8">
-                        <PTable
-                            data={newPayslips}
-                            columns={newPSColumns}
-                            menuOptions={{
-                                edit: true,
-                                payslip: true,
-                                del: true,
-                            }}
-                            cnSearch="my-3"
-                            cnTable="h-[52dvh]"
-                            cnHead="sticky z-10 bg-indigo-300"
-                            cnTh="py-3"
-                        />
-                    </Card>
-                ) : (
-                    <Card className="mt-8">
-                        <span className="m-5 p-5  text-center h-15">
-                            {t("tips.noClient")}
-                        </span>
-                    </Card>
-                )}
             </div>
-        </>
+
+            {/* table */}
+            {newPayslips ? (
+                <Card className="mt-8">
+                    <PTable
+                        data={newPayslips}
+                        columns={newPSColumns}
+                        menuOptions={{
+                            edit: true,
+                            payslip: true,
+                            del: true,
+                        }}
+                        cnSearch="my-3"
+                        cnTable="h-[52dvh]"
+                        cnHead="sticky z-10 bg-indigo-300"
+                        cnTh="py-3"
+                    />
+                </Card>
+            ) : (
+                <Card className="mt-8">
+                    <span className="m-5 p-5  text-center h-15">
+                        {t("tips.noClient")}
+                    </span>
+                </Card>
+            )}
+        </div>
     );
 };
 

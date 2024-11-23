@@ -131,7 +131,10 @@ const MainContent: FC = () => {
     }, [client[0], clientOrder, uniData, company, logo]);
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 top-0 flex flex-col gap-y-4">
+        <div
+            className="w-full h-full px-4 sm:px-6 lg:px-8 top-0 
+            flex flex-col gap-3"
+        >
             <div className="flex flex-col sm:flex-row gap-x-4 w-full justify-evenly">
                 <ClientInfoCard
                     client={client[0]}
@@ -153,7 +156,7 @@ const MainContent: FC = () => {
                     {t("btn.newOrder")}
                 </Nbtn>
             </div>
-            <Card className="col-span-6">
+            <Card className="grow">
                 {/* order table */}
                 {newOrders.length > 0 ? (
                     <PTable
@@ -176,7 +179,7 @@ const MainContent: FC = () => {
                         }}
                         expandContent={SubTable}
                         cnSearch="my-3"
-                        cnTable={`h-[55dvh]`}
+                        cnTable={`h-full`}
                         cnHead="sticky z-10 bg-indigo-300"
                         cnTh="py-3"
                     />

@@ -106,3 +106,8 @@
         margin: 0;
     }
 }
+
+.cps-container {
+    @apply mx-1;
+    @apply h-full;
+}

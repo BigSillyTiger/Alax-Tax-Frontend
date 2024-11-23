@@ -19,6 +19,7 @@ import {
 import { useAsyncValue } from "react-router-dom";
 import { hmsTohm } from "@/lib/time";
 import useOrderColumnsDef from "@/configs/columnDefs/defOrders";
+import EmptyTips from "@/components/EmptyTips";
 
 const MainContent: FC = () => {
     const { t } = useTranslation();
@@ -77,46 +78,45 @@ const MainContent: FC = () => {
     }, [staff, uniData, company, logo]);
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 top-0">
-            {/* header area */}
-
+        <div
+            className="w-full h-full px-4 sm:px-6 lg:px-8 top-0 
+            flex flex-col gap-3"
+        >
             {/* table */}
-            {newOrders && newOrders.length ? (
-                <Card className="mt-8">
-                    <PTable
-                        search={true}
-                        hFilter={true}
-                        data={newOrders}
-                        columns={orderColumns}
-                        menuOptions={{
-                            assign: true,
-                            edit: true,
-                            del: true,
-                            pay: true,
-                            quotation: true,
-                            invoice: true,
-                        }}
-                        setData={setClientOrder}
-                        getRowCanExpand={(row) => {
-                            if (row.original.order_services.length > 0) {
-                                return true;
-                            }
-                            return false;
-                        }}
-                        expandContent={SubTable}
-                        cnSearch="my-3"
-                        cnTable={`h-[70dvh]`}
-                        cnHead="sticky z-10 bg-indigo-300"
-                        cnTh="py-3"
-                    />
+            {
+                <Card className="my-2 grow">
+                    {newOrders && newOrders.length ? (
+                        <PTable
+                            search={true}
+                            hFilter={true}
+                            data={newOrders}
+                            columns={orderColumns}
+                            menuOptions={{
+                                assign: true,
+                                edit: true,
+                                del: true,
+                                pay: true,
+                                quotation: true,
+                                invoice: true,
+                            }}
+                            setData={setClientOrder}
+                            getRowCanExpand={(row) => {
+                                if (row.original.order_services.length > 0) {
+                                    return true;
+                                }
+                                return false;
+                            }}
+                            expandContent={SubTable}
+                            cnSearch="my-3"
+                            cnTable={`h-[73dvh]`}
+                            cnHead="sticky z-10 bg-indigo-300"
+                            cnTh="py-3"
+                        />
+                    ) : (
+                        <EmptyTips>{t("tips.noOrder")}</EmptyTips>
+                    )}
                 </Card>
-            ) : (
-                <Card className="mt-8">
-                    <span className="m-5 p-5  text-center h-15">
-                        {t("tips.noOrder")}
-                    </span>
-                </Card>
-            )}
+            }
         </div>
     );
 };

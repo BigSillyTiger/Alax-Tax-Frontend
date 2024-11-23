@@ -36,6 +36,8 @@ const AppendNewService: FC<Tprops> = ({ append }) => {
             } as Partial<Tservice>;
         }
 
+        console.log("-------> input service value: ", service);
+
         setServiceDesc({
             ranking: 0,
             fk_oid: clientOrder.oid,

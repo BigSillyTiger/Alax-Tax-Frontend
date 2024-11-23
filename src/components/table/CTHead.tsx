@@ -33,7 +33,9 @@ const CTHead = <T extends object>({
                         )}
                         {sortingIcon(header.column.getIsSorted())}
                     </button>
-                    {hFilter && header.column.getCanFilter() ? (
+                    {hFilter &&
+                    header.column.getCanFilter() &&
+                    !header.id.toLocaleLowerCase().includes("index") ? (
                         <div className="mr-3">
                             <HeaderFilterFaceted column={header.column} />
                         </div>

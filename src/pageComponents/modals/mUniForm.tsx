@@ -47,6 +47,17 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
         trigger,
     } = useForm<Tservice | Tunit>({ resolver: zodResolver(schema) });
 
+    const UnitList = () => (
+        <datalist id="unit_list">
+            {unitList?.length &&
+                unitList.map((item) => (
+                    <option key={item.id} value={item.unit_name}>
+                        {item.unit_name}
+                    </option>
+                ))}
+        </datalist>
+    );
+
     useEffect(() => {
         if (isServiceType(uniData)) {
             setService(uniData.service);
@@ -150,6 +161,7 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
                                 name="unit"
                                 id="unit"
                                 required
+                                list="unit_list"
                                 className="outline-none h-9 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                                 value={unit}
                                 onChange={(e) => {
@@ -157,6 +169,7 @@ const MUniForm: FC<Tprops> = memo(({ unitList, serviceList }) => {
                                     setUnit(e.target.value);
                                 }}
                             />
+                            <UnitList />
                         </div>
                     </div>
                     <div className="sm:col-span-3">
