@@ -40,33 +40,35 @@ const MainContent: FC = () => {
     const orderColumns = useOrderColumnsDef();
 
     const newOrders = useMemo(() => {
-        return orders.map((item) => {
-            return {
-                ...item,
-                order_services: item.order_services
-                    .sort((a, b) => a.ranking - b.ranking)
-                    .map((desc) => {
-                        return {
-                            ...desc,
-                            taxable: Boolean(desc.taxable),
-                        };
-                    }),
-                wlUnion: item.wlUnion.map((wl) => {
-                    return {
-                        ...wl,
-
-                        assigned_work: wl.assigned_work.map((aw) => {
+        return orders
+            .filter((order) => order.order_services?.length > 0)
+            .map((item) => {
+                return {
+                    ...item,
+                    order_services: item.order_services
+                        .sort((a, b) => a.ranking - b.ranking)
+                        .map((desc) => {
                             return {
-                                ...aw,
-                                s_time: hmsTohm(aw.s_time as string),
-                                e_time: hmsTohm(aw.e_time as string),
-                                b_hour: hmsTohm(aw.b_hour as string),
+                                ...desc,
+                                taxable: Boolean(desc.taxable),
                             };
                         }),
-                    };
-                }),
-            };
-        });
+                    wlUnion: item.wlUnion.map((wl) => {
+                        return {
+                            ...wl,
+
+                            assigned_work: wl.assigned_work.map((aw) => {
+                                return {
+                                    ...aw,
+                                    s_time: hmsTohm(aw.s_time as string),
+                                    e_time: hmsTohm(aw.e_time as string),
+                                    b_hour: hmsTohm(aw.b_hour as string),
+                                };
+                            }),
+                        };
+                    }),
+                };
+            });
     }, [orders]);
 
     useEffect(() => {
