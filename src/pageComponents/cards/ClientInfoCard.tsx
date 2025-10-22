@@ -31,6 +31,20 @@ const ClientInfoCard: FC<Tinfo> = ({ client, className = "" }) => {
                     <Btext>{t("label.phone1")}: </Btext> {client?.phone}
                 </p>
             </div>
+            <div className="col-span-6 sm:col-span-4">
+                <p>
+                    <Btext>{t("label.address")}: </Btext>{" "}
+                    {client?.address +
+                        ", " +
+                        client?.suburb +
+                        ", " +
+                        client?.city +
+                        ", " +
+                        client?.state +
+                        ", " +
+                        client?.country}
+                </p>
+            </div>
             <div className="col-span-6 sm:col-span-2">
                 <p>
                     <Btext>{t("label.pc")}: </Btext>
