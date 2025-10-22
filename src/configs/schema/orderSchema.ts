@@ -76,7 +76,7 @@ export const orderFormSchema = plainOrderSchema
         paid: true,
         quotation_date: true,
         invoice_date: true,
-        invoice_update_date: true,
+        //invoice_update_date: true,
     })
     .extend({
         order_services: orderServiceSchema
