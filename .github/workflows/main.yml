@@ -20,7 +20,6 @@ jobs:
 
             - name: Build Frontend
               run: |
-                  cd f-admin
                   rm -rf node_modules package-lock.json
                   npm install --force
                   npm run build
