@@ -47,6 +47,13 @@ const BillTitle: FC<Tprops> = ({ borderC, textC, company, client }) => {
                     {t("label.email1")}:{" "}
                     <Text style={tw("text-zinc-700")}>{client.email}</Text>
                 </Text>
+                <Text style={tw(`text-base leading-5 ${textC}`)}>
+                    {t("label.address")}:
+                    <Text style={tw("text-zinc-700")}>
+                        {client?.address}, {client?.suburb}, {client?.city},{" "}
+                        {client?.state}, {client?.country}
+                    </Text>
+                </Text>
             </View>
         </View>
     );
