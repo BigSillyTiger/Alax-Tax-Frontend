@@ -71,7 +71,7 @@ export const formNumberDigits = (number: string) => {
     const formatted: string = number.replace(/\D/g, "");
     let formattedNumber;
 
-    if (number.length <= 2) {
+    if (number.length <= 3) {
         return number;
     }
 
@@ -102,7 +102,7 @@ export const formNumberDigits = (number: string) => {
 export const formNumberWLimit = (
     type: "number" | "phone" = "number",
     value: string,
-    limit: number
+    limit: number,
 ) => {
     // Remove all non-numeric characters
     let numericInput =
